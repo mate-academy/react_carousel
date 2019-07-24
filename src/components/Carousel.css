@@ -1,13 +1,10 @@
-.Carousel {
-  margin: 20px auto;
-  width: 50vw;
-}
-
 .Carousel__customization {
   border: 1px dotted #2E3532;
   padding: 10px;
   border-radius: 3px;
   text-align: center;
+  width: 50vw;
+  margin: 0 auto;
 }
 
 .customization-item {
@@ -137,6 +134,11 @@ input[type=range]:focus::-ms-fill-upper {
   list-style: none;
   padding: 0;
   height: 130px;
+}
+
+.Carousel__control {
+  width: 50vw;
+  margin: 0 auto;
 }
 
 .Carousel__control-prev {

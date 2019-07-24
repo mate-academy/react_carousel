@@ -100,17 +100,19 @@ class Carousel extends React.Component {
           frameSize={frameSize}
         />
 
-        <ControlButton
-          text="Prev"
-          changeView={() => this.changeView(1)}
-          className="Carousel__control-prev"
-        />
+        <div className="Carousel__control">
+          <ControlButton
+            text="Prev"
+            changeView={() => this.changeView(1)}
+            className="Carousel__control-prev"
+          />
 
-        <ControlButton
-          text="Next"
-          changeView={() => this.changeView(-1)}
-          className="Carousel__control-next"
-        />
+          <ControlButton
+            text="Next"
+            changeView={() => this.changeView(-1)}
+            className="Carousel__control-next"
+          />
+        </div>
       </div>
     );
   }

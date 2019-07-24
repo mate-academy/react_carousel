@@ -10,12 +10,12 @@ function Image({
 }) {
   const styleImg = {
     width: itemWidth,
-    height: itemWidth,
   };
 
   const styleList = {
     transform: `translateX(${translateStep}px)`,
     transition: `transform ${animationDuration}ms ease-in-out 0s`,
+    height: itemWidth,
   };
 
   const styleContainer = {
