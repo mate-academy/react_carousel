@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ImageItem = ({
   images, currIndex, frameSize, itemWidth, animationDuration,
 }) => {
-  let liClasses = {
+  let liStyle = {
     right: `${currIndex * itemWidth}px`,
   };
 
@@ -15,18 +15,18 @@ const ImageItem = ({
 
   const image = images.map((imageSrc, imageIndex) => {
     if ((imageIndex >= currIndex) && (imageIndex < (currIndex + frameSize))) {
-      liClasses = {
-        ...liClasses,
+      liStyle = {
+        ...liStyle,
         ...animationClass,
       };
     } else {
-      liClasses = {
+      liStyle = {
         right: `${currIndex * itemWidth}px`,
       };
     }
 
     return (
-      <li style={liClasses} key={imageSrc}>
+      <li style={liStyle} key={imageSrc}>
         <img
           width={itemWidth}
           src={imageSrc}
