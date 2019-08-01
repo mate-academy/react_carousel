@@ -14,7 +14,7 @@ const ImageItem = ({
   };
 
   const image = images.map((imageSrc, imageIndex) => {
-    if (imageIndex >= currIndex && imageIndex < (currIndex + frameSize)) {
+    if ((imageIndex >= currIndex) && (imageIndex < (currIndex + frameSize))) {
       liClasses = {
         ...liClasses,
         ...animationClass,

@@ -1,7 +1,5 @@
 import React from 'react';
 import Controls from './components/Controls';
-import MethodHandleFlip from './components/MethodHandleFlip';
-import MethodHandleChange from './components/MethodHandleChange';
 import './App.css';
 
 import Carousel from './components/Carousel';
@@ -27,7 +25,7 @@ class App extends React.Component {
     frameSize: 3,
     itemWidth: 130,
     infinite: false,
-    animationDuration: 1000,
+    animationDuration: 2000,
   };
 
   handleFlip = (event) => {
@@ -38,9 +36,23 @@ class App extends React.Component {
         currIndex, images, frameSize, step, infinite,
       } = prevState;
 
-      return MethodHandleFlip(
-        name, currIndex, images, frameSize, step, infinite
-      );
+      if (name === 'next' && currIndex < images.length - frameSize) {
+        return ({ currIndex: currIndex + step });
+      }
+
+      if (name === 'back' && currIndex > 0) {
+        return ({ currIndex: currIndex - step });
+      }
+
+      if ((currIndex >= (images.length - frameSize)) && infinite) {
+        return ({ currIndex: 0 });
+      }
+
+      if ((currIndex <= 0) && infinite) {
+        return ({ currIndex: images.length - frameSize });
+      }
+
+      return undefined;
     });
   }
 
@@ -52,10 +64,51 @@ class App extends React.Component {
         frameSize, images, step, itemWidth, animationDuration,
       } = prevState;
 
-      return MethodHandleChange(
-        name, value, checked, frameSize,
-        images, step, itemWidth, animationDuration
-      );
+      if (name === 'plusElement' && frameSize < images.length) {
+        return ({ frameSize: frameSize + 1, currIndex: 0 });
+      }
+
+      if (name === 'minusElement' && frameSize > 1) {
+        return ({ frameSize: frameSize - 1, currIndex: 0 });
+      }
+
+      if (name === 'plusStep' && step < images.length) {
+        return ({ step: step + 1 });
+      }
+
+      if (name === 'minusStep' && step > 1) {
+        return ({ step: step - 1 });
+      }
+
+      if (name === 'itemWidth') {
+        return ({ itemWidth: +value.replace(/\D/g, '') });
+      }
+
+      if (name === 'plusTenWidth') {
+        return ({ itemWidth: itemWidth + 10 });
+      }
+
+      if (name === 'minusTenWidth') {
+        return ({ itemWidth: itemWidth - 10 });
+      }
+
+      if (name === 'infinite') {
+        return ({ [name]: checked });
+      }
+
+      if (name === 'animationDuration') {
+        return ({ [name]: +value.replace(/\D/g, '') });
+      }
+
+      if (name === 'plusTenAnimate') {
+        return ({ animationDuration: animationDuration + 100 });
+      }
+
+      if (name === 'minusTenAnimate') {
+        return ({ animationDuration: animationDuration - 100 });
+      }
+
+      return undefined;
     });
   }
 
@@ -75,7 +128,6 @@ class App extends React.Component {
           handleFlip={this.handleFlip}
           currIndex={currIndex}
           frameSize={frameSize}
-          step={step}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
         />
