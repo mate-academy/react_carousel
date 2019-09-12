@@ -23,7 +23,10 @@ class App extends React.Component {
     const { images } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
+        <h1>
+          {`Carousel with ${images.length} horses`}
+        </h1>
         <Carousel horses={images} />
       </div>
     );
