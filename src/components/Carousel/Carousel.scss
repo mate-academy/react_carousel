@@ -1,0 +1,12 @@
+.carousel {
+  width: 1300px;
+  margin: 0 auto;
+  text-align: center;
+
+  &__list {
+    width: 260px;
+    overflow: hidden;
+    list-style: none;
+    display: flex;
+  }
+}
