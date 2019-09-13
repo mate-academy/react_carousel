@@ -8,22 +8,19 @@ import Button from '../Button/Button';
 export default class Carousel extends Component {
   state = {
     horses: [...this.props.horses],
+    step: this.props.step,
     frameSize: this.props.frameSize,
+    itemWidth: this.props.itemWidth,
     animationDuration: this.props.animationDuration,
+    infinite: this.props.infinite,
+    carouselCursor: 0,
   };
 
   componentDidMount() {
-    const { frameSize, animationDuration } = this.state;
+    const { animationDuration } = this.state;
 
     this.carouselTurn = setInterval(
-      () => this.setState(prevState => (
-        {
-          horses:
-            [
-              ...prevState.horses.slice(frameSize),
-              ...prevState.horses.slice(0, frameSize),
-            ],
-        })), animationDuration
+      this.nextHorses, animationDuration
     );
   }
 
@@ -31,43 +28,67 @@ export default class Carousel extends Component {
     clearInterval(this.carouselTurn);
   }
 
+  nextHorses = () => {
+    const { horses, step, infinite } = this.state;
+
+    this.setState((prevState) => {
+      let nextStep = prevState.carouselCursor + step;
+
+      if (infinite && nextStep === horses.length) {
+        nextStep = 0;
+      }
+
+      if (horses.length - nextStep <= step) {
+        nextStep = horses.length - step;
+      }
+
+      return ({ carouselCursor: nextStep });
+    });
+  };
+
   onPreviousClick = () => {
-    const { frameSize } = this.state;
+    const { horses, step, infinite } = this.state;
 
     this.componentWillUnmount();
-    this.setState(prevState => (
-      {
-        horses:
-          [
-            ...prevState.horses.slice(-frameSize),
-            ...prevState.horses.slice(0, -frameSize),
-          ],
-      }));
+
+    this.setState((prevState) => {
+      let nextStep = prevState.carouselCursor - step;
+
+      if (infinite && nextStep === -step) {
+        nextStep = horses.length - step;
+      }
+
+      if (nextStep < 0) {
+        nextStep = 0;
+      }
+
+      return (
+        { carouselCursor: nextStep });
+    });
+
     this.componentDidMount();
   };
 
   onNextClick = () => {
-    const { frameSize } = this.state;
-
     this.componentWillUnmount();
-    this.setState(prevState => (
-      {
-        horses:
-          [
-            ...prevState.horses.slice(frameSize),
-            ...prevState.horses.slice(0, frameSize),
-          ],
-      }));
+    this.nextHorses();
     this.componentDidMount();
   };
 
   render() {
-    const { horses } = this.state;
+    const {
+      horses, itemWidth, frameSize, carouselCursor,
+    } = this.state;
 
     return (
-      <div className="carousel">
-        <ul className="carousel__list">
-          {horses.map((horse, i) => <Horse horse={horse} alt={i} />)}
+      <div className="carousel" style={{ width: frameSize * itemWidth }}>
+        <ul
+          className="carousel__list"
+          style={{ left: -(carouselCursor * itemWidth) }}
+        >
+          {horses.map((horse, i) => (
+            <Horse horse={horse} alt={i} itemWidth={itemWidth} />
+          ))}
         </ul>
         <div className="carousel__buttons">
           <Button text="Prev" onClick={this.onPreviousClick} />
@@ -81,7 +102,9 @@ export default class Carousel extends Component {
 Carousel.propTypes = CarouselTypes;
 
 Carousel.defaultProps = {
-  frameSize: 2,
+  step: 3,
+  frameSize: 3,
   itemWidth: 130,
-  animationDuration: 1000,
+  animationDuration: 2000,
+  infinite: true,
 };

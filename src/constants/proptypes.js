@@ -7,12 +7,15 @@ export const ButtonTypes = {
 
 export const CarouselTypes = {
   horses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  step: PropTypes.number.isRequired,
   frameSize: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
   animationDuration: PropTypes.number.isRequired,
+  infinite: PropTypes.bool.isRequired,
 };
 
 export const HorseTypes = {
   horse: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
+  itemWidth: PropTypes.number.isRequired,
 };

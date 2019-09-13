@@ -1,17 +1,12 @@
 .carousel {
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  overflow: hidden;
+  margin: 40px;
 
   &__list {
-    width: 260px;
-    overflow: hidden;
+    position: relative;
     list-style: none;
     display: flex;
     padding: 0;
-    margin: 40px;
   }
 }
