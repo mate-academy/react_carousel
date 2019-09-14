@@ -1,1 +1,71 @@
+.App {
 
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+.Carousel {
+  max-width: 1300px;
+  margin: auto;
+  text-align: center;
+}
+
+.Carousel__list {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: outline 1s;
+  margin: 10px;
+}
+
+.button:hover {
+  background-color: #ccc;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:focus {
+  outline: 1px solid #aaa;
+  outline-offset: -2px;
+}
+
+.Carousel__li--animation {
+  /* transform: translateX(100px); */
+  animation-name: opacityAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  /* animation-delay: 0.5s; */
+}
+
+.Carousel__li--animation2 {
+  animation-name: opacityAnimation2;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes opacityAnimation {
+  from {
+     opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityAnimation2 {
+  from {
+     opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
