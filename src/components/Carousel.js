@@ -122,7 +122,7 @@ class Carousel extends React.Component {
             type="range"
             value={itemWidth}
             onChange={changeItemWidth}
-            min="0"
+            min="130"
             max="400"
           />
           <p>400</p>
