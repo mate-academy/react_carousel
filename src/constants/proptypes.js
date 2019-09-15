@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
 
+export const FormTypes = {
+  onChange: PropTypes.func.isRequired,
+};
+
+export const InputTypes = {
+  label: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 export const ButtonTypes = {
   text: PropTypes.string.isRequired,
   onclick: PropTypes.func.isRequired,

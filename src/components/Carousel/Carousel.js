@@ -4,6 +4,7 @@ import { CarouselTypes } from '../../constants/proptypes';
 
 import Horse from '../Horse/Horse';
 import Button from '../Button/Button';
+import Form from '../Form/Form';
 
 export default class Carousel extends Component {
   state = {
@@ -19,6 +20,8 @@ export default class Carousel extends Component {
   componentDidMount() {
     const { animationDuration } = this.state;
 
+    // eslint-disable-next-line no-console
+    console.log(animationDuration);
     this.carouselTurn = setInterval(
       this.nextHorses, animationDuration
     );
@@ -75,6 +78,18 @@ export default class Carousel extends Component {
     this.componentDidMount();
   };
 
+  onInputChange = (e) => {
+    const { target } = e;
+
+    // eslint-disable-next-line no-console
+    console.log(target.name, target.value);
+    this.componentWillUnmount();
+    this.setState({
+      [target.name]: target.value,
+    });
+    this.componentDidMount();
+  };
+
   render() {
     const {
       horses, itemWidth, frameSize, carouselCursor,
@@ -94,6 +109,7 @@ export default class Carousel extends Component {
           <Button text="Prev" onClick={this.onPreviousClick} />
           <Button text="Next" onClick={this.onNextClick} />
         </div>
+        <Form onChange={this.onInputChange} />
       </div>
     );
   }
