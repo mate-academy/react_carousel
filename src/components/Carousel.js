@@ -89,7 +89,7 @@ class Carousel extends React.Component {
     return (
       <div className="Carousel">
         <div className="buttons__container">
-          <p>Step:</p>
+          <p>Step</p>
           <select
             className="setting-step"
             value={selectedStep}
@@ -102,7 +102,7 @@ class Carousel extends React.Component {
             }
           </select>
 
-          <p>Frame Size:</p>
+          <p>Frame Size</p>
           <select
             className="setting-frame-size"
             value={selectedFrameSize}
