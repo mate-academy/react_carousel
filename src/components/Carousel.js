@@ -75,6 +75,7 @@ class Carousel extends React.Component {
         itemWidth,
       },
     } = this;
+
     const leftButtonStyle = {
       width: `${itemWidth / 4}px`,
       height: `${itemWidth / 4}px`,
