@@ -24,6 +24,9 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <div className="title__task">
+          <h1>Carousel with {images.length} images</h1>
+        </div>
         <Carousel>
           {images}
         </Carousel>
