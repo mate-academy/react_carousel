@@ -1,6 +1,4 @@
 import React from 'react';
-import './App.css';
-
 import Carousel from './components/Carousel';
 
 class App extends React.Component {
@@ -27,7 +25,9 @@ class App extends React.Component {
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel>
+          {this.state.images}
+        </Carousel>
       </div>
     );
   }

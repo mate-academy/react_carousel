@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+
+.Carousel-interface {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.Carousel-wraper {
+  position: relative;
+  margin: 0 auto;
+}
+
+.Carousel__list-wraper {
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.Carousel__list {
+  display: flex;
+  flex-flow: row;
+  list-style: none;
+  padding: 0;
+}
+
+.button-next,
+.button-prev {
+  content: "";
+  background-image: url(../images/right-arrow.svg);
+  background-color: #fff;
+  border: none;
+  position: absolute;
+}
+
+.button-next:focus {
+  outline: 2px solid rgb(255, 238, 0);
+}
+
+.button-prev:focus {
+  outline: 1.5px solid rgb(255, 238, 0);
+}
+
+.button-prev {
+  transform: rotate(180deg);
+}
