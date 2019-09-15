@@ -1,17 +1,173 @@
 import React from 'react';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+import './Carousel.css';
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visibleImages: this.props.children,
+      selectedStep: 3,
+      selectedFrameSize: 3,
+      itemWidth: 130,
+      indexFirstImage: 0,
+    };
+
+    this.getNextImages = this.getNextImages.bind(this);
+    this.getPreviousImages = this.getPreviousImages.bind(this);
+  }
+
+  setSelectStepValue = event => (
+    this.setState({
+      selectedStep: event.target.value,
+    })
+  );
+
+  setSelectFrameSizeValue = event => (
+    this.setState({
+      selectedFrameSize: event.target.value,
+    })
+  );
+
+  getNextImages = () => (
+    this.setState(prevState => ({
+      indexFirstImage: this.handledScroll.scrollLeft / prevState.itemWidth,
+    })),
+    this.handledScroll.scrollLeft > this.state.itemWidth
+    * (this.state.visibleImages.length - this.state.selectedFrameSize - 1)
+      ? (this.handledScroll.scrollLeft = 0)
+      : (this.handledScroll.scrollLeft
+          += this.state.selectedStep * this.state.itemWidth)
+  );
+
+  getPreviousImages = () => (
+    this.setState(prevState => ({
+      indexFirstImage: this.handledScroll.scrollLeft / prevState.itemWidth,
+    })),
+    this.handledScroll.scrollLeft === 0
+      ? (this.handledScroll.scrollLeft = this.state.itemWidth
+        * (this.state.visibleImages.length - this.state.selectedFrameSize))
+      : (this.handledScroll.scrollLeft
+        -= this.st * this.state.itemWidth)
+  );
+
+  changeItemWidth = (event) => {
+    this.setState({
+      itemWidth: event.target.value,
+    });
+    this.handledScroll.scrollLeft = (this.state.indexFirstImage
+      + this.state.selectedFrameSize)
+      * this.state.itemWidth;
+  }
+
+  render() {
+    const {
+      getNextImages,
+      getPreviousImages,
+      setSelectStepValue,
+      setSelectFrameSizeValue,
+      changeItemWidth,
+      state: {
+        visibleImages,
+        selectedStep,
+        selectedFrameSize,
+        itemWidth,
+      },
+    } = this;
+    const leftButtonStyle = {
+      width: `${itemWidth / 4}px`,
+      height: `${itemWidth / 4}px`,
+      left: `-${itemWidth / 4}px`,
+    };
+    const rightButtonStyle = {
+      width: `${itemWidth / 4}px`,
+      height: `${itemWidth / 4}px`,
+      right: `-${itemWidth / 4}px`,
+    };
+
+    return (
+      <div className="Carousel">
+        <div className="buttons__container">
+          <p>Step:</p>
+          <select
+            className="setting-step"
+            value={selectedStep}
+            onChange={setSelectStepValue}
+          >
+            {visibleImages
+              .map((image, index) => (
+                <option key={image} value={index + 1}>{index + 1}</option>
+              ))
+            }
+          </select>
+
+          <p>Frame Size:</p>
+          <select
+            className="setting-frame-size"
+            value={selectedFrameSize}
+            onChange={setSelectFrameSizeValue}
+          >
+            {visibleImages
+              .map((image, index) => (
+                <option key={image} value={index + 1}>{index + 1}</option>
+              ))
+            }
+          </select>
+
+          <p className="setting-image-width__name">Image Width:</p>
+          <p>0</p>
+          <input
+            className="setting-image-width"
+            type="range"
+            value={itemWidth}
+            onChange={changeItemWidth}
+            min="0"
+            max="400"
+          />
+          <p>400</p>
+        </div>
+
+        <div
+          className="Carousel__list-container"
+          style={{ width: `${selectedFrameSize * itemWidth}px` }}
+        >
+          <button
+            style={leftButtonStyle}
+            type="button"
+            className="button arrow left"
+            onClick={getPreviousImages}
+          />
+          <button
+            style={rightButtonStyle}
+            type="button"
+            className="button arrow right"
+            onClick={getNextImages}
+          />
+          <div
+            className="Carousel__list-wrapper"
+            style={{ width: `${selectedFrameSize * itemWidth}px` }}
+            ref={(div) => { this.handledScroll = div; }}
+          >
+
+            <ul id="container" className="Carousel__list">
+              {
+                visibleImages.map((image, index) => (
+                  <li key={image}>
+                    <img
+                      style={{ width: `${itemWidth}px` }}
+                      src={image}
+                      alt={index + 1}
+                    />
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
