@@ -82,21 +82,16 @@ export default class Carousel extends Component {
     const { target } = e;
     const { name, value, checked } = target;
 
-    // eslint-disable-next-line no-console
-    console.log(name, value, checked);
     this.componentWillUnmount();
 
-    switch (name) {
-      case 'infinite':
-        this.setState({
-          [name]: checked,
-        });
-        break;
-
-      default:
-        this.setState({
-          [name]: value,
-        });
+    if (name === 'infinite') {
+      this.setState({
+        [name]: checked,
+      });
+    } else {
+      this.setState({
+        [name]: value,
+      });
     }
 
     this.componentDidMount();
