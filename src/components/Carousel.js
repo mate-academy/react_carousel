@@ -18,13 +18,13 @@ class Carousel extends React.Component {
     this.getPreviousImages = this.getPreviousImages.bind(this);
   }
 
-  setSelectStepValue = event => (
+  setStep = event => (
     this.setState({
       selectedStep: event.target.value,
     })
   );
 
-  setSelectFrameSizeValue = event => (
+  setFrameSize = event => (
     this.setState({
       selectedFrameSize: event.target.value,
     })
@@ -65,8 +65,8 @@ class Carousel extends React.Component {
     const {
       getNextImages,
       getPreviousImages,
-      setSelectStepValue,
-      setSelectFrameSizeValue,
+      setStep,
+      setFrameSize,
       changeItemWidth,
       state: {
         visibleImages,
@@ -89,12 +89,12 @@ class Carousel extends React.Component {
 
     return (
       <div className="Carousel">
-        <div className="buttons__container">
+        <div className="buttons-container">
           <p>Step</p>
           <select
             className="setting-step"
             value={selectedStep}
-            onChange={setSelectStepValue}
+            onChange={setStep}
           >
             {visibleImages
               .map((image, index) => (
@@ -103,11 +103,11 @@ class Carousel extends React.Component {
             }
           </select>
 
-          <p>Frame Size</p>
+          <p>Number of pictures in a frame:</p>
           <select
             className="setting-frame-size"
             value={selectedFrameSize}
-            onChange={setSelectFrameSizeValue}
+            onChange={setFrameSize}
           >
             {visibleImages
               .map((image, index) => (
@@ -116,7 +116,7 @@ class Carousel extends React.Component {
             }
           </select>
 
-          <p className="setting-image-width__name">Image Width:</p>
+          <p className="setting-image-width__name">Pictures size:</p>
           <p>0</p>
           <input
             className="setting-image-width"
@@ -130,7 +130,7 @@ class Carousel extends React.Component {
         </div>
 
         <div
-          className="Carousel__list-container"
+          className="Carousel__container"
           style={{ width: `${selectedFrameSize * itemWidth}px` }}
         >
           <button

@@ -14,12 +14,12 @@
   scroll-behavior: smooth;
 }
 
-.Carousel__list-container {
+.Carousel__container {
   position: relative;
   margin: 0 auto;
 }
 
-.buttons__container {
+.buttons-container {
   display: flex;
   margin: 50px 0;
   justify-content: center;
