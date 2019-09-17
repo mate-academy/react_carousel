@@ -15,7 +15,7 @@ const Input = ({
       id={name}
       name={name}
       type={type}
-      onChange={e => onChange(e)}
+      onBlur={e => onChange(e)}
     />
   </label>
 );

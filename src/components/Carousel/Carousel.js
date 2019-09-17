@@ -20,8 +20,6 @@ export default class Carousel extends Component {
   componentDidMount() {
     const { animationDuration } = this.state;
 
-    // eslint-disable-next-line no-console
-    console.log(animationDuration);
     this.carouselTurn = setInterval(
       this.nextHorses, animationDuration
     );
@@ -109,7 +107,7 @@ export default class Carousel extends Component {
           style={{ left: -(carouselCursor * itemWidth) }}
         >
           {horses.map((horse, i) => (
-            <Horse horse={horse} alt={i} itemWidth={itemWidth} />
+            <Horse horse={horse} alt={i} itemSize={itemWidth} />
           ))}
         </ul>
         <div className="carousel__buttons">
