@@ -2,7 +2,6 @@ import React from 'react';
 import { FormTypes } from '../../constants/proptypes';
 import './Form.scss';
 import Input from '../Input/Input';
-import Checkbox from '../Checkbox/Checkbox';
 
 const Form = ({ onChange }) => (
   <form className="form">
@@ -10,7 +9,7 @@ const Form = ({ onChange }) => (
       label="Image width (px):"
       name="itemWidth"
       type="number"
-      onChange={onChange}
+      onBlur={onChange}
     />
     <Input
       label="Step:"
@@ -22,9 +21,9 @@ const Form = ({ onChange }) => (
       label="Animation Duration:"
       name="animationDuration"
       type="number"
-      onChange={onChange}
+      onBlur={onChange}
     />
-    <Checkbox
+    <Input
       label="Infinite:"
       name="infinite"
       type="checkbox"
