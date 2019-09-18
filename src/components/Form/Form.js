@@ -2,6 +2,7 @@ import React from 'react';
 import { FormTypes } from '../../constants/proptypes';
 import './Form.scss';
 import Input from '../Input/Input';
+import Checkbox from '../Checkbox/Checkbox';
 
 const Form = ({ onChange }) => (
   <form className="form">
@@ -23,11 +24,11 @@ const Form = ({ onChange }) => (
       type="number"
       onChange={onChange}
     />
-    <Input
+    <Checkbox
       label="Infinite:"
       name="infinite"
       type="checkbox"
-      onChange={onChange}
+      onClick={onChange}
     />
   </form>
 );
