@@ -5,7 +5,7 @@ export const FormTypes = {
 };
 
 export const InputTypes = {
-  label: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -13,7 +13,7 @@ export const InputTypes = {
 
 export const ButtonTypes = {
   text: PropTypes.string.isRequired,
-  onclick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export const CarouselTypes = {
@@ -27,6 +27,6 @@ export const CarouselTypes = {
 
 export const HorseTypes = {
   horse: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-  itemWidth: PropTypes.number.isRequired,
+  alt: PropTypes.number.isRequired,
+  itemSize: PropTypes.number.isRequired,
 };

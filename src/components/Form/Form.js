@@ -32,6 +32,6 @@ const Form = ({ onChange }) => (
   </form>
 );
 
-export default Form;
-
 Form.propTypes = FormTypes;
+
+export default Form;

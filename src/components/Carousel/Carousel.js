@@ -88,7 +88,7 @@ export default class Carousel extends Component {
       });
     } else {
       this.setState({
-        [name]: value,
+        [name]: Number(value),
       });
     }
 
@@ -107,7 +107,7 @@ export default class Carousel extends Component {
           style={{ left: -(carouselCursor * itemWidth) }}
         >
           {horses.map((horse, i) => (
-            <Horse horse={horse} alt={i} itemSize={itemWidth} />
+            <Horse key={horse} horse={horse} alt={i} itemSize={itemWidth} />
           ))}
         </ul>
         <div className="carousel__buttons">
