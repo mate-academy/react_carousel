@@ -24,10 +24,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <div className="title__task">
+          <h1>Carousel with {images.length} images</h1>
+        </div>
+        <Carousel>
+          {images}
+        </Carousel>
       </div>
     );
   }

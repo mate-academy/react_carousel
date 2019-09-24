@@ -1,1 +1,8 @@
+.App {
+  margin-left: 50px;
+}
 
+.title__task {
+  display: flex;
+  justify-content: center;
+}
