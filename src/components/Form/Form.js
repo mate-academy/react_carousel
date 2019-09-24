@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormTypes } from '../../constants/proptypes';
+import PropTypes from 'prop-types';
+
 import './Form.scss';
 import Input from '../Input/Input';
 
@@ -32,6 +33,8 @@ const Form = ({ onChange }) => (
   </form>
 );
 
-Form.propTypes = FormTypes;
+Form.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Form;

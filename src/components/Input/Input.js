@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Input.scss';
-import { InputTypes } from '../../constants/proptypes';
 
 const Input = ({
   label,
@@ -17,25 +18,26 @@ const Input = ({
       id={name}
       name={name}
       type={type}
-      onBlur={
-        typeof onBlur === 'undefined'
-          ? () => {}
-          : e => onBlur(e)
-      }
-      onChange={
-        typeof onChange === 'undefined'
-          ? () => {}
-          : e => onChange(e)
-      }
-      onClick={
-        typeof onClick === 'undefined'
-          ? () => {}
-          : e => onClick(e)
-      }
+      onBlur={onBlur}
+      onChange={onChange}
+      onClick={onClick}
     />
   </label>
 );
 
-Input.propTypes = InputTypes;
+Input.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
+Input.defaultProps = {
+  onChange: undefined,
+  onClick: undefined,
+  onBlur: undefined,
+};
 
 export default Input;

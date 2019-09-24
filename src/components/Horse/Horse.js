@@ -1,41 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Horse.scss';
-import { HorseTypes } from '../../constants/proptypes';
 
-export default class Horse extends Component {
-  state = {
-    horse: this.props.horse,
-    alt: this.props.alt,
-    itemSize: this.props.itemSize,
-  };
+const Horse = ({ horse, alt, itemSize }) => (
+  <li>
+    <img
+      className="carousel__horse"
+      src={horse}
+      alt={alt}
+      style={{
+        width: itemSize,
+        height: itemSize,
+      }}
+    />
+  </li>
+);
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.itemSize !== this.state.itemSize) {
-      this.setState({ itemSize: nextProps.itemSize });
+Horse.propTypes = {
+  horse: PropTypes.string.isRequired,
+  alt: PropTypes.number.isRequired,
+  itemSize: PropTypes.number.isRequired,
+};
 
-      return true;
-    }
-
-    return false;
-  }
-
-  render() {
-    const { horse, alt, itemSize } = this.state;
-
-    return (
-      <li>
-        <img
-          className="carousel__horse"
-          src={horse}
-          alt={alt}
-          style={{
-            width: itemSize,
-            height: itemSize,
-          }}
-        />
-      </li>
-    );
-  }
-}
-
-Horse.propTypes = HorseTypes;
+export default Horse;

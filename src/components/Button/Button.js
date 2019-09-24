@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Button.scss';
-import { ButtonTypes } from '../../constants/proptypes';
 
 const Button = ({ text, onClick }) => (
   <button type="button" onClick={onClick}>{text}</button>
 );
 
-Button.propTypes = ButtonTypes;
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Button;

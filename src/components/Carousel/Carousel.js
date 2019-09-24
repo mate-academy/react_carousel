@@ -1,36 +1,38 @@
 import React, { Component } from 'react';
-import './Carousel.scss';
-import { CarouselTypes } from '../../constants/proptypes';
+import PropTypes from 'prop-types';
 
+import './Carousel.scss';
 import Horse from '../Horse/Horse';
 import Button from '../Button/Button';
 import Form from '../Form/Form';
 
 export default class Carousel extends Component {
   state = {
-    horses: [...this.props.horses],
-    step: this.props.step,
-    frameSize: this.props.frameSize,
-    itemWidth: this.props.itemWidth,
-    animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 2000,
+    infinite: false,
     carouselCursor: 0,
   };
 
   componentDidMount() {
-    const { animationDuration } = this.state;
-
-    this.carouselTurn = setInterval(
-      this.nextHorses, animationDuration
-    );
+    this.setCarouselTimer();
   }
 
   componentWillUnmount() {
     clearInterval(this.carouselTurn);
   }
 
+  setCarouselTimer = () => {
+    this.carouselTurn = setInterval(
+      this.nextHorses, this.state.animationDuration
+    );
+  };
+
   nextHorses = () => {
-    const { horses, step, infinite } = this.state;
+    const { step, infinite } = this.state;
+    const { horses } = this.props;
 
     this.setState((prevState) => {
       let nextStep = prevState.carouselCursor + step;
@@ -48,9 +50,10 @@ export default class Carousel extends Component {
   };
 
   onPreviousClick = () => {
-    const { horses, step, infinite } = this.state;
+    const { step, infinite } = this.state;
+    const { horses } = this.props;
 
-    this.componentWillUnmount();
+    clearInterval(this.carouselTurn);
 
     this.setState((prevState) => {
       let nextStep = prevState.carouselCursor - step;
@@ -67,27 +70,27 @@ export default class Carousel extends Component {
         { carouselCursor: nextStep });
     });
 
-    this.componentDidMount();
+    this.setCarouselTimer();
   };
 
   onNextClick = () => {
-    this.componentWillUnmount();
+    clearInterval(this.carouselTurn);
     this.nextHorses();
-    this.componentDidMount();
+    this.setCarouselTimer();
   };
 
   onInputChange = (e) => {
     const { target } = e;
-    const { name, value, checked } = target;
+    const {
+      name,
+      value,
+      checked,
+      type,
+    } = target;
 
-    // eslint-disable-next-line no-console
-    console.log(name);
+    clearInterval(this.carouselTurn);
 
-    this.componentWillUnmount();
-
-    if (name === 'infinite') {
-      // eslint-disable-next-line no-console
-      console.log(name);
+    if (type === 'checkbox') {
       this.setState({
         [name]: checked,
       });
@@ -97,13 +100,17 @@ export default class Carousel extends Component {
       });
     }
 
-    this.componentDidMount();
+    this.setCarouselTimer();
   };
 
   render() {
     const {
-      horses, itemWidth, frameSize, carouselCursor,
+      itemWidth,
+      frameSize,
+      carouselCursor,
     } = this.state;
+
+    const { horses } = this.props;
 
     return (
       <div className="carousel" style={{ width: frameSize * itemWidth }}>
@@ -125,12 +132,6 @@ export default class Carousel extends Component {
   }
 }
 
-Carousel.propTypes = CarouselTypes;
-
-Carousel.defaultProps = {
-  step: 3,
-  frameSize: 3,
-  itemWidth: 130,
-  animationDuration: 2000,
-  infinite: true,
+Carousel.propTypes = {
+  horses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
