@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Carousel.css';
 
 class Carousel extends Component {
@@ -14,23 +15,35 @@ class Carousel extends Component {
     };
   }
 
-  getNextImages = () => (
-    this.handleScroll.scrollLeft > this.state.itemWidthAndHeight * (this.state.images.length - this.state.frameSize - 1)
-      ? (this.handleScroll.scrollLeft = 0)
-      : (this.handleScroll.scrollLeft += this.state.step * this.state.itemWidthAndHeight),
-    this.setState(prevState => ({
-      indexOfFirstImg: this.handleScroll.scrollLeft / prevState.itemWidthAndHeight,
-    }))
-  )
+  getNextImages = () => {
+    if (this.handleScroll.scrollLeft > this.state.itemWidthAndHeight
+      * (this.state.images.length - this.state.frameSize - 1)) {
+      this.handleScroll.scrollLeft = 0;
+    } else {
+      this.handleScroll.scrollLeft += this.state.step
+        * this.state.itemWidthAndHeight;
+    }
 
-  getPrevImages = () => (
-    this.handleScroll.scrollLeft === 0
-      ? (this.handleScroll.scrollLeft = this.state.itemWidthAndHeight * (this.state.images.length - this.state.frameSize))
-      : (this.handleScroll.scrollLeft -= this.state.step * this.state.itemWidthAndHeight),
     this.setState(prevState => ({
-      indexOfFirstImg: this.handleScroll.scrollLeft / prevState.itemWidthAndHeight,
-    }))
-  )
+      indexOfFirstImg: this.handleScroll.scrollLeft
+        / prevState.itemWidthAndHeight,
+    }));
+  }
+
+  getPrevImages = () => {
+    if (this.handleScroll.scrollLeft === 0) {
+      this.handleScroll.scrollLeft = this.state.itemWidthAndHeight
+        * (this.state.images.length - this.state.frameSize);
+    } else {
+      this.handleScroll.scrollLeft -= this.state.step
+        * this.state.itemWidthAndHeight;
+    }
+
+    this.setState(prevState => ({
+      indexOfFirstImg: this.handleScroll.scrollLeft
+        / prevState.itemWidthAndHeight,
+    }));
+  }
 
   changeFrameSize = event => (
     this.setState({
@@ -42,7 +55,8 @@ class Carousel extends Component {
     this.setState({
       itemWidthAndHeight: event.target.value,
     });
-    this.handleScroll.scrollLeft = (this.state.indexOfFirstImg + this.state.frameSize) * this.state.itemWidthAndHeight;
+    this.handleScroll.scrollLeft = (this.state.indexOfFirstImg
+      + this.state.frameSize) * this.state.itemWidthAndHeight;
   }
 
   changeStep = event => (
@@ -66,18 +80,20 @@ class Carousel extends Component {
       },
     } = this;
 
-    const leftButtonStyles = {
+    const buttonStyles = {
       width: `${itemWidthAndHeight / 5}px`,
       height: `${itemWidthAndHeight / 5}px`,
-      left: `-${itemWidthAndHeight / 5}px`,
       top: `${itemWidthAndHeight / 2}px`,
     };
 
+    const leftButtonStyles = {
+      ...buttonStyles,
+      left: `-${itemWidthAndHeight / 5}px`,
+    };
+
     const rightButtonStyles = {
-      width: `${itemWidthAndHeight / 5}px`,
-      height: `${itemWidthAndHeight / 5}px`,
+      ...buttonStyles,
       right: `-${itemWidthAndHeight / 5}px`,
-      top: `${itemWidthAndHeight / 2}px`,
     };
 
     return (
@@ -149,5 +165,9 @@ class Carousel extends Component {
     );
   }
 }
+
+Carousel.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 
 export default Carousel;
