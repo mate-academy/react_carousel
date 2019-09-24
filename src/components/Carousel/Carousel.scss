@@ -1,0 +1,12 @@
+.carousel {
+  display: inline-block;
+  overflow: hidden;
+  margin: 40px;
+
+  &__list {
+    position: relative;
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+}
