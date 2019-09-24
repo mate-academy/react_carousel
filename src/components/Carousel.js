@@ -2,6 +2,8 @@ import React from 'react';
 
 import './Carousel.css';
 
+import PropTypes from 'prop-types';
+
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -30,27 +32,33 @@ class Carousel extends React.Component {
     })
   );
 
-  getNextImages = () => (
+  getNextImages = () => {
     this.setState(prevState => ({
       indexFirstImage: this.handledScroll.scrollLeft / prevState.itemWidth,
-    })),
-    this.handledScroll.scrollLeft > this.state.itemWidth
-    * (this.state.visibleImages.length - this.state.selectedFrameSize - 1)
-      ? (this.handledScroll.scrollLeft = 0)
-      : (this.handledScroll.scrollLeft
-          += this.state.selectedStep * this.state.itemWidth)
-  );
+    }));
 
-  getPreviousImages = () => (
+    if (this.handledScroll.scrollLeft > this.state.itemWidth
+      * (this.state.visibleImages.length - this.state.selectedFrameSize - 1)) {
+      this.handledScroll.scrollLeft = 0;
+    } else {
+      this.handledScroll.scrollLeft
+        += this.state.selectedStep * this.state.itemWidth;
+    }
+  };
+
+  getPreviousImages = () => {
     this.setState(prevState => ({
       indexFirstImage: this.handledScroll.scrollLeft / prevState.itemWidth,
-    })),
-    this.handledScroll.scrollLeft === 0
-      ? (this.handledScroll.scrollLeft = this.state.itemWidth
-        * (this.state.visibleImages.length - this.state.selectedFrameSize))
-      : (this.handledScroll.scrollLeft
-        -= this.st * this.state.itemWidth)
-  );
+    }));
+
+    if (this.handledScroll.scrollLeft === 0) {
+      this.handledScroll.scrollLeft = this.state.itemWidth
+        * (this.state.visibleImages.length - this.state.selectedFrameSize);
+    } else {
+      this.handledScroll.scrollLeft
+        -= this.st * this.state.itemWidth;
+    }
+  };
 
   changeItemWidth = (event) => {
     this.setState({
@@ -76,14 +84,16 @@ class Carousel extends React.Component {
       },
     } = this;
 
-    const leftButtonStyle = {
+    const commonButtonStyle = {
       width: `${itemWidth / 4}px`,
       height: `${itemWidth / 4}px`,
+    };
+    const leftButtonStyle = {
+      ...commonButtonStyle,
       left: `-${itemWidth / 4}px`,
     };
     const rightButtonStyle = {
-      width: `${itemWidth / 4}px`,
-      height: `${itemWidth / 4}px`,
+      ...commonButtonStyle,
       right: `-${itemWidth / 4}px`,
     };
 
@@ -117,7 +127,10 @@ class Carousel extends React.Component {
           </select>
 
           <p className="setting-image-width__name">Pictures size:</p>
-          <p>0</p>
+          <p>
+            {itemWidth}
+            px
+          </p>
           <input
             className="setting-image-width"
             type="range"
@@ -126,7 +139,7 @@ class Carousel extends React.Component {
             min="130"
             max="400"
           />
-          <p>400</p>
+          <p>400px</p>
         </div>
 
         <div
@@ -152,17 +165,15 @@ class Carousel extends React.Component {
           >
 
             <ul id="container" className="Carousel__list">
-              {
-                visibleImages.map((image, index) => (
-                  <li key={image}>
-                    <img
-                      style={{ width: `${itemWidth}px` }}
-                      src={image}
-                      alt={index + 1}
-                    />
-                  </li>
-                ))
-              }
+              {visibleImages.map((image, index) => (
+                <li key={image}>
+                  <img
+                    style={{ width: `${itemWidth}px` }}
+                    src={image}
+                    alt={index + 1}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -170,5 +181,9 @@ class Carousel extends React.Component {
     );
   }
 }
+
+Carousel.propTypes = {
+  children: PropTypes.arrayOf().isRequired,
+};
 
 export default Carousel;
