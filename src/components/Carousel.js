@@ -89,7 +89,7 @@ class Carousel extends React.PureComponent {
       <>
         <div className="overflow" style={{ width: (itemWidth * frameSize) }}>
           <div className="images" style={{ width: (itemWidth * images.length), left: leftPosition, transition: `left ${animationDuration / 1000}s` }}>
-            {images.map(imgSrc => <img className="image" style={{ width: itemWidth }} src={`.${imgSrc}`} alt="" key={imgSrc} />)}
+            {images.map(imgSrc => <img className="image" style={{ width: itemWidth }} src={imgSrc} alt="" key={imgSrc} />)}
           </div>
         </div>
         <div className="buttons">
