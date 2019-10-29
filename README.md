@@ -1,7 +1,9 @@
 # React Carousel
 
-## Task 
+- [DEMO LINK](https://volodymyr-roiuk.github.io/react_carousel/)
 
+
+## Task 
 1. implement a carousel described [here](https://github.com/mate-academy/dom_carousel) as a React component  
     ```jsx
     <Carousel images={['url1', 'url2']} />
