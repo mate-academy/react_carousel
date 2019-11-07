@@ -33,20 +33,23 @@ class App extends React.Component {
   }
 
 prevClick = () => {
-  // let last = this.state.images.slice(-1);
-  // let rest = this.state.images.slice(0, -1);
-  // let images = [last, ...rest];
-  // this.setState({images});
-
-  this.setState(prevState => ({
-    position: prevState.position + (prevState.width * prevState.step),
-  }));
+  this.setState(prevState => (
+    (prevState.position < 1170)
+      ? {
+        position: prevState.position + (prevState.width * prevState.step),
+      }
+      : { position: 0 }
+  ));
 }
 
 nextClick = () => {
-  this.setState(prevState => ({
-    position: prevState.position - (prevState.width * prevState.step),
-  }));
+  this.setState(prevState => (
+    (prevState.position > 0)
+      ? {
+        position: prevState.position - (prevState.width * prevState.step),
+      }
+      : null
+  ));
 }
 
 changeItemWidth = (event) => {
@@ -63,10 +66,14 @@ changeElementNumber = (event) => {
 
 startRotate = () => {
   this.timer = setInterval(() => {
-    this.setState(prevState => ({
-      isActive: true,
-      position: prevState.position + (prevState.width * 1),
-    }));
+    this.setState(prevState => (
+      (prevState.position < 1170)
+        ? {
+          isActive: true,
+          position: prevState.position + (prevState.width * 1),
+        }
+        : { position: 0 }
+    ));
   }, 2000);
 }
 
@@ -83,6 +90,7 @@ render() {
   } = this.state;
 
   return (
+
     <div className="App">
       {/* eslint-disable-next-line */}
        <h1>Carousel with {images.length} images</h1>
