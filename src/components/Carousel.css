@@ -1,0 +1,27 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.Carousel {
+  /* width: 260px; */
+  overflow: hidden;
+}
+
+.Carousel__list {
+display: flex;
+justify-content: flex-start;
+padding: 0;
+transition: all 0.5s;
+}
+
+.Carousel__list li {
+  list-style-type: none;
+  width: 130px;
+  height: 130px;
+}
+
+.Carousel__list li img {
+  display: block;
+}
+
