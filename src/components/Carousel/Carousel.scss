@@ -38,10 +38,12 @@
     border: 30px solid transparent;
     border-right: 30px solid #424A60;
     margin-right: 5px;
+    outline: none;
   }
 
   &__button_prev:active {
     border-right: 30px solid #FCA208;
+    outline: none;
   }
 
   &__button_next {
@@ -50,9 +52,11 @@
     border: 30px solid transparent;
     border-left: 30px solid #424A60;
     margin-left: 5px;
+    outline: none;
   }
 
   &__button_next:active {
     border-left: 30px solid #FCA208;
+    outline: none;
   }
 }

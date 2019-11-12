@@ -49,10 +49,12 @@
   border: 30px solid transparent;
   border-right: 30px solid #424A60;
   margin-right: 5px;
+  outline: none;
 }
 
 .carousel__button_prev:active {
   border-right: 30px solid #FCA208;
+  outline: none;
 }
 
 .carousel__button_next {
@@ -61,9 +63,11 @@
   border: 30px solid transparent;
   border-left: 30px solid #424A60;
   margin-left: 5px;
+  outline: none;
 }
 
 .carousel__button_next:active {
   border-left: 30px solid #FCA208;
+  outline: none;
 }
 /*# sourceMappingURL=Carousel.css.map */
