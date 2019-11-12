@@ -1,0 +1,58 @@
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+
+  &__slide-wrapper {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #424A60;
+    border-radius: 15px;
+  }
+
+  &__list {
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    padding: 0;
+  }
+
+  &__item > img {
+    width: inherit;
+    height: inherit;
+  }
+
+  &__button_prev {
+    background: white;
+    cursor: pointer;
+    border: 30px solid transparent;
+    border-right: 30px solid #424A60;
+    margin-right: 5px;
+  }
+
+  &__button_prev:active {
+    border-right: 30px solid #FCA208;
+  }
+
+  &__button_next {
+    background: white;
+    cursor: pointer;
+    border: 30px solid transparent;
+    border-left: 30px solid #424A60;
+    margin-left: 5px;
+  }
+
+  &__button_next:active {
+    border-left: 30px solid #FCA208;
+  }
+}
