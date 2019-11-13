@@ -27,7 +27,7 @@ class Carousel extends Component {
       if (prev.frameLength > 5) {
         return {
           imgArr: [...imagesArr, ...imagesArr],
-          finishPosition: prev.imgSize * (prev.amount - (prev.amount - prev.frameLength)),
+          finishPosition: prev.imgSize * (prev.amount * 2 - prev.frameLength),
           listPosition: 0,
         };
       }
@@ -45,7 +45,7 @@ class Carousel extends Component {
       if (prev.frameLength > 5) {
         return {
           imgArr: [...imagesArr, ...imagesArr],
-          finishPosition: prev.imgSize * (prev.amount - (prev.amount - prev.frameLength)),
+          finishPosition: prev.imgSize * (prev.amount * 2 - prev.frameLength),
         };
       }
 
@@ -65,7 +65,7 @@ class Carousel extends Component {
   createList = () => (
     <ul className="carousel__list" style={{ left: `${-this.state.listPosition}px` }}>
       {this.state.imgArr.map((img, i) => (
-        <li key={img} className="carousel__item" style={{ width: `${this.state.imgSize}px` }}><img src={img} alt={i + 1} /></li>
+        <li className="carousel__item" style={{ width: `${this.state.imgSize}px` }}><img src={img} alt={i + 1} /></li>
       ))}
     </ul>
   )
