@@ -1,0 +1,73 @@
+.carousel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.carousel__slide-wrapper {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #424A60;
+  border-radius: 15px;
+}
+
+.carousel__list {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+}
+
+.carousel__item > img {
+  width: inherit;
+  height: inherit;
+}
+
+.carousel__button_prev {
+  background: white;
+  cursor: pointer;
+  border: 30px solid transparent;
+  border-right: 30px solid #424A60;
+  margin-right: 5px;
+  outline: none;
+}
+
+.carousel__button_prev:active {
+  border-right: 30px solid #FCA208;
+  outline: none;
+}
+
+.carousel__button_next {
+  background: white;
+  cursor: pointer;
+  border: 30px solid transparent;
+  border-left: 30px solid #424A60;
+  margin-left: 5px;
+  outline: none;
+}
+
+.carousel__button_next:active {
+  border-left: 30px solid #FCA208;
+  outline: none;
+}
+/*# sourceMappingURL=Carousel.css.map */
