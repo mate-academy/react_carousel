@@ -1,0 +1,29 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const CarouselList = ({ images, itemWidth }) => (
+  <ul className="carousel__list">
+    {images.map(image => (
+      <li
+        key={image}
+        className="carousel__item"
+      >
+        <img
+          className="carousel_image"
+          style={{ width: itemWidth }}
+          src={image}
+          alt={image.replace(/\D/g, '')}
+        />
+      </li>
+    ))}
+  </ul>
+);
+
+CarouselList.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.string
+  ).isRequired,
+  itemWidth: PropTypes.number.isRequired,
+};
+
+export default CarouselList;
