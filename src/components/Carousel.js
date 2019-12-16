@@ -1,17 +1,88 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import CarouselImage from './CarouselImage';
+import './Carousel.scss';
+import Arrow from './Arrow';
+import { ARROWS_TYPES } from '../App';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+class Carousel extends React.Component {
+  state = {
+    position: 0,
+  };
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  changeImagesPositionLeft = () => {
+    const { step, itemWidth } = this.props;
+
+    this.setState(prevState => ({
+      position: Math.max(prevState.position - (step * itemWidth), 0),
+    }));
+  };
+
+  changeImagesPositionRight = () => {
+    const { step, itemWidth, images } = this.props;
+
+    this.setState(prevState => ({
+      position: Math.min(
+        prevState.position + (step * itemWidth),
+        (images.length - step) * itemWidth
+      ),
+    }));
+  };
+
+  render() {
+    const { images, itemWidth, frameSize, animationDuration } = this.props;
+    const { position } = this.state;
+
+    return (
+      <div className="App__gallery">
+        <Arrow
+          direction={Object.keys(ARROWS_TYPES)[0]}
+          clickFunction={this.changeImagesPositionLeft}
+          glyphLink={ARROWS_TYPES.left}
+        />
+
+        <div
+          className="carousel"
+          style={{
+            width: `${frameSize * itemWidth}px`,
+          }}
+        >
+          <ul
+            className="carousel__list"
+            style={{
+              right: `${position}px`,
+              transition: `right ${animationDuration}ms`,
+            }}
+          >
+            {images.map(
+              image => (
+                <CarouselImage
+                  key={image}
+                  image={image}
+                  itemWidth={itemWidth}
+                  animationDuration={animationDuration}
+                />
+              )
+            )}
+          </ul>
+        </div>
+
+        <Arrow
+          direction={Object.keys(ARROWS_TYPES)[1]}
+          clickFunction={this.changeImagesPositionRight}
+          glyphLink={ARROWS_TYPES.right}
+        />
+      </div>
+    );
+  }
+}
+
+Carousel.propTypes = {
+  step: PropTypes.number.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+};
 
 export default Carousel;

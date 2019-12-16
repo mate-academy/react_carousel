@@ -1,9 +1,14 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 import Carousel from './components/Carousel';
 
-class App extends React.Component {
+export const ARROWS_TYPES = {
+  left: './img/left.svg',
+  right: './img/right.svg',
+};
+
+export class App extends React.Component {
   state = {
     images: [
       './img/1.png',
@@ -24,13 +29,22 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 className="App__title">
+          Carousel with
+          {' '}
+          { images.length }
+          {' '}
+          images
+        </h1>
+        <Carousel
+          images={this.state.images}
+          step={3}
+          frameSize={3}
+          itemWidth={130}
+          animationDuration={1000}
+          infinite={false}
+        />
       </div>
     );
   }
 }
-
-export default App;
