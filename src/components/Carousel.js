@@ -3,76 +3,43 @@ import PropTypes from 'prop-types';
 import CarouselList from './CarouselList';
 
 class Carousel extends Component {
-  state = { images: [...this.props.images] }
+  state = { translation: 0 }
 
   switchPrevImages = () => {
-    const { images } = this.props;
-    let { step } = this.props;
-    const firstImage = images[0];
+    const { step, itemWidth } = this.props;
 
-    this.setState(prevState => ({
-      images: prevState.images.map(
-        (img, idx, imgs) => {
-          if (firstImage === imgs[0]) {
-            return img;
-          }
+    this.setState((prevState) => {
+      let position = prevState.translation;
 
-          imgs.forEach((image, i) => {
-            if (firstImage === image
-              && i >= imgs.length - step
-              && i < imgs.length) {
-              step = imgs.length - i;
-            }
-          });
+      position += itemWidth * step;
+      position = Math.min(0, position);
 
-          let newIndex = idx - step;
-
-          if (newIndex < 0) {
-            newIndex += imgs.length;
-          }
-
-          return imgs[newIndex];
-        },
-      ),
-    }));
+      return { translation: position };
+    });
   };
 
   switchNextImages = () => {
-    const { images } = this.props;
-    let { step } = this.props;
-    const lastImage = images[images.length - 1];
+    const { step, images, itemWidth } = this.props;
 
-    this.setState(prevState => ({
-      images: prevState.images.map(
-        (img, idx, imgs) => {
-          if (lastImage === imgs[step - 1]) {
-            return img;
-          }
+    this.setState((prevState) => {
+      let position = prevState.translation;
 
-          imgs.forEach((image, i) => {
-            if (lastImage === image && i >= step && i < step * 2) {
-              step = i - step + 1;
-            }
-          });
+      position -= itemWidth * step;
+      position = Math.max(position, -itemWidth * (images.length - step));
 
-          let newIndex = idx + step;
-
-          if (newIndex > imgs.length - 1) {
-            newIndex -= imgs.length;
-          }
-
-          return imgs[newIndex];
-        },
-      ),
-    }));
+      return { translation: position };
+    });
   };
 
   render = () => {
-    const { frameSize, itemWidth, arrowSize } = this.props;
-    const { images } = this.state;
-    const visibleImages = images.filter(
-      (_, index) => index < this.props.frameSize
-    );
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      arrowSize,
+      animationDuration,
+    } = this.props;
+    const { translation } = this.state;
 
     return (
       <div
@@ -93,10 +60,14 @@ class Carousel extends Component {
           {`<`}
         </button>
 
-        <CarouselList
-          images={visibleImages}
-          itemWidth={itemWidth}
-        />
+        <div className="carousel__container">
+          <CarouselList
+            images={images}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+            translation={translation}
+          />
+        </div>
 
         <button
           type="button"
@@ -124,6 +95,7 @@ Carousel.propTypes = {
   frameSize: PropTypes.number.isRequired,
   arrowSize: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
 };
 
 export default Carousel;

@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CarouselList = ({ images, itemWidth }) => (
-  <ul className="carousel__list">
+const CarouselList = (
+  { images, itemWidth, animationDuration, translation }
+) => (
+  <ul
+    className="carousel__list"
+    style={{
+      transition: `transform ${animationDuration}ms`,
+      transform: `translateX(${translation}px)`,
+    }}
+  >
     {images.map(image => (
       <li
         key={image}
@@ -24,6 +32,8 @@ CarouselList.propTypes = {
     PropTypes.string
   ).isRequired,
   itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+  translation: PropTypes.number.isRequired,
 };
 
 export default CarouselList;

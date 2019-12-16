@@ -34,7 +34,6 @@ class App extends React.Component {
           frameSize={3}
           itemWidth={130}
           animationDuration={1000}
-          infinite={false}
           arrowSize={32}
         />
       </div>

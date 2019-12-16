@@ -47,11 +47,15 @@ body {
     }
   }
 
+  &__container {
+    overflow: hidden;
+  }
+
   &__list {
+    width: 9999px;
     margin: 0;
     padding: 0;
     list-style: none;
-    transition: margin-left 250ms;
     font-size: 0;
   }
 
