@@ -1,5 +1,5 @@
 {
-  "homepage": "https://mate-academy.github.io/react_carousel",
+  "homepage": "https://iDinAle.github.io/react_carousel",
   "name": "react_carousel",
   "version": "0.1.0",
   "private": true,
@@ -7,10 +7,13 @@
   "author": "Mate Academy",
   "license": "GPL-3.0",
   "dependencies": {
+    "@types/react-transition-group": "^4.2.3",
+    "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "@mate-academy/eslint-config-react": "*",
