@@ -37,7 +37,7 @@ export class App extends React.Component {
           images
         </h1>
         <Carousel
-          images={this.state.images}
+          images={images}
           step={3}
           frameSize={3}
           itemWidth={130}
