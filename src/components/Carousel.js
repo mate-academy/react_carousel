@@ -1,17 +1,85 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+class Carousel extends React.Component {
+  state = { position: 0 }
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  pressPrev = () => {
+    const { itemWidth, step } = this.props;
+
+    this.setState((state) => {
+      let positionCount = state.position;
+
+      positionCount += itemWidth * step;
+      positionCount = Math.min(positionCount, 0);
+
+      return { position: positionCount };
+    });
+  }
+
+  pressNext = () => {
+    const { images, itemWidth, step } = this.props;
+
+    this.setState((state) => {
+      let positionCount = state.position;
+
+      positionCount -= itemWidth * step;
+      positionCount = Math.max(
+        positionCount, -itemWidth * (images.length - step)
+      );
+
+      return { position: positionCount };
+    });
+  }
+
+  render() {
+    const { images, animationDuration } = this.props;
+    const { position } = this.state;
+
+    return (
+      <div className="Carousel">
+        <ul
+          className="Carousel__list"
+          style={{
+            marginLeft: `${position}px`,
+            transition: `margin ${animationDuration}s`,
+          }}
+        >
+          {
+            images.map((el, i) => (
+              <li key={el} className="images">
+                <img
+                  src={`./img/${i + 1}.png`}
+                  alt={i + 1}
+                />
+              </li>
+            ))
+          }
+        </ul>
+        <button
+          type="button"
+          className="button button--prev"
+          onClick={this.pressPrev}
+        >
+          {'<'}
+        </button>
+        <button
+          type="button"
+          className="button button--next"
+          onClick={this.pressNext}
+        >
+          {'>'}
+        </button>
+      </div>
+    );
+  }
+}
+
+Carousel.propTypes = {
+  images: propTypes.arrayOf(propTypes.string).isRequired,
+  itemWidth: propTypes.number.isRequired,
+  step: propTypes.number.isRequired,
+  animationDuration: propTypes.number.isRequired,
+};
 
 export default Carousel;
