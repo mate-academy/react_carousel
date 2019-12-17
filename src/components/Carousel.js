@@ -11,22 +11,45 @@ class Carousel extends React.Component {
   };
 
   changeImagesPositionLeft = () => {
-    const { step, itemWidth } = this.props;
+    const { step, itemWidth, images, infinite } = this.props;
 
-    this.setState(prevState => ({
-      position: Math.max(prevState.position - (step * itemWidth), 0),
-    }));
+    this.setState((prevState) => {
+      if (infinite) {
+        return {
+          position: prevState.position > 0
+            ? Math.max(prevState.position - (step * itemWidth), 0)
+            : ((images.length - step) * itemWidth),
+        };
+      }
+
+      return {
+        position: Math.max(prevState.position - (step * itemWidth), 0),
+      };
+    });
   };
 
   changeImagesPositionRight = () => {
-    const { step, itemWidth, images } = this.props;
+    const { step, itemWidth, images, infinite } = this.props;
 
-    this.setState(prevState => ({
-      position: Math.min(
-        prevState.position + (step * itemWidth),
-        (images.length - step) * itemWidth
-      ),
-    }));
+    this.setState((prevState) => {
+      if (infinite) {
+        return {
+          position: prevState.position < ((images.length - step) * itemWidth)
+            ? Math.min(
+              prevState.position + (step * itemWidth),
+              (images.length - step) * itemWidth
+            )
+            : 0,
+        };
+      }
+
+      return {
+        position: Math.min(
+          prevState.position + (step * itemWidth),
+          (images.length - step) * itemWidth
+        ),
+      };
+    });
   };
 
   render() {
@@ -83,6 +106,11 @@ Carousel.propTypes = {
   itemWidth: PropTypes.number.isRequired,
   frameSize: PropTypes.number.isRequired,
   animationDuration: PropTypes.number.isRequired,
+  infinite: PropTypes.bool,
+};
+
+Carousel.defaultProps = {
+  infinite: false,
 };
 
 export default Carousel;
