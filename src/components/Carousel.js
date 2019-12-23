@@ -1,17 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
-
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
+const Carousel = ({ images, itemWidth }) => (
+  <section className="carousel">
+    {images.map(image => (
+      <img
+        key={image}
+        src={image}
+        width={itemWidth}
+        alt="Smiley face"
+        className="carousel__img"
+      />
+    ))}
+  </section>
 );
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemWidth: PropTypes.number.isRequired,
+};
 
 export default Carousel;
