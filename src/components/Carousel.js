@@ -21,12 +21,12 @@ const Carousel = ({
     switch (n) {
       case 0:
         return infinite
-          ? changeTransform(-maxSize + itemWidth)
-          : changeTransform(n);
+          ? changeTransform(-maxSize + width)
+          : changeTransform(0);
       case -maxSize:
         return infinite
           ? changeTransform(0)
-          : changeTransform(n);
+          : changeTransform(-maxSize + width);
       default:
         return n;
     }
@@ -35,13 +35,17 @@ const Carousel = ({
   const handleCarousel = (side) => {
     switch (side) {
       case 'left':
-        return transform + 390 > 0
+        return transform >= 0
           ? checkInfinite(0)
-          : changeTransform(transform + 390);
+          : changeTransform(
+            Math.min(0, transform + width)
+          );
       case 'right':
-        return transform - 390 < -maxSize
-          ? checkInfinite(-maxSize)
-          : changeTransform(transform - 390);
+        return transform - width > -maxSize
+          ? changeTransform(
+            Math.max(transform - width, -maxSize + width)
+          )
+          : checkInfinite(-maxSize);
       default:
         return 0;
     }
