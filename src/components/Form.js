@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+const MIN_ITEM_WIDTH = 30;
+const MAX_ITEM_WIDTH = 130;
+
 const Form = ({
   itemWidth,
   frameSize,
@@ -11,8 +14,8 @@ const Form = ({
   applyFrameSize,
   applyStep,
   resetAll,
-  applyInfinity,
-  disapplyInfinity,
+  toggleInfinityMode,
+  inputWidthValue,
 }) => {
   const [isAddDisabled, disableAdd] = useState(true);
 
@@ -25,8 +28,9 @@ const Form = ({
           id="itemWidth"
           type="number"
           placeholder="130"
-          min="30"
-          max="130"
+          min={MIN_ITEM_WIDTH}
+          max={MAX_ITEM_WIDTH}
+          ref={inputWidthValue}
           onChange={(event) => {
             if (event.target.value >= 30 && event.target.value <= 130) {
               disableAdd(false);
@@ -98,23 +102,15 @@ const Form = ({
         Set all to default
       </button>
 
-      {isInfinite ? (
-        <button
-          type="button"
-          className="form__lower-button"
-          onClick={disapplyInfinity}
-        >
-          Disable infinity mode
-        </button>
-      ) : (
-        <button
-          type="button"
-          className="form__lower-button"
-          onClick={applyInfinity}
-        >
-          Enable infinity mode
-        </button>
-      )}
+      <button
+        type="button"
+        className="form__lower-button"
+        onClick={toggleInfinityMode}
+      >
+        {isInfinite ? 'Disable' : 'Enable'}
+        {' '}
+        infinity mode
+      </button>
     </form>
   );
 };
@@ -129,8 +125,8 @@ Form.propTypes = {
   applyFrameSize: PropTypes.func.isRequired,
   applyStep: PropTypes.func.isRequired,
   resetAll: PropTypes.func.isRequired,
-  applyInfinity: PropTypes.func.isRequired,
-  disapplyInfinity: PropTypes.func.isRequired,
+  toggleInfinityMode: PropTypes.func.isRequired,
+  inputWidthValue: PropTypes.shape({}).isRequired,
 };
 
 export default Form;

@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Sliders = ({
-  showPrevious,
-  showNext,
-  prevClass,
-  nextClass,
-}) => (
+const Controls = ({ scroll, prevClass, nextClass }) => (
   <section className="buttons">
     <button
       type="button"
       className={prevClass}
-      onClick={showPrevious}
+      onClick={() => scroll('left')}
     >
       &lt;- Previous
     </button>
@@ -19,18 +14,17 @@ const Sliders = ({
     <button
       type="button"
       className={nextClass}
-      onClick={showNext}
+      onClick={() => scroll('right')}
     >
       Next -&gt;
     </button>
   </section>
 );
 
-Sliders.propTypes = {
-  showPrevious: PropTypes.func.isRequired,
-  showNext: PropTypes.func.isRequired,
+Controls.propTypes = {
+  scroll: PropTypes.func.isRequired,
   prevClass: PropTypes.string.isRequired,
   nextClass: PropTypes.string.isRequired,
 };
 
-export default Sliders;
+export default Controls;

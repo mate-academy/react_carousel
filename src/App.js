@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ClassNames from 'classnames';
 import './App.scss';
 import Carousel from './components/Carousel';
-import Sliders from './components/Sliders';
+import Controls from './components/Sliders';
 import Form from './components/Form';
 
 const images = [
@@ -19,7 +19,7 @@ const images = [
 ];
 
 const App = () => {
-  const [currentI, setCurrentI] = useState([0, 3]);
+  const [currentInterval, setCurrentInterval] = useState([0, 3]);
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
@@ -27,68 +27,74 @@ const App = () => {
   const [isNextDisabled, disableNext] = useState(false);
   const [isInfinite, setInfinity] = useState(false);
 
-  const showPrevious = () => {
+  const inputWidthValue = React.createRef();
+
+  const scroll = (sideToScroll) => {
+    let indexFrom = currentInterval[0];
+    let indexTo = currentInterval[1];
+    const minIndex = 0;
+    const maxIndex = 9;
+    const lastImage = 10;
+
     if (isInfinite) {
-      let from = currentI[0];
-      let to = currentI[1];
+      if (sideToScroll === 'left') {
+        if (indexFrom - step < minIndex || indexTo - step < minIndex) {
+          if (indexFrom - step < minIndex) {
+            indexFrom = 10 + (indexFrom - step);
+          } else {
+            indexFrom -= step;
+          }
 
-      if (from - step < 0 || to - step < 0) {
-        if (from - step < 0) {
-          from = 10 + (from - step);
+          if (indexTo - step < minIndex) {
+            indexTo = 10 + (indexTo - step);
+          } else {
+            indexTo -= step;
+          }
+
+          setCurrentInterval([indexFrom, indexTo]);
         } else {
-          from -= step;
+          setCurrentInterval([indexFrom - step, indexTo - step]);
         }
+      } else if (sideToScroll === 'right') {
+        if (indexFrom + step > maxIndex || indexTo + step > maxIndex) {
+          if (indexFrom + step > maxIndex) {
+            indexFrom += step - 10;
+          } else {
+            indexFrom += step;
+          }
 
-        if (to - step < 0) {
-          to = 10 + (to - step);
+          if (indexTo + step > maxIndex) {
+            indexTo += step - 10;
+          } else {
+            indexTo += step;
+          }
+
+          setCurrentInterval([indexFrom, indexTo]);
         } else {
-          to -= step;
+          setCurrentInterval([indexFrom + step, indexTo + step]);
         }
-
-        setCurrentI([from, to]);
-      } else {
-        setCurrentI([from - step, to - step]);
       }
-    } else {
+    } else if (sideToScroll === 'left') {
       disableNext(false);
-      if (currentI[0] - step <= 0) {
+      if (currentInterval[0] - step <= minIndex) {
         disablePrev(true);
-        setCurrentI([0, frameSize]);
+        setCurrentInterval([minIndex, frameSize]);
       } else {
-        setCurrentI([currentI[0] - step, currentI[1] - step]);
+        setCurrentInterval([
+          currentInterval[0] - step,
+          currentInterval[1] - step,
+        ]);
       }
-    }
-  };
-
-  const showNext = () => {
-    if (isInfinite) {
-      let from = currentI[0];
-      let to = currentI[1];
-
-      if (from + step > 9 || to + step > 9) {
-        if (from + step > 9) {
-          from += step - 10;
-        } else {
-          from += step;
-        }
-
-        if (to + step > 9) {
-          to += step - 10;
-        } else {
-          to += step;
-        }
-
-        setCurrentI([from, to]);
-      } else {
-        setCurrentI([from + step, to + step]);
-      }
-    } else {
+    } else if (sideToScroll === 'right') {
       disablePrev(false);
-      if (currentI[1] + step >= 10) {
+      if (currentInterval[1] + step >= lastImage) {
         disableNext(true);
-        setCurrentI([10 - frameSize, 10]);
+        setCurrentInterval([lastImage - frameSize, lastImage]);
       } else {
-        setCurrentI([currentI[0] + step, currentI[1] + step]);
+        setCurrentInterval([
+          currentInterval[0] + step,
+          currentInterval[1] + step,
+        ]);
       }
     }
   };
@@ -104,19 +110,19 @@ const App = () => {
   );
 
   const applyItemWidth = () => {
-    setItemWidth(+document.querySelector('#itemWidth').value);
+    setItemWidth(+inputWidthValue.current.value);
   };
 
   const resetItemWidth = () => {
     setItemWidth(130);
-    document.querySelector('#itemWidth').value = 130;
+    inputWidthValue.current.value = 130;
   };
 
   const applyFrameSize = (event) => {
     !isInfinite && disablePrev(true);
     !isInfinite && disableNext(false);
     setFrameSize(+event.target.value);
-    setCurrentI([0, +event.target.value]);
+    setCurrentInterval([0, +event.target.value]);
   };
 
   const applyStep = (event) => {
@@ -125,22 +131,22 @@ const App = () => {
 
   const resetAll = () => {
     setItemWidth(130);
-    document.querySelector('#itemWidth').value = 130;
+    inputWidthValue.current.value = 130;
     setFrameSize(3);
     setStep(3);
-    setCurrentI([0, 3]);
+    setCurrentInterval([0, 3]);
   };
 
-  const applyInfinity = () => {
-    disablePrev(false);
-    disableNext(false);
-    setInfinity(true);
-  };
+  const toggleInfinityMode = () => {
+    if (isInfinite) {
+      disablePrev(true);
+      setCurrentInterval([0, frameSize]);
+    } else {
+      disablePrev(false);
+      disableNext(false);
+    }
 
-  const disapplyInfinity = () => {
-    disablePrev(true);
-    setCurrentI([0, frameSize]);
-    setInfinity(false);
+    setInfinity(!isInfinite);
   };
 
   return (
@@ -149,18 +155,18 @@ const App = () => {
 
       <main className="main">
         <Carousel
-          images={currentI[0] < currentI[1]
-            ? images.filter((_, i) => i >= currentI[0] && i < currentI[1])
+          images={currentInterval[0] < currentInterval[1]
+            ? images.filter((_, i) => i >= currentInterval[0]
+              && i < currentInterval[1])
             : [
-              ...images.filter((_, i) => i >= currentI[0]),
-              ...images.filter((_, i) => i < currentI[1]),
+              ...images.filter((_, i) => i >= currentInterval[0]),
+              ...images.filter((_, i) => i < currentInterval[1]),
             ]}
           itemWidth={itemWidth}
         />
 
-        <Sliders
-          showPrevious={showPrevious}
-          showNext={showNext}
+        <Controls
+          scroll={scroll}
           prevClass={prevButtonClass}
           nextClass={nextButtonClass}
         />
@@ -175,8 +181,8 @@ const App = () => {
           applyFrameSize={applyFrameSize}
           applyStep={applyStep}
           resetAll={resetAll}
-          applyInfinity={applyInfinity}
-          disapplyInfinity={disapplyInfinity}
+          toggleInfinityMode={toggleInfinityMode}
+          inputWidthValue={inputWidthValue}
         />
       </main>
     </div>
