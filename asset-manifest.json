@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/react_carousel/static/css/main.65938976.chunk.css",
-    "main.js": "/react_carousel/static/js/main.99c49c1b.chunk.js",
-    "main.js.map": "/react_carousel/static/js/main.99c49c1b.chunk.js.map",
-    "runtime~main.js": "/react_carousel/static/js/runtime~main.30902e3a.js",
-    "runtime~main.js.map": "/react_carousel/static/js/runtime~main.30902e3a.js.map",
-    "static/js/2.65aa1cca.chunk.js": "/react_carousel/static/js/2.65aa1cca.chunk.js",
-    "static/js/2.65aa1cca.chunk.js.map": "/react_carousel/static/js/2.65aa1cca.chunk.js.map",
-    "index.html": "/react_carousel/index.html",
-    "precache-manifest.50801b1752512efc4ec66a2e23e808f4.js": "/react_carousel/precache-manifest.50801b1752512efc4ec66a2e23e808f4.js",
-    "service-worker.js": "/react_carousel/service-worker.js",
-    "static/css/main.65938976.chunk.css.map": "/react_carousel/static/css/main.65938976.chunk.css.map"
-  }
+    "main.css": "./static/css/main.65938976.chunk.css",
+    "main.js": "./static/js/main.99044daf.chunk.js",
+    "main.js.map": "./static/js/main.99044daf.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.1d205eac.js",
+    "runtime-main.js.map": "./static/js/runtime-main.1d205eac.js.map",
+    "static/js/2.b5210af4.chunk.js": "./static/js/2.b5210af4.chunk.js",
+    "static/js/2.b5210af4.chunk.js.map": "./static/js/2.b5210af4.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.c3eae33d7ac1f65680fe9ea5b458330e.js": "./precache-manifest.c3eae33d7ac1f65680fe9ea5b458330e.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.65938976.chunk.css.map": "./static/css/main.65938976.chunk.css.map",
+    "static/js/2.b5210af4.chunk.js.LICENSE": "./static/js/2.b5210af4.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1d205eac.js",
+    "static/js/2.b5210af4.chunk.js",
+    "static/css/main.65938976.chunk.css",
+    "static/js/main.99044daf.chunk.js"
+  ]
 }
