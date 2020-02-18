@@ -1,0 +1,57 @@
+.Carousel {
+  overflow: hidden;
+  background-color: #f0f8ff;
+  border: 2px solid rgb(241, 133, 9);
+  border-radius: 10px;
+}
+
+.Carousel__list {
+  position: relative;
+  width: 1300px;
+  display: flex;
+  flex-direction: row;
+  padding: 12px 0 7px;
+  margin: 0;
+}
+
+.button {
+  position: absolute;
+  padding: 0;
+  width: 70px;
+  height: 70px;
+  background-color: #d9edff;
+  border-radius: 50%;
+  border-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+button:active {
+  background-color: rgb(204, 231, 255);
+  box-shadow: 0 0 5px 5px rgba(0,0,0,0.13);
+}
+
+.button-prev {
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url(./images/arrow_left.png);
+  background-size: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.button-next {
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-size: 8px;
+  background-image: url(./images/arrow_right.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.button:disabled {
+  background-color: lightgrey;
+  opacity: 0.5;
+}
