@@ -69,7 +69,7 @@ export class Carousel extends React.Component {
           }}
         >
           {images.map((image, index) => (
-            <img src={image} alt="" style={{ width: itemWidth }} />
+            <img src={image} alt="" style={{ 'min-width': itemWidth }} />
           ))}
         </div>
 
