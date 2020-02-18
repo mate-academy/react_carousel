@@ -1,1 +1,9 @@
+li {
+  list-style: none;
+}
 
+.App {
+  position: relative;
+  width: 390px;
+  margin: 30px auto 0;
+}
