@@ -1,5 +1,7 @@
 import React from 'react';
 import './Carousel.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
 export class Carousel extends React.Component {
@@ -69,12 +71,26 @@ export class Carousel extends React.Component {
           }}
         >
           {images.map((image, index) => (
-            <img src={image} alt="" style={{ 'min-width': itemWidth }} />
+            <img
+              key={image}
+              src={image}
+              style={{ minWidth: itemWidth }}
+              alt=""
+            />
           ))}
         </div>
-
-        <button type="button" onClick={this.prevHandler}>Prev</button>
-        <button type="button" onClick={this.nextHandler}>Next</button>
+        <div className="carousel__button-wrapper">
+          <FontAwesomeIcon
+            className="carousel__button carousel__button-next"
+            icon={faArrowRight}
+            onClick={this.nextHandler}
+          />
+          <FontAwesomeIcon
+            className="carousel__button carousel__button-prev"
+            icon={faArrowLeft}
+            onClick={this.prevHandler}
+          />
+        </div>
       </div>
     );
   }

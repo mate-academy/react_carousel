@@ -1,11 +1,36 @@
 .carousel {
-  /*border: 1px solid black;*/
   margin: auto;
   overflow: hidden;
 }
 
 .carousel_slider {
   display: flex;
-  /*overflow: hidden;*/
-  /*border: 1px solid black;*/
+}
+
+.carousel__button-wrapper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+}
+
+.carousel__button {
+  background: none;
+  cursor: pointer;
+  border: none;
+  font-size: 40px;
+  color: lightblue;
+}
+
+.carousel__button:hover {
+  color: lightcoral;
+}
+
+.carousel__button-prev {
+  position: absolute;
+  left: 10px;
+}
+
+.carousel__button-next {
+  position: absolute;
+  right: 10px;
 }
