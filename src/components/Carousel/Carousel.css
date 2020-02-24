@@ -1,0 +1,100 @@
+.Carousel {
+  flex-basis: 80%;
+  width: 350px;
+  padding: 0 100px;
+  position: relative;
+  overflow: hidden;
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Carousel__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.Carousel__viewport {
+  width: 150px;
+  height: 100%;
+  position: relative;
+  background: rgba(255,255,255,0.3);
+  transition: margin 0.8s ease-in-out;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 10px 0;
+}
+
+.Carousel__list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  /*transition: margin 0.8s cubic-bezier(0.5, 0, 0.96, 1);*/
+}
+
+.Carousel__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.Carousel__item--active {
+  /*margin: 0 -130px;*/
+}
+
+.btn {
+  width: 40px;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 0;
+  padding: 0;
+}
+
+.btn:active,
+.btn:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.btn::before {
+  font-size: 50px;
+  line-height: 50px;
+  transition: left 0.3s ease;
+  color: #ac0200;
+  text-align: center;
+}
+
+.btn-prev {
+  left: 60px;
+  transition: left 0.3s ease;
+}
+
+.btn-prev:hover {
+  left: 52px;
+}
+
+.btn-next {
+  right: 60px;
+  transition: right 0.3s ease;
+}
+
+.btn-prev::before {
+  content: "\276E";
+}
+
+.btn-next::before {
+  content: "\276F";
+}
+
+.btn-next:hover {
+  right: 52px;
+}
