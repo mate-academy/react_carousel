@@ -1,0 +1,81 @@
+.Settings {
+  width: 320px;
+  padding: 20px;
+  background: orange;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  transform: translateX(-320px);
+  transition: transform 0.5s cubic-bezier(0.5, 0, 0.96, 1);
+}
+
+.Settings--open {
+  transform: translateX(0);
+}
+
+.Settings__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Settings__label,
+.Settings__input {
+  display: block;
+  width: 100%;
+  border: none;
+  background: rgba(255,255,255,0.4);
+  padding: 10px;
+  border-radius: 4px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.Settings__value {
+  font-size: 10px;
+  color: rgba(172,2,0,0.6);
+  display: block;
+  text-align: right;
+}
+
+.Settings__checkbox {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.Settings__btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  border: none;
+  background: rgba(172,2,0,0.6);
+  padding: 10px;
+  border-radius: 4px;
+  transition: background 0.3s ease-in-out;
+  font-family: inherit;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.Settings__btn:hover {
+  cursor: pointer;
+  background: rgba(172,2,0,0.8);
+}
+
+.Settings__forbidden {
+  background: rgba(255,255,255,0.6);
+  font-size: 20px;
+  padding: 15px;
+  height: 250px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;
+  border-radius: 4px;
+}

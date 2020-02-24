@@ -1,1 +1,31 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Lemonada", cursive;
+  background: rgba(0,0,0,0.3);
+  min-height: 100vh;
+}
 
+.App__title {
+  text-align: center;
+  flex-basis: 100%;
+}
+
+.Controller {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background: orange;
+  border-radius: 4px;
+  box-shadow: none;
+  border: none;
+  transition: opacity 0.3s ease-in-out;
+  padding: 10px;
+
+}
+
+.Controller:hover {
+  opacity: 0.8;
+}
