@@ -1,0 +1,39 @@
+.Carousel {
+  display: flex;
+  align-items: center;
+  width: min-content;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #999;
+}
+
+.Carousel > button {
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: block;
+}
+
+.Carousel > button:focus {
+  outline: none;
+}
+
+.Carousel > button:hover {
+  background: #ccc;
+  cursor: pointer;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.Carousel__list > li {
+  display: block;
+}
