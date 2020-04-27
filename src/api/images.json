@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "url": "./img/1.png",
+    "alt": "Alt text 1"
+  },
+  {
+    "id": "2",
+    "url": "./img/2.png",
+    "alt": "Alt text 2"
+  },
+  {
+    "id": "3",
+    "url": "./img/3.png",
+    "alt": "Alt text 3"
+  },
+  {
+    "id": "4",
+    "url": "./img/4.png",
+    "alt": "Alt text 4"
+  },
+  {
+    "id": "5",
+    "url": "./img/5.png",
+    "alt": "Alt text 5"
+  },
+  {
+    "id": "6",
+    "url": "./img/6.png",
+    "alt": "Alt text 6"
+  },
+  {
+    "id": "7",
+    "url": "./img/7.png",
+    "alt": "Alt text 7"
+  },
+  {
+    "id": "8",
+    "url": "./img/8.png",
+    "alt": "Alt text 8"
+  },
+  {
+    "id": "9",
+    "url": "./img/9.png",
+    "alt": "Alt text 9"
+  },
+  {
+    "id": "10",
+    "url": "./img/10.png",
+    "alt": "Alt text 10"
+  }
+]
