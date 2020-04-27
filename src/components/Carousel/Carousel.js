@@ -2,54 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Carousel.css';
 
-import CarouselImg from '../CarouselList/CarouselImg';
-
 class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.images = this.props.images;
-    this.step = this.props.step;
-    this.frameSize = this.props.frameSize;
-    this.itemWidth = this.props.itemWidth;
-
-    this.state = {
-      currentImages: this.images.slice(0, this.frameSize),
-    };
-  }
+  count = 0;
 
   componentDidMount() {
-    const { frameSize, itemWidth } = this.props;
-    const carousel = document.querySelector('.Carousel__list');
+    const { frameSize, itemWidth, animationDuration } = this.props;
+    const carouselWrap = document.querySelector('.Carousel__wrap');
+    const carouselList = document.querySelector('.Carousel__list');
 
-    carousel.style.width = `${frameSize * itemWidth}px`;
-  }
-
-  nextImgs = () => {
-    this.images = [
-      ...this.images.slice(this.step),
-      ...this.images.slice(0, this.step),
-    ];
-
-    this.setState({
-      currentImages: this.images.slice(0, this.frameSize),
-    });
+    carouselWrap.style.width = `${frameSize * itemWidth}px`;
+    carouselList.style.transitionDuration = `${animationDuration / 1000}s`;
   }
 
   prevImgs = () => {
-    this.images = [
-      ...this.images.slice(-this.step),
-      ...this.images.slice(0, -this.step),
-    ];
+    const { step, itemWidth, frameSize, images, infinite } = this.props;
+    const ul = document.querySelector('.Carousel__list');
 
-    this.setState({
-      currentImages: this.images.slice(0, this.frameSize),
-    });
+    if (infinite && this.count === 0) {
+      this.count = images.length - frameSize;
+    } else {
+      this.count -= step;
+    }
+
+    if (this.count < 0) {
+      this.count = 0;
+    }
+
+    ul.style.marginLeft = `-${itemWidth * this.count}px`;
+  }
+
+  nextImgs = () => {
+    const { step, itemWidth, frameSize, images, infinite } = this.props;
+    const ul = document.querySelector('.Carousel__list');
+
+    if (infinite && this.count === images.length - frameSize) {
+      this.count = 0;
+    } else {
+      this.count += step;
+    }
+
+    if (this.count > images.length - frameSize) {
+      this.count = images.length - frameSize;
+    }
+
+    ul.style.marginLeft = `-${itemWidth * this.count}px`;
   }
 
   render() {
-    const { currentImages } = this.state;
-    const { itemWidth } = this.props;
+    const { images, itemWidth } = this.props;
 
     return (
       <div className="Carousel">
@@ -60,21 +60,25 @@ class Carousel extends React.Component {
           ⇦
         </button>
 
-        <ul className="Carousel__list">
-          {currentImages.map((link) => {
-            const idImg = /\d+/.exec(link);
+        <div className="Carousel__wrap">
+          <ul className="Carousel__list">
 
-            return (
-              <li key={idImg}>
-                <CarouselImg
-                  link={link}
-                  alt={idImg}
-                  itemWidth={itemWidth}
-                />
-              </li>
-            );
-          })}
-        </ul>
+            {images.map((link) => {
+              const idImg = /\d+/.exec(link);
+
+              return (
+                <li key={idImg}>
+                  <img
+                    style={{ width: `${itemWidth}px` }}
+                    src={link}
+                    alt={idImg}
+                  />
+                </li>
+              );
+            })}
+
+          </ul>
+        </div>
 
         <button
           onClick={this.nextImgs}
@@ -91,6 +95,8 @@ Carousel.defaultProps = {
   step: 3,
   frameSize: 3,
   itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
 };
 
 Carousel.propTypes = {
@@ -98,6 +104,8 @@ Carousel.propTypes = {
   step: PropTypes.number,
   frameSize: PropTypes.number,
   itemWidth: PropTypes.number,
+  animationDuration: PropTypes.number,
+  infinite: PropTypes.bool,
 };
 
 export default Carousel;
