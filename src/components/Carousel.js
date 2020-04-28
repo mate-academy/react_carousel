@@ -60,7 +60,7 @@ class Carousel extends Component {
           arrow="🢧"
         />
         <h1 className="main-title">
-          {`Carousel with ${images.length} images`}
+          {`Carousel with ${images.length} emoji`}
         </h1>
       </div>
     );
