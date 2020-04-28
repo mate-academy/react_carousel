@@ -6,42 +6,29 @@ import Buttons from './Button';
 class Carousel extends React.Component {
   state = {
     left: 0,
-    count: this.props.step,
-  }
-
-  componentDidMount() {
-    const { frameSize, animationDuration, itemWidth } = this.props;
-    const carousel = document.querySelector('.Carousel');
-    const carouselList = document.querySelector('.Carousel__list');
-
-    carousel.style.width = `${itemWidth * frameSize}px`;
-    carouselList.style.transition = `all ${animationDuration / 1000}s`;
-    carouselList.style.position = `relative`;
+    count: this.props.frameSize,
   }
 
   prev = () => {
-    const { step, itemWidth, images, infinite } = this.props;
-
     this.setState((state) => {
+      const { step, itemWidth, images, infinite, frameSize } = this.props;
+
       if (state.left === 0 && !infinite) {
         return;
       }
 
       if (state.left >= 0 && infinite) {
-        const toLast = (images.length - step) * -itemWidth;
-        const toLastCount = images.length;
+        const left = (images.length - frameSize) * -itemWidth;
+        const count = images.length;
 
         return {
-          left: toLast, count: toLastCount,
+          left, count,
         };
       }
 
       if (state.count % step !== 0 && state.count < step * 2) {
-        const toLeft = 0;
-        const newCount = state.count = step;
-
         return {
-          left: toLeft, count: newCount,
+          left: 0, count: step,
         };
       }
 
@@ -55,7 +42,7 @@ class Carousel extends React.Component {
   }
 
   next = () => {
-    const { step, itemWidth, images, infinite } = this.props;
+    const { step, itemWidth, images, infinite, frameSize } = this.props;
 
     this.setState((state) => {
       if (state.count === images.length && !infinite) {
@@ -63,20 +50,19 @@ class Carousel extends React.Component {
       }
 
       if (state.count === images.length && infinite) {
-        const toStart = 0;
-        const toStartCount = step;
+        const count = frameSize;
 
         return {
-          left: toStart, count: toStartCount,
+          left: 0, count,
         };
       }
 
       if (state.count + step > images.length) {
         const restLeft = images.length % state.count;
-        const toLeft = -itemWidth * restLeft + state.left;
+        const left = -itemWidth * restLeft + state.left;
 
         return {
-          left: toLeft, count: images.length,
+          left, count: images.length,
         };
       }
 
@@ -90,12 +76,20 @@ class Carousel extends React.Component {
   }
 
   render() {
-    const { images, itemWidth } = this.props;
+    const { images, itemWidth, frameSize, animationDuration } = this.props;
     const { left } = this.state;
+    const carouselSize = itemWidth * frameSize;
+    const transitionDuration = animationDuration / 1000;
 
+    console.log(this.state.count, left);
     return (
-      <div className="Carousel">
-        <ul className="Carousel__list" style={{ left: `${left}px` }}>
+      <div className="Carousel" style={{ width: `${carouselSize}px` }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            left: `${left}px`, transition: `all ${transitionDuration}s`,
+          }}
+        >
           {images.map((link, index) => {
             const id = index + 1;
 
