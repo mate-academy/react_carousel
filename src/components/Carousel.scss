@@ -36,3 +36,23 @@
     outline: none;
   }
 }
+
+.wrap {
+  &__apply {
+    position: absolute;
+    top: 320px;
+  }
+}
+
+.button__apply {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  height: 30px;
+  display: block;
+  border-radius: 10px;
+  background-color: rgb(218, 150, 150);
+  font-size: 18px;
+  margin: 0 auto;
+  color: #000;
+}
