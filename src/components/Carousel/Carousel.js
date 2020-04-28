@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import './Carousel.css';
+
+import { CarouselList } from '../CarouselList/CarouselList';
 
 class Carousel extends React.Component {
   count = 0;
 
-  componentDidMount() {
-    const { frameSize, itemWidth, animationDuration } = this.props;
-    const carouselWrap = document.querySelector('.Carousel__wrap');
-    const carouselList = document.querySelector('.Carousel__list');
-
-    carouselWrap.style.width = `${frameSize * itemWidth}px`;
-    carouselList.style.transitionDuration = `${animationDuration / 1000}s`;
+  state = {
+    marginLeft: 0,
   }
 
   prevImgs = () => {
     const { step, itemWidth, frameSize, images, infinite } = this.props;
-    const ul = document.querySelector('.Carousel__list');
 
     if (infinite && this.count === 0) {
       this.count = images.length - frameSize;
@@ -28,12 +25,13 @@ class Carousel extends React.Component {
       this.count = 0;
     }
 
-    ul.style.marginLeft = `-${itemWidth * this.count}px`;
+    this.setState({
+      marginLeft: itemWidth * this.count,
+    });
   }
 
   nextImgs = () => {
     const { step, itemWidth, frameSize, images, infinite } = this.props;
-    const ul = document.querySelector('.Carousel__list');
 
     if (infinite && this.count === images.length - frameSize) {
       this.count = 0;
@@ -45,11 +43,14 @@ class Carousel extends React.Component {
       this.count = images.length - frameSize;
     }
 
-    ul.style.marginLeft = `-${itemWidth * this.count}px`;
+    this.setState({
+      marginLeft: itemWidth * this.count,
+    });
   }
 
   render() {
-    const { images, itemWidth } = this.props;
+    const { images, itemWidth, frameSize, animationDuration } = this.props;
+    const { marginLeft } = this.state;
 
     return (
       <div className="Carousel">
@@ -60,24 +61,16 @@ class Carousel extends React.Component {
           ⇦
         </button>
 
-        <div className="Carousel__wrap">
-          <ul className="Carousel__list">
-
-            {images.map((link) => {
-              const idImg = /\d+/.exec(link);
-
-              return (
-                <li key={idImg}>
-                  <img
-                    style={{ width: `${itemWidth}px` }}
-                    src={link}
-                    alt={idImg}
-                  />
-                </li>
-              );
-            })}
-
-          </ul>
+        <div
+          className="Carousel__wrap"
+          style={{ width: `${frameSize * itemWidth}px` }}
+        >
+          <CarouselList
+            animationDuration={animationDuration}
+            images={images}
+            itemWidth={itemWidth}
+            marginLeft={marginLeft}
+          />
         </div>
 
         <button

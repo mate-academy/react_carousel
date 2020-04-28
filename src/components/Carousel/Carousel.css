@@ -27,20 +27,3 @@
   margin: 10px;
   overflow: hidden;
 }
-
-.Carousel__list {
-  display: flex;
-  width: max-content;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  transition-property: margin-left;
-}
-
-.Carousel__list > li {
-  display: block;
-}
-
-.Carousel__list > img {
-  display: block;
-}
