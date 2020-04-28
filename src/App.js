@@ -39,10 +39,11 @@ class App extends React.Component {
   }
 
   render() {
-    /* eslint-disable-next-line max-len */
-    const { images, defaultSelectOption, defaultStep, defaultInfinity } = this.state;
-    /* eslint-disable-next-line max-len */
-    const selectOption = new Array(defaultSelectOption).fill(0).map((el, i) => i + 1);
+    const { images, defaultSelectOption,
+      defaultStep, defaultInfinity } = this.state;
+    const selectOption = new Array(defaultSelectOption)
+      .fill(0)
+      .map((el, i) => i + 1);
     const changeTo = new Array(images.length - 2).fill(0).map((el, i) => i + 2);
     const changeInf = [true, false];
 
