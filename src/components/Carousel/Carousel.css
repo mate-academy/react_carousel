@@ -1,0 +1,29 @@
+.Carousel {
+  display: flex;
+  align-items: center;
+  width: min-content;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #999;
+}
+
+.Carousel > button {
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: block;
+}
+
+.Carousel > button:hover {
+  background: #ccc;
+  cursor: pointer;
+}
+
+.Carousel__wrap {
+  margin: 10px;
+  overflow: hidden;
+}
