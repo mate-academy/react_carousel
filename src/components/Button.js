@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 
 class Buttons extends React.PureComponent {
   render() {
-    const { prev, next } = this.props;
+    const { swipe } = this.props;
 
     return (
       <div className="container">
         <button
           type="button"
           className="button prev"
-          onClick={prev}
+          onClick={() => swipe(1)}
         >
           Prev
         </button>
         <button
           type="button"
           className="button next"
-          onClick={next}
+          onClick={() => swipe(-1)}
         >
           Next
         </button>
@@ -27,8 +27,7 @@ class Buttons extends React.PureComponent {
 }
 
 Buttons.propTypes = {
-  prev: PropTypes.func.isRequired,
-  next: PropTypes.func.isRequired,
+  swipe: PropTypes.func.isRequired,
 };
 
 export default Buttons;
