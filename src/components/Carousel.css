@@ -4,7 +4,7 @@ h1 {
 
 .Carousel {
   width: 390px;
-  /* overflow: hidden; */
+  overflow: hidden;
   margin: 0 auto;
 }
 
