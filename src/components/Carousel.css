@@ -1,0 +1,11 @@
+.Carousel {
+  margin: auto;
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  transition: transform 0.3s;
+}
