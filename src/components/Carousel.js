@@ -6,43 +6,35 @@ import Button from './Button';
 class Carousel extends Component {
   state = { translation: 0 }
 
-  switchPrevImages = () => {
-    const { step, itemWidth } = this.props;
+  switchImages = (sign) => {
+    const { step, images, itemWidth, frmSize } = this.props;
 
     this.setState((prevState) => {
       let position = prevState.translation;
 
-      position += itemWidth * step;
-      position = Math.min(0, position);
-
-      return { translation: position };
-    });
-  };
-
-  switchNextImages = () => {
-    const { step, images, itemWidth } = this.props;
-
-    this.setState((prevState) => {
-      let position = prevState.translation;
-
-      position -= itemWidth * step;
-      position = Math.max(position, -itemWidth * (images.length - step));
+      if (sign > 0) {
+        position -= itemWidth * step;
+        position = Math.max(position, -itemWidth * (images.length - frmSize));
+      } else {
+        position += itemWidth * step;
+        position = Math.min(0, position);
+      }
 
       return { translation: position };
     });
   };
 
   render = () => {
-    const { images, frameSize, itemWidth, duration } = this.props;
+    const { images, frmSize, itemWidth, duration } = this.props;
     const { translation } = this.state;
 
     return (
       <div
         className="carousel"
-        style={{ width: frameSize * itemWidth }}
+        style={{ width: frmSize * itemWidth }}
       >
         <Button
-          buttonClickHandler={this.switchPrevImages}
+          buttonClickHandler={() => this.switchImages(-1)}
           {...this.props}
           arrow="🢦"
         />
@@ -55,7 +47,7 @@ class Carousel extends Component {
           />
         </div>
         <Button
-          buttonClickHandler={this.switchNextImages}
+          buttonClickHandler={() => this.switchImages(1)}
           {...this.props}
           arrow="🢧"
         />
@@ -70,7 +62,7 @@ class Carousel extends Component {
 Carousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   itemWidth: PropTypes.number.isRequired,
-  frameSize: PropTypes.number.isRequired,
+  frmSize: PropTypes.number.isRequired,
   arrowSize: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,

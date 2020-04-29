@@ -1,5 +1,9 @@
 @import "fonts/fonts";
 
+html {
+  box-sizing: content-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,21 +17,28 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.setting.ui.inverted.segment {
+  box-sizing: border-box;
+  width: 90%;
+  margin: 20px 0 200px;
 }
 
 .main-title {
   position: absolute;
   bottom: -100px;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: 400px;
   margin: 0;
   text-align: center;
   font-size: 60px;
+  color: #454545;
   font-family: "Rainbow Colors Regular", sans-serif;
   text-shadow: 0 2px 5px rgba(orangered,0.5);
-  color: #454545;
+  transform: translateX(-50%);
 }
 
 .carousel {
