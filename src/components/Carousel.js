@@ -5,35 +5,82 @@ import './Carousel.css';
 class Carousel extends React.Component {
   state = {
     index: 0,
-    visibleItem: 4,
-    widthItem: 130,
   }
 
   prevClick = () => {
-    this.setState(state => ({
-      index: state.index === 0
-        ? this.props.images.length - state.visibleItem : state.index - 1,
-    }));
+    const { images, frameSize, step, infinite } = this.props;
+    let prevIndex;
+
+    if (infinite) {
+      if (this.state.index === 0) {
+        prevIndex = images.length - frameSize;
+      } else if (this.state.index < step) {
+        prevIndex = 0;
+      } else {
+        prevIndex = this.state.index - step;
+      }
+
+      this.setState(state => ({
+        index: prevIndex,
+      }));
+    } else {
+      if (this.state.index < step) {
+        prevIndex = 0;
+      } else if (this.state.index === 0) {
+        prevIndex = 0;
+      } else {
+        prevIndex = this.state.index - step;
+      }
+
+      this.setState(state => ({
+        index: prevIndex,
+      }));
+    }
   }
 
   nextClick = () => {
-    this.setState(state => ({
-      index: state.index + state.visibleItem === this.props.images.length
-        ? 0 : state.index + 1,
-    }));
+    const { images, frameSize, step, infinite } = this.props;
+    let nextIndex;
+
+    if (infinite) {
+      if (this.state.index + frameSize === images.length) {
+        nextIndex = 0;
+      } else if (this.state.index + frameSize > images.length - step) {
+        nextIndex = images.length - frameSize;
+      } else {
+        nextIndex = this.state.index + step;
+      }
+
+      this.setState(state => ({
+        index: nextIndex,
+      }));
+    } else {
+      if (this.state.index + frameSize > images.length - step) {
+        nextIndex = images.length - frameSize;
+      } else {
+        nextIndex = this.state.index + step;
+      }
+
+      this.setState(state => ({
+        index: nextIndex,
+      }));
+    }
   }
 
   render() {
-    const { images } = this.props;
-    const { index, visibleItem, widthItem } = this.state;
+    const { images, itemWidth, frameSize, animationDuration } = this.props;
+    const { index } = this.state;
 
     return (
       <div
-        style={{ width: `${widthItem * visibleItem}px` }}
+        style={{ width: `${itemWidth * frameSize}px` }}
         className="Carousel"
       >
         <ul
-          style={{ transform: `translateX(-${index * widthItem}px)` }}
+          style={{
+            transform: `translateX(-${index * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
           className="Carousel__list"
         >
           {images.map(el => (
@@ -51,6 +98,11 @@ class Carousel extends React.Component {
 
 Carousel.propTypes = {
   images: PropsTypes.arrayOf.isRequired,
+  frameSize: PropsTypes.number.isRequired,
+  step: PropsTypes.number.isRequired,
+  infinite: PropsTypes.bool.isRequired,
+  itemWidth: PropsTypes.number.isRequired,
+  animationDuration: PropsTypes.number.isRequired,
 };
 
 export default Carousel;
