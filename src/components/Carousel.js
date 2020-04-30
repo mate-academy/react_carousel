@@ -11,12 +11,19 @@ class Carousel extends React.Component {
   handleMove = (direction) => {
     const { step, itemWidth, infinite, images, frameSize } = this.props;
     const frameSizePx = itemWidth * frameSize;
-    const maxPosition = -(Math.floor(images.length / frameSize)) * frameSizePx;
+    const fullFramesAmount = Math.floor(images.length / frameSize) - 1;
+    const picsShownAmount = ((fullFramesAmount + 1) * frameSize);
+    const notFullFrameLength = ((images.length - picsShownAmount) * itemWidth);
+    const maxPosition = -(fullFramesAmount * frameSizePx) - notFullFrameLength;
 
     if (direction === 'prev') {
       this.setState((state) => {
         if (state.position + (step * itemWidth) > 0) {
-          return infinite ? { position: maxPosition } : { position: 0 };
+          if (infinite && state.position === 0) {
+            return { position: maxPosition };
+          }
+
+          return { position: 0 };
         }
 
         return { position: state.position + (step * itemWidth) };
@@ -26,7 +33,11 @@ class Carousel extends React.Component {
     if (direction === 'next') {
       this.setState((state) => {
         if (state.position - (step * itemWidth) < maxPosition) {
-          return infinite ? { position: 0 } : { position: maxPosition };
+          if (infinite && state.position === maxPosition) {
+            return { position: 0 };
+          }
+
+          return { position: maxPosition };
         }
 
         return { position: state.position - (step * itemWidth) };
