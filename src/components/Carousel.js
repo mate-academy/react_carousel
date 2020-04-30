@@ -59,13 +59,13 @@ class Carousel extends React.Component {
         />
         <button
           type="button"
-          onClick={this.handleMove.bind(this, 'prev')}
+          onClick={() => this.handleMove('prev')}
         >
           Prev
         </button>
         <button
           type="button"
-          onClick={this.handleMove.bind(this, 'next')}
+          onClick={() => this.handleMove('next')}
         >
           Next
         </button>
