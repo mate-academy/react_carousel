@@ -1,0 +1,51 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  height: 430px;
+}
+
+.Carousel__list {
+  display: grid;
+  grid-column: 130px;
+  gap: 20px;
+  width: 130px;
+  list-style: none;
+}
+
+.Carusel__item {
+  width: 130px;
+  height: 130px;
+}
+
+.btn {
+  font-size: 40px;
+  margin-top: 140px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border-style: solid;
+  outline: none;
+  background-color: rgb(182, 248, 27);
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn_next {
+  margin-left: 40px;
+}
+
+.btn_prev {
+  margin-right: 40px;
+}
+
+.disabled {
+  background-color: rgb(196, 189, 189);
+}
