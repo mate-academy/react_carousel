@@ -7,15 +7,25 @@ class Carousel extends Component {
   state = { translation: 0 }
 
   switchImages = (sign) => {
-    const { step, images, itemWidth, frmSize } = this.props;
+    const { step, images, itemWidth, frmSize, infinite } = this.props;
 
     this.setState((prevState) => {
       let position = prevState.translation;
+      const frmWidth = itemWidth * frmSize;
+      const carouselWidth = itemWidth * images.length;
 
       if (sign > 0) {
+        if (infinite && position === frmWidth - carouselWidth) {
+          position = itemWidth * step;
+        }
+
         position -= itemWidth * step;
         position = Math.max(position, -itemWidth * (images.length - frmSize));
       } else {
+        if (infinite && position === 0) {
+          position = frmWidth - carouselWidth - (itemWidth * step);
+        }
+
         position += itemWidth * step;
         position = Math.min(0, position);
       }
@@ -66,6 +76,7 @@ Carousel.propTypes = {
   arrowSize: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
+  infinite: PropTypes.bool.isRequired,
 };
 
 export default Carousel;

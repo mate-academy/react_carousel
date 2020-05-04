@@ -33,7 +33,7 @@ const Settings = ({ option, frameSize, step, infinite, onChangeSetting }) => (
         </div>
         <div className="field setting__infinite">
           Infinite
-          <div className="ui disabled checkbox">
+          <div className="ui checkbox">
             <input
               onChange={onChangeSetting}
               checked={infinite}
@@ -41,7 +41,6 @@ const Settings = ({ option, frameSize, step, infinite, onChangeSetting }) => (
               name="infinite"
               type="checkbox"
               className="hidden"
-              disabled
             />
             <label htmlFor="infinite" aria-label={infinite} />
           </div>

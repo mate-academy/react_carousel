@@ -29,7 +29,7 @@ class App extends React.Component {
   };
 
   render = () => {
-    const { images, frameSize, step } = this.state;
+    const { images, frameSize, step, infinite } = this.state;
 
     return (
       <div className="App">
@@ -44,6 +44,7 @@ class App extends React.Component {
           itemWidth={130}
           duration={1000}
           arrowSize={35}
+          infinite={infinite}
         />
       </div>
     );
