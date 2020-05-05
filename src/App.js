@@ -1,33 +1,51 @@
 import React from 'react';
-import './App.css';
-
+import './App.scss';
+import { emoji } from './api/emoji';
 import Carousel from './components/Carousel';
+import Settings from './components/Settings';
 
 class App extends React.Component {
   state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+    images: emoji,
+    frameSize: '1',
+    step: '1',
+    option: ['One', 'Two', 'Three', 'Four', 'Five'],
+    infinite: false,
   };
 
-  render() {
-    const { images } = this.state;
+  handleChangeSetting = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    if (type === 'checkbox') {
+      this.setState({ [name]: checked });
+    } else if (name === 'frameSize') {
+      this.setState({
+        [name]: value,
+        step: value,
+      });
+    } else {
+      this.setState({ [name]: value });
+    }
+  };
+
+  render = () => {
+    const { images, frameSize, step, infinite } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <Settings
+          {...this.state}
+          onChangeSetting={this.handleChangeSetting}
+        />
+        <Carousel
+          images={images}
+          step={+step}
+          frmSize={+frameSize}
+          itemWidth={130}
+          duration={700}
+          arrowSize={35}
+          infinite={infinite}
+        />
       </div>
     );
   }
