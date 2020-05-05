@@ -6,27 +6,32 @@ import Button from './Button';
 class Carousel extends Component {
   state = { translation: 0 }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.infinite === this.props.infinite;
+  }
+
   switchImages = (sign) => {
     const { step, images, itemWidth, frmSize, infinite } = this.props;
 
     this.setState((prevState) => {
       let position = prevState.translation;
+      const stepWidth = itemWidth * step;
       const frmWidth = itemWidth * frmSize;
       const carouselWidth = itemWidth * images.length;
 
       if (sign > 0) {
         if (infinite && position === frmWidth - carouselWidth) {
-          position = itemWidth * step;
+          position = stepWidth;
         }
 
-        position -= itemWidth * step;
+        position -= stepWidth;
         position = Math.max(position, -itemWidth * (images.length - frmSize));
       } else {
         if (infinite && position === 0) {
-          position = frmWidth - carouselWidth - (itemWidth * step);
+          position = frmWidth - carouselWidth - stepWidth;
         }
 
-        position += itemWidth * step;
+        position += stepWidth;
         position = Math.min(0, position);
       }
 

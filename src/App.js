@@ -42,7 +42,7 @@ class App extends React.Component {
           step={+step}
           frmSize={+frameSize}
           itemWidth={130}
-          duration={1000}
+          duration={700}
           arrowSize={35}
           infinite={infinite}
         />

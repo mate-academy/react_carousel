@@ -5,7 +5,7 @@ const CarouselList = ({ images, itemWidth, duration, translation }) => (
   <ul
     className="carousel__list"
     style={{
-      transition: `transform ${duration}ms`,
+      transition: `transform ${duration}ms ease-out`,
       transform: `translateX(${translation}px)`,
     }}
   >
