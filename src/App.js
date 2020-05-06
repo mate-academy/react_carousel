@@ -103,6 +103,7 @@ class App extends React.PureComponent {
   }
 
   setSettings = (field, value) => {
+    const { settings } = this.state;
     let correctedValue = value;
 
     if (value === 'false') {
@@ -111,6 +112,26 @@ class App extends React.PureComponent {
       correctedValue = true;
     } else if (Number.isInteger(parseInt(value, 10))) {
       correctedValue = parseInt(value, 10) || 1;
+    }
+
+    if (field === 'step' && correctedValue > settings.frameSize) {
+      correctedValue = settings.frameSize;
+    }
+
+    if (field === 'infinity') {
+      this.setState(state => ({
+        images: [...imagesFromServer],
+        settings: {
+          ...state.settings,
+          [field]: correctedValue,
+        },
+        restRight: imagesFromServer.length - defaultSettings.step,
+        restLeft: 0,
+        offset: 0,
+        shift: 0,
+      }));
+
+      return;
     }
 
     this.setState(state => ({
