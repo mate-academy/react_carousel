@@ -36,7 +36,7 @@ const Carousel = ({
 Carousel.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       url: PropTypes.string.isRequired,
       alt: PropTypes.string.isRequired,
     }).isRequired,

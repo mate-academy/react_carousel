@@ -33,7 +33,7 @@ const CarouselList = ({
 CarouselList.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
     }),
   ).isRequired,
   itemWidth: PropTypes.number.isRequired,
