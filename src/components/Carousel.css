@@ -48,12 +48,14 @@
 }
 
 .carousel__container {
+  position: relative;
   grid-column: 2;
   grid-row: 1;
   overflow: hidden;
 }
 
 .carousel__list {
+  position: relative;
   display: grid;
   grid-auto-flow: column;
   margin: 0;

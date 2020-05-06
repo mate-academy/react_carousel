@@ -2,21 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CarouselItem from './CarouselItem';
 
-const CarouselList = ({ images, frameSize, itemWidth }) => (
-  <div
-    className="carousel__container"
-    style={{ width: `${frameSize * itemWidth}px` }}
+const CarouselList = ({
+  images,
+  itemWidth,
+  itemHeight,
+  offset,
+  shift,
+  animationDuration,
+}) => (
+  <ul
+    className="carousel__list"
+    style={{
+      transform: `translateX(${offset}px)`,
+      transition: `transform ${animationDuration}ms ease`,
+      left: `${shift}px`,
+      color: 'red',
+    }}
   >
-    <ul className="carousel__list">
-      {images.map(image => (
-        <CarouselItem
-          {...image}
-          width={itemWidth}
-          key={image.id}
-        />
-      ))}
-    </ul>
-  </div>
+    {images.map(image => (
+      <CarouselItem
+        {...image}
+        width={itemWidth}
+        height={itemHeight}
+        key={image.id}
+      />
+    ))}
+  </ul>
 );
 
 CarouselList.propTypes = {
@@ -25,8 +36,11 @@ CarouselList.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  frameSize: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
+  itemHeight: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
+  shift: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
 };
 
 export default CarouselList;

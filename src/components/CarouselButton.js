@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CarouselButton = ({ handler, id }) => (
+const CarouselButton = ({ dir, handler }) => (
   <button
-    id={`carousel-btn-${id}`}
+    id={`carousel-btn-${dir > 0 ? 'prev' : 'next'}`}
     type="button"
-    className={`carousel__btn carousel__btn--${id}`}
-    onClick={handler}
+    className={`carousel__btn carousel__btn--${dir > 0 ? 'prev' : 'next'}`}
+    onClick={() => handler(dir)}
   />
 );
 
 CarouselButton.propTypes = {
   handler: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  dir: PropTypes.number.isRequired,
 };
 
 export default CarouselButton;
