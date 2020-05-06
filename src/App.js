@@ -110,7 +110,7 @@ class App extends React.PureComponent {
     } else if (value === 'true') {
       correctedValue = true;
     } else if (Number.isInteger(parseInt(value, 10))) {
-      correctedValue = parseInt(value, 10);
+      correctedValue = parseInt(value, 10) || 1;
     }
 
     this.setState(state => ({
