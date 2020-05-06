@@ -1,0 +1,17 @@
+.settings {
+  display: ;
+}
+
+.settings__field {
+  width: 64px;
+}
+
+.settings__field-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.settings__fild-name {
+  display: inline-block;
+  min-width: 200px;
+}
