@@ -10,9 +10,10 @@ const SettingsForm = ({ infinite, onChangeSettings }) => (
         onChange={onChangeSettings}
       >
         <option value="" hidden>image size</option>
-        <option value="75">75px</option>
+        <option value="55">55px</option>
         <option value="100">100px</option>
-        <option value="200">200px</option>
+        <option value="130">130px</option>
+        <option value="170">170px</option>
       </select>
       <select
         className="form__item form__select"
@@ -21,6 +22,7 @@ const SettingsForm = ({ infinite, onChangeSettings }) => (
       >
         <option value="" hidden>step</option>
         <option value="1">1</option>
+        <option value="2">2</option>
         <option value="3">3</option>
       </select>
       <select
@@ -31,6 +33,8 @@ const SettingsForm = ({ infinite, onChangeSettings }) => (
         <option value="" hidden>frame size</option>
         <option value="1">1</option>
         <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
       </select>
     </div>
     <label>
