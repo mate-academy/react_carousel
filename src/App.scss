@@ -1,0 +1,22 @@
+@import "./components/Carousel";
+
+.app {
+  width: 60vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__select {
+    margin: 10px;
+  }
+}
+

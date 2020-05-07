@@ -1,0 +1,39 @@
+.container {
+  overflow: hidden;
+}
+
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__list {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+  }
+
+  &__list img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid dimgrey;
+  color: dimgrey;
+  background: rgba(yellow, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
