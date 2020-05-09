@@ -1,0 +1,13 @@
+.Carousel {
+  margin: 0 auto 20px;
+  overflow: hidden;
+
+  &__list {
+    padding: 0;
+    list-style: none;
+
+    width: 390px;
+    display: flex;
+    align-items: center;
+  }
+}
