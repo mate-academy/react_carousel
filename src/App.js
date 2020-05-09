@@ -1,9 +1,10 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import './App.scss';
 
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import CarouselSettings from './components/CarouselSettings/CarouselSettings';
 
-class App extends React.Component {
+export default class App extends Component {
   state = {
     images: [
       './img/1.png',
@@ -17,20 +18,80 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    frameSize: 1,
+    step: 1,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
+
+  changeFrameSize = (evt) => {
+    evt.preventDefault();
+
+    this.setState({
+      frameSize: +evt.target.value,
+    });
+  }
+
+  changeStep = (evt) => {
+    evt.preventDefault();
+
+    this.setState({
+      step: +evt.target.value,
+    });
+  }
+
+  changeItemWidth = (evt) => {
+    evt.preventDefault();
+
+    this.setState({
+      itemWidth: +evt.target.value,
+    });
+  }
+
+  changeAnimationDuration = (evt) => {
+    evt.preventDefault();
+
+    this.setState({
+      animationDuration: +evt.target.value,
+    });
+  }
+
+  changeFinite = (evt) => {
+    this.setState({
+      infinite: evt.target.checked,
+    });
+  }
 
   render() {
     const { images } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__header">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={this.state.images}
+          frameSize={this.state.frameSize}
+          itemWidth={this.state.itemWidth}
+          step={this.state.step}
+          animationDuration={this.state.animationDuration}
+          infinite={this.state.infinite}
+        />
+
+        <CarouselSettings
+          images={this.state.images}
+          frameSize={this.state.frameSize}
+          itemWidth={this.state.itemWidth}
+          onchangeFrameSize={evt => this.changeFrameSize(evt)}
+          onChangeStep={evt => this.changeStep(evt)}
+          onChangeItemWidth={evt => this.changeItemWidth(evt)}
+          onChangeAnimationDuration={evt => this.changeAnimationDuration(evt)}
+          onChangeFinite={evt => this.changeFinite(evt)}
+        />
       </div>
     );
   }
 }
-
-export default App;

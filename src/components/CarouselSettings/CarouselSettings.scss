@@ -1,0 +1,26 @@
+.form {
+  margin: 0 auto;
+  display: grid;
+  width: 400px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 15px 10px;
+
+  padding: 20px;
+
+  border-radius: 10px;
+  background-color: tomato;
+  color: #fff;
+
+  font-size: 17px;
+
+  &__select,
+  &__input {
+    height: 30px;
+    box-sizing: border-box;
+    padding: 5px;
+
+    border: none;
+    border-radius: 5px;
+  }
+}
