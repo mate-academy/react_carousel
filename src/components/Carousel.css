@@ -1,0 +1,52 @@
+.carousel__list {
+  padding: 0;
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+
+.carousel__list_item {
+  display: inline;
+  position: relative;
+  transition: right 0.8s;
+
+}
+
+.control {
+  display: flex;
+  width: fit-content;
+  position: relative;
+}
+
+.control__button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: darkslategray;
+  color: white;
+  font-size: larger;
+}
+
+.control__button:focus {
+  outline: none;
+}
+
+.control__input {
+  width: 150px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.control__input::placeholder {
+  text-align: center;
+}
+
+.control__input:focus {
+  outline: none;
+}
+
+.header {
+  position: relative;
+}
