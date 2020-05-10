@@ -1,26 +1,41 @@
-.carousel__list {
-  padding: 0;
-  display: inline-flex;
-  overflow: hidden;
-  border: 1px solid black;
-  border-radius: 30px;
-  margin-right: 10px;
-  &_item {
-    display: inline;
-    position: relative;
-    transition: right 0.8s;
+body {
+  background-color: #20304d;
+  color: #e3173c;
+  font-style: italic;
+  font-size: larger;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__list {
+    background-color: #e3173c;
+    padding: 0;
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid white;
+    border-radius: 30px;
+    margin-right: 10px;
+    &_item {
+      display: inline;
+      position: relative;
+      transition: right 0.8s;
+    }
   }
 }
+
 
 .control {
   width: 400px;
   border-radius: 40px;
+  border: 1px solid white;
   display: flex;
   align-items: center;
   justify-content: space-around;
   text-align: center;
   position: relative;
-  background-color: midnightblue;
+  background-color: #e3173c;
   color: white;
   &__settings {
     width: 50%;
@@ -37,21 +52,23 @@
       line-height: 35px;
       border: 1px solid white;
       border-radius: 20px;
-
+      background-color: #20304d;
     }
     &_disabled {
       color: white;
-      opacity: 30%;
+      opacity: 50%;
       padding: 10px;
       margin: 10px;
       border: 1px solid white;
       border-radius: 20px;
+      background-color: #20304d;
     }
     &_active {
       padding: 10px;
       margin: 10px;
       border: 1px solid white;
       border-radius: 20px;
+      background-color: #20304d;
     }
   }
 
@@ -71,10 +88,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    color: black;
+    color: white;
+    background-color: #20304d;
     font-size: larger;
     &:disabled {
-      background-color: #535693;
+      background-color: #8a2c45;
     }
     &:focus {
       outline: none;
