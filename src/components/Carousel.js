@@ -1,165 +1,236 @@
 import React from 'react';
-import './Carousel.css';
+import './Carousel.scss';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 class Carousel extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.animation = null;
+  }
+
   state = {
-    tempImageSize: '',
-    tempImageQty: '',
-    defaultSize: 130,
-    defaultQty: 3,
-    size: 0,
-    qty: 0,
+    images: this.props.images,
+    imageSize: 100,
+    imageQty: 3,
+    imagesToSlide: 1,
+    moveSteps: 0,
     move: 0,
+    infinite: false,
+    animationInterval: 1000,
   }
 
-  handleInputSize = (event) => {
-    this.setState({ tempImageSize: +event.target.value });
-  }
+  handleImageSize = (event) => {
+    const newSize = +event.target.value;
 
-  handleInputQty = (event) => {
-    this.setState({ tempImageQty: +event.target.value });
-  }
-
-  resetState = () => {
-    this.setState(() => ({
-      tempImageSize: '',
-      tempImageQty: '',
+    this.setState(state => ({
+      imageSize: newSize,
+      move: 0,
     }));
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.state.tempImageSize > 0
-    && this.state.tempImageQty > 0
-    && this.state.tempImageQty <= this.props.images.length
+  handleImageQty = (event) => {
+    this.setState({ imageQty: +event.target.value });
+  }
+
+  defineCarouselWidth = () => (
+    this.state.imageQty * this.state.imageSize
+  )
+
+  handleImagesToSlide = (event) => {
+    this.setState({ imagesToSlide: +event.target.value });
+  }
+
+  defineFwdMoveStep = () => {
+    (this.state.move + this.state.imageSize * this.state.imagesToSlide)
+    > (this.props.images.length * this.state.imageSize
+      - this.state.imageSize * this.state.imageQty)
       ? this.setState(state => ({
-        size: state.tempImageSize,
-        qty: state.tempImageQty,
-      })) : this.setState(state => ({
-        size: state.defaultSize,
-        qty: state.defaultQty,
+        move: state.move
+          + ((state.images.length * state.imageSize) - state.move
+            - (state.imageSize * state.imageQty)),
+        moveSteps: state.moveSteps + 1,
+      }))
+      : this.setState(state => ({
+        move: state.move + state.imageSize * state.imagesToSlide,
+        moveSteps: state.moveSteps + 1,
       }));
-    this.resetState();
   }
 
-  checkSize = () => (
-    this.state.size === 0
-      ? `${this.state.defaultSize}px`
-      : `${this.state.size}px`
-  )
-
-  checkWidth = () => (
-    this.state.qty === 0
-      ? `${this.state.defaultSize * this.state.defaultQty}px`
-      : `${this.state.qty * this.state.size}px`
-  )
-
-  moveFwdCustom = () => {
-    (this.state.size
-    * this.props.images.length
-    - this.state.move
-    - this.state.size
-    * this.state.qty < this.state.size * this.state.qty
-      ? this.setState(state => ({
-        move: state.move + state.size
-          * this.props.images.length
-          - state.move
-          - state.size
-          * state.qty,
-      }))
-      : this.setState(state => ({
-        move: state.move + (state.size * state.qty),
-      })));
-  }
-
-  moveFwdDefault = () => {
-    (this.state.defaultSize
-    * this.props.images.length
-    - this.state.move
-    - this.state.defaultSize
-    * this.state.defaultQty < this.state.defaultSize * this.state.defaultQty
-      ? this.setState(state => ({
-        move: state.move + state.defaultSize
-          * this.props.images.length
-          - state.move
-          - state.defaultSize
-          * state.defaultQty,
-      }))
-      : this.setState(state => ({
-        move: state.move + (state.defaultSize * state.defaultQty),
-      })));
-  }
-
-  moveRevCustom = () => {
-    (this.state.move < this.state.size * this.state.qty
+  defineRevMoveStep = () => {
+    this.state.move - this.state.imageSize * this.state.imagesToSlide < 0
       ? this.setState(state => ({
         move: 0,
       }))
       : this.setState(state => ({
-        move: state.move - (state.size * state.qty),
-      })));
+        move: state.move - state.imageSize * state.imagesToSlide,
+      }));
   }
 
-  moveRevDefault = () => {
-    (this.state.move < this.state.defaultSize * this.state.defaultQty
-      ? this.setState(state => ({
-        move: 0,
-      }))
-      : this.setState(state => ({
-        move: state.move - (state.defaultSize * state.defaultQty),
-      })));
+  handleNextClick = () => {
+    this.state.move === this.props.images.length * this.state.imageSize
+    - this.state.imageSize * this.state.imageQty
+      ? this.setState({ move: 0 })
+      : this.defineFwdMoveStep();
   }
 
-  defineMoveControl = () => (
-    this.state.size * this.state.qty < 286
-      ? 0
-      : `${(this.state.size * this.state.qty - 286) / 2}px`
-  )
-
-  handleNextButton = () => {
-    this.state.size > 0 && this.state.qty > 0
-      ? this.moveFwdCustom()
-      : this.moveFwdDefault();
+  handlePrevClick = () => {
+    this.state.move === 0 ? this.setState(state => ({
+      move: this.props.images.length * state.imageSize
+          - state.imageSize * state.imageQty,
+    }))
+      : this.defineRevMoveStep();
   }
 
-  handlePrevButton = () => {
-    this.state.size > 0 && this.state.qty > 0
-      ? this.moveRevCustom()
-      : this.moveRevDefault();
+  setAnimationInterval = (event) => {
+    this.setState({ animationInterval: (+event.target.value) * 1000 });
   }
 
-  moveControl = () => (
-    this.state.size === 0
-      ? '52px'
-      : this.defineMoveControl()
-  )
+  defineAnimation = () => {
+    !this.state.infinite
+      ? this.animation = setInterval(() => {
+        this.handleNextClick();
+      }, this.state.animationInterval)
+      : clearInterval(this.animation);
+  }
+
+  infiniteRotate = () => {
+    this.setState(state => ({
+      infinite: !state.infinite,
+    }));
+    this.defineAnimation();
+  }
 
   render() {
+    const { images,
+      imageSize,
+      imageQty,
+      imagesToSlide,
+      move,
+      infinite,
+      animationInterval } = this.state;
+
     return (
       <div className="carousel">
         <h1
-          style={{ left: this.moveControl() }}
           className="header"
         >
           Carousel with
           {' '}
-          {this.props.images.length}
+          {images.length}
           {' '}
           images
         </h1>
+        <div className="control">
+
+          <button
+            disabled={infinite}
+            className="control__button"
+            type="button"
+            onClick={this.handlePrevClick}
+          >
+            &larr;
+          </button>
+
+          <div className="control__settings">
+            <div className="control__settings_toggle">
+              <span>Auto Mode</span>
+              <span>   </span>
+              <label className="switch">
+                <input type="checkbox" onChange={this.infiniteRotate} />
+                <span className="slider round" />
+              </label>
+            </div>
+
+            <div
+              className={cn(infinite
+                ? 'control__settings_disabled'
+                : 'control__settings_active')}
+            >
+              <div className="control__settings_element">
+                <label htmlFor="animation__speed">Animation Speed</label>
+                <select
+                  id="animation__speed"
+                  disabled={infinite}
+                  onChange={this.setAnimationInterval}
+                  value={animationInterval / 1000}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+
+              </div>
+              <div className="control__settings_element">
+                <span>Adjust icons size</span>
+                <input
+                  className="element__slider"
+                  disabled={infinite}
+                  onChange={this.handleImageSize}
+                  type="range"
+                  defaultValue="100"
+                  min="50"
+                  max="200"
+                />
+              </div>
+              <div className="control__settings_element">
+
+                <label htmlFor="images_to_show">Images on slider</label>
+                <select
+                  disabled={infinite}
+                  value={imageQty}
+                  onChange={this.handleImageQty}
+                  id="images_to_show"
+                >
+
+                  {images.map((el, index) => (
+                    <option key={el}>{index + 1}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="control__settings_element">
+
+                <label htmlFor="images_to_move">Images to scroll</label>
+                <select
+                  disabled={infinite}
+                  value={imagesToSlide}
+                  id="images_to_move"
+                  onChange={this.handleImagesToSlide}
+                >
+                  {(images.filter((el, index) => (
+                    index <= (images.length - imageQty - 1)
+                  ))).map((el, index) => (
+                    <option key={el}>{index + 1}</option>
+                  ))}
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <button
+            disabled={infinite}
+            className="control__button"
+            type="button"
+            onClick={this.handleNextClick}
+          >
+            &rarr;
+          </button>
+        </div>
+
         <ul
-          style={{ width: this.checkWidth() }}
+          style={{ width: this.defineCarouselWidth() }}
           className="carousel__list"
         >
-          {this.props.images.map((img, index) => (
+          {images.map((img, index) => (
             <li
               key={+index}
               className="carousel__list_item"
-              style={{ right: `${this.state.move}px` }}
+              style={{ right: `${move}px` }}
             >
               <img
-                style={{ width: this.checkSize() }}
+                style={{ width: imageSize }}
                 className="carousel__list_image"
                 src={img}
                 alt={index + 1}
@@ -167,43 +238,6 @@ class Carousel extends React.PureComponent {
             </li>
           ))}
         </ul>
-        <div
-          className="control"
-          style={{ left: this.moveControl() }}
-        >
-          <button
-            className="control__button"
-            type="button"
-            onClick={this.handlePrevButton}
-          >
-            &larr;
-          </button>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                className="control__input"
-                value={this.state.tempImageSize}
-                onChange={this.handleInputSize}
-                placeholder="Enter icon size in 'px'"
-              />
-            </form>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                className="control__input"
-                value={this.state.tempImageQty}
-                onChange={this.handleInputQty}
-                placeholder="Enter q-ty of icons shown"
-              />
-            </form>
-          </div>
-          <button
-            className="control__button"
-            type="button"
-            onClick={this.handleNextButton}
-          >
-            &rarr;
-          </button>
-        </div>
       </div>
     );
   }
