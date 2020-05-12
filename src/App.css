@@ -1,1 +1,5 @@
+@import "./components/Carousel.css";
 
+h1 {
+  text-align: center;
+}

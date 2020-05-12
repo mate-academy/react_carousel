@@ -1,0 +1,17 @@
+.carousel {
+  overflow: hidden;
+  margin: auto;
+
+}
+
+.carousel__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel__control {
+  display: flex;
+  justify-content: center;
+}
