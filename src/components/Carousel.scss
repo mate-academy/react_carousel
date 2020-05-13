@@ -1,0 +1,16 @@
+.carousel {
+  overflow: hidden;
+  position: relative;
+
+  &__arrow {
+    width: 20px;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    position: relative;
+  }
+}

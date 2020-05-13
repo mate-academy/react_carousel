@@ -1,0 +1,10 @@
+.App {
+  &__gallery {
+    display: flex;
+    justify-content: center;
+  }
+  &__title {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+}
