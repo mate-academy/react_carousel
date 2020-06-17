@@ -9,17 +9,18 @@ class Carousel extends React.Component {
     translate: 0,
     width: this.props.itemWidth * this.props.step,
     frameWidth: this.props.itemWidth * this.props.frameSize,
+    images: this.props.images,
+    maxTranslate: this.props.itemWidth
+      * (this.props.images.length - this.props.step),
+    minTranslate: 0,
+    marginLeft: 0,
   }
 
-  move = (prevTranslate, side) => {
-    const max = this.props.itemWidth
-      * this.props.images.length - this.state.width;
+  images = this.props.images;
 
-    const translate = prevTranslate
-      + (side ? this.state.frameWidth : -this.state.frameWidth);
-
-    if (translate > max) {
-      return max;
+  getTranslateFinite = (translate) => {
+    if (translate > this.state.maxTranslate) {
+      return this.state.maxTranslate;
     }
 
     if (translate < 0) {
@@ -29,10 +30,51 @@ class Carousel extends React.Component {
     return translate;
   }
 
+  getTranslateInfinite = (translate) => {
+    if (translate > this.state.maxTranslate) {
+      this.setState(prevState => ({
+        images: [
+          ...prevState.images.filter(
+            (image, index) => index > this.props.frameSize - 1,
+          ),
+          ...prevState.images.filter(
+            (image, index) => index < this.props.frameSize,
+          ),
+        ],
+        marginLeft: prevState.marginLeft + prevState.frameWidth,
+        maxTranslate: prevState.maxTranslate + prevState.frameWidth,
+        minTranslate: prevState.minTranslate + prevState.frameWidth,
+      }));
+    }
+
+    if (translate < this.state.minTranslate) {
+      this.setState(prevState => ({
+        images: [
+          ...prevState.images.filter((image, index) => (
+            index > prevState.images.length - this.props.frameSize - 1
+          )),
+          ...prevState.images.filter((image, index) => (
+            index < prevState.images.length - this.props.frameSize
+          )),
+        ],
+        marginLeft: prevState.marginLeft - prevState.frameWidth,
+        maxTranslate: prevState.maxTranslate - prevState.frameWidth,
+        minTranslate: prevState.minTranslate - prevState.frameWidth,
+      }));
+    }
+
+    return translate;
+  }
+
   handleClick = (side = true) => {
-    this.setState(prevState => ({
-      translate: this.move(prevState.translate, side),
-    }));
+    const unCheckedTranslate = this.state.translate
+      + (side ? this.state.frameWidth : -this.state.frameWidth);
+
+    const translate = !this.props.infinite
+      ? this.getTranslateInfinite(unCheckedTranslate)
+      : this.getTranslateFinite(unCheckedTranslate);
+
+    this.setState(prevState => ({ translate }));
   }
 
   render() {
@@ -42,10 +84,11 @@ class Carousel extends React.Component {
         style={{ width: this.state.width }}
       >
         <CarouselList
-          images={this.props.images}
+          images={this.state.images}
           translate={this.state.translate}
           animationDuration={this.props.animationDuration}
           width={this.props.itemWidth}
+          marginLeft={this.state.marginLeft}
         />
         <CarouselButtons handleClick={this.handleClick} />
       </div>
@@ -58,6 +101,7 @@ export default Carousel;
 Carousel.defaultProps = {
   step: 3,
   animationDuration: 1000,
+  infinite: false,
 };
 
 Carousel.propTypes = {
@@ -66,4 +110,5 @@ Carousel.propTypes = {
   step: PropTypes.number,
   frameSize: PropTypes.number.isRequired,
   animationDuration: PropTypes.number,
+  infinite: PropTypes.bool,
 };

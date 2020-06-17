@@ -7,8 +7,9 @@ const CarouselList = props => (
   <ul
     className="Carousel__list"
     style={{
-      transform: `translateX(${-props.translate}px)`,
+      transform: `translate(${-props.translate}px)`,
       transition: `transform ${props.animationDuration}ms`,
+      marginLeft: `${props.marginLeft}px`,
     }}
   >
     {
@@ -16,7 +17,7 @@ const CarouselList = props => (
         <li key={getId(image)}>
           <img
             src={image}
-            alt={index}
+            alt={getId(image)}
             style={{ width: props.width }}
           />
         </li>
@@ -32,4 +33,5 @@ CarouselList.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   animationDuration: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
+  marginLeft: PropTypes.number.isRequired,
 };

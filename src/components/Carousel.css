@@ -1,5 +1,7 @@
 .Carousel {
-  border: 1px solid gray;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 50px 0;
   overflow: hidden;
   margin: 0 auto;
 }
@@ -12,10 +14,21 @@
 
 .Carousel__buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .Carousel__button {
   cursor: pointer;
-  padding: 10px;
+  padding: 15px;
+  background: 1px solid lightgray;
+  border-radius: 10px;
+  text-transform: uppercase;
+  border: 1px solid black;
+  transition: background-color 0.3s;
+}
+
+.Carousel__button:focus,
+.Carousel__button:hover {
+  background-color: lightskyblue;
+  outline: none;
 }
