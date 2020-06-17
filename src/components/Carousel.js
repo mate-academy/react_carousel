@@ -70,7 +70,7 @@ class Carousel extends React.Component {
     const unCheckedTranslate = this.state.translate
       + (side ? this.state.frameWidth : -this.state.frameWidth);
 
-    const translate = !this.props.infinite
+    const translate = this.props.infinite
       ? this.getTranslateInfinite(unCheckedTranslate)
       : this.getTranslateFinite(unCheckedTranslate);
 
