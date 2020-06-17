@@ -8,30 +8,30 @@ class Carousel extends React.Component {
   state = {
     translate: 0,
     width: this.props.itemWidth * this.props.step,
+    frameWidth: this.props.itemWidth * this.props.frameSize,
   }
 
-  move = (side = true) => {
+  move = (prevTranslate, side) => {
     const max = this.props.itemWidth
-        * this.props.images.length - this.state.width;
+      * this.props.images.length - this.state.width;
 
-    const moveRight = (prevTranslate) => {
-      const translate = prevTranslate
-       + this.props.frameSize * this.props.itemWidth;
+    const translate = prevTranslate
+      + (side ? this.state.frameWidth : -this.state.frameWidth);
 
-      return translate > max ? max : translate;
-    };
+    if (translate > max) {
+      return max;
+    }
 
-    const moveLeft = (prevTranslate) => {
-      const translate = prevTranslate
-        - this.props.frameSize * this.props.itemWidth;
+    if (translate < 0) {
+      return 0;
+    }
 
-      return translate < 0 ? 0 : translate;
-    };
+    return translate;
+  }
 
+  handleClick = (side = true) => {
     this.setState(prevState => ({
-      translate: side
-        ? moveRight(prevState.translate)
-        : moveLeft(prevState.translate),
+      translate: this.move(prevState.translate, side),
     }));
   }
 
@@ -47,7 +47,7 @@ class Carousel extends React.Component {
           animationDuration={this.props.animationDuration}
           width={this.props.itemWidth}
         />
-        <CarouselButtons move={this.move} />
+        <CarouselButtons handleClick={this.handleClick} />
       </div>
     );
   }
