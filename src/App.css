@@ -1,1 +1,43 @@
+.App {
+  width: 390px;
+  height: 180px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #efe8e8;
+  margin: 0 auto;
+}
 
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.Carousel__list {
+  display: flex;
+  position: relative;
+}
+
+.images {
+  width: 130px;
+  height: 130px;
+}
+
+.button {
+  width: 20px;
+  height: 30px;
+  border-radius: 5px;
+  position: relative;
+  top: -75px;
+}
+
+button:focus {
+  outline: none;
+}
+
+.button--next {
+  right: -350px;
+}

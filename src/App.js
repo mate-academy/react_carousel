@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-
 import Carousel from './components/Carousel';
 
 class App extends React.Component {
@@ -24,10 +23,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={130}
+          step={3}
+          animationDuration={1}
+        />
       </div>
     );
   }
