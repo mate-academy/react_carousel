@@ -16,9 +16,48 @@ class Carousel extends React.Component {
     marginLeft: 0,
   }
 
-  images = this.props.images;
+  handleClick = (side = true) => {
+    const unCheckedTranslate = this.state.translate
+      + (side ? this.state.frameWidth : -this.state.frameWidth);
 
-  getTranslateFinite = (translate) => {
+    const translate = this.props.infinite
+      ? this.#getTranslateInfinite(unCheckedTranslate)
+      : this.#getTranslateFinite(unCheckedTranslate);
+
+    this.setState(prevState => ({ translate }));
+  }
+
+  #getTranslateInfinite = (translate) => {
+    if (translate > this.state.maxTranslate) {
+      this.setState(prevState => this.#setImages(prevState, 1));
+    }
+
+    if (translate < this.state.minTranslate) {
+      this.setState(prevState => this.#setImages(prevState, -1));
+    }
+
+    return translate;
+  }
+
+  #setImages = (prevState, coefficient) => ({
+    images: [
+      ...prevState.images.filter(
+        (image, index) => index > (coefficient > 0
+          ? 0 : prevState.images.length)
+          + (this.props.frameSize - coefficient) * coefficient,
+      ),
+      ...prevState.images.filter(
+        (image, index) => index < (coefficient > 0
+          ? 0 : prevState.images.length)
+          + this.props.frameSize * coefficient,
+      ),
+    ],
+    marginLeft: prevState.marginLeft + prevState.frameWidth * coefficient,
+    maxTranslate: prevState.maxTranslate + prevState.frameWidth * coefficient,
+    minTranslate: prevState.minTranslate + prevState.frameWidth * coefficient,
+  })
+
+  #getTranslateFinite = (translate) => {
     if (translate > this.state.maxTranslate) {
       return this.state.maxTranslate;
     }
@@ -28,53 +67,6 @@ class Carousel extends React.Component {
     }
 
     return translate;
-  }
-
-  getTranslateInfinite = (translate) => {
-    if (translate > this.state.maxTranslate) {
-      this.setState(prevState => ({
-        images: [
-          ...prevState.images.filter(
-            (image, index) => index > this.props.frameSize - 1,
-          ),
-          ...prevState.images.filter(
-            (image, index) => index < this.props.frameSize,
-          ),
-        ],
-        marginLeft: prevState.marginLeft + prevState.frameWidth,
-        maxTranslate: prevState.maxTranslate + prevState.frameWidth,
-        minTranslate: prevState.minTranslate + prevState.frameWidth,
-      }));
-    }
-
-    if (translate < this.state.minTranslate) {
-      this.setState(prevState => ({
-        images: [
-          ...prevState.images.filter((image, index) => (
-            index > prevState.images.length - this.props.frameSize - 1
-          )),
-          ...prevState.images.filter((image, index) => (
-            index < prevState.images.length - this.props.frameSize
-          )),
-        ],
-        marginLeft: prevState.marginLeft - prevState.frameWidth,
-        maxTranslate: prevState.maxTranslate - prevState.frameWidth,
-        minTranslate: prevState.minTranslate - prevState.frameWidth,
-      }));
-    }
-
-    return translate;
-  }
-
-  handleClick = (side = true) => {
-    const unCheckedTranslate = this.state.translate
-      + (side ? this.state.frameWidth : -this.state.frameWidth);
-
-    const translate = this.props.infinite
-      ? this.getTranslateInfinite(unCheckedTranslate)
-      : this.getTranslateFinite(unCheckedTranslate);
-
-    this.setState(prevState => ({ translate }));
   }
 
   render() {
