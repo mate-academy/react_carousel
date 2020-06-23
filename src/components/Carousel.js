@@ -5,20 +5,19 @@ import './Carousel.css';
 
 const Carousel = props => (
   <div className="Carousel">
-    <ul className="Carousel__list">
-      <li className="images" style={{ marginLeft: `${props.margin}px` }}>
+    <ul className="Carousel__list" style={{ marginLeft: `${props.margin}px` }}>
+      <li style={{ marginLeft: `${props.marginItem}px` }} className="images">
         <img
           key={props.images[0]}
           src={props.images[0]}
           alt="1"
         />
       </li>
-      {props.images.slice(1, props.images.length - 1).map((image, index) => (
+      {props.images.slice(1, props.images.length).map((image, index) => (
         <CarouselImg
           image={image}
           index={index}
           key={image}
-          margin={props.margin}
         />
       ))}
     </ul>
@@ -26,14 +25,14 @@ const Carousel = props => (
       <button
         className="left"
         type="button"
-        onClick={ev => props.previous(ev)}
+        onClick={ev => props.slide(ev)}
       >
         Prev
       </button>
       <button
         className="right"
         type="button"
-        onClick={ev => props.previous(ev)}
+        onClick={ev => props.slide(ev)}
       >
         Next
       </button>

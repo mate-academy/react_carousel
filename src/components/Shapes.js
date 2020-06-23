@@ -7,6 +7,9 @@ export const ShapeCarouselImg = PropTypes.shape({
 
 export const ShapeCarousel = PropTypes.shape({
   images: PropTypes.arrayOf(ShapeCarouselImg).isRequired,
+  marginItem: PropTypes.number.isRequired,
+  margin: PropTypes.number.isRequired,
+  slide: PropTypes.func.isRequired,
 });
 
 export const ShapePrevious = PropTypes.shape({
