@@ -1,1 +1,9 @@
-
+.App {
+  display: flex;
+  padding: 20px 10px;
+  margin-top: 20px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 20px;
+  font-family: sans-serif;
+  background-color: rgb(235, 235, 235);
+}
