@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 import React from 'react';
 import './App.css';
 
@@ -17,17 +18,35 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+
+    marginLeft: 0,
   };
+
+  moveImages = ev => ((ev.target.className === 'left')
+    ? (
+      this.setState(() => ({ marginLeft: this.state.marginLeft - 130 }))
+    )
+    : (
+      this.setState({ marginLeft: this.state.marginLeft + 130 })
+    ))
 
   render() {
     const { images } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1>
+          Carousel with
+          {images.length}
+          images
+        </h1>
 
-        <Carousel />
+        <Carousel
+
+          images={images}
+          margin={this.state.marginLeft}
+          previous={this.moveImages}
+        />
       </div>
     );
   }
