@@ -1,8 +1,8 @@
 import React from 'react';
 import PropType from 'prop-types';
 
-export const Image = ({ image, index, imageWidth }) => (
-  <img src={image} alt={index} style={{ width: `${imageWidth}px` }} />
+export const Image = ({ image, alt, imageWidth }) => (
+  <img src={image} alt={alt} style={{ width: `${imageWidth}px` }} />
 );
 
 Image.defaultProps = {
@@ -11,6 +11,6 @@ Image.defaultProps = {
 
 Image.propTypes = {
   image: PropType.string.isRequired,
-  index: PropType.number.isRequired,
+  alt: PropType.number.isRequired,
   imageWidth: PropType.number,
 };
