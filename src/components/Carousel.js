@@ -9,14 +9,24 @@ export class Carousel extends Component {
   }
 
   leftScrollHandler = () => {
-    this.setState(prevState => ({ value: prevState.value - 260 }));
+    this.setState(prevState => (
+      {
+        value: prevState.value + this.props.itemWidth * this.props.step,
+      }));
+  }
+
+  rightScrollHandler = () => {
+    this.setState(prevState => (
+      {
+        value: prevState.value - this.props.itemWidth * this.props.step,
+      }));
   }
 
   render() {
     return (
       <div className={styles.carousel}>
         <div style={{
-          width: '260px',
+          width: `${this.props.itemWidth * this.props.frameSize}px`,
           overflow: 'hidden',
         }}
         >
@@ -39,17 +49,21 @@ export class Carousel extends Component {
 
         </div>
 
-        <button type="button">Prev</button>
-        <button type="button" onClick={this.leftScrollHandler}>Next</button>
+        <button type="button" onClick={this.leftScrollHandler}>Prev</button>
+        <button type="button" onClick={this.rightScrollHandler}>Next</button>
       </div>
     );
   }
 }
 Carousel.defaultProps = {
   itemWidth: 130,
+  frameSize: 3,
+  step: 3,
 };
 
 Carousel.propTypes = {
   images: PropType.arrayOf(PropType.string).isRequired,
   itemWidth: PropType.number,
+  frameSize: PropType.number,
+  step: PropType.number,
 };

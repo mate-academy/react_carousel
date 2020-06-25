@@ -29,6 +29,8 @@ class App extends React.Component {
         <Carousel
           images={images}
           itemWidth={130}
+          frameSize={3}
+          step={3}
         />
       </div>
     );
