@@ -30,6 +30,7 @@ export class Carousel extends Component {
                 <Image
                   key={image}
                   image={image}
+                  imageWidth={this.props.itemWidth}
                   alt={index}
                 />
               </li>
@@ -44,7 +45,11 @@ export class Carousel extends Component {
     );
   }
 }
+Carousel.defaultProps = {
+  itemWidth: 130,
+};
 
 Carousel.propTypes = {
   images: PropType.arrayOf(PropType.string).isRequired,
+  itemWidth: PropType.number,
 };
