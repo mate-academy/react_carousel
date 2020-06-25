@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropType from 'prop-types';
 import styles from './Carousel.module.css';
-import { Image } from './Image/Image';
+import { CarouselTrack } from './CarouselTrack/CarouselTrack';
+import { CarouselShape, CarouselDefaults } from './Shapes/carouselShapes';
 
 export class Carousel extends Component {
   state = {
@@ -9,7 +9,7 @@ export class Carousel extends Component {
   }
 
   leftScrollHandler = () => {
-    if (this.state.value >= 0) {
+    if (!this.props.infinite && this.state.value >= 0) {
       return;
     }
 
@@ -48,57 +48,24 @@ export class Carousel extends Component {
 
       this.setState({ value: 0 });
     }
-  }
+  };
 
   render() {
     return (
       <div className={styles.carousel}>
-        <div style={{
-          width: `${this.props.itemWidth * this.props.frameSize}px`,
-          overflow: 'hidden',
-        }}
-        >
-          <ul
-            className={styles.carousel__list}
-            style={{
-              transition: `transform ${this.props.animationDuration}ms ease`,
-              transform: `translateX(${this.state.value}px)`,
-            }}
-          >
-
-            {this.props.images.map((image, index) => (
-              <li>
-                <Image
-                  key={image}
-                  image={image}
-                  imageWidth={this.props.itemWidth}
-                  alt={index + 1}
-                />
-              </li>
-            ))}
-          </ul>
-
-        </div>
-
+        <CarouselTrack
+          itemWidth={this.props.itemWidth}
+          frameSize={this.props.frameSize}
+          images={this.props.images}
+          amountToShift={this.state.value}
+          animationDuration={this.props.animationDuration}
+          infinite={this.props.infinite}
+        />
         <button type="button" onClick={this.leftScrollHandler}>Prev</button>
         <button type="button" onClick={this.rightScrollHandler}>Next</button>
       </div>
     );
   }
 }
-Carousel.defaultProps = {
-  itemWidth: 130,
-  frameSize: 3,
-  step: 3,
-  animationDuration: 1000,
-  infinite: false,
-};
-
-Carousel.propTypes = {
-  images: PropType.arrayOf(PropType.string).isRequired,
-  itemWidth: PropType.number,
-  frameSize: PropType.number,
-  step: PropType.number,
-  animationDuration: PropType.number,
-  infinite: PropType.bool,
-};
+Carousel.defaultProps = CarouselDefaults;
+Carousel.propTypes = CarouselShape;

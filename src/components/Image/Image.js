@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import { ImageShape } from '../Shapes/carouselShapes';
 
 export const Image = ({ image, alt, imageWidth }) => (
   <img src={image} alt={alt} style={{ width: `${imageWidth}px` }} />
@@ -9,8 +9,4 @@ Image.defaultProps = {
   imageWidth: 130,
 };
 
-Image.propTypes = {
-  image: PropType.string.isRequired,
-  alt: PropType.number.isRequired,
-  imageWidth: PropType.number,
-};
+Image.propTypes = ImageShape;
