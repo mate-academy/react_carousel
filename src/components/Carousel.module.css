@@ -1,0 +1,14 @@
+.carousel {
+
+  width: 1300px;
+}
+
+.carousel__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 260px;
+
+  transition: transform 0.5s ease-in-out;
+  list-style-type: none;
+}
