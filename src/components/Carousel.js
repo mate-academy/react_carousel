@@ -5,15 +5,14 @@ import { Image } from './Image/Image';
 
 export class Carousel extends Component {
   state = {
-    counter: 1,
     value: 0,
   }
 
-  componentDidUpdate() {
-
-  }
-
   leftScrollHandler = () => {
+    if (this.state.value >= 0) {
+      return;
+    }
+
     this.setState(prevState => (
       {
         value: prevState.value + this.props.itemWidth * this.props.step,
@@ -31,10 +30,15 @@ export class Carousel extends Component {
   }
 
   rightScrollHandler = () => {
+    const maximalIndex = this.props.images.length - this.props.step + 1;
+
+    if (this.state.value <= -maximalIndex * this.props.itemWidth) {
+      return;
+    }
+
     this.setState(prevState => (
       {
         value: prevState.value - this.props.itemWidth * this.props.step,
-        counter: prevState.counter + this.props.step,
       }));
 
     if (this.props.infinite) {

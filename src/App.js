@@ -25,7 +25,16 @@ class App extends React.Component {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
-
+        <h2>Finite</h2>
+        <Carousel
+          images={images}
+          itemWidth={130}
+          frameSize={3}
+          step={3}
+          animationDuration={1000}
+          infinite={false}
+        />
+        <h2>Infinite</h2>
         <Carousel
           images={images}
           itemWidth={130}
