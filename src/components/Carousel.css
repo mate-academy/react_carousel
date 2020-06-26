@@ -1,0 +1,11 @@
+.carousel {
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
