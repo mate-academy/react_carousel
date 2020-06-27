@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Carousel.css';
 
 export class Carousel extends React.PureComponent {
+
   render() {
     const {
       images,
@@ -12,6 +13,8 @@ export class Carousel extends React.PureComponent {
       animation,
       initialPosition,
       next,
+      prev,
+      transform,
     } = this.props;
     // console.log(width);
     const carouselStyle = {
@@ -21,7 +24,7 @@ export class Carousel extends React.PureComponent {
 
     const carouselListStyle = {
       width: `${width * framesize}px`,
-      transform: `translateX(-${width * initialPosition * step}px)`,
+      transform: `translateX(-${transform}px)`,
     };
 
     return (
@@ -34,7 +37,7 @@ export class Carousel extends React.PureComponent {
           ))}
         </ul>
 
-        <button type="button">Prev</button>
+        <button type="button" onClick={prev}>Prev</button>
         <button type="button" onClick={next}>Next</button>
       </div>
     );

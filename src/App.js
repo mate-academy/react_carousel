@@ -17,33 +17,69 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
-    initialPosition: 0,
+    initialPosition: 3,
     step: 3,
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
+    translate: 0,
   };
 
   scrollNext = () => {
     /* eslint-disable-next-line */
     const length = this.state.images.length;
     const position = this.state.initialPosition;
+    const width = this.state.itemWidth;
     /* eslint-disable-next-line */
     const step = this.state.step;
-    // const currentPosition = position * step + step;
-    const leavedSmiles = length - position * step - step;
+    const lastSmiles = length - position;
+    // let leavedSmiles = length - position * step;
+    let scroll = 0;
+    console.log(position)
 
-    if (leavedSmiles < step) {
-      this.setState({
-        step: leavedSmiles,
-      });
-    } else if (leavedSmiles === 0) {
-      return false;
-    } else {
+    if (lastSmiles < step) {
+      scroll = width * lastSmiles;
       this.setState(prevState => ({
-        initialPosition: prevState.initialPosition + 1,
+        initialPosition: prevState.initialPosition + lastSmiles,
+      }));
+    } else {
+      scroll = width * step;
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition + step,
       }));
     }
+
+    this.setState(prevState => ({
+      translate: prevState.translate + scroll,
+    }));
+  }
+
+  scrollPrev = () => {
+    /* eslint-disable-next-line */
+    const length = this.state.images.length;
+    const position = this.state.initialPosition;
+    const width = this.state.itemWidth;
+    /* eslint-disable-next-line */
+    const step = this.state.step;
+    // const lastSmiles = position;
+    let scroll = 0;
+    console.log(position)
+
+    if (position - step < step) {
+      scroll = -(width * (position - step));
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition - (position - step),
+      }));
+    } else {
+      scroll = -(width * step);
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition - step,
+      }));
+    }
+
+    this.setState(prevState => ({
+      translate: prevState.translate + scroll,
+    }));
   }
 
   render() {
@@ -54,8 +90,10 @@ class App extends React.Component {
       itemWidth,
       animationDuration,
       initialPosition,
+      translate,
     } = this.state;
     // console.log(images.length, initialPosition, (images.length - initialPosition * step - step));
+    // console.log(transform);
 
     return (
       <div className="App">
@@ -70,6 +108,8 @@ class App extends React.Component {
           framesize={frameSize}
           initialPosition={initialPosition}
           next={this.scrollNext}
+          prev={this.scrollPrev}
+          transform={translate}
         />
       </div>
     );
