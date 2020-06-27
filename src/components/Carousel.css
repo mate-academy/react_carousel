@@ -1,0 +1,14 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
+  margin: 0 auto;
+
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+}
