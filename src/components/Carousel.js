@@ -1,53 +1,59 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { CarouselTypes } from './Shape/propTypes';
 import './Carousel.css';
 
 export class Carousel extends React.PureComponent {
-
   render() {
     const {
       images,
-      step,
-      framesize,
-      width,
+      CarouselWidth,
       animation,
-      initialPosition,
       next,
       prev,
       transform,
+      itemWidth,
     } = this.props;
-    // console.log(width);
-    const carouselStyle = {
-      width: `${width * framesize}px`,
-      // transform: `translateX(530px)`,
-    };
 
     const carouselListStyle = {
-      width: `${width * framesize}px`,
       transform: `translateX(-${transform}px)`,
+      transition: `transform ${animation}ms`,
     };
 
     return (
-      <div className="Carousel" style={carouselStyle}>
-        <ul className="Carousel__list" style={carouselListStyle}>
-          {images.map((image, imgIndex) => (
-            <li className="Carousel__item">
-              <img src={image} alt={imgIndex} />
-            </li>
-          ))}
-        </ul>
+      <div className="wrapper">
+        <div className="Carousel" style={{ width: `${CarouselWidth}px` }}>
+          <ul className="Carousel__list" style={carouselListStyle}>
+            {images.map((image, imgIndex) => (
+              <li className="Carousel__item">
+                <img
+                  src={image}
+                  alt={imgIndex}
+                  style={{ width: `${itemWidth}px` }}
+                />
+              </li>
+            ))}
+          </ul>
 
-        <button type="button" onClick={prev}>Prev</button>
-        <button type="button" onClick={next}>Next</button>
+          <div className="btn__wrapper">
+            <button
+              type="button"
+              onClick={prev}
+              className="btn btn-secondary"
+            >
+              Prev
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              className="btn btn-secondary"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-Carousel.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.number).isRequired,
-  width: PropTypes.number.isRequired,
-  framesize: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  animation: PropTypes.number.isRequired,
-};
+Carousel.propTypes = CarouselTypes;

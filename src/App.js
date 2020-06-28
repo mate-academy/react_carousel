@@ -17,10 +17,10 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
-    initialPosition: 3,
-    step: 3,
+    initialPosition: 0,
+    step: 2,
     frameSize: 3,
-    itemWidth: 130,
+    itemWidth: 260,
     animationDuration: 1000,
     translate: 0,
   };
@@ -29,18 +29,18 @@ class App extends React.Component {
     /* eslint-disable-next-line */
     const length = this.state.images.length;
     const position = this.state.initialPosition;
+    const frame = this.state.frameSize;
     const width = this.state.itemWidth;
     /* eslint-disable-next-line */
     const step = this.state.step;
-    const lastSmiles = length - position;
+    const lastedSmiles = length - position - frame;
     // let leavedSmiles = length - position * step;
     let scroll = 0;
-    console.log(position)
 
-    if (lastSmiles < step) {
-      scroll = width * lastSmiles;
+    if (lastedSmiles < step) {
+      scroll = width * lastedSmiles;
       this.setState(prevState => ({
-        initialPosition: prevState.initialPosition + lastSmiles,
+        initialPosition: prevState.initialPosition + lastedSmiles,
       }));
     } else {
       scroll = width * step;
@@ -63,12 +63,11 @@ class App extends React.Component {
     const step = this.state.step;
     // const lastSmiles = position;
     let scroll = 0;
-    console.log(position)
 
-    if (position - step < step) {
-      scroll = -(width * (position - step));
+    if (position < step) {
+      scroll = -(width * position);
       this.setState(prevState => ({
-        initialPosition: prevState.initialPosition - (position - step),
+        initialPosition: prevState.initialPosition - position,
       }));
     } else {
       scroll = -(width * step);
@@ -85,31 +84,27 @@ class App extends React.Component {
   render() {
     const {
       images,
-      step,
       frameSize,
       itemWidth,
       animationDuration,
-      initialPosition,
       translate,
     } = this.state;
-    // console.log(images.length, initialPosition, (images.length - initialPosition * step - step));
-    // console.log(transform);
+
+    const CarouselWidth = itemWidth * frameSize;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="heading">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
-          step={step}
-          width={itemWidth}
+          CarouselWidth={CarouselWidth}
           animation={animationDuration}
-          framesize={frameSize}
-          initialPosition={initialPosition}
           next={this.scrollNext}
           prev={this.scrollPrev}
           transform={translate}
+          itemWidth={itemWidth}
         />
       </div>
     );
