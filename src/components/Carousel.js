@@ -1,17 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import './Carousel.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+export class Carousel extends React.Component {
+  state = {
+    images: this.props.images,
+  }
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  render() {
+    const { images } = this.state;
+    const settings = {
+      speed: 1000,
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      infinite: true,
+    };
 
-export default Carousel;
+    return (
+      <div className="Carousel">
+        <Slider {...settings}>
+          {images.map((image, index) => (
+            <img key={image} src={image} alt={index + 1} />
+          ))}
+        </Slider>
+      </div>
+    );
+  }
+}
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
