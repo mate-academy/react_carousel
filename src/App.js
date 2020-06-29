@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 class App extends React.Component {
   state = {
@@ -24,10 +24,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1>
+          Infinite Carousel with
+          <em>{images.length}</em>
+          images. Go fun  =&gt; try to swipe
+        </h1>
+        <Carousel images={this.state.images} />
       </div>
     );
   }

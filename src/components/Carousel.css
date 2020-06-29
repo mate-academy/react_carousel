@@ -1,0 +1,18 @@
+.Carousel {
+  width: 390px;
+  margin: auto;
+  border: 1px solid grey;
+  border-radius: 30px;
+}
+
+.slick-arrow {
+  position: absolute;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  bottom: -21px;
+}
