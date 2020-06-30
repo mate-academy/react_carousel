@@ -6,6 +6,10 @@ export const CarouselTypes = {
   animation: PropTypes.number.isRequired,
   transform: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
+
+};
+
+export const ButtonsTypes = {
   next: PropTypes.func.isRequired,
   prev: PropTypes.func.isRequired,
 };

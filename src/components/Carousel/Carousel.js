@@ -1,6 +1,7 @@
 import React from 'react';
-import { CarouselTypes } from './Shape/propTypes';
+import { CarouselTypes } from '../Shape/propTypes';
 import './Carousel.css';
+import { Buttons } from '../Buttons/Buttons';
 
 export class Carousel extends React.PureComponent {
   render() {
@@ -34,22 +35,7 @@ export class Carousel extends React.PureComponent {
             ))}
           </ul>
 
-          <div className="btn__wrapper">
-            <button
-              type="button"
-              onClick={prev}
-              className="btn btn-secondary"
-            >
-              Prev
-            </button>
-            <button
-              type="button"
-              onClick={next}
-              className="btn btn-secondary"
-            >
-              Next
-            </button>
-          </div>
+          <Buttons next={next} prev={prev} />
         </div>
       </div>
     );

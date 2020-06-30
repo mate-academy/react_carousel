@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Carousel } from './components/Carousel';
+import { Carousel } from './components/Carousel/Carousel';
 
 class App extends React.Component {
   state = {
@@ -26,10 +26,9 @@ class App extends React.Component {
   };
 
   scrollNext = () => {
-    /* eslint-disable-next-line */
-    const length = this.state.images.length;
-    const position = this.state.initialPosition;
-    const frame = this.state.frameSize;
+    const { length } = this.state.images.length;
+    const { position } = this.state.initialPosition;
+    const { frame } = this.state.frameSize;
     const width = this.state.itemWidth;
     /* eslint-disable-next-line */
     const step = this.state.step;
