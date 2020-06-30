@@ -1,0 +1,34 @@
+.wrapper {
+  width: 1300px;
+  padding: 20px;
+  margin: 0 auto;
+
+  border: 2px solid orange;
+  border-radius: 50px;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.Carousel__list {
+  display: flex;
+
+  padding: 0;
+  margin-bottom: 50px;
+
+  list-style: none;
+  list-style-type: none;
+}
+
+.btn__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  width: 150px;
+}
