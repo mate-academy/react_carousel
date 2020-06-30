@@ -4,20 +4,83 @@ import './Carousel.css';
 import { Buttons } from '../Buttons/Buttons';
 
 export class Carousel extends React.PureComponent {
+  state = {
+    initialPosition: 0,
+    step: 2,
+    frameSize: 3,
+    itemWidth: 260,
+    animationDuration: 1000,
+    translate: 0,
+  };
+
+  scrollNext = () => {
+    const {
+      initialPosition,
+      frameSize,
+      itemWidth,
+      step,
+    } = this.state;
+    const { images } = this.props;
+    const lastedSmiles = images.length - initialPosition - frameSize;
+    let scroll = 0;
+
+    if (lastedSmiles < step) {
+      scroll = itemWidth * lastedSmiles;
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition + lastedSmiles,
+      }));
+    } else {
+      scroll = itemWidth * step;
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition + step,
+      }));
+    }
+
+    this.setState(prevState => ({
+      translate: prevState.translate + scroll,
+    }));
+  }
+
+  scrollPrev = () => {
+    const {
+      initialPosition,
+      itemWidth,
+      step,
+    } = this.state;
+
+    let scroll = 0;
+
+    if (initialPosition < step) {
+      scroll = -(itemWidth * initialPosition);
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition - initialPosition,
+      }));
+    } else {
+      scroll = -(itemWidth * step);
+      this.setState(prevState => ({
+        initialPosition: prevState.initialPosition - step,
+      }));
+    }
+
+    this.setState(prevState => ({
+      translate: prevState.translate + scroll,
+    }));
+  }
+
   render() {
     const {
-      images,
-      CarouselWidth,
-      animation,
-      next,
-      prev,
-      transform,
+      animationDuration,
+      frameSize,
+      translate,
       itemWidth,
-    } = this.props;
+    } = this.state;
+    const { images } = this.props;
+
+    const CarouselWidth = itemWidth * frameSize;
 
     const carouselListStyle = {
-      transform: `translateX(-${transform}px)`,
-      transition: `transform ${animation}ms`,
+      transform: `translateX(-${translate}px)`,
+      transition: `transform ${animationDuration}ms`,
     };
 
     return (
@@ -35,7 +98,7 @@ export class Carousel extends React.PureComponent {
             ))}
           </ul>
 
-          <Buttons next={next} prev={prev} />
+          <Buttons onNext={this.scrollNext} onPrev={this.scrollPrev} />
         </div>
       </div>
     );

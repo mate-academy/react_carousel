@@ -3,22 +3,22 @@ import { ButtonsTypes } from '../Shape/propTypes';
 
 export const Buttons = (props) => {
   const {
-    next,
-    prev,
+    onNext,
+    onPrev,
   } = props;
 
   return (
     <div className="btn__wrapper">
       <button
         type="button"
-        onClick={prev}
+        onClick={onPrev}
         className="btn btn-secondary"
       >
         Prev
       </button>
       <button
         type="button"
-        onClick={next}
+        onClick={onNext}
         className="btn btn-secondary"
       >
         Next
