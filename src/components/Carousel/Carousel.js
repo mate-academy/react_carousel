@@ -26,7 +26,7 @@ export const Carousel = (props) => {
       <ul
         className="Carousel__list"
         style={{
-          width: `${itemWidth * frameSize}px`,
+          width: `${itemWidth}px * ${frameSize}px`,
         }}
       >
         {
