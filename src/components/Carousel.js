@@ -1,17 +1,104 @@
 import React from 'react';
+import './Carousel.scss';
+import PropType from 'prop-types';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+class Carousel extends React.Component {
+  state = {
+    images: this.props.images,
+    step: this.props.step,
+    framesize: this.props.frameSize,
+    itemwidth: this.props.itemWidth,
+    animationDuration: this.props.animationDuration,
+    currItem: 0,
+  }
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  nextFrame = () => {
+    const step = this.state.currItem + this.state.framesize + this.state.step
+      < this.state.images.length
+      ? this.state.step
+      : this.state.images.length - this.state.currItem - this.state.framesize;
+
+    this.setState(prev => ({
+      currItem: prev.currItem + step,
+    }), () => {
+      document
+        // eslint-disable-next-line max-len
+        .querySelector('.Carousel__list').style.cssText = `transform: translateX(${-this.state.currItem * this.state.itemwidth}px); transition: transform ${this.state.animationDuration}ms;`;
+    });
+  }
+
+  prevFrame = () => {
+    const step = this.state.currItem - this.state.step < 0
+      ? this.state.currItem
+      : this.state.step;
+
+    this.setState(prev => ({
+      currItem: prev.currItem - step,
+    }), () => {
+      document
+        // eslint-disable-next-line max-len
+        .querySelector('.Carousel__list').style.cssText = `transform: translateX(${-(this.state.currItem) * this.state.itemwidth}px); transition: transform ${this.state.animationDuration}ms;`;
+    });
+  }
+
+  render() {
+    const {
+      images,
+      framesize,
+      itemwidth,
+    } = this.state;
+
+    const style = {
+      width: itemwidth * framesize,
+      height: itemwidth,
+    };
+
+    return (
+      <div className="Carousel">
+        <div
+          className="Carousel__frame"
+          style={style}
+        >
+          <ul className="Carousel__list">
+            {images.map((img, i) => (
+              <li
+                key={img}
+                className="Carousel__item"
+              >
+                <div
+                  style={{
+                    width: itemwidth,
+                    height: itemwidth,
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={i}
+                    className="Carousel__img"
+                    style={{
+                      width: `100%`,
+                      height: `auto`,
+                    }}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button type="button" onClick={this.prevFrame}>Prev</button>
+        <button type="button" onClick={this.nextFrame}>Next</button>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
+
+Carousel.propTypes = {
+  images: PropType.instanceOf(Array).isRequired,
+  step: PropType.number.isRequired,
+  frameSize: PropType.number.isRequired,
+  itemWidth: PropType.number.isRequired,
+  animationDuration: PropType.number.isRequired,
+};
