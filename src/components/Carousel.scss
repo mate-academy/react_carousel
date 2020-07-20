@@ -1,0 +1,25 @@
+.Carousel {
+  &__frame {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border: dotted 1px black;
+  }
+
+  &__list {
+    list-style: none;
+    width: max-content;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: inline;
+    float: left;
+  }
+
+  &__img {
+    display: inline;
+    border: dotted 1px black;
+
+  }
+}
