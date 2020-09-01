@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Carousel.scss';
+
 const Carousel = () => (
   <div className="Carousel">
     <ul className="Carousel__list">
