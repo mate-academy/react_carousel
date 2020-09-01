@@ -73,7 +73,7 @@ const Carousel = ({
 
 Carousel.propTypes = {
   images: PropTypes.arrayOf(
-    PropTypes.shape(),
+    PropTypes.string.isRequired,
   ).isRequired,
   step: PropTypes.number.isRequired,
   frameSize: PropTypes.number.isRequired,
