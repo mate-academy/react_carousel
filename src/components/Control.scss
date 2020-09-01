@@ -1,0 +1,38 @@
+.Control {
+  width: 500px;
+  border-radius: 50px;
+  border: 3px solid black;
+  padding: 30px;
+
+  & div {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    & input {
+      padding: 5px;
+      border: 1px solid #333;
+    }
+  }
+
+  & button {
+    display: block;
+    margin: 20px auto 0;
+    height: 40px;
+    width: 100px;
+    font-size: 1.3em;
+    border: 2px solid black;
+    cursor: pointer;
+    background: #fff;
+    transition: 0.2s;
+
+    &:hover {
+      background: black;
+      color: white;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
