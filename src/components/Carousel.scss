@@ -1,1 +1,109 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+}
+
+ul, li, p {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.Carousel {
+  display: block;
+  width: calc(130px * 3);
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #eee;
+  overflow: hidden;
+  margin: 0 auto;
+
+  &__list {
+    width: 9999px;
+    transform: translateX(0);
+  }
+
+  &__item {
+    list-style-type: none;
+    display: inline-block;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: calc(50% - 25px);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(130, 252, 185);
+    }
+
+    &--next {
+      right: -20px;
+    }
+
+    &--prev {
+      left: -20px;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 40px;
+  border: 1px solid black;
+  background-color: #eee;
+  border-radius: 15px;
+  width: fit-content;
+  margin: 0 auto;
+
+  &__lable {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &__input {
+    margin-left: 15px;
+    height: 30px;
+    width: 80px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 5px;
+  }
+
+  &__button {
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    width: 100px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(130, 252, 185);
+    }
+  }
+}
