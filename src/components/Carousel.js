@@ -27,7 +27,6 @@ class Carousel extends Component {
   }
 
   toRight = () => {
-    const list = document.querySelector('.Carousel__list');
     const { step, img, pos, frame } = this.state;
     let position = pos;
     const minPos = (frame * img) - (img * 10);
@@ -38,14 +37,14 @@ class Carousel extends Component {
       position = minPos;
     }
 
-    list.style.transform = `translateX(${position}px)`;
+    document.querySelector('.Carousel__list').style.transform
+      = `translateX(${position}px)`;
 
     this.setState({ pos: position });
   };
 
   toLeft = () => {
     const { pos, step, img } = this.state;
-    const list = document.querySelector('.Carousel__list');
     let position = pos;
 
     position += img * step;
@@ -54,7 +53,8 @@ class Carousel extends Component {
       position = 0;
     }
 
-    list.style.transform = `translateX(${position}px)`;
+    document.querySelector('.Carousel__list').style.transform
+      = `translateX(${position}px)`;
     this.setState({ pos: position });
   };
 
@@ -89,7 +89,9 @@ class Carousel extends Component {
   };
 
   render() {
-    const galeryWidth = this.state.frame * this.state.img;
+    const { images, img, step, animation, frame } = this.state;
+
+    const galeryWidth = frame * img;
 
     return (
       <>
@@ -101,12 +103,12 @@ class Carousel extends Component {
             <ul
               className="Carousel__list"
               style={{
-                transition: `transform ${this.state.animation}ms`,
+                transition: `transform ${animation}ms`,
               }}
             >
-              {this.state.images.map(image => (
+              {images.map(image => (
                 <li
-                  key={Math.random()}
+                  key={image}
                   className="Carousel__item"
                 >
                   <img
@@ -114,8 +116,8 @@ class Carousel extends Component {
                     alt={image}
                     className="Carousel__img"
                     style={{
-                      width: `${this.state.img}px`,
-                      height: `${this.state.img}px`,
+                      width: `${img}px`,
+                      height: `${img}px`,
                     }}
                   />
                 </li>
@@ -151,7 +153,7 @@ class Carousel extends Component {
                 name="step"
                 className="form__input"
                 type="number"
-                value={this.state.step}
+                value={step}
                 min="1"
                 max="10"
                 onChange={this.changeStep}
@@ -164,7 +166,7 @@ class Carousel extends Component {
                 name="frame"
                 className="form__input"
                 type="number"
-                value={this.state.frame}
+                value={frame}
                 max="8"
                 min="1"
                 onChange={this.changeFrame}
@@ -177,7 +179,7 @@ class Carousel extends Component {
                 name="img"
                 className="form__input"
                 type="number"
-                value={this.state.img}
+                value={img}
                 step="5"
                 min="50"
                 max="150"
@@ -191,7 +193,7 @@ class Carousel extends Component {
                 name="animation"
                 className="form__input"
                 type="number"
-                value={this.state.animation}
+                value={animation}
                 step="100"
                 min="0"
                 onChange={this.changeAnimation}
