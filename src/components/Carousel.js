@@ -24,7 +24,6 @@ class Carousel extends React.Component {
   };
 
   toRight = () => {
-    const list = document.querySelector('.Carousel__list');
     const { step, img, pos, frame } = this.state;
     let position = pos;
     const minPos = (frame * img) - (img * 10);
@@ -35,14 +34,11 @@ class Carousel extends React.Component {
       position = minPos;
     }
 
-    list.style.transform = `translateX(${position}px)`;
-
     this.setState({ pos: position });
   };
 
   toLeft = () => {
     const { pos, step, img } = this.state;
-    const list = document.querySelector('.Carousel__list');
     let position = pos;
 
     position += img * step;
@@ -51,7 +47,6 @@ class Carousel extends React.Component {
       position = 0;
     }
 
-    list.style.transform = `translateX(${position}px)`;
     this.setState({ pos: position });
   };
 
@@ -70,8 +65,6 @@ class Carousel extends React.Component {
       img: event.target.value,
       pos: position,
     });
-    document.querySelector('.Carousel__list')
-      .style.transform = `translateX(${position}px)`;
   };
 
   changeAnimation = (event) => {
@@ -85,12 +78,10 @@ class Carousel extends React.Component {
       frame: event.target.value,
       pos: position,
     });
-    document.querySelector('.Carousel__list')
-      .style.transform = `translateX(${position}px)`;
   };
 
   render() {
-    const { img, step, animation, frame, image } = this.state;
+    const { img, step, animation, frame, image, pos } = this.state;
 
     const galeryWidth = frame * img;
 
@@ -105,11 +96,12 @@ class Carousel extends React.Component {
               className="Carousel__list"
               style={{
                 transition: `transform ${animation}ms`,
+                transform: `translateX(${pos}px)`,
               }}
             >
-              {image.map(im => (
+              {image.map((im, i) => (
                 <li
-                  key={Math.random()}
+                  key={im}
                   className="Carousel__item"
                 >
                   <img
