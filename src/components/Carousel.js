@@ -99,7 +99,7 @@ class Carousel extends React.Component {
                 transform: `translateX(${pos}px)`,
               }}
             >
-              {image.map((im, i) => (
+              {image.map(im => (
                 <li
                   key={im}
                   className="Carousel__item"
