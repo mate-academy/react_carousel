@@ -1,1 +1,54 @@
-// style go here
+.section-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+
+  .Carousel {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+
+    &__list {
+      padding: 0;
+      list-style: none;
+      display: flex;
+    }
+  }
+
+  .button {
+    position: absolute;
+    top: calc(50% - 25px);
+    background: #0374fe;
+    color: #fff;
+    border: 0;
+    padding: 10px;
+    border-radius: 5px;
+
+    &--prev {
+      left: -50px;
+    }
+
+    &--next {
+      right: -50px;
+    }
+  }
+}
+
+.controllers {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 25px auto 0;
+  padding: 25px;
+  border: 1px solid #0374fe;
+  border-radius: 25px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}

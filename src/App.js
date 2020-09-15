@@ -17,17 +17,48 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    step: 3,
+    frameSize: 3,
+    animationDuration: 1000,
+    infinite: false,
   };
 
+  changeWidth = (e) => {
+    this.setState({ itemWidth: +e.target.value });
+  }
+
+  changeStep = (e) => {
+    this.setState({ step: +e.target.value });
+  }
+
+  changeFrame = (e) => {
+    this.setState({ frameSize: +e.target.value });
+  }
+
+  changeAnimation = (e) => {
+    this.setState({ animationDuration: +e.target.value });
+  }
+
+  changeInfinite = (e) => {
+    this.setState(prev => ({ infinite: !prev.infinite }));
+  }
+
   render() {
-    const { images } = this.state;
-
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+      <div className="container">
+        <div className="row">
+          <div className="App">
+            <Carousel
+              {...this.state}
+              changeStep={this.changeStep}
+              changeWidth={this.changeWidth}
+              changeFrame={this.changeFrame}
+              changeAnimation={this.changeAnimation}
+              changeInfinite={this.changeInfinite}
+            />
+          </div>
+        </div>
       </div>
     );
   }
