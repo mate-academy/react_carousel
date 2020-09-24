@@ -1,1 +1,21 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  position: relative;
+  display: flex;
+}
+
+.settings {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 390px;
+  height: 130px;
+}
+
+.settings div {
+  margin-left: 20px;
+}
