@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import { CarouselSettings } from './components/CarouselSettings';
+import Carousel from './components/Carousel/Carousel';
 
 class App extends React.Component {
   state = {
@@ -24,24 +25,8 @@ class App extends React.Component {
     infinite: false,
   };
 
-  changeWidth = (e) => {
-    this.setState({ itemWidth: +e.target.value });
-  }
-
-  changeStep = (e) => {
-    this.setState({ step: +e.target.value });
-  }
-
-  changeFrame = (e) => {
-    this.setState({ frameSize: +e.target.value });
-  }
-
-  changeAnimation = (e) => {
-    this.setState({ animationDuration: +e.target.value });
-  }
-
-  changeInfinite = (e) => {
-    this.setState(prev => ({ infinite: !prev.infinite }));
+  changeState = (value, field) => {
+    this.setState({ [field]: value });
   }
 
   render() {
@@ -51,13 +36,13 @@ class App extends React.Component {
           <div className="App">
             <Carousel
               {...this.state}
-              changeStep={this.changeStep}
-              changeWidth={this.changeWidth}
-              changeFrame={this.changeFrame}
-              changeAnimation={this.changeAnimation}
-              changeInfinite={this.changeInfinite}
             />
           </div>
+
+          <CarouselSettings
+            {...this.state}
+            changeState={this.changeState}
+          />
         </div>
       </div>
     );
