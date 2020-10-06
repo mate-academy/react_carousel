@@ -1,1 +1,63 @@
 // style go here
+.Carousel {
+  position: relative;
+  width: 398px;
+  padding: 10px 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background: #eee;
+}
+
+ul {
+  height: 130px;
+  width: 9999px;
+  padding: 0;
+  list-style: none;
+  transition: margin-left 250ms;
+  font-size: 0;
+}
+
+li {
+  display: inline-block;
+}
+
+img {
+  display: block;
+  height: 130px;
+  width: 130px;
+}
+
+button {
+  position: absolute;
+  top: 60px;
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: block;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #ccc;
+    cursor: pointer;
+  }
+}
+
+.prev {
+  left: 7px;
+}
+
+.next {
+  right: 7px;
+}
+
+.container {
+  width: 100% ;
+  overflow: hidden;
+}

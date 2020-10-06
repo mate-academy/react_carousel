@@ -1,1 +1,18 @@
 // style go here
+body {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.App {
+  margin: 0px;
+}
+
+h1 {
+  text-align: center;
+  font-style: initial;
+  color: bisque;
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+}
