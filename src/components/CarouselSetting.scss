@@ -1,45 +1,38 @@
 .CarouselSetting {
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 30px;
   background: #eee;
-  width: 398px ;
-  padding: 15px 40px;
-  margin-top: 20px;
-  position: relative;
+  margin-top: 5px;
+  padding: 10px;
+  width: 70%;
 }
 
-form {
-  display: grid;
-  width: 100%;
-}
-
-label {
-  display: inline-block;
-  font-style: inherit;
-  text-align: left;
-}
-
-input {
-  border-radius: 2em;
-}
-
+input[type="text"],
+input[type="button"],
 input[type="range"] {
-  display: table-column;
-  margin: 0 0 0 auto;
+  width: 50%;
+  padding: 5px;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input[type="button"] {
-  border-radius: 50px;
-  width: 30px;
-  cursor: pointer;
+  width: 50px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .add-image {
-  width: 30px;
-  height: 30px;
-  position: absolute;
+  display: inline-block;
 }
 
-.not-valid-url {
+.invalid {
   border-color: red;
 }

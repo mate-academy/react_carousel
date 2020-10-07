@@ -1,93 +1,144 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import uuid from 'uuid-random';
 import { CarouselTypes, CarouselDefault } from './CarouselTypes';
 
 import './Carousel.scss';
 
-class Carousel extends React.Component {
+export class Carousel extends React.Component {
+  showNextImages = () => {
+    const {
+      step,
+      frameSize,
+      itemWidth,
+      indexFrame,
+      infinite,
+      images,
+      currentPosition,
+      handleGetValue,
+    } = this.props;
+    const index = currentPosition === itemWidth * (images.length - frameSize)
+      ? indexFrame : indexFrame + 1;
+    let position = itemWidth * step * index;
+
+    handleGetValue(index, 'indexFrame');
+
+    if (infinite && currentPosition
+      === itemWidth * (images.length - frameSize)) {
+      position = 0;
+      handleGetValue(0, 'indexFrame');
+    }
+
+    return Math.min(
+      position,
+      itemWidth * (images.length - frameSize),
+    );
+  }
+
+  showPrevImages = () => {
+    const {
+      images,
+      step,
+      itemWidth,
+      indexFrame,
+      infinite,
+      frameSize,
+      currentPosition,
+      handleGetValue,
+    } = this.props;
+    const index = currentPosition === 0 ? indexFrame : indexFrame - 1;
+    let position = itemWidth * step * index;
+
+    if (infinite && currentPosition === 0) {
+      position = itemWidth * ([...images].length - frameSize);
+      handleGetValue(Math.floor([...images].length / frameSize), 'indexFrame');
+    } else {
+      handleGetValue(index, 'indexFrame');
+    }
+
+    return Math.max(
+      0,
+      position,
+    );
+  }
+
   handleMoveImages = (
     event,
-    step,
-    itemWidth,
-    animationDuration,
-    infinite,
-    indexFrame,
-    move,
+    action,
   ) => {
-    const listImages = event.target.closest('.Carousel')
-      .children[1].children[0].children;
-    let position = 0;
-    const index = move === 'next' ? indexFrame + 1 : indexFrame - 1;
+    const {
+      handleGetValue,
+    } = this.props;
 
-    [...listImages].forEach((image) => {
-      position = itemWidth * step;
-      image.style.transition = `transform ${animationDuration}ms`;
-      image.style.transform = `translateX(-${position * index}px)`;
-    });
-    this.props.setNewIndex(index);
+    switch (action) {
+      case 'next':
+        handleGetValue(this.showNextImages(), 'currentPosition');
+        break;
+      case 'prev':
+        handleGetValue(this.showPrevImages(), 'currentPosition');
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
     const {
       images,
-      step,
-      frameSize,
       itemWidth,
+      frameSize,
+      currentPosition,
       animationDuration,
-      infinite,
-      indexFrame,
     } = this.props;
 
     return (
       <div
         className="Carousel"
-        style={
-          {
-            width: frameSize * itemWidth,
-          }
-        }
+        style={{
+          width: itemWidth * frameSize,
+          height: itemWidth,
+        }}
       >
         <button
-          type="button"
           className="prev"
-          onClick={event => this.handleMoveImages(
-            event,
-            step,
-            itemWidth,
-            animationDuration,
-            infinite,
-            indexFrame,
-            'prev',
-          )}
+          type="button"
+          onClick={event => this.handleMoveImages(event, 'prev')}
         >
-          ⇦
+          {'<'}
         </button>
         <div
-          className="container"
+          className="Carousel_gallery"
+          style={{
+            width: itemWidth * frameSize,
+            height: itemWidth,
+          }}
         >
-          <ul className="Carousel__list">
-            {images.map((image, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={uuid()}><img src={image} alt={index + 1} /></li>
+          <ul
+            className="Carousel__list"
+            style={{
+              transition: `transform ${animationDuration}ms ease`,
+              transform: `translateX(-${currentPosition}px)`,
+            }}
+          >
+            {[...images].map((image, index) => (
+              <li key={uuid()}>
+                <img
+                  src={image}
+                  alt={index + 1}
+                  style={{
+                    width: itemWidth,
+                    height: itemWidth,
+                  }}
+                />
+              </li>
             ))}
           </ul>
         </div>
         <button
-          type="button"
           className="next"
-          onClick={event => this.handleMoveImages(
-            event,
-            step,
-            itemWidth,
-            animationDuration,
-            infinite,
-            indexFrame,
-            'next',
-          )}
+          type="button"
+          onClick={event => this.handleMoveImages(event, 'next')}
         >
-          ⇨
+          {'>'}
         </button>
       </div>
     );
@@ -95,7 +146,4 @@ class Carousel extends React.Component {
 }
 
 Carousel.propTypes = CarouselTypes;
-
 Carousel.defaultProps = CarouselDefault;
-
-export default Carousel;

@@ -8,33 +8,14 @@
   background: #eee;
 }
 
-ul {
-  height: 130px;
-  width: 9999px;
-  padding: 0;
-  list-style: none;
-  transition: margin-left 250ms;
-  font-size: 0;
-}
-
-li {
-  display: inline-block;
-}
-
-img {
-  display: block;
-  height: 130px;
-  width: 130px;
-}
-
 button {
   position: absolute;
   top: 60px;
   padding: 0;
   background: #ddd;
-  border-radius: 15px;
+  border-radius: 50%;
   border: 1px solid gray;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 24px;
   color: #444;
   display: block;
@@ -57,7 +38,27 @@ button {
   right: 7px;
 }
 
-.container {
-  width: 100% ;
+.Carousel_gallery {
+  width: 390px;
   overflow: hidden;
+}
+
+ul {
+  height: 130px;
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: margin-left 250ms;
+  font-size: 0;
+}
+
+li {
+  display: inline-block;
+}
+
+img {
+  display: block;
+  height: 130px;
+  width: 130px;
 }
