@@ -1,1 +1,82 @@
-// style go here
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+  width: fit-content;
+  margin: 0 20px;
+}
+
+.Carousel {
+  display: block;
+  width: 390px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+
+  &__list {
+    width: 9999px;
+    transform: translateX(0);
+  }
+
+  &__item {
+    list-style-type: none;
+    display: inline-block;
+  }
+
+  &__button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: calc(50% - 25px);
+
+    &:hover {
+      background-color: grey;
+    }
+
+    &--next {
+      right: -20px;
+    }
+
+    &--prev {
+      left: -20px;
+    }
+  }
+}
+
+.form {
+  margin: 0 60px;
+
+  &__lable {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 20px;
+  }
+
+  &__input {
+    margin-left: 15px;
+    height: 30px;
+    width: 80px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 5px;
+  }
+
+  &__button {
+    display: block;
+    font-size: 24px;
+
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
