@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
 
 import './Carousel.scss';
+import CarouselSettings from './CarouselSettings';
 
 class Carousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      images: [
-        './img/1.png',
-        './img/2.png',
-        './img/3.png',
-        './img/4.png',
-        './img/5.png',
-        './img/6.png',
-        './img/7.png',
-        './img/8.png',
-        './img/9.png',
-        './img/10.png',
-      ],
-      pos: 0,
-      img: 130,
-      step: 3,
-      animation: 1000,
-      frame: 3,
-    };
-  }
+  state = {
+    images: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
+    pos: 0,
+    img: 130,
+    step: 3,
+    animation: 1000,
+    frame: 3,
+  };
 
   toRight = () => {
     const { step, img, pos, frame } = this.state;
@@ -53,34 +51,34 @@ class Carousel extends Component {
     this.setState({ pos: position });
   };
 
-  changeStep = (event) => {
-    this.setState({ step: event.target.value });
+  changeStep = (value) => {
+    this.setState({ step: value });
   };
 
-  changeImage = (event) => {
+  changeFrame = (value) => {
     const position = 0;
 
     this.setState({
-      img: event.target.value,
+      frame: value,
       pos: position,
     });
   };
 
-  changeAnimation = (event) => {
-    this.setState({ animation: event.target.value });
-  };
-
-  changeFrame = (event) => {
+  changeImage = (value) => {
     const position = 0;
 
     this.setState({
-      frame: event.target.value,
+      img: value,
       pos: position,
     });
+  };
+
+  changeAnimation = (value) => {
+    this.setState({ animation: value });
   };
 
   render() {
-    const { images, pos, img, step, animation, frame } = this.state;
+    const { images, pos, img, animation, frame } = this.state;
     const galeryWidth = frame * img;
 
     return (
@@ -130,63 +128,13 @@ class Carousel extends Component {
           >
             Next
           </button>
-        </div>
 
-        <div>
-          <form className="form">
-            <label className="form__lable">
-              Step:
-              <input
-                name="step"
-                className="form__input"
-                type="number"
-                value={step}
-                min="1"
-                max="10"
-                onChange={this.changeStep}
-              />
-            </label>
-
-            <lable className="form__lable">
-              Frame size:
-              <input
-                name="frame"
-                className="form__input"
-                type="number"
-                value={frame}
-                max="8"
-                min="1"
-                onChange={this.changeFrame}
-              />
-            </lable>
-
-            <lable className="form__lable">
-              Image size:
-              <input
-                name="img"
-                className="form__input"
-                type="number"
-                value={img}
-                step="5"
-                min="50"
-                max="150"
-                onChange={this.changeImage}
-              />
-            </lable>
-
-            <lable className="form__lable">
-              Animation duration:
-              <input
-                name="animation"
-                className="form__input"
-                type="number"
-                value={animation}
-                step="100"
-                min="0"
-                onChange={this.changeAnimation}
-              />
-            </lable>
-          </form>
+          <CarouselSettings
+            changeStep={this.changeStep}
+            changeFrame={this.changeFrame}
+            changeImage={this.changeImage}
+            changeAnimation={this.changeAnimation}
+          />
         </div>
       </>
     );
