@@ -25,9 +25,20 @@ class App extends React.Component {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <div className="app">
+        <h1 
+        style={{textAlign:`center`}}
+        >Carousel with {images.length} images
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={130}
+          frameSize={3}
+          step={3}
+          animationDuration={1000}
+        />
+        </div>
       </div>
     );
   }
