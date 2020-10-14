@@ -33,7 +33,7 @@ export class CarouselSetting extends React.Component {
 
   render() {
     const {
-      images,
+      imagesLength,
       frameSize,
       step,
       itemWidth,
@@ -130,7 +130,7 @@ export class CarouselSetting extends React.Component {
                   handleGetValue(
                     Math.min(
                       event.target.value * step * indexFrame,
-                      event.target.value * (images.length - frameSize),
+                      event.target.value * (imagesLength - frameSize),
                     ),
                     'currentPosition',
                   );

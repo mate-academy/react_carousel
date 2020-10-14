@@ -67,7 +67,7 @@ class App extends React.Component {
         />
 
         <CarouselSetting
-          images={images}
+          imagesLength={images.length}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
