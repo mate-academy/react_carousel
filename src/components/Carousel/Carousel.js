@@ -9,7 +9,7 @@ class Carousel extends React.Component {
     itemWidth: this.props.itemWidth,
     frameSize: this.props.frameSize,
     step: this.props.step,
-    duration: this.props.animationDuration,
+    animationDuration: this.props.animationDuration,
     position: 0,
   };
 
@@ -45,45 +45,29 @@ class Carousel extends React.Component {
     });
   };
 
-  editWidth = (event) => {
-    if (event.key !== 'Enter') {
-      return null;
-    }
+  // editWidth = (event) => {
+  //   return this.setState({
+  //     itemWidth: event.target.value,
+  //   });
+  // }
 
-    return this.setState({
-      itemWidth: event.target.value,
-    });
-  }
+  // editSize = (event) => {
+  //   return this.setState({
+  //     frameSize: event.target.value,
+  //   });
+  // }
 
-  editSize = (event) => {
-    if (event.key !== 'Enter') {
-      return null;
-    }
+  // editStep = (event) => {
+  //   return this.setState({
+  //     step: event.target.value,
+  //   });
+  // }
 
-    return this.setState({
-      frameSize: event.target.value,
-    });
-  }
-
-  editStep = (event) => {
-    if (event.key !== 'Enter') {
-      return null;
-    }
-
-    return this.setState({
-      step: event.target.value,
-    });
-  }
-
-  editDuration = (event) => {
-    if (event.key !== 'Enter') {
-      return null;
-    }
-
-    return this.setState({
-      duration: event.target.value,
-    });
-  }
+  // editDuration = (event) => {
+  //   return this.setState({
+  //     duration: event.target.value,
+  //   });
+  // }
 
   render() {
     const {
@@ -91,7 +75,7 @@ class Carousel extends React.Component {
       itemWidth,
       frameSize,
       step,
-      duration,
+      animationDuration,
       position,
     } = this.state;
 
@@ -106,7 +90,7 @@ class Carousel extends React.Component {
             style={{
               width: `${itemWidth * images.length}px`,
               left: `${position}px`,
-              transition: `left ${duration}ms`,
+              transition: `left ${animationDuration}ms`,
             }}
           >
             {images.map(image => (
@@ -139,54 +123,6 @@ class Carousel extends React.Component {
 
         </div>
 
-        <div className="settings">
-          <div className="item-width">
-            <label htmlFor="width">Item width</label>
-            <br />
-            <input
-              id="width"
-              type="number"
-              name="width"
-              placeholder={`${itemWidth}`}
-              onKeyDown={this.editWidth}
-            />
-          </div>
-          <div className="frame-size">
-            <label htmlFor="size">Carousel size</label>
-            <br />
-            <input
-              id="size"
-              type="number"
-              name="size"
-              min={1}
-              max={10}
-              placeholder={`${frameSize}`}
-              onKeyDown={this.editSize}
-            />
-          </div>
-          <div className="step">
-            <label htmlFor="step">Step</label>
-            <br />
-            <input
-              id="step"
-              type="number"
-              name="step"
-              placeholder={`${step}`}
-              onKeyDown={this.editStep}
-            />
-          </div>
-          <div className="duration">
-            <label htmlFor="duration">Duration</label>
-            <br />
-            <input
-              id="duration"
-              type="number"
-              name="duration"
-              placeholder={`${duration}`}
-              onKeyDown={this.editDuration}
-            />
-          </div>
-        </div>
       </>
     );
   }

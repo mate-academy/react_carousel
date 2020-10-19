@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import CarouselSettings from './components/CarouselSettings/CarouselSettings';
 
 class App extends React.Component {
   state = {
@@ -17,14 +18,23 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const { 
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+     } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <div className="app">
         <h1 
         style={{textAlign:`center`}}
@@ -33,10 +43,16 @@ class App extends React.Component {
 
         <Carousel
           images={images}
-          itemWidth={130}
-          frameSize={3}
-          step={3}
-          animationDuration={1000}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
+        <CarouselSettings
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
         />
         </div>
       </div>
@@ -45,3 +61,23 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+// class App ext Component {
+//   state = {
+//     size: 0,
+//   }
+//   setSize = (size) => {
+//     this.setState({
+//       size,
+//     })
+//   }
+//   render() {
+//     return (
+//       <>
+//         <Carousel size={this.state.size} />
+//         <CarouselSettings setSize={this.setSize} />
+//       <> 
+//     )
+//   }
+// }
