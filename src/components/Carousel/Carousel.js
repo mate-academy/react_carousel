@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 import './Carousel.scss';
 
 class Carousel extends React.Component {
-  state = {
+  props = {
     images: this.props.images,
     itemWidth: this.props.itemWidth,
     frameSize: this.props.frameSize,
     step: this.props.step,
     animationDuration: this.props.animationDuration,
-    position: 0,
   };
+  state = {
+    position: 0,
+  }
 
   nextSlide = () => {
-    const { images, itemWidth, frameSize, step, position } = this.state;
+    const { images, itemWidth, frameSize, step } = this.props;
+    const { position } = this.state;
     const carouselWidth = images.length * itemWidth;
     const frameWidth = frameSize * itemWidth;
     let left = position;
@@ -31,7 +34,8 @@ class Carousel extends React.Component {
   };
 
   prevSlide = () => {
-    const { itemWidth, step, position } = this.state;
+    const { itemWidth, step } = this.props;
+    const { position } = this.state;
     let left = position;
 
     left += step * itemWidth;
@@ -45,30 +49,6 @@ class Carousel extends React.Component {
     });
   };
 
-  // editWidth = (event) => {
-  //   return this.setState({
-  //     itemWidth: event.target.value,
-  //   });
-  // }
-
-  // editSize = (event) => {
-  //   return this.setState({
-  //     frameSize: event.target.value,
-  //   });
-  // }
-
-  // editStep = (event) => {
-  //   return this.setState({
-  //     step: event.target.value,
-  //   });
-  // }
-
-  // editDuration = (event) => {
-  //   return this.setState({
-  //     duration: event.target.value,
-  //   });
-  // }
-
   render() {
     const {
       images,
@@ -76,7 +56,10 @@ class Carousel extends React.Component {
       frameSize,
       step,
       animationDuration,
-      position,
+    } = this.props;
+
+    const {
+      position
     } = this.state;
 
     return (
@@ -120,9 +103,7 @@ class Carousel extends React.Component {
           >
             Roll next
           </button>
-
         </div>
-
       </>
     );
   }

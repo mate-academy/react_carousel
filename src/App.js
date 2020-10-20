@@ -49,10 +49,10 @@ class App extends React.Component {
           animationDuration={animationDuration}
         />
         <CarouselSettings
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
-          animationDuration={animationDuration}
+          editWidth={this.editWidth}
+          editSize={this.editSize}
+          editStep={this.editStep}
+          editDuration={this.editDuration}
         />
         </div>
       </div>
@@ -61,23 +61,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// class App ext Component {
-//   state = {
-//     size: 0,
-//   }
-//   setSize = (size) => {
-//     this.setState({
-//       size,
-//     })
-//   }
-//   render() {
-//     return (
-//       <>
-//         <Carousel size={this.state.size} />
-//         <CarouselSettings setSize={this.setSize} />
-//       <> 
-//     )
-//   }
-// }

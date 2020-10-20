@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import './CarouselSettings.scss';
 
 class CarouselSettings extends React.Component {
-  state = {
-    images: this.props.images,
+  props = {
     itemWidth: this.props.itemWidth,
     frameSize: this.props.frameSize,
     step: this.props.step,
-    duration: this.props.animationDuration,
+    animationDuration: this.props.animationDuration,
+    editWidth: this.editWidth,
+    editSize: this.editSize,
+    editStep: this.editStep,
+    editDuration: this.editDuration,
   }
 
   editWidth = (event) => {
@@ -32,7 +35,7 @@ class CarouselSettings extends React.Component {
 
   editDuration = (event) => {
     return this.setState({
-      duration: event.target.value,
+      animationDuration: event.target.value,
     });
   }
 
@@ -41,8 +44,12 @@ class CarouselSettings extends React.Component {
       itemWidth,
       frameSize,
       step,
-      duration,
-    } = this.state;
+      animationDuration,
+      editDuration,
+      editSize,
+      editStep,
+      editWidth,
+    } = this.props;
 
     return (
   <div className="settings">
@@ -54,7 +61,7 @@ class CarouselSettings extends React.Component {
       type="number"
       name="width"
       placeholder={`${itemWidth}`}
-      onChange={this.editWidth}
+      onChange={editWidth}
     />
   </div>
   <div className="frame-size">
@@ -67,7 +74,7 @@ class CarouselSettings extends React.Component {
       min={1}
       max={10}
       placeholder={`${frameSize}`}
-      onChange={this.editSize}
+      onChange={editSize}
     />
   </div>
   <div className="step">
@@ -78,7 +85,7 @@ class CarouselSettings extends React.Component {
       type="number"
       name="step"
       placeholder={`${step}`}
-      onChange={this.editStep}
+      onChange={editStep}
     />
   </div>
   <div className="duration">
@@ -88,8 +95,8 @@ class CarouselSettings extends React.Component {
       id="duration"
       type="number"
       name="duration"
-      placeholder={`${duration}`}
-      onChange={this.editDuration}
+      placeholder={`${animationDuration}`}
+      onChange={editDuration}
     />
   </div>
 </div>
