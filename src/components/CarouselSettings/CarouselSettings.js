@@ -4,41 +4,6 @@ import PropTypes from 'prop-types';
 import './CarouselSettings.scss';
 
 class CarouselSettings extends React.Component {
-  props = {
-    itemWidth: this.props.itemWidth,
-    frameSize: this.props.frameSize,
-    step: this.props.step,
-    animationDuration: this.props.animationDuration,
-    editWidth: this.editWidth,
-    editSize: this.editSize,
-    editStep: this.editStep,
-    editDuration: this.editDuration,
-  }
-
-  editWidth = (event) => {
-    return this.setState({
-      itemWidth: event.target.value,
-    });
-  }
-
-  editSize = (event) => {
-    return this.setState({
-      frameSize: event.target.value,
-    });
-  }
-
-  editStep = (event) => {
-    return this.setState({
-      step: event.target.value,
-    });
-  }
-
-  editDuration = (event) => {
-    return this.setState({
-      animationDuration: event.target.value,
-    });
-  }
-
   render() {
     const {
       itemWidth,
