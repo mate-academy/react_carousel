@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__list-wrapper {
+    overflow: hidden;
+  }
+  &__list {
+    display: flex;
+
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px;
+  }
+
+  &__button {
+    border: none;
+    background-color: inherit;
+
+    font-size: 38px;
+    color: green;
+
+    cursor: pointer;
+    outline: none;
+
+    &:disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
