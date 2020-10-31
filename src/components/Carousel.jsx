@@ -27,7 +27,7 @@ export const Carousel = ({
             transition: `transform ${animationDuration}ms`,
             transform: `translateX(${currentPosition}px)`,
             marginLeft: `${infinite
-              ? (-currentPosition - itemWidth * step)
+              ? -(currentPosition + itemWidth * step)
               : 0}px`,
           }}
         >
@@ -56,5 +56,4 @@ Carousel.propTypes = {
   animationDuration: PropTypes.number.isRequired,
   infinite: PropTypes.bool.isRequired,
   currentPosition: PropTypes.number.isRequired,
-
 };

@@ -66,7 +66,7 @@ export const CarouselSettings = ({
         id="infinite"
         name="infinite"
         className="checkbox"
-        onChange={(e => handleChange('infinite', e.target.chacked))}
+        onChange={(e => handleChange('infinite'))}
       />
     </div>
   </div>

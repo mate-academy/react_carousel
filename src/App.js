@@ -17,6 +17,18 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    imagesStart: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
     step: 3,
     frameSize: 3,
     itemWidth: 130,
@@ -24,7 +36,17 @@ class App extends React.Component {
     infinite: false,
     currentPosition: 0,
     handleChange: (field, value) => {
-      this.setState({ [field]: +value || !value });
+      const { infinite, imagesStart } = this.state;
+
+      this.setState(state => ({ [field]: +value || !state.infinite }));
+      if (infinite) {
+        this.setState({
+          images: [
+            ...imagesStart,
+          ],
+          currentPosition: 0,
+        });
+      }
     },
   };
 
@@ -37,16 +59,15 @@ class App extends React.Component {
       infinite,
       currentPosition,
     } = this.state;
-    const maxPosition = (images.length * itemWidth) - (frameSize * itemWidth);
-    let position = currentPosition;
-
-    position -= itemWidth * step;
-    if (infinite) {
-      images.push(...images.splice(0, step));
-    }
+    const maxPosition = (images.length - frameSize) * itemWidth;
+    let position = currentPosition - itemWidth * step;
 
     if (-position > maxPosition && !infinite) {
       position = -maxPosition;
+    }
+
+    if (infinite) {
+      images.push(...images.splice(0, step));
     }
 
     this.setState({ currentPosition: position });
@@ -60,15 +81,14 @@ class App extends React.Component {
       infinite,
       currentPosition,
     } = this.state;
-    let position = currentPosition;
-
-    position += itemWidth * step;
-    if (infinite) {
-      images.unshift(...images.splice(-step));
-    }
+    let position = currentPosition + itemWidth * step;
 
     if (position > 0 && !infinite) {
       position = 0;
+    }
+
+    if (infinite) {
+      images.unshift(...images.splice(-step));
     }
 
     this.setState({ currentPosition: position });
