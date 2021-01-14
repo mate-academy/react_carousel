@@ -1,1 +1,27 @@
-// style go here
+.App__container {
+  position: relative;
+  width: 398px;
+  padding: 10px 40px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  background: #effaf3;
+  animation-duration: 1000ms;
+}
+
+.button {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  font-size: 24px;
+  background-color: #effaf3;
+  color: #257942;
+
+  &:hover {
+    background-color: #ebfffc;
+    border: 1px solid #defffa;
+  }
+
+  &:focus {
+    background-color: #ebfffc;
+    border: 1px solid #defffa;
+  }
+}
