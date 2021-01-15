@@ -17,16 +17,19 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
-    width: 130,
-    count: 3,
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
     position: -390,
+    infinite: true,
   };
 
   nextImage = () => {
     this.setState(state => ({
-      position: Math
-        .max(state.position - (state.width * state.count), -state.width
-          * (document.querySelectorAll('li').length - state.count)),
+      position: state.infinite === true && state.position === -910 ? 0 : Math
+        .max(state.position - (state.itemWidth * state.frameSize),
+          -state.itemWidth * (document
+            .querySelectorAll('li').length - state.step)),
     }));
     document.querySelector('ul')
       .style.marginLeft = `${this.state.position}px`;
@@ -34,14 +37,15 @@ class App extends React.Component {
 
   prevImage = () => {
     this.setState(state => ({
-      position: Math.min(state.position + (state.width * state.count), 0),
+      position: state.position === 0 ? -910 : Math.min(state.position
+        + (state.itemWidth * state.frameSize), 0),
     }));
     document.querySelector('ul')
       .style.marginLeft = `${this.state.position}px`;
   }
 
   render() {
-    const { images, width, count } = this.state;
+    const { images } = this.state;
 
     return (
       <div className="App">
@@ -57,7 +61,7 @@ class App extends React.Component {
 
           <div className="Carousel">
             <ul className="Carousel__list">
-              <Carousel images={images} width={width} count={count} />
+              <Carousel images={images} />
             </ul>
           </div>
 
