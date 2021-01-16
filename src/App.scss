@@ -1,1 +1,62 @@
-// style go here
+$count: 3;
+$position: 0;
+$imgWidth: 130px;
+$containerWidth: 390px;
+
+.Carousel {
+  position: relative;
+  width: $containerWidth;
+  box-sizing: border-box;
+  margin: 0 auto;
+  z-index: 0;
+
+  overflow: hidden;
+
+  &__list {
+    width: 1300px;
+    display: flex;
+    padding: 0;
+
+    list-style: none;
+    transition: margin-left 250ms;
+
+    animation-duration: 1000ms;
+
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__buttons {
+    display: flex;
+    width: $containerWidth;
+
+    justify-content: space-between;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+  }
+
+  &__button {
+    background-color: #56f6298f;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #5603ad66;
+    }
+    &--next {
+      &::after {
+        content: "▶";
+      }
+    }
+
+    &--prev {
+      &::after {
+        content: "◀";
+      }
+    }
+  }
+
+}
