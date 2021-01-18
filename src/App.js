@@ -17,10 +17,20 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: true,
   };
 
   render() {
-    const { images } = this.state;
+    const { images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite } = this.state;
 
     return (
       <div className="App">
@@ -29,6 +39,11 @@ class App extends React.Component {
 
         <Carousel
           images={[...images]}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );

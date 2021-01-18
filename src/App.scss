@@ -1,11 +1,5 @@
-$count: 3;
-$position: 0;
-$imgWidth: 130px;
-$containerWidth: 390px;
-
 .Carousel {
   position: relative;
-  width: $containerWidth;
   box-sizing: border-box;
   margin: 0 auto;
   z-index: 0;
@@ -20,8 +14,6 @@ $containerWidth: 390px;
     list-style: none;
     transition: margin-left 250ms;
 
-    animation-duration: 1000ms;
-
   }
 
   &__img {
@@ -30,7 +22,6 @@ $containerWidth: 390px;
 
   &__buttons {
     display: flex;
-    width: $containerWidth;
 
     justify-content: space-between;
     position: absolute;
