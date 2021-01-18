@@ -1,0 +1,6 @@
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  padding-inline-start: 0;
+  overflow: hidden;
+}
