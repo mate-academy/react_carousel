@@ -1,1 +1,13 @@
-// style go here
+.wrapper {
+  width: 260px;
+  overflow: hidden;
+}
+
+ul {
+  display: flex;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
