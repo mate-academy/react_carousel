@@ -12,9 +12,13 @@ class Carousel extends React.Component {
     const limit = -itemWidth * (images.length - step);
 
     this.setState((state) => {
+      if (state.transform === limit) {
+        return { transform: 0 };
+      }
+
       let widthOfOneTurn = state.transform - (itemWidth * step);
 
-      if (widthOfOneTurn < limit) {
+      if (widthOfOneTurn < limit && widthOfOneTurn !== 0) {
         widthOfOneTurn = limit;
       }
 
@@ -23,13 +27,14 @@ class Carousel extends React.Component {
   }
 
   toPrev = () => {
-    const { itemWidth, step } = this.props;
+    const { itemWidth, step, images } = this.props;
 
     this.setState((state) => {
       let widthOfOneTurn = state.transform + (itemWidth * step);
+      const limit = -itemWidth * (images.length - step);
 
       if (widthOfOneTurn > 0) {
-        widthOfOneTurn = 0;
+        widthOfOneTurn = limit;
       }
 
       return { transform: widthOfOneTurn };
@@ -42,22 +47,20 @@ class Carousel extends React.Component {
       animationDuration,
       itemWidth,
       frameSize,
-      step,
     } = this.props;
     const { transform } = this.state;
-    const limit = -itemWidth * (images.length - step);
 
     return (
       <div className="wrapper" style={{ width: `${itemWidth * frameSize}px` }}>
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${this.state.transform}px)`,
+            transform: `translateX(${transform}px)`,
             transition: `transform ${animationDuration}ms`,
           }}
         >
           {images.map(img => (
-            <li key={img}>
+            <li key={img.match(/\d/g).join('')}>
               <img src={img} alt="1" style={{ width: `${itemWidth}px` }} />
             </li>
           ))}
@@ -66,14 +69,12 @@ class Carousel extends React.Component {
         <button
           type="button"
           onClick={this.toPrev}
-          disabled={transform === 0}
         >
           Prev
         </button>
         <button
           type="button"
           onClick={this.toNext}
-          disabled={transform === limit}
         >
           Next
         </button>
