@@ -1,1 +1,35 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main-title {
+  font-size: 36;
+}
+
+.carousel {
+  position: relative;
+  margin: 0;
+
+  &__container-wrapper {
+    width: 1300px;
+  }
+
+  &__container-inner {
+    overflow: hidden;
+  }
+
+  &__list {
+    width: 1300px;
+    
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__img {
+    display: block;
+    height: 130px;
+  }
+}
