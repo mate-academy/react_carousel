@@ -12,13 +12,9 @@ class Carousel extends React.Component {
     const limit = -itemWidth * (images.length - step);
 
     this.setState((state) => {
-      if (state.transform === limit) {
-        return { transform: 0 };
-      }
-
       let widthOfOneTurn = state.transform - (itemWidth * step);
 
-      if (widthOfOneTurn < limit && widthOfOneTurn !== 0) {
+      if (widthOfOneTurn < limit) {
         widthOfOneTurn = limit;
       }
 
@@ -27,14 +23,13 @@ class Carousel extends React.Component {
   }
 
   toPrev = () => {
-    const { itemWidth, step, images } = this.props;
+    const { itemWidth, step } = this.props;
 
     this.setState((state) => {
       let widthOfOneTurn = state.transform + (itemWidth * step);
-      const limit = -itemWidth * (images.length - step);
 
       if (widthOfOneTurn > 0) {
-        widthOfOneTurn = limit;
+        widthOfOneTurn = 0;
       }
 
       return { transform: widthOfOneTurn };
@@ -47,8 +42,10 @@ class Carousel extends React.Component {
       animationDuration,
       itemWidth,
       frameSize,
+      step,
     } = this.props;
     const { transform } = this.state;
+    const limit = -itemWidth * (images.length - step);
 
     return (
       <div className="wrapper" style={{ width: `${itemWidth * frameSize}px` }}>
@@ -69,12 +66,14 @@ class Carousel extends React.Component {
         <button
           type="button"
           onClick={this.toPrev}
+          disabled={transform === 0}
         >
           Prev
         </button>
         <button
           type="button"
           onClick={this.toNext}
+          disabled={transform === limit}
         >
           Next
         </button>
