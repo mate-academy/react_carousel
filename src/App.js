@@ -18,7 +18,6 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
-    imagesWidth: 1300,
     step: 3,
     frameSize: 3,
     itemWidth: 130,
@@ -68,7 +67,7 @@ class App extends React.Component {
 
     if (counter === frameSize && infinite) {
       this.setState(prevState => ({
-        translateX: -prevState.imagesWidth + (counter * itemWidth),
+        translateX: -(prevState.itemWidth * 10) + (itemWidth * frameSize),
         counter: prevState.images.length,
       }));
     } else if (this.state.counter - frameSize < frameSize) {
