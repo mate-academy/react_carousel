@@ -1,1 +1,7 @@
-
+.App {
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  height: 100vh;
+  justify-content: space-between;
+}

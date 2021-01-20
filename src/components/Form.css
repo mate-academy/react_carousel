@@ -1,0 +1,15 @@
+.mainForm {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  border: 2px solid blue;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.infiniteInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px;
+}
