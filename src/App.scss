@@ -1,11 +1,16 @@
-.App__container {
-  display: flex;
-  position: relative;
-  padding: 10px;
-  border: 1px solid transparent;
-  border-radius: 15px;
-  background: #effaf3;
-  animation-duration: 1000ms;
+.App {
+
+  &__container {
+    display: flex;
+    position: relative;
+    margin: 20px auto;
+    padding: 10px;
+
+    border: 1px solid transparent;
+    border-radius: 15px;
+    background: #effaf3;
+    animation-duration: 1000ms;
+  }
 }
 
 .button {
@@ -24,4 +29,13 @@
     background-color: #ebfffc;
     border: 1px solid #defffa;
   }
+}
+
+.innerForm {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.title {
+  text-align: center;
 }

@@ -4,47 +4,35 @@ import './Carousel.scss';
 
 class Carousel extends React.Component {
   state = {
-    itemWidth: this.props.itemWidth,
-    frameSize: this.props.frameSize,
-    step: this.props.step,
     position: 0,
-    animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
-    maxPosition: this.props.itemWidth * this.props.images.length
-      - this.props.itemWidth * this.props.frameSize,
   }
 
-  nextImage = () => {
-    this.setState(({ infinite,
-      position,
-      itemWidth,
-      frameSize,
-      step,
-      maxPosition }) => ({
-      position: infinite === true
-      && position === -maxPosition
-        ? 0
-        : Math.max((position - itemWidth * frameSize), -itemWidth
-          * (this.props.images.length - step)),
-    }));
-  }
+  prevAndNextImage = (event) => {
+    const { itemWidth, frameSize, step, infinite, images } = this.props;
+    const maxPosition = itemWidth * images.length - itemWidth * frameSize;
+    const { name } = event.target;
 
-  prevImage = () => {
-    this.setState(({ infinite,
-      position,
-      itemWidth,
-      frameSize,
-      maxPosition }) => ({
-      position: infinite === true
-      && position === 0
-        ? -maxPosition
-        : Math.min(position + (itemWidth * frameSize), 0),
-    }));
+    if (name === 'next') {
+      this.setState(({ position }) => ({
+        position: infinite === true
+        && position === -maxPosition
+          ? 0
+          : Math.max((position - step * itemWidth), -itemWidth
+            * (images.length - step)),
+      }));
+    } else {
+      this.setState(({ position }) => ({
+        position: infinite === true
+        && position === 0
+          ? -maxPosition
+          : Math.min(position + (step * itemWidth), 0),
+      }));
+    }
   }
 
   render() {
-    const { frameSize, itemWidth, position, animationDuration } = this.state;
-    const { images } = this.props;
+    const { frameSize, itemWidth, images, animationDuration } = this.props;
+    const { position } = this.state;
 
     return (
       <div
@@ -55,8 +43,9 @@ class Carousel extends React.Component {
       >
         <button
           type="button"
+          name="prev"
           className="button"
-          onClick={this.prevImage}
+          onClick={this.prevAndNextImage}
         >
           &#8656;
         </button>
@@ -100,8 +89,9 @@ class Carousel extends React.Component {
 
         <button
           type="button"
+          name="next"
           className="button"
-          onClick={this.nextImage}
+          onClick={this.prevAndNextImage}
         >
           &#8658;
         </button>
