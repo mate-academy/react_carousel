@@ -1,1 +1,16 @@
-// style go here
+.wrapper {
+  overflow: hidden;
+}
+
+ul {
+  display: flex;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.error {
+  color: red;
+}
