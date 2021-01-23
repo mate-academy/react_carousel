@@ -21,10 +21,22 @@ class App extends React.Component {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
+    error: false,
   };
 
   handle = (event) => {
     const { name, value } = event.target;
+    const { images, error } = this.state;
+
+    if (value > images.length && (name === 'frameSize' || name === 'step')) {
+      this.setState({ error: true });
+
+      return;
+    }
+
+    if (error) {
+      this.setState({ error: false });
+    }
 
     this.setState({ [name]: value });
   }
@@ -36,6 +48,7 @@ class App extends React.Component {
       frameSize,
       itemWidth,
       step,
+      error,
     } = this.state;
 
     return (
@@ -86,15 +99,22 @@ class App extends React.Component {
           </label>
         </form>
 
-        <div className="container">
-          <Carousel
-            images={images}
-            step={step}
-            frameSize={frameSize}
-            itemWidth={itemWidth}
-            animationDuration={animationDuration}
-          />
-        </div>
+        {error ? (
+          <p className="error">
+            You cannot use a size of step or frame larger then the number of
+            images
+          </p>
+        ) : (
+          <div className="container">
+            <Carousel
+              images={images}
+              step={step}
+              frameSize={frameSize}
+              itemWidth={itemWidth}
+              animationDuration={animationDuration}
+            />
+          </div>
+        )}
 
       </div>
     );
