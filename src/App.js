@@ -23,6 +23,12 @@ class App extends React.Component {
     animationDuration: 1000,
   };
 
+  handle = (event) => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
+  }
+
   render() {
     const {
       images,
@@ -40,6 +46,46 @@ class App extends React.Component {
           {' '}
           images
         </h1>
+
+        <form>
+          <label>
+            Step
+            <input
+              name="step"
+              type="text"
+              value={step}
+              onChange={this.handle}
+            />
+          </label>
+          <label>
+            Size of frame
+            <input
+              name="frameSize"
+              type="text"
+              value={frameSize}
+              onChange={this.handle}
+            />
+          </label>
+          <label>
+            Width of images
+            <input
+              name="itemWidth"
+              type="text"
+              value={itemWidth}
+              onChange={this.handle}
+            />
+          </label>
+          <label>
+            Duration of animation
+            <input
+              name="animationDuration"
+              type="text"
+              value={animationDuration}
+              onChange={this.handle}
+            />
+          </label>
+        </form>
+
         <div className="container">
           <Carousel
             images={images}

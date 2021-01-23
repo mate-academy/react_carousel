@@ -8,8 +8,8 @@ class Carousel extends React.Component {
   }
 
   toNext = () => {
-    const { itemWidth, step, images } = this.props;
-    const limit = -itemWidth * (images.length - step);
+    const { itemWidth, step, images, frameSize } = this.props;
+    const limit = -itemWidth * (images.length - frameSize);
 
     this.setState((state) => {
       let widthOfOneTurn = state.transform - (itemWidth * step);
@@ -42,10 +42,9 @@ class Carousel extends React.Component {
       animationDuration,
       itemWidth,
       frameSize,
-      step,
     } = this.props;
     const { transform } = this.state;
-    const limit = -itemWidth * (images.length - step);
+    const limit = -itemWidth * (images.length - frameSize);
 
     return (
       <div className="wrapper" style={{ width: `${itemWidth * frameSize}px` }}>
