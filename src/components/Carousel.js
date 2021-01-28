@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-update-set-state */
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,35 +10,36 @@ class Carousel extends React.Component {
     super(props);
     this.state = {
       scrollWidth: -props.itemWidth * Math.floor(props.images.length / 4),
+      animation: props.animationDuration,
       imagesState: props.images,
-      animationDuration: props.animationDuration / 1000,
-      containerSize: props.itemWidth * props.images.length,
     };
   }
 
-  componentWillReceiveProps(props) {
-    const newProps = props;
+  componentDidUpdate(prevProps) {
+    const { images, itemWidth, animationDuration } = this.props;
 
-    document.querySelector('.Carousel').style.transition = `${0}s`;
-    this.setState(state => ({
-      scrollWidth: -props.itemWidth * Math.floor(props.images.length / 4),
-      containerSize: props.itemWidth * props.images.length,
-    }));
-    setTimeout(() => {
-      document.querySelector('.Carousel').style.transition = `${newProps.animationDuration / 1000}s`;
-    }, 50);
+    if (prevProps.itemWidth !== this.props.itemWidth) {
+      this.setState({
+        animation: 0,
+        scrollWidth: -itemWidth * Math.floor(images.length / 4),
+      });
+      setTimeout(() => {
+        this.setState({ animation: animationDuration });
+      }, 50);
+    }
+
+    if (prevProps.animationDuration !== this.props.animationDuration) {
+      this.setState({ animation: animationDuration });
+    }
   }
-
-  setContainerSize = (imgWidth, arrayImages) => imgWidth * arrayImages.length;
 
   scrollLeft = (e) => {
     const buttonNext = e.target;
     let deletedArrayItems;
-    const { scrollWidth, containerSize, animationDuration } = this.state;
-    const { itemWidth } = this.props;
+    const { scrollWidth, imagesState } = this.state;
+    const { itemWidth, animationDuration } = this.props;
+    const containerSize = (itemWidth * imagesState.length);
     const boundValue = (containerSize - (5 * itemWidth));
-
-    const container = document.querySelector('.Carousel');
 
     this.setState((state, props) => {
       buttonNext.disabled = 'true';
@@ -52,7 +54,7 @@ class Carousel extends React.Component {
     }, 20);
 
     if (scrollWidth <= -boundValue) {
-      container.style.transition = '0s';
+      this.setState({ animation: 0 });
       buttonNext.disabled = 'true';
 
       this.setState((state, props) => {
@@ -65,7 +67,7 @@ class Carousel extends React.Component {
       });
 
       setTimeout(() => {
-        container.style.transition = `${animationDuration}s`;
+        this.setState({ animation: animationDuration });
         buttonNext.disabled = !buttonNext.disabled;
       }, 20);
       setTimeout(() => {
@@ -78,12 +80,11 @@ class Carousel extends React.Component {
     const {
       frameSize,
       itemWidth,
+      images,
     } = this.props;
 
     const
-      { scrollWidth,
-        imagesState,
-        animationDuration } = this.state;
+      { scrollWidth, animation } = this.state;
 
     return (
       <>
@@ -98,10 +99,10 @@ class Carousel extends React.Component {
             className="Carousel"
             style={{
               transform: `translate(${scrollWidth}px)`,
-              transition: ` ${animationDuration}s`,
+              transition: ` ${animation / 1000}s`,
             }}
           >
-            {imagesState.map((image, index) => (
+            {images.map((image, index) => (
               <div
                 // eslint-disable-next-line react/no-array-index-key
                 key={`${image} - ${index}`}
