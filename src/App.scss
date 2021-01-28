@@ -1,1 +1,24 @@
-// style go here
+* { box-sizing: border-box; }
+.Labels {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+label {
+    font-size: 20px;
+    font-family: serif; 
+    color: rgb(20, 15, 44);
+}
+
+input {
+    font-size: 20px;
+    font-family: serif;  
+    border: 2px solid  rgb(52, 36, 143);
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 100px;
+    text-align: center; 
+}
+
