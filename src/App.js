@@ -101,7 +101,7 @@ class App extends React.Component {
               value={animationDuration}
               onChange={(event) => {
                 const valueSet = (event.target.value < 200)
-                  ? 1000 : event.target.value;
+                  ? 500 : event.target.value;
 
                 this.setState({ animationDuration: Number(valueSet) });
               }}

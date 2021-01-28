@@ -16,15 +16,16 @@ class Carousel extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    document.querySelector('.Carousel').style.transition = '0s';
-    this.setState({
+    const newProps = props;
+
+    document.querySelector('.Carousel').style.transition = `${0}s`;
+    this.setState(state => ({
       scrollWidth: -props.itemWidth * Math.floor(props.images.length / 4),
       containerSize: props.itemWidth * props.images.length,
-      animationDuration: props.animationDuration / 1000,
-    });
+    }));
     setTimeout(() => {
-      document.querySelector('.Carousel').style.transition = `{this.state.animationDuration}s`;
-    }, 10);
+      document.querySelector('.Carousel').style.transition = `${newProps.animationDuration / 1000}s`;
+    }, 50);
   }
 
   setContainerSize = (imgWidth, arrayImages) => imgWidth * arrayImages.length;
@@ -32,7 +33,7 @@ class Carousel extends React.Component {
   scrollLeft = (e) => {
     const buttonNext = e.target;
     let deletedArrayItems;
-    const { scrollWidth, containerSize } = this.state;
+    const { scrollWidth, containerSize, animationDuration } = this.state;
     const { itemWidth } = this.props;
     const boundValue = (containerSize - (5 * itemWidth));
 
@@ -48,7 +49,7 @@ class Carousel extends React.Component {
 
     setTimeout(() => {
       buttonNext.disabled = !buttonNext.disabled;
-    }, 200);
+    }, 20);
 
     if (scrollWidth <= -boundValue) {
       container.style.transition = '0s';
@@ -64,9 +65,9 @@ class Carousel extends React.Component {
       });
 
       setTimeout(() => {
-        container.style.transition = `{this.state.animationDuration}s`;
+        container.style.transition = `${animationDuration}s`;
         buttonNext.disabled = !buttonNext.disabled;
-      }, 200);
+      }, 20);
       setTimeout(() => {
         buttonNext.disabled = !buttonNext.disabled;
       }, 10);
@@ -97,7 +98,7 @@ class Carousel extends React.Component {
             className="Carousel"
             style={{
               transform: `translate(${scrollWidth}px)`,
-              transitionDuration: `${animationDuration}s`,
+              transition: ` ${animationDuration}s`,
             }}
           >
             {imagesState.map((image, index) => (
