@@ -1,0 +1,29 @@
+.inputs {
+  border: 1px solid gray;
+  background: #eee;
+  border-radius: 15px;
+  width: 70px;
+  margin: 0 auto;
+  margin-top: 40px;
+  text-align: left;
+  padding: 10px;
+}
+
+input {
+  margin: 5px;
+  background: rgb(250, 215, 90);
+  border-radius: 5px;
+  width: 50px;
+  color: rgb(83, 83, 83);
+  border: 1px solid gray;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:hover {
+  background: rgb(6, 116, 254);
+  cursor: pointer;
+  color: rgb(238, 238, 238);
+}
