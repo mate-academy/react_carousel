@@ -1,0 +1,38 @@
+.CarouselSetting {
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  background: #eee;
+  margin-top: 5px;
+  padding: 10px;
+  width: 70%;
+}
+
+input[type="text"],
+input[type="button"],
+input[type="range"] {
+  width: 50%;
+  padding: 5px;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="button"] {
+  width: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.add-image {
+  display: inline-block;
+}
+
+.invalid {
+  border-color: red;
+}

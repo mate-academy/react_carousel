@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { CarouselSetting } from './components/CarouselSetting';
 
 class App extends React.Component {
   state = {
@@ -17,17 +18,65 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+    indexFrame: 0,
+    currentPosition: 0,
   };
 
+  handleGetValue = (value, item) => {
+    item === 'images'
+      ? this.setState({
+        images: [...value],
+      })
+      : this.setState({
+        [item]: typeof value === 'string' || typeof value === 'number'
+          ? Number(value) : !!value,
+      });
+  }
+
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+      indexFrame,
+      currentPosition,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1>Carousel</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          indexFrame={indexFrame}
+          currentPosition={currentPosition}
+          handleGetValue={this.handleGetValue}
+        />
+
+        <CarouselSetting
+          imagesLength={images.length}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          indexFrame={indexFrame}
+          currentPosition={currentPosition}
+          handleGetValue={this.handleGetValue}
+        />
       </div>
     );
   }
