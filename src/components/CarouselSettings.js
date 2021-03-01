@@ -8,7 +8,7 @@ export class CarouselSettings extends React.Component {
 
   render() {
     const { change } = this.state;
-    const { frameSize, step, itemWidth, animationDuration } = this.props;
+    const { frameSize, step, itemWidth, duration } = this.props;
 
     return (
       <div className="form">
@@ -55,16 +55,17 @@ export class CarouselSettings extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="animationDuration">
+        <label htmlFor="duration">
           Animation Duration:
           <select
-            id="animationDuration"
-            onChange={e => change(e, 'animationDuration')}
-            defaultValue={animationDuration}
+            id="duration"
+            onChange={e => change(e, 'duration')}
+            defaultValue={duration}
           >
             <option>1000</option>
             <option>2000</option>
             <option>3000</option>
+            <option>7000</option>
           </select>
         </label>
 
@@ -86,5 +87,5 @@ CarouselSettings.propTypes = {
   frameSize: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
-  animationDuration: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
 };
