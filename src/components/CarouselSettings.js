@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export class CarouselSettings extends React.Component {
   state = {
-    change: this.props.change.bind(this),
+    change: this.props.change,
   }
 
   render() {
@@ -16,7 +16,7 @@ export class CarouselSettings extends React.Component {
           Frame size:
           <select
             id="frameSize"
-            onChange={e => change(e, 'frameSize')}
+            onChange={e => change(e)}
             defaultValue={frameSize}
           >
             <option>1</option>
@@ -31,7 +31,7 @@ export class CarouselSettings extends React.Component {
           Step:
           <select
             id="step"
-            onChange={e => change(e, 'step')}
+            onChange={e => change(e)}
             defaultValue={step}
           >
             <option>1</option>
@@ -46,7 +46,7 @@ export class CarouselSettings extends React.Component {
           Item Width:
           <select
             id="itemWidth"
-            onChange={e => change(e, 'itemWidth')}
+            onChange={e => change(e)}
             defaultValue={itemWidth}
           >
             <option>50</option>
@@ -59,7 +59,7 @@ export class CarouselSettings extends React.Component {
           Animation Duration:
           <select
             id="duration"
-            onChange={e => change(e, 'duration')}
+            onChange={e => change(e)}
             defaultValue={duration}
           >
             <option>1000</option>
