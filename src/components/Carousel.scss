@@ -1,1 +1,52 @@
-// style go here
+body {
+  text-align: center;
+  margin: 0;
+  padding: 3rem;
+}
+
+.Carousel {
+  display: inline-flex;
+  padding: 2rem;
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+  background-color: yellow;
+  border-radius: 100px;
+}
+
+.Carusel__list {
+  overflow: hidden;
+}
+
+.Carusel__list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+.Carusel__list li {
+  display: inline-block;
+}
+
+button {
+  border-radius: 50px;
+  background-color: skyblue;
+}
+
+.form {
+  text-align: justify;
+  display: initial;
+  padding: 1rem;
+  width: 400px;
+  background-color: silver;
+  border-radius: 50px;
+}
+
+.form label {
+  margin-top: 1rem;
+}
+
+.form label select {
+  margin-right: 1rem;
+  width: 3.3rem;
+}
