@@ -24,44 +24,43 @@ class Carousel extends React.Component {
   }
 
   moveRight = () => {
-    this.setState((state) => {
-      const { position, itemWidth, step, infinite, images, frameSize } = state;
-      let currPosition = position;
+    const {
+      position,
+      itemWidth,
+      step,
+      infinite,
+      images,
+      frameSize,
+    } = this.state;
+    let currPosition = position;
 
-      currPosition -= itemWidth * step;
-      currPosition = Math.max(
-        currPosition, -itemWidth * (images.length - frameSize),
-      );
+    currPosition -= itemWidth * step;
+    currPosition = Math.max(
+      currPosition, -itemWidth * (images.length - frameSize),
+    );
 
-      if (infinite && position === -itemWidth * (images.length - step)) {
-        return ({
-          position: 0,
-        });
-      }
+    if (infinite && position === -itemWidth * (images.length - step)) {
+      currPosition = 0;
+    }
 
-      return ({
-        position: currPosition,
-      });
+    this.setState({
+      position: currPosition,
     });
   }
 
   moveLeft = () => {
-    this.setState((state) => {
-      const { position, itemWidth, step, infinite, images } = state;
-      let currPosition = position;
+    const { position, itemWidth, step, infinite, images } = this.state;
+    let currPosition = position;
 
-      currPosition += itemWidth * step;
-      currPosition = Math.min(currPosition, 0);
+    currPosition += itemWidth * step;
+    currPosition = Math.min(currPosition, 0);
 
-      if (infinite && position === 0) {
-        return ({
-          position: -itemWidth * (images.length - step),
-        });
-      }
+    if (infinite && position === 0) {
+      currPosition = -itemWidth * (images.length - step);
+    }
 
-      return ({
-        position: currPosition,
-      });
+    this.setState({
+      position: currPosition,
     });
   }
 
