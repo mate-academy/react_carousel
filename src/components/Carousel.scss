@@ -1,12 +1,12 @@
 .Carousel {
+  overflow: hidden;
+
   &__list {
     display: flex;
 
-    overflow: hidden;
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    scroll-behavior: smooth;
   }
 
   &__image {

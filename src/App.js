@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 class App extends React.Component {
   state = {
@@ -32,6 +32,7 @@ class App extends React.Component {
           step={2}
           itemWidth={130}
           frame={3}
+          animationDuration={3000}
         />
       </div>
     );

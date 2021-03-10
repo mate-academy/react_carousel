@@ -3,77 +3,51 @@ import React, { Component } from 'react';
 
 import './Carousel.scss';
 
-class Carousel extends Component {
-  static propTypes = {
-    frame: PropTypes.number,
-    itemWidth: PropTypes.number,
-    step: PropTypes.number,
-    images: PropTypes.arrayOf(
-      PropTypes.string,
-    ).isRequired,
-  }
+function generateIDbyImageName(image) {
+  return image.replace(/[./img/.png]/g, '');
+}
 
-  static defaultProps = {
-    frame: 3,
-    itemWidth: 130,
-    step: 3,
-  }
-
+export class Carousel extends Component {
   state = {
     currentPosition: 0,
   }
 
-  componentDidMount() {
-    const list = document.querySelector('.Carousel__list');
-
-    list.style.width = `${this.props.frame * this.props.itemWidth}px`;
-    this.setState({
-      scrollWidth: list.scrollWidth,
-
-    });
-  }
-
-  componentDidUpdate() {
-    const list = document.querySelector('.Carousel__list');
-
-    list.scrollLeft = this.state.currentPosition;
-  }
-
   scrollLeft = () => {
-    const { scrollWidth, currentPosition } = this.state;
-    const { step, itemWidth } = this.props;
+    const { itemWidth, step, images, frame } = this.props;
+    const maxMoving = itemWidth * step;
+    const maxWidth = (images.length - frame) * itemWidth;
 
-    if ((currentPosition + (step * itemWidth))
-      <= (scrollWidth - (step * itemWidth))) {
-      this.setState(state => (
-        { currentPosition: state.currentPosition + (step * itemWidth) }));
-    } else {
-      this.setState(state => (
-        {
-          currentPosition: state.currentPosition
-            + (state.scrollWidth
-              - (step * itemWidth) - state.currentPosition),
-        }));
-    }
+    this.setState(prevState => ({
+      currentPosition: prevState.currentPosition - maxMoving < -maxWidth
+        ? -maxWidth
+        : prevState.currentPosition - maxMoving,
+    }));
   }
 
   scrollRight = () => {
-    const { currentPosition } = this.state;
-    const { step, itemWidth } = this.props;
+    const { itemWidth, step } = this.props;
+    const maxMoving = itemWidth * step;
 
-    if ((currentPosition - (step * itemWidth)) >= 0) {
-      this.setState(state => (
-        { currentPosition: state.currentPosition - (step * itemWidth) }));
-    } else {
-      this.setState({ currentPosition: 0 });
-    }
+    this.setState(prevState => ({
+      currentPosition: prevState.currentPosition + maxMoving > 0
+        ? 0
+        : prevState.currentPosition + maxMoving,
+    }));
   }
 
   render() {
-    const { images, itemWidth } = this.props;
+    const { currentPosition } = this.state;
+    const {
+      images,
+      itemWidth,
+      frame,
+      animationDuration,
+    } = this.props;
+
+    const maxWidth = (images.length - frame) * itemWidth;
 
     const preparedImages = images.map(image => ({
-      id: image.replace(/[./img/.png]/g, ''),
+      id: generateIDbyImageName(image),
       src: image,
     }));
 
@@ -90,14 +64,21 @@ class Carousel extends Component {
     ));
 
     return (
-      <div className="Carousel">
-        <ul className="Carousel__list">
+      <div className="Carousel" style={{ width: `${itemWidth * frame}px` }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${currentPosition}px)`,
+            transitionDuration: `${animationDuration}ms`,
+          }}
+        >
           {imageList}
         </ul>
 
         <button
           className="Carousel__prev"
           type="button"
+          disabled={currentPosition === 0}
           onClick={this.scrollRight}
         >
           Prev
@@ -105,6 +86,7 @@ class Carousel extends Component {
         <button
           className="Carousel__next"
           type="button"
+          disabled={currentPosition <= -maxWidth}
           onClick={this.scrollLeft}
         >
           Next
@@ -114,4 +96,19 @@ class Carousel extends Component {
   }
 }
 
-export default Carousel;
+Carousel.propTypes = {
+  frame: PropTypes.number,
+  itemWidth: PropTypes.number,
+  step: PropTypes.number,
+  animationDuration: PropTypes.number,
+  images: PropTypes.arrayOf(
+    PropTypes.string,
+  ).isRequired,
+};
+
+Carousel.defaultProps = {
+  frame: 3,
+  itemWidth: 130,
+  step: 3,
+  animationDuration: 3000,
+};
