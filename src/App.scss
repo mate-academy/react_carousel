@@ -1,1 +1,33 @@
 // style go here
+html {
+  font-weight: bold;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.Carousel {
+  overflow: hidden;
+  border-radius: 5px;
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border-radius: 15px;
+  padding: 10px 25px;
+
+  color: goldenrod;
+  background-color: #000;
+}
