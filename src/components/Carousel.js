@@ -6,10 +6,10 @@ import './Carousel.scss';
 export class Carousel extends React.Component {
   state = {
     images: this.props.images,
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
+    itemWidth: this.props.itemWidth,
+    frameSize: this.props.frameSize,
+    step: this.props.step,
+    animationDuration: this.props.animationDuration,
     translateX: 0,
   }
 
@@ -89,8 +89,12 @@ export class Carousel extends React.Component {
           ))}
         </ul>
 
-        <button type="button" onClick={this.handlePrev}>Prev</button>
-        <button type="button" onClick={this.handleNext}>Next</button>
+        <button className="prev" type="button" onClick={this.handlePrev}>
+          Prev
+        </button>
+        <button type="button" onClick={this.handleNext}>
+          Next
+        </button>
       </div>
     );
   }
@@ -98,4 +102,8 @@ export class Carousel extends React.Component {
 
 Carousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
 };
