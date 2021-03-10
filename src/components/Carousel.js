@@ -4,27 +4,29 @@ import './Carousel.scss';
 
 export class Carousel extends React.Component {
   state = {
-    transform: 0,
+    currentPosition: 0,
   }
 
   showNext = () => {
     const { images, step, itemWidth, frameSize } = this.props;
-    const scroll = itemWidth * step;
+    const scrollStep = itemWidth * step;
     const maxLength = (images.length - frameSize) * itemWidth;
 
     this.setState(state => ({
-      transform: state.transform - scroll < -maxLength
+      currentPosition: state.currentPosition - scrollStep < -maxLength
         ? -maxLength
-        : state.transform - scroll,
+        : state.currentPosition - scrollStep,
     }));
   }
 
   showPrevious = () => {
     const { step, itemWidth } = this.props;
-    const scroll = itemWidth * step;
+    const scrollStep = itemWidth * step;
 
     this.setState(state => ({
-      transform: state.transform + scroll > 0 ? 0 : state.transform + scroll,
+      currentPosition: state.currentPosition + scrollStep > 0
+        ? 0
+        : state.currentPosition + scrollStep,
     }));
   }
 
@@ -39,7 +41,7 @@ export class Carousel extends React.Component {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${this.state.transform}px)`,
+            transform: `translateX(${this.state.currentPosition}px)`,
             transitionDuration: `${animationDuration}ms`,
           }}
         >

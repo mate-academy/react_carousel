@@ -31,7 +31,7 @@ class App extends React.Component {
           images={images}
           step={3}
           itemWidth={130}
-          frameSize={5}
+          frameSize={3}
           animationDuration={1000}
         />
       </div>
