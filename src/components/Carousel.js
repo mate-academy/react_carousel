@@ -1,33 +1,30 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Carousel.scss';
 
 export class Carousel extends React.Component {
   state = {
-    images: this.props.images,
-    itemWidth: this.props.itemWidth,
-    frameSize: this.props.frameSize,
-    step: this.props.step,
-    animationDuration: this.props.animationDuration,
-    translateX: 0,
+    currentPosition: 0,
   }
 
   handlePrev = () => {
     const {
       itemWidth,
       step,
-      translateX,
-    } = this.state;
+    } = this.props;
 
-    if (translateX >= 0) {
+    const { currentPosition } = this.state;
+
+    if (currentPosition >= 0) {
       this.setState({
-        translateX: 0,
+        currentPosition: 0,
       });
     }
 
     this.setState(prevState => ({
-      translateX: Math.min(prevState.translateX + itemWidth * step, 0),
+      currentPosition: Math.min(
+        prevState.currentPosition + itemWidth * step, 0,
+      ),
     }));
   }
 
@@ -37,20 +34,21 @@ export class Carousel extends React.Component {
       images,
       step,
       frameSize,
-      translateX,
-    } = this.state;
+    } = this.props;
+
+    const { currentPosition } = this.state;
 
     const maxWidth = images.length * itemWidth - (frameSize * itemWidth);
 
-    if (translateX >= maxWidth) {
+    if (currentPosition >= maxWidth) {
       this.setState({
-        translateX: -maxWidth,
+        currentPosition: -maxWidth,
       });
     }
 
     this.setState(prevState => ({
-      translateX: Math.max(
-        prevState.translateX - itemWidth * step,
+      currentPosition: Math.max(
+        prevState.currentPosition - itemWidth * step,
         -itemWidth * (images.length - step),
       ),
     }));
@@ -60,19 +58,19 @@ export class Carousel extends React.Component {
     const {
       images,
       itemWidth,
-      frameSize,
+      frameSize: framesize,
       animationDuration,
-      translateX,
-    } = this.state;
+    } = this.props;
+
+    const { currentPosition } = this.state;
 
     const style = {
       transition: `transform ${animationDuration}ms`,
-      transform: `translateX(${translateX}px)`,
+      transform: `TranslateX(${currentPosition}px)`,
     };
 
     const width = {
-      /* stylelint-disable */
-      width: `${itemWidth * frameSize}px`,
+      width: `${itemWidth * framesize}px`,
     };
 
     return (
