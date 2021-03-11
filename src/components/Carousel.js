@@ -4,29 +4,29 @@ import './Carousel.scss';
 
 export class Carousel extends React.Component {
   state = {
-    position: 0,
+    currentPosition: 0,
   }
 
-  nextImage = () => {
+  scrollNext = () => {
     const { images, step, itemWidth, framesize } = this.props;
     const scrollStep = itemWidth * step;
     const maxLength = (images.length - framesize) * itemWidth;
 
     this.setState(state => ({
-      position: (state.position - scrollStep < -maxLength)
+      currentPosition: (state.currentPosition - scrollStep < -maxLength)
         ? -maxLength
-        : state.position - scrollStep,
+        : state.currentPosition - scrollStep,
     }));
   }
 
-  previesleImage = () => {
+  scrollPrevious = () => {
     const { step, itemWidth } = this.props;
     const scrollStep = step * itemWidth;
 
     this.setState(state => ({
-      position: (state.position + scrollStep > 0)
+      currentPosition: (state.currentPosition + scrollStep > 0)
         ? 0
-        : state.position + scrollStep,
+        : state.currentPosition + scrollStep,
     }));
   }
 
@@ -41,7 +41,7 @@ export class Carousel extends React.Component {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${this.state.position}px)`,
+            transform: `translateX(${this.state.currentPosition}px)`,
             transitionDuration: `${animationDuration}ms`,
           }}
         >
@@ -53,8 +53,8 @@ export class Carousel extends React.Component {
             </li>
           ))}
         </ul>
-        <button type="button" onClick={this.previesleImage}>Prev</button>
-        <button type="button" onClick={this.nextImage}>Next</button>
+        <button type="button" onClick={this.scrollPrevious}>Prev</button>
+        <button type="button" onClick={this.scrollNext}>Next</button>
       </div>
     );
   }
