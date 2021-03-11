@@ -1,0 +1,22 @@
+.Carousel {
+  width: 390px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+
+    padding: 0;
+  }
+
+  &__item {
+    height: 130px;
+    list-style-type: none;
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
