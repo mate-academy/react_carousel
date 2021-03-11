@@ -5,42 +5,37 @@ import './Carousel.scss';
 
 export class Carousel extends React.Component {
   state = {
-    images: this.props.images,
-    step: this.props.step,
-    frameSize: this.props.frameSize,
-    itemWidth: this.props.itemWidth,
-    animationDuration: this.props.animationDuration,
-    translateX: 0,
+    currentPosition: 0,
   }
 
   slideRight = () => {
-    let { translateX } = this.state;
-    const { images, itemWidth, step } = this.state;
+    let { currentPosition } = this.state;
+    const { images, itemWidth, step } = this.props;
 
     const maxWidth = images.length * itemWidth - itemWidth * 3;
 
-    if (translateX >= maxWidth - itemWidth * 2) {
+    if (currentPosition >= maxWidth - itemWidth * 2) {
       this.setState({
-        translateX: maxWidth,
+        currentPosition: maxWidth,
       });
     } else {
       this.setState({
-        translateX: translateX += itemWidth * step,
+        currentPosition: currentPosition += itemWidth * step,
       });
     }
   }
 
   slideLeft = () => {
-    let { translateX } = this.state;
-    const { itemWidth, step } = this.state;
+    let { currentPosition } = this.state;
+    const { itemWidth, step } = this.props;
 
-    if (translateX <= itemWidth * 3) {
+    if (currentPosition <= itemWidth * 3) {
       this.setState({
-        translateX: 0,
+        currentPosition: 0,
       });
     } else {
       this.setState({
-        translateX: translateX -= itemWidth * step,
+        currentPosition: currentPosition -= itemWidth * step,
       });
     }
   }
@@ -51,10 +46,14 @@ export class Carousel extends React.Component {
       frameSize,
       itemWidth,
       animationDuration,
-      translateX,
+    } = this.props;
+
+    const {
+      currentPosition,
     } = this.state;
 
     const width = (itemWidth * frameSize);
+    const maxWidth = images.length * itemWidth - itemWidth * 3;
 
     return (
       <div
@@ -66,7 +65,7 @@ export class Carousel extends React.Component {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${-translateX}px)`,
+            transform: `translateX(${-currentPosition}px)`,
             transition: `transform ${animationDuration}ms`,
           }}
         >
@@ -83,8 +82,20 @@ export class Carousel extends React.Component {
           ))}
         </ul>
 
-        <button type="button" onClick={this.slideLeft}>Prev</button>
-        <button type="button" onClick={this.slideRight}>Next</button>
+        <button
+          disabled={currentPosition === 0}
+          type="button"
+          onClick={this.slideLeft}
+        >
+          Prev
+        </button>
+        <button
+          disabled={currentPosition === maxWidth}
+          type="button"
+          onClick={this.slideRight}
+        >
+          Next
+        </button>
       </div>
     );
   }

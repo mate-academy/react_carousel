@@ -30,4 +30,8 @@ button {
 
   color: goldenrod;
   background-color: #000;
+
+  &:disabled {
+    background-color: silver;
+  }
 }
