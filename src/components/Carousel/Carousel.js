@@ -4,69 +4,79 @@ import PropTypes from 'prop-types';
 import './Carousel.scss';
 
 export class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.images = props.images;
-    this.itemWidth = props.itemWidth;
-    this.step = props.step;
-    this.frameSize = props.frameSize;
-    this.animationDuration = props.animationDuration;
-
-    this.state = {
-      currentPosition: 0,
-    };
-  }
+  state = {
+    currentPosition: 0,
+  };
 
   scrollLeft = () => {
+    const { itemWidth, step } = this.props;
+
     this.setState((prevState) => {
       const prevPosition = prevState.currentPosition;
-      const currentPosition = (prevPosition + this.itemWidth * this.step > 0)
+
+      const expectedPosition = (
+        prevPosition + itemWidth * step
+      );
+
+      const currentPosition = expectedPosition > 0
         ? 0
-        : prevPosition + this.itemWidth * this.step;
+        : expectedPosition;
 
       return { currentPosition };
     });
   }
 
   scrollRight = () => {
+    const { itemWidth, step, images, frameSize } = this.props;
+
     this.setState((prevState) => {
       const prevPosition = prevState.currentPosition;
-      const currentPosition = (
-        prevPosition - this.itemWidth * this.step
-          < (-(this.itemWidth * this.images.length)
-          + this.itemWidth * this.frameSize))
-        ? (-(this.itemWidth * this.images.length)
-          + this.itemWidth * this.frameSize)
-        : prevPosition - this.itemWidth * this.step;
+
+      const expectedPosition = (
+        prevPosition - itemWidth * step
+      );
+      const maxAllowableShift = (
+        -(itemWidth * images.length) + itemWidth * frameSize
+      );
+
+      const currentPosition = expectedPosition < maxAllowableShift
+        ? maxAllowableShift
+        : expectedPosition;
 
       return { currentPosition };
     });
   }
 
   render() {
+    const {
+      itemWidth,
+      images,
+      frameSize,
+      animationDuration,
+    } = this.props;
+
     return (
       <div
         className="Carousel"
-        style={{ width: `${this.itemWidth * this.frameSize}px` }}
+        style={{ width: `${itemWidth * frameSize}px` }}
       >
         <ul
           className="Carousel__list"
           style={{
             transform: `translateX(${this.state.currentPosition}px)`,
-            transition: `transform ${this.animationDuration}ms`,
+            transition: `transform ${animationDuration}ms`,
           }}
         >
           {
-            this.images.map(image => (
+            images.map((image, index) => (
               <li
                 className="Carousel__item"
                 key={image}
-                style={{ width: `${this.itemWidth}px` }}
+                style={{ width: `${itemWidth}px` }}
               >
                 <img
                   src={image}
-                  alt={this.images.findIndex(img => img === image) + 1}
+                  alt={`Carousel item ${index}`}
                 />
               </li>
             ))
