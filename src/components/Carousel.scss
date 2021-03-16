@@ -1,1 +1,16 @@
-// style go here
+.carousel {
+  overflow: hidden;
+  position: relative;
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+}
