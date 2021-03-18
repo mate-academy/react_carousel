@@ -1,16 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Carousel.scss';
 import Picture from './Picture';
 
 class Carousel extends React.Component {
   state = {
-    ...this.props,
     left: 0,
   };
 
   scrollLeft = () => {
-    const { images, frameSize, step, itemWidth, left } = this.state;
-    let newPosition = left;
+    const { images, frameSize, step, itemWidth } = this.props;
+    let newPosition = this.state.left;
 
     newPosition -= itemWidth * step;
 
@@ -24,9 +24,9 @@ class Carousel extends React.Component {
   };
 
   scrollRight = () => {
-    const { itemWidth, step, left } = this.state;
+    const { itemWidth, step } = this.props;
 
-    let newPosition = left;
+    let newPosition = this.state.left;
 
     newPosition += itemWidth * step;
 
@@ -40,7 +40,7 @@ class Carousel extends React.Component {
   };
 
   render() {
-    const { frameSize, itemWidth, animationDuration, left } = this.state;
+    const { frameSize, itemWidth, animationDuration } = this.props;
 
     const carouselStyle = {
       width: itemWidth * frameSize,
@@ -48,7 +48,7 @@ class Carousel extends React.Component {
     };
 
     const carouselListStyle = {
-      transform: `translateX(${left}px)`,
+      transform: `translateX(${this.state.left}px)`,
       transitionDuration: `${animationDuration}ms`,
     };
 
@@ -57,7 +57,7 @@ class Carousel extends React.Component {
         <div className="Carousel" style={carouselStyle}>
           <ul className="Carousel__list" style={carouselListStyle}>
             {
-              this.state.images.map(image => (
+              this.props.images.map(image => (
                 <li key={image}>
                   <Picture image={image} width={itemWidth} />
                 </li>
@@ -81,5 +81,15 @@ class Carousel extends React.Component {
     );
   }
 }
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
+  step: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+};
 
 export default Carousel;
