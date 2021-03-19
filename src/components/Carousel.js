@@ -1,5 +1,7 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { ImagesList } from './ImagesList/ImagesList';
+import { ImagesType } from '../types';
 
 import './Carousel.scss';
 
@@ -49,24 +51,11 @@ export class Carousel extends React.Component {
           maxWidth: `${itemWidth * frameSize}px`,
         }}
       >
-        <ul
-          className="carousel__list"
-          style={{
-            width: `${itemWidth * images.length}px`,
-            marginLeft: `${-position}px`,
-          }}
-        >
-          {images.map((image, i) => (
-            <li key={image} className="carousel__item">
-              <img
-                src={image}
-                width={`${itemWidth}px`}
-                alt={i + 1}
-              />
-            </li>
-          ))}
-        </ul>
-
+        <ImagesList
+          images={images}
+          itemWidth={itemWidth}
+          position={position}
+        />
         <button
           type="button"
           onClick={this.prevClickHandler}
@@ -85,11 +74,8 @@ export class Carousel extends React.Component {
 }
 
 Carousel.propTypes = {
-  images: propTypes.arrayOf(
-    propTypes.string.isRequired,
-  ).isRequired,
-
-  step: propTypes.number.isRequired,
-  frameSize: propTypes.number.isRequired,
-  itemWidth: propTypes.number.isRequired,
+  images: ImagesType.isRequired,
+  step: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired,
 };
