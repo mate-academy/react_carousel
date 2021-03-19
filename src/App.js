@@ -30,8 +30,6 @@ class App extends React.Component {
            {' '}
            images
          </h1>
-         {/* eslint-disable-next-line */}
-
          <Carousel
            images={images}
            step={3}
