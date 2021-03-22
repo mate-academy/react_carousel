@@ -41,7 +41,7 @@ export class Carousel extends React.Component {
   }
 
   render() {
-    const { images, itemWidth, frameSize } = this.props;
+    const { images, itemWidth, frameSize, animationDuration } = this.props;
     const { position } = this.state;
 
     return (
@@ -52,6 +52,7 @@ export class Carousel extends React.Component {
         }}
       >
         <ImagesList
+          animationTime={animationDuration}
           images={images}
           itemWidth={itemWidth}
           position={position}
@@ -78,4 +79,5 @@ Carousel.propTypes = {
   step: PropTypes.number.isRequired,
   frameSize: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
 };
