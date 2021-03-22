@@ -7,26 +7,26 @@ class Carousel extends React.Component {
     currentPosition: 0,
   };
 
-  scrollPrev = () => {
+  scrollingToPrevious = () => {
     const { itemWidth, step } = this.props;
-    const maxMoving = itemWidth * step;
+    const scrollStep = itemWidth * step;
 
     this.setState(prevState => ({
-      currentPosition: (prevState.currentPosition + maxMoving > 0)
+      currentPosition: (prevState.currentPosition + scrollStep > 0)
         ? 0
-        : prevState.currentPosition + maxMoving,
+        : prevState.currentPosition + scrollStep,
     }));
   };
 
-  scrollNext = () => {
+  scrollingToNext = () => {
     const { images, step, frameSize, itemWidth } = this.props;
-    const maxMoving = itemWidth * step;
+    const scrollStep = itemWidth * step;
     const maxLength = (images.length - frameSize) * itemWidth;
 
     this.setState(prevState => ({
-      currentPosition: (prevState.currentPosition - maxMoving < -maxLength)
+      currentPosition: (prevState.currentPosition - scrollStep < -maxLength)
         ? -maxLength
-        : prevState.currentPosition - maxMoving,
+        : prevState.currentPosition - scrollStep,
     }));
   };
 
@@ -50,21 +50,21 @@ class Carousel extends React.Component {
         >
           {images.map((image, index) => (
             <li key={image}>
-              <img src={image} alt={index} />
+              <img src={image} alt={`Smile ${index}`} />
             </li>
           ))}
         </ul>
 
         <button
           type="button"
-          onClick={this.scrollPrev}
+          onClick={this.scrollingToPrevious}
           disabled={this.state.currentPosition === 0}
         >
           Prev
         </button>
         <button
           type="button"
-          onClick={this.scrollNext}
+          onClick={this.scrollingToNext}
           disabled={this.state.currentPosition === -maxLength}
         >
           Next
