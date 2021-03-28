@@ -14,7 +14,7 @@ const Carousel = ({
   <div
     className="carousel"
     style={{
-      width: `${itemWidth} * ${frameSize}px`,
+      width: `${itemWidth * frameSize}px`,
     }}
   >
     <ul
