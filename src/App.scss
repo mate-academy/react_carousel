@@ -1,1 +1,38 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
+  cursor: pointer;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1330px;
+  margin: 0 auto;
+  font-family: Montserrat, sans-serif;
+
+  @media(max-width: 425px) {
+    width: 425px;
+  }
+
+  &__title {
+    padding: 25px 0;
+    text-align: center;
+
+    @media(max-width: 425px) {
+      width: 425px;
+    }
+  }
+}

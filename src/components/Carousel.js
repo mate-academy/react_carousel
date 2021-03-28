@@ -1,19 +1,73 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import './Carousel.scss';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
+const Carousel = ({
+  images,
+  itemWidth,
+  frameSize,
+  animationDuration,
+  translateX,
+  nextButton,
+  prevButton,
+}) => (
+  <div
+    className="carousel"
+    style={{
+      width: `${itemWidth} * ${frameSize}px`,
+    }}
+  >
+    <ul
+      className="carousel__list"
+    >
+      {images.map((img, i) => (
+        <li
+          key={img}
+          className="carousel__item"
+          style={{
+            transition: `transform ${animationDuration}ms ease`,
+            transform: `translateX(${translateX}px)`,
+          }}
+        >
+          <img
+            src={img}
+            alt={i}
+            style={{
+              width: `${itemWidth}px`,
+            }}
+          />
+        </li>
+      ))}
     </ul>
-
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
+    <section
+      className="carousel__inner"
+    >
+      <button
+        type="button"
+        className="carousel__btn"
+        onClick={prevButton}
+      >
+        Prev
+      </button>
+      <button
+        type="button"
+        className="carousel__btn"
+        onClick={nextButton}
+      >
+        Next
+      </button>
+    </section>
   </div>
 );
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  frameSize: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+  translateX: PropTypes.number.isRequired,
+  prevButton: PropTypes.func.isRequired,
+  nextButton: PropTypes.func.isRequired,
+};
 
 export default Carousel;
