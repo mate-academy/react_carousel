@@ -27,9 +27,15 @@ class App extends React.Component {
     translateX: 0,
   };
 
-  paramFromInputs
-  = (frameSize, itemWidth, animationDuration, step, infinite, counter) => {
-    this.setState(() => ({
+  paramFromInputs = (
+    frameSize,
+    itemWidth,
+    animationDuration,
+    step,
+    infinite,
+    counter,
+  ) => {
+    this.setState({
       frameSize,
       itemWidth,
       animationDuration,
@@ -37,11 +43,17 @@ class App extends React.Component {
       infinite,
       counter,
       translateX: 0,
-    }));
+    });
   }
 
   nextSlide = () => {
-    const { images, counter, itemWidth, step, infinite } = this.state;
+    const {
+      images,
+      counter,
+      itemWidth,
+      step,
+      infinite,
+    } = this.state;
 
     if (images.length === counter && infinite) {
       this.setState(prevState => ({
@@ -91,18 +103,14 @@ class App extends React.Component {
       animationDuration,
       translateX,
     } = this.state;
-    const {
-      paramFromInputs,
-      nextSlide,
-      prevSlide,
-    } = this;
 
     return (
       <div className="app">
-        {/* eslint-disable-next-line */}
-        <h1 className="app__title">Carousel with {images.length} images</h1>
+        <h1 className="app__title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Form param={paramFromInputs} />
+        <Form param={this.paramFromInputs} />
 
         <Carousel
           images={images}
@@ -110,8 +118,8 @@ class App extends React.Component {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           translateX={translateX}
-          nextButton={nextSlide}
-          prevButton={prevSlide}
+          nextButton={this.nextSlide}
+          prevButton={this.prevSlide}
         />
       </div>
     );
