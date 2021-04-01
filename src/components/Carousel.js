@@ -26,7 +26,7 @@ export class Carousel extends React.Component {
       itemWidth: value.itemWidth,
       animationDuration: value.animationDuration,
       infinite: value.infinite,
-      disabledPrev: this.offset === 0 ? !value.infinite : false,
+      disabledPrev: !value.infinite,
     });
   }
 
