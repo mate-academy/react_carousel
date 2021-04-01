@@ -1,0 +1,40 @@
+.Page {
+  overflow: hidden;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  gap: 10px;
+}
+
+.Carousel__list {
+  display: flex;
+  width: 1300px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  gap: 50px;
+}
+
+.form {
+  display: flex;
+  margin: auto;
+}
+
+.checkbox {
+  margin-left: 50px;
+}
+
+img {
+  max-width: 3000px;
+}
