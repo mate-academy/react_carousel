@@ -15,12 +15,15 @@ export default class Form extends React.Component {
     const {
       name,
       value,
+      type,
       checked,
     } = event.target;
+    console.log(checked)
 
     this.setState({
-      [name]: value,
-      infinite: checked,
+      [name]: type === 'checkbox'
+        ? checked
+        : value,
     });
   }
 
@@ -44,6 +47,7 @@ export default class Form extends React.Component {
       itemWidth,
       animationDuration,
       step,
+      infinite,
     } = this.state;
     const { handleChange, callbeckParams } = this;
     const { param } = this.props;
@@ -101,7 +105,9 @@ export default class Form extends React.Component {
           <span>Infinite</span>
           <input
             id="infinite"
+            name="infinite"
             type="checkbox"
+            checked={infinite}
             onChange={handleChange}
           />
         </label>
