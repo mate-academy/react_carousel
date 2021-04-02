@@ -10,27 +10,10 @@ export class Form extends React.Component {
     frameSize: this.props.frameSize,
   }
 
-  handleChangeStep = (e) => {
-    this.setState({ step: e.target.value });
-  }
-
-  handleChangeitemWidth = (e) => {
-    this.setState({ itemWidth: e.target.value });
-  }
-
-  handleChangeanimationDuration = (e) => {
-    this.setState({ animationDuration: e.target.value });
-  }
-
-  handleChangeinfinite = (e) => {
-    this.setState({ infinite: e.target.checked });
-  }
-
-  handleChangeframeSize = (e) => {
-    this.setState({ frameSize: e.target.value });
-  }
-
   render() {
+    const { step, itemWidth, animationDuration, infinite, frameSize }
+      = this.state;
+
     return (
       <div className="field">
         <label className="label" htmlFor="size">Frame size</label>
@@ -39,8 +22,8 @@ export class Form extends React.Component {
           className="input"
           type="number"
           placeholder="Choose it"
-          value={this.state.frameSize}
-          onChange={this.handleChangeframeSize}
+          value={frameSize}
+          onChange={e => this.setState({ frameSize: e.target.value })}
         />
         <label className="label" htmlFor="width">Item width</label>
         <input
@@ -48,8 +31,8 @@ export class Form extends React.Component {
           className="input"
           type="number"
           placeholder="Choose it"
-          value={this.state.itemWidth}
-          onChange={this.handleChangeitemWidth}
+          value={itemWidth}
+          onChange={e => this.setState({ itemWidth: e.target.value })}
         />
         <label className="label" htmlFor="step">Step</label>
         <input
@@ -57,8 +40,8 @@ export class Form extends React.Component {
           className="input"
           type="number"
           placeholder="Choose it"
-          value={this.state.step}
-          onChange={this.handleChangeStep}
+          value={step}
+          onChange={e => this.setState({ step: e.target.value })}
         />
         <label className="label" htmlFor="duration">Animation duration</label>
         <input
@@ -66,8 +49,8 @@ export class Form extends React.Component {
           className="input"
           type="number"
           placeholder="Choose it"
-          value={this.state.animationDuration}
-          onChange={this.handleChangeanimationDuration}
+          value={animationDuration}
+          onChange={e => this.setState({ animationDuration: e.target.value })}
         />
         <label className="label" htmlFor="Infinite">
           Infinite
@@ -75,8 +58,8 @@ export class Form extends React.Component {
             type="checkbox"
             id="Infinite"
             className="checkbox"
-            checked={this.state.Infinite}
-            onChange={this.handleChangeinfinite}
+            checked={infinite}
+            onChange={e => this.setState({ infinite: e.target.checked })}
           />
         </label>
         <input

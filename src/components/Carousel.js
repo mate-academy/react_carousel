@@ -31,59 +31,68 @@ export class Carousel extends React.Component {
   }
 
   goNext = () => {
-    const maxOffset = -1 * (10 - this.state.frameSize) * this.state.itemWidth;
-    const refOffset = this.state.offset;
-    const refItemWidth = this.state.itemWidth;
-    const refStep = this.state.step;
+    const { offset, frameSize, step, itemWidth, infinite }
+    = this.state;
+    const maxOffset = -1 * (10 - frameSize) * itemWidth;
 
-    if (this.state.infinite) {
+    if (infinite) {
       this.setState({ disabledPrev: false });
-      if (this.state.offset === maxOffset) {
+      if (offset === maxOffset) {
         this.setState({ offset: 0 });
-      } else if (this.state.offset + -1 * refItemWidth * refStep < maxOffset) {
+      } else if (offset + -1 * itemWidth * step < maxOffset) {
         this.setState({ offset: maxOffset });
       } else {
-        this.setState({ offset: refOffset - refItemWidth * refStep });
+        this.setState(state => (
+          { offset: state.offset - state.itemWidth * state.step }
+        ));
       }
     } else {
       this.setState({ disabledPrev: false });
-      if (this.state.offset + -1 * this.state.itemWidth * this.state.step
-        <= maxOffset) {
+      if (offset + -1 * itemWidth * step <= maxOffset) {
         this.setState({ offset: maxOffset });
         this.setState({ disabledNext: true });
       } else {
-        this.setState({ offset: refOffset - refItemWidth * refStep });
+        this.setState(state => (
+          { offset: state.offset - state.itemWidth * state.step }
+        ));
       }
     }
   }
 
   goPrev = () => {
-    const maxOffset = -1 * (10 - this.state.frameSize) * this.state.itemWidth;
-    const refOffset = this.state.offset;
-    const refItemWidth = this.state.itemWidth;
-    const refStep = this.state.step;
+    const { offset, frameSize, step, itemWidth, infinite }
+    = this.state;
+    const maxOffset = -1 * (10 - frameSize) * itemWidth;
 
-    if (this.state.infinite) {
+    if (infinite) {
       this.setState({ disabledNext: false });
-      if (refOffset === 0) {
+      if (offset === 0) {
         this.setState({ offset: maxOffset });
-      } else if (refOffset + refItemWidth * refStep > 0) {
+      } else if (offset + itemWidth * step > 0) {
         this.setState({ offset: 0 });
       } else {
-        this.setState({ offset: refOffset + refItemWidth * refStep });
+        this.setState(state => (
+          { offset: state.offset + state.itemWidth * state.step }
+        ));
       }
     } else {
       this.setState({ disabledNext: false });
-      if (refOffset >= -1 * (refItemWidth * refStep)) {
+      if (offset >= -1 * (itemWidth * step)) {
         this.setState({ offset: 0 });
         this.setState({ disabledPrev: true });
       } else {
-        this.setState({ offset: refOffset + refItemWidth * refStep });
+        this.setState(state => (
+          { offset: state.offset + state.itemWidth * state.step }
+        ));
       }
     }
   }
 
   render() {
+    const { offset, frameSize, itemWidth, animationDuration,
+      allImages, disabledPrev, disabledNext }
+      = this.state;
+
     return (
       <div className="Carousel">
         <Form
@@ -92,21 +101,21 @@ export class Carousel extends React.Component {
         />
         <div
           className="Page"
-          style={{ width: this.state.itemWidth * this.state.frameSize }}
+          style={{ width: itemWidth * frameSize }}
         >
           <ul
             className="Carousel__list"
             style={{
-              transform: `translateX(${this.state.offset}px)`,
-              transition: `${this.state.animationDuration}ms`,
+              transform: `translateX(${offset}px)`,
+              transition: `${animationDuration}ms`,
             }}
           >
-            {this.state.allImages.map(item => (
-              <li key={this.state.allImages.indexOf(item)}>
+            {allImages.map(item => (
+              <li key={allImages.indexOf(item)}>
                 <img
-                  style={{ width: `${this.state.itemWidth}px` }}
+                  style={{ width: `${itemWidth}px` }}
                   src={item}
-                  alt={this.state.allImages.indexOf(item)}
+                  alt={allImages.indexOf(item)}
                 />
               </li>
             ))}
@@ -115,7 +124,7 @@ export class Carousel extends React.Component {
         <div className="buttons">
           <button
             className="button is-success is-rounded"
-            disabled={this.state.disabledPrev}
+            disabled={disabledPrev}
             type="button"
             onClick={() => this.goPrev()}
           >
@@ -123,7 +132,7 @@ export class Carousel extends React.Component {
           </button>
           <button
             className="button is-success is-rounded"
-            disabled={this.state.disabledNext}
+            disabled={disabledNext}
             type="button"
             onClick={() => this.goNext()}
           >
