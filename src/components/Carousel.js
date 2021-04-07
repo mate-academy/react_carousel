@@ -18,9 +18,9 @@ export class Carousel extends React.Component {
   }
 
   updateData = ({ ...value }) => {
-    this.setState({ offset: 0 });
-    this.setState({ disabledNext: false });
     this.setState({
+      offset: 0,
+      disabledNext: false,
       frameSize: value.frameSize,
       step: value.step,
       itemWidth: value.itemWidth,
@@ -126,7 +126,7 @@ export class Carousel extends React.Component {
             className="button is-success is-rounded"
             disabled={disabledPrev}
             type="button"
-            onClick={() => this.goPrev()}
+            onClick={this.goPrev}
           >
             Prev
           </button>
@@ -134,7 +134,7 @@ export class Carousel extends React.Component {
             className="button is-success is-rounded"
             disabled={disabledNext}
             type="button"
-            onClick={() => this.goNext()}
+            onClick={this.goNext}
           >
             Next
           </button>

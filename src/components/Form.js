@@ -15,7 +15,15 @@ export class Form extends React.Component {
       = this.state;
 
     return (
-      <div className="field">
+      <form
+        className="field"
+        onSubmit={(e) => {
+          e.preventDefault();
+          this.props.updateData({
+            ...this.state,
+          });
+        }}
+      >
         <label className="label" htmlFor="size">Frame size</label>
         <input
           id="size"
@@ -65,18 +73,9 @@ export class Form extends React.Component {
         <input
           className="button is-warning"
           type="submit"
-          onClick={() => {
-            this.props.updateData({
-              frameSize: this.state.frameSize,
-              itemWidth: this.state.itemWidth,
-              step: this.state.step,
-              infinite: this.state.infinite,
-              animationDuration: this.state.animationDuration,
-            });
-          }}
           value="Change"
         />
-      </div>
+      </form>
     );
   }
 }
