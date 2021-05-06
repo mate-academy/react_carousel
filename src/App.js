@@ -24,9 +24,6 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
         <Carousel
           images={images}
           step={2}
