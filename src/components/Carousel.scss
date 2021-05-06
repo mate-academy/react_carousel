@@ -1,5 +1,5 @@
 .Carousel {
-  
+  position: relative;
   &__list {
     padding-left: 0;
     display: flex;
@@ -12,7 +12,7 @@ li {
 }
 
 .focus {
-  position: relative;
+  //position: relative;
   height: 130px;
   overflow: hidden;
   margin: 100px auto 20px;
@@ -28,9 +28,9 @@ button {
 }
 
 .next {
-  top: 222px;
+  top: 65px;
 }
 
 .prev {
-  top: 222px;
+  top: 65px;
 }
