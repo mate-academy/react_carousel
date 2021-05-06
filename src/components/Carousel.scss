@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  
+  &__list {
+    padding-left: 0;
+    display: flex;
+    transition: 1s;
+  }
+}
+
+li {
+  list-style-type: none;
+}
+
+.focus {
+  position: relative;
+  height: 130px;
+  overflow: hidden;
+  margin: 100px auto 20px;
+}
+
+button {
+  position: absolute;
+  display: block;
+  border-radius: 15px;
+  width: 50px;
+  height: 30px;
+  outline: 0;
+}
+
+.next {
+  top: 222px;
+}
+
+.prev {
+  top: 222px;
+}
