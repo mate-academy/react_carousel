@@ -1,1 +1,22 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  max-width: min-content;
+  gap: 20px;
+
+  &__list {
+    list-style: none;
+    border: 2px solid lightgray;
+    padding: 0;
+    overflow: hidden;
+
+    display: flex;
+  }
+
+  &__item {
+    height: min-content;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+  }
+}

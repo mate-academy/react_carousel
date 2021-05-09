@@ -24,10 +24,16 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        { /* add input fields for the user */ }
+        { /* to customize carousel */ }
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={2}
+          frameSize={2}
+          itemWidth={200}
+          animationDuration={1000}
+        />
       </div>
     );
   }

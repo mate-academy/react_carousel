@@ -1,19 +1,133 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Carousel.scss';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+class Carousel extends React.Component {
+  state = {
+    currentIdx: 0,
+    imageCount: 0,
+  };
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  componentDidMount() {
+    const { images } = this.props;
+
+    this.setState({
+      imageCount: images.length,
+    });
+  }
+
+  nextFrame = () => {
+    const { frameSize } = this.props;
+
+    this.setState((state) => {
+      // console.log(`Count: ${state.imageCount}`);
+      // console.log(`Framesize: ${frameSize}`);
+
+      const currentIdx = state.currentIdx >= (state.imageCount - frameSize)
+        ? state.currentIdx
+        : state.currentIdx + 1;
+
+      return { currentIdx };
+    });
+  };
+
+  previousFrame = () => {
+    this.setState((state) => {
+      const currentIdx = state.currentIdx === 0
+        ? state.currentIdx
+        : state.currentIdx - 1;
+
+      return { currentIdx };
+    });
+  };
+
+  render() {
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      // step,
+      animationDuration,
+      // infinite,
+    } = this.props;
+
+    const { currentIdx } = this.state;
+    const carouselWidth = itemWidth * (
+      images.length < frameSize ? images.length : frameSize
+    );
+    const listStyle = {
+      width: carouselWidth,
+    };
+
+    return (
+      <div className="Carousel">
+        <button
+          type="button"
+          onClick={this.previousFrame}
+        >
+          Prev
+        </button>
+
+        <ul
+          className="Carousel__list"
+          style={listStyle}
+        >
+          {
+            images.map((image) => {
+              const key = +image.replace(/\D/g, '');
+              const listItemStyle = {
+                transitionDuration: `${animationDuration}ms`,
+                transform: `translateX(-${currentIdx * itemWidth}px)`,
+              };
+              const imgStyle = {
+                width: `${itemWidth}px`,
+              };
+
+              return (
+                <li
+                  key={key}
+                  className="Carousel__item"
+                  style={listItemStyle}
+                >
+                  <img
+                    className="Carousel__image"
+                    src={image}
+                    alt={key}
+                    style={imgStyle}
+                  />
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <button
+          type="button"
+          onClick={this.nextFrame}
+        >
+          Next
+        </button>
+      </div>
+    );
+  }
+}
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemWidth: PropTypes.number,
+  frameSize: PropTypes.number,
+  // step: PropTypes.number,
+  animationDuration: PropTypes.number,
+  // infinite: PropTypes.bool,
+};
+
+Carousel.defaultProps = {
+  itemWidth: 130,
+  frameSize: 3,
+  // step: 3,
+  animationDuration: 1000,
+  // infinite: false,
+};
 
 export default Carousel;
