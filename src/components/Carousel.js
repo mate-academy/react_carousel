@@ -18,27 +18,30 @@ class Carousel extends React.Component {
   }
 
   nextFrame = () => {
-    const { frameSize } = this.props;
+    const { step, frameSize } = this.props;
 
     this.setState((state) => {
-      // console.log(`Count: ${state.imageCount}`);
-      // console.log(`Framesize: ${frameSize}`);
+      let currentIdx = state.currentIdx + step;
 
-      const currentIdx = state.currentIdx >= (state.imageCount - frameSize)
-        ? state.currentIdx
-        : state.currentIdx + 1;
+      if (currentIdx >= (state.imageCount - frameSize)) {
+        currentIdx = state.imageCount - frameSize;
+      }
 
       return { currentIdx };
     });
   };
 
   previousFrame = () => {
+    const { step } = this.props;
+
     this.setState((state) => {
       const currentIdx = state.currentIdx === 0
         ? state.currentIdx
-        : state.currentIdx - 1;
+        : state.currentIdx - step;
 
-      return { currentIdx };
+      return {
+        currentIdx: currentIdx < 0 ? 0 : currentIdx,
+      };
     });
   };
 
@@ -47,9 +50,7 @@ class Carousel extends React.Component {
       images,
       itemWidth,
       frameSize,
-      // step,
       animationDuration,
-      // infinite,
     } = this.props;
 
     const { currentIdx } = this.state;
@@ -117,7 +118,7 @@ Carousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   itemWidth: PropTypes.number,
   frameSize: PropTypes.number,
-  // step: PropTypes.number,
+  step: PropTypes.number,
   animationDuration: PropTypes.number,
   // infinite: PropTypes.bool,
 };
@@ -125,7 +126,7 @@ Carousel.propTypes = {
 Carousel.defaultProps = {
   itemWidth: 130,
   frameSize: 3,
-  // step: 3,
+  step: 3,
   animationDuration: 1000,
   // infinite: false,
 };
