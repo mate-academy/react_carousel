@@ -18,3 +18,64 @@ li {
   overflow: hidden;
   margin: 100px auto 20px;
 }
+
+form {
+  background: #f5f5f5;
+  //align-self: flex-start;
+  color: #808080;
+  border-top: hsla(202, 100%, 77%, 0.92) solid 30px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 24px;
+  display: inline-flex;
+  flex-direction: inherit;
+  width: 30%;
+  left: 35%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:before {
+    position: absolute;
+    content: "Slider";
+    text-align: center;
+    color: rgba(117, 2, 2, 0.7);
+    font-size: 16px;
+    font-weight: 700;
+    top: -25px;
+    left: 45%;
+  }
+
+  label {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+    input {
+      width: 150px;
+      box-sizing: flex;
+      border: 1px solid #808080;
+      border-radius: 4px;
+      color: #808080;
+      padding: 4px;
+      outline-color: #808080;
+    }
+  }
+  .checkbox {
+    display: flex;
+    justify-content: space-around;
+    input {
+      width: 50px;
+    }
+  }
+}
+
+.button {
+  top: 50%;
+  position: absolute;
+  display: block;
+  border-radius: 15px;
+  width: 50px;
+  height: 30px;
+}
