@@ -74,7 +74,8 @@ class Carousel extends React.Component {
       this.setState(state => ({
         currentLeftPoint: state.currentLeftPoint + this.props.step,
         translateX: state.translateX + this.props.step * this.props.itemWidth,
-        isLeftButtonDisabled: false,
+        isLeftButtonDisabled: true,
+        isRightButtonDisabled: true,
         noAnimation: false,
       }));
       setTimeout(() => {
@@ -86,6 +87,8 @@ class Carousel extends React.Component {
             this.props.images,
             state.currentLeftPoint,
           ),
+          isRightButtonDisabled: false,
+          isLeftButtonDisabled: false,
           translateX: (this.props.step) * this.props.itemWidth,
         }));
       }, 1000);
@@ -111,7 +114,8 @@ class Carousel extends React.Component {
       this.setState(state => ({
         currentLeftPoint: state.currentLeftPoint - this.props.step,
         translateX: state.translateX - (this.props.step * this.props.itemWidth),
-        isLeftButtonDisabled: false,
+        isLeftButtonDisabled: true,
+        isRightButtonDisabled: true,
         noAnimation: false,
       }));
       setTimeout(() => {
@@ -125,6 +129,8 @@ class Carousel extends React.Component {
             this.props.step,
             this.props.frameSize,
           ),
+          isRightButtonDisabled: false,
+          isLeftButtonDisabled: false,
           translateX: (this.props.step) * this.props.itemWidth,
         }));
       }, 1000);
