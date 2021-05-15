@@ -1,1 +1,56 @@
-// style go here
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+};
+
+button, button:focus{
+  outline: none;
+  background: transparent;
+  border: 1px solid transparent;
+};
+
+button:active{
+  outline: none;
+  background: transparent;
+  border: 1px solid grey;
+};
+
+.App {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #000;
+  border-radius: 30px;
+  box-shadow: inset 0 0 25px #000;
+  background: linear-gradient(rgb(194, 175, 175), rgb(173, 173, 255));
+  gap: 20px;
+  width: fit-content;
+  height: 500px;
+  padding: 10px 50px 40px;
+  margin: 0 auto;
+
+  .option {
+    box-shadow: inset 0 0 25px black;
+    border-radius: 20px;
+    padding: 30px;
+    font-size: 20PX;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    gap: 10px;
+
+    .input-wrapper {
+      gap: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .label {
+        flex-grow: 1;
+      };
+    };
+  };
+};
+
