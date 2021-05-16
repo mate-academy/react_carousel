@@ -7,15 +7,43 @@ class Carousel extends React.Component {
   state = {
     currentIdx: 0,
     imageCount: 0,
+    nextButtonDisabled: false,
+    prevButtonDisabled: true,
   };
 
   componentDidMount() {
-    const { images } = this.props;
+    const { images, infinite } = this.props;
 
     this.setState({
       imageCount: images.length,
+      prevButtonDisabled: !infinite,
     });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    // update the currentIdx ??? if the frameSize changed
+
+    if (prevProps.frameSize !== this.props.frameSize) {
+      this.updateButtonsState();
+    }
+  }
+
+  updateButtonsState = () => {
+    const { frameSize, infinite } = this.props;
+
+    this.setState((state) => {
+      const nextButtonDisabled = !infinite
+        && state.currentIdx === state.imageCount - frameSize;
+
+      const prevButtonDisabled = !infinite
+        && state.currentIdx <= 0;
+
+      return {
+        nextButtonDisabled,
+        prevButtonDisabled,
+      };
+    });
+  };
 
   nextFrame = () => {
     const { step, frameSize } = this.props;
@@ -27,8 +55,12 @@ class Carousel extends React.Component {
         currentIdx = state.imageCount - frameSize;
       }
 
-      return { currentIdx };
+      return {
+        currentIdx,
+      };
     });
+
+    this.updateButtonsState();
   };
 
   previousFrame = () => {
@@ -43,6 +75,8 @@ class Carousel extends React.Component {
         currentIdx: currentIdx < 0 ? 0 : currentIdx,
       };
     });
+
+    this.updateButtonsState();
   };
 
   render() {
@@ -53,59 +87,69 @@ class Carousel extends React.Component {
       animationDuration,
     } = this.props;
 
-    const { currentIdx } = this.state;
+    const {
+      currentIdx,
+      nextButtonDisabled,
+      prevButtonDisabled,
+    } = this.state;
+
     const carouselWidth = itemWidth * (
       images.length < frameSize ? images.length : frameSize
     );
-    const listStyle = {
-      width: carouselWidth,
-    };
+
+    const scrolledImages = [...images];
 
     return (
-      <div className="Carousel">
+      <div className="CarouselContainer">
         <button
           type="button"
+          className="Carousel__button"
           onClick={this.previousFrame}
+          disabled={prevButtonDisabled}
         >
           Prev
         </button>
 
-        <ul
-          className="Carousel__list"
-          style={listStyle}
-        >
-          {
-            images.map((image) => {
-              const key = +image.replace(/\D/g, '');
-              const listItemStyle = {
-                transitionDuration: `${animationDuration}ms`,
-                transform: `translateX(-${currentIdx * itemWidth}px)`,
-              };
-              const imgStyle = {
-                width: `${itemWidth}px`,
-              };
+        <div className="Carousel" style={{ width: carouselWidth }}>
+          <ul
+            className="Carousel__list"
+            // style={listStyle}
+          >
+            {
+              scrolledImages.map((image) => {
+                const key = +image.replace(/\D/g, '');
+                const listItemStyle = {
+                  transitionDuration: `${animationDuration}ms`,
+                  transform: `translateX(-${currentIdx * itemWidth}px)`,
+                };
+                const imgStyle = {
+                  width: `${itemWidth}px`,
+                };
 
-              return (
-                <li
-                  key={key}
-                  className="Carousel__item"
-                  style={listItemStyle}
-                >
-                  <img
-                    className="Carousel__image"
-                    src={image}
-                    alt={key}
-                    style={imgStyle}
-                  />
-                </li>
-              );
-            })
-          }
-        </ul>
+                return (
+                  <li
+                    key={key}
+                    className="Carousel__item"
+                    style={listItemStyle}
+                  >
+                    <img
+                      className="Carousel__image"
+                      src={image}
+                      alt={key}
+                      style={imgStyle}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
 
         <button
           type="button"
+          className="Carousel__button"
           onClick={this.nextFrame}
+          disabled={nextButtonDisabled}
         >
           Next
         </button>
@@ -120,7 +164,7 @@ Carousel.propTypes = {
   frameSize: PropTypes.number,
   step: PropTypes.number,
   animationDuration: PropTypes.number,
-  // infinite: PropTypes.bool,
+  infinite: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
@@ -128,7 +172,7 @@ Carousel.defaultProps = {
   frameSize: 3,
   step: 3,
   animationDuration: 1000,
-  // infinite: false,
+  infinite: false,
 };
 
 export default Carousel;

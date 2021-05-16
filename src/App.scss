@@ -1,1 +1,19 @@
-// style go here
+.App {
+  margin: 0 auto;
+  width: 390px;
+  max-width: 1300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  &__form-field {
+    margin-bottom: 10px;
+    display: flex;
+
+    & > input {
+      margin-left: 10px;
+    }
+  }
+}
