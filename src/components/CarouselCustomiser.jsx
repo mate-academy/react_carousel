@@ -43,7 +43,7 @@ export const CarouselCustomizer = ({
         type="number"
         name="animationDuration"
         value={carouselAdjustments.animationDuration}
-        onChange={carouselAdjustments}
+        onChange={onchange}
         placeholder="Animation duration"
       />
       <label htmlFor="infinite">Infinite</label>
@@ -52,7 +52,7 @@ export const CarouselCustomizer = ({
         type="text"
         name="infinite"
         value={carouselAdjustments.infinite}
-        onChange={carouselAdjustments}
+        onChange={onchange}
         placeholder="infinite"
       />
       <button type="submit">Reset</button>

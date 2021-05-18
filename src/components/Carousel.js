@@ -14,22 +14,22 @@ export const Carousel = ({
 }) => {
   const [container, setContainer] = useState(null);
   const [scroll, setScroll] = useState(0);
-  const maxScroll = 1300 - itemWidth * frameSize;
+  const maxScroll = 1300 - frameSize * itemWidth - scroll;
 
   useEffect(() => {
     const element = document.getElementById('carousel');
 
     setContainer(element);
-  }, [scroll]);
+  }, []);
 
   const onMoveLeft = () => {
     container.scrollLeft -= step * itemWidth;
-    setScroll(container.scrollLeft);
+    setScroll(prev => prev - step * itemWidth);
   };
 
   const onMoveRight = () => {
     container.scrollLeft += step * itemWidth;
-    setScroll(container.scrollLeft);
+    setScroll(prev => prev + step * itemWidth);
   };
 
   return (
@@ -59,7 +59,7 @@ export const Carousel = ({
         <button className="arrow-button" onClick={onMoveRight} type="button">
           <span
             className="arrow-right"
-            style={{ display: scroll !== maxScroll ? 'block' : 'none' }}
+            style={{ display: maxScroll > 0 ? 'block' : 'none' }}
           />
         </button>
         <button className="arrow-button" onClick={onMoveLeft} type="button">

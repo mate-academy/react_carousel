@@ -38,7 +38,7 @@ class App extends React.Component {
       ...state,
       carouselAdjustments: {
         ...state.carouselAdjustments,
-        [name]: value,
+        [name]: +value,
       },
     }));
   }
