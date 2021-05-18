@@ -1,1 +1,53 @@
 // style go here
+.Carousel-container {
+  position: relative;
+  margin: auto;
+}
+
+.Carousel {
+  width: 260px;
+  list-style: none;
+  border: 1px solid brown;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.Carousel__list {
+  margin: 0;
+  padding: 0;
+  width: 1300px;
+  display: flex;
+  list-style: none;
+}
+
+.Carousel__list a {
+  display: inline-block;
+}
+
+.arrow-right,
+.arrow-left {
+  top: 40%;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.arrow-right {
+  right: 0;
+  border-left: 10px solid #802400;
+}
+
+.arrow-left {
+  left: 0;
+  border-right: 10px solid #802400;
+}
+
+.Carousel-container .arrow-button {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}

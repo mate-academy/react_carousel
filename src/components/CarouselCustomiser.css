@@ -1,0 +1,26 @@
+.carousel-customizer {
+  margin: auto;
+  max-width: 400px;
+}
+
+.carousel-customizer form {
+  margin: auto;
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.carousel-customizer input,
+label {
+  display: inline-block;
+  padding: 5px;
+  margin: 10px;
+  width: 100px;
+}
+
+.carousel-customizer form button {
+  padding: 5px;
+  border: 2px solid black;
+  width: 100px;
+}
