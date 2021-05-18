@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { CarouselCustomizer } from './components/CarouselCustomiser';
 
 class App extends React.Component {
   state = {
@@ -17,7 +18,43 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    carouselAdjustments: {
+      step: 2,
+      frameSize: 3,
+      itemWidth: 130,
+      animationDuration: 1000,
+      infinite: false,
+    },
   };
+
+  handleAdjustmentValues = this.handleAdjustmentValues.bind(this);
+
+  handleResetAdjustmentValues = this.handleResetAdjustmentValues.bind(this);
+
+  handleAdjustmentValues(event) {
+    const { name, value } = event.target;
+
+    this.setState(state => ({
+      ...state,
+      carouselAdjustments: {
+        ...state.carouselAdjustments,
+        [name]: value,
+      },
+    }));
+  }
+
+  handleResetAdjustmentValues(e) {
+    e.preventDefault();
+    this.setState({
+      carouselAdjustments: {
+        step: 2,
+        frameSize: 3,
+        itemWidth: 130,
+        animationDuration: 1000,
+        infinite: false,
+      },
+    });
+  }
 
   render() {
     const { images } = this.state;
@@ -28,12 +65,19 @@ class App extends React.Component {
         <h1>Carousel with {images.length} images</h1>
 
         <Carousel
-          images={images}
-          step={2}
-          frameSize={2}
-          itemWidth={130}
-          animationDuration={6000}
-          infinite={false}
+          images={this.state.images}
+          step={this.state.carouselAdjustments.step}
+          frameSize={this.state.carouselAdjustments.frameSize}
+          itemWidth={this.state.carouselAdjustments.itemWidth}
+          animationDuration={this.state.carouselAdjustments.animationDuration}
+          infinite={this.state.carouselAdjustments.infinite}
+          render={() => (
+            <CarouselCustomizer
+              onchange={this.handleAdjustmentValues}
+              carouselAdjustments={this.state.carouselAdjustments}
+              reset={this.handleResetAdjustmentValues}
+            />
+          )}
         />
       </div>
     );
