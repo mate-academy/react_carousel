@@ -36,8 +36,6 @@ class CarouselSetting extends React.Component {
   }
 
   render() {
-    const { infinite } = this.state;
-
     return (
       <div className="app">
         <Carousel {...this.state} roots={this.props.roots} />
