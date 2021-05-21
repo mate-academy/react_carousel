@@ -66,8 +66,6 @@ class CarouselSetting extends React.Component {
               className="input"
               type="checkbox"
               id="infinite"
-              defaultValue={infinite}
-              defaultChecked={false}
               onChange={event => this.changeSet(event)}
             />
           </label>
