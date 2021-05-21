@@ -1,1 +1,17 @@
-// style go here
+.App {
+
+  &__header {
+    text-align: center;
+  }
+
+  &__inputFields {
+    width: 300px;
+    margin: 20px auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: bisque;
+    border-radius: 40px;
+  }
+}
