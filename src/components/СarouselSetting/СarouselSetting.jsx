@@ -27,7 +27,7 @@ class CarouselSetting extends React.Component {
     },
   ]
 
-  changeSet(event) {
+  changeSetting(event) {
     if (event.target.id === 'infinite') {
       this.setState({ [event.target.id]: event.target.checked });
     } else {
@@ -54,7 +54,7 @@ class CarouselSetting extends React.Component {
                 defaultValue={this.state[id]}
                 min={min}
                 max={max}
-                onChange={event => this.changeSet(event)}
+                onChange={event => this.changeSetting(event)}
               />
             </label>
           ))}
@@ -64,7 +64,7 @@ class CarouselSetting extends React.Component {
               className="input"
               type="checkbox"
               id="infinite"
-              onChange={event => this.changeSet(event)}
+              onChange={event => this.changeSetting(event)}
             />
           </label>
         </form>

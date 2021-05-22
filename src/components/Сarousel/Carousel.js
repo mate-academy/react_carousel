@@ -6,17 +6,46 @@ import './Carousel.scss';
 class Carousel extends React.Component {
   state = {
     moveIndex: 0,
+    showImage: this.props.roots,
+    correctionImage: 0,
+    correctionMoveIndex: 0,
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.infinite === true && this.props.infinite === false) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        showImage: this.props.roots,
+        correctionImage: 0,
+        moveIndex: 0,
+        correctionMoveIndex: 0,
+      });
+    }
+  }
+
   moveBack = () => {
-    const { step, roots, infinite, frameSize } = this.props;
+    const { step, roots, infinite } = this.props;
     const imgNumber = roots.length;
 
-    this.setState(({ moveIndex }) => {
+    this.setState((state) => {
+      const {
+        showImage,
+        correctionImage,
+        moveIndex,
+        correctionMoveIndex,
+      } = state;
       let currentMove = moveIndex - step;
 
-      if (moveIndex === 0 && infinite) {
-        currentMove = imgNumber - frameSize;
+      if (currentMove + correctionMoveIndex < 0 && infinite) {
+        return {
+          showImage: [
+            ...showImage.slice(imgNumber - step).reverse(),
+            ...showImage.slice(0, imgNumber - step),
+          ],
+          moveIndex: moveIndex - step,
+          correctionImage: correctionImage - step,
+          correctionMoveIndex: correctionMoveIndex + step,
+        };
       }
 
       if (currentMove < 0) {
@@ -32,11 +61,25 @@ class Carousel extends React.Component {
     const imgNumber = roots.length;
     const maxMoveIndex = imgNumber - frameSize;
 
-    this.setState(({ moveIndex }) => {
+    this.setState((state) => {
+      const {
+        moveIndex,
+        correctionMoveIndex,
+        showImage,
+        correctionImage,
+      } = state;
       let currentMove = moveIndex + step;
 
-      if (moveIndex === maxMoveIndex && infinite) {
-        currentMove = 0;
+      if (currentMove + correctionMoveIndex > maxMoveIndex && infinite) {
+        return {
+          showImage: [
+            ...showImage.slice(step),
+            ...showImage.slice(0, step).reverse(),
+          ],
+          moveIndex: currentMove,
+          correctionImage: correctionImage + step,
+          correctionMoveIndex: correctionMoveIndex - step,
+        };
       }
 
       if (currentMove > maxMoveIndex) {
@@ -48,8 +91,8 @@ class Carousel extends React.Component {
   };
 
   render() {
-    const { roots, itemWidth, frameSize, animationDuration } = this.props;
-    const { moveIndex } = this.state;
+    const { itemWidth, frameSize, animationDuration } = this.props;
+    const { moveIndex, showImage, correctionImage } = this.state;
 
     const frameWidth = itemWidth * frameSize;
     const frameStyle = {
@@ -61,7 +104,8 @@ class Carousel extends React.Component {
     };
     const listStyle = {
       transition: `transform ${animationDuration}ms`,
-      transform: `translateX(-${moveIndex * itemWidth}px)`,
+      transform: `translateX(${-(moveIndex * itemWidth)}px)`,
+      marginLeft: `${correctionImage * itemWidth}px`,
     };
 
     return (
@@ -74,7 +118,7 @@ class Carousel extends React.Component {
             className="carousel_list"
             style={listStyle}
           >
-            {roots.map(root => (
+            {showImage.map(root => (
               <li key={root} className="carousel_item">
                 <img
                   src={root}
