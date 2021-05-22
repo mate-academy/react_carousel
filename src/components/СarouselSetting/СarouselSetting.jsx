@@ -10,28 +10,60 @@ class CarouselSetting extends React.Component {
     step: 3,
     animationDuration: 1000,
     infinite: false,
-  }
+  };
 
   formList = [
     {
-      id: 'itemWidth', min: 0, max: 500,
+      id: 'itemWidth',
     },
     {
-      id: 'frameSize', min: 1, max: 5,
+      id: 'frameSize',
     },
     {
-      id: 'step', min: 1, max: 5,
+      id: 'step',
     },
     {
-      id: 'animationDuration', min: 1000, max: 10000,
+      id: 'animationDuration',
     },
-  ]
+  ];
 
   changeSetting(event) {
+    const { id, checked, value, type } = event.target;
+    const { infinite } = this.state;
+
+    if (type !== 'checkbox' && infinite) {
+      alert("You can't change setting when infinite checked");
+
+      return;
+    }
+
+    switch (id) {
+      case 'itemWidth':
+        if (value < 0 || value > 500) {
+          alert('max 500, min 0');
+
+          return;
+        }
+
+        break;
+
+      case 'frameSize':
+      case 'step':
+        if (value > 5) {
+          alert('max 5');
+
+          return;
+        }
+
+        break;
+
+      default:
+    }
+
     if (event.target.id === 'infinite') {
-      this.setState({ [event.target.id]: event.target.checked });
+      this.setState({ [id]: checked });
     } else {
-      this.setState({ [event.target.id]: Number(event.target.value) });
+      this.setState({ [id]: Number(value) });
     }
   }
 
@@ -40,7 +72,7 @@ class CarouselSetting extends React.Component {
       <div className="app">
         <Carousel {...this.state} roots={this.props.roots} />
         <form action="get" className="form">
-          {this.formList.map(({ id, min, max }) => (
+          {this.formList.map(({ id }) => (
             <label htmlFor={id} className="label" key={id}>
               <span>
                 {id}
@@ -49,11 +81,9 @@ class CarouselSetting extends React.Component {
               </span>
               <input
                 className="input"
-                type="number"
                 id={id}
-                defaultValue={this.state[id]}
-                min={min}
-                max={max}
+                type="number"
+                value={this.state[id] === 0 ? '' : this.state[id]}
                 onChange={event => this.changeSetting(event)}
               />
             </label>
