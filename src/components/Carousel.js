@@ -52,7 +52,6 @@ class Carousel extends React.Component {
   prevImage = () => {
     const {
       step,
-      frameSize,
       itemWidth,
       animationDuration,
       infinite,
@@ -70,7 +69,7 @@ class Carousel extends React.Component {
           ...prevImagesOrder.slice(-step),
           ...prevImagesOrder,
         ],
-        shift: prevShift - (itemWidth * step) - (frameSize * gap),
+        shift: prevShift - (itemWidth * step) - (step * gap),
         transitionNeed: false,
         direction: 'left',
       }));
@@ -80,7 +79,7 @@ class Carousel extends React.Component {
         shift,
         shiftCounter,
       }) => ({
-        shift: shift + (itemWidth * step) + (frameSize * gap),
+        shift: shift + (itemWidth * step) + (step * gap),
         shiftCounter: shiftCounter - 1,
       }));
     }
@@ -89,7 +88,6 @@ class Carousel extends React.Component {
   nextImage = () => {
     const {
       step,
-      frameSize,
       itemWidth,
       animationDuration,
       infinite,
@@ -109,7 +107,7 @@ class Carousel extends React.Component {
           ...prevImagesOrder,
           ...prevImagesOrder.slice(0, step),
         ],
-        shift: prevShift - (itemWidth * step) - (frameSize * gap),
+        shift: prevShift - (itemWidth * step) - (step * gap),
         direction: 'right',
         transitionNeed: true,
       }));
@@ -119,12 +117,10 @@ class Carousel extends React.Component {
         shift,
         shiftCounter: prevshiftCounter,
       }) => ({
-        shift: shift - (itemWidth * step) - (frameSize * gap),
+        shift: shift - (itemWidth * step) - (step * gap),
         shiftCounter: prevshiftCounter + 1,
       }));
     }
-
-    // this.blockButtons(animationDuration);
   }
 
   render() {

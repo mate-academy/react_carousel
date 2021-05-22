@@ -11,6 +11,10 @@ const defaultValues = {
   defaultInfiniteValue: false,
 };
 
+function refreshPage() {
+  window.location.reload();
+}
+
 // enterValues()
 
 class App extends React.Component {
@@ -59,8 +63,9 @@ class App extends React.Component {
         const settingItemWidth = Math.abs(+prompt('Set image width'));
         const settingDuration = Math.abs(+prompt('Set scroll duration'));
 
-        step = (settingStep && (settingStep <= halfLength)) || defaultStep;
-        frameSize = (settingFrameSize && (settingFrameSize <= halfLength))
+        step = ((settingStep <= halfLength) && settingStep) || defaultStep;
+        console.log(step);
+        frameSize = ((settingFrameSize <= halfLength) && settingFrameSize)
           || defaultFrameSize;
         itemWidth = settingItemWidth || defaultItemWidth;
         animationDuration = settingDuration || defaultAnimationDuration;
@@ -87,6 +92,7 @@ class App extends React.Component {
         <button
           className="changing-button"
           type="button"
+          onClick={refreshPage}
         >
           Change Carousel
         </button>
