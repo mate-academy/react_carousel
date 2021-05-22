@@ -8,7 +8,7 @@ const defaultValues = {
   defaultFrameSize: 3,
   defaultItemWidth: 130,
   defaultAnimationDuration: 1000,
-  defaultInfiniteValue: true,
+  defaultInfiniteValue: false,
 };
 
 // enterValues()
