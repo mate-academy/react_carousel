@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  &__list-wrapper {
+    order: 1;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__button {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background-color: rgb(236, 152, 73);
+    cursor: pointer;
+
+    &_prev {
+      order: 0;
+    }
+
+    &_next {
+      order: 2;
+    }
+  }
+
+  &__button:disabled {
+    color: rgb(165, 165, 165);
+    background-color: rgb(255, 210, 167);
+    cursor:default;
+  }
+}
