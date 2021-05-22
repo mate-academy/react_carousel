@@ -49,12 +49,21 @@ class App extends React.Component {
     /* eslint-disable */
     (function setValues() {
       if (confirm('Do you want set custom params of carousel?')) {
-        step = +prompt('Set scroll step') || defaultStep;
-        frameSize = +prompt('Set number of displayed images')
+        const halfLength = Math.floor(images.length / 2);
+        const settingStep = Math.abs(+prompt(
+          `Set scroll step, maximum - ${halfLength}`
+        ));
+        const settingFrameSize = Math.abs(+prompt(
+          `Set number of displayed images, maximum - ${halfLength}`
+        ));
+        const settingItemWidth = Math.abs(+prompt('Set image width'));
+        const settingDuration = Math.abs(+prompt('Set scroll duration'));
+
+        step = (settingStep && (settingStep <= halfLength)) || defaultStep;
+        frameSize = (settingFrameSize && (settingFrameSize <= halfLength))
           || defaultFrameSize;
-        itemWidth = +prompt('Set image width') || defaultItemWidth;
-        animationDuration = +prompt('Set scroll duration')
-          || defaultAnimationDuration;
+        itemWidth = settingItemWidth || defaultItemWidth;
+        animationDuration = settingDuration || defaultAnimationDuration;
         infinite = confirm('Do you want infinite carousel?');
       }
     })();
