@@ -76,6 +76,7 @@ class CarouselSetting extends React.Component {
             <label htmlFor={id} className="label" key={id}>
               <span>
                 {id}
+                :
               </span>
               <input
                 className="input"

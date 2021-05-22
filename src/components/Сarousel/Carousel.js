@@ -9,6 +9,7 @@ class Carousel extends React.Component {
     showImage: this.props.roots,
     correctionImage: 0,
     correctionMoveIndex: 0,
+    canClick: true,
   };
 
   componentDidUpdate(prevProps) {
@@ -23,9 +24,18 @@ class Carousel extends React.Component {
     }
   }
 
+  disabledBtn = () => {
+    this.setState({ canClick: false });
+    setTimeout(() => (
+      this.setState({ canClick: true })
+    ), this.props.animationDuration);
+  };
+
   moveBack = () => {
     const { step, roots, infinite } = this.props;
     const imgNumber = roots.length;
+
+    this.disabledBtn();
 
     this.setState((state) => {
       const {
@@ -48,7 +58,7 @@ class Carousel extends React.Component {
         };
       }
 
-      if (currentMove < 0) {
+      if (currentMove < 0 && !infinite) {
         currentMove = 0;
       }
 
@@ -60,6 +70,8 @@ class Carousel extends React.Component {
     const { step, roots, frameSize, infinite } = this.props;
     const imgNumber = roots.length;
     const maxMoveIndex = imgNumber - frameSize;
+
+    this.disabledBtn();
 
     this.setState((state) => {
       const {
@@ -82,7 +94,7 @@ class Carousel extends React.Component {
         };
       }
 
-      if (currentMove > maxMoveIndex) {
+      if (currentMove > maxMoveIndex && !infinite) {
         currentMove = maxMoveIndex;
       }
 
@@ -92,7 +104,7 @@ class Carousel extends React.Component {
 
   render() {
     const { itemWidth, frameSize, animationDuration } = this.props;
-    const { moveIndex, showImage, correctionImage } = this.state;
+    const { moveIndex, showImage, correctionImage, canClick } = this.state;
 
     const frameWidth = itemWidth * frameSize;
     const frameStyle = {
@@ -136,6 +148,8 @@ class Carousel extends React.Component {
             className="button"
             type="button"
             onClick={this.moveBack}
+            style={{ cursor: canClick ? 'pointer' : 'default' }}
+            disabled={!canClick}
           >
             👈
           </button>
@@ -144,6 +158,8 @@ class Carousel extends React.Component {
             className="button"
             type="button"
             onClick={this.moveForward}
+            style={{ cursor: canClick ? 'pointer' : 'default' }}
+            disabled={!canClick}
           >
             👉
           </button>
