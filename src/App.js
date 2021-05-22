@@ -23,39 +23,61 @@ class App extends React.Component {
     animationDuration: 1000,
     infinite: false,
     translate: 0,
+    slidesCount: 3,
   };
+
+  nextSlide = () => {
+    const { images, step, itemWidth,
+      infinite, slidesCount } = this.state;
+
+    const oneMove = itemWidth * step;
+
+    if (images.length === slidesCount && infinite) {
+      this.setState(state => ({
+        translate: 0,
+        slidesCount: state.frameSize,
+      }));
+    } else if ((images.length - slidesCount) < step) {
+      this.setState(state => ({
+        translate: state.translate
+          - (images.length - slidesCount) * itemWidth,
+        slidesCount: state.slidesCount + (images.length - slidesCount),
+      }));
+    } else {
+      this.setState(state => ({
+        translate: state.translate - oneMove,
+        slidesCount: state.slidesCount + step,
+      }));
+    }
+  }
+
+  prevSlide = () => {
+    const { images, step, frameSize, itemWidth,
+      infinite, slidesCount } = this.state;
+
+    const oneMove = itemWidth * step;
+
+    if (slidesCount === frameSize && infinite) {
+      this.setState({
+        translate: -(itemWidth * images.length) + (itemWidth * frameSize),
+        slidesCount: images.length,
+      });
+    } else if ((slidesCount - frameSize) < frameSize) {
+      this.setState(state => ({
+        translate: state.translate + (slidesCount - frameSize) * itemWidth,
+        slidesCount: frameSize,
+      }));
+    } else {
+      this.setState(state => ({
+        translate: state.translate + oneMove,
+        slidesCount: state.slidesCount - step,
+      }));
+    }
+  }
 
   render() {
     const { images, step, frameSize, itemWidth,
       animationDuration, infinite, translate } = this.state;
-
-    const width = itemWidth * step;
-    const slidesCount = Math.ceil(10 / step);
-    const max = width * slidesCount - width;
-
-    const nextSlide = () => {
-      if (translate > -max) {
-        this.setState(state => ({
-          translate: state.translate - width,
-        }));
-      } else if (translate === -max && infinite) {
-        this.setState({
-          translate: 0,
-        });
-      }
-    };
-
-    const prevSlide = () => {
-      if (translate === 0 && infinite) {
-        this.setState({
-          translate: -max,
-        });
-      } else if (translate < 0) {
-        this.setState(state => ({
-          translate: state.translate + width,
-        }));
-      }
-    };
 
     return (
       <div className="App">
@@ -70,8 +92,8 @@ class App extends React.Component {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           translate={translate}
-          nextSlide={nextSlide}
-          prevSlide={prevSlide}
+          nextSlide={this.nextSlide}
+          prevSlide={this.prevSlide}
         />
         <div className="App__inputFields">
           <label htmlFor="step">
@@ -84,7 +106,7 @@ class App extends React.Component {
             id="step"
             onChange={({ target }) => {
               this.setState({
-                step: target.value,
+                step: +target.value,
               });
             }}
           />
@@ -98,7 +120,8 @@ class App extends React.Component {
             id="frameSize"
             onChange={({ target }) => {
               this.setState({
-                frameSize: target.value,
+                frameSize: +target.value,
+                slidesCount: +target.value,
               });
             }}
           />
@@ -112,7 +135,7 @@ class App extends React.Component {
             id="itemWidth"
             onChange={({ target }) => {
               this.setState({
-                itemWidth: target.value,
+                itemWidth: +target.value,
               });
             }}
           />
@@ -126,7 +149,7 @@ class App extends React.Component {
             id="animationDuration"
             onChange={({ target }) => {
               this.setState({
-                animationDuration: target.value,
+                animationDuration: +target.value,
               });
             }}
           />
