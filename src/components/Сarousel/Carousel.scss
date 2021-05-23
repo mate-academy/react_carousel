@@ -1,0 +1,30 @@
+.frame {
+  border: 2px solid black;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.carousel_list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.button {
+  border: none;
+
+  font-size: 40px;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  &_wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+  }
+}

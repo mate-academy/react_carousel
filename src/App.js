@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import Carousel from './components/Carousel';
+import CarouselSetting from './components/СarouselSetting/СarouselSetting';
 
 class App extends React.Component {
   state = {
@@ -20,14 +20,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { images } = this.state;
-
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <CarouselSetting roots={this.state.images} />
       </div>
     );
   }

@@ -1,0 +1,34 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 250px;
+  padding: 25px;
+  border-radius: 20px;
+
+  background-color: lightcoral;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.input {
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 80px;
+}
