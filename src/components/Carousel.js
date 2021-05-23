@@ -12,31 +12,28 @@ class Carousel extends React.Component {
   };
 
   componentDidMount() {
-    const { images, infinite } = this.props;
+    const { images } = this.props;
 
     this.setState({
       imageCount: images.length,
-      prevButtonDisabled: !infinite,
+      prevButtonDisabled: true,
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // update the currentIdx ??? if the frameSize changed
-
     if (prevProps.frameSize !== this.props.frameSize) {
       this.updateButtonsState();
     }
   }
 
   updateButtonsState = () => {
-    const { frameSize, infinite } = this.props;
+    const { frameSize } = this.props;
 
     this.setState((state) => {
-      const nextButtonDisabled = !infinite
-        && state.currentIdx === state.imageCount - frameSize;
-
-      const prevButtonDisabled = !infinite
-        && state.currentIdx <= 0;
+      const nextButtonDisabled = state.currentIdx === (
+        state.imageCount - frameSize
+      );
+      const prevButtonDisabled = state.currentIdx <= 0;
 
       return {
         nextButtonDisabled,
@@ -97,8 +94,6 @@ class Carousel extends React.Component {
       images.length < frameSize ? images.length : frameSize
     );
 
-    const scrolledImages = [...images];
-
     return (
       <div className="CarouselContainer">
         <button
@@ -113,10 +108,9 @@ class Carousel extends React.Component {
         <div className="Carousel" style={{ width: carouselWidth }}>
           <ul
             className="Carousel__list"
-            // style={listStyle}
           >
             {
-              scrolledImages.map((image) => {
+              images.map((image) => {
                 const key = +image.replace(/\D/g, '');
                 const listItemStyle = {
                   transitionDuration: `${animationDuration}ms`,
@@ -164,7 +158,6 @@ Carousel.propTypes = {
   frameSize: PropTypes.number,
   step: PropTypes.number,
   animationDuration: PropTypes.number,
-  infinite: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
@@ -172,7 +165,6 @@ Carousel.defaultProps = {
   frameSize: 3,
   step: 3,
   animationDuration: 1000,
-  infinite: false,
 };
 
 export default Carousel;

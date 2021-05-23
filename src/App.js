@@ -103,7 +103,6 @@ class App extends React.Component {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          // infinite
         />
       </div>
     );
