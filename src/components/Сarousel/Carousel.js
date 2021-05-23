@@ -49,7 +49,7 @@ class Carousel extends React.Component {
       if (currentMove + correctionMoveIndex < 0 && infinite) {
         return {
           showImage: [
-            ...showImage.slice(imgNumber - step).reverse(),
+            ...showImage.slice(imgNumber - step),
             ...showImage.slice(0, imgNumber - step),
           ],
           moveIndex: moveIndex - step,
@@ -86,7 +86,7 @@ class Carousel extends React.Component {
         return {
           showImage: [
             ...showImage.slice(step),
-            ...showImage.slice(0, step).reverse(),
+            ...showImage.slice(0, step),
           ],
           moveIndex: currentMove,
           correctionImage: correctionImage + step,
