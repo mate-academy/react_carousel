@@ -15,12 +15,14 @@ class Carousel extends React.Component {
     step: PropTypes.number.isRequired,
   }
 
-  btnNext() {
-    const { itemWidth, step } = this.props;
+  moveLeft = () => {
+    const { itemWidth, step, frameSize, images } = this.props;
+    const buff = images.length - frameSize;
+    // я не знаю як правильно назвати цю змінну)
 
-    if (this.state.position - step * itemWidth < -7 * itemWidth) {
+    if (this.state.position - step * itemWidth < -buff * itemWidth) {
       this.setState({
-        position: -(7 * itemWidth),
+        position: -(buff * itemWidth),
       });
 
       return 0;
@@ -31,7 +33,7 @@ class Carousel extends React.Component {
     return 0; // linter expected to return value
   }
 
-  btnPrev() {
+  moveRight = () => {
     const { itemWidth, step } = this.props;
 
     if (this.state.position + step * itemWidth > 0) {
@@ -65,7 +67,7 @@ class Carousel extends React.Component {
         <button
           type="button"
           className="prevBtn"
-          onClick={() => this.btnPrev()}
+          onClick={this.moveRight}
         >
           Prev
         </button>
@@ -73,7 +75,7 @@ class Carousel extends React.Component {
         <button
           type="button"
           className="nextBtn"
-          onClick={() => this.btnNext()}
+          onClick={this.moveLeft}
         >
           <span>next</span>
         </button>
