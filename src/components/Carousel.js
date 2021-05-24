@@ -20,33 +20,6 @@ class Carousel extends React.Component {
 
   maxscroll = this.listSize - this.carouselSize;
 
-  componentDidMount() {
-    if (this.props.infinite) {
-      this.intervalId = setInterval(this.scrollRight, 3000);
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.infinite) {
-      switch (this.state.translate) {
-        case 0:
-          clearInterval(this.intervalId);
-          this.intervalId = setInterval(this.scrollRight, 3000);
-          break;
-        case -this.maxscroll:
-          clearInterval(this.intervalId);
-          this.intervalId = setInterval(this.scrollLeft, 3000);
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
-
   scrollRight = () => {
     if (this.state.translate - this.carouselStep >= -this.maxscroll) {
       this.setState(prevState => ({
@@ -132,7 +105,6 @@ Carousel.propTypes = {
   frameSize: PropTypes.number,
   itemWidth: PropTypes.number,
   animationDuration: PropTypes.number,
-  infinite: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
@@ -140,7 +112,6 @@ Carousel.defaultProps = {
   frameSize: 3,
   itemWidth: 130,
   animationDuration: 1000,
-  infinite: false,
 };
 
 export default Carousel;
