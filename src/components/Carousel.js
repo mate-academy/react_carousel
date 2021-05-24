@@ -42,35 +42,20 @@ class Carousel extends React.Component {
     });
   };
 
-  nextFrame = () => {
+  slide = (direction) => {
     const { step, frameSize } = this.props;
+    const directedStep = step * direction;
 
     this.setState((state) => {
-      let currentIdx = state.currentIdx + step;
+      let currentIdx = state.currentIdx + directedStep;
 
       if (currentIdx >= (state.imageCount - frameSize)) {
         currentIdx = state.imageCount - frameSize;
+      } else if (currentIdx < 0) {
+        currentIdx = 0;
       }
 
-      return {
-        currentIdx,
-      };
-    });
-
-    this.updateButtonsState();
-  };
-
-  previousFrame = () => {
-    const { step } = this.props;
-
-    this.setState((state) => {
-      const currentIdx = state.currentIdx === 0
-        ? state.currentIdx
-        : state.currentIdx - step;
-
-      return {
-        currentIdx: currentIdx < 0 ? 0 : currentIdx,
-      };
+      return { currentIdx };
     });
 
     this.updateButtonsState();
@@ -99,7 +84,7 @@ class Carousel extends React.Component {
         <button
           type="button"
           className="Carousel__button"
-          onClick={this.previousFrame}
+          onClick={() => this.slide(-1)}
           disabled={prevButtonDisabled}
         >
           Prev
@@ -142,7 +127,7 @@ class Carousel extends React.Component {
         <button
           type="button"
           className="Carousel__button"
-          onClick={this.nextFrame}
+          onClick={() => this.slide(1)}
           disabled={nextButtonDisabled}
         >
           Next

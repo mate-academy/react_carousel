@@ -2,6 +2,7 @@ import React from 'react';
 import './App.scss';
 
 import Carousel from './components/Carousel';
+import { CarouselSettings } from './components/CarouselSettings';
 
 class App extends React.Component {
   state = {
@@ -43,59 +44,13 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <form className="App__form">
-          <div className="App__form-field">
-            <label htmlFor="step">Step</label>
-            <input
-              type="number"
-              id="step"
-              name="step"
-              value={step}
-              min="1"
-              max="10"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="App__form-field">
-            <label htmlFor="frameSize">Frame Size</label>
-            <input
-              type="number"
-              id="frameSize"
-              name="frameSize"
-              value={frameSize}
-              min="1"
-              max="10"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="App__form-field">
-            <label htmlFor="itemWidth">Item Width</label>
-            <input
-              type="number"
-              id="itemWidth"
-              name="itemWidth"
-              value={itemWidth}
-              min="30"
-              max="300"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="App__form-field">
-            <label htmlFor="animationDuration">Animation Duration</label>
-            <input
-              type="number"
-              name="animationDuration"
-              id="animationDuration"
-              value={animationDuration}
-              min="0"
-              max="3000"
-              onChange={this.handleChange}
-            />
-          </div>
-        </form>
+        <CarouselSettings
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          onChange={this.handleChange}
+        />
 
         <Carousel
           images={images}
