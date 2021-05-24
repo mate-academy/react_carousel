@@ -1,1 +1,45 @@
-// style go here
+.CarouselContainer {
+  margin: 0 auto;
+  width: 390px;
+  max-width: 1300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.Carousel {
+  &__list {
+    list-style: none;
+    border: 2px solid lightgray;
+    padding: 0;
+    overflow: hidden;
+
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+  }
+
+  &__item {
+    height: min-content;
+  }
+
+  &__button {
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    font-size: 16px;
+    border: none;
+    background-color: #ffea83;
+    transition: all 500ms ease;
+
+    &:disabled {
+      background-color: #fff7d1;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #ffee9d;
+      transform: scale(1.1);
+    }
+  }
+}

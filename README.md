@@ -1,5 +1,5 @@
 # React Carousel
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_carousel/)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://mariiakornieva.github.io/react_carousel/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 
 ## Task
@@ -11,6 +11,7 @@
 3. add `frameSize` - number of images displayed at the same time with the default of `3`
 4. add `step` (default 3) - number of images scrolled per click
 5. add `animationDuration` (default `1000`) - time in ms to show the new portion of images
+
 6. (*) add an `infinite` prop (`false` by default) - to do the carousel cyclic
     ```jsx harmony
     <Carousel
