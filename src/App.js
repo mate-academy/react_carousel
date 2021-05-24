@@ -3,6 +3,20 @@ import './App.scss';
 
 import Carousel from './components/Carousel';
 
+const defaultValues = {
+  defaultStep: 3,
+  defaultFrameSize: 3,
+  defaultItemWidth: 130,
+  defaultAnimationDuration: 1000,
+  defaultInfiniteValue: false,
+};
+
+function refreshPage() {
+  window.location.reload();
+}
+
+// enterValues()
+
 class App extends React.Component {
   state = {
     images: [
@@ -22,12 +36,66 @@ class App extends React.Component {
   render() {
     const { images } = this.state;
 
+    const {
+      defaultStep,
+      defaultFrameSize,
+      defaultItemWidth,
+      defaultAnimationDuration,
+      defaultInfiniteValue,
+    } = defaultValues;
+
+    let step = defaultStep;
+    let frameSize = defaultFrameSize;
+    let itemWidth = defaultItemWidth;
+    let animationDuration = defaultAnimationDuration;
+    let infinite = defaultInfiniteValue;
+
+    /* eslint-disable */
+    (function setValues() {
+      if (confirm('Do you want set custom params of carousel?')) {
+        const halfLength = Math.floor(images.length / 2);
+        const settingStep = Math.abs(+prompt(
+          `Set scroll step, maximum - ${halfLength}`
+        ));
+        const settingFrameSize = Math.abs(+prompt(
+          `Set number of displayed images, maximum - ${halfLength}`
+        ));
+        const settingItemWidth = Math.abs(+prompt('Set image width'));
+        const settingDuration = Math.abs(+prompt('Set scroll duration'));
+
+        step = ((settingStep <= halfLength) && settingStep) || defaultStep;
+        console.log(step);
+        frameSize = ((settingFrameSize <= halfLength) && settingFrameSize)
+          || defaultFrameSize;
+        itemWidth = settingItemWidth || defaultItemWidth;
+        animationDuration = settingDuration || defaultAnimationDuration;
+        infinite = confirm('Do you want infinite carousel?');
+      }
+    })();
+    /* eslint-enable */
+
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <button
+          className="changing-button"
+          type="button"
+          onClick={refreshPage}
+        >
+          Change Carousel
+        </button>
       </div>
     );
   }
