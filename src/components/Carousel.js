@@ -13,6 +13,8 @@ class Carousel extends React.Component {
     direction: null,
     shiftCounter: 1,
     shiftLimit: Math.ceil(this.props.images.length / this.props.step),
+    rightRemainder: this.props.images.length - this.props.step,
+    leftRemainder: 0,
   }
 
   componentDidUpdate(prevProps) {
@@ -69,7 +71,7 @@ class Carousel extends React.Component {
           ...prevImagesOrder.slice(-step),
           ...prevImagesOrder,
         ],
-        shift: prevShift - (itemWidth * step) - (step * gap),
+        shift: prevShift - ((itemWidth + gap) * step),
         transitionNeed: false,
         direction: 'left',
       }));
@@ -78,10 +80,25 @@ class Carousel extends React.Component {
         gap,
         shift,
         shiftCounter,
-      }) => ({
-        shift: shift + (itemWidth * step) + (step * gap),
-        shiftCounter: shiftCounter - 1,
-      }));
+        rightRemainder,
+        leftRemainder,
+      }) => {
+        if (leftRemainder < step) {
+          return {
+            shift: shift + ((itemWidth + gap) * leftRemainder),
+            shiftCounter: shiftCounter - 1,
+            rightRemainder: rightRemainder + leftRemainder,
+            leftRemainder: 0,
+          };
+        }
+
+        return {
+          shift: shift + ((itemWidth + gap) * step),
+          shiftCounter: shiftCounter - 1,
+          rightRemainder: rightRemainder + step,
+          leftRemainder: leftRemainder - step,
+        };
+      });
     }
   }
 
@@ -107,7 +124,7 @@ class Carousel extends React.Component {
           ...prevImagesOrder,
           ...prevImagesOrder.slice(0, step),
         ],
-        shift: prevShift - (itemWidth * step) - (step * gap),
+        shift: prevShift - ((itemWidth + gap) * step),
         direction: 'right',
         transitionNeed: true,
       }));
@@ -116,10 +133,25 @@ class Carousel extends React.Component {
         gap,
         shift,
         shiftCounter: prevshiftCounter,
-      }) => ({
-        shift: shift - (itemWidth * step) - (step * gap),
-        shiftCounter: prevshiftCounter + 1,
-      }));
+        rightRemainder,
+        leftRemainder,
+      }) => {
+        if (rightRemainder < step) {
+          return {
+            shift: shift - ((itemWidth + gap) * rightRemainder),
+            shiftCounter: prevshiftCounter + 1,
+            rightRemainder: 0,
+            leftRemainder: leftRemainder + rightRemainder,
+          };
+        }
+
+        return {
+          shift: shift - ((itemWidth + gap) * step),
+          shiftCounter: prevshiftCounter + 1,
+          rightRemainder: rightRemainder - step,
+          leftRemainder: leftRemainder + step,
+        };
+      });
     }
   }
 
