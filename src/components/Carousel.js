@@ -179,14 +179,25 @@ class Carousel extends React.Component {
         className="Carousel"
         style={{ width: `${itemWidth * (frameSize + 1)}px` }}
       >
-        <div style={{ width: `${focusWith}px` }} className="focus">
+        <div
+          style={{
+            width: `${focusWith}px`,
+            height: `${itemWidth}px`,
+          }}
+          className="focus"
+        >
           <ul
             style={styleFocus}
             className="Carousel__list"
           >
             {renderedArray.map((image, index) => (
               <li key={index}>
-                <img src={image} alt={index + 1} />
+                <img
+                  src={image}
+                  alt={index + 1}
+                  width={itemWidth}
+                  height={itemWidth}
+                />
               </li>
             ))}
 
