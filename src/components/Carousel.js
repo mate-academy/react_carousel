@@ -1,234 +1,176 @@
-/* eslint-disable no-lonely-if */
-/* eslint-disable react/no-did-update-set-state */
-/* eslint-disable no-unreachable */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import { useArrowDarkButtonStyles }
+  from '@mui-treasury/styles/button/arrowDark';
 import PropTypes from 'prop-types';
 import './Carousel.scss';
 
-class Carousel extends React.Component {
-  state = {
-    translateX: this.props.startTranslateX,
-    isLeftButtonDisabled: true,
-    isRightButtonDisabled: false,
-    currentLeftPoint: this.props.startLeftPoint,
-    renderedArray: this.props.images,
-    fullSize: this.props.step * 2 + this.props.frameSize,
-    noAnimation: false,
-  }
+const Carousel = ({
+  images, step, frameSize, itemWidth,
+  animationDuration, infinite, startLeftPoint, startTranslateX,
+}) => {
+  const [translateX, setTranslateX] = useState(startTranslateX);
+  const [isLeftButtonDisabled, setIsLeftButtonDisabled] = useState(false);
+  const [isRightButtonDisabled, setIsRightButtonDisabled] = useState(false);
+  const [currentLeftPoint, setCurrentLeftPoint] = useState(startLeftPoint);
+  const [renderedArray, setRenderedArray] = useState(images);
+  const fullSize = useMemo(() => (step * 2 + frameSize), [step, frameSize]);
+  const [noAnimation, setNoAnimation] = useState(false);
+  const maxRightSlade = useMemo(() => (
+    images.length * itemWidth - frameSize * itemWidth), [itemWidth, frameSize]);
+  const slideByStep = useMemo(() => (
+    translateX + step * itemWidth),
+  [itemWidth, translateX, step]);
 
-  componentDidUpdate(PrevProps) {
-    if (PrevProps !== this.props) {
-      this.setState({
-        noAnimation: false,
-        fullSize: this.props.step * 2 + this.props.frameSize,
-        isLeftButtonDisabled: !this.props.infinite,
-        isRightButtonDisabled: false,
-        translateX: this.props.startTranslateX,
-        currentLeftPoint: this.props.startLeftPoint,
-        renderedArray: this.generateArr(
-          this.props.step * 2 + this.props.frameSize,
-          this.props.infinite,
-          this.props.images,
-          this.props.images.length - this.props.step,
-        ),
-      });
+  useEffect(() => {
+    setTranslateX(startTranslateX);
+    setRenderedArray(infinite ? generateArr(startLeftPoint) : images);
+    setIsRightButtonDisabled(false);
+    setIsLeftButtonDisabled(!infinite);
+    setNoAnimation(false);
+  }, [infinite, startTranslateX, itemWidth, frameSize]);
+
+  const generateArr = useCallback((leftPoint) => {
+    if (!infinite) {
+      return images;
     }
-  }
 
-  generateArr = (fullSize, infinite, sourceArr, leftPoint) => {
-    const startIndex = (leftPoint >= sourceArr.length || leftPoint < 0)
-      ? Math.abs(Math.abs(leftPoint) - sourceArr.length)
+    const startIndex = (leftPoint > images.length || leftPoint < 0)
+      ? Math.abs(Math.abs(leftPoint) - images.length)
       : leftPoint;
     const infinityArr = [];
 
     let count = startIndex;
 
     for (let i = 0; i < fullSize; i++) {
-      count = (count > sourceArr.length - 1)
+      count = (count > images.length - 1)
         ? 0
         : count;
-      infinityArr.push(sourceArr[count]);
+      infinityArr.push(images[count]);
       count++;
     }
 
-    if (!infinite) {
-      return sourceArr;
-    }
-
-    this.setState({
-      currentLeftPoint: startIndex,
-    });
+    setCurrentLeftPoint(startIndex);
 
     return infinityArr;
-  }
+  }, [currentLeftPoint, fullSize, infinite]);
 
-  slideRight = () => {
-    const maxRightSlade = this.props.images.length * this.props.itemWidth
-      - this.props.frameSize * this.props.itemWidth;
-    const slideByStep = this.state.translateX
-      + this.props.step * this.props.itemWidth;
+  const onSlide = (name) => {
+    switch (name) {
+      case 'rightButton':
+        setCurrentLeftPoint(prev => (infinite ? prev + step : prev));
+        setTranslateX(prev => (infinite || slideByStep < maxRightSlade
+          ? prev + step * itemWidth
+          : maxRightSlade));
+        setIsLeftButtonDisabled(infinite);
+        setIsRightButtonDisabled(slideByStep >= maxRightSlade || infinite);
+        if (infinite) {
+          setNoAnimation(false);
+          setTimeout(() => {
+            setNoAnimation(true);
+            setTranslateX(step * itemWidth);
+            setRenderedArray(generateArr(currentLeftPoint + step));
+            setIsLeftButtonDisabled(false);
+            setIsRightButtonDisabled(false);
+          }, 1000);
+        }
 
-    if (this.props.infinite) {
-      this.setState(state => ({
-        currentLeftPoint: state.currentLeftPoint + this.props.step,
-        translateX: state.translateX + this.props.step * this.props.itemWidth,
-        isLeftButtonDisabled: true,
-        isRightButtonDisabled: true,
-        noAnimation: false,
-      }));
-      setTimeout(() => {
-        this.setState(state => ({
-          noAnimation: true,
-          renderedArray: this.generateArr(
-            state.fullSize,
-            this.props.infinite,
-            this.props.images,
-            state.currentLeftPoint,
-          ),
-          isRightButtonDisabled: false,
-          isLeftButtonDisabled: false,
-          translateX: (this.props.step) * this.props.itemWidth,
-        }));
-      }, 1000);
-    } else {
-      if (slideByStep < maxRightSlade) {
-        this.setState(state => ({
-          translateX: state.translateX
-            + (this.props.step * this.props.itemWidth),
-          isLeftButtonDisabled: false,
-        }));
-      } else {
-        this.setState({
-          translateX: maxRightSlade,
-          isRightButtonDisabled: true,
-          isLeftButtonDisabled: false,
-        });
-      }
+        break;
+      case 'leftButton':
+        setCurrentLeftPoint(prev => (infinite ? prev - step : prev));
+        setTranslateX(prev => (infinite || translateX > itemWidth * step
+          ? prev - step * itemWidth
+          : 0));
+        setIsLeftButtonDisabled(infinite || translateX <= itemWidth * step);
+        setIsRightButtonDisabled(infinite);
+        if (infinite) {
+          setNoAnimation(false);
+          setTimeout(() => {
+            setNoAnimation(true);
+            setTranslateX(step * itemWidth);
+            setRenderedArray(generateArr(currentLeftPoint - step));
+            setIsLeftButtonDisabled(false);
+            setIsRightButtonDisabled(false);
+          }, 1000);
+        }
+
+        break;
+      default:
+        break;
     }
-  }
+  };
 
-  slideLeft = () => {
-    if (this.props.infinite) {
-      this.setState(state => ({
-        currentLeftPoint: state.currentLeftPoint - this.props.step,
-        translateX: state.translateX - (this.props.step * this.props.itemWidth),
-        isLeftButtonDisabled: true,
-        isRightButtonDisabled: true,
-        noAnimation: false,
-      }));
-      setTimeout(() => {
-        this.setState(state => ({
-          noAnimation: true,
-          renderedArray: this.generateArr(
-            state.fullSize,
-            this.props.infinite,
-            this.props.images,
-            state.currentLeftPoint,
-            this.props.step,
-            this.props.frameSize,
-          ),
-          isRightButtonDisabled: false,
-          isLeftButtonDisabled: false,
-          translateX: (this.props.step) * this.props.itemWidth,
-        }));
-      }, 1000);
-    } else {
-      if (this.state.translateX > this.props.step * this.props.itemWidth) {
-        this.setState(state => ({
-          translateX: state.translateX
-            - (this.props.step * this.props.itemWidth),
-          isRightButtonDisabled: false,
-        }));
-      } else {
-        this.setState({
-          translateX: 0,
-          isLeftButtonDisabled: true,
-          isRightButtonDisabled: false,
-        });
-      }
+  const styleFocus = (!noAnimation)
+    ? {
+      transform: `translateX(-${translateX}px)`,
+      transition: `${animationDuration}ms`,
     }
-  }
+    : {
+      transform: `translateX(-${translateX}px)`,
+    };
 
-  render() {
-    const {
-      translateX,
-      isLeftButtonDisabled,
-      isRightButtonDisabled,
-      renderedArray,
-      noAnimation,
-    } = this.state;
-    const {
-      step, frameSize, itemWidth, animationDuration, infinite,
-    } = this.props;
+  const focusWith = useMemo(() => (
+    itemWidth * frameSize), [itemWidth, frameSize]);
 
-    const styleFocus = (!noAnimation)
-      ? {
-        transform: `translateX(-${translateX}px)`,
-        transition: `${animationDuration}ms`,
-      }
-      : {
-        transform: `translateX(-${translateX}px)`,
-      };
+  const classes = useArrowDarkButtonStyles();
 
-    const focusWith = itemWidth * frameSize;
-
-    return (
+  return (
+    <div
+      className="Carousel"
+      style={{ width: `${itemWidth * (frameSize + 1)}px` }}
+    >
       <div
-        className="Carousel"
-        style={{ width: `${itemWidth * (frameSize + 1)}px` }}
+        style={{
+          width: `${focusWith}px`,
+          height: `${itemWidth}px`,
+        }}
+        className="focus"
       >
-        <div
-          style={{
-            width: `${focusWith}px`,
-            height: `${itemWidth}px`,
-          }}
-          className="focus"
+        <ul
+          style={styleFocus}
+          className="Carousel__list"
         >
-          <ul
-            style={styleFocus}
-            className="Carousel__list"
-          >
-            {renderedArray.map((image, index) => (
-              <li key={index}>
-                <img
-                  src={image}
-                  alt={index + 1}
-                  width={itemWidth}
-                  height={itemWidth}
-                />
-              </li>
-            ))}
+          {renderedArray.map((image, index) => (
+            <li key={index}>
+              <img
+                src={image}
+                alt={index + 1}
+                width={itemWidth}
+                height={itemWidth}
+              />
+            </li>
+          ))}
 
-          </ul>
-        </div>
-        <button
-          className="button"
-          disabled={isLeftButtonDisabled}
-          type="button"
-          onClick={() => (
-            this.slideLeft(step, translateX, itemWidth, infinite)
-          )}
-        >
-          ←
-        </button>
-        <button
-          className="button"
-        // 50px - button width
-          style={{ left: `${itemWidth * (frameSize + 1) - 50}px` }}
-          disabled={isRightButtonDisabled}
-          type="button"
-          onClick={() => (
-            this.slideRight(step, frameSize, translateX, itemWidth, infinite)
-          )}
-        >
-          →
-        </button>
+        </ul>
       </div>
-    );
-  }
-}
+      <div
+        className="buttons"
+        style={{ width: `${(frameSize + 1) * itemWidth}px` }}
+      >
+        <Button
+          classes={classes}
+          name="leftButton"
+          disabled={isLeftButtonDisabled}
+          onClick={() => onSlide('leftButton')}
+        >
+          <KeyboardArrowLeft />
+        </Button>
+        <Button
+          classes={classes}
+          name="rightButton"
+          disabled={isRightButtonDisabled}
+          onClick={() => onSlide('rightButton')}
+        >
+          <KeyboardArrowRight />
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 Carousel.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,

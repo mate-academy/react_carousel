@@ -16,7 +16,7 @@ li {
   position: relative;
   height: 130px;
   overflow: hidden;
-  margin: 100px auto 20px;
+  margin: 50px auto 20px;
 }
 
 form {
@@ -72,11 +72,12 @@ form {
   }
 }
 
-.button {
-  top: 50%;
+.buttons {
+  top: 40%;
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: space-between;
   border-radius: 15px;
-  width: 50px;
+ 
   height: 30px;
 }

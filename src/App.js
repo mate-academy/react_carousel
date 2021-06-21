@@ -1,100 +1,125 @@
-import React from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import './App.scss';
-
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Carousel from './components/Carousel';
 
-class App extends React.Component {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    infinite: false,
-  };
+const App = () => {
+  const images = useMemo(() => ([
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ]
+  ), []);
+  const [step, setStep] = useState(3);
+  const [frameSize, setFrameSize] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const animationDuration = useMemo(() => 1000, []);
+  const [infinite, setInfinite] = useState(false);
+  const marksMaker = useCallback((min, max, scaleDiv) => {
+    const arr = [];
+    let count = min;
 
-  handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
+    do {
+      arr.push({
+        value: count,
+        label: count,
+      });
+      count += scaleDiv;
+    }
+    while (count <= max);
 
-    this.setState({
-      [name]: type === 'checkbox' ? checked : parseFloat(value),
-    });
-  };
+    return arr;
+  }, []);
 
-  render() {
-    const { images, step, itemWidth, frameSize, animationDuration, infinite }
-    = this.state;
-
-    return (
-      <div className="App">
-        <form>
-          <label>
-            Step of slide:
-            <input
-              type="number"
-              name="step"
-              placeHolder="Step"
-              value={this.state.step}
-              onChange={this.handleChange}
+  return (
+    <div className="App">
+      <form>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <FormControlLabel
+              control={(
+                <Checkbox
+                  checked={infinite}
+                  onChange={() => setInfinite(!infinite)}
+                  color="primary"
+                />
+                  )}
+              label="Infinity"
             />
-          </label>
-          <label>
-            Frame size:
-            <input
-              type="number"
-              name="frameSize"
-              placeHolder="Frame size"
-              value={this.state.frameSize}
-              onChange={this.handleChange}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography id="discrete-slider-always" gutterBottom>
+              Frame size
+            </Typography>
+            <Slider
+              defaultValue={130}
+              value={frameSize}
+              onChange={(e, value) => setFrameSize(value)}
+              aria-labelledby="discrete-slider-small-steps"
+              step={1}
+              marks={marksMaker(2, 6, 2)}
+              min={1}
+              max={6}
+              valueLabelDisplay="auto"
             />
-          </label>
-          <label>
-            Item width:
-            <input
-              type="number"
-              name="itemWidth"
-              placeholder="Item width"
-              value={this.state.itemWidth}
-              onChange={this.handleChange}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography id="discrete-slider-small-steps" gutterBottom>
+              Item Width
+            </Typography>
+            <Slider
+              defaultValue={130}
+              value={itemWidth}
+              onChange={(e, value) => setItemWidth(value)}
+              aria-labelledby="discrete-slider-small-steps"
+              step={5}
+              marks={marksMaker(110, 220, 25)}
+              min={110}
+              max={220}
+              valueLabelDisplay="auto"
             />
-          </label>
-          <label
-            className="checkbox"
-          >
-            Infinity option
-            <input
-              type="checkbox"
-              name="infinite"
-              placeholder="Infinity"
-              checked={this.state.infinite}
-              onChange={this.handleChange}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography id="discrete-slider-small-steps" gutterBottom>
+              Slide Step
+            </Typography>
+            <Slider
+              defaultValue={130}
+              value={step}
+              onChange={(e, value) => setStep(value)}
+              aria-labelledby="discrete-slider-small-steps"
+              step={1}
+              marks={marksMaker(2, 6, 2)}
+              min={1}
+              max={6}
+              valueLabelDisplay="auto"
             />
-          </label>
-        </form>
-        <Carousel
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
-          startLeftPoint={!infinite ? 0 : images.length - step}
-          startTranslateX={!infinite ? 0 : itemWidth * step}
-        />
-      </div>
-    );
-  }
-}
+          </Grid>
+        </Grid>
+      </form>
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        infinite={infinite}
+        startLeftPoint={!infinite ? 0 : images.length - step}
+        startTranslateX={!infinite ? 0 : itemWidth * step}
+      />
+    </div>
+  );
+};
 
 export default App;
