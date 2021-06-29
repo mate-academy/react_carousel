@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React from 'react';
 import './App.scss';
 
@@ -19,6 +20,23 @@ class App extends React.Component {
     ],
   };
 
+  changeArrayNext = (step) => {
+    const { images } = this.state;
+
+    this.setState({
+      images: [...images.slice(step), ...images.slice(0, step)],
+    });
+  }
+
+  changeArrayPrev = (step) => {
+    const { images } = this.state;
+    const a = images.length - step;
+
+    this.setState({
+      images: [...images.slice(a), ...images.slice(0, a)],
+    });
+  }
+
   render() {
     const { images } = this.state;
 
@@ -27,7 +45,16 @@ class App extends React.Component {
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={3}
+          frameSize={3}
+          itemWidth={130}
+          animationDuration={1000}
+          infinite={true}
+          changeArrayNext={this.changeArrayNext}
+          changeArrayPrev={this.changeArrayPrev}
+        />
       </div>
     );
   }
