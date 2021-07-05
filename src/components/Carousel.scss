@@ -1,1 +1,36 @@
-// style go here
+.Container {
+  display: flex;
+  overflow: hidden;
+}
+
+.Slide {
+  flex-shrink: 0;
+}
+
+.ButtonsWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SliderButton {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent no-repeat center;
+  background-size: 100%;
+  border: none;
+  transition: 0.2s;
+
+  &:first-of-type {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSbmvH-A-G7ud30bLv1JaV0anjSXFHgAV7BZQ&usqp=CAU');
+  }
+
+  &:last-of-type {
+    background-image: url('https://i.imgur.com/tBh7u3o.png');
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
