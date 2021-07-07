@@ -18,6 +18,11 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: true,
   };
 
   changeArrayNext = (step) => {
@@ -37,8 +42,21 @@ class App extends React.Component {
     });
   }
 
+  setStateOnChange = (key, value) => {
+    this.setState({
+      [key]: value,
+    });
+  }
+
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
@@ -47,14 +65,51 @@ class App extends React.Component {
 
         <Carousel
           images={images}
-          step={3}
-          frameSize={3}
-          itemWidth={130}
-          animationDuration={1000}
-          infinite={true}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
           changeArrayNext={this.changeArrayNext}
           changeArrayPrev={this.changeArrayPrev}
         />
+        <form className="form-fields">
+          Step:
+          <input
+            type="text"
+            name="step"
+            value={step}
+            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
+          />
+          Frame size:
+          <input
+            type="text"
+            name="frameSize"
+            value={frameSize}
+            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
+          />
+          Item Width:
+          <input
+            type="text"
+            name="itemWidth"
+            value={itemWidth}
+            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
+          />
+          Animation Duration:
+          <input
+            type="text"
+            name="animationDuration"
+            value={animationDuration}
+            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
+          />
+          Infinite:
+          <input
+            type="text"
+            name="infinite"
+            value={infinite}
+            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
+          />
+        </form>
       </div>
     );
   }

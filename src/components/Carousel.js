@@ -3,43 +3,36 @@ import PropTypes from 'prop-types';
 
 import './Carousel.scss';
 
-const creatingList = (array,
+const creatingList = (
+  array,
   frameSize,
   itemWidth,
   animationDuration,
   infinite,
-  currentPoint) => {
-  return !infinite
-    ? array.map((image, index) => {
-      if (index >= currentPoint && index < currentPoint + frameSize) {
-        return (
-          <li key={image}>
-            <img
-              src={image}
-              alt={array.indexOf(image)}
-              height={`${itemWidth}px`}
-            />
-          </li>
-        );
-      }
+  currentPoint,
+) => {
+  // eslint-disable-next-line arrow-body-style
+  const createCheck = (index) => {
+    return infinite
+      ? index < frameSize
+      : index >= currentPoint && index < currentPoint + frameSize;
+  };
 
-      return null;
-    })
-    : array.map((image, index) => {
-      if (index < frameSize) {
-        return (
-          <li key={image}>
-            <img
-              src={image}
-              alt={array.indexOf(image)}
-              height={`${itemWidth}px`}
-            />
-          </li>
-        );
-      }
+  return array.map((image, index) => {
+    if (createCheck(index)) {
+      return (
+        <li key={image}>
+          <img
+            src={image}
+            alt={array.indexOf(image)}
+            height={`${itemWidth}px`}
+          />
+        </li>
+      );
+    }
 
-      return null;
-    });
+    return null;
+  });
 };
 
 class Carousel extends React.Component {
@@ -48,14 +41,16 @@ class Carousel extends React.Component {
   }
 
   render() {
-    const { images,
+    const {
+      images,
       step,
       frameSize,
       itemWidth,
       animationDuration,
       infinite,
       changeArrayNext,
-      changeArrayPrev } = this.props;
+      changeArrayPrev,
+    } = this.props;
     const { currentPoint } = this.state;
 
     return (
