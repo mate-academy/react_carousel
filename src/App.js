@@ -58,6 +58,8 @@ class App extends React.Component {
       infinite,
     } = this.state;
 
+    const inputKeys = Object.keys(this.state).slice(1);
+
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
@@ -74,41 +76,23 @@ class App extends React.Component {
           changeArrayPrev={this.changeArrayPrev}
         />
         <form className="form-fields">
-          Step:
-          <input
-            type="text"
-            name="step"
-            value={step}
-            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
-          />
-          Frame size:
-          <input
-            type="text"
-            name="frameSize"
-            value={frameSize}
-            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
-          />
-          Item Width:
-          <input
-            type="text"
-            name="itemWidth"
-            value={itemWidth}
-            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
-          />
-          Animation Duration:
-          <input
-            type="text"
-            name="animationDuration"
-            value={animationDuration}
-            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
-          />
-          Infinite:
-          <input
-            type="text"
-            name="infinite"
-            value={infinite}
-            onChange={e => this.setStateOnChange(e.target.name, e.target.value)}
-          />
+          {inputKeys.map(key => (
+            <>
+              <span>
+                {key}
+                :
+              </span>
+              <input
+                type="text"
+                name={`${key}`}
+                value={this.state[key]}
+                onChange={e => this.setStateOnChange(
+                  e.target.name,
+                  e.target.value,
+                )}
+              />
+            </>
+          ))}
         </form>
       </div>
     );
