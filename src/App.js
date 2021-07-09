@@ -18,11 +18,13 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+
     step: 3,
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: true,
+    infinite: false,
+    currentPoint: 0,
   };
 
   changeArrayNext = (step) => {
@@ -42,8 +44,39 @@ class App extends React.Component {
     });
   }
 
+  setPointNext = () => {
+    this.setState((state) => {
+      const { currentPoint, step, frameSize, images } = state;
+      let nextPoint = currentPoint + step;
+
+      if (nextPoint + frameSize >= images.length) {
+        nextPoint = images.length - frameSize;
+      }
+
+      return {
+        currentPoint: nextPoint,
+      };
+    });
+  }
+
+  setPointPrev = () => {
+    this.setState((state) => {
+      const { currentPoint, step } = state;
+      let nextPoint = currentPoint - step;
+
+      if (currentPoint - step <= 0) {
+        nextPoint = 0;
+      }
+
+      return {
+        currentPoint: nextPoint,
+      };
+    });
+  }
+
   setStateOnChange = (key, value) => {
     this.setState({
+      currentPoint: 0,
       [key]: value,
     });
   }
@@ -56,9 +89,10 @@ class App extends React.Component {
       itemWidth,
       animationDuration,
       infinite,
+      currentPoint,
     } = this.state;
 
-    const inputKeys = Object.keys(this.state).slice(1);
+    const inputKeys = Object.keys(this.state).slice(1, -1);
 
     return (
       <div className="App">
@@ -72,8 +106,11 @@ class App extends React.Component {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
+          currentPoint={currentPoint}
           changeArrayNext={this.changeArrayNext}
           changeArrayPrev={this.changeArrayPrev}
+          setPointNext={this.setPointNext}
+          setPointPrev={this.setPointPrev}
         />
         <form className="form-fields">
           {inputKeys.map(key => (
@@ -83,13 +120,15 @@ class App extends React.Component {
                 :
               </span>
               <input
-                type="text"
+                type={key === 'infinite' ? 'checkbox' : 'text'}
                 name={`${key}`}
                 value={this.state[key]}
-                onChange={e => this.setStateOnChange(
-                  e.target.name,
-                  e.target.value,
-                )}
+                onChange={(e) => {
+                  this.setStateOnChange(
+                    e.target.name,
+                    key !== 'infinite' ? +(e.target.value) : e.target.checked,
+                  );
+                }}
               />
             </>
           ))}
