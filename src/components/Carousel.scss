@@ -1,1 +1,21 @@
 // style go here
+
+li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+img {
+  display: block;
+}
+
+button {
+  background-color: coral;
+}
+
+.form-fields {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
