@@ -24,15 +24,17 @@ class App extends React.Component {
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
-    updateList: false,
   };
 
-  changeInputSeting(target, setting) {
+  changeInputSeting(target, typeSetting) {
     const output = target.previousElementSibling;
+    const newState = {};
+
+    newState[typeSetting] = +target.value;
 
     output.value = target.value;
     output.style = 'color: rgb(112, 0, 93); font-size: 22px;';
-    this.setState(setting);
+    this.setState(newState);
   }
 
   render() {
@@ -56,7 +58,7 @@ class App extends React.Component {
               min="1"
               max="5"
               onInput={({ target }) => (
-                this.changeInputSeting(target)
+                this.changeInputSeting(target, 'steep')
               )}
             />
           </label>
@@ -70,7 +72,7 @@ class App extends React.Component {
               min="1"
               max="5"
               onInput={({ target }) => (
-                this.changeInputSeting(target, { frameSize: target.value })
+                this.changeInputSeting(target, 'frameSize')
               )}
             />
           </label>
@@ -84,12 +86,9 @@ class App extends React.Component {
               min="100"
               max="280"
               step="10"
-              onInput={({ target }) => (
-                this.changeInputSeting(target, {
-                  itemWidth: target.value,
-                  updateList: true,
-                })
-              )}
+              onInput={({ target }) => {
+                this.changeInputSeting(target, 'itemWidth');
+              }}
             />
           </label>
 
@@ -110,9 +109,7 @@ class App extends React.Component {
                 max="3500"
                 step="500"
                 onInput={({ target }) => (
-                  this.changeInputSeting(target, {
-                    animationDuration: target.value,
-                  })
+                  this.changeInputSeting(target, 'animationDuration')
                 )}
               />
             </label>
@@ -125,7 +122,6 @@ class App extends React.Component {
                 onChange={({ target }) => (
                   this.setState({
                     infinite: target.checked,
-                    updateList: true,
                   })
                 )}
               />
