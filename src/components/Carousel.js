@@ -10,16 +10,16 @@ class Carousel extends React.Component {
       validNextScroll: true,
     }
 
-    // componentDidUpdate({ itemWidth, frameSize, }) {
-    //   if (this.props.itemWidth !== itemWidth
-    //     || this.props.frameSize !== frameSize) {
-    //     this.setState({
-    //       scrollLength: 0,
-    //       isStart: true,
-    //       isEnd: false,
-    //     });
-    //   }
-    // }
+    componentDidUpdate({ itemWidth, frameSize, }) {
+       if (this.props.itemWidth !== itemWidth
+         || this.props.frameSize !== frameSize) {
+         this.setState({
+           scrollLength: 0,
+           isStart: true,
+           isEnd: false,
+         });
+       }
+     }
 
     oneScroll(scroll, newScrollLength,
       isStartValue = false, isEndValue = false) {
