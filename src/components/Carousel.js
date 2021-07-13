@@ -23,7 +23,7 @@ class Carousel extends React.Component {
 
     oneScroll(scroll, newScrollLength,
       isStartValue = false, isEndValue = false) {
-      const { animationDuration } = { ...this.props };
+      const { animationDuration } = this.props;
 
       this.setState((state) => {
         let currentScroll;
@@ -55,14 +55,14 @@ class Carousel extends React.Component {
         itemWidth,
         animationDuration,
         infinite,
-      } = { ...this.props };
+      } = this.props;
 
       const {
         scrollLength,
         isStart,
         isEnd,
         validNextScroll,
-      } = { ...this.state };
+      } = this.state;
 
       const widthListCarousel = itemWidth * images.length;
       const widthOneScroll = steep * itemWidth;
@@ -174,3 +174,12 @@ class Carousel extends React.Component {
 }
 
 export default Carousel;
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  steep: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+  infinite: PropTypes.bool.isRequired,
+};
