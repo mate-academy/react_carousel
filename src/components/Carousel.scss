@@ -1,1 +1,11 @@
-// style go here
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &-scroll {
+    display: flex;
+    width: 1300px;
+  }
+}
