@@ -1,1 +1,55 @@
-// style go here
+$content-color: rgb(228, 125, 7);
+$text-color: rgb(83, 30, 133);
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 50px;
+
+  color: $text-color;
+
+  & h1 {
+    font-size: 3rem;
+  }
+
+  & p {
+    font-size: 28px;
+    font-weight: bold;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__increase-size-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__button {
+    display: block;
+    height: 50px;
+    min-width: 50px;
+    transition: transform 0.3s;
+
+    font-size: 25px;
+    border-radius: 10px;
+    background-color: $content-color;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.15);
+    }
+
+    &:active {
+      background-color: rgb(83, 30, 133);
+      box-shadow: 4px 4px 10px 0 black;
+    }
+  }
+}
