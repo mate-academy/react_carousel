@@ -73,6 +73,26 @@ class App extends React.Component {
     });
   }
 
+  increaseAnimationDuration() {
+    this.setState(({ animationDuration }) => {
+      if (animationDuration > 9900) {
+        return { animationDuration };
+      }
+
+      return { animationDuration: animationDuration + 100 };
+    });
+  }
+
+  decreaseAnimationDuration() {
+    this.setState(({ animationDuration }) => {
+      if (animationDuration === 100) {
+        return { animationDuration };
+      }
+
+      return { animationDuration: animationDuration - 100 };
+    });
+  }
+
   decreaseStepSize() {
     this.setState(({ step }) => {
       if (step === 1) {
@@ -179,6 +199,28 @@ class App extends React.Component {
               }}
             >
               +1
+            </button>
+          </div>
+          <h2>Duration of animation:</h2>
+          <div className="form__increase-size-container">
+            <button
+              type="button"
+              className="form__button"
+              onClick={() => {
+                this.decreaseAnimationDuration();
+              }}
+            >
+              -100
+            </button>
+            <p>{`${animationDuration}ms`}</p>
+            <button
+              type="button"
+              className="form__button"
+              onClick={() => {
+                this.increaseAnimationDuration();
+              }}
+            >
+              +100
             </button>
           </div>
           <button
