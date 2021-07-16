@@ -14,13 +14,9 @@ class Carousel extends React.Component {
   showedFirst = false;
 
   next = () => {
-    const { itemWidth, infinite, step } = this.props;
+    const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
-    let { frameSize } = this.props;
-    const carouselWidth = this.state.images * itemWidth;
-
-    frameSize = this.checkFrameSize(frameSize, itemWidth);
-
+    const carouselWidth = itemWidth * this.state.images;
     const maxScrollBy = carouselWidth - (itemWidth * frameSize);
     let scrollBy = scrollLeft + (itemWidth * step);
 
@@ -43,13 +39,9 @@ class Carousel extends React.Component {
   }
 
   prev = () => {
-    const { itemWidth, infinite, step } = this.props;
-    let { frameSize } = this.props;
-    const carouselWidth = this.state.images * itemWidth;
-
-    frameSize = this.checkFrameSize(frameSize, itemWidth);
-
+    const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
+    const carouselWidth = itemWidth * this.state.images;
     let scrollBy = scrollLeft - (itemWidth * step);
 
     if (scrollBy < 0) {

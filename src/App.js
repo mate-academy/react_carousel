@@ -24,8 +24,8 @@ class App extends React.Component {
     infinite: false,
   };
 
-  changeSetting = (inputValue, target, setting) => {
-    let value = inputValue;
+  changeSetting = (target, setting) => {
+    let value = +target.value;
     const newSetting = {};
 
     if (setting === 'infinite') {
@@ -57,59 +57,52 @@ class App extends React.Component {
         <form className="form">
           <label className="form__inputs">
             step:
+            <label>{` 3`}</label>
             <input
-              type="number"
+              type="range"
               defaultValue="3"
               min="1"
               max="5"
               onInput={({ target }) => {
-                let value = +target.value;
-                const input = target;
+                const output = target.previousSibling;
 
-                if ((value < 1) || (value > 5)) {
-                  value = this.state.step;
-                  input.value = this.state.step;
-                }
+                output.textContent = ` ${target.value}`;
 
-                this.changeSetting(value, target, 'step');
+                this.changeSetting(target, 'step');
               }}
             />
           </label>
           <label className="form__inputs">
             frameSize:
+            <label>{` 3`}</label>
             <input
-              type="number"
+              type="range"
               defaultValue="3"
               min="1"
               max="5"
               onInput={({ target }) => {
-                let value = +target.value;
-                const input = target;
+                const output = target.previousSibling;
 
-                if ((value < 1) || (value > 5)) {
-                  value = this.state.frameSize;
-                  input.value = this.state.frameSize;
-                }
+                output.textContent = ` ${target.value}`;
 
-                this.changeSetting(value, target, 'frameSize');
+                this.changeSetting(target, 'frameSize');
               }}
             />
           </label>
           <label className="form__inputs">
             itemWidth:
+            <label>{` 130`}</label>
             <input
-              type="number"
+              type="range"
               defaultValue="130"
+              min="100"
+              max="259"
               onInput={({ target }) => {
-                let value = +target.value;
-                const input = target;
+                const output = target.previousSibling;
 
-                if (value > 1300) {
-                  value = 1300;
-                  input.value = 1300;
-                }
+                output.textContent = ` ${target.value}`;
 
-                this.changeSetting(value, target, 'itemWidth');
+                this.changeSetting(target, 'itemWidth');
               }}
             />
           </label>
@@ -119,7 +112,7 @@ class App extends React.Component {
               type="number"
               defaultValue="1000"
               onInput={({ target }) => {
-                this.changeSetting(+target.value, target, 'animationDuration');
+                this.changeSetting(target, 'animationDuration');
               }}
             />
           </label>
@@ -128,7 +121,7 @@ class App extends React.Component {
             <input
               type="checkbox"
               onInput={({ target }) => {
-                this.changeSetting(target.value, target, 'infinite');
+                this.changeSetting(target, 'infinite');
               }}
             />
           </label>
