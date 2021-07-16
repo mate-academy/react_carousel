@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import { Controls } from './components/Controls/Controls';
 
 class App extends React.Component {
   state = {
@@ -54,78 +54,7 @@ class App extends React.Component {
           itemWidth={this.state.itemWidth}
           frameSize={this.state.frameSize}
         />
-        <form className="form">
-          <label className="form__inputs">
-            step:
-            <label>{` 3`}</label>
-            <input
-              type="range"
-              defaultValue="3"
-              min="1"
-              max="5"
-              onInput={({ target }) => {
-                const output = target.previousSibling;
-
-                output.textContent = ` ${target.value}`;
-
-                this.changeSetting(target, 'step');
-              }}
-            />
-          </label>
-          <label className="form__inputs">
-            frameSize:
-            <label>{` 3`}</label>
-            <input
-              type="range"
-              defaultValue="3"
-              min="1"
-              max="5"
-              onInput={({ target }) => {
-                const output = target.previousSibling;
-
-                output.textContent = ` ${target.value}`;
-
-                this.changeSetting(target, 'frameSize');
-              }}
-            />
-          </label>
-          <label className="form__inputs">
-            itemWidth:
-            <label>{` 130`}</label>
-            <input
-              type="range"
-              defaultValue="130"
-              min="100"
-              max="259"
-              onInput={({ target }) => {
-                const output = target.previousSibling;
-
-                output.textContent = ` ${target.value}`;
-
-                this.changeSetting(target, 'itemWidth');
-              }}
-            />
-          </label>
-          <label className="form__inputs">
-            animationDuration:
-            <input
-              type="number"
-              defaultValue="1000"
-              onInput={({ target }) => {
-                this.changeSetting(target, 'animationDuration');
-              }}
-            />
-          </label>
-          <label className="form__inputs">
-            infinite:
-            <input
-              type="checkbox"
-              onInput={({ target }) => {
-                this.changeSetting(target, 'infinite');
-              }}
-            />
-          </label>
-        </form>
+        <Controls app={this} />
       </div>
     );
   }

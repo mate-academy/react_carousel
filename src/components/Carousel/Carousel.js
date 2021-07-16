@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 import './Carousel.scss';
 
+import { CarouselControls } from '../CarouselControls/CarouselControls';
+import { CarouselList } from '../CarouselList/CarouselList';
+
 class Carousel extends React.Component {
   state = {
     scrollLeft: 0,
-    images: 10,
+    imagesCount: 10,
   }
 
   showedLast = false;
@@ -16,7 +19,7 @@ class Carousel extends React.Component {
   next = () => {
     const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
-    const carouselWidth = itemWidth * this.state.images;
+    const carouselWidth = itemWidth * this.state.imagesCount;
     const maxScrollBy = carouselWidth - (itemWidth * frameSize);
     let scrollBy = scrollLeft + (itemWidth * step);
 
@@ -41,7 +44,7 @@ class Carousel extends React.Component {
   prev = () => {
     const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
-    const carouselWidth = itemWidth * this.state.images;
+    const carouselWidth = itemWidth * this.state.imagesCount;
     let scrollBy = scrollLeft - (itemWidth * step);
 
     if (scrollBy < 0) {
@@ -104,38 +107,15 @@ class Carousel extends React.Component {
         <div
           className="Carousel"
         >
-          <ul
-            className="Carousel__list"
-            style={carouselStyle}
-          >
-            <div
-              className="Carousel__list-scroll"
-              style={carouselListStyle}
-            >
-              {images.map(image => (
-                <li key={image}>
-                  <img
-                    src={image}
-                    alt={image}
-                    style={imageStyle}
-                  />
-                </li>
-              ))}
-            </div>
-          </ul>
+          <CarouselList
+            carouselStyle={carouselStyle}
+            carouselListStyle={carouselListStyle}
+            images={images}
+            imageStyle={imageStyle}
+          />
         </div>
-        <button
-          type="button"
-          onClick={this.prev}
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          onClick={this.next}
-        >
-          Next
-        </button>
+        <CarouselControls app={this} text="prev" />
+        <CarouselControls app={this} text="next" />
       </>
     );
   }
