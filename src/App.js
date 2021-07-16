@@ -100,15 +100,13 @@ class App extends React.Component {
             <input
               type="number"
               defaultValue="130"
-              min="100"
-              max="150"
               onInput={({ target }) => {
                 let value = +target.value;
                 const input = target;
 
-                if ((value < 100) || (value > 150)) {
-                  value = this.state.itemWidth;
-                  input.value = this.state.itemWidth;
+                if (value > 1300) {
+                  value = 1300;
+                  input.value = 1300;
                 }
 
                 this.changeSetting(value, target, 'itemWidth');
@@ -120,17 +118,7 @@ class App extends React.Component {
             <input
               type="number"
               defaultValue="1000"
-              min="500"
-              max="2000"
               onInput={({ target }) => {
-                let value = +target.value;
-                const input = target;
-
-                if ((value < 500) || (value > 2000)) {
-                  value = this.state.animationDuration;
-                  input.value = this.state.animationDuration;
-                }
-
                 this.changeSetting(+target.value, target, 'animationDuration');
               }}
             />

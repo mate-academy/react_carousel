@@ -6,7 +6,7 @@ import './Carousel.scss';
 class Carousel extends React.Component {
   state = {
     scrollLeft: 0,
-    carouselWidth: 1300,
+    images: 10,
   }
 
   showedLast = false;
@@ -14,8 +14,13 @@ class Carousel extends React.Component {
   showedFirst = false;
 
   next = () => {
-    const { itemWidth, frameSize, infinite, step } = this.props;
-    const { scrollLeft, carouselWidth } = this.state;
+    const { itemWidth, infinite, step } = this.props;
+    const { scrollLeft } = this.state;
+    let { frameSize } = this.props;
+    const carouselWidth = this.state.images * itemWidth;
+
+    frameSize = this.checkFrameSize(frameSize, itemWidth);
+
     const maxScrollBy = carouselWidth - (itemWidth * frameSize);
     let scrollBy = scrollLeft + (itemWidth * step);
 
@@ -38,8 +43,13 @@ class Carousel extends React.Component {
   }
 
   prev = () => {
-    const { itemWidth, infinite, step, frameSize } = this.props;
-    const { scrollLeft, carouselWidth } = this.state;
+    const { itemWidth, infinite, step } = this.props;
+    let { frameSize } = this.props;
+    const carouselWidth = this.state.images * itemWidth;
+
+    frameSize = this.checkFrameSize(frameSize, itemWidth);
+
+    const { scrollLeft } = this.state;
     let scrollBy = scrollLeft - (itemWidth * step);
 
     if (scrollBy < 0) {
@@ -60,9 +70,29 @@ class Carousel extends React.Component {
     });
   }
 
+  checkFrameSize = (frameSize, itemWidth) => {
+    let imagePerFrame = frameSize;
+
+    if (itemWidth >= 400 && itemWidth <= 599) {
+      imagePerFrame = 2;
+    } else if (itemWidth >= 600) {
+      imagePerFrame = 1;
+    } else if (itemWidth >= 260) {
+      imagePerFrame = imagePerFrame > 4
+        ? 4
+        : imagePerFrame;
+    }
+
+    return imagePerFrame;
+  }
+
   render() {
-    const { itemWidth, frameSize, images, animationDuration } = this.props;
+    const { itemWidth, images, animationDuration } = this.props;
+    let { frameSize } = this.props;
     const { scrollLeft } = this.state;
+
+    frameSize = this.checkFrameSize(frameSize, itemWidth);
+
     const carouselStyle = {
       width: `${itemWidth * frameSize}px`,
       height: `${itemWidth}px`,
