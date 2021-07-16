@@ -24,8 +24,8 @@ class App extends React.Component {
     infinite: false,
   };
 
-  changeSetting = (target, setting) => {
-    let value = +target.value;
+  changeSetting = (inputValue, target, setting) => {
+    let value = inputValue;
     const newSetting = {};
 
     if (setting === 'infinite') {
@@ -63,7 +63,15 @@ class App extends React.Component {
               min="1"
               max="5"
               onInput={({ target }) => {
-                this.changeSetting(target, 'step');
+                let value = +target.value;
+                const input = target;
+
+                if ((value < 1) || (value > 5)) {
+                  value = this.state.step;
+                  input.value = this.state.step;
+                }
+
+                this.changeSetting(value, target, 'step');
               }}
             />
           </label>
@@ -75,7 +83,15 @@ class App extends React.Component {
               min="1"
               max="5"
               onInput={({ target }) => {
-                this.changeSetting(target, 'frameSize');
+                let value = +target.value;
+                const input = target;
+
+                if ((value < 1) || (value > 5)) {
+                  value = this.state.frameSize;
+                  input.value = this.state.frameSize;
+                }
+
+                this.changeSetting(value, target, 'frameSize');
               }}
             />
           </label>
@@ -87,7 +103,15 @@ class App extends React.Component {
               min="100"
               max="150"
               onInput={({ target }) => {
-                this.changeSetting(target, 'itemWidth');
+                let value = +target.value;
+                const input = target;
+
+                if ((value < 100) || (value > 150)) {
+                  value = this.state.itemWidth;
+                  input.value = this.state.itemWidth;
+                }
+
+                this.changeSetting(value, target, 'itemWidth');
               }}
             />
           </label>
@@ -99,7 +123,15 @@ class App extends React.Component {
               min="500"
               max="2000"
               onInput={({ target }) => {
-                this.changeSetting(target, 'animationDuration');
+                let value = +target.value;
+                const input = target;
+
+                if ((value < 500) || (value > 2000)) {
+                  value = this.state.animationDuration;
+                  input.value = this.state.animationDuration;
+                }
+
+                this.changeSetting(+target.value, target, 'animationDuration');
               }}
             />
           </label>
@@ -108,7 +140,7 @@ class App extends React.Component {
             <input
               type="checkbox"
               onInput={({ target }) => {
-                this.changeSetting(target, 'infinite');
+                this.changeSetting(target.value, target, 'infinite');
               }}
             />
           </label>
