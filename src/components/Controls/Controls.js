@@ -56,10 +56,17 @@ export const Controls = props => (
     </label>
     <label className="form__inputs">
       animationDuration:
+      <label>{` 1000`}</label>
       <input
-        type="number"
+        type="range"
         defaultValue="1000"
+        min="1000"
+        max="3000"
         onInput={({ target }) => {
+          const output = target.previousSibling;
+
+          output.textContent = ` ${target.value}`;
+
           props.app.changeSetting(target, 'animationDuration');
         }}
       />

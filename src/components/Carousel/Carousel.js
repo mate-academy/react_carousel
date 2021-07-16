@@ -10,11 +10,14 @@ class Carousel extends React.Component {
   state = {
     scrollLeft: 0,
     imagesCount: 10,
+    itemWidth: 130,
   }
 
   showedLast = false;
 
   showedFirst = false;
+
+  imageWidth = 130;
 
   next = () => {
     const { itemWidth, infinite, step, frameSize } = this.props;
@@ -65,28 +68,16 @@ class Carousel extends React.Component {
     });
   }
 
-  checkFrameSize = (frameSize, itemWidth) => {
-    let imagePerFrame = frameSize;
-
-    if (itemWidth >= 400 && itemWidth <= 599) {
-      imagePerFrame = 2;
-    } else if (itemWidth >= 600) {
-      imagePerFrame = 1;
-    } else if (itemWidth >= 260) {
-      imagePerFrame = imagePerFrame > 4
-        ? 4
-        : imagePerFrame;
-    }
-
-    return imagePerFrame;
-  }
-
   render() {
-    const { itemWidth, images, animationDuration } = this.props;
-    let { frameSize } = this.props;
+    const { itemWidth, images, animationDuration, frameSize } = this.props;
     const { scrollLeft } = this.state;
 
-    frameSize = this.checkFrameSize(frameSize, itemWidth);
+    if (itemWidth !== this.state.itemWidth) {
+      this.setState({
+        scrollLeft: 0,
+        itemWidth,
+      });
+    }
 
     const carouselStyle = {
       width: `${itemWidth * frameSize}px`,
