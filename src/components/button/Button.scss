@@ -1,0 +1,11 @@
+.carousel__button {
+  width:60px;
+  height: 40px;
+  font-size: 20px;
+  font-style: italic;
+
+  &:hover {
+    box-shadow: 0 0 5px 1px green;
+    color: green;
+  }
+}
