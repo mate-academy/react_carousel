@@ -112,7 +112,7 @@ class Carousel extends React.Component {
               transitionDuration: `${duration * 1000}ms`,
             }}
           >
-            {this.props.images.map((image, index) => (
+            {this.props.images.map(image => (
               <Image
                 key={image}
                 src={image}

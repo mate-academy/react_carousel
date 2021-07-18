@@ -4,11 +4,10 @@ import './image.scss';
 
 export default class Image extends React.Component {
   render() {
-    const { src, key, style } = this.props;
+    const { src, style } = this.props;
 
     return (
       <img
-        key={key}
         src={src}
         alt="smile here"
         className="carousel__images"
@@ -19,7 +18,6 @@ export default class Image extends React.Component {
 }
 
 Image.propTypes = {
-  key: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   style: PropTypes.shape({
     height: PropTypes.string.isRequired
