@@ -1,1 +1,20 @@
-// style go here
+.carousel {
+  border: 3px red dashed;
+  width:390px;
+  overflow: hidden;
+
+  &__image-container {
+    position: relative;
+    left: 0;
+    display: flex;
+    transition-duration: 1000ms;
+  }
+
+  &__button-container {
+    margin-left: 120px;
+    margin-top:20px;
+    display: flex;
+    gap: 15px;
+    line-height: 40px;
+  }
+}

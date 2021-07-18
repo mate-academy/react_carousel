@@ -17,17 +17,38 @@ class App extends React.Component {
       './img/9.png',
       './img/10.png',
     ],
+    width: 130,
+    left: 0,
+    numberOfImage: 3,
+    step: 1,
+    duration: 1,
+    infinity: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      width,
+      left,
+      numberOfImage,
+      step,
+      duration,
+      infinity,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <Carousel
+          images={images}
+          width={width}
+          left={left}
+          numberOfImage={numberOfImage}
+          step={step}
+          duration={duration}
+          infinity={infinity}
+        />
       </div>
     );
   }
