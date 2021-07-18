@@ -7,8 +7,8 @@ class Carousel extends React.Component {
     currentListPosition: 0,
   }
 
-  scrollRight(scrollStep, availableWidth, infinite) {
-    const maxScrollRange = -availableWidth + scrollStep;
+  scrollRight(scrollStep, availableWidth, frameWidth, infinite) {
+    const maxScrollRange = -availableWidth + frameWidth;
 
     this.setState(({ currentListPosition }) => {
       if (!infinite) {
@@ -33,8 +33,8 @@ class Carousel extends React.Component {
     });
   }
 
-  scrollLeft(scrollStep, availableWidth, infinite) {
-    const maxScrollRange = -availableWidth + scrollStep;
+  scrollLeft(scrollStep, availableWidth, frameWidth, infinite) {
+    const maxScrollRange = -availableWidth + frameWidth;
     const initialScrollPosition = 0;
 
     this.setState(({ currentListPosition }) => {
@@ -93,7 +93,7 @@ class Carousel extends React.Component {
           type="button"
           className="Carousel__button"
           onClick={() => {
-            this.scrollLeft(scrollStep, listWidth, infinite);
+            this.scrollLeft(scrollStep, listWidth, containerWidth, infinite);
           }}
         >
           &#10094;
@@ -111,7 +111,7 @@ class Carousel extends React.Component {
           type="button"
           className="Carousel__button"
           onClick={() => {
-            this.scrollRight(scrollStep, listWidth, infinite);
+            this.scrollRight(scrollStep, listWidth, containerWidth, infinite);
           }}
         >
           &#10095;
