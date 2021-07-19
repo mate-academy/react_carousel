@@ -1,62 +1,95 @@
 import React from 'react';
 import './Carousel.scss';
+import ScrollingFrame from '../ScrollingFrame/ScrollingFrame';
 import { carouselShape } from '../../types';
 
 class Carousel extends React.Component {
   state = {
-    currentListPosition: 0,
-  }
+    images: this.props.images,
+    step: this.props.step,
+    frameSize: this.props.frameSize,
+    itemWidth: this.props.itemWidth,
+    animationDuration: this.props.animationDuration,
+    infinite: this.props.infinite,
+  };
 
-  scrollRight(scrollStep, availableWidth, frameWidth, infinite) {
-    const maxScrollRange = -availableWidth + frameWidth;
-
-    this.setState(({ currentListPosition }) => {
-      if (!infinite) {
-        return currentListPosition - scrollStep < maxScrollRange
-          ? { currentListPosition: maxScrollRange }
-          : {
-            currentListPosition: currentListPosition - scrollStep,
-          };
+  increaseFrameSize(maxElements) {
+    this.setState(({ frameSize }) => {
+      if (frameSize === maxElements) {
+        return { frameSize };
       }
 
-      if (currentListPosition === maxScrollRange) {
-        return { currentListPosition: 0 };
-      }
-
-      if (currentListPosition - scrollStep < maxScrollRange) {
-        return { currentListPosition: maxScrollRange };
-      }
-
-      return {
-        currentListPosition: currentListPosition - scrollStep,
-      };
+      return { frameSize: frameSize + 1 };
     });
   }
 
-  scrollLeft(scrollStep, availableWidth, frameWidth, infinite) {
-    const maxScrollRange = -availableWidth + frameWidth;
-    const initialScrollPosition = 0;
-
-    this.setState(({ currentListPosition }) => {
-      if (!infinite) {
-        return currentListPosition + scrollStep >= initialScrollPosition
-          ? { currentListPosition: initialScrollPosition }
-          : {
-            currentListPosition: currentListPosition + scrollStep,
-          };
+  decreaseFrameSize() {
+    this.setState(({ frameSize }) => {
+      if (frameSize === 1) {
+        return { frameSize };
       }
 
-      if (currentListPosition === initialScrollPosition) {
-        return { currentListPosition: maxScrollRange };
+      return { frameSize: frameSize - 1 };
+    });
+  }
+
+  increaseImgSize(increment) {
+    this.setState(({ itemWidth }) => {
+      if (itemWidth > 300) {
+        return { itemWidth };
       }
 
-      if (currentListPosition + scrollStep >= initialScrollPosition) {
-        return { currentListPosition: initialScrollPosition };
+      return { itemWidth: itemWidth + increment };
+    });
+  }
+
+  decreaseImgSize(decrement) {
+    this.setState(({ itemWidth }) => {
+      if (itemWidth < 11) {
+        return { itemWidth };
       }
 
-      return {
-        currentListPosition: currentListPosition + scrollStep,
-      };
+      return { itemWidth: itemWidth - decrement };
+    });
+  }
+
+  increaseStepSize(maxElements) {
+    this.setState(({ step }) => {
+      if (step === maxElements) {
+        return { step };
+      }
+
+      return { step: step + 1 };
+    });
+  }
+
+  increaseAnimationDuration() {
+    this.setState(({ animationDuration }) => {
+      if (animationDuration > 9900) {
+        return { animationDuration };
+      }
+
+      return { animationDuration: animationDuration + 100 };
+    });
+  }
+
+  decreaseAnimationDuration() {
+    this.setState(({ animationDuration }) => {
+      if (animationDuration === 100) {
+        return { animationDuration };
+      }
+
+      return { animationDuration: animationDuration - 100 };
+    });
+  }
+
+  decreaseStepSize() {
+    this.setState(({ step }) => {
+      if (step === 1) {
+        return { step };
+      }
+
+      return { step: step - 1 };
     });
   }
 
@@ -68,55 +101,130 @@ class Carousel extends React.Component {
       itemWidth,
       animationDuration,
       infinite,
-    } = this.props;
-
-    const { currentListPosition } = this.state;
-    const listWidth = itemWidth * images.length;
-    const listStyles = {
-      width: `${listWidth}px`,
-      transitionDuration: `${animationDuration}ms`,
-      transform: `translateX(${currentListPosition}px)`,
-    };
-    const imgStyles = {
-      width: `${itemWidth}px`,
-      height: `${itemWidth}px`,
-    };
-    const containerWidth = frameSize * itemWidth;
-    const containerStyles = {
-      width: `${containerWidth}px`,
-    };
-    const scrollStep = itemWidth * step;
+    } = this.state;
 
     return (
-      <div className="Carousel">
-        <button
-          type="button"
-          className="Carousel__button"
-          onClick={() => {
-            this.scrollLeft(scrollStep, listWidth, containerWidth, infinite);
-          }}
-        >
-          &#10094;
-        </button>
-        <div style={containerStyles} className="container">
-          <ul style={listStyles} className="Carousel__list">
-            {images.map(image => (
-              <li key={Math.random()}>
-                <img style={imgStyles} src={image} alt="emoji" />
-              </li>
-            ))}
-          </ul>
+      <>
+        <ScrollingFrame
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+        <div className="tools">
+          <h2>Increase frame size:</h2>
+          <div className="tools__increase-size-container">
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.decreaseFrameSize();
+              }}
+            >
+              -1
+            </button>
+            <p>{frameSize}</p>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.increaseFrameSize(images.length);
+              }}
+            >
+              +1
+            </button>
+          </div>
+          <h2>Increase image size:</h2>
+          <div className="tools__increase-size-container">
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => this.decreaseImgSize(10)}
+            >
+              -10px
+            </button>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => this.decreaseImgSize(1)}
+            >
+              -1px
+            </button>
+            <p>{`${itemWidth}px`}</p>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => this.increaseImgSize(1)}
+            >
+              +1px
+            </button>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => this.increaseImgSize(10)}
+            >
+              +10px
+            </button>
+          </div>
+          <h2>Number of images scrolled per click:</h2>
+          <div className="tools__increase-size-container">
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.decreaseStepSize();
+              }}
+            >
+              -1
+            </button>
+            <p>{step}</p>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.increaseStepSize(images.length);
+              }}
+            >
+              +1
+            </button>
+          </div>
+          <h2>Duration of animation:</h2>
+          <div className="tools__increase-size-container">
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.decreaseAnimationDuration();
+              }}
+            >
+              -100
+            </button>
+            <p>{`${animationDuration}ms`}</p>
+            <button
+              type="button"
+              className="tools__button"
+              onClick={() => {
+                this.increaseAnimationDuration();
+              }}
+            >
+              +100
+            </button>
+          </div>
+          <button
+            type="button"
+            className="tools__button"
+            onClick={() => {
+              this.setState({ infinite: !infinite });
+            }}
+          >
+            Infinite:
+            {' '}
+            {infinite ? 'on' : 'off'}
+          </button>
         </div>
-        <button
-          type="button"
-          className="Carousel__button"
-          onClick={() => {
-            this.scrollRight(scrollStep, listWidth, containerWidth, infinite);
-          }}
-        >
-          &#10095;
-        </button>
-      </div>
+      </>
     );
   }
 }

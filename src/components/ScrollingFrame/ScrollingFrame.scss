@@ -1,25 +1,18 @@
-$content-color: rgb(228, 125, 7);
-$active-button-color: rgb(83, 30, 133);
+$content-color: rgb(83, 30, 133);
 
-.tools {
+.scroll-frame {
   display: flex;
-  flex-direction: column;
   align-items: center;
-
-  &__increase-size-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+  gap: 10px;
 
   &__button {
     display: block;
     height: 50px;
-    min-width: 50px;
+    width: 50px;
     transition: transform 0.3s;
 
     font-size: 25px;
-    border-radius: 10px;
+    border-radius: 100%;
     background-color: $content-color;
     color: white;
 
@@ -29,8 +22,15 @@ $active-button-color: rgb(83, 30, 133);
     }
 
     &:active {
-      background-color: $active-button-color;
+      background-color: rgb(228, 125, 7);
       box-shadow: 4px 4px 10px 0 black;
     }
   }
+}
+
+.container {
+  overflow: hidden;
+
+  border: 5px solid $content-color;
+  border-radius: 20px;
 }
