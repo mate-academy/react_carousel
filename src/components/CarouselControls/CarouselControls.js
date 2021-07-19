@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FuncType } from '../../types';
 
-export const CarouselControls = props => (
+export const CarouselControls = ({ action, text }) => (
   <button
     type="button"
-    onClick={props.app[props.text]}
+    onClick={action}
   >
-    {props.text}
+    {text}
   </button>
 );
 
 CarouselControls.propTypes = {
-  app: PropTypes.shape({
-    prev: PropTypes.func.isRequired,
-    next: PropTypes.func.isRequired,
-  }).isRequired,
+  action: FuncType.isRequired,
   text: PropTypes.string.isRequired,
 };

@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 
-export const imageStyleType = PropTypes.shape({
+export const ImageStyleType = PropTypes.shape({
   height: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
 });
 
-export const imageType = PropTypes.string;
+export const ImageType = PropTypes.string;
+
+export const FuncType = PropTypes.func;

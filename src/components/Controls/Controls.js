@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { FuncType } from '../../types';
 
-export const Controls = props => (
+export const Controls = ({ changeSetting }) => (
   <form className="form">
     <label className="form__inputs">
       step:
@@ -16,7 +16,7 @@ export const Controls = props => (
 
           output.textContent = ` ${target.value}`;
 
-          props.app.changeSetting(target, 'step');
+          changeSetting(target, 'step');
         }}
       />
     </label>
@@ -33,7 +33,7 @@ export const Controls = props => (
 
           output.textContent = ` ${target.value}`;
 
-          props.app.changeSetting(target, 'frameSize');
+          changeSetting(target, 'frameSize');
         }}
       />
     </label>
@@ -50,7 +50,7 @@ export const Controls = props => (
 
           output.textContent = ` ${target.value}`;
 
-          props.app.changeSetting(target, 'itemWidth');
+          changeSetting(target, 'itemWidth');
         }}
       />
     </label>
@@ -67,7 +67,7 @@ export const Controls = props => (
 
           output.textContent = ` ${target.value}`;
 
-          props.app.changeSetting(target, 'animationDuration');
+          changeSetting(target, 'animationDuration');
         }}
       />
     </label>
@@ -76,7 +76,7 @@ export const Controls = props => (
       <input
         type="checkbox"
         onInput={({ target }) => {
-          props.app.changeSetting(target, 'infinite');
+          changeSetting(target, 'infinite');
         }}
       />
     </label>
@@ -84,7 +84,5 @@ export const Controls = props => (
 );
 
 Controls.propTypes = {
-  app: PropTypes.shape({
-    changeSetting: PropTypes.func.isRequired,
-  }).isRequired,
+  changeSetting: FuncType.isRequired,
 };

@@ -1,15 +1,15 @@
 import React from 'react';
-import { imageType, imageStyleType } from '../../types';
+import { ImageType, ImageStyleType } from '../../types';
 
-export const CarouselImage = props => (
+export const CarouselImage = ({ image, imageStyle }) => (
   <img
-    src={props.image}
-    alt={props.image}
-    style={props.imageStyle}
+    src={image}
+    alt={image}
+    style={imageStyle}
   />
 );
 
 CarouselImage.propTypes = {
-  image: imageType.isRequired,
-  imageStyle: imageStyleType.isRequired,
+  image: ImageType.isRequired,
+  imageStyle: ImageStyleType.isRequired,
 };

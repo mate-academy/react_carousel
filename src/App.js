@@ -54,7 +54,7 @@ class App extends React.Component {
           itemWidth={this.state.itemWidth}
           frameSize={this.state.frameSize}
         />
-        <Controls app={this} />
+        <Controls changeSetting={this.changeSetting} />
       </div>
     );
   }

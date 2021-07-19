@@ -19,7 +19,7 @@ class Carousel extends React.Component {
 
   imageWidth = 130;
 
-  next = () => {
+  moveToNextFrame = () => {
     const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
     const carouselWidth = itemWidth * this.state.imagesCount;
@@ -44,7 +44,7 @@ class Carousel extends React.Component {
     });
   }
 
-  prev = () => {
+  moveToPrevFrame = () => {
     const { itemWidth, infinite, step, frameSize } = this.props;
     const { scrollLeft } = this.state;
     const carouselWidth = itemWidth * this.state.imagesCount;
@@ -105,8 +105,14 @@ class Carousel extends React.Component {
             imageStyle={imageStyle}
           />
         </div>
-        <CarouselControls app={this} text="prev" />
-        <CarouselControls app={this} text="next" />
+        <CarouselControls
+          action={this.moveToPrevFrame}
+          text="prev"
+        />
+        <CarouselControls
+          action={this.moveToNextFrame}
+          text="next"
+        />
       </>
     );
   }

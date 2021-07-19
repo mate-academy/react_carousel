@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CarouselImage } from '../CarouselImage/CarouselImage';
-import { imageStyleType, imageType } from '../../types';
+import { ImageStyleType, ImageType } from '../../types';
 
 export const CarouselList = props => (
   <ul
@@ -22,8 +22,8 @@ export const CarouselList = props => (
 );
 
 CarouselList.propTypes = {
-  imageStyle: imageStyleType.isRequired,
-  images: PropTypes.arrayOf(imageType).isRequired,
+  imageStyle: ImageStyleType.isRequired,
+  images: PropTypes.arrayOf(ImageType.isRequired).isRequired,
   carouselStyle: PropTypes.shape({
     height: PropTypes.string.isRequired,
     width: PropTypes.string.isRequired,
