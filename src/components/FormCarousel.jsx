@@ -11,9 +11,12 @@ export const FormCarousel = (
     changeStateInfinite,
   },
 ) => (
-  <form className="form-input">
+  <form className="form">
     <label>
-      FrameSize:
+      <span className="form__current-value">
+        {`FrameSize: ${state.frameSize}`}
+      </span>
+      <br />
       1
       <input
         type="range"
@@ -25,7 +28,10 @@ export const FormCarousel = (
       7
     </label>
     <label>
-      Step:
+      <span className="form__current-value">
+        {`Step: ${state.step}`}
+      </span>
+      <br />
       1
       <input
         type="range"
@@ -37,7 +43,10 @@ export const FormCarousel = (
       5
     </label>
     <label>
-      Item width:
+      <span className="form__current-value">
+        {`Item width: ${state.itemWidth}`}
+      </span>
+      <br />
       100
       <input
         type="range"
@@ -50,7 +59,10 @@ export const FormCarousel = (
       200
     </label>
     <label>
-      Animation Duration:
+      <span className="form__current-value">
+        {`Animation Duration: ${state.animationDuration}`}
+      </span>
+      <br />
       500
       <input
         type="range"
