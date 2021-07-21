@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    overflow-x: hidden;
+    
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__image {
+    display: flex;
+  }
+}
+
+.button {
+  font-size: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__current-value {
+    font-size: 20px;
+    text-decoration: underline;
+  }
+}
