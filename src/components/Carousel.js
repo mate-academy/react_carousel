@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { FormCarousel } from './FormCarousel';
+import { carouselPropTypees } from './proptypes';
 
 import './Carousel.scss';
 
@@ -52,16 +53,15 @@ class Carousel extends React.Component {
   };
 
   changeState = (event, atribute) => {
-    // console.log(atribute, event.target.value);
     this.setState({
       [atribute]: event.target.value,
       scroll: 0,
     });
   };
 
-  changeStateItemWidth = (event, atribute) => {
+  changeStateItemWidth = (event) => {
     this.setState({
-      [atribute]: event.target.value,
+      itemWidth: event.target.value,
       scroll: 0,
       maxWidth: event.target.value * this.props.images.length,
     });
@@ -119,76 +119,19 @@ class Carousel extends React.Component {
             {'>'}
           </button>
         </div>
-        <form className="form-input">
-          <label>
-            FrameSize:
-            <input
-              type="number"
-              defaultValue={this.state.frameSize}
-              min="1"
-              max="7"
-              onChange={event => (this.changeState(event, 'frameSize'))}
-              title="min = 1, max = 7"
-            />
-          </label>
-          <label>
-            Step:
-            <input
-              type="number"
-              defaultValue={this.state.step}
-              min="1"
-              max="5"
-              onChange={event => (this.changeState(event, 'step'))}
-              title="min = 1, max = 5"
-            />
-          </label>
-          <label>
-            Item width:
-            <input
-              type="number"
-              defaultValue={this.state.itemWidth}
-              min="100"
-              max="200"
-              step="10"
-              onChange={event => (
-                this.changeStateItemWidth(event, 'itemWidth')
-              )}
-              title="min = 100, max = 200"
-            />
-          </label>
-          <label>
-            Animation Duration:
-            <input
-              type="number"
-              defaultValue={this.state.animationDuration}
-              min="500"
-              max="5000"
-              step="100"
-              onChange={event => (this.changeState(event, 'animationDuration'))}
-              title="min = 500, max = 5000"
-            />
-          </label>
-          <label>
-            Infinite:
-            <input
-              type="checkbox"
-              onChange={this.changeStateInfinite}
-            />
-          </label>
-        </form>
+
+        <FormCarousel
+          state={this.state}
+          changeState={this.changeState}
+          changeStateItemWidth={this.changeStateItemWidth}
+          changeStateInfinite={this.changeStateInfinite}
+        />
       </>
     );
   }
 }
 
-Carousel.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  itemWidth: PropTypes.number,
-  step: PropTypes.number,
-  frameSize: PropTypes.number,
-  animationDuration: PropTypes.number,
-  infinite: PropTypes.bool,
-};
+Carousel.propTypes = carouselPropTypees;
 
 Carousel.defaultProps = {
   itemWidth: 130,
