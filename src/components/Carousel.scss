@@ -1,1 +1,110 @@
-// style go here
+.wrapper {
+  margin: 50px auto;
+  max-width: max-content;
+  min-height: 450px;
+  padding: 20px;
+
+  font-family: "Comfortaa", cursive;
+
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: seashell;
+  box-shadow: 0 20px 20px rgba(19, 17, 17, 0.5),
+    0 20px 100px rgba(19, 17, 17, 0.8);
+  transition: max-width 0.5s ease,
+    min-height 0.5s ease,
+    background-color 0.5s ease;
+}
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+
+  transition: height 0.5s ease;
+
+  &__btn {
+    display: block;
+    min-width: 40px;
+    text-align: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &-prev {
+      width: 30px;
+    }
+
+    &-next {
+      width: 30px;
+      transform: rotate(180deg);
+    }
+  }
+
+  &__wrapper {
+    margin: 0 30px;
+    max-width: 390px;
+    overflow: hidden;
+    border-radius: 20%;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    transition-property: transform;
+  }
+
+  &__item {
+
+    img {
+      display: block;
+    }
+  }
+
+  &__slide-show-text {
+    margin: 20px 0 60px;
+    font-size: 2em;
+  }
+}
+
+.carousel-control {
+  margin: 30px 0;
+
+  & div {
+    margin: 0 auto;
+    max-width: 360px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    & label {
+      margin-right: auto;
+    }
+  }
+
+  &__slider {
+    max-width: 130px;
+  }
+
+  &__mark {
+    padding: 0 10px;
+  }
+}
+
+.carousel-film-mode {
+  display: flex;
+  justify-content: center;
+
+  &__btn {
+    height: 46px;
+    width: 160px;
+  }
+
+  &__text {
+    margin-top: 70px;
+  }
+}
