@@ -44,12 +44,14 @@ class Carousel extends React.Component {
   getItemWidth = (e, value) => {
     this.setState({
       itemWidth: value,
+      positionX: 0,
     });
   }
 
   getFrameSize = (e, value) => {
     this.setState({
       frameSize: value,
+      positionX: 0,
     });
   }
 
@@ -94,14 +96,17 @@ class Carousel extends React.Component {
   }
 
   autoSlider = () => {
-    const { images, itemWidth, animationDuration, positionX } = this.state;
+    const { animationDuration } = this.state;
+    let counter = 1;
 
     this.state.sliderId = setInterval(() => {
       this.setState(prev => ({
         positionX: prev.positionX + prev.itemWidth,
       }));
 
-      if (positionX === itemWidth * (images.length)) {
+      counter += 1;
+
+      if (counter === this.state.images.length - 1) {
         this.setState(prev => ({
           images: [...prev.images].concat(prev.images),
         }));
@@ -130,6 +135,7 @@ class Carousel extends React.Component {
         boxShadow: '0 20px 50px rgba(19, 17, 17, 0.8)',
         padding: '0 70px',
         height: '70vh',
+        minHeight: '520px',
         transition: `max-width 0.5s ease,
           height 0.5s ease,
           background-color 0.5s ease`,
@@ -240,9 +246,9 @@ class Carousel extends React.Component {
             <Slider
               className="carousel-control__slider"
               color="primary"
-              defaultValue={step}
+              defaultValue={frameSize}
               min={1}
-              max={3}
+              max={5}
               step={1}
               key={`slider-${step}`}
               onChange={this.getStepSize}
@@ -250,7 +256,7 @@ class Carousel extends React.Component {
             />
           </div>
           <div className="carousel-control__animation">
-            <p className="carousel-control__label">Animation duration</p>
+            <p className="carousel-control__label">Scroll duration(sec)</p>
             <Slider
               className="carousel-control__slider"
               color="primary"
