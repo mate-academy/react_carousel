@@ -1,1 +1,21 @@
-// style go here
+p {
+  margin: 0;
+}
+
+body{
+  background:wheat url(./image/omar-flores-lQT_bOWtysE-unsplash.jpg) repeat-x center;
+  background-size: 200% 200%;
+  animation: bg 40s ease infinite;
+}
+
+@keyframes bg {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

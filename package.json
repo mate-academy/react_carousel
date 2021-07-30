@@ -6,8 +6,9 @@
   "keywords": [],
   "author": "Mate Academy",
   "license": "GPL-3.0",
-
   "dependencies": {
+    "@material-ui/core": "^4.12.2",
+    "async": "^3.2.0",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
