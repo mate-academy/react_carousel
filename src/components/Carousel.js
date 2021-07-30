@@ -184,7 +184,7 @@ class Carousel extends React.Component {
           >
             <ul className="carousel__list" style={{ ...carouselStyle }}>
               {images.map(image => (
-                <li key={Math.random()} className="carousel__item">
+                <li key={image} className="carousel__item">
                   <img
                     src={image}
                     alt="smile"
