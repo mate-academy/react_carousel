@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 import React from 'react';
 import './App.scss';
+import 'bulma/css/bulma.min.css';
 
 import Carousel from './components/Carousel';
 
@@ -22,7 +23,6 @@ class App extends React.Component {
     step: 3,
     frameSize: 3,
     itemWidth: 130,
-    animationDuration: 1000,
     infinite: false,
     currentPoint: 0,
   };
@@ -87,7 +87,6 @@ class App extends React.Component {
       step,
       frameSize,
       itemWidth,
-      animationDuration,
       infinite,
       currentPoint,
     } = this.state;
@@ -95,16 +94,19 @@ class App extends React.Component {
     const inputKeys = Object.keys(this.state).slice(1, -1);
 
     return (
-      <div className="App">
+      <div className="App container">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="title">
+          Carousel with
+          {` ${images.length} `}
+          images
+        </h1>
 
         <Carousel
           images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
-          animationDuration={animationDuration}
           infinite={infinite}
           currentPoint={currentPoint}
           changeArrayNext={this.changeArrayNext}
@@ -112,27 +114,37 @@ class App extends React.Component {
           setPointNext={this.setPointNext}
           setPointPrev={this.setPointPrev}
         />
+
         <form className="form-fields">
           {inputKeys.map(key => (
-            <>
-              <span>
-                {key}
+            <div className="field">
+              <label
+                className="label"
+                htmlFor={key}
+              >
+                {key.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
                 :
-              </span>
-              <input
-                type={key === 'infinite' ? 'checkbox' : 'text'}
-                name={`${key}`}
-                value={this.state[key]}
-                onChange={(e) => {
-                  this.setStateOnChange(
-                    e.target.name,
-                    key !== 'infinite' ? +(e.target.value) : e.target.checked,
-                  );
-                }}
-              />
-            </>
+              </label>
+              <div className="control">
+                <input
+                  className={key === 'infinite' ? 'checkbox' : 'input'}
+                  type={key === 'infinite' ? 'checkbox' : 'text'}
+                  name={key}
+                  id={key}
+                  value={this.state[key]}
+                  onChange={(e) => {
+                    this.setStateOnChange(
+                      e.target.name,
+                      key !== 'infinite' ? +(e.target.value) : e.target.checked,
+                    );
+                  }}
+                />
+              </div>
+            </div>
           ))}
         </form>
+
       </div>
     );
   }

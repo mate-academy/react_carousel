@@ -7,7 +7,6 @@ const creatingList = (
   array,
   frameSize,
   itemWidth,
-  animationDuration,
   infinite,
   currentPoint,
 ) => {
@@ -48,7 +47,7 @@ const Carousel = ({
   setPointPrev,
   currentPoint,
 }) => (
-  <div className="Carousel">
+  <div className="Carousel container">
     <ul className="Carousel__list">
       {creatingList(images,
         frameSize,
@@ -57,30 +56,34 @@ const Carousel = ({
         infinite,
         currentPoint)}
     </ul>
-    <button
-      type="button"
-      onClick={() => {
-        if (infinite) {
-          changeArrayPrev(step);
-        } else {
-          setPointPrev();
-        }
-      }}
-    >
-      Prev
-    </button>
-    <button
-      type="button"
-      onClick={() => {
-        if (infinite) {
-          changeArrayNext(step);
-        } else {
-          setPointNext();
-        }
-      }}
-    >
-      Next
-    </button>
+    <div className="buttons-container">
+      <button
+        className="button is-info"
+        type="button"
+        onClick={() => {
+          if (infinite) {
+            changeArrayPrev(step);
+          } else {
+            setPointPrev();
+          }
+        }}
+      >
+        Prev
+      </button>
+      <button
+        className="button is-info"
+        type="button"
+        onClick={() => {
+          if (infinite) {
+            changeArrayNext(step);
+          } else {
+            setPointNext();
+          }
+        }}
+      >
+        Next
+      </button>
+    </div>
   </div>
 );
 
