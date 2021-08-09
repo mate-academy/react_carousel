@@ -1,19 +1,104 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Carousel.scss';
 
-const Carousel = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+const creatingList = (
+  array,
+  frameSize,
+  itemWidth,
+  infinite,
+  currentPoint,
+) => {
+  // eslint-disable-next-line arrow-body-style
+  const createCheck = (index) => {
+    return infinite
+      ? index < frameSize
+      : index >= currentPoint && index < currentPoint + frameSize;
+  };
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
+  return array.map((image, index) => {
+    if (createCheck(index)) {
+      return (
+        <li key={image}>
+          <img
+            src={image}
+            alt={array.indexOf(image)}
+            height={`${itemWidth}px`}
+          />
+        </li>
+      );
+    }
+
+    return null;
+  });
+};
+
+const Carousel = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+  changeArrayNext,
+  changeArrayPrev,
+  setPointNext,
+  setPointPrev,
+  currentPoint,
+}) => (
+  <div className="Carousel container">
+    <ul className="Carousel__list">
+      {creatingList(images,
+        frameSize,
+        itemWidth,
+        animationDuration,
+        infinite,
+        currentPoint)}
+    </ul>
+    <div className="buttons-container">
+      <button
+        className="button is-info"
+        type="button"
+        onClick={() => {
+          if (infinite) {
+            changeArrayPrev(step);
+          } else {
+            setPointPrev();
+          }
+        }}
+      >
+        Prev
+      </button>
+      <button
+        className="button is-info"
+        type="button"
+        onClick={() => {
+          if (infinite) {
+            changeArrayNext(step);
+          } else {
+            setPointNext();
+          }
+        }}
+      >
+        Next
+      </button>
+    </div>
   </div>
 );
+
+Carousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  step: PropTypes.number.isRequired,
+  frameSize: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
+  infinite: PropTypes.bool.isRequired,
+  changeArrayNext: PropTypes.func.isRequired,
+  changeArrayPrev: PropTypes.func.isRequired,
+  setPointNext: PropTypes.func.isRequired,
+  setPointPrev: PropTypes.func.isRequired,
+  currentPoint: PropTypes.number.isRequired,
+};
 
 export default Carousel;
