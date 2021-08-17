@@ -1,1 +1,42 @@
-// style go here
+.container-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .button {
+    margin: 0 10px 0;
+    width: 60px;
+    font-size: 60px;
+    color: #808080;
+    border: none;
+    background-color: transparent;
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
+
+  .hiden {
+    font-size: 0;
+  }
+
+  .wrapper-carousel {
+    position: relative;
+    overflow: hidden;
+
+    .Carousel {
+      position: relative;
+
+      .Carousel__list {
+        display: flex;
+        padding-left: 0;
+        margin-left: 0;
+
+        .Carousel__image {
+          list-style-type: none;
+        }
+      }
+    }
+  }
+}
