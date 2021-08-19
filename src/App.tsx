@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.scss';
-
 import Carousel from './components/Carousel';
 
-class App extends React.Component {
+interface State {
+  images: string[];
+}
+
+class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
