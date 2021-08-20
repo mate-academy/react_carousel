@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import { v4 as uuidv4 } from 'uuid';
 
-import Carousel from './components/Carousel';
+import CarouselBlock from './components/CarouselBlock';
 
 class App extends React.Component {
   state = {
@@ -18,35 +18,18 @@ class App extends React.Component {
       {img: './img/9.png', id: uuidv4(), alt: 'Surprised smile'},
       {img: './img/10.png', id: uuidv4(), alt: 'Offended smile'},
     ],
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    infinite: true,
   };
 
   render() {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      animationDuration,
-      infinite,
-    } = this.state;
+    const { images } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel
+        <CarouselBlock
           images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
         />
       </div>
     );

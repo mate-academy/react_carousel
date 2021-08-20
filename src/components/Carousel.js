@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 import styles from './Carousel.scss';
 
@@ -9,12 +9,29 @@ class Carousel extends React.Component {
   state = {
     scrollLeft: 0,
     images: this.props.images,
-    jump: true,
+    animation: true,
+    disabled: false,
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.infinite !== this.props.infinite) {
+      this.setState({
+        animation: false,
+        scrollLeft: 0,
+        images: this.props.images,
+      });
+
+      setTimeout(() => {
+        this.setState({
+          animation: true,
+        });
+      });
+    }
   }
 
   clickHandlerNext = () => {
     const { scrollLeft, images } = this.state;
-    const { step, frameSize, itemWidth } = this.props;
+    const { step, frameSize, itemWidth, animationDuration } = this.props;
 
     const widthScroll = itemWidth * step;
     const maxWidthScroll = (itemWidth * images.length) - (itemWidth * frameSize);
@@ -25,8 +42,16 @@ class Carousel extends React.Component {
     }
 
     this.setState((state) => ({
+      animation: true,
+      disabled: true,
       scrollLeft: state.scrollLeft - scrollStep,
     }));
+
+    setTimeout(() => {
+      this.setState({
+        disabled: false,
+      });
+    }, animationDuration);
   }
 
   clickHandlerNextCarousel = () => {
@@ -36,7 +61,8 @@ class Carousel extends React.Component {
     const scrollStep = itemWidth * step;
 
     this.setState({
-      jump: true,
+      disabled: true,
+      animation: true,
       scrollLeft: 0 - scrollStep,
     });
 
@@ -46,7 +72,8 @@ class Carousel extends React.Component {
 
     setTimeout(() => {
       this.setState({
-        jump: false,
+        disabled: false,
+        animation: false,
         scrollLeft: 0,
         images: copyImages,
       });
@@ -55,7 +82,7 @@ class Carousel extends React.Component {
 
   clickHandlerPrev = () => {
     const { scrollLeft } = this.state;
-    const { step, itemWidth } = this.props;
+    const { step, itemWidth, animationDuration } = this.props;
 
     const widthScroll = itemWidth * step;
     let scrollStep = widthScroll;
@@ -65,20 +92,23 @@ class Carousel extends React.Component {
     }
 
     this.setState((state) => ({
+      animation: true,
+      disabled: true,
       scrollLeft: state.scrollLeft + scrollStep,
     }));
+
+    setTimeout(() => {
+      this.setState({
+        disabled: false,
+      });
+    }, animationDuration);
   }
 
   clickHandlerPrevCarousel = () => {
     const { images } = this.state;
-    const { step, itemWidth } = this.props;
+    const { step, itemWidth, animationDuration } = this.props;
 
     const scrollStep = itemWidth * step;
-
-    this.setState({
-      jump: true,
-      scrollLeft: 0 + scrollStep,
-    });
 
     const copyImages = [...images];
     const removeImages = copyImages.splice(images.length - step, step);
@@ -87,21 +117,33 @@ class Carousel extends React.Component {
       .forEach(image => copyImages.unshift(image));
 
     this.setState({
-      jump: false,
+      disabled: true,
+      animation: false,
       images: copyImages,
       scrollLeft: 0 - scrollStep,
     });
 
     setTimeout(() => {
       this.setState({
-        jump: true,
+        animation: true,
         scrollLeft: 0,
       });
     });
+
+    setTimeout(() => {
+      this.setState({
+        disabled: false,
+      });
+    }, animationDuration);
   }
 
   render() {
-    const { scrollLeft, images, jump } = this.state;
+    const {
+      scrollLeft,
+      images,
+      animation,
+      disabled
+    } = this.state;
 
     const {
       frameSize = 3,
@@ -110,13 +152,17 @@ class Carousel extends React.Component {
       infinite = false,
     } = this.props;
 
-    const buttonPrevClassName = cn('button', {hiden: !infinite && scrollLeft === 0});
-    const buttonNextClassName = cn('button', {hiden: scrollLeft === -((itemWidth * images.length) - (itemWidth * frameSize))});
+    const buttonPrevDisabled = !infinite && scrollLeft === 0;
+    const buttonNextDisabled = scrollLeft === -((itemWidth * images.length) - (itemWidth * frameSize));
+
+    const buttonPrevClassName = cn('button', {disabled: buttonPrevDisabled});
+    const buttonNextClassName = cn('button', {disabled: buttonNextDisabled});
 
     return (
       <div className="container-carousel">
         <button
           type="button"
+          disabled={disabled || buttonPrevDisabled}
           className={buttonPrevClassName}
           onClick={
             infinite
@@ -135,7 +181,7 @@ class Carousel extends React.Component {
             style={{
               width: itemWidth * images.length,
               left: scrollLeft,
-              transition: jump ? `left ${animationDuration / 1000}s ease-in-out` : 'none',
+              transition: animation ? `left ${animationDuration / 1000}s ease-in-out` : 'none',
             }}
           >
             <ul className="Carousel__list">
@@ -156,6 +202,7 @@ class Carousel extends React.Component {
         </div>
         <button
           type="button"
+          disabled={disabled || buttonNextDisabled}
           className={buttonNextClassName}
           onClick={
             infinite
