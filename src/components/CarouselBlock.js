@@ -1,12 +1,11 @@
 import React from 'react';
 import Carousel from './Carousel';
-
-import './CarouselBlock.scss';
+import СarouselSettings from './СarouselSettings';
 
 class CarouselBlock extends React.Component {
   constructor(props) {
     super(props);
-    this.onChangeInput = this.onChangeInput.bind(this);
+    this.changeState = this.changeState.bind(this);
     this.state = {
       images: this.props.images,
       step: 3,
@@ -17,12 +16,37 @@ class CarouselBlock extends React.Component {
     };
   }
 
-  onChangeInput(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+  changeState(name, value) {
+    const { images } = this.state;
+
+    let date = value;
+
+    if ((name === 'step' || name === 'frameSize') && value > images.length) {
+      date = images.length;
+    }
+
+    if ((name === 'step' || name === 'frameSize') && value < 1) {
+      date = 1;
+    }
+
+    if (name === 'itemWidth' && value < 100) {
+      date = 100;
+    }
+
+    if (name === 'itemWidth' && value > 250) {
+      date = 250;
+    }
+
+    if (name === 'animationDuration' && value < 500) {
+      date = 500;
+    }
+
+    if (name === 'animationDuration' && value > 2000) {
+      date = 2000;
+    }
+
     this.setState({
-      [name]: value
+      [name]: date,
     });
   }
 
@@ -47,59 +71,14 @@ class CarouselBlock extends React.Component {
           infinite={infinite}
         />
 
-        <div className="controlUnit">
-          <h2 className="title">Сarousel settings</h2>
-          <div className="inputBox">
-            <p className="inputText">Step:</p>
-            <input
-              className="input"
-              type="number"
-              name="step"
-              value={step}
-              onChange={this.onChangeInput}
-            />
-          </div>
-          <div className="inputBox">
-            <p className="inputText">Frame size:</p>
-            <input
-              className="input"
-              type="number"
-              name="frameSize"
-              value={frameSize}
-              onChange={this.onChangeInput}
-            />
-          </div>
-          <div className="inputBox">
-            <p className="inputText">Image width:</p>
-            <input
-              className="input"
-              type="number"
-              name="itemWidth"
-              value={itemWidth}
-              onChange={this.onChangeInput}
-            />
-          </div>
-          <div className="inputBox">
-            <p className="inputText">Animation duration:</p>
-            <input
-              className="input"
-              type="number"
-              name="animationDuration"
-              value={animationDuration}
-              onChange={this.onChangeInput}
-            />
-          </div>
-          <div className="inputBox">
-            <p className="inputText">Infinite calousel:</p>
-            <input
-              className="input"
-              type="checkbox"
-              name="infinite"
-              checked={infinite}
-              onChange={this.onChangeInput}
-            />
-          </div>
-        </div>
+        <СarouselSettings
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          changeState={this.changeState}
+        />
       </>
     );
   }
