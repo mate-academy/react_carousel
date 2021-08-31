@@ -12,17 +12,16 @@ class Carousel extends React.Component {
 
   scrollCaroselLeft = (step, itemWidth) => {
     document.querySelector('.Carousel').scrollLeft -= step * itemWidth;
-    this.setState(state => ({ counter: state.counter - 1 }));
+    this.setState(state => ({ counter: state.counter - step }));
   }
 
   scrollCaroselRight = (step, itemWidth) => {
     document.querySelector('.Carousel').scrollLeft += step * itemWidth;
-    this.setState(state => ({ counter: state.counter + 1 }));
+    this.setState(state => ({ counter: state.counter + step }));
   }
 
   render() {
     const { step, itemWidth, frameSize, images } = this.props;
-    const totalStepNumber = Math.floor(images.length / step);
 
     return (
       <div className="Container">
@@ -57,11 +56,10 @@ class Carousel extends React.Component {
         <button
           type="button"
           onClick={() => this.scrollCaroselRight(step, itemWidth)}
-          disabled={this.state.counter >= totalStepNumber}
+          disabled={this.state.counter + frameSize >= images.length}
         >
           ⇨
         </button>
-        {this.state.counter}
       </div>
     );
   }

@@ -40,8 +40,8 @@ class App extends React.Component {
             './img/9.png',
             './img/10.png',
           ]}
-          step={1}
-          frameSize={1}
+          step={3}
+          frameSize={2}
           itemWidth={150}
           animationDuration={1000}
           infinite={false}
