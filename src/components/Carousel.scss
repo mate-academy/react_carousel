@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  box-shadow: 5px 0 rgba(201, 189, 189, 0.5),
+    -5px 0 rgba(201, 189, 189, 0.5);
+
+  &__list {
+    display: flex;
+    height: 130px;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__img {
+    display: block;
+  }
+}
