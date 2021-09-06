@@ -12,44 +12,46 @@ type Props = {
 };
 
 type State = {
-  position: number;
+  shift: number;
 };
 
 export class Carousel extends React.Component<Props, State> {
   state = {
-    position: 0,
+    shift: 0,
   };
-
-  shift = 0;
 
   next(width: number, step: number, length: number, infinite: boolean) {
     const maxShift = width * (length - step);
+    const shiftOfStep = width * step;
 
-    if (infinite && this.shift === (-maxShift)) {
-      this.shift = 0;
-    } else {
-      this.shift -= width * step;
-      this.shift = Math.max(this.shift, -maxShift);
-    }
+    this.setState((state) => {
+      if (infinite && state.shift === (-maxShift)) {
+        return {
+          shift: 0,
+        };
+      }
 
-    this.setState(() => ({
-      position: this.shift,
-    }));
+      return {
+        shift: Math.max(state.shift - shiftOfStep, -maxShift),
+      };
+    });
   }
 
   prev(width: number, step: number, length: number, infinite: boolean) {
     const maxShift = width * (length - step);
+    const shiftOfStep = width * step;
 
-    if (infinite && this.shift === 0) {
-      this.shift = -maxShift;
-    } else {
-      this.shift += width * step;
-      this.shift = Math.min(this.shift, 0);
-    }
+    this.setState((state) => {
+      if (infinite && state.shift === 0) {
+        return {
+          shift: -maxShift,
+        };
+      }
 
-    this.setState(() => ({
-      position: this.shift,
-    }));
+      return {
+        shift: Math.min(state.shift + shiftOfStep, 0),
+      };
+    });
   }
 
   render() {
@@ -62,7 +64,7 @@ export class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    const { position } = this.state;
+    const { shift } = this.state;
 
     return (
       <>
@@ -74,7 +76,7 @@ export class Carousel extends React.Component<Props, State> {
             className="Carousel__list"
             style={{
               transition: `transform ${animationDuration}ms ease`,
-              transform: `translateX(${position}px)`,
+              transform: `translateX(${shift}px)`,
             }}
           >
             {images.map((image: string, i: number) => (
