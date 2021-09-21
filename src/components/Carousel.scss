@@ -1,1 +1,37 @@
-// style go here
+.carousel {
+
+  &__list-container {
+    width: 390px;
+    position: relative;
+    overflow: hidden;
+    scroll-behavior: smooth;
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  min-width: 60px;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:disabled {
+    color: #d3d3d3;
+    border-color: #d3d3d3;
+    cursor: unset;
+  }
+}
