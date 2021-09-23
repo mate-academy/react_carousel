@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -16,42 +16,12 @@ interface State {
 
 type ScrollDirection = 'prev' | 'next';
 
-type ApplyStyles = Pick<Props, 'itemWidth' | 'frameSize' | 'animationDuration'> & State;
-
-const applyStyles = ({
-  scrollPosition,
-  itemWidth,
-  frameSize,
-  animationDuration,
-}: ApplyStyles) => {
-  const list = document.getElementById('list');
-  const images = document.querySelectorAll<HTMLElement>('.image');
-  const container = document.getElementById('container');
-
-  if (list) {
-    list.animate([
-      { transform: `translateX(${scrollPosition}px)` },
-    ],
-    {
-      duration: animationDuration,
-      easing: 'ease-in-out',
-      fill: 'forwards',
-    });
-  }
-
-  if (container) {
-    container.style.width = `${itemWidth * frameSize}px`;
-  }
-
-  for (let i = 0; i < images.length; i += 1) {
-    images[i].style.width = `${itemWidth}px`;
-  }
-};
-
 class Carousel extends React.Component<Props, State> {
   state = {
     scrollPosition: 0,
   };
+
+  listRef: RefObject<HTMLUListElement> = React.createRef();
 
   calculateOffset = (direction: ScrollDirection) => {
     const {
@@ -110,25 +80,42 @@ class Carousel extends React.Component<Props, State> {
     return offset === 0;
   };
 
-  render() {
-    const { images } = this.props;
+  applyListAnimation = () => {
     const { scrollPosition } = this.state;
+    const { animationDuration } = this.props;
 
-    applyStyles({ scrollPosition, ...this.props });
+    if (this.listRef.current) {
+      this.listRef.current.animate([
+        { transform: `translateX(${scrollPosition}px)` },
+      ],
+      {
+        duration: animationDuration,
+        easing: 'ease-in-out',
+        fill: 'forwards',
+      });
+    }
+  };
+
+  render() {
+    const { images, itemWidth, frameSize } = this.props;
+    const containerSize = itemWidth * frameSize;
+
+    this.applyListAnimation();
 
     return (
       <div className="carousel">
         <div
-          id="container"
           className="carousel__list-container"
+          style={{ width: `${containerSize}px` }}
         >
-          <ul id="list" className="carousel__list">
+          <ul id="list" ref={this.listRef} className="carousel__list">
             {images.map((imageUrl, i) => (
               <li key={i.toString()}>
                 <img
                   src={imageUrl}
                   alt={i.toString()}
                   className="image"
+                  style={{ width: `${itemWidth}px` }}
                 />
               </li>
             ))}
