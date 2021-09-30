@@ -36,24 +36,9 @@ export const CarouselCustomizer = ({
         value={carouselAdjustments.itemWidth}
         onChange={onchange}
         placeholder="Item width"
-      />
-      <label htmlFor="animationDuration">Animation Duration</label>
-      <input
-        id="animationDuration"
-        type="number"
-        name="animationDuration"
-        value={carouselAdjustments.animationDuration}
-        onChange={onchange}
-        placeholder="Animation duration"
-      />
-      <label htmlFor="infinite">Infinite</label>
-      <input
-        id="infinite"
-        type="text"
-        name="infinite"
-        value={carouselAdjustments.infinite}
-        onChange={onchange}
-        placeholder="infinite"
+        min={130}
+        max={400}
+        step={45}
       />
       <button type="submit">Reset</button>
     </form>
@@ -65,8 +50,6 @@ CarouselCustomizer.propTypes = {
     step: PropTypes.number.isRequired,
     frameSize: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
-    animationDuration: PropTypes.number.isRequired,
-    infinite: PropTypes.bool.isRequired,
   }).isRequired,
   reset: PropTypes.func.isRequired,
   onchange: PropTypes.func.isRequired,

@@ -8,8 +8,6 @@ export const Carousel = ({
   frameSize,
   step,
   itemWidth,
-  animationDuration,
-  infinite,
   render,
 }) => {
   const [container, setContainer] = useState(null);
@@ -44,13 +42,18 @@ export const Carousel = ({
           style={
             {
               width: `${frameSize * itemWidth}px`,
-              transition: `${animationDuration}ms`,
             }
           }
         >
-          <ul id="carousel-items" className="Carousel__list">
+          <ul
+            id="carousel-items"
+            className="Carousel__list"
+          >
             {images.map(img => (
-              <li key={img} style={{ width: `${itemWidth}px` }}>
+              <li
+                key={img}
+                style={{ width: `${itemWidth}px` }}
+              >
                 <img src={`.${img}`} alt={img} />
               </li>
             ))}
@@ -81,7 +84,5 @@ Carousel.propTypes = {
   itemWidth: PropTypes.number.isRequired,
   frameSize: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
-  animationDuration: PropTypes.number.isRequired,
-  infinite: PropTypes.bool.isRequired,
   render: PropTypes.func.isRequired,
 };

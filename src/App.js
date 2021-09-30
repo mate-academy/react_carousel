@@ -69,8 +69,6 @@ class App extends React.Component {
           step={this.state.carouselAdjustments.step}
           frameSize={this.state.carouselAdjustments.frameSize}
           itemWidth={this.state.carouselAdjustments.itemWidth}
-          animationDuration={this.state.carouselAdjustments.animationDuration}
-          infinite={this.state.carouselAdjustments.infinite}
           render={() => (
             <CarouselCustomizer
               onchange={this.handleAdjustmentValues}
