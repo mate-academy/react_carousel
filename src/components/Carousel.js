@@ -54,7 +54,7 @@ export const Carousel = ({
                 key={img}
                 style={{ width: `${itemWidth}px` }}
               >
-                <img src={`.${img}`} alt={img} />
+                <img src={img} alt={img} />
               </li>
             ))}
           </ul>
