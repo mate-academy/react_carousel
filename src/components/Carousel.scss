@@ -1,1 +1,52 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+  }
+
+  &__button {
+    outline: none;
+    width: 0;
+    height: 0;
+    border: none;
+    background: none;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+
+    &--next {
+      border-left: 20px solid #FFE92E;
+    }
+
+    &--prev {
+      border-right: 20px solid #FFE92E; 
+    }
+  }
+
+  &__dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: rgb(126, 126, 126);
+
+    &--active {
+      background-color: #FFE92E;
+    }
+  }
+}
