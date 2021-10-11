@@ -1,1 +1,67 @@
-// style go here
+.Carousel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    background-color: #fff;
+    margin-bottom: 50px;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__image {
+    display: block;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .next-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    
+    &__form {
+      position: absolute;
+      border-top: 15px solid transparent;
+      border-left: 15px solid blue;
+      border-bottom: 15px solid transparent;
+      z-index: 1;
+    }
+  }
+
+  .prev-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    
+    &__form {
+      position: absolute;
+      border-top: 15px solid transparent;
+      border-right: 15px solid blue;
+      border-bottom: 15px solid transparent;
+      z-index: 1;
+    }
+  }
+}
