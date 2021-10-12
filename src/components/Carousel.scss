@@ -1,1 +1,25 @@
-// style go here
+.Carousel {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+  }
+
+  &__img {
+    display: block;
+    height: 100%;
+    max-width: none;
+  }
+}
