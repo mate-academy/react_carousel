@@ -1,1 +1,41 @@
-// style go here
+.Carousel {
+  transform: translateY(50%);
+
+  &__container {
+    width: 390px;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: unset;
+  }
+}
+
+.button {
+  &__container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__item {
+    height: 35px;
+    width: 96px;
+    background-color: lightblue;
+    border: 2px solid transparent;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &:active {
+      border-color: #ff897a;
+    }
+
+    &:hover {
+      background-color: #add8e6a8;
+    }
+  }
+}
