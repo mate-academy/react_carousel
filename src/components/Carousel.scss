@@ -1,1 +1,43 @@
-// style go here
+.container {
+  position: relative;
+  margin: auto;
+  border: 1px solid black;
+  padding: 10px 40px;
+}
+
+.carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &-item {
+      display: block;
+    }
+  }
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.btn-prev {
+  left: 7px;
+}
+
+.btn-next {
+  right: 7px;
+}
+
+.disabled {
+  opacity: 0.4;
+}
