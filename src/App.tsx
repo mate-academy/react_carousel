@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
+// eslint-disable-next-line import/no-named-as-default
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images: string[]
 }
 
 class App extends React.Component<{}, State> {
@@ -28,9 +29,15 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          frameSize={3}
+          itemWidth={130}
+          step={3}
+          animationDuration={1000}
+        />
       </div>
     );
   }
