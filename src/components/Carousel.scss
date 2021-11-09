@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    display: flex;
+
+    list-style: none;
+
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 50px;
+  }
+
+  &__button {
+    width: 70px;
+    height: 30px;
+
+    border-radius: 10px;
+
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: coral;
+      cursor: pointer;
+    }
+  }
+}
+
+.imagesContainer {
+  overflow: hidden;
+}
