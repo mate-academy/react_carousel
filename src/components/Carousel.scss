@@ -1,1 +1,28 @@
 // style go here
+.Carousel {
+
+  &__list {
+    position: relative;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__buttons--container {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.wrapp {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin: 0 auto;
+  overflow: hidden;
+}
