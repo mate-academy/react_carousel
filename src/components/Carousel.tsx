@@ -10,20 +10,20 @@ interface Props {
 }
 
 interface State {
-  scroll: number,
+  scrolled: number,
   maxWidth: number,
 }
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    scroll: 0,
+    scrolled: 0,
     maxWidth: 1300,
   };
 
   scrollLeft = (step:number) => {
     this.setState((prevState) => {
       return {
-        scroll: prevState.scroll - step,
+        scrolled: prevState.scrolled - step,
       };
     });
   };
@@ -31,7 +31,7 @@ class Carousel extends React.Component<Props, State> {
   scrollRight = (step:number) => {
     this.setState((prevState) => {
       return {
-        scroll: prevState.scroll + step,
+        scrolled: prevState.scrolled + step,
       };
     });
   };
@@ -43,13 +43,13 @@ class Carousel extends React.Component<Props, State> {
       step,
       animationDuration,
     } = this.props;
-    const { scroll, maxWidth } = this.state;
+    const { scrolled, maxWidth } = this.state;
     const containerWidth = itemWidth * frameSize;
     const pixelsToScroll = step * itemWidth;
-    const prevButtonDisabled = Math.abs(scroll) - pixelsToScroll < 0;
+    const prevButtonDisabled = Math.abs(scrolled) - pixelsToScroll < 0;
     const nextButtonDisabled = step < 3
-      ? Math.abs(scroll - pixelsToScroll) > maxWidth - pixelsToScroll
-      : Math.abs(scroll - pixelsToScroll) > maxWidth;
+      ? Math.abs(scrolled - pixelsToScroll) > maxWidth - pixelsToScroll
+      : Math.abs(scrolled - pixelsToScroll) > maxWidth;
 
     return (
       <div className="Carousel">
@@ -59,7 +59,7 @@ class Carousel extends React.Component<Props, State> {
         >
           <ul
             style={{
-              transform: `translateX(${scroll}px)`,
+              transform: `translateX(${scrolled}px)`,
               transition: `transform ${animationDuration}ms`,
             }}
             className="Carousel__list"
