@@ -31,7 +31,7 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          step={3}
+          step={2}
           frameSize={3}
           itemWidth={130}
           animationDuration={1000}

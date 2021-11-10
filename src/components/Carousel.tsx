@@ -39,9 +39,9 @@ class Carousel extends React.Component<Props, State> {
   render() {
     const { images, step, animationDuration } = this.props;
     const { scroll, displayWidth } = this.state;
-    const isPrevDisabled = (scroll === 0);
+    const isPrevDisabled = scroll === 0;
     const maxNextClicks = -displayWidth * Math.floor(images.length / step);
-    const isNextDisabled = (scroll === maxNextClicks);
+    const isNextDisabled = scroll === maxNextClicks;
 
     return (
       <div className="Carousel">
@@ -59,7 +59,9 @@ class Carousel extends React.Component<Props, State> {
             }
           >
             {images.map(image => (
-              <li><img src={image} alt="smile" /></li>
+              <li>
+                <img src={image} alt="smile" />
+              </li>
             ))}
           </ul>
         </div>
