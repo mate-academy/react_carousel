@@ -10,20 +10,20 @@ interface Props {
 }
 
 interface State {
-  scrolled: number,
+  scrolledWidth: number,
   maxWidth: number,
 }
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    scrolled: 0,
+    scrolledWidth: 0,
     maxWidth: 1300,
   };
 
   scrollLeft = (step:number) => {
     this.setState((prevState) => {
       return {
-        scrolled: prevState.scrolled - step,
+        scrolledWidth: prevState.scrolledWidth - step,
       };
     });
   };
@@ -31,7 +31,7 @@ class Carousel extends React.Component<Props, State> {
   scrollRight = (step:number) => {
     this.setState((prevState) => {
       return {
-        scrolled: prevState.scrolled + step,
+        scrolledWidth: prevState.scrolledWidth + step,
       };
     });
   };
@@ -43,13 +43,13 @@ class Carousel extends React.Component<Props, State> {
       step,
       animationDuration,
     } = this.props;
-    const { scrolled, maxWidth } = this.state;
+    const { scrolledWidth, maxWidth } = this.state;
     const containerWidth = itemWidth * frameSize;
     const pixelsToScroll = step * itemWidth;
-    const prevButtonDisabled = Math.abs(scrolled) - pixelsToScroll < 0;
-    const nextButtonDisabled = step < 3
-      ? Math.abs(scrolled - pixelsToScroll) > maxWidth - pixelsToScroll
-      : Math.abs(scrolled - pixelsToScroll) > maxWidth;
+    const isPrevButtonDisabled = Math.abs(scrolledWidth) - pixelsToScroll < 0;
+    const isNextButtonDisabled = step < 3
+      ? Math.abs(scrolledWidth - pixelsToScroll) > maxWidth - pixelsToScroll
+      : Math.abs(scrolledWidth - pixelsToScroll) > maxWidth;
 
     return (
       <div className="Carousel">
@@ -59,7 +59,7 @@ class Carousel extends React.Component<Props, State> {
         >
           <ul
             style={{
-              transform: `translateX(${scrolled}px)`,
+              transform: `translateX(${scrolledWidth}px)`,
               transition: `transform ${animationDuration}ms`,
             }}
             className="Carousel__list"
@@ -80,7 +80,7 @@ class Carousel extends React.Component<Props, State> {
         <div className="wrapp">
           <div className="Carousel__buttons--container">
             <button
-              disabled={prevButtonDisabled}
+              disabled={isPrevButtonDisabled}
               onClick={() => this.scrollRight(pixelsToScroll)}
               className="button Carousel__buttons--container--button"
               type="button"
@@ -89,7 +89,7 @@ class Carousel extends React.Component<Props, State> {
             </button>
 
             <button
-              disabled={nextButtonDisabled}
+              disabled={isNextButtonDisabled}
               onClick={() => this.scrollLeft(pixelsToScroll)}
               className="button Carousel__buttons--container--button"
               type="button"
