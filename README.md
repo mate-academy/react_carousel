@@ -1,5 +1,5 @@
 # React Carousel
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_carousel/)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://ne0mancer.github.io/react_carousel/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 - Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
@@ -16,8 +16,8 @@
     ```jsx harmony
     <Carousel
       images={['url1', 'url2']}
-      step={3}
-      frameSize={3}
+      step={1}
+      frameSize={8}
       itemWidth={130}
       animationDuration={1000}
       infinite={false}

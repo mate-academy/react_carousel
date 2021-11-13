@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
-
-interface State {
-  images: string[];
-}
+import Carousel from './components/Carousel/Carousel';
+import CarouselSetings from './components/Carusel-setings/Carousel-setings';
+import { State } from './Types';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,6 +18,24 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    settings: {
+      width: 130,
+      frameSize: 3,
+      step: 3,
+      speed: 1000,
+    },
+  };
+
+  setSetings = (e:React.FormEvent<HTMLInputElement>, param:string):void => {
+    const newValue:number = +e.currentTarget.value;
+
+    this.setState(({ settings }) => {
+      const newSettings = { ...settings };
+
+      newSettings[param] = newValue;
+
+      return { settings: newSettings };
+    });
   };
 
   render() {
@@ -27,10 +43,16 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <CarouselSetings
+          settings={this.state.settings}
+          changeInput={(e, param) => {
+            this.setSetings(e, param);
+          }}
+        />
+        <Carousel
+          images={images}
+          settings={this.state.settings}
+        />
       </div>
     );
   }
