@@ -1,0 +1,14 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.input_wrap {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: 2px solid rgb(54, 31, 182);
+  margin-bottom: 14px;
+}
