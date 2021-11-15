@@ -1,7 +1,6 @@
-/* eslint-disable prefer-const */
 import React, { useState } from 'react';
-import './Carousel.scss';
 import { State as Props } from '../../Types';
+import './Carousel.scss';
 
 const Carousel: React.FC<Props> = ({ images, settings }) => {
   const {
@@ -9,8 +8,8 @@ const Carousel: React.FC<Props> = ({ images, settings }) => {
   } = settings;
 
   const [translateX, setTranslateX] = useState(0);
-  let [nextBtnStatus, setNextBtnStatus] = useState(false);
-  let [prevBtnStatus, setPrevBtnStatus] = useState(true);
+  const [nextBtnStatus, setNextBtnStatus] = useState(false);
+  const [prevBtnStatus, setPrevBtnStatus] = useState(true);
 
   function scrollPrev() {
     let newTranslate = translateX + width * step;
@@ -31,7 +30,7 @@ const Carousel: React.FC<Props> = ({ images, settings }) => {
 
   function scrollNext() {
     let newTranslate = translateX + -width * step;
-    let maxStep = (10 - frameSize) * -width;
+    const maxStep = (10 - frameSize) * -width;
 
     if (newTranslate < maxStep) {
       newTranslate = maxStep;
