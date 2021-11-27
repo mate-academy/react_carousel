@@ -77,7 +77,7 @@ export class Carousel extends React.PureComponent<Props, State> {
 
             return (
               <li
-                key={imageId}
+                key={image}
                 className="carousel__item"
                 style={{
                   height: `${itemWidth}px`,
