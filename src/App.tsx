@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
@@ -11,8 +11,8 @@ interface State {
   infinite: boolean;
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+class App extends React.Component {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -30,6 +30,21 @@ class App extends React.Component<{}, State> {
     step: 3,
     animationDuration: 1000,
     infinite: false,
+  };
+
+  changeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = e.target;
+
+    this.setState({
+      [name]: type === 'checkbox'
+        ? checked
+        : +value,
+    });
   };
 
   render() {
@@ -52,7 +67,7 @@ class App extends React.Component<{}, State> {
           type="number"
           name="itemWidth"
           defaultValue={itemWidth}
-          onChange={e => this.setState({ itemWidth: +e.target.value })}
+          onChange={this.changeHandle}
         />
 
         <p>Frame size</p>
@@ -62,7 +77,7 @@ class App extends React.Component<{}, State> {
           defaultValue={frameSize}
           min={0}
           max={images.length}
-          onChange={e => this.setState({ frameSize: +e.target.value })}
+          onChange={this.changeHandle}
         />
 
         <p>Step</p>
@@ -72,7 +87,7 @@ class App extends React.Component<{}, State> {
           defaultValue={step}
           min={1}
           max={images.length - 1}
-          onChange={e => this.setState({ step: +e.target.value })}
+          onChange={this.changeHandle}
         />
 
         <p>Animation time</p>
@@ -81,7 +96,7 @@ class App extends React.Component<{}, State> {
           name="animationDuration"
           defaultValue={animationDuration}
           min={0}
-          onChange={e => this.setState({ animationDuration: +e.target.value })}
+          onChange={this.changeHandle}
         />
 
         <div>
