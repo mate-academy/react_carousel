@@ -107,7 +107,7 @@ class App extends React.Component {
               id="infinite"
               name="infinite"
               checked={infinite}
-              onChange={e => this.setState({ infinite: e.target.checked })}
+              onChange={this.changeHandle}
             />
           </label>
         </div>
