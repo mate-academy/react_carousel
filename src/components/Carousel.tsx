@@ -14,7 +14,7 @@ type State = {
   scrollWidth: number;
 };
 
-export class Carousel extends React.PureComponent<Props, State> {
+export class Carousel extends React.Component<Props, State> {
   state = {
     scrollWidth: 0,
   };
@@ -81,7 +81,7 @@ export class Carousel extends React.PureComponent<Props, State> {
                 className="carousel__item"
                 style={{
                   height: `${itemWidth}px`,
-                  transitionDuration: `${animationDuration}ms`,
+                  transition: `transform ${animationDuration}ms`,
                   transform: `translate(${-scrollWidth}px)`,
                 }}
               >
