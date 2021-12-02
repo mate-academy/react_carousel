@@ -21,12 +21,21 @@ export class Carousel extends React.Component<Props, State> {
 
   shouldComponentUpdate(nextProps: Props) {
     const {
+      images,
       itemWidth,
-      frameSize,
+      // frameSize,
     } = this.props;
+    const { offset } = this.state;
+    const maxFrameSize = images.length * itemWidth;
 
-    if (itemWidth !== nextProps.itemWidth || frameSize !== nextProps.frameSize) {
-      this.state.offset = 0;
+    if (itemWidth !== nextProps.itemWidth) {
+      const scrolledImagesCount = offset / itemWidth;
+
+      this.state.offset = nextProps.itemWidth * scrolledImagesCount;
+    }
+
+    if (offset + nextProps.frameSize > maxFrameSize) {
+      this.state.offset = maxFrameSize - nextProps.frameSize;
     }
 
     return true;
