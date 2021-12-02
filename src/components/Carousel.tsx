@@ -11,66 +11,83 @@ type Props = {
 };
 
 type State = {
-  scrollWidth: number;
+  offset: number;
 };
 
 export class Carousel extends React.Component<Props, State> {
   state = {
-    scrollWidth: 0,
+    offset: 0,
+  };
+
+  shouldComponentUpdate(nextProps: Props) {
+    const {
+      itemWidth,
+      frameSize,
+    } = this.props;
+
+    if (itemWidth !== nextProps.itemWidth || frameSize !== nextProps.frameSize) {
+      this.state.offset = 0;
+    }
+
+    return true;
+  }
+
+  scroller: MouseEventHandler = (e) => {
+    this.setState((state) => {
+      const button = e.target;
+      const {
+        images,
+        step,
+        frameSize,
+        itemWidth,
+        infinite,
+      } = this.props;
+
+      const maxScroll = (images.length * itemWidth) - frameSize;
+
+      let scrollWidth: number = ((button as HTMLButtonElement).textContent === 'Prev')
+        ? state.offset - step
+        : state.offset + step;
+
+      if (state.offset === maxScroll && infinite) {
+        scrollWidth = ((button as HTMLButtonElement).textContent === 'Next')
+          ? 0
+          : scrollWidth;
+      }
+
+      if (state.offset === 0 && this.props.infinite) {
+        scrollWidth = ((button as HTMLButtonElement).textContent === 'Prev')
+          ? maxScroll
+          : scrollWidth;
+      }
+
+      if (maxScroll < scrollWidth) {
+        scrollWidth = maxScroll;
+      }
+
+      if (scrollWidth < 0) {
+        scrollWidth = 0;
+      }
+
+      return { offset: scrollWidth };
+    });
   };
 
   render() {
     const {
       images,
-      step,
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
     } = this.props;
 
-    let { scrollWidth } = this.state;
-
-    const frameWidth = itemWidth * frameSize;
-
-    const scroller: MouseEventHandler = (e) => {
-      this.setState((prevState) => {
-        const button = e.target;
-        const maxScroll = (images.length * itemWidth) - frameWidth;
-
-        scrollWidth = ((button as HTMLButtonElement).textContent === 'Prev')
-          ? scrollWidth - itemWidth * step
-          : scrollWidth + itemWidth * step;
-
-        if (prevState.scrollWidth === maxScroll && infinite) {
-          scrollWidth = ((button as HTMLButtonElement).textContent === 'Next')
-            ? 0
-            : scrollWidth;
-        }
-
-        if (prevState.scrollWidth === 0 && infinite) {
-          scrollWidth = ((button as HTMLButtonElement).textContent === 'Prev')
-            ? maxScroll
-            : scrollWidth;
-        }
-
-        if (maxScroll < scrollWidth) {
-          scrollWidth = maxScroll;
-        }
-
-        if (scrollWidth < 0) {
-          scrollWidth = 0;
-        }
-
-        return { scrollWidth };
-      });
-    };
+    const { offset } = this.state;
 
     return (
       <div className="carousel">
         <ul
           className="carousel__list"
-          style={{ width: `${frameWidth}px` }}
+          style={{ width: `${frameSize}px` }}
         >
           {images.map((image, index) => {
             const imageId = (index + 1).toString();
@@ -82,7 +99,7 @@ export class Carousel extends React.Component<Props, State> {
                 style={{
                   height: `${itemWidth}px`,
                   transition: `transform ${animationDuration}ms`,
-                  transform: `translate(${-scrollWidth}px)`,
+                  transform: `translate(${-offset}px)`,
                 }}
               >
                 <img
@@ -97,13 +114,13 @@ export class Carousel extends React.Component<Props, State> {
 
         <button
           type="button"
-          onClick={scroller}
+          onClick={this.scroller}
         >
           Prev
         </button>
         <button
           type="button"
-          onClick={scroller}
+          onClick={this.scroller}
         >
           Next
         </button>

@@ -59,8 +59,13 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1>
+          Carousel with
+          {' '}
+          {images.length}
+          {' '}
+          images
+        </h1>
 
         <p>Item size</p>
         <input
@@ -114,8 +119,8 @@ class App extends React.Component {
 
         <Carousel
           images={images}
-          step={step}
-          frameSize={frameSize}
+          step={step * itemWidth}
+          frameSize={frameSize * itemWidth}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
