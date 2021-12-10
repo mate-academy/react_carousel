@@ -17,7 +17,7 @@ type State = {
 
 export class Form extends React.Component<Props, State> {
   state = {
-    frameSize: 390,
+    frameSize: 3,
     itemWidth: 130,
     step: 3,
     animationDuration: 1000,
@@ -37,24 +37,31 @@ export class Form extends React.Component<Props, State> {
       <>
         <div
           className="field"
-          style={{ width: `${frameSize}px` }}
+          style={{ width: `${frameSize * itemWidth}px` }}
         >
+          <label className="label" htmlFor="width">
+            Frame size
+            <input
+              id="width"
+              className="input"
+              type="number"
+              name="frameSize"
+              defaultValue={frameSize}
+              onChange={({ target }) => {
+                this.setState({ frameSize: +target.value });
+              }}
+            />
+          </label>
           <label className="label" htmlFor="width">
             Item width
             <input
               id="width"
               className="input"
               type="number"
+              name="itemWidth"
               defaultValue={itemWidth}
               onChange={({ target }) => {
-                this.setState((state: State) => {
-                  return (
-                    {
-                      itemWidth: +target.value,
-                      frameSize: +target.value * state.step,
-                    }
-                  );
-                });
+                this.setState({ itemWidth: +target.value });
               }}
             />
           </label>
@@ -66,14 +73,7 @@ export class Form extends React.Component<Props, State> {
               type="number"
               defaultValue={step}
               onChange={({ target }) => {
-                this.setState((state: State) => {
-                  return (
-                    {
-                      step: +target.value,
-                      frameSize: +target.value * state.itemWidth,
-                    }
-                  );
-                });
+                this.setState({ step: +target.value });
               }}
             />
           </label>

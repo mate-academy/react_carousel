@@ -13,45 +13,12 @@ type Props = {
 
 type State = {
   scroll: number,
-  scrollInfinite: number,
-  count: number,
 };
 
 export class Carousel extends React.Component<Props, State> {
   state = {
     scroll: 0,
-    scrollInfinite: 0,
-    count: 0,
   };
-
-  componentDidMount() {
-    const {
-      frameSize,
-      animationDuration,
-    } = this.props;
-
-    setInterval(() => {
-      this.setState((state: State) => {
-        let { scrollInfinite, count } = state;
-
-        scrollInfinite = count > 0 ? scrollInfinite - frameSize : scrollInfinite + frameSize;
-
-        if (scrollInfinite >= this.getScrollMax()) {
-          scrollInfinite = this.getScrollMax();
-
-          count += 1;
-        }
-
-        if (scrollInfinite <= 0) {
-          scrollInfinite = 0;
-
-          count = 0;
-        }
-
-        return ({ scrollInfinite, count });
-      });
-    }, animationDuration);
-  }
 
   getScrollMax = () => {
     const {
@@ -66,47 +33,48 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   onClick = (action: string) => {
-    let { scroll } = this.state;
-    const {
-      frameSize,
-    } = this.props;
+    const { infinite, step, itemWidth } = this.props;
 
-    scroll = (action === 'prev') ? (scroll - frameSize) : (scroll + frameSize);
+    this.setState((state: State) => {
+      let { scroll } = state;
 
-    scroll = scroll > this.getScrollMax() ? this.getScrollMax() : scroll;
-    scroll = scroll < 0 ? 0 : scroll;
-    this.setState({ scroll });
+      if (infinite && scroll === this.getScrollMax()) {
+        return { scroll: 0 };
+      }
+
+      scroll = (action === 'prev') ? (scroll - step * itemWidth) : (scroll + step * itemWidth);
+
+      scroll = scroll > this.getScrollMax() ? this.getScrollMax() : scroll;
+      scroll = scroll < 0 ? 0 : scroll;
+
+      return { scroll };
+    });
   };
 
   render() {
     const {
       frameSize,
       itemWidth,
-      infinite,
       images,
+      animationDuration,
     } = this.props;
 
     const {
-      scrollInfinite,
       scroll,
     } = this.state;
 
     return (
       <div
         className="Carousel"
-        style={{ width: `${frameSize}px` }}
+        style={{ width: `${frameSize * itemWidth}px` }}
       >
         <ul
           className="Carousel__list"
-          style={infinite
-            ? {
-              transform: `translateX(${-scrollInfinite}px)`,
-              width: `${images.length * itemWidth}px`,
-            }
-            : {
-              transform: `translateX(${-scroll}px)`,
-              width: `${images.length * itemWidth}px`,
-            }}
+          style={{
+            transform: `translateX(${-scroll}px)`,
+            width: `${images.length * itemWidth}px`,
+            transitionDuration: `${animationDuration}ms`,
+          }}
         >
           {images.map((image: string, i: number) => (
             <li key={+i}>
