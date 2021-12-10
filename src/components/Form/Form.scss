@@ -1,0 +1,21 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 400px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input {
+  height: 20px;
+  margin-top: 10px;
+}
+
+.is-warning {
+  background-color: rgb(211, 120, 0);
+}
