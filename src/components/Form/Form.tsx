@@ -35,10 +35,7 @@ export class Form extends React.Component<Props, State> {
 
     return (
       <>
-        <div
-          className="field"
-          style={{ width: `${frameSize * itemWidth}px` }}
-        >
+        <div className="field">
           <label className="label" htmlFor="width">
             Frame size
             <input
