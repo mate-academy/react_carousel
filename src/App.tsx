@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { CarouselType } from './types/CarouselType';
 
-interface State {
-  images: string[];
-}
+type State = CarouselType;
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,6 +19,10 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 1,
+    itemWidth: 130,
+    frameSize: 3,
+    animationDuration: 3000,
   };
 
   render() {
@@ -27,10 +30,13 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <Carousel {...this.state} />
 
-        <Carousel />
+        <h1 className="App__title">
+          {'Carousel with '}
+          {images.length}
+          {' images'}
+        </h1>
       </div>
     );
   }
