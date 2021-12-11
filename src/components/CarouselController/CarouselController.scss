@@ -1,0 +1,34 @@
+.CarouselController {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  font-family: monospace;
+  font-size: 18px;
+
+  &__controller-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__controller {
+    font-family: inherit;
+
+    &--number {
+      padding: 8px 12px;
+      border: 2px solid #ff79e4;
+      border-radius: 3px;
+
+      background-color: #ffe9fb;
+      caret-color: transparent;
+
+      cursor: default;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
