@@ -1,0 +1,66 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__spotlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 250px;
+  }
+
+  &__images-wrapper {
+    width: 260px;
+    margin-bottom: 8px;
+    border: 4px solid #5768c2;
+    border-radius: 13px;
+
+    overflow: hidden;
+  }
+
+  &__images {
+    display: flex;
+  }
+
+  &__image-item {
+    outline: 4px solid #fff;
+  }
+
+  &__image {
+    display: block;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &__button {
+    border: 0;
+
+    cursor: pointer;
+
+    &:disabled {
+      filter: grayscale(1) invert(1);
+    }
+
+    &--next {
+      width: 84px;
+      height: 37px;
+
+      background: url(../../lib/assets/images/button-next.png) no-repeat center /
+        contain;
+    }
+
+    &--previous {
+      width: 90px;
+      height: 39px;
+
+      background: url(../../lib/assets/images/button-previous.png) no-repeat
+        center / contain;
+    }
+  }
+}
