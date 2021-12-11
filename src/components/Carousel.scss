@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  width: max-content;
+  display: flex;
+  background-color: #f5f6f7;
+  border-radius: 30px;
+
+  &__list {
+    margin: 20px 0;
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+  }
+
+  &__button {
+    width: 40px;
+    background-color: #3066d1;
+    color: #3066d1;
+
+    border: none;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: center center;
+
+    &--next {
+      background-image: url("../img/next.svg");
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+  
+    &--prev {
+      background-image: url("../img/prev.svg");
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+  }
+}
