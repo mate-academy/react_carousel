@@ -1,1 +1,43 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  align-items: center;
+}
+
+.Carousel {
+  &__list {
+    display: flex;
+
+    padding: 0;
+
+    list-style: none;
+  }
+}
+
+.wrapper {
+  overflow: hidden;
+}
+
+.button {
+  font-size: 2rem;
+  border: none;
+  background-color: #eee;
+  outline: none;
+  height: min-content;
+
+  &:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: none;
+  }
+}

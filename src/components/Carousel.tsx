@@ -1,18 +1,70 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel: React.FC<Props> = ({
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  images,
+}) => {
+  const prevImages = (stepNum: number) => {
+    const list = document.querySelector('.wrapper');
 
-export default Carousel;
+    if (list) {
+      list.scrollLeft -= stepNum * itemWidth;
+    }
+  };
+
+  const nextImages = (stepNum: number) => {
+    const list = document.querySelector('.wrapper');
+
+    if (list) {
+      list.scrollLeft += stepNum * itemWidth;
+    }
+  };
+
+  const styles = {
+    width: frameSize * itemWidth,
+  };
+
+  return (
+    <div className="container">
+      <button
+        className="button button--prev"
+        type="button"
+        onClick={() => prevImages(step)}
+      >
+        {'<'}
+      </button>
+      <div className="wrapper">
+        <div className="Carousel" style={styles}>
+          <ul className="Carousel__list">
+            {images.map(image => (
+              <li key={image}>
+                <img
+                  src={image}
+                  alt={image}
+                  style={{ width: itemWidth }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <button
+        className="button button--next"
+        type="button"
+        onClick={() => nextImages(step)}
+      >
+        {'>'}
+      </button>
+    </div>
+  );
+};
