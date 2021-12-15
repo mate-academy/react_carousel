@@ -6,31 +6,15 @@ type Props = {
   itemWidth: number;
   frameSize: number;
   step: number;
-  animationDuration: number;
 };
 
 export const Carousel: React.FC<Props> = ({
   itemWidth = 130,
   frameSize = 3,
   step = 3,
-  animationDuration = 1000,
   images,
 }) => {
-  const sliderLength = images.length * itemWidth;
-
-  const intervalId = setInterval(() => {
-    const list = document.querySelector('.wrapper');
-
-    if (list && list.scrollLeft < sliderLength - itemWidth * 2 * step) {
-      list.scrollLeft += 130;
-    } else {
-      clearInterval(intervalId);
-    }
-  }, animationDuration);
-
   const prevImages = (stepNum: number) => {
-    clearInterval(intervalId);
-
     const list = document.querySelector('.wrapper');
 
     if (list) {
@@ -39,8 +23,6 @@ export const Carousel: React.FC<Props> = ({
   };
 
   const nextImages = (stepNum: number) => {
-    clearInterval(intervalId);
-
     const list = document.querySelector('.wrapper');
 
     if (list) {

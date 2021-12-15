@@ -1,5 +1,29 @@
+html {
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+}
+
+body {
+  background-color: #eee;
+}
+
 .App {
   &__title {
     text-align: center;
   }
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: fit-content;
+
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  font-size: 1.2rem;
 }
