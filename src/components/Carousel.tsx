@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import './Carousel.scss';
 
@@ -22,10 +21,6 @@ export class Carousel extends React.Component<Props, State> {
     frameSize: 3,
     animationDuration: 1000,
   };
-
-  componentDidUpdate() {
-    console.log('+');
-  }
 
   scrollRight = () => {
     const { scroll, step } = this.state;
