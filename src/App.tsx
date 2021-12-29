@@ -26,11 +26,9 @@ class App extends React.Component<{}, State> {
     const { images } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+      <div className="app">
+        <h1 className="app__heading">Lets roll :)</h1>
+        <Carousel images={images} />
       </div>
     );
   }

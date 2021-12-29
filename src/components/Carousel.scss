@@ -1,1 +1,84 @@
-// style go here
+$mainColor: aquamarine;
+
+.content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  &__container {
+    width: 260px;
+    overflow-x: hidden;
+    border: 2px solid $mainColor;
+  }
+
+  &__list {
+    display: flex;
+  }
+}
+
+.btn {
+  font-size: 30px;
+  background-color: $mainColor;
+  outline: none;
+  border: 0;
+  border-radius: 0 10px 10px 0;
+  color: rgb(0, 119, 6);
+  transition: background-color 1s, color 1s;
+
+  &--prev {
+    transform: rotate(180deg);
+  }
+
+  &--next {
+    margin-left: -2px;
+  }
+
+  &--ininfinity {
+    font-size: initial;
+    background-color: initial;
+    outline: initial;
+    border: initial;
+    border-radius: initial;
+    color: initial;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled,
+  &[disabled] {
+    background-color: grey;
+    color: rgb(255, 255, 255);
+
+    &:hover {
+      cursor: auto;
+    }
+  }
+}
+
+.form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 20px;
+}
+
+.infinityBtnContainer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
