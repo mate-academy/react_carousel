@@ -78,8 +78,14 @@ class Carousel extends React.Component<Props, State> {
             >
               &#10148;
             </button>
-            <div className="carousel__container" style={{ width: `${frameSize * itemwidth}px` }}>
-              <ul className="carousel__list" style={{ transform: `translateX(${-marginLeft}px)`, transition: `${animationDuration}ms`, width: `${images.length * itemwidth}px` }}>
+            <div
+              className="carousel__container"
+              style={{ width: `${frameSize * itemwidth}px` }}
+            >
+              <ul
+                className="carousel__list"
+                style={{ transform: `translateX(${-marginLeft}px)`, transition: `${animationDuration}ms`, width: `${images.length * itemwidth}px` }}
+              >
                 {images.map(imgUrl => (
                   <li key={imgUrl} className="carousel__item">
                     <img src={imgUrl} alt="smile" className="carousel__img" width={itemwidth} />
