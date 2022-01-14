@@ -20,7 +20,7 @@ const Carousel: React.FC<Props> = (props) => (
         if (imagesContainer) {
           imagesContainer.style.transform += `translateX(${props.itemWidth * props.step}px)`;
           /* eslint-disable-next-line */
-          console.log(imagesContainer.style.left);
+          // console.log(imagesContainer.style.left);
         }
       }}
     >

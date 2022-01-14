@@ -59,7 +59,7 @@ class App extends React.Component<{}, State> {
           </div>
           <label htmlFor="step">
             <input
-              placeholder="3"
+              placeholder="3 images"
               min={1}
               max={10}
               id="step"
@@ -77,7 +77,7 @@ class App extends React.Component<{}, State> {
           </div>
           <label htmlFor="frameSize">
             <input
-              placeholder="3"
+              placeholder="3 images"
               min={1}
               max={10}
               id="frameSize"
@@ -93,14 +93,32 @@ class App extends React.Component<{}, State> {
           <div className="input__label">Set the size of the picture</div>
           <label htmlFor="frameSize">
             <input
-              placeholder="130"
+              placeholder="130 px"
               min={30}
               max={500}
+              step={10}
               id="frameSize"
               className="input input__frameSize"
               type="number"
               onChange={(event) => {
                 this.setState({ itemWidth: +event.target.value });
+              }}
+            />
+          </label>
+        </div>
+        <div className="input__container">
+          <div className="input__label">Set animation duration</div>
+          <label htmlFor="frameSize">
+            <input
+              placeholder="1000 ms"
+              min={1000}
+              max={10000}
+              step={1000}
+              id="frameSize"
+              className="input input__frameSize"
+              type="number"
+              onChange={(event) => {
+                this.setState({ animationDuration: +event.target.value });
               }}
             />
           </label>
