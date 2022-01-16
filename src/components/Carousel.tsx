@@ -14,6 +14,7 @@ const Carousel: React.FC<Props> = (props) => (
     className="Carousel"
     style={{
       width: props.frameSize * props.itemWidth,
+      transition: `${props.animationDuration}ms`,
     }}
   >
     <ul className="Carousel__list" style={{ transform: `translateX(${props.offset}px)`, transition: `${props.animationDuration}ms` }}>
