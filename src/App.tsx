@@ -49,19 +49,20 @@ class App extends React.Component<{}, State> {
       infinite,
     } = this.state;
 
-    const pointBack = infinite ? -maxOffset : 0;
-    const pointForward = infinite ? 0 : -maxOffset;
+    const pointBack = (infinite && offset === 0) ? -maxOffset : 0;
+    const pointForward = (infinite && offset === -maxOffset) ? 0 : -maxOffset;
 
     if (direction === 'back') {
       this.setState({
-        offset: (offset + (itemWidth * step)) < 0 ? offset + (itemWidth * step)
+        offset: offset + (itemWidth * step) <= 0
+          ? offset + (itemWidth * step)
           : pointBack,
       });
     }
 
     if (direction === 'forward') {
       this.setState({
-        offset: (offset - (itemWidth * step)) > -maxOffset
+        offset: offset - (itemWidth * step) >= -maxOffset
           ? offset - (itemWidth * step)
           : pointForward,
       });
