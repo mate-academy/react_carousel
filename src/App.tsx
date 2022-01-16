@@ -8,7 +8,9 @@ interface State {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
+  offset: number,
+  maxOffset: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -29,30 +31,93 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    // infinite: false,
+    offset: 0,
+    maxOffset: 0,
+    infinite: false,
+  };
+
+  componentDidMount() {
+    this.setState(prevState => ({ maxOffset: prevState.itemWidth * (10 - prevState.step) }));
+  }
+
+  makeMove = (direction: string) => {
+    const {
+      offset,
+      itemWidth,
+      step,
+      maxOffset,
+      infinite,
+    } = this.state;
+
+    const pointBack = infinite ? -maxOffset : 0;
+    const pointForward = infinite ? 0 : -maxOffset;
+
+    if (direction === 'back') {
+      this.setState({
+        offset: (offset + (itemWidth * step)) < 0 ? offset + (itemWidth * step)
+          : pointBack,
+      });
+    }
+
+    if (direction === 'forward') {
+      this.setState({
+        offset: (offset - (itemWidth * step)) > -maxOffset
+          ? offset - (itemWidth * step)
+          : pointForward,
+      });
+    }
   };
 
   render() {
     const {
-      step,
       images,
       frameSize,
       itemWidth,
       animationDuration,
+      offset,
     } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 className='Carousel__title'>Carousel</h1>
+        <div className="container">
+          <button
+            className="button"
+            type="button"
+            disabled={!this.state.infinite && this.state.offset === 0}
+            onClick={() => {
+              this.makeMove('back');
+            }}
+          >
+            press for
+            <br />
+            <br />
+            <strong>PREV</strong>
+          </button>
 
-        <Carousel
-          step={step}
-          imagesList={images}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-        />
+          <Carousel
+            imagesList={images}
+            frameSize={frameSize}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+            offset={offset}
+          />
+          <button
+            className="button"
+            type="button"
+            disabled={!this.state.infinite
+              && this.state.offset === -this.state.maxOffset}
+            onClick={() => {
+              this.makeMove('forward');
+            }}
+          >
+            press for
+            <br />
+            <br />
+            <strong>NEXT</strong>
+          </button>
+        </div>
         <div className="input__container">
           <div className="input__label">
             Choose the number of scrolled images
@@ -119,6 +184,18 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={(event) => {
                 this.setState({ animationDuration: +event.target.value });
+              }}
+            />
+          </label>
+        </div>
+        <div className="input__infinite">
+          Infinite moving
+          <label htmlFor="infinite">
+            <input
+              id="infinite"
+              type="checkbox"
+              onChange={() => {
+                this.setState(prevState => ({ infinite: !prevState.infinite }));
               }}
             />
           </label>
