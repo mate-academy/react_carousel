@@ -179,6 +179,7 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={(event) => {
                 this.setState({ itemWidth: +event.target.value });
+                this.setScreenWidth();
               }}
             />
           </label>
