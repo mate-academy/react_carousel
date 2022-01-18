@@ -37,12 +37,17 @@ class App extends React.Component<{}, State> {
   };
 
   componentDidMount() {
-    this.setState(prevState => ({ maxOffset: prevState.itemWidth * (10 - prevState.step) }));
+    this.setScreenWidth();
   }
+
+  setScreenWidth = () => {
+    this.setState(prevState => ({ maxOffset: prevState.itemWidth * (10 - (prevState.frameSize)) }));
+  };
 
   makeMove = (direction: string) => {
     const {
       offset,
+      frameSize,
       itemWidth,
       step,
       maxOffset,
@@ -54,7 +59,7 @@ class App extends React.Component<{}, State> {
 
     if (direction === 'back') {
       this.setState({
-        offset: offset + (itemWidth * step) <= 0
+        offset: offset + (itemWidth * frameSize) <= 0
           ? offset + (itemWidth * step)
           : pointBack,
       });
@@ -62,8 +67,8 @@ class App extends React.Component<{}, State> {
 
     if (direction === 'forward') {
       this.setState({
-        offset: offset - (itemWidth * step) >= -maxOffset
-          ? offset - (itemWidth * step)
+        offset: offset - (itemWidth * frameSize) >= -maxOffset
+          ? offset - (itemWidth * frameSize)
           : pointForward,
       });
     }
@@ -150,7 +155,13 @@ class App extends React.Component<{}, State> {
               className="input input__frameSize"
               type="number"
               onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
+                this.setState(prevState => ({
+                  frameSize: +event.target.value,
+                  offset: prevState.offset > 0
+                    ? prevState.offset + (prevState.itemWidth * prevState.step)
+                    : 0,
+                }));
+                this.setScreenWidth();
               }}
             />
           </label>
