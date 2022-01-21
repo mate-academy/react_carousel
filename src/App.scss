@@ -1,1 +1,44 @@
-// style go here
+.App {
+margin-left: 100px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    & > input {
+       width: 200px;
+    }
+  }
+}
+
+.Carousel {
+  width: 1300px;
+}
+
+.button {
+  padding: 10px;
+
+  &:last-child {
+    margin-left: 290px;
+  }
+
+  &__arrow {
+    background-color: transparent;
+
+    height: 12px;
+    width: 12px;
+
+    &--right {
+      border-right: 1px solid rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(0, 0, 0, 0.3);
+      transform: translateX(-25%) rotate(45deg);
+    }
+
+    &--left {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+      transform: translateX(25%) rotate(45deg);
+    }
+  }
+}
