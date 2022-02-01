@@ -1,1 +1,70 @@
-// style go here
+.Carousel {
+      margin: 0 auto;
+  &__render{
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__list{
+    padding-left: 0;
+    margin: 0 auto;
+    height: 300px;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    scroll-behavior: smooth;
+    &__img{
+      display: block;
+    }
+  }
+  &__control{
+    width: 500px;
+    margin: 0 auto;
+    &__form{
+      display: flex;
+      margin: 10px 0;
+      justify-content: center;
+      flex-direction: column;
+    }
+    &__item{
+      display: flex;
+      justify-content: space-between;
+      & input{
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__buttons{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__button{
+    position: relative;
+    z-index: 10;
+    background-color: rgb(215, 252, 215);
+    box-shadow: 0 0 5px 2px gray;
+    border: none;
+    width: 100px;
+    &:hover{
+      cursor: pointer;
+    }
+    & img{
+      width: 20px;
+    height: 20px;
+    }
+
+    &--next{
+      margin-left: 10px;
+    }
+    &--prev{
+      margin-right: 10px;
+      & img {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
