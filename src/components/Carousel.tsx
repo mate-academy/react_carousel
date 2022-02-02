@@ -26,25 +26,24 @@ class Carousel extends React.Component<Props, State> {
     position: 0,
   };
 
-  styleList2 = {
-    width: `${1300}px`,
-  };
-
   nextSlide = () => {
     const {
-      position, itemWidth, frameSize,
+      position,
+      itemWidth,
+      frameSize,
+      step,
     } = this.state;
     const maxPosition = (this.props.images.length * itemWidth) - (itemWidth * frameSize);
 
-    this.setState(() => (position > maxPosition - (itemWidth * frameSize)
-      ? { position: maxPosition - (itemWidth * frameSize) }
+    this.setState(() => (position > maxPosition - (itemWidth * step)
+      ? { position: maxPosition - (itemWidth * step) }
       : null));
 
-    this.setState(() => (position > maxPosition - (itemWidth * frameSize)
-      ? { position: maxPosition - (itemWidth * frameSize) }
+    this.setState(() => (position > maxPosition - (itemWidth * step)
+      ? { position: maxPosition - (itemWidth * step) }
       : null));
 
-    this.setState((state) => ({ position: state.position + (itemWidth * frameSize) }));
+    this.setState((state) => ({ position: state.position + (itemWidth * step) }));
   };
 
   prevSlide = () => {
@@ -52,15 +51,16 @@ class Carousel extends React.Component<Props, State> {
       position,
       itemWidth,
       frameSize,
+      step,
     } = this.state;
 
     const minPosition = 0;
 
     this.setState(() => ((position < minPosition + (itemWidth * frameSize))
-      ? { position: minPosition + (itemWidth * frameSize) }
+      ? { position: minPosition + (itemWidth * step) }
       : null));
-    this.setState((state) => ((position > minPosition + (itemWidth * frameSize))
-      ? { position: state.position - (itemWidth * frameSize) }
+    this.setState((state) => ((position > minPosition + (itemWidth * step))
+      ? { position: state.position - (itemWidth * step) }
       : { position: minPosition }));
   };
 
