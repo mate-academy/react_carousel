@@ -72,7 +72,12 @@ class Carousel extends React.Component<Props, State> {
   }
 
   render() {
-    const { itemWidth, frameSize, images } = this.props;
+    const {
+      itemWidth,
+      frameSize,
+      images,
+      animationDuration,
+    } = this.props;
 
     return (
       <div
@@ -81,7 +86,11 @@ class Carousel extends React.Component<Props, State> {
       >
         <ul
           className="Carousel__list"
-          style={{ transform: this.translate() }}
+          style={{
+            transform: this.translate(),
+            transition: `all ${animationDuration / 1000}s ease-in-out`,
+
+          }}
         >
           {images.map(imageUrl => (
             <li key={imageUrl} className="Carousel__item">
