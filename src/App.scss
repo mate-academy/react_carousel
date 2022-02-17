@@ -1,1 +1,27 @@
 // style go here
+.Carousel {
+  &__wrapper {
+    display: flex;
+    overflow: hidden;
+    margin: 0 auto;
+    width: fit-content;
+    border: 1px solid black;
+    margin-bottom: 10px;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0 auto;
+    width: fit-content;
+  }
+
+  &__button-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.buttons {
+  margin: 10px;
+}
