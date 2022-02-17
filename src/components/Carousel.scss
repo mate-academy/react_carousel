@@ -1,1 +1,19 @@
-// style go here
+.Carousel {
+  &__wrap {
+    margin-bottom: 30px;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__btn-wrap {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__fieldset {
+    width: max-content;
+  }
+}
