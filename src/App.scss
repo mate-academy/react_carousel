@@ -1,1 +1,19 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica, sans-serif;
+  color: #18067a;
+  background-color: rgba(206, 209, 43, 0.41);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
