@@ -60,7 +60,7 @@ class Carousel extends React.Component<Props, State> {
 
   render() {
     const { images } = this.props;
-    const transformer = {
+    const transformValue = {
       left: `${this.state.transX}px`,
     };
     const btnStyle = 'waves-effect waves-light btn';
