@@ -23,7 +23,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
   const infiniteLoopCheckHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfiniteLoop(e.target.checked);
-    setCurrentIndex(prevState => prevState + step);
+    setCurrentIndex(frameSize);
   };
 
   const next = () => {
@@ -200,7 +200,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
             id="infinite"
             name="infinite"
             checked={infiniteLoop}
-            // onChange={e => setInfiniteLoop(e.target.checked)}
             onChange={infiniteLoopCheckHandler}
           />
         </label>
