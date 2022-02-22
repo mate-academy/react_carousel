@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import CarouselForm from './components/CarouselForm/CarouselForm';
 
 const images: string[] = [
   './img/1.png',
@@ -18,7 +18,7 @@ const images: string[] = [
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Carousel images={images} />
+      <CarouselForm images={images} />
     </div>
   );
 };

@@ -3,13 +3,15 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
+  frameSize: number;
+  step: number;
+  itemWidth: number;
+  infiniteLoop: boolean;
 };
 
-const Carousel: React.FC<Props> = ({ images }) => {
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [infiniteLoop, setInfiniteLoop] = useState(false);
+const Carousel: React.FC<Props> = ({
+  images, frameSize, step, itemWidth, infiniteLoop,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
 
@@ -20,11 +22,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
       }
     }
   }, [currentIndex, infiniteLoop, frameSize, images.length]);
-
-  const infiniteLoopCheckHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfiniteLoop(e.target.checked);
-    setCurrentIndex(frameSize);
-  };
 
   const next = () => {
     const maxIndex = (infiniteLoop) ? images.length + frameSize : images.length - frameSize;
@@ -139,71 +136,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
           &gt;
         </button>
       </div>
-      <form className="form">
-        <label
-          className="label"
-          htmlFor="step"
-        >
-          Step:
-          {' '}
-          <input
-            type="number"
-            className="input__number"
-            id="step"
-            name="step"
-            min={1}
-            max={frameSize}
-            value={step}
-            onChange={e => setStep(+e.target.value)}
-          />
-        </label>
-        <label
-          className="label"
-          htmlFor="frameSize"
-        >
-          Frame Size:
-          {' '}
-          <input
-            type="number"
-            className="input__number"
-            id="frameSize"
-            name="frameSize"
-            min={1}
-            max={5}
-            value={frameSize}
-            onChange={e => setFrameSize(+e.target.value)}
-          />
-        </label>
-        <label
-          className="label"
-          htmlFor="itemWidth"
-        >
-          Item Width:
-          {' '}
-          <input
-            type="range"
-            className="input__range"
-            id="itemWidth"
-            name="itemWidth"
-            min={100}
-            max={200}
-            value={itemWidth}
-            onChange={e => setItemWidth(+e.target.value)}
-          />
-        </label>
-        <label htmlFor="infinite">
-          Infinite:
-          {' '}
-          <input
-            type="checkbox"
-            className="input__checkbox"
-            id="infinite"
-            name="infinite"
-            checked={infiniteLoop}
-            onChange={infiniteLoopCheckHandler}
-          />
-        </label>
-      </form>
     </div>
   );
 };
