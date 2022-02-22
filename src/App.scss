@@ -1,1 +1,19 @@
-// style go here
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.App {
+  width: 1300px;
+  margin: 10px auto;
+}
+
+iframe {
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+  color: #289e9e;
+}
