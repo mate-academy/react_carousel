@@ -23,19 +23,46 @@ class Carousel extends React.Component<Props, State> {
   };
 
   nextButton = () => {
-    if ((this.state.position - this.state.frameSize - this.state.step) >= -10) {
-      this.setState(props => ({ position: props.position - props.step }));
+    const {
+      step,
+      frameSize,
+      position,
+    } = this.state;
+
+    if ((position - frameSize - step) >= -10) {
+      this.setState({ position: position - step });
     } else {
-      this.setState(props => ({ position: -10 + props.frameSize }));
+      this.setState({ position: -10 + frameSize });
     }
   };
 
   prevButton = () => {
-    if ((this.state.position + this.state.step) <= 0) {
-      this.setState(props => ({ position: props.position + props.step }));
+    const {
+      step,
+      position,
+    } = this.state;
+
+    if ((position + step) <= 0) {
+      this.setState({ position: position + step });
     } else {
-      this.setState(() => ({ position: 0 }));
+      this.setState({ position: 0 });
     }
+  };
+
+  changeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +e.target.value });
+  };
+
+  changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +e.target.value });
+  };
+
+  changeItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +e.target.value });
+  };
+
+  changeAnimationDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ animationDuration: +e.target.value });
   };
 
   render() {
@@ -111,12 +138,9 @@ class Carousel extends React.Component<Props, State> {
               min={1}
               max={10}
               value={step}
-              onChange={(event) => {
-                this.setState({ step: +event.target.value });
-              }}
+              onChange={this.changeStep}
             />
           </label>
-
           <label
             htmlFor="frameId"
             className="label"
@@ -129,9 +153,7 @@ class Carousel extends React.Component<Props, State> {
               min={1}
               max={10}
               value={frameSize}
-              onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
-              }}
+              onChange={this.changeFrameSize}
             />
           </label>
 
@@ -146,9 +168,7 @@ class Carousel extends React.Component<Props, State> {
               className="input"
               max={390}
               value={itemWidth}
-              onChange={(event) => {
-                this.setState({ itemWidth: +event.target.value });
-              }}
+              onChange={this.changeItemWidth}
             />
           </label>
 
@@ -162,9 +182,7 @@ class Carousel extends React.Component<Props, State> {
               id="animId"
               className="input"
               value={animationDuration}
-              onChange={(event) => {
-                this.setState({ animationDuration: +event.target.value });
-              }}
+              onChange={this.changeAnimationDuration}
             />
           </label>
         </div>
