@@ -3,6 +3,11 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
+  margin-bottom: 52px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .img-container {
@@ -11,8 +16,8 @@
 }
 
 .Carousel {
-  width: 1300px;
-  background-color: blanchedalmond;
+  width: max-content;
+  background-color: aquamarine;
 
   &__list {
     display: flex;
@@ -20,6 +25,11 @@
     padding: 0;
     margin: 0;
     list-style: none;
+  }
+
+  &__img {
+    display: block;
+    background-color: blanchedalmond;
   }
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import './Carousel.scss';
 
@@ -8,47 +8,72 @@ type Props = {
   itemWidth?: number,
   frameSize?: number,
   step?: number,
+  animationDuration?: number,
+  infinite?: boolean,
 };
 
 const Carousel: React.FC<Props> = ({
-  images, itemWidth = 130, frameSize = 3, step = 3,
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
   const [nextIsDisabled, setNextIsDisabled] = useState(false);
-  const [prevIsDisabled, setPrevIsDisabled] = useState(true);
+  const [prevIsDisabled, setPrevIsDisabled] = useState(!infinite);
+  const [offset, setOffset] = useState(0);
 
-  const stepPixels = itemWidth * step;
-  const frameWidth = itemWidth * frameSize;
+  const itemPadding = 10;
+  const itemWidthPadding = itemWidth + itemPadding * 2;
+  const stepPixels = itemWidthPadding * step;
+  const frameWidth = itemWidthPadding * frameSize;
+  const carouselWidth = itemWidthPadding * images.length;
   const scrollMin = 0;
-  const scrollMax = (itemWidth * images.length) - frameWidth;
-
-  const containerRef = useRef(document.createElement('div'));
+  const scrollMax = carouselWidth - frameWidth;
 
   const onPrevClick = () => {
-    const scrollTo = Math.round(containerRef.current.scrollLeft - stepPixels);
+    let newOffset = offset - stepPixels;
 
-    if (nextIsDisabled) {
-      setNextIsDisabled(false);
+    if (infinite && offset === scrollMin) {
+      newOffset = carouselWidth - frameWidth;
+    } else if (newOffset < scrollMin) {
+      newOffset = scrollMin;
     }
 
-    if (scrollTo <= scrollMin) {
-      setPrevIsDisabled(true);
+    if (!infinite) {
+      if (nextIsDisabled) {
+        setNextIsDisabled(false);
+      }
+
+      if (newOffset === scrollMin) {
+        setPrevIsDisabled(true);
+      }
     }
 
-    containerRef.current.scrollLeft = scrollTo;
+    setOffset(newOffset);
   };
 
   const onNextClick = () => {
-    const scrollTo = Math.round(containerRef.current.scrollLeft + stepPixels);
+    let newOffset = offset + stepPixels;
 
-    if (prevIsDisabled) {
-      setPrevIsDisabled(false);
+    if (infinite && offset === scrollMax) {
+      newOffset = scrollMin;
+    } else if (newOffset > scrollMax) {
+      newOffset = scrollMax;
     }
 
-    if (scrollTo >= scrollMax) {
-      setNextIsDisabled(true);
+    if (!infinite) {
+      if (prevIsDisabled) {
+        setPrevIsDisabled(false);
+      }
+
+      if (newOffset === scrollMax) {
+        setNextIsDisabled(true);
+      }
     }
 
-    containerRef.current.scrollLeft = scrollTo;
+    setOffset(newOffset);
   };
 
   return (
@@ -64,19 +89,29 @@ const Carousel: React.FC<Props> = ({
 
       <div
         className="img-container"
-        ref={containerRef}
         style={{ width: `${frameWidth}px` }}
       >
-        <div className="Carousel">
+        <div
+          className="Carousel"
+          style={{
+            transform: `translateX(-${offset}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
           <ul className="Carousel__list">
             {images.map(img => {
               const key = img.match(/\d+/g) as string[];
 
               return (
-                <li key={key[0]} className="Carousel__item">
+                <li
+                  key={key[0]}
+                  className="Carousel__item"
+                  style={{ padding: `${itemPadding}px` }}
+                >
                   <img
                     src={img}
                     alt={key[0]}
+                    className="Carousel__img"
                     style={{ width: `${itemWidth}px` }}
                   />
                 </li>
@@ -102,6 +137,8 @@ Carousel.defaultProps = {
   itemWidth: 130,
   frameSize: 3,
   step: 3,
+  animationDuration: 1000,
+  infinite: false,
 };
 
 export default Carousel;
