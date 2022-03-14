@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 
 import './Carousel.scss';
@@ -131,14 +131,6 @@ const Carousel: React.FC<Props> = ({
       </button>
     </div>
   );
-};
-
-Carousel.defaultProps = {
-  itemWidth: 130,
-  frameSize: 3,
-  step: 3,
-  animationDuration: 1000,
-  infinite: false,
 };
 
 export default Carousel;
