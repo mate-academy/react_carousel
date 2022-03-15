@@ -1,1 +1,22 @@
 // style go here
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.App{
+  text-align: center;
+
+  // &__controler {
+
+  // }
+
+  &__label {
+    text-align-last: right;
+    display: grid;
+    grid-template-columns: 200px 150px;
+    grid-auto-rows: 25px;
+    gap: 10px;
+    justify-content: center;
+  }
+}
