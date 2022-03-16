@@ -22,47 +22,26 @@ class Carousel extends React.Component<CarouselProps, CarouselState> {
     currentIndex: 0,
   };
 
+  // eslint-disable-next-line react/static-property-placement
+  static defaultProps = {};
+
   timersId: NodeJS.Timeout[] = [];
 
   currentAnimationDuration: number = this.props.animationDuration;
 
   isInfinite = false;
 
-  // eslint-disable-next-line react/static-property-placement
-  static defaultProps = {};
-
   componentDidMount() {
-    const { frameSize, infinite } = this.props;
-
-    if (infinite) {
-      this.setState({ currentIndex: -frameSize });
-      this.setCaruselInfinity();
-    }
+    this.setCarouselInfinity(this.props.infinite);
   }
 
   componentDidUpdate() {
-    const {
-      frameSize, infinite, animationDuration,
-    } = this.props;
-
-    const { currentIndex } = this.state;
-
-    this.currentAnimationDuration = animationDuration;
+    const { infinite } = this.props;
 
     if (infinite && !this.isInfinite) {
-      this.currentAnimationDuration = 0;
-
-      this.setState({ currentIndex: currentIndex + frameSize });
-      this.setCaruselInfinity();
-
-      this.isInfinite = true;
-
-      setTimeout(() => {
-        this.currentAnimationDuration = animationDuration;
-      }, 100);
+      this.setCarouselInfinity();
     } else if (!infinite && this.isInfinite) {
-      this.isInfinite = false;
-      this.setCaruselInfinity(false);
+      this.setCarouselInfinity(false);
     }
   }
 
@@ -94,12 +73,8 @@ class Carousel extends React.Component<CarouselProps, CarouselState> {
     } = this.props;
     const { currentIndex } = this.state;
 
-    let newIndex: number = currentIndex + step;
+    const newIndex: number = currentIndex + step;
     const lastIndex = images.length - frameSize;
-
-    if (newIndex > lastIndex && !infinite) {
-      newIndex = lastIndex;
-    }
 
     const swapIndex = images.length + step + (currentIndex % 2) - frameSize * +(frameSize === 1);
 
@@ -113,22 +88,33 @@ class Carousel extends React.Component<CarouselProps, CarouselState> {
       );
     }
 
-    this.setState({ currentIndex: newIndex });
+    this.setState({
+      currentIndex: !infinite && newIndex > lastIndex ? lastIndex : newIndex,
+    });
   };
 
-  setCaruselInfinity = (setInfinite = true) => {
-    const { images, frameSize } = this.props;
+  setCarouselInfinity = (setInfinite = true) => {
+    this.currentAnimationDuration = 0;
+
+    const { images, frameSize, animationDuration } = this.props;
 
     const imagesClone: string[] = [...images];
 
     if (setInfinite) {
       imagesClone.unshift(...images.slice(-frameSize));
       imagesClone.push(...images.slice(0, frameSize));
+
+      this.setState((state) => ({ currentIndex: state.currentIndex + frameSize }));
     } else {
       this.setState((state) => ({ currentIndex: state.currentIndex - frameSize }));
     }
 
+    this.isInfinite = setInfinite;
     this.setState({ images: imagesClone });
+
+    this.timersId.push(setTimeout(() => {
+      this.currentAnimationDuration = animationDuration;
+    }, 100));
   };
 
   invisibleScroll(startIndex: number, endIndex: number, animationDuration: number) {
@@ -146,6 +132,7 @@ class Carousel extends React.Component<CarouselProps, CarouselState> {
   render() {
     const { itemWidth, frameSize, className } = this.props;
     const { images, currentIndex } = this.state;
+    let nameIndex = 0;
 
     return (
       <div
@@ -154,34 +141,47 @@ class Carousel extends React.Component<CarouselProps, CarouselState> {
           width: frameSize * itemWidth,
         }}
       >
-        <ul
-          className="carousel__list"
-          style={{
-            transition: `transform ${this.currentAnimationDuration}ms`,
-            transform: `translateX(${-currentIndex * itemWidth}px)`,
-            width: images.length * itemWidth,
-          }}
-        >
-          {images.map((image: string, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={`${image}_${index}`}>
-              <img
-                src={image}
-                alt={`${index}`}
-                style={{
-                  width: itemWidth,
-                }}
-              />
-            </li>
-          ))}
-        </ul>
+        <div className="carousel__slider">
+          <ul
+            className="carousel__list"
+            style={{
+              transition: `transform ${this.currentAnimationDuration}ms`,
+              transform: `translateX(-${currentIndex * itemWidth}px)`,
+              width: images.length * itemWidth,
+            }}
+          >
+            {images.map((image: string) => {
+              nameIndex += 1;
+
+              return (
+                <li key={`${image}_${nameIndex}`}>
+                  <img
+                    src={image}
+                    alt={`${nameIndex}`}
+                    style={{
+                      width: itemWidth,
+                    }}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
         <div className="carousel__buttons">
-          <button type="button" onClick={this.prevSlide}>
+          <button
+            type="button"
+            className="carousel__button carousel__button--prev"
+            onClick={this.prevSlide}
+          >
             Prev
           </button>
 
-          <button type="button" onClick={this.nextSlide}>
+          <button
+            type="button"
+            className="carousel__button carousel__button--next"
+            onClick={this.nextSlide}
+          >
             Next
           </button>
         </div>
