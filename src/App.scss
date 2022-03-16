@@ -1,15 +1,10 @@
-// style go here
 ul {
   padding: 0;
   list-style: none;
 }
 
-.App{
+.app{
   text-align: center;
-
-  // &__controler {
-
-  // }
 
   &__label {
     text-align-last: right;
@@ -18,5 +13,9 @@ ul {
     grid-auto-rows: 25px;
     gap: 10px;
     justify-content: center;
+  }
+
+  &__carousel {
+    margin: 0 auto 30px;
   }
 }

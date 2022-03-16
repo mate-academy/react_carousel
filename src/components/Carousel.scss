@@ -1,11 +1,9 @@
-// style go here
-.Carousel {
-  margin: 0 auto;
-
+.carousel {
   overflow: hidden;
 
   &__list {
     width: 1300px;
     display: flex;
+    margin-bottom: 20px;
   }
 }

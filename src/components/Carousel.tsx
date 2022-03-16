@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import './Carousel.scss';
 
 type CarouselProps = {
@@ -8,52 +8,61 @@ type CarouselProps = {
   itemWidth: number,
   animationDuration: number,
   infinite: boolean,
+  className?: string,
 };
 
 type CarouselState = {
   images: string[],
-  shift: number,
-  isInfinite: boolean,
-  animationDuration: number,
+  currentIndex: number,
 };
 
-class Carousel extends Component<CarouselProps, CarouselState> {
+class Carousel extends React.Component<CarouselProps, CarouselState> {
   state = {
     images: this.props.images,
-    shift: 0,
-    isInfinite: false,
-    animationDuration: this.props.animationDuration,
+    currentIndex: 0,
   };
 
   timersId: NodeJS.Timeout[] = [];
 
+  currentAnimationDuration: number = this.props.animationDuration;
+
+  isInfinite = false;
+
+  // eslint-disable-next-line react/static-property-placement
+  static defaultProps = {};
+
   componentDidMount() {
-    const { frameSize, itemWidth, infinite } = this.props;
+    const { frameSize, infinite } = this.props;
 
     if (infinite) {
-      this.state.shift = -frameSize * itemWidth;
-      this.setCaruselIsInfinity();
+      this.setState({ currentIndex: -frameSize });
+      this.setCaruselInfinity();
     }
   }
 
   componentDidUpdate() {
     const {
-      frameSize, itemWidth, infinite, animationDuration,
+      frameSize, infinite, animationDuration,
     } = this.props;
 
-    const { shift, isInfinite } = this.state;
+    const { currentIndex } = this.state;
 
-    if (infinite && !isInfinite) {
-      this.setState({ animationDuration: 0 });
+    this.currentAnimationDuration = animationDuration;
 
-      this.setState({ shift: shift - frameSize * itemWidth });
-      this.setCaruselIsInfinity();
+    if (infinite && !this.isInfinite) {
+      this.currentAnimationDuration = 0;
 
-      this.setState({ isInfinite: true });
+      this.setState({ currentIndex: currentIndex + frameSize });
+      this.setCaruselInfinity();
 
-      setTimeout((context) => {
-        context.setState({ animationDuration });
-      }, 0, this);
+      this.isInfinite = true;
+
+      setTimeout(() => {
+        this.currentAnimationDuration = animationDuration;
+      }, 100);
+    } else if (!infinite && this.isInfinite) {
+      this.isInfinite = false;
+      this.setCaruselInfinity(false);
     }
   }
 
@@ -61,87 +70,96 @@ class Carousel extends Component<CarouselProps, CarouselState> {
     this.timersId.forEach(clearTimeout);
   }
 
-  prevButton = () => {
-    const {
-      itemWidth, step, infinite, images,
-    } = this.props;
-    const { shift, animationDuration } = this.state;
-    let newShift: number = shift + itemWidth * step;
+  prevSlide = () => {
+    const { step, infinite, images } = this.props;
+    const { currentIndex } = this.state;
+    const newIndex: number = currentIndex - step;
 
-    if (newShift > 0 && !infinite) {
-      newShift = 0;
+    if (newIndex <= 0 && infinite) {
+      const startIndex = images.length + newIndex;
+
+      this.invisibleScroll(
+        startIndex + step,
+        startIndex,
+        this.currentAnimationDuration,
+      );
     }
 
-    if (newShift > 0 && infinite) {
-      this.timersId.push(setTimeout(() => {
-        this.setState({ animationDuration: 0 });
-        this.setState({ shift: -itemWidth * images.length });
-      }, 0));
-
-      this.timersId.push(setTimeout(() => {
-        this.setState({ animationDuration });
-        this.setState({ shift: -itemWidth * (images.length - 1) });
-      }, 100));
-    }
-
-    this.setState({ shift: newShift });
+    this.setState({ currentIndex: newIndex > 0 ? newIndex : 0 });
   };
 
-  nextButton = () => {
+  nextSlide = () => {
     const {
-      itemWidth, step, frameSize, infinite, images,
+      step, frameSize, infinite, images,
     } = this.props;
-    const { shift, animationDuration } = this.state;
+    const { currentIndex } = this.state;
 
-    let newShift: number = shift - itemWidth * step;
-    const condition = newShift < itemWidth * (frameSize - images.length);
+    let newIndex: number = currentIndex + step;
+    const lastIndex = images.length - frameSize;
 
-    if (condition && !infinite) {
-      newShift = shift - (images.length + shift / itemWidth) * itemWidth + frameSize * itemWidth;
+    if (newIndex > lastIndex && !infinite) {
+      newIndex = lastIndex;
     }
 
-    if (condition && infinite) {
-      this.timersId.push(setTimeout(() => {
-        this.setState({ animationDuration: 0 });
-        this.setState({ shift: -frameSize * itemWidth });
-      }, 0));
+    const swapIndex = images.length + step + (currentIndex % 2) - frameSize * +(frameSize === 1);
 
-      this.timersId.push(setTimeout(() => {
-        this.setState({ animationDuration });
-        this.setState({ shift: -(frameSize + 1) * itemWidth });
-      }, 100));
+    if (newIndex >= swapIndex && infinite) {
+      const startIndex = (currentIndex % 2) + (newIndex - swapIndex) * +(frameSize !== 1);
+
+      this.invisibleScroll(
+        startIndex,
+        step + startIndex,
+        this.currentAnimationDuration,
+      );
     }
 
-    this.setState({ shift: newShift });
+    this.setState({ currentIndex: newIndex });
   };
 
-  setCaruselIsInfinity = () => {
+  setCaruselInfinity = (setInfinite = true) => {
     const { images, frameSize } = this.props;
 
     const imagesClone: string[] = [...images];
 
-    imagesClone.unshift(...images.slice(-frameSize));
-    imagesClone.push(...images.slice(0, frameSize));
+    if (setInfinite) {
+      imagesClone.unshift(...images.slice(-frameSize));
+      imagesClone.push(...images.slice(0, frameSize));
+    } else {
+      this.setState((state) => ({ currentIndex: state.currentIndex - frameSize }));
+    }
 
     this.setState({ images: imagesClone });
   };
 
+  invisibleScroll(startIndex: number, endIndex: number, animationDuration: number) {
+    this.timersId.push(setTimeout(() => {
+      this.currentAnimationDuration = 0;
+      this.setState({ currentIndex: startIndex });
+    }, 0));
+
+    this.timersId.push(setTimeout(() => {
+      this.currentAnimationDuration = animationDuration;
+      this.setState({ currentIndex: endIndex });
+    }, 100));
+  }
+
   render() {
-    const { itemWidth, frameSize } = this.props;
-    const { images, animationDuration, shift } = this.state;
+    const { itemWidth, frameSize, className } = this.props;
+    const { images, currentIndex } = this.state;
 
     return (
       <div
-        className="Carousel"
+        className={`carousel ${className}`}
         style={{
           width: frameSize * itemWidth,
         }}
       >
         <ul
-          className="Carousel__list"
+          className="carousel__list"
           style={{
-            transform: `translateX(${shift}px)`,
-            transition: `transform ${animationDuration}ms`,
+            transition: `transform ${this.currentAnimationDuration}ms`,
+            transform: `translateX(${-currentIndex * itemWidth}px)`,
+            width: images.length * itemWidth,
           }}
         >
           {images.map((image: string, index) => (
@@ -158,16 +176,20 @@ class Carousel extends Component<CarouselProps, CarouselState> {
           ))}
         </ul>
 
-        <button type="button" onClick={this.prevButton}>
-          Prev
-        </button>
+        <div className="carousel__buttons">
+          <button type="button" onClick={this.prevSlide}>
+            Prev
+          </button>
 
-        <button type="button" onClick={this.nextButton}>
-          Next
-        </button>
+          <button type="button" onClick={this.nextSlide}>
+            Next
+          </button>
+        </div>
       </div>
     );
   }
 }
+
+Carousel.defaultProps = { className: '' };
 
 export default Carousel;

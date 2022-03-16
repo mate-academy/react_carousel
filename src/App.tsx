@@ -7,17 +7,17 @@ interface State {
   frameSize: number,
   step: number,
   itemWidth: number,
-  infinite: boolean,
   animationDuration: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
   state = {
     animationDuration: 1000,
-    itemWidth: 130,
-    step: 1,
-    frameSize: 1,
     infinite: false,
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
     images: [
       './img/1.png',
       './img/2.png',
@@ -32,14 +32,34 @@ class App extends React.Component<{}, State> {
     ],
   };
 
+  setInfinity(value: boolean) {
+    this.setState({ infinite: value });
+  }
+
+  setFrameSize(value: number) {
+    this.setState({ frameSize: value });
+  }
+
+  setStep(value: number) {
+    this.setState({ step: value });
+  }
+
+  setItemWidth(value: number) {
+    this.setState({ itemWidth: value });
+  }
+
+  setAnimationDuration(value: number) {
+    this.setState({ animationDuration: value });
+  }
+
   render() {
     const {
       images, frameSize, step, animationDuration, itemWidth, infinite,
     } = this.state;
 
     return (
-      <div className="App">
-        <h1 className="App__title">Carousel</h1>
+      <div className="app">
+        <h1 className="app__title">Carousel</h1>
 
         <Carousel
           images={images}
@@ -48,45 +68,38 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           animationDuration={animationDuration}
           infinite={infinite}
+          className="app__carousel"
         />
 
-        <div className="App__controler">
-          <label htmlFor="frameSize" className="App__label">
-            {'Frame size: '}
-            {frameSize}
+        <div className="app__controler">
+          <label htmlFor="frameSize" className="app__label">
+            {`Frame size: ${frameSize}`}
 
             <input
               id="frameSize"
               type="range"
               min={1}
               max={images.length}
-              // max={10}
               value={frameSize}
-              onChange={(e) => {
-                this.setState({ frameSize: +e.target.value });
-              }}
+              onChange={(e) => this.setFrameSize(+e.target.value)}
             />
           </label>
 
-          <label htmlFor="step" className="App__label">
-            {'Step: '}
-            {step}
+          <label htmlFor="step" className="app__label">
+            {`Step: ${step}`}
 
             <input
               id="step"
               type="range"
               min={1}
-              max={images.length}
+              max={frameSize}
               value={step}
-              onChange={(e) => {
-                this.setState({ step: +e.target.value });
-              }}
+              onChange={(e) => this.setStep(+e.target.value)}
             />
           </label>
 
-          <label htmlFor="animationDuration" className="App__label">
-            {'Animation duration: '}
-            {animationDuration}
+          <label htmlFor="animationDuration" className="app__label">
+            {`Animation duration: ${animationDuration}`}
 
             <input
               id="animationDuration"
@@ -95,15 +108,12 @@ class App extends React.Component<{}, State> {
               max={1000}
               step={100}
               value={animationDuration}
-              onChange={(e) => {
-                this.setState({ animationDuration: +e.target.value });
-              }}
+              onChange={(e) => this.setAnimationDuration(+e.target.value)}
             />
           </label>
 
-          <label htmlFor="itemWidth" className="App__label">
-            {'Item width: '}
-            {itemWidth}
+          <label htmlFor="itemWidth" className="app__label">
+            {`Item width: ${itemWidth}`}
 
             <input
               id="itemWidth"
@@ -112,15 +122,12 @@ class App extends React.Component<{}, State> {
               max={250}
               step={10}
               value={itemWidth}
-              onChange={(e) => {
-                this.setState({ itemWidth: +e.target.value });
-              }}
+              onChange={(e) => this.setItemWidth(+e.target.value)}
             />
           </label>
 
-          <label htmlFor="infinite" className="App__label">
+          <label htmlFor="infinite" className="app__label">
             {'Infinite: '}
-            {infinite}
 
             <input
               id="infinite"
@@ -129,11 +136,11 @@ class App extends React.Component<{}, State> {
               max={250}
               step={10}
               checked={infinite}
-              onChange={(e) => {
-                this.setState({ infinite: e.target.checked });
-              }}
+              onChange={(e) => this.setInfinity(e.target.checked)}
             />
           </label>
+
+          <p className="app__info">INFO: To make endless mode work properly, first select &quot;frameSize&quot;</p>
         </div>
 
       </div>
