@@ -1,1 +1,49 @@
 // style go here
+
+.container {
+  position: relative;
+  margin: auto;
+  padding: 10px 100px;
+}
+
+.carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &-item {
+      display: block;
+    }
+  }
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: 64px;
+  height: 64px;
+  color: transparent;
+  border-radius: 50%;
+  border: transparent;
+  background-color: transparent;
+}
+
+.btn-prev {
+  left: 7px;
+  background-image: url("../assets/img/icons8-wide-left-arrow-64.png");
+}
+
+.btn-next {
+  right: 7px;
+  background-image: url("../assets/img/icons8-wide-right-arrow-64.png");
+}
+
+.disabled {
+  opacity: 0.4;
+}
