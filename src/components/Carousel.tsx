@@ -48,14 +48,18 @@ class Carousel extends React.Component<Img, State> {
       animationDuration,
     } = this.state;
 
+    const frameSizeOptionArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const animSpeedOptionArr = [200, 500, 1000, 1500, 2000, 3000];
+    const stepOptionArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
     const frameWidth = itemWidth * frameSize;
     const marginStep = position * itemWidth;
 
     return (
-      <div className="Carousel">
-        <div className="Carousel__wrap" style={{ width: `${frameWidth}px`, overflow: 'hidden' }}>
+      <div className="carousel">
+        <div className="carousel__wrap" style={{ width: `${frameWidth}px` }}>
           <ul
-            className="Carousel__list"
+            className="carousel__list"
             style={
               {
                 width: `${itemWidth * 10}px`,
@@ -66,7 +70,7 @@ class Carousel extends React.Component<Img, State> {
             }
           >
             {images.map((imgLink: string) => (
-              <li className="Carousel__item" key={images.indexOf(imgLink)}>
+              <li className="carousel__item" key={images.indexOf(imgLink)}>
                 <img
                   src={imgLink}
                   alt="img"
@@ -77,10 +81,10 @@ class Carousel extends React.Component<Img, State> {
           </ul>
         </div>
 
-        <div className="Carousel__btn-wrap">
+        <div className="carousel__btn-wrap">
           <button
             type="button"
-            className="Carousel__btn"
+            className="carousel__btn"
             onClick={() => {
               this.moveLeft();
             }}
@@ -90,7 +94,7 @@ class Carousel extends React.Component<Img, State> {
 
           <button
             type="button"
-            className="Carousel__btn"
+            className="carousel__btn"
             onClick={() => {
               this.moveRight();
             }}
@@ -100,7 +104,7 @@ class Carousel extends React.Component<Img, State> {
         </div>
         <br />
 
-        <fieldset className="Carousel__fieldset">
+        <fieldset className="carousel__fieldset">
           <legend>Size item</legend>
           <input
             type="number"
@@ -113,7 +117,7 @@ class Carousel extends React.Component<Img, State> {
           />
         </fieldset>
 
-        <fieldset className="Carousel__fieldset">
+        <fieldset className="carousel__fieldset">
           <legend>Select frame size</legend>
           <select
             name="size"
@@ -124,20 +128,15 @@ class Carousel extends React.Component<Img, State> {
               );
             }}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {frameSizeOptionArr.map((option: number) => (
+              <option value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </fieldset>
 
-        <fieldset className="Carousel__fieldset">
+        <fieldset className="carousel__fieldset">
           <legend>Animation speed</legend>
           <select
             name="animationDuration"
@@ -148,16 +147,15 @@ class Carousel extends React.Component<Img, State> {
               );
             }}
           >
-            <option value="200">0.2s</option>
-            <option value="500">0.5s</option>
-            <option value="1000">1s</option>
-            <option value="1500">1.5s</option>
-            <option value="2000">2s</option>
-            <option value="3000">3s</option>
+            {animSpeedOptionArr.map((option: number) => (
+              <option value={option}>
+                {`${option / 1000}s`}
+              </option>
+            ))}
           </select>
         </fieldset>
 
-        <fieldset className="Carousel__fieldset">
+        <fieldset className="carousel__fieldset">
           <legend>Step</legend>
           <select
             name="step"
@@ -168,16 +166,11 @@ class Carousel extends React.Component<Img, State> {
               );
             }}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {stepOptionArr.map((option: number) => (
+              <option value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </fieldset>
       </div>

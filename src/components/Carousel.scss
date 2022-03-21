@@ -1,6 +1,8 @@
-.Carousel {
+.carousel {
   &__wrap {
     margin-bottom: 30px;
+
+    overflow: hidden;
   }
 
   &__list {
