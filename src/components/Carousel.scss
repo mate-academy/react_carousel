@@ -1,1 +1,84 @@
-// style go here
+@import './variables.scss';
+@import './placeholder.scss';
+
+.Carousel {
+  &-container {
+    position: relative;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    padding-left: 0;
+
+    width: $width;
+    height: 147px;
+
+    &-img {
+      display: inline-block;
+
+      width: 130px;
+      height: 130px;
+    }
+  }
+
+  &__prev-button,
+  &__next-button {
+    width: 30px;
+    height: 30px;
+    transition: .5s;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__prev-button {
+    border-top: transparent;
+    border-right: transparent;
+    float: left;
+    position: absolute;
+    left: 25px;
+    transform: rotate(45deg);
+  }
+
+  &__next-button {
+    float: right;
+    position: absolute;
+    right: 25px;
+    transform: rotate(225deg);
+
+    border-top: transparent;
+    border-right: transparent;
+  }
+
+  &__next-button:hover,
+  &__prev-button:hover {
+    box-shadow: -2px 2px 0 rgba(50, 255, 50, 1);
+  }
+
+  &__setItemWidth {
+    margin-top: 100px;
+    @extend %bottom-spacing;
+  }
+
+  &__setFrame {
+    @extend %bottom-spacing;
+    margin-left: 14px;
+  }
+
+  &__setStep {
+    margin-left: 64px;
+    @extend %bottom-spacing;
+  }
+
+  &__animationTime {
+    margin-left: 9px;
+    @extend %bottom-spacing;
+  }
+}
+
+.disabled:disabled:hover {
+  box-shadow: -2px 2px 0 rgba(250, 50, 50, 1);
+  cursor: default;
+}
