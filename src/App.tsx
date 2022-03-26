@@ -29,7 +29,9 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1>
           Carousel with
+          {' '}
           {images.length}
+          {' '}
           images
         </h1>
 
