@@ -1,1 +1,85 @@
-// style go here
+@import './variables.scss';
+@import './placeholder.scss';
+
+.Carousel {
+  &-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: nowrap;
+
+    padding-left: 0;
+
+    &-img {
+      display: inline-block;
+
+      padding-left: 1px;
+    }
+  }
+}
+
+.Control-panel {
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__setItemWidth {
+    margin-top: 50px;
+    @extend %bottom-spacing;
+  }
+
+  &__setFrame {
+    @extend %bottom-spacing;
+    margin-left: 14px;
+  }
+
+  &__setStep {
+    margin-left: 64px;
+    @extend %bottom-spacing;
+  }
+
+  &__animationTime {
+    margin-left: 9px;
+    @extend %bottom-spacing;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  &__prev-button,
+  &__next-button {
+    width: 30px;
+    height: 30px;
+    transition: .5s;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__prev-button {
+    border-top: transparent;
+    border-right: transparent;
+    transform: rotate(45deg);
+  }
+
+  &__next-button {
+    transform: rotate(225deg);
+
+    border-top: transparent;
+    border-right: transparent;
+  }
+
+  &__next-button:hover,
+  &__prev-button:hover {
+    border-color: rgba(50, 255, 50, 1);
+  }
+}
+
+.disabled:disabled:hover {
+  border-color: rgba(250, 50, 50, 1);
+  cursor: default;
+}
