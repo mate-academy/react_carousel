@@ -1,1 +1,161 @@
-// style go here
+$border-color: #888;
+$block-width: 300px;
+
+.Carousel {
+  width: auto;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    box-sizing: content-box;
+    height: max-content;
+    border: 1px solid $border-color;
+    border-radius: 30px;
+    overflow-x: hidden;
+    padding: 20px 0;
+    margin: 0 0 50px;
+  }
+
+  &__list {
+    scroll-behavior: smooth;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: max-content;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__move-buttons {
+    margin: 0 0 30px;
+  }
+}
+
+.move-buttons {
+  width: $block-width;
+  padding: 0 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__button {
+    cursor: pointer;
+    font-size: 70px;
+    font-weight: 700;
+    font-family: "Courier New", "Courier", monospace;
+    line-height: 0;
+    border: none;
+    background-color: transparent;
+    color: #616161;
+    transition: color 0.3s linear;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+.option-buttons {
+  border: 1px solid $border-color;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  min-width: 300px;
+
+  &__box {
+    width: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      margin: 0 0 20px;
+    }
+  }
+
+  &__plug {
+    font-size: 0;
+    color: transparent;
+    background-color: transparent;
+    width: 30px;
+  }
+
+  &__info {
+    width: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.button {
+  font-size: 20px;
+  line-height: 0;
+  width: 30px;
+  height: 30px;
+  color: #616161;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  background-color: #eee;
+  transition: all 0.3s linear;
+
+  &:hover {
+    color: #eee;
+    background-color: $border-color;
+    border-color: $border-color;
+  }
+}
+
+.info {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #616161;
+}
+
+.option-buttons__checkbox {
+  display: flex;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  line-height: 0;
+  color: transparent;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background-color: #eee;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: $border-color;
+    border-color: $border-color;
+    color: #eee;
+  }
+}
+
+.checkbox {
+  width: 0;
+  height: 0;
+}
+
+.checkbox:checked + label {
+  color: #69884c;
+}
+
+.checkbox:checked + label:hover {
+  color: #eee;
+}
