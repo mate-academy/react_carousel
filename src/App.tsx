@@ -27,7 +27,7 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 className="App__title">
+        <h1 className="App__title mb-3">
           {`${images.length}-image carousel`}
         </h1>
 

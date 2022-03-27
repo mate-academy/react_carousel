@@ -5,3 +5,9 @@
 html {
   letter-spacing: -1px;
 }
+
+.App {
+  &__title {
+    text-align: center;
+  }
+}

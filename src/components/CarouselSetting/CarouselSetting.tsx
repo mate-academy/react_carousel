@@ -24,22 +24,25 @@ export const CarouselSetting: React.FC<Props> = ({
   const convertedId = convertToLabel(id);
 
   return (
-    <div>
-      <label htmlFor={id}>
+    <div className="d-flex justify-content-between">
+      <label
+        className="me-2 text-center"
+        htmlFor={id}
+      >
         {convertedId[0].toUpperCase() + convertedId.slice(1)}
-
-        <input
-          id={id}
-          type="range"
-          step={step}
-          min={range[0]}
-          max={range[1]}
-          defaultValue={defaultValue}
-          onChange={({ target }) => (
-            callback(Number(target.value))
-          )}
-        />
       </label>
+
+      <input
+        id={id}
+        type="range"
+        step={step}
+        min={range[0]}
+        max={range[1]}
+        defaultValue={defaultValue}
+        onChange={({ target }) => (
+          callback(Number(target.value))
+        )}
+      />
     </div>
   );
 };

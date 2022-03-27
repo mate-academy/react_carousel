@@ -1,6 +1,6 @@
 import './Carousel.scss';
 import { Component } from 'react';
-import { CarouselSetting } from '../CarouselSetting/CarouselSetting';
+import { CarouselSetting } from '../CarouselSetting';
 
 interface Props {
   images: string[];
@@ -40,8 +40,7 @@ export class Carousel extends Component<Props, State> {
   };
 
   handleNextButtonClick = () => {
-    const spaceRequired
-      = this.getAvailableTranslate() + this.getNextShift();
+    const spaceRequired = this.getAvailableTranslate() + this.getNextShift();
 
     if (this.state.translateValue >= spaceRequired) {
       this.setState(state => ({
@@ -88,7 +87,12 @@ export class Carousel extends Component<Props, State> {
     } = this.state;
 
     return (
-      <div className="Carousel">
+      <div
+        className="
+          Carousel
+          d-flex flex-column align-items-center
+        "
+      >
         <div
           className="Carousel__container"
           style={{
@@ -96,19 +100,15 @@ export class Carousel extends Component<Props, State> {
           }}
         >
           <ul
-            className="Carousel__list"
+            className="Carousel__list d-flex"
             style={{
               transform: `translateX(${translateValue}px)`,
               transition: `transform ${animationDuration}ms`,
             }}
           >
             {images.map((image, index) => (
-              <li
-                className="Carousel__list-item"
-                key={image}
-              >
+              <li key={image}>
                 <img
-                  className="Carousel__list-image"
                   src={image}
                   alt={String(index)}
                   style={{
@@ -120,52 +120,63 @@ export class Carousel extends Component<Props, State> {
           </ul>
         </div>
 
-        <div className="Carousel__controlPanel">
-          <button
-            type="button"
-            onClick={this.handlePreviousButtonClick}
-          >
-            Previous
-          </button>
+        <div
+          className="
+            Carousel__control
+            d-flex flex-column align-items-center
+          "
+        >
+          <div className="mb-3">
+            <button
+              className="Carousel__control-button me-3"
+              type="button"
+              onClick={this.handlePreviousButtonClick}
+            >
+              Previous
+            </button>
 
-          <button
-            type="button"
-            onClick={this.handleNextButtonClick}
-          >
-            Next
-          </button>
+            <button
+              className="Carousel__control-button"
+              type="button"
+              onClick={this.handleNextButtonClick}
+            >
+              Next
+            </button>
+          </div>
 
-          <CarouselSetting
-            id="width"
-            step={10}
-            range={[0, 260]}
-            defaultValue={130}
-            callback={this.setItemWidth}
-          />
+          <div>
+            <CarouselSetting
+              id="width"
+              step={10}
+              range={[50, 260]}
+              defaultValue={130}
+              callback={this.setItemWidth}
+            />
 
-          <CarouselSetting
-            id="frameSize"
-            step={1}
-            range={[1, 5]}
-            defaultValue={3}
-            callback={this.setFrameSize}
-          />
+            <CarouselSetting
+              id="frameSize"
+              step={1}
+              range={[1, 5]}
+              defaultValue={3}
+              callback={this.setFrameSize}
+            />
 
-          <CarouselSetting
-            id="step"
-            step={1}
-            range={[1, 5]}
-            defaultValue={3}
-            callback={this.setStep}
-          />
+            <CarouselSetting
+              id="step"
+              step={1}
+              range={[1, 5]}
+              defaultValue={3}
+              callback={this.setStep}
+            />
 
-          <CarouselSetting
-            id="animationDuration"
-            step={100}
-            range={[1, 3000]}
-            defaultValue={1000}
-            callback={this.setAnimationDuration}
-          />
+            <CarouselSetting
+              id="animationDuration"
+              step={100}
+              range={[100, 3000]}
+              defaultValue={1000}
+              callback={this.setAnimationDuration}
+            />
+          </div>
         </div>
       </div>
     );
