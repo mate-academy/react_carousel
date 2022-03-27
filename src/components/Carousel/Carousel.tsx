@@ -23,7 +23,7 @@ export class Carousel extends Component<Props, State> {
     translateValue: 0,
   };
 
-  getNextShift = (): number => (
+  getNextShift = () => (
     this.state.step * this.state.itemWidth
   );
 
@@ -32,20 +32,32 @@ export class Carousel extends Component<Props, State> {
   );
 
   handlePreviousButtonClick = () => {
-    if (this.state.translateValue <= -this.getNextShift()) {
+    const { translateValue } = this.state;
+
+    if (translateValue < -this.getNextShift()) {
       this.setState(state => ({
         translateValue: state.translateValue + this.getNextShift(),
       }));
+    } else {
+      this.setState({
+        translateValue: 0,
+      });
     }
   };
 
   handleNextButtonClick = () => {
-    const spaceRequired = this.getAvailableTranslate() + this.getNextShift();
+    const { translateValue } = this.state;
+    const availableTranslate = this.getAvailableTranslate();
+    const spaceRequired = availableTranslate + this.getNextShift();
 
-    if (this.state.translateValue >= spaceRequired) {
+    if (translateValue >= spaceRequired) {
       this.setState(state => ({
         translateValue: state.translateValue - this.getNextShift(),
       }));
+    } else {
+      this.setState({
+        translateValue: availableTranslate,
+      });
     }
   };
 
@@ -131,14 +143,16 @@ export class Carousel extends Component<Props, State> {
               className="Carousel__control-button me-3"
               type="button"
               onClick={this.handlePreviousButtonClick}
+              disabled={!this.state.translateValue}
             >
               Previous
             </button>
 
             <button
-              className="Carousel__control-button"
+              className="Carousel__control-button me-3"
               type="button"
               onClick={this.handleNextButtonClick}
+              disabled={this.state.translateValue === this.getAvailableTranslate()}
             >
               Next
             </button>
