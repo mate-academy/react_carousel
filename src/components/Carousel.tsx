@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import './Carousel.scss';
 
@@ -81,7 +80,7 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="button-wrapper">
           <button
-            className={classNames('button-arrow', { 'button-arrow--disabled': swipeDistance === 0 })}
+            className="button-arrow"
             type="button"
             disabled={swipeDistance === 0}
             onClick={this.scrollToLeft}
@@ -90,10 +89,7 @@ export class Carousel extends React.Component<Props, State> {
           </button>
 
           <button
-            className={classNames('button-arrow', {
-              'button-arrow--disabled':
-                swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth)),
-            })}
+            className="button-arrow"
             type="button"
             disabled={swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth))}
             onClick={this.scrollToRight}
