@@ -8,16 +8,15 @@ interface Props {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
 }
 
 interface State {
-  scrollLeft: number
+  swipeDistance: number
 }
 
 export class Carousel extends React.Component<Props, State> {
   state = {
-    scrollLeft: 0,
+    swipeDistance: 0,
   };
 
   scrollToLeft = () => {
@@ -26,12 +25,12 @@ export class Carousel extends React.Component<Props, State> {
 
       let stepDistance = step * itemWidth;
 
-      if (-state.scrollLeft < step * itemWidth) {
-        stepDistance = -state.scrollLeft;
+      if (-state.swipeDistance < step * itemWidth) {
+        stepDistance = -state.swipeDistance;
       }
 
       return {
-        scrollLeft: state.scrollLeft + stepDistance,
+        swipeDistance: state.swipeDistance + stepDistance,
       };
     });
   };
@@ -46,32 +45,29 @@ export class Carousel extends React.Component<Props, State> {
 
       const containerWidth = itemWidth * images.length;
 
-      if (-state.scrollLeft > containerWidth - ((step + frameSize) * itemWidth)) {
-        stepDistance = containerWidth + state.scrollLeft - frameSize * itemWidth;
+      if (-state.swipeDistance > containerWidth - ((step + frameSize) * itemWidth)) {
+        stepDistance = containerWidth + state.swipeDistance - frameSize * itemWidth;
       }
 
       return {
-        scrollLeft: state.scrollLeft - stepDistance,
+        swipeDistance: state.swipeDistance - stepDistance,
       };
     });
   };
 
   render() {
-    const { scrollLeft } = this.state;
+    const { swipeDistance } = this.state;
     const {
-      images, frameSize, itemWidth, animationDuration, infinite,
+      images, frameSize, itemWidth, animationDuration,
     } = this.props;
 
     const carouselStyle = {
       width: `${frameSize * itemWidth}px`,
     };
 
-    if (infinite) {
-      // const containerWidth = itemWidth * images.length;
-    }
-
     const listStyle = {
-      transform: `translateX(${scrollLeft}px)`,
+      width: `${itemWidth * images.length}px`,
+      transform: `translateX(${swipeDistance}px)`,
       transition: `transform ${animationDuration}ms`,
     };
 
@@ -85,9 +81,9 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="button-wrapper">
           <button
-            className={classNames('button-arrow', { buttonDisabled: scrollLeft === 0 })}
+            className={classNames('button-arrow', { buttonDisabled: swipeDistance === 0 })}
             type="button"
-            disabled={scrollLeft === 0}
+            disabled={swipeDistance === 0}
             onClick={this.scrollToLeft}
           >
             {'<'}
@@ -95,10 +91,11 @@ export class Carousel extends React.Component<Props, State> {
 
           <button
             className={classNames('button-arrow', {
-              buttonDisabled: scrollLeft === -(itemWidth * images.length - (frameSize * itemWidth)),
+              buttonDisabled:
+                swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth)),
             })}
             type="button"
-            disabled={scrollLeft === -(itemWidth * images.length - (frameSize * itemWidth))}
+            disabled={swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth))}
             onClick={this.scrollToRight}
           >
             {'>'}
