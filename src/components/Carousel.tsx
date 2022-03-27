@@ -1,6 +1,6 @@
 import './Carousel.scss';
 import { Component } from 'react';
-import { CarouselSetting } from '../CarouselSetting';
+import { CarouselSetting } from './CarouselSetting';
 
 interface Props {
   images: string[];

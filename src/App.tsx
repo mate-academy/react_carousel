@@ -1,6 +1,7 @@
 import './App.scss';
 import { Component } from 'react';
 import { Carousel } from './components/Carousel';
+import '.';
 
 interface State {
   images: string[];
