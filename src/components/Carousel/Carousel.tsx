@@ -1,5 +1,6 @@
 import './Carousel.scss';
 import { Component } from 'react';
+import { CarouselSetting } from '../CarouselSetting/CarouselSetting';
 
 interface Props {
   images: string[];
@@ -27,8 +28,7 @@ export class Carousel extends Component<Props, State> {
   );
 
   getAvailableTranslate = () => (
-    (this.state.frameSize - this.props.images.length)
-      * this.state.itemWidth
+    (this.state.frameSize - this.props.images.length) * this.state.itemWidth
   );
 
   handlePreviousButtonClick = () => {
@@ -52,24 +52,28 @@ export class Carousel extends Component<Props, State> {
 
   setStep = (value: number) => {
     this.setState({
+      translateValue: 0,
       step: value,
     });
   };
 
   setFrameSize = (value: number) => {
     this.setState({
+      translateValue: 0,
       frameSize: value,
     });
   };
 
   setItemWidth = (value: number) => {
     this.setState({
+      translateValue: 0,
       itemWidth: value,
     });
   };
 
   setAnimationDuration = (value: number) => {
     this.setState({
+      translateValue: 0,
       animationDuration: value,
     });
   };
@@ -114,7 +118,9 @@ export class Carousel extends Component<Props, State> {
               </li>
             ))}
           </ul>
+        </div>
 
+        <div className="Carousel__controlPanel">
           <button
             type="button"
             onClick={this.handlePreviousButtonClick}
@@ -128,6 +134,38 @@ export class Carousel extends Component<Props, State> {
           >
             Next
           </button>
+
+          <CarouselSetting
+            id="width"
+            step={10}
+            range={[0, 260]}
+            defaultValue={130}
+            callback={this.setItemWidth}
+          />
+
+          <CarouselSetting
+            id="frameSize"
+            step={1}
+            range={[1, 5]}
+            defaultValue={3}
+            callback={this.setFrameSize}
+          />
+
+          <CarouselSetting
+            id="step"
+            step={1}
+            range={[1, 5]}
+            defaultValue={3}
+            callback={this.setStep}
+          />
+
+          <CarouselSetting
+            id="animationDuration"
+            step={100}
+            range={[1, 3000]}
+            defaultValue={1000}
+            callback={this.setAnimationDuration}
+          />
         </div>
       </div>
     );
