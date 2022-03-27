@@ -16,9 +16,9 @@
 
 .button-arrow {
   cursor: pointer;
-}
 
-.buttonDisabled {
-  cursor: default;
-  opacity: 0.5;
+  &--disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
 }

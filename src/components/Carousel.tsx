@@ -81,7 +81,7 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="button-wrapper">
           <button
-            className={classNames('button-arrow', { buttonDisabled: swipeDistance === 0 })}
+            className={classNames('button-arrow', { 'button-arrow--disabled': swipeDistance === 0 })}
             type="button"
             disabled={swipeDistance === 0}
             onClick={this.scrollToLeft}
@@ -91,7 +91,7 @@ export class Carousel extends React.Component<Props, State> {
 
           <button
             className={classNames('button-arrow', {
-              buttonDisabled:
+              'button-arrow--disabled':
                 swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth)),
             })}
             type="button"
