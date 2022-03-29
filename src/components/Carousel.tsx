@@ -24,7 +24,9 @@ export class Carousel extends React.Component<Props, State> {
 
       let stepDistance = step * itemWidth;
 
-      if (-state.swipeDistance < stepDistance) {
+      const isBeforeTheLeftEdge = -state.swipeDistance < stepDistance;
+
+      if (isBeforeTheLeftEdge) {
         stepDistance = -state.swipeDistance;
       }
 
@@ -44,8 +46,13 @@ export class Carousel extends React.Component<Props, State> {
 
       const containerWidth = itemWidth * images.length;
 
-      if (-state.swipeDistance > containerWidth - ((step + frameSize) * itemWidth)) {
-        stepDistance = containerWidth + state.swipeDistance - frameSize * itemWidth;
+      const isAfterTheRightEdge = -state.swipeDistance
+        > containerWidth - ((step + frameSize) * itemWidth);
+
+      const onRightEdge = containerWidth + state.swipeDistance - frameSize * itemWidth;
+
+      if (isAfterTheRightEdge) {
+        stepDistance = onRightEdge;
       }
 
       return {
