@@ -24,7 +24,7 @@ export class Carousel extends React.Component<Props, State> {
 
       let stepDistance = step * itemWidth;
 
-      if (-state.swipeDistance < step * itemWidth) {
+      if (-state.swipeDistance < stepDistance) {
         stepDistance = -state.swipeDistance;
       }
 
@@ -60,6 +60,8 @@ export class Carousel extends React.Component<Props, State> {
       images, frameSize, itemWidth, animationDuration,
     } = this.props;
 
+    const isOnRightEdge = swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth));
+
     const carouselStyle = {
       width: `${frameSize * itemWidth}px`,
     };
@@ -74,7 +76,9 @@ export class Carousel extends React.Component<Props, State> {
       <div style={carouselStyle} className="Carousel">
         <ul style={listStyle} className="Carousel__list">
           {images.map((image, index: number) => (
-            <li key={image}><img src={image} alt={(index + 1).toString()} /></li>
+            <li key={image}>
+              <img src={image} alt={(index + 1).toString()} />
+            </li>
           ))}
         </ul>
 
@@ -91,7 +95,7 @@ export class Carousel extends React.Component<Props, State> {
           <button
             className="button-arrow"
             type="button"
-            disabled={swipeDistance === -(itemWidth * images.length - (frameSize * itemWidth))}
+            disabled={isOnRightEdge}
             onClick={this.scrollToRight}
           >
             {'>'}
