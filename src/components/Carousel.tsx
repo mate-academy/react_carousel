@@ -33,8 +33,9 @@ export class Carousel extends Component<Props, State> {
 
   handlePreviousButtonClick = () => {
     const { translateValue } = this.state;
+    const enoughSpaceToShift = translateValue < -this.getNextShift();
 
-    if (translateValue < -this.getNextShift()) {
+    if (enoughSpaceToShift) {
       this.setState(state => ({
         translateValue: state.translateValue + this.getNextShift(),
       }));
@@ -49,8 +50,9 @@ export class Carousel extends Component<Props, State> {
     const { translateValue } = this.state;
     const availableTranslate = this.getAvailableTranslate();
     const spaceRequired = availableTranslate + this.getNextShift();
+    const enoughSpaceToShift = translateValue >= spaceRequired;
 
-    if (translateValue >= spaceRequired) {
+    if (enoughSpaceToShift) {
       this.setState(state => ({
         translateValue: state.translateValue - this.getNextShift(),
       }));
