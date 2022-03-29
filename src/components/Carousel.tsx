@@ -26,9 +26,17 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   moveLeft() {
-    const { position, step, isInfinity } = this.state;
+    const {
+      position,
+      step,
+      isInfinity,
+      frameSize,
+    } = this.state;
+    const { images } = this.props;
 
-    if (position - step < 0 || isInfinity) {
+    if (position === 0 && isInfinity) {
+      this.setState({ position: images.length - frameSize });
+    } else if (position - step < 0) {
       this.setState({ position: 0 });
     } else {
       this.setState((state) => ({
@@ -46,7 +54,9 @@ export class Carousel extends React.Component<Props, State> {
     } = this.state;
     const { images } = this.props;
 
-    if (position + step >= images.length - frameSize || isInfinity) {
+    if (position === images.length - frameSize && isInfinity) {
+      this.setState({ position: 0 });
+    } else if (position + step >= images.length - frameSize) {
       this.setState({ position: images.length - frameSize });
     } else {
       this.setState((state) => ({
@@ -116,6 +126,7 @@ export class Carousel extends React.Component<Props, State> {
       position,
       duration,
       step,
+      isInfinity,
     } = this.state;
 
     return (
@@ -154,7 +165,7 @@ export class Carousel extends React.Component<Props, State> {
               onClick={() => {
                 this.moveLeft();
               }}
-              disabled={position === 0}
+              disabled={position === 0 && !isInfinity}
             >
               {'<'}
             </button>
@@ -164,7 +175,7 @@ export class Carousel extends React.Component<Props, State> {
               onClick={() => {
                 this.moveRight();
               }}
-              disabled={position === images.length - frameSize}
+              disabled={position === images.length - frameSize && !isInfinity}
             >
               {'>'}
             </button>
