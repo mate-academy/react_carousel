@@ -23,7 +23,7 @@ export const InputRange: React.FC<Props> = ({
         max={max}
         step={step}
         onChange={({ target }) => {
-          callback(+target.value, target.name);
+          callback(Number(target.value), target.name);
         }}
       />
     </label>
