@@ -3,17 +3,17 @@ import { CarouselSettings } from '../../types/CarouselSettings';
 import './Carousel.scss';
 
 interface State {
-  translate: number;
+  shift: number;
   itemAmount: number;
 }
 
 export class Carousel extends React.Component<CarouselSettings, State> {
   state = {
-    translate: 0,
+    shift: 0,
     itemAmount: this.props.images.length,
   };
 
-  caclMaxTranslate = () => {
+  caclMaxShift = () => {
     const { frameSize, itemWidth } = this.props;
     const { itemAmount } = this.state;
 
@@ -24,52 +24,52 @@ export class Carousel extends React.Component<CarouselSettings, State> {
     return this.props.itemWidth * this.props.frameSize;
   };
 
-  nextSlide = () => {
-    const { translate } = this.state;
+  nextButtonHandler = () => {
+    const { shift } = this.state;
     const { itemWidth, step } = this.props;
-    const MaxTranslate = -this.caclMaxTranslate();
+    const maxShift = -this.caclMaxShift();
 
-    if (translate !== MaxTranslate) {
+    if (shift !== maxShift) {
       this.setState((state) => {
-        let toTranslate = state.translate - itemWidth * step;
+        let toShift = state.shift - itemWidth * step;
 
-        if (toTranslate < MaxTranslate) {
-          toTranslate = MaxTranslate;
+        if (toShift < maxShift) {
+          toShift = maxShift;
         }
 
         return {
-          translate: toTranslate,
+          shift: toShift,
         };
       });
     }
   };
 
-  prevSlide = () => {
-    const { translate } = this.state;
+  prevButtonHandler = () => {
+    const { shift } = this.state;
     const { itemWidth, step } = this.props;
 
-    if (translate !== 0) {
+    if (shift !== 0) {
       this.setState((state) => {
-        let toTranslate = state.translate + itemWidth * step;
+        let toShift = state.shift + itemWidth * step;
 
-        if (toTranslate > 0) {
-          toTranslate = 0;
+        if (toShift > 0) {
+          toShift = 0;
         }
 
         return {
-          translate: toTranslate,
+          shift: toShift,
         };
       });
     }
   };
 
   render() {
-    const { prevSlide, nextSlide, calcWrapperWidth } = this;
+    const { prevButtonHandler, nextButtonHandler, calcWrapperWidth } = this;
     const { images, animationDuration, itemWidth } = this.props;
-    const { translate } = this.state;
+    const { shift } = this.state;
 
     const carouselListStyles = {
-      transform: `translateX(${translate}px)`,
+      transform: `translateX(${shift}px)`,
       transition: `transform ${animationDuration}ms linear`,
     };
 
@@ -87,14 +87,18 @@ export class Carousel extends React.Component<CarouselSettings, State> {
           <ul className="carousel__list" style={carouselListStyles}>
             {images.map((image, i) => (
               <li key={image}>
-                <img src={image} alt={(i + 1).toString()} style={slideStyles} />
+                <img
+                  src={image}
+                  alt={`Emoji ${(i + 1).toString()}`}
+                  style={slideStyles}
+                />
               </li>
             ))}
           </ul>
         </div>
 
-        <button type="button" onClick={prevSlide}>Prev</button>
-        <button type="button" onClick={nextSlide}>Next</button>
+        <button type="button" onClick={prevButtonHandler}>Prev</button>
+        <button type="button" onClick={nextButtonHandler}>Next</button>
       </div>
     );
   }

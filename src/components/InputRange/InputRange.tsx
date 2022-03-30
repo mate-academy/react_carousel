@@ -9,7 +9,7 @@ interface Props {
   callback: (value: number, stateName: string) => void;
 }
 
-export const InputRange: React.FC<Props> = ({
+export const InputRange: React.FC<Props> = React.memo(({
   id, value, max, min, step, callback,
 }) => {
   return (
@@ -28,7 +28,7 @@ export const InputRange: React.FC<Props> = ({
       />
     </label>
   );
-};
+});
 
 InputRange.defaultProps = {
   step: 1,
