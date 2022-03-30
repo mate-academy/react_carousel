@@ -4,7 +4,7 @@ import { Controller } from './Controller';
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    itemWidth: 140,
+    itemWidth: 130,
     frameSize: 3,
     duration: 1000,
     translate: 0,
