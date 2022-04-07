@@ -23,3 +23,18 @@
       infinite={false}
     />
     ```
+##REQUIREMENTS:
+1. The title of the page should contain "Carousel"
+2. The page should continue the input fieds for:
+   - `ItemWidth`
+   - `FrameSize`
+   - `Step`
+   - `AnimationDuration`
+3. Add data-cy attributes:
+   - `title` inside h1 tag
+   - `carousel` to the `className="Carousel__list"`
+   - `next` to the `"Next" button`
+   - `step` to the `id="stepId"` inside <div className="labels">
+   - `frame` to the `id="frameId"` inside <div className="labels">
+   - `width` to the `"itemId"` inside <div className="labels">
+   
