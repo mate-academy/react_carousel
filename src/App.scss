@@ -1,1 +1,15 @@
-// style go here
+.app {
+  &__title {
+    text-align: center;
+  }
+
+  &__carousel-settings {
+    margin: 50px auto;
+    width: 350px;
+  }
+
+  &__carousel-settings-item {
+    display: flex;
+    justify-content: space-between;
+  }
+}
