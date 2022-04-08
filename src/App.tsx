@@ -26,28 +26,24 @@ class App extends React.Component<{}, State> {
     setting: {
       step: 3,
       frameSize: 3,
-      itemWidth: 130,
+      itemWidth: 50,
       animationDuration: 1000,
       infinite: false,
     },
   };
 
   updateValues = (e: React.ChangeEvent<HTMLInputElement>, keyName: keyof Setting): void => {
-    const newValue: number = +e.currentTarget.value;
+    const { value, checked } = e.currentTarget;
 
     this.setState(({ setting }) => {
       const newSetting = { ...setting };
 
       if (keyName === 'infinite') {
-        if (newValue === 0) {
-          newSetting[keyName] = false;
-        } else {
-          newSetting[keyName] = true;
-        }
+        newSetting[keyName] = checked;
       }
 
       if (keyName !== 'infinite') {
-        newSetting[keyName] = newValue;
+        newSetting[keyName] = +value;
       }
 
       return { setting: newSetting };

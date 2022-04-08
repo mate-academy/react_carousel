@@ -15,6 +15,19 @@
   }
 
   &__input {
-    width: 80px;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+  }
+
+  &__checkbox {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    margin-right: 20px;
   }
 }

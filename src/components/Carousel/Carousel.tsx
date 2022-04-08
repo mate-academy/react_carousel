@@ -23,9 +23,10 @@ const Carousel: React.FC<Props> = ({ image, settings }) => {
   const [prevBtnDisable, setPrevBtnDisable] = useState(true);
   const [index, setIndex] = useState(0);
   const [newImages, setNewImages] = useState([...image]);
+  let newTranslateX = 0;
 
   const scrollNext = () => {
-    let newTranslateX = translateX - itemWidth * step;
+    newTranslateX = translateX - itemWidth * step;
     const stepQuantity = (imgQuantity - frameSize) * -itemWidth;
 
     setIndex(index + step);
@@ -37,28 +38,38 @@ const Carousel: React.FC<Props> = ({ image, settings }) => {
         setNextBtnDisable(true);
         setPrevBtnDisable(false);
         setTranslateX(newTranslateX);
-
-        return;
+        setIndex(index + (imgQuantity - (index + frameSize)));
       }
 
       setPrevBtnDisable(false);
       setTranslateX(newTranslateX);
     } else {
-      const difference = step - (newImages.length - index);
+      if (translateX === 0 - (itemWidth * step * 2)) {
+        const imageCopy1 = newImages.slice(index + step - imgQuantity);
+        const imageCopy2 = newImages.slice(0, index + step);
 
-      const imageCopy1 = newImages.slice(difference);
-      const imageCopy2 = newImages.slice(0, difference);
+        setNewImages([...imageCopy1, ...imageCopy2]);
 
-      setNewImages([...imageCopy1, ...imageCopy2]);
+        newTranslateX = 0;
+        setIndex(0);
+      } else {
+        newTranslateX = translateX - itemWidth * step;
+      }
+
+      setTranslateX(newTranslateX);
       setNextBtnDisable(false);
       setPrevBtnDisable(false);
-      setTranslateX(0);
-      setIndex(0);
     }
   };
 
   const scrollPrev = () => {
-    let newTranslateX = translateX + itemWidth * step;
+    newTranslateX = translateX + itemWidth * step;
+
+    setIndex(index - step);
+
+    if (index === 0) {
+      setIndex(index + step);
+    }
 
     if (!infinite) {
       if (newTranslateX >= 0) {
@@ -67,23 +78,43 @@ const Carousel: React.FC<Props> = ({ image, settings }) => {
         setNextBtnDisable(false);
         setPrevBtnDisable(true);
         setTranslateX(0);
+        setIndex(0);
       }
 
       setNextBtnDisable(false);
       setTranslateX(newTranslateX);
     } else {
-      const difference = newImages.length - step;
+      if (translateX === 0) {
+        newTranslateX = 0 - (itemWidth * step * 2) - itemWidth;
 
-      const imageCopy1 = newImages.slice(difference);
-      const imageCopy2 = newImages.slice(0, difference);
+        setIndex(0);
+      } else if (translateX > 0 - (itemWidth * step)) {
+        const imageCopy1 = newImages.slice(-(imgQuantity + (translateX / itemWidth)));
+        const imageCopy2 = newImages.slice(0, -(translateX / itemWidth));
 
-      setNewImages([...imageCopy1, ...imageCopy2]);
+        setNewImages([...imageCopy1, ...imageCopy2]);
+        newTranslateX = 0 - (itemWidth * step * 2) - itemWidth;
+        setIndex(0);
+      } else {
+        newTranslateX = translateX + itemWidth * step;
+      }
+
       setNextBtnDisable(false);
       setPrevBtnDisable(false);
-      setTranslateX(0);
-      setIndex(0);
+      setTranslateX(newTranslateX);
     }
   };
+
+  if ((itemWidth * frameSize) - translateX > (itemWidth * imgQuantity)) {
+    newTranslateX = translateX + itemWidth;
+
+    setTranslateX(newTranslateX);
+  }
+
+  if (translateX !== 0 && index !== 0 && translateX % itemWidth !== 0) {
+    setTranslateX(0);
+    setIndex(0);
+  }
 
   return (
     <div

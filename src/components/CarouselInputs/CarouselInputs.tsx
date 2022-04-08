@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import './CarouselInputs.scss';
 import { Setting } from '../../type/type';
@@ -14,12 +15,15 @@ const CarouselInputs: React.FC<Props> = ({ settings, change, length }) => {
     frameSize,
     itemWidth,
     animationDuration,
-    infinite,
   } = settings;
 
   return (
     <div className="inputs">
-      <h2>
+      <h2
+        style={{
+          margin: '10px auto',
+        }}
+      >
         Change parameters here:
       </h2>
 
@@ -29,15 +33,23 @@ const CarouselInputs: React.FC<Props> = ({ settings, change, length }) => {
           {` ${length}`}
           )
         </span>
-        <input
-          type="number"
-          name="step"
+
+        <div
           className="inputs__input"
-          min="1"
-          max={`${length}`}
-          value={`${step}`}
-          onChange={(e) => change(e, 'step')}
-        />
+        >
+          <input
+            type="range"
+            name="step"
+            min="1"
+            max={`${length}`}
+            value={`${step}`}
+            onChange={(e) => change(e, 'step')}
+          />
+
+          <span>
+            {step}
+          </span>
+        </div>
       </div>
 
       <div className="inputs__item">
@@ -46,62 +58,88 @@ const CarouselInputs: React.FC<Props> = ({ settings, change, length }) => {
           {` ${length}`}
           )
         </span>
-        <input
-          type="number"
-          name="frameSize"
+
+        <div
           className="inputs__input"
-          min="1"
-          max={`${length}`}
-          value={`${frameSize}`}
-          onChange={(e) => change(e, 'frameSize')}
-        />
+        >
+          <input
+            type="range"
+            name="frameSize"
+            min="1"
+            max={`${length}`}
+            value={`${frameSize}`}
+            onChange={(e) => change(e, 'frameSize')}
+          />
+
+          <span>
+            {frameSize}
+          </span>
+        </div>
       </div>
 
       <div className="inputs__item">
         <span>
           Image size (from 50 to 360, step 10)
         </span>
-        <input
-          type="number"
-          name="itemWidth"
+
+        <div
           className="inputs__input"
-          min="50"
-          max="360"
-          step="10"
-          value={`${itemWidth}`}
-          onChange={(e) => change(e, 'itemWidth')}
-        />
+        >
+          <input
+            type="range"
+            name="itemWidth"
+            min="50"
+            max="360"
+            step="10"
+            value={`${itemWidth}`}
+            onChange={(e) => change(e, 'itemWidth')}
+          />
+
+          <span>
+            {itemWidth}
+          </span>
+        </div>
       </div>
 
       <div className="inputs__item">
         <span>
           Animation speed (from 100 to 2000, step 100)
         </span>
-        <input
-          type="number"
-          name="animationDuration"
+
+        <div
           className="inputs__input"
-          min="100"
-          max="2000"
-          step="100"
-          value={`${infinite ? 0 : animationDuration}`}
-          onChange={(e) => change(e, 'animationDuration')}
-        />
+        >
+          <input
+            type="range"
+            name="animationDuration"
+            min="100"
+            max="2000"
+            step="100"
+            value={`${animationDuration}`}
+            onChange={(e) => change(e, 'animationDuration')}
+          />
+
+          <span>
+            {animationDuration}
+          </span>
+        </div>
       </div>
 
       <div className="inputs__item">
         <span>
-          Infinity scroll or not (0 = No, 1 = Yes)
+          Do you want Infinity scroll?
         </span>
-        <input
-          type="number"
-          name="infinite"
-          className="inputs__input"
-          min="0"
-          max="1"
-          value={`${+infinite}`}
-          onChange={(e) => change(e, 'infinite')}
-        />
+
+        <label
+          className="inputs__checkbox"
+        >
+          <input
+            type="checkbox"
+            name="infinite"
+            onChange={(e) => change(e, 'infinite')}
+          />
+          Yes
+        </label>
       </div>
     </div>
   );
