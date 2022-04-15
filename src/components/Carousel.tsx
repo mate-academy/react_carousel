@@ -125,9 +125,7 @@ class Carousel extends React.Component<Props> {
                 button__notactive: position === 0 && !infinite,
               },
             )}
-            onClick={() => {
-              this.slideLeft();
-            }}
+            onClick={this.slideLeft}
           >
             <img src="./img/arrow-left.svg" alt="Arrow-left" />
           </button>
@@ -141,9 +139,7 @@ class Carousel extends React.Component<Props> {
                 button__notactive: position === -10 + frameSize && !infinite,
               },
             )}
-            onClick={() => {
-              this.slideRigth();
-            }}
+            onClick={this.slideRigth}
           >
             <img src="./img/arrow-right.svg" alt="Arrow-right" />
           </button>
