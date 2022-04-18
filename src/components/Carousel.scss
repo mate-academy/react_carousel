@@ -1,1 +1,53 @@
-// style go here
+.carousel {
+  display: flex;
+
+  &__container {
+    overflow: auto;
+    border: 2px pink solid;
+    border-radius: 10px;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    width: 1300px;
+  }
+}
+
+.button {
+  font-size: 20px;
+  border: 1px bisque solid;
+  border-radius: 10px;
+  background-color: aliceblue;
+  margin: 20px;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: bisque;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: rgb(238, 238, 238);
+    cursor: default;
+  }
+
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 20px;
+  border: 2px pink solid;
+  border-radius: 10px;
+}
+
+label {
+  margin: 5px;
+}
+
+input {
+  margin-left: 5px;
+}
