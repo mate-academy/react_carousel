@@ -1,0 +1,48 @@
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-content-wrapper {
+  overflow: hidden;
+  margin: 16px;
+}
+
+.carousel-content {
+  display: flex;
+  transition: all 250ms linear;
+}
+
+.carousel-content > * {
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.button-arrow {
+  width: 64px;
+  height: 48px;
+  margin: 0 20px;
+  font-size: 24px;
+  border-radius: 4px;
+  background-color: #54e4ca;
+  color: #fff;
+  border: 1px solid #000;
+
+  &:hover {
+    background: transparent;
+    color: #54e4ca;
+  }
+
+  &:disabled {
+    background: transparent;
+    color: #b3ccc7;
+    border: 2px solid #b3ccc7;
+  }
+}
+
+@for $i from 1 through 5 {
+  .carousel-content.item-count-#{$i} > * {
+    width: calc(100% / #{$i});
+  }
+}
