@@ -1,1 +1,24 @@
-// style go here
+* {
+  font-family: "Montserrat", serif;
+}
+
+.App {
+  h1 {
+    text-align: center;
+  }
+
+  &__controller {
+    margin: 0 auto;
+    width: 390px;
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    &--label {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
