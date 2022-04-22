@@ -1,1 +1,26 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+  }
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  display: block;
+  padding: 0;
+  border: 0 none transparent;
+  background-color: transparent;
+  width: 80px;
+  height: 80px;
+  font-size: 80px;
+  line-height: 1em;
+}
