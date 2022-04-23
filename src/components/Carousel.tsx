@@ -14,6 +14,7 @@ interface State {
   currentCount: number,
   isRightButtonDisabled: boolean,
   isLeftButtonDisabled: boolean,
+  imagesArray: string[],
 }
 
 class Carousel extends React.Component<Props, State> {
@@ -21,45 +22,42 @@ class Carousel extends React.Component<Props, State> {
     currentCount: 0,
     isRightButtonDisabled: false,
     isLeftButtonDisabled: !this.props.infinite,
+    imagesArray: [...this.props.images],
   };
 
-  imagesArray = [...this.props.images];
+  changeImgArrayCyclic = (direction: number) => {
+    this.setState((prevState) => {
+      return {
+        imagesArray: [...prevState.imagesArray.slice(direction),
+          ...prevState.imagesArray.slice(0, direction)],
+      };
+    });
+  };
+
+  changeImgArray = (direction: number) => {
+    this.setState((prevState) => {
+      return {
+        imagesArray: [...prevState.imagesArray.slice(direction),
+          ...prevState.imagesArray.slice(0, direction)],
+        isLeftButtonDisabled: false,
+        isRightButtonDisabled: false,
+        currentCount: prevState.currentCount + direction,
+      };
+    });
+  };
 
   scrollLeft = () => {
     if (this.props.infinite) {
       setTimeout(() => {
-        const temp = this.imagesArray[0];
-
-        for (let i = 0; i < this.imagesArray.length - 1; i += 1) {
-          this.imagesArray[i] = this.imagesArray[i + 1];
-        }
-
-        this.imagesArray[this.imagesArray.length - 1] = temp;
-
-        this.setState({
-          currentCount: 0,
-        });
+        this.changeImgArrayCyclic(1);
       }, this.props.animationDuration);
     } else {
       setTimeout(() => {
-        if (this.state.currentCount < (this.imagesArray.length
+        if (this.state.currentCount < (this.state.imagesArray.length
           - this.props.step - (this.props.frameSize - this.props.step))) {
-          const temp = this.imagesArray[0];
+          this.changeImgArray(1);
 
-          for (let i = 0; i < this.imagesArray.length - 1; i += 1) {
-            this.imagesArray[i] = this.imagesArray[i + 1];
-          }
-
-          this.imagesArray[this.imagesArray.length - 1] = temp;
-
-          this.setState((prevState) => {
-            return {
-              isLeftButtonDisabled: false,
-              currentCount: prevState.currentCount + 1,
-            };
-          });
-
-          if (this.state.currentCount >= (this.imagesArray.length
+          if (this.state.currentCount >= (this.state.imagesArray.length
             - this.props.step - (this.props.frameSize - this.props.step))) {
             this.setState({
               isRightButtonDisabled: true,
@@ -73,37 +71,12 @@ class Carousel extends React.Component<Props, State> {
   scrollRight = () => {
     if (this.props.infinite) {
       setTimeout(() => {
-        const temp
-          = this.imagesArray[this.imagesArray.length - 1];
-
-        for (let i = this.imagesArray.length - 1; i > 0; i -= 1) {
-          this.imagesArray[i] = this.imagesArray[i - 1];
-        }
-
-        this.imagesArray[0] = temp;
-
-        this.setState({
-          currentCount: 0,
-        });
+        this.changeImgArrayCyclic(-1);
       }, this.props.animationDuration);
     } else {
       setTimeout(() => {
         if (this.state.currentCount > 0) {
-          const temp
-            = this.imagesArray[this.imagesArray.length - 1];
-
-          for (let i = this.imagesArray.length - 1; i > 0; i -= 1) {
-            this.imagesArray[i] = this.imagesArray[i - 1];
-          }
-
-          this.imagesArray[0] = temp;
-
-          this.setState((prevState) => {
-            return {
-              isRightButtonDisabled: false,
-              currentCount: prevState.currentCount - 1,
-            };
-          });
+          this.changeImgArray(-1);
 
           if (this.state.currentCount < 1) {
             this.setState({
@@ -130,7 +103,7 @@ class Carousel extends React.Component<Props, State> {
             height: this.props.itemWidth,
           }}
         >
-          {this.imagesArray.map((image, index) => (
+          {this.state.imagesArray.map((image, index) => (
             <li
               className="Carousel__item"
               key={`${index + 1}`}
