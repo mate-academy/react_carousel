@@ -1,1 +1,12 @@
-// style go here
+body {
+  background-color: #2a9df4;
+}
+
+.App {
+  margin: 50px auto;
+  &__title {
+    padding: 50px;
+    text-align: center;
+    color: #d0efff;
+  }
+}
