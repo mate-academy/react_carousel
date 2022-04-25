@@ -1,1 +1,27 @@
-// style go here
+.сarousel {
+  width: 260px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.сarousel__list {
+  display: flex;
+  width: 100%;
+}
+
+.arrow {
+  background: rgb(17, 131, 184);
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 5px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.arrow-container {
+  display: flex;
+  justify-content: space-evenly;
+}
