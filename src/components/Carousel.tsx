@@ -14,18 +14,22 @@ interface Props {
 interface State {
   isRightButtonDisabled: boolean,
   isLeftButtonDisabled: boolean,
-  positionsArray: number[],
   makeTransition: number,
   stepsCompleted: number,
+  startReached: boolean,
+  endReached: boolean,
+  maxStepsNumber: number,
 }
 
 class Carousel extends React.Component<Props, State> {
   state = {
     isRightButtonDisabled: false,
     isLeftButtonDisabled: !this.props.infinite,
-    positionsArray: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     makeTransition: 0,
     stepsCompleted: 0,
+    startReached: true,
+    endReached: false,
+    maxStepsNumber: this.props.images.length - this.props.frameSize,
   };
 
   componentDidUpdate(prevProps: { rebuildCarousel: boolean; }) {
@@ -35,74 +39,12 @@ class Carousel extends React.Component<Props, State> {
         isLeftButtonDisabled: !this.props.infinite,
         makeTransition: 0,
         stepsCompleted: 0,
-        positionsArray: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        startReached: true,
+        endReached: false,
+        maxStepsNumber: this.props.images.length - this.props.frameSize,
       });
     }
   }
-
-  changePositions = (arr: number[], steps: number) => {
-    const newArr = [...arr];
-    let step = steps;
-
-    if (steps < 0) {
-      step = this.props.images.length + steps;
-    }
-
-    for (let i = 0; i < arr.length; i += 1) {
-      newArr[i] -= this.props.itemWidth;
-    }
-
-    newArr[step] = this.props.itemWidth * (this.props.images.length - 1)
-    - this.props.itemWidth * step;
-
-    return newArr;
-  };
-
-  changePositionsReverse = (arr: number[], steps: number) => {
-    const newArr = [...arr];
-
-    for (let i = 0; i < arr.length; i += 1) {
-      newArr[i] += this.props.itemWidth;
-    }
-
-    if (steps > 0) {
-      newArr[steps - 1]
-      -= (this.props.itemWidth * (this.props.images.length));
-    } else {
-      newArr[this.props.images.length - 1 + steps]
-      = -(this.props.itemWidth * (this.props.images.length - 1)
-      + this.props.itemWidth * steps);
-    }
-
-    return newArr;
-  };
-
-  changeImgCyclic = () => {
-    this.setState((prevState) => {
-      return {
-        positionsArray: this
-          .changePositions(prevState.positionsArray, prevState.stepsCompleted),
-        stepsCompleted:
-          prevState.stepsCompleted === this.props.images.length - 1
-            ? 0
-            : prevState.stepsCompleted + 1,
-      };
-    });
-  };
-
-  changeImgCyclicReverse = () => {
-    this.setState((prevState) => {
-      return {
-        positionsArray: this
-          .changePositionsReverse(prevState.positionsArray,
-            prevState.stepsCompleted),
-        stepsCompleted:
-          prevState.stepsCompleted === -(this.props.images.length - 1)
-            ? 0
-            : prevState.stepsCompleted - 1,
-      };
-    });
-  };
 
   changeImg = (direction: number) => {
     this.setState((prevState) => {
@@ -116,19 +58,116 @@ class Carousel extends React.Component<Props, State> {
     });
   };
 
-  scrollLeft = () => {
-    const maxStepsNumber = this.props.images.length - this.props.frameSize;
-
-    setTimeout(() => {
-      if (this.props.infinite) {
-        this.changeImgCyclic();
-      } else if (this.state.stepsCompleted < maxStepsNumber) {
+  changeImgCyclic = () => {
+    for (let i = 0; i < this.props.step; i += 1) {
+      if (!this.state.endReached) {
         this.changeImg(-1);
-        if (this.state.stepsCompleted >= maxStepsNumber) {
+
+        if (this.state.stepsCompleted >= this.state.maxStepsNumber) {
+          this.setState({
+            endReached: true,
+          });
+        }
+      }
+    }
+  };
+
+  resetCycleAfterEndReached = () => {
+    this.setState({
+      makeTransition: 0,
+      stepsCompleted: 0,
+      startReached: true,
+      endReached: false,
+    });
+  };
+
+  moveLeftCyclic = () => {
+    if (this.state.stepsCompleted !== 0) {
+      this.setState({
+        startReached: false,
+      });
+    }
+
+    if (this.state.endReached) {
+      this.resetCycleAfterEndReached();
+
+      return;
+    }
+
+    this.changeImgCyclic();
+  };
+
+  changeImgCyclicReverse = () => {
+    for (let i = 0; i < this.props.step; i += 1) {
+      if (!this.state.startReached) {
+        this.changeImg(1);
+
+        if (this.state.stepsCompleted === 0) {
+          this.setState({
+            startReached: true,
+          });
+        }
+      }
+    }
+  };
+
+  resetCycleAfterStartReached = () => {
+    this.setState((state) => ({
+      makeTransition: -state.maxStepsNumber * this.props.itemWidth,
+      stepsCompleted: state.maxStepsNumber,
+      startReached: false,
+      endReached: true,
+    }));
+  };
+
+  moveRightCyclic = () => {
+    if (this.state.stepsCompleted !== this.state.maxStepsNumber) {
+      this.setState({
+        endReached: false,
+      });
+    }
+
+    if (this.state.startReached) {
+      this.resetCycleAfterStartReached();
+
+      return;
+    }
+
+    this.changeImgCyclicReverse();
+  };
+
+  moveLeft = () => {
+    for (let i = 0; i < this.props.step; i += 1) {
+      if (this.state.stepsCompleted < this.state.maxStepsNumber) {
+        this.changeImg(-1);
+        if (this.state.stepsCompleted >= this.state.maxStepsNumber) {
           this.setState({
             isRightButtonDisabled: true,
           });
         }
+      }
+    }
+  };
+
+  moveRight = () => {
+    for (let i = 0; i < this.props.step; i += 1) {
+      if (this.state.makeTransition < 0) {
+        this.changeImg(1);
+        if (this.state.stepsCompleted === 0) {
+          this.setState({
+            isLeftButtonDisabled: true,
+          });
+        }
+      }
+    }
+  };
+
+  scrollLeft = () => {
+    setTimeout(() => {
+      if (this.props.infinite) {
+        this.moveLeftCyclic();
+      } else {
+        this.moveLeft();
       }
     }, 0);
   };
@@ -136,14 +175,9 @@ class Carousel extends React.Component<Props, State> {
   scrollRight = () => {
     setTimeout(() => {
       if (this.props.infinite) {
-        this.changeImgCyclicReverse();
-      } else if (this.state.makeTransition < 0) {
-        this.changeImg(1);
-        if (this.state.stepsCompleted === 0) {
-          this.setState({
-            isLeftButtonDisabled: true,
-          });
-        }
+        this.moveRightCyclic();
+      } else {
+        this.moveRight();
       }
     }, 0);
   };
@@ -169,11 +203,6 @@ class Carousel extends React.Component<Props, State> {
             <li
               className="Carousel__item"
               key={`${index + 1}`}
-              style={{
-                transform: `
-                translateX(${this.state.positionsArray[index]}px)`,
-                transition: `transform ${this.props.animationDuration}ms`,
-              }}
             >
               <img
                 className="Carousel__img"
@@ -194,9 +223,7 @@ class Carousel extends React.Component<Props, State> {
             className="LeftButton"
             disabled={this.state.isLeftButtonDisabled}
             onClick={() => {
-              for (let i = 0; i < this.props.step; i += 1) {
-                this.scrollRight();
-              }
+              this.scrollRight();
             }}
           >
             &lt;
@@ -206,9 +233,7 @@ class Carousel extends React.Component<Props, State> {
             className="RightButton"
             disabled={this.state.isRightButtonDisabled}
             onClick={() => {
-              for (let i = 0; i < this.props.step; i += 1) {
-                this.scrollLeft();
-              }
+              this.scrollLeft();
             }}
           >
             &gt;

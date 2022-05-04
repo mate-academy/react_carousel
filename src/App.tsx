@@ -161,7 +161,7 @@ class App extends React.Component<{}, State> {
             <option
               value="false"
             >
-              Discret
+              Discrete
             </option>
           </select>
         </label>
