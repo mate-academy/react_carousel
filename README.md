@@ -35,4 +35,3 @@
    - `carousel` to the `className="Carousel__list"`
    - `next` to the `"Next" button`
    
-   
