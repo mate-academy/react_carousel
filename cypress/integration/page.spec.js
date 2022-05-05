@@ -54,7 +54,7 @@ describe('Page', () => {
   });
 
   it('should change width of image', () => {
-    cy.getByDataCy('width').type('{selectall}200');
+    cy.get('[for ="itemId"]').type('{selectall}200');
     cy.get('[src="./img/1.png"]')
       .invoke('attr', 'width')
       .should('eq', '200');
