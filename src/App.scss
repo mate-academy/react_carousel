@@ -1,1 +1,25 @@
 // style go here
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: fit-content;
+  padding: 0 2.5rem;
+  margin: auto;
+  height: 100vh;
+
+  background-color: rgb(255, 160, 160);
+  border-radius: 2rem;
+
+  &__title {
+    margin-top: 2.5rem;
+    color: rgb(42, 50, 56);
+  }
+}

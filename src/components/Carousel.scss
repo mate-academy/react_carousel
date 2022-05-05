@@ -1,1 +1,33 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+  }
+
+  &__button {
+    box-sizing: border-box;
+    padding: 2.5rem;
+
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(237, 248, 188);
+    transition: all 0.4s;
+
+    &:hover {
+      background-color: rgb(230, 255, 90);
+    }
+  }
+}
