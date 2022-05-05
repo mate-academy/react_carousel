@@ -67,4 +67,3 @@ describe('Page', () => {
     cy.get('[src="./img/3.png"]').should('not.be.visible');
     });
   });
-  
