@@ -1,18 +1,105 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  way: number;
+};
 
-export default Carousel;
+export class Carousel extends React.Component<Props, State> {
+  state = {
+    way: 0,
+  };
+
+  scrollerRight = () => {
+    const {
+      frameSize,
+      itemWidth,
+      images,
+      infinite,
+    } = this.props;
+    const { way } = this.state;
+    const newWay = Math.max(
+      way - frameSize * itemWidth,
+      -(itemWidth * (images.length - frameSize)),
+    );
+    const cycleWay = newWay === way ? 0 : newWay;
+
+    this.setState({
+      way: infinite ? cycleWay : newWay,
+    });
+  };
+
+  scrollerLeft = () => {
+    const {
+      frameSize,
+      itemWidth,
+      images,
+      infinite,
+    } = this.props;
+    const { way } = this.state;
+    const newWay = Math.min(0, way + frameSize * itemWidth);
+    const limit = -(itemWidth * (images.length - frameSize));
+    const cycleWay = newWay === way ? limit : newWay;
+
+    this.setState({
+      way: infinite ? cycleWay : newWay,
+    });
+  };
+
+  render() {
+    const {
+      itemWidth,
+      frameSize,
+      animationDuration,
+      images,
+    } = this.props;
+    const { way } = this.state;
+
+    return (
+      <div className="Carousel" style={{ width: itemWidth * frameSize }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${way}px)`,
+            transitionDuration: `${animationDuration}ms`,
+          }}
+        >
+          {images.map((img, index) => (
+            <li>
+              <img
+                src={img}
+                alt={String(index + 1)}
+                style={{ width: itemWidth }}
+              />
+            </li>
+          ))}
+        </ul>
+        <div
+          className="Carousel__wrapper"
+          style={{ width: itemWidth * frameSize }}
+        >
+          <button
+            className="Carousel__prevButton"
+            type="button"
+            aria-label="Left scroll"
+            onClick={this.scrollerLeft}
+          />
+          <button
+            className="Carousel__nextButton"
+            type="button"
+            aria-label="Right scroll"
+            onClick={this.scrollerRight}
+          />
+        </div>
+      </div>
+    );
+  }
+}

@@ -1,1 +1,41 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+  margin: 0 auto;
+  
+
+  &__list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__prevButton {
+    width: 60px;
+    height: 60px;
+    background-image: url(./arrow-left.png);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center center;
+    border: 1px solid black;
+    border-radius: 80%;
+    background-color: rgb(219, 103, 8);
+  }
+
+  &__nextButton {
+    width: 60px;
+    height: 60px;
+    background-image: url(./arrow-right.png);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center center;
+    border: 1px solid;
+    border-radius: 80%;
+    background-color: rgb(219, 103, 8);
+  }
+}

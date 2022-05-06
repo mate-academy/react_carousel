@@ -1,1 +1,12 @@
 // style go here
+body {
+  background-color: rgb(255, 196, 0);
+  margin: 50px;
+}
+
+.App {
+  &__title {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+  }
+}
