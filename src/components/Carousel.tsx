@@ -25,12 +25,34 @@ export class Carousel extends React.Component<Props, State> {
         frameSize,
       } = this.props;
 
-      if (prevState.counter > images.length - step * 2
-        && prevState.counter < images.length - step) {
-        return { counter: images.length - frameSize };
+      let bigger = step;
+      let smaller = frameSize;
+
+      if (frameSize > step) {
+        bigger = frameSize;
+        smaller = step;
       }
 
-      if (prevState.counter === images.length - frameSize) {
+      if (prevState.counter > images.length - bigger * 2
+        && prevState.counter < images.length - bigger) {
+        if (bigger === step) {
+          return { counter: images.length - smaller };
+        }
+
+        return { counter: images.length - bigger };
+      }
+
+      if (prevState.counter === images.length - smaller
+        && bigger === step) {
+        if (infinite) {
+          return { counter: 0 };
+        }
+
+        return { counter: prevState.counter };
+      }
+
+      if (prevState.counter === images.length - bigger
+        && bigger === frameSize) {
         if (infinite) {
           return { counter: 0 };
         }
@@ -44,9 +66,20 @@ export class Carousel extends React.Component<Props, State> {
 
   scrollLeft = () => {
     this.setState((prevState) => {
-      const { images, step, infinite } = this.props;
+      const {
+        images,
+        step,
+        infinite,
+        frameSize,
+      } = this.props;
 
-      if (prevState.counter < step
+      let bigger = step;
+
+      if (frameSize > step) {
+        bigger = frameSize;
+      }
+
+      if (prevState.counter < bigger
         && prevState.counter > 0) {
         return { counter: 0 };
       }

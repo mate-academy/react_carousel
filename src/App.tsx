@@ -23,7 +23,7 @@ class App extends React.Component<{}, State> {
     ],
     itemWidth: 130,
     frameSize: 3,
-    step: 3,
+    step: 4,
     animationDuration: 1000,
     infinite: false,
   };
@@ -64,13 +64,7 @@ class App extends React.Component<{}, State> {
         break;
 
       default:
-        this.setState({
-          itemWidth: 130,
-          frameSize: 3,
-          step: 3,
-          animationDuration: 1000,
-          infinite: false,
-        });
+        break;
     }
   };
 
