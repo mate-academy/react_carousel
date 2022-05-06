@@ -2,12 +2,29 @@ import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
+type Settings = {
+  frameSize: number;
+  itemWidth: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+};
+
+type SettingsUpdater = {
+  frameSize?: number;
+  itemWidth?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+};
+
+type State = {
   images: string[];
-}
+  settings: Settings;
+};
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,20 +37,156 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    settings: {
+      frameSize: 3,
+      itemWidth: 130,
+      step: 3,
+      animationDuration: 1000,
+      infinite: true,
+    },
+  };
+
+  updateSettings = (newSettings: SettingsUpdater) => {
+    this.setState(({ settings }) => (
+      {
+        settings: {
+          ...settings,
+          ...newSettings,
+        },
+      }
+    ));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      settings,
+    } = this.state;
+
+    const {
+      frameSize,
+      itemWidth,
+      step,
+      animationDuration,
+      infinite,
+    } = settings;
 
     return (
       <div className="App">
+        <ul className="SettingsList">
+          <li className="SettingsList__item">
+            <label htmlFor="itemWidth">
+              Item width:
+            </label>
+
+            <input
+              type="number"
+              min="100"
+              max="200"
+              step="10"
+              defaultValue={itemWidth}
+              id="itemWidth"
+              onChange={
+                ({ target }) => this.updateSettings(
+                  {
+                    itemWidth: Number(target.value),
+                  },
+                )
+              }
+            />
+          </li>
+
+          <li className="SettingsList__item">
+            <label htmlFor="frameSize">
+              Frame size:
+            </label>
+
+            <input
+              type="number"
+              min="1"
+              max={images.length}
+              defaultValue={frameSize}
+              id="frameSize"
+              onChange={
+                ({ target }) => this.updateSettings(
+                  {
+                    frameSize: Number(target.value),
+                  },
+                )
+              }
+            />
+          </li>
+
+          <li className="SettingsList__item">
+            <label htmlFor="step">
+              Step:
+            </label>
+
+            <input
+              type="number"
+              min="1"
+              max={images.length}
+              defaultValue={step}
+              id="step"
+              onChange={
+                ({ target }) => this.updateSettings(
+                  {
+                    step: Number(target.value),
+                  },
+                )
+              }
+            />
+          </li>
+
+          <li className="SettingsList__item">
+            <label htmlFor="animationDuration">
+              Anitmation duration:
+            </label>
+
+            <input
+              type="number"
+              min="500"
+              max="2000"
+              step="500"
+              defaultValue={animationDuration}
+              id="animationDuration"
+              onChange={
+                ({ target }) => this.updateSettings(
+                  {
+                    animationDuration: Number(target.value),
+                  },
+                )
+              }
+            />
+          </li>
+
+          <li className="SettingsList__item">
+            <label htmlFor="infinite">
+              Infinite:
+            </label>
+
+            <input
+              type="checkbox"
+              defaultChecked={infinite}
+              id="infinite"
+              onChange={
+                ({ target }) => this.updateSettings(
+                  {
+                    infinite: target.checked,
+                  },
+                )
+              }
+            />
+          </li>
+        </ul>
+
         <Carousel
           images={images}
-          frameSize={3}
-          itemWidth={130}
-          step={3}
-          animationDuration={1000}
-          infinite
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );
