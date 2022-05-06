@@ -25,27 +25,53 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    infinite: true,
+    infinite: false,
   };
 
-  submitChanges = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-    const data = Object.fromEntries(new FormData(form).entries());
-    let infiniteFlag = false;
+  submitChanges = (event: {
+    preventDefault: () => void;
+    target: { name: string; value: string; };
+  }) => {
+    event.preventDefault();
+    const { value } = event.target;
+    const targetName = event.target.name;
+    let flag = false;
 
-    if (data.infinite === 'true') {
-      infiniteFlag = true;
+    switch (targetName) {
+      case 'itemWidth':
+        this.setState({ itemWidth: +value });
+        break;
+
+      case 'frameSize':
+        this.setState({ frameSize: +value });
+        break;
+
+      case 'step':
+        this.setState({ step: +value });
+        break;
+
+      case 'animationDuration':
+        this.setState({ animationDuration: +value });
+        break;
+
+      case 'infinite':
+
+        if (value === 'true') {
+          flag = true;
+        }
+
+        this.setState({ infinite: flag });
+        break;
+
+      default:
+        this.setState({
+          itemWidth: 130,
+          frameSize: 3,
+          step: 3,
+          animationDuration: 1000,
+          infinite: false,
+        });
     }
-
-    this.setState({
-      itemWidth: +data.itemWidth || 130,
-      frameSize: +data.frameSize || 3,
-      step: +data.step || 3,
-      animationDuration: +data.animationDuration || 1000,
-      infinite: infiniteFlag,
-    });
-
-    form.reset();
   };
 
   render() {
@@ -81,9 +107,12 @@ class App extends React.Component<{}, State> {
             <input
               name="itemWidth"
               type="number"
+              min="20"
               placeholder="Images Width (px)"
+              defaultValue={itemWidth}
               required
               className="controlls__input"
+              onChange={this.submitChanges}
             />
           </label>
 
@@ -91,9 +120,13 @@ class App extends React.Component<{}, State> {
             <input
               name="frameSize"
               type="number"
+              min="1"
+              max={images.length}
               placeholder="Frame Size"
+              defaultValue={frameSize}
               required
               className="controlls__input"
+              onChange={this.submitChanges}
             />
           </label>
 
@@ -101,9 +134,13 @@ class App extends React.Component<{}, State> {
             <input
               name="step"
               type="number"
+              min="1"
+              max={images.length}
               placeholder="Scroll Step"
+              defaultValue={step}
               required
               className="controlls__input"
+              onChange={this.submitChanges}
             />
           </label>
 
@@ -112,34 +149,26 @@ class App extends React.Component<{}, State> {
               name="animationDuration"
               type="number"
               placeholder="Animation Duration (ms)"
+              defaultValue={animationDuration}
               required
               className="controlls__input"
+              onChange={this.submitChanges}
             />
           </label>
 
           <label>
             <select
               name="infinite"
+              defaultValue="Choose option"
               required
               className="controlls__input"
+              onChange={this.submitChanges}
             >
-              <option disabled selected>Choose option</option>
+              <option disabled>Choose option</option>
               <option value="true">True</option>
               <option value="false">False</option>
             </select>
           </label>
-
-          <button
-            type="submit"
-            onClick={(event) => {
-              event.preventDefault();
-
-              this.submitChanges();
-            }}
-            className="controlls__submit"
-          >
-            SUBMIT
-          </button>
         </form>
       </div>
     );

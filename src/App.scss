@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: center;
   max-width: fit-content;
+  gap: 2rem;
   padding: 0 2.5rem;
   margin: auto;
 
@@ -45,19 +46,5 @@
     padding: 0.5rem;
     border: none;
     border-radius: 1rem;
-  }
-
-  &__submit {
-    box-sizing: border-box;
-    padding: 0.5rem;
-
-    border: none;
-    border-radius: 2rem;
-    background-color: rgb(237, 248, 188);
-    transition: all 0.4s;
-
-    &:hover {
-      background-color: rgb(230, 255, 90);
-    }
   }
 }

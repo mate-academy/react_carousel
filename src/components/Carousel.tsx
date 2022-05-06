@@ -73,52 +73,57 @@ export class Carousel extends React.Component<Props, State> {
     const { counter } = this.state;
 
     return (
-      <div
-        className="Carousel"
-        style={{
-          width: `${itemWidth * frameSize}px`,
-        }}
-      >
-        <ul
-          className="Carousel__list"
+      <>
+        <div
+          className="Carousel"
           style={{
-            transition: `all ${animationDuration}ms`,
-            transform: `translateX(${-itemWidth * counter}px)`,
-            width: `${itemWidth * images.length}px`,
+            width: `${itemWidth * frameSize}px`,
           }}
         >
-          {images.map((image, i) => (
-            <li
-              key={image}
-              className="Carousel__item"
-              style={{
-                width: `${itemWidth}px`,
-                height: `${100}%`,
-              }}
-            >
-              <img src={image} alt={image[i + 1]} />
-            </li>
-          ))}
-        </ul>
+          <ul
+            className="Carousel__list"
+            style={{
+              transition: `all ${animationDuration}ms`,
+              transform: `translateX(${-itemWidth * counter}px)`,
+              width: `${itemWidth * images.length}px`,
+            }}
+          >
+            {images.map((image, i) => (
+              <li
+                key={image}
+                className="Carousel__item"
+              >
+                <img
+                  src={image}
+                  alt={image[i + 1]}
+                  style={{
+                    width: `${itemWidth}px`,
+                    height: `${100}%`,
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div className="Carousel__buttons">
+        <div className="nav-buttons">
           <button
             type="button"
             onClick={this.scrollLeft}
-            className="Carousel__button"
+            className="button"
           >
-            LEFT
+            <p className="button__text">LEFT</p>
           </button>
 
           <button
             type="button"
             onClick={this.scrollRight}
-            className="Carousel__button"
+            className="button"
           >
-            RIGHT
+            <p className="button__text">RIGHT</p>
           </button>
         </div>
-      </div>
+      </>
     );
   }
 }
