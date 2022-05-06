@@ -18,11 +18,16 @@ export class Carousel extends React.Component<Props, State> {
 
   scrollRight = () => {
     this.setState((prevState) => {
-      const { images, step, infinite } = this.props;
+      const {
+        images,
+        step,
+        infinite,
+        frameSize,
+      } = this.props;
 
       if (prevState.counter > images.length - step * 2
         && prevState.counter < images.length - step) {
-        return { counter: images.length - step };
+        return { counter: images.length - 1 - frameSize };
       }
 
       if (prevState.counter === images.length - step) {
@@ -41,8 +46,8 @@ export class Carousel extends React.Component<Props, State> {
     this.setState((prevState) => {
       const { images, step, infinite } = this.props;
 
-      if (prevState.counter < step * 2
-        && prevState.counter > step) {
+      if (prevState.counter < step
+        && prevState.counter > 0) {
         return { counter: 0 };
       }
 
