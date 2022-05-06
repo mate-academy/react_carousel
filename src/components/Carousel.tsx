@@ -27,10 +27,10 @@ export class Carousel extends React.Component<Props, State> {
 
       if (prevState.counter > images.length - step * 2
         && prevState.counter < images.length - step) {
-        return { counter: images.length - 1 - frameSize };
+        return { counter: images.length - frameSize };
       }
 
-      if (prevState.counter === images.length - step) {
+      if (prevState.counter === images.length - frameSize) {
         if (infinite) {
           return { counter: 0 };
         }

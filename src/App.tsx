@@ -30,16 +30,22 @@ class App extends React.Component<{}, State> {
 
   submitChanges = () => {
     const form = document.querySelector('form') as HTMLFormElement;
-
     const data = Object.fromEntries(new FormData(form).entries());
+    let infiniteFlag = false;
+
+    if (data.infinite === 'true') {
+      infiniteFlag = true;
+    }
 
     this.setState({
       itemWidth: +data.itemWidth || 130,
       frameSize: +data.frameSize || 3,
       step: +data.step || 3,
       animationDuration: +data.animationDuration || 1000,
-      infinite: Boolean(data.infinite) || false,
+      infinite: infiniteFlag,
     });
+
+    form.reset();
   };
 
   render() {
