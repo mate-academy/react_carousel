@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
+import { Form } from './components/Form';
 import { Sizes } from './types/Sizes';
 
 type State = Sizes & {
@@ -29,10 +30,8 @@ class App extends React.Component<{}, State> {
   };
 
   submitChanges = (event: {
-    preventDefault: () => void;
     target: { name: string; value: string; };
   }) => {
-    event.preventDefault();
     const { value } = event.target;
     const targetName = event.target.name;
     let flag = false;
@@ -80,8 +79,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className="App__title">Carousel with {images.length} images</h1>
+        <h1 className="App__title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Carousel
           images={images}
@@ -92,78 +92,14 @@ class App extends React.Component<{}, State> {
           infinite={infinite}
         />
 
-        <form
-          method="get"
-          className="controlls"
-        >
-          Change properties:
-          <label>
-            <input
-              name="itemWidth"
-              type="number"
-              min="20"
-              placeholder="Images Width (px)"
-              defaultValue={itemWidth}
-              required
-              className="controlls__input"
-              onChange={this.submitChanges}
-            />
-          </label>
-
-          <label>
-            <input
-              name="frameSize"
-              type="number"
-              min="1"
-              max={images.length}
-              placeholder="Frame Size"
-              defaultValue={frameSize}
-              required
-              className="controlls__input"
-              onChange={this.submitChanges}
-            />
-          </label>
-
-          <label>
-            <input
-              name="step"
-              type="number"
-              min="1"
-              max={images.length}
-              placeholder="Scroll Step"
-              defaultValue={step}
-              required
-              className="controlls__input"
-              onChange={this.submitChanges}
-            />
-          </label>
-
-          <label>
-            <input
-              name="animationDuration"
-              type="number"
-              placeholder="Animation Duration (ms)"
-              defaultValue={animationDuration}
-              required
-              className="controlls__input"
-              onChange={this.submitChanges}
-            />
-          </label>
-
-          <label>
-            <select
-              name="infinite"
-              defaultValue="Choose option"
-              required
-              className="controlls__input"
-              onChange={this.submitChanges}
-            >
-              <option disabled>Choose option</option>
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </select>
-          </label>
-        </form>
+        <Form
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          submitFuction={this.submitChanges}
+        />
       </div>
     );
   }
