@@ -1,1 +1,16 @@
-// style go here
+body,
+h1 {
+  margin: 0;
+}
+
+.App {
+  height: 100vh;
+  background-color: rgba(232, 224, 200, 0.612);
+
+  &__title {
+    margin-bottom: 30px;
+    padding: 40px;
+    text-align: center;
+    color: rgb(63, 0, 91);
+  }
+}
