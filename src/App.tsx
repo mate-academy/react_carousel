@@ -73,13 +73,14 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <ul className="SettingsList">
+        <ul className="SettingsList App__settings">
           <li className="SettingsList__item">
             <label htmlFor="itemWidth">
               Item width:
             </label>
 
             <input
+              className="SettingsList__value"
               type="number"
               min="100"
               max="200"
@@ -102,6 +103,7 @@ class App extends React.Component<{}, State> {
             </label>
 
             <input
+              className="SettingsList__value"
               type="number"
               min="1"
               max={images.length}
@@ -123,6 +125,7 @@ class App extends React.Component<{}, State> {
             </label>
 
             <input
+              className="SettingsList__value"
               type="number"
               min="1"
               max={images.length}
@@ -144,6 +147,7 @@ class App extends React.Component<{}, State> {
             </label>
 
             <input
+              className="SettingsList__value"
               type="number"
               min="500"
               max="2000"
@@ -166,6 +170,7 @@ class App extends React.Component<{}, State> {
             </label>
 
             <input
+              className="SettingsList__checkbox"
               type="checkbox"
               defaultChecked={infinite}
               id="infinite"
@@ -177,6 +182,13 @@ class App extends React.Component<{}, State> {
                 )
               }
             />
+
+            <label
+              htmlFor="infinite"
+              className="SettingsList__value SettingsList__checkboxValue"
+            >
+              {}
+            </label>
           </li>
         </ul>
 

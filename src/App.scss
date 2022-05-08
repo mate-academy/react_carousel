@@ -1,5 +1,9 @@
 @import "./vars";
 
+html {
+  font-family: "Iceberg", sans-serif;
+}
+
 body {
   margin: 0;
 
@@ -10,6 +14,89 @@ body {
   min-height: 100vh;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &__settings {
+    margin-bottom: 36px;
+  }
+}
+
+.SettingsList {
+  position: relative;
+
+  margin-top: 0;
+  padding: 24px 0 24px 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: $green;
+  font-size: 20px;
+  line-height: 100%;
+
+  list-style: none;
+  background-color: $darkGray;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: block;
+    width: 80px;
+
+    background-color: $gray;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__value {
+    z-index: 1;
+
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 80px;
+
+    color: $darkGray;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    outline: none;
+    background-color: transparent;
+    border: none;
+  }
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__checkbox ~ &__checkboxValue{
+    &::after {
+      content: "no";
+    }
+  }
+
+  &__checkbox:checked ~ &__checkboxValue{
+    &::after {
+      content: "yes";
+    }
+  }
 }
