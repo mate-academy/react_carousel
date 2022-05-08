@@ -1,1 +1,35 @@
-// style go here
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__wraper {
+    position: relative;
+    height: auto;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    width: 100px;
+    height: 50px;
+  }
+}
