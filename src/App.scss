@@ -1,1 +1,45 @@
-// style go here
+.page {
+
+  &__body {
+    margin: 0;
+    background-color: aquamarine;
+    padding: 0 30px;
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__carusel-wrapper {
+    display: flex;
+    flex-direction: row;
+    border: 5px solid yellow;
+    background-color: lightyellow;
+    overflow: hidden;
+    padding-bottom: 20px;
+  }
+
+  &__form {
+    display: flex;
+    margin-top: 100px;
+
+    &-input {
+      display: block;
+      height: 30px;
+      margin-right: 50px;
+    }
+
+    &-span {
+      font-size: 25px;
+      margin-right: 10px;
+    }
+
+    &-checkbox {
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+    }
+  }
+}

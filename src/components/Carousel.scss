@@ -1,1 +1,40 @@
-// style go here
+.Carousel {
+
+  &__list {
+    margin: 0;
+    padding-left: 0;
+    display: flex;
+    list-style: none;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: lightyellow;
+  }
+
+  &__prev {
+    height: 50px;
+    width: 50px;
+    outline: none;
+    background-color: lightyellow;
+    background-image: url(./go-back.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 50px;
+    cursor: pointer;
+  }
+
+  &__next {
+    height: 50px;
+    width: 50px;
+    background-color: lightyellow;
+    background-image: url(./go-forward.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 50px;
+    cursor: pointer;
+  }
+}
