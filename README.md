@@ -32,5 +32,4 @@
    - `AnimationDuration`
 3. Add data-cy attributes:
    - `title` inside h1 tag
-   - `carousel` to the `className="Carousel__list"`
    - `next` to the `"Next" button`

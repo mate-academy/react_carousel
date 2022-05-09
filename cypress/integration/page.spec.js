@@ -1,4 +1,10 @@
 
+const page = {
+  getImg(number) {
+    return cy.get(`[src="./img/${number}.png"]`);
+}
+};
+
 describe('Page', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -10,20 +16,20 @@ describe('Page', () => {
  });
 
  it('have length 10', () => {
-   cy.getByDataCy('carousel')
+   cy.get('ul')
      .children()
      .should('have.length', 10)
  });
 
   it('should have picture size 130 px by default', () => {
-    cy.get('[src="./img/1.png"]')
-      .invoke('attr', 'width')
-      .should('eq', '130');
+     page.getImg('1')
+         .invoke('attr', 'width')
+         .should('eq', '130');
   });
 
   it ('should display 3 images by default', () => {
-    cy.get('[src="./img/1.png"]')
-      .should('be.visible');
+    page.getImg('1')
+        .should('be.visible');
     cy.get('[src="./img/2.png"]')
       .should('be.visible');
     cy.get('[src="./img/3.png"]')
@@ -34,36 +40,44 @@ describe('Page', () => {
 
   it('should scroll 3 images by default', () => {
     cy.getByDataCy('next').click();
-    cy.get('[src="./img/4.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/5.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/6.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/7.png"]')
-      .should('not.be.visible');
+    page.getImg('4')
+        .should('be.visible');
+    page.getImg('5')
+        .should('be.visible');
+    page.getImg('6')
+        .should('be.visible');
+    page.getImg('7')
+        .should('not.be.visible');
   });
    
   it('should change scroll text on 1 step', () => {
-    cy.get('[for="stepId"]').type('{selectall}1');
-    cy.getByDataCy('next').click();
-    cy.get('[src="./img/4.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/5.png"]')
-      .should('not.be.visible');
+    cy.get('[for="stepId"]')
+      .type('{selectall}1');
+    cy.getByDataCy('next')
+      .click();
+    page.getImg('4')
+        .should('be.visible');
+    page.getImg('5')
+        .should('not.be.visible');
   });
 
   it('should change width of image', () => {
-    cy.get('[for ="itemId"]').type('{selectall}200');
-    cy.get('[src="./img/1.png"]')
-      .invoke('attr', 'width')
-      .should('eq', '200');
+    cy.get('[for ="itemId"]')
+      .type('{selectall}200');
+
+    page.getImg('1')
+        .invoke('attr', 'width')
+        .should('eq', '200');
   });
     
   it('should change frame size', () => {
-    cy.get('[for ="frameId"').type('{selectall}2');
-    cy.get('[src="./img/1.png"]').should('be.visible');
-    cy.get('[src="./img/2.png"]').should('be.visible');
-    cy.get('[src="./img/3.png"]').should('not.be.visible');
+    cy.get('[for ="frameId"')
+      .type('{selectall}2');
+    page.getImg('1')
+        .should('be.visible');
+    page.getImg('2')
+        .should('be.visible');
+    page.getImg('3')
+        .should('not.be.visible');
     });
   });
