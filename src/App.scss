@@ -1,1 +1,9 @@
-// style go here
+* {
+  box-sizing: content-box;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}

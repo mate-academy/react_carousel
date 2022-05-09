@@ -1,12 +1,16 @@
+/* eslint-disable import/no-useless-path-segments */
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel/';
+import { InputForm } from './components/InputForm/';
+import { CaruselSettings } from './types/CaruselSettings';
 
-interface State {
-  images: string[];
-}
+type State = {
+  images: Array<string>,
+  caruselSettings: CaruselSettings,
+};
 
-class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,20 +24,97 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    caruselSettings: {
+      frameSize: 3,
+      itemWidth: 100,
+      stepCount: 3,
+      animationDuration: 1000,
+      isInfinite: false,
+    },
+  };
+
+  updateSettings: (event: React.FormEvent<HTMLInputElement>) => void = (e) => {
+    const { name, value } = e.currentTarget;
+
+    // eslint-disable-next-line default-case
+    switch (name) {
+      case 'itemWidth':
+        this.setState((prevState) => (
+          {
+            ...prevState,
+            caruselSettings: {
+              ...prevState.caruselSettings,
+              itemWidth: Number(value),
+            },
+          }
+        ));
+        break;
+      case 'frameSize':
+        this.setState((prevState) => (
+          {
+            ...prevState,
+            caruselSettings: {
+              ...prevState.caruselSettings,
+              frameSize: Number(value),
+            },
+          }
+        ));
+        break;
+      case 'stepCount':
+        this.setState((prevState) => (
+          {
+            ...prevState,
+            caruselSettings: {
+              ...prevState.caruselSettings,
+              stepCount: Number(value),
+            },
+          }
+        ));
+        break;
+      case 'animationDuration':
+        this.setState((prevState) => (
+          {
+            ...prevState,
+            caruselSettings: {
+              ...prevState.caruselSettings,
+              animationDuration: Number(value),
+            },
+          }
+        ));
+        break;
+      case 'isInfinite':
+        this.setState((prevState) => (
+          {
+            ...prevState,
+            caruselSettings: {
+              ...prevState.caruselSettings,
+              isInfinite: !prevState.caruselSettings.isInfinite,
+            },
+          }
+        ));
+        break;
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      caruselSettings,
+    } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <div className="app">
+        <InputForm
+          images={images}
+          caruselSettings={caruselSettings}
+          updateSettings={this.updateSettings}
+        />
 
-        <Carousel />
+        <Carousel
+          images={images}
+          caruselSettings={caruselSettings}
+        />
       </div>
     );
   }
 }
-
-export default App;
