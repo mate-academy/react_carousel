@@ -1,0 +1,12 @@
+.inputForm {
+  display: grid;
+
+  grid-template-columns: max-content 75px;
+  &__label {
+    display: block;
+  }
+
+  &__input {
+    display: inline-block;
+  }
+}

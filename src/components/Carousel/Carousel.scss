@@ -1,0 +1,21 @@
+.carousel {
+  overflow: hidden;
+  &__list {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+  }
+
+  &__list-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+}
