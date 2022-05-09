@@ -1,1 +1,19 @@
-// style go here
+.app {
+  &__settings {
+    margin-top: 10px;
+  }
+
+  &__setting {
+    margin-right: 10px;
+    font-size: 2em;
+  }
+
+  &__step,
+  &__frame-size,
+  &__item-width,
+  &__animation-duration,
+  &__frame-infinite {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+}
