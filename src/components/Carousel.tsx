@@ -19,18 +19,24 @@ class Carousel extends React.Component < Props, State > {
     position: 0,
   };
 
+  calcStepWidth = () => {
+    const { itemWidth, step } = this.props;
+
+    return itemWidth * step;
+  };
+
+  calcMaxRight = () => {
+    const { images, itemWidth, frameSize } = this.props;
+
+    return (images.length * -itemWidth) + (itemWidth * frameSize);
+  };
+
   clickNext = () => {
     const { position } = this.state;
-    const {
-      infinite,
-      images,
-      itemWidth,
-      step,
-      frameSize,
-    } = this.props;
+    const { infinite } = this.props;
 
-    const stepWidth = itemWidth * step;
-    const maxRight = (images.length * -itemWidth) + (itemWidth * frameSize);
+    const maxRight = this.calcMaxRight();
+    const stepWidth = this.calcStepWidth();
     const currentLeft = ((position - stepWidth) < maxRight)
       ? maxRight
       : position - stepWidth;
@@ -44,16 +50,10 @@ class Carousel extends React.Component < Props, State > {
 
   clickPrev = () => {
     const { position } = this.state;
-    const {
-      infinite,
-      images,
-      itemWidth,
-      step,
-      frameSize,
-    } = this.props;
+    const { infinite } = this.props;
 
-    const maxRight = (images.length * -itemWidth) + (itemWidth * frameSize);
-    const stepWidth = itemWidth * step;
+    const maxRight = this.calcMaxRight();
+    const stepWidth = this.calcStepWidth();
     const currentLeft = ((position + stepWidth) > 0)
       ? 0
       : position + stepWidth;
@@ -66,15 +66,14 @@ class Carousel extends React.Component < Props, State > {
   };
 
   render() {
-    const {
-      position,
-    } = this.state;
+    const { position } = this.state;
 
     const {
       images,
       frameSize,
       itemWidth,
       animationDuration,
+      infinite,
     } = this.props;
 
     return (
@@ -120,16 +119,18 @@ class Carousel extends React.Component < Props, State > {
             className="carousel__button"
             type="button"
             onClick={this.clickPrev}
+            disabled={(!infinite && position === 0) && true}
           >
-            Prev
+            &#8678;
           </button>
 
           <button
             className="carousel__button"
             type="button"
             onClick={this.clickNext}
+            disabled={(!infinite && position === this.calcMaxRight()) && true}
           >
-            Next
+            &#8680;
           </button>
         </div>
       </div>
