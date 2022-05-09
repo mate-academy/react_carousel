@@ -56,7 +56,7 @@ export class App extends React.Component<{}, State> {
 
     if (targetName === 'step') {
       this.setState({
-        itemWidth: +value,
+        step: +value,
       });
     }
 
@@ -127,7 +127,7 @@ export class App extends React.Component<{}, State> {
           <span className="App__form-span">Step:</span>
           <input
             className="App__form-input"
-            name="syep"
+            name="step"
             type="number"
             min={2}
             max={5}

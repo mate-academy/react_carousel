@@ -28,22 +28,22 @@ export class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
     const { position } = this.state;
+    const maxRight = itemWidth * images.length - frameSize * itemWidth;
     let way = 0;
 
     way = position + itemWidth * step;
 
-    if (position + step * itemWidth >= images.length * itemWidth - itemWidth
-      || infinite) {
-      way = images.length * itemWidth - frameSize * itemWidth;
-    }
-
-    if (position + frameSize * itemWidth >= images.length * itemWidth
-       - itemWidth) {
-      way = position + itemWidth;
+    if (position + frameSize * itemWidth + step * itemWidth
+       >= images.length * itemWidth) {
+      way = maxRight;
     }
 
     if (position + frameSize * itemWidth >= images.length * itemWidth) {
       way = position;
+    }
+
+    if (infinite && position === maxRight) {
+      way = 0;
     }
 
     this.setState({
@@ -54,14 +54,21 @@ export class Carousel extends React.Component<Props, State> {
   scrollPrev = () => {
     const {
       itemWidth,
+      frameSize,
       step,
       infinite,
+      images,
     } = this.props;
     const { position } = this.state;
+    const maxRight = itemWidth * images.length - frameSize * itemWidth;
     let way = position - itemWidth * step;
 
-    if (position - itemWidth * step < 0 || infinite === true) {
+    if (position - itemWidth * step < 0) {
       way = 0;
+    }
+
+    if (position === 0 && infinite) {
+      way = maxRight;
     }
 
     this.setState({
