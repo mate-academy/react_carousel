@@ -129,10 +129,7 @@ export class Carousel extends React.Component<Props, State> {
                 <img
                   src={image}
                   alt={image[i + 1]}
-                  style={{
-                    width: `${itemWidth}px`,
-                    height: `${100}%`,
-                  }}
+                  style={{ width: `${itemWidth}px` }}
                 />
               </li>
             ))}

@@ -10,6 +10,10 @@
     display: flex;
     list-style: none;
   }
+
+  &__item {
+    height: 100%;
+  }
 }
 
 .nav-buttons {

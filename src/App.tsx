@@ -34,32 +34,23 @@ class App extends React.Component<{}, State> {
   }) => {
     const { value } = event.target;
     const targetName = event.target.name;
-    let flag = false;
 
     switch (targetName) {
       case 'itemWidth':
         this.setState({ itemWidth: +value });
         break;
-
       case 'frameSize':
         this.setState({ frameSize: +value });
         break;
-
       case 'step':
         this.setState({ step: +value });
         break;
-
       case 'animationDuration':
         this.setState({ animationDuration: +value });
         break;
 
       case 'infinite':
-
-        if (value === 'true') {
-          flag = true;
-        }
-
-        this.setState({ infinite: flag });
+        this.setState(state => ({ infinite: !state.infinite }));
         break;
 
       default:
