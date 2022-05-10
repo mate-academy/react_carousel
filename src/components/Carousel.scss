@@ -1,1 +1,10 @@
-// style go here
+.carousel {
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: gray;
+    border-radius: 20px;
+  }
+};

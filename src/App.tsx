@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+class App extends React.Component {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,17 +25,106 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  changeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = e.target;
+
+    this.setState({
+      [name]: type === 'checkbox'
+        ? checked
+        : +value,
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <div className="app">
+        <h1>
+          Carousel with
+          {' '}
+          {images.length}
+          {' '}
+          images
+        </h1>
 
-        <Carousel />
+        <p>Item size</p>
+        <input
+          type="number"
+          name="itemWidth"
+          defaultValue={itemWidth}
+          onChange={this.changeHandle}
+        />
+
+        <p>Frame size</p>
+        <input
+          type="number"
+          name="frameSize"
+          defaultValue={frameSize}
+          min={0}
+          max={images.length}
+          onChange={this.changeHandle}
+        />
+
+        <p>Step</p>
+        <input
+          type="number"
+          name="step"
+          defaultValue={step}
+          min={1}
+          max={images.length - 1}
+          onChange={this.changeHandle}
+        />
+
+        <p>Animation time</p>
+        <input
+          type="number"
+          name="animationDuration"
+          defaultValue={animationDuration}
+          min={0}
+          onChange={this.changeHandle}
+        />
+
+        <div>
+          <label htmlFor="infinite">
+            Infinite
+            <input
+              type="checkbox"
+              id="infinite"
+              name="infinite"
+              checked={infinite}
+              onChange={this.changeHandle}
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={images}
+          step={step * itemWidth}
+          frameSize={frameSize * itemWidth}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
