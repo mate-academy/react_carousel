@@ -8,6 +8,7 @@ interface State {
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
+  step: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -28,24 +29,14 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
+    step: 3,
   };
 
-  handleFrameSizeChange = (event: React.SyntheticEvent<EventTarget>) => {
-    this.setState({
-      frameSize: +(event.target as HTMLInputElement).value,
-    });
-  };
+  handleValueSetChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { target: { name, value } } = event;
+    const newState = { [name]: +value } as unknown as Pick<State, keyof State>;
 
-  handleItemWidthChange = (event: React.SyntheticEvent<EventTarget>) => {
-    this.setState({
-      itemWidth: +(event.target as HTMLInputElement).value,
-    });
-  };
-
-  handleAnimationTimeChange = (event: React.SyntheticEvent<EventTarget>) => {
-    this.setState({
-      animationDuration: +(event.target as HTMLInputElement).value,
-    });
+    this.setState(newState);
   };
 
   handleInfiniteChange = () => {
@@ -63,6 +54,7 @@ class App extends React.Component<{}, State> {
       itemWidth,
       animationDuration,
       infinite,
+      step,
     } = this.state;
 
     return (
@@ -73,6 +65,7 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
+          step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
@@ -83,11 +76,26 @@ class App extends React.Component<{}, State> {
             <span className="App__formTitle1">Count images: </span>
             <input
               type="number"
+              name="frameSize"
               min="2"
               max="5"
               step="1"
               value={frameSize}
-              onChange={this.handleFrameSizeChange}
+              onChange={this.handleValueSetChange}
+              className="App__input"
+            />
+          </div>
+
+          <div>
+            <span className="App__formTitle1">Count images on click: </span>
+            <input
+              type="number"
+              name="step"
+              min="2"
+              max="5"
+              step="1"
+              value={step}
+              onChange={this.handleValueSetChange}
               className="App__input"
             />
           </div>
@@ -96,9 +104,10 @@ class App extends React.Component<{}, State> {
             <span>Size image: </span>
             <input
               type="text"
+              name="itemWidth"
               value={itemWidth}
               placeholder="130"
-              onChange={this.handleItemWidthChange}
+              onChange={this.handleValueSetChange}
               className="App__input"
             />
           </div>
@@ -107,9 +116,10 @@ class App extends React.Component<{}, State> {
             <span>Animation time: </span>
             <input
               type="text"
+              name="animationDuration"
               value={animationDuration}
               placeholder="1000"
-              onChange={this.handleAnimationTimeChange}
+              onChange={this.handleValueSetChange}
               className="App__input"
             />
           </div>
@@ -118,6 +128,7 @@ class App extends React.Component<{}, State> {
             <span>Infinite animation: </span>
             <input
               type="checkbox"
+              name="infinite"
               onChange={this.handleInfiniteChange}
               className="App__checkbox"
             />

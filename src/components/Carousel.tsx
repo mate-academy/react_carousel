@@ -7,6 +7,7 @@ type Props = {
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
+  step: number;
 };
 
 type State = {
@@ -24,10 +25,11 @@ export class Carousel extends React.Component<Props, State> {
       itemWidth,
       images,
       infinite,
+      step,
     } = this.props;
     const { way } = this.state;
     const newWay = Math.max(
-      way - frameSize * itemWidth,
+      way - step * itemWidth,
       -(itemWidth * (images.length - frameSize)),
     );
     const cycleWay = newWay === way ? 0 : newWay;
@@ -43,9 +45,10 @@ export class Carousel extends React.Component<Props, State> {
       itemWidth,
       images,
       infinite,
+      step,
     } = this.props;
     const { way } = this.state;
-    const newWay = Math.min(0, way + frameSize * itemWidth);
+    const newWay = Math.min(0, way + step * itemWidth);
     const limit = -(itemWidth * (images.length - frameSize));
     const cycleWay = newWay === way ? limit : newWay;
 
@@ -73,7 +76,7 @@ export class Carousel extends React.Component<Props, State> {
           }}
         >
           {images.map((img, index) => (
-            <li>
+            <li key={img}>
               <img
                 src={img}
                 alt={String(index + 1)}
