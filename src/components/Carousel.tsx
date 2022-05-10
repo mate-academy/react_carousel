@@ -19,6 +19,16 @@ class Carousel extends React.Component<Props, State> {
     shift: 0,
   };
 
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevProps.itemWidth !== this.props.itemWidth) {
+      const howChangeItemWidth = this.props.itemWidth / prevProps.itemWidth;
+
+      this.setState({
+        shift: prevState.shift * howChangeItemWidth,
+      });
+    }
+  }
+
   scrollLeft = () => {
     const shift = this.props.itemWidth * this.props.step;
 
