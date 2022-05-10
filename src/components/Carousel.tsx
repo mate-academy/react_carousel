@@ -7,7 +7,7 @@ interface Props {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
+  infinite: boolean,
 }
 
 type State = {
@@ -37,8 +37,7 @@ class Carousel extends React.Component<Props, State> {
 
       if (addShift
       >= this.props.images.length * this.props.itemWidth) {
-        addShift = this.props.images.length * this.props.itemWidth
-        - this.props.frameSize * this.props.itemWidth;
+        addShift = 0;
       }
 
       return ({
@@ -54,8 +53,14 @@ class Carousel extends React.Component<Props, State> {
       let addShift = prevState.shift - shift;
 
       if (addShift
-      <= 0) {
+      < 0 && prevState.shift !== 0) {
         addShift = 0;
+      }
+
+      if (addShift
+      < 0 && prevState.shift === 0) {
+        addShift = (this.props.images.length - this.props.step)
+        * this.props.itemWidth;
       }
 
       return ({
@@ -65,29 +70,37 @@ class Carousel extends React.Component<Props, State> {
   };
 
   render() {
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.props;
+
     return (
       <>
         <div
           className="carousel"
           style={{
-            width: `${this.props.itemWidth * this.props.frameSize}px`,
-            height: `${this.props.itemWidth + 4}px`,
+            width: `${itemWidth * frameSize}px`,
+            height: `${itemWidth + 4}px`,
           }}
         >
           <div
             className="carousel__container"
             style={{
               transform: `translateX(-${this.state.shift}px)`,
-              transition: `transform ${this.props.animationDuration}ms`,
+              transition: `transform ${animationDuration}ms`,
             }}
           >
-            {this.props.images.map((image) => (
+            {images.map((image, index) => (
               <img
-                key={image}
+                key={image + String(index)}
                 src={image}
                 alt={image}
                 style={{
-                  width: `${this.props.itemWidth}px`,
+                  width: `${itemWidth}px`,
                 }}
               />
             ))}
@@ -99,7 +112,8 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__prev-button"
             onClick={this.scrollRight}
             disabled={
-              this.state.shift === 0
+              !infinite
+              && this.state.shift === 0
             }
           >
             {'<'}
@@ -109,9 +123,10 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__next-button"
             onClick={this.scrollLeft}
             disabled={
-              this.state.shift
-                >= (this.props.images.length - this.props.frameSize)
-                * this.props.itemWidth
+              !infinite
+              && this.state.shift
+                >= (images.length - frameSize)
+                * itemWidth
             }
           >
             {'>'}

@@ -69,7 +69,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          // infinite={infinite}
+          infinite={infinite}
         />
 
         <fieldset className="app__settings">
