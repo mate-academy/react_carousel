@@ -3,25 +3,29 @@
   width: 80%;
 
   &__settings {
+    padding: 10px;
     display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
     margin-top: 10px;
   }
 
   &__setting {
-    margin-right: 10px;
-    font-size: 2em;
+    min-width: 15%;
+    font-size: 1.7em;
   }
 
   &__step,
   &__frame-size,
   &__item-width,
   &__animation-duration,
-  &__frame-infinite {
+  &__infinite {
     font-size: 1em;
     margin-bottom: 20px;
   }
 
   &__infinite {
-    width: 30px;
+    visibility: hidden;
   }
 }
