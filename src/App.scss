@@ -1,5 +1,9 @@
 .app {
+  margin: 0 auto;
+  width: 80%;
+
   &__settings {
+    display: flex;
     margin-top: 10px;
   }
 
@@ -15,5 +19,9 @@
   &__frame-infinite {
     font-size: 1em;
     margin-bottom: 20px;
+  }
+
+  &__infinite {
+    width: 30px;
   }
 }

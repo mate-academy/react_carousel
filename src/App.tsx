@@ -146,6 +146,11 @@ class App extends React.Component<{}, State> {
                   .updateSettings('infinite', target.checked))
               }
             />
+            {
+              infinite
+                ? 'Yes'
+                : 'No'
+            }
           </label>
         </fieldset>
       </div>
