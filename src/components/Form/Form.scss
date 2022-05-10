@@ -1,0 +1,33 @@
+.form {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem;
+  border-radius: 2rem 2rem 0 0;
+
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+  color: rgb(42, 50, 56);
+
+  background-color: rgb(255, 160, 160);
+
+  &__label {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 1rem;
+  }
+}

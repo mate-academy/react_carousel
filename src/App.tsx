@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { Form } from './components/Form';
+import { Sizes } from './types/Sizes';
 
-interface State {
+type State = Sizes & {
   images: string[];
-}
+};
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,17 +22,75 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  submitChanges = (event: {
+    target: { name: string; value: string; };
+  }) => {
+    const { value } = event.target;
+    const targetName = event.target.name;
+
+    switch (targetName) {
+      case 'itemWidth':
+        this.setState({ itemWidth: +value });
+        break;
+      case 'frameSize':
+        this.setState({ frameSize: +value });
+        break;
+      case 'step':
+        this.setState({ step: +value });
+        break;
+      case 'animationDuration':
+        this.setState({ animationDuration: +value });
+        break;
+
+      case 'infinite':
+        this.setState(state => ({ infinite: !state.infinite }));
+        break;
+
+      default:
+        break;
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <Form
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          submitFuction={this.submitChanges}
+        />
       </div>
     );
   }
