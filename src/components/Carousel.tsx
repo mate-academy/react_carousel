@@ -36,7 +36,7 @@ class Carousel extends React.Component<Props, State> {
       let addShift = prevState.shift + shift;
 
       if (addShift
-      >= this.props.images.length * this.props.itemWidth) {
+        >= this.props.images.length * this.props.itemWidth) {
         addShift = 0;
       }
 
@@ -52,15 +52,13 @@ class Carousel extends React.Component<Props, State> {
     this.setState((prevState) => {
       let addShift = prevState.shift - shift;
 
-      if (addShift
-      < 0 && prevState.shift !== 0) {
+      if (addShift < 0 && prevState.shift !== 0) {
         addShift = 0;
       }
 
-      if (addShift
-      < 0 && prevState.shift === 0) {
+      if (addShift < 0 && prevState.shift === 0) {
         addShift = (this.props.images.length - this.props.step)
-        * this.props.itemWidth;
+          * this.props.itemWidth;
       }
 
       return ({
