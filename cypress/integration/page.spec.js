@@ -30,16 +30,17 @@ describe('Page', () => {
   it ('should display 3 images by default', () => {
     page.getImg('1')
         .should('be.visible');
-    cy.get('[src="./img/2.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/3.png"]')
-      .should('be.visible');
-    cy.get('[src="./img/4.png"]')
-      .should('not.be.visible');
+    page.getImg('2')
+        .should('be.visible');
+    page.getImg('3')
+        .should('be.visible');
+    page.getImg('4')
+        .should('not.be.visible');
   });
 
   it('should scroll 3 images by default', () => {
-    cy.getByDataCy('next').click();
+    cy.getByDataCy('next')
+      .click();
     page.getImg('4')
         .should('be.visible');
     page.getImg('5')
