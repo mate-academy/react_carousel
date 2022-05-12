@@ -12,11 +12,15 @@ interface Props {
 
 type State = {
   shift: number,
+  currentIndex: number,
+  animationDuration: number,
 };
 
 class Carousel extends React.Component<Props, State> {
   state: State = {
     shift: 0,
+    // currentIndex: 0,
+    animationDuration: 0,
   };
 
   componentDidUpdate(prevProps: Props, prevState: State) {
@@ -25,6 +29,7 @@ class Carousel extends React.Component<Props, State> {
 
       this.setState({
         shift: prevState.shift * howChangeItemWidth,
+        animationDuration: 0,
       });
     }
   }
@@ -42,6 +47,7 @@ class Carousel extends React.Component<Props, State> {
 
       return ({
         shift: addShift,
+        animationDuration: this.props.animationDuration,
       });
     });
   };
@@ -63,6 +69,7 @@ class Carousel extends React.Component<Props, State> {
 
       return ({
         shift: addShift,
+        animationDuration: this.props.animationDuration,
       });
     });
   };
@@ -72,9 +79,10 @@ class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       itemWidth,
-      animationDuration,
       infinite,
     } = this.props;
+
+    const { animationDuration } = this.state;
 
     return (
       <>
