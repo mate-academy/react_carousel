@@ -7,7 +7,7 @@ type Settings = {
   itemWidth: number;
   step: number;
   animationDuration: number;
-  infinite: boolean;
+  isInfinite: boolean;
 };
 
 type State = {
@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
       frameSize: 3,
       itemWidth: 130,
       animationDuration: 1000,
-      infinite: false,
+      isInfinite: false,
     },
   };
 
@@ -55,7 +55,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
+      isInfinite,
     } = this.state.settings;
 
     return (
@@ -70,7 +70,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={infinite}
+          isInfinite={isInfinite}
         />
 
         <fieldset className="app__settings">
@@ -141,14 +141,14 @@ class App extends React.Component<{}, State> {
             <input
               className="app__infinite"
               type="checkbox"
-              defaultChecked={infinite}
+              defaultChecked={isInfinite}
               onChange={
                 (({ target }) => this
-                  .updateSettings('infinite', target.checked))
+                  .updateSettings('isInfinite', target.checked))
               }
             />
             {
-              infinite
+              isInfinite
                 ? 'Yes'
                 : 'No'
             }

@@ -7,12 +7,12 @@ interface Props {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
+  isInfinite: boolean,
 }
 
 type State = {
   shift: number,
-  currentIndex: number,
+  // currentIndex: number,
   animationDuration: number,
 };
 
@@ -79,7 +79,7 @@ class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       itemWidth,
-      infinite,
+      isInfinite,
     } = this.props;
 
     const { animationDuration } = this.state;
@@ -118,7 +118,7 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__prev-button"
             onClick={this.scrollRight}
             disabled={
-              !infinite
+              !isInfinite
               && this.state.shift === 0
             }
           >
@@ -129,7 +129,7 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__next-button"
             onClick={this.scrollLeft}
             disabled={
-              !infinite
+              !isInfinite
               && this.state.shift
                 >= (images.length - frameSize)
                 * itemWidth
