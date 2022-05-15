@@ -67,6 +67,7 @@ class App extends React.Component<{}, State> {
       && this.state.images.length === defaultLength) {
       const prevImage = this.state.images.splice(0, this.state.settings.step);
       const newImages = [...this.state.images, ...prevImage];
+      const shift = this.state.settings.itemWidth * this.state.settings.step;
 
       setTimeout(() => {
         this.setState(({ settings }) => {
@@ -74,7 +75,8 @@ class App extends React.Component<{}, State> {
             images: newImages,
             settings: {
               ...settings,
-              shift: 0,
+              shift: settings.shift + shift,
+              shiftInner: settings.shiftInner,
               isScrollLeft: false,
               isAnimation: false,
             },
@@ -93,6 +95,7 @@ class App extends React.Component<{}, State> {
           settings: {
             ...settings,
             shift: settings.shift - shift,
+            shiftInner: settings.shiftInner,
             isScrollLeft: true,
             isAnimation: true,
           },
