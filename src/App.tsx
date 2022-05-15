@@ -7,13 +7,19 @@ type Settings = {
   itemWidth: number;
   step: number;
   animationDuration: number;
+  isAnimation: boolean,
   isInfinite: boolean;
+  shift: number,
+  shiftInner: number,
+  isScrollLeft: boolean,
 };
 
 type State = {
   images: string[];
   settings: Settings;
 };
+
+const defaultLength = 10;
 
 class App extends React.Component<{}, State> {
   state: State = {
@@ -34,8 +40,125 @@ class App extends React.Component<{}, State> {
       frameSize: 3,
       itemWidth: 130,
       animationDuration: 1000,
+      isAnimation: true,
       isInfinite: false,
+      shift: 0,
+      shiftInner: 0,
+      isScrollLeft: false,
     },
+  };
+
+  componentDidUpdate() {
+    if (!this.state.settings.isAnimation && !this.state.settings.isInfinite) {
+      const newSettings = this.state.settings;
+
+      this.setState({
+        settings: {
+          ...newSettings,
+          isAnimation: true,
+          shift: 0,
+          shiftInner: 0,
+        },
+      });
+    }
+
+    if (this.state.settings.isScrollLeft
+      && this.state.settings.isInfinite
+      && this.state.images.length === defaultLength) {
+      const prevImage = this.state.images.splice(0, this.state.settings.step);
+      const newImages = [...this.state.images, ...prevImage];
+
+      setTimeout(() => {
+        this.setState(({ settings }) => {
+          return ({
+            images: newImages,
+            settings: {
+              ...settings,
+              shift: 0,
+              isScrollLeft: false,
+              isAnimation: false,
+            },
+          });
+        });
+      }, this.state.settings.animationDuration);
+    }
+  }
+
+  scrollLeft = () => {
+    if (this.state.settings.isInfinite && !this.state.settings.isScrollLeft) {
+      this.setState(({ settings }) => {
+        const shift = settings.itemWidth * settings.step;
+
+        return ({
+          settings: {
+            ...settings,
+            shift: settings.shift - shift,
+            isScrollLeft: true,
+            isAnimation: true,
+          },
+        });
+      });
+    }
+
+    if (!this.state.settings.isInfinite) {
+      this.setState(({ images, settings }) => {
+        const shift = settings.itemWidth * settings.step;
+        let addShift = settings.shift - shift;
+
+        if (settings.shift - shift
+            < -(images.length - 1) * settings.itemWidth) {
+          addShift = -(images.length - settings.frameSize) * settings.itemWidth;
+        }
+
+        return ({
+          images,
+          settings: {
+            ...settings,
+            shift: addShift,
+          },
+        });
+      });
+    }
+  };
+
+  scrollRight = () => {
+    if (this.state.settings.isInfinite) {
+      this.setState(({ images, settings }) => {
+        const prevImage = images.splice(-settings.step);
+        const newImages = [...prevImage, ...images];
+        const shift = settings.itemWidth * settings.step;
+
+        return ({
+          images: newImages,
+          settings: {
+            ...settings,
+            shift: settings.shift - shift,
+            shiftInner: settings.shiftInner + shift,
+            isAnimation: false,
+          },
+        });
+      });
+    }
+
+    if (!this.state.settings.isInfinite) {
+      this.setState(({ images, settings }) => {
+        const shift = settings.itemWidth * settings.step;
+
+        let addShift = settings.shift + shift;
+
+        if (settings.shift + shift > 0) {
+          addShift = 0;
+        }
+
+        return ({
+          images,
+          settings: {
+            ...settings,
+            shift: addShift,
+          },
+        });
+      });
+    }
   };
 
   updateSettings
@@ -55,7 +178,10 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      isAnimation,
       isInfinite,
+      shift,
+      shiftInner,
     } = this.state.settings;
 
     return (
@@ -66,13 +192,37 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          isInfinite={isInfinite}
+          isAnimation={isAnimation}
+          shift={shift}
+          shiftInner={shiftInner}
         />
-
+        <div className="carousel__buttons">
+          <button
+            type="button"
+            className="carousel__prev-button"
+            onClick={this.scrollRight}
+            disabled={
+              !isInfinite
+              && shift >= 0
+            }
+          >
+            {'<'}
+          </button>
+          <button
+            type="button"
+            className="carousel__next-button"
+            onClick={this.scrollLeft}
+            disabled={
+              !isInfinite
+              && shift < -(images.length - frameSize - 1) * itemWidth
+            }
+          >
+            {'>'}
+          </button>
+        </div>
         <fieldset className="app__settings">
           <label className="app__setting">
             Step:
