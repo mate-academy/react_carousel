@@ -1,1 +1,21 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap");
+
+* {
+  font-family: "Fontdiner Swanky", cursive;
+  letter-spacing: 3px;
+}
+
+body {
+  background-color: black;
+}
+
+.App {
+  margin: 50px auto;
+
+  &__title {
+    font-family: "Fontdiner Swanky", cursive;
+    padding: 50px;
+    text-align: center;
+    color: gold;
+  }
+}
