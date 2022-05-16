@@ -3,23 +3,21 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 type Settings = {
-  frameSize: number;
-  itemWidth: number;
-  step: number;
+  visibleFrameOfBlockImages: number;
+  imageWidth: number;
+  stepToShiftBlockOfImages: number;
+  isScrollAnimationOn: boolean,
   animationDuration: number;
-  isAnimation: boolean,
-  isInfinite: boolean;
-  shift: number,
-  shiftInner: number,
-  isScrollLeft: boolean,
+  isInfiniteScrollOn: boolean;
+  shiftBlockOfImages: number,
+  shiftInnerBlockOfImages: number,
+  isPreviousScrollLeftAnimationOver: boolean,
 };
 
 type State = {
   images: string[];
   settings: Settings;
 };
-
-const defaultLength = 10;
 
 class App extends React.Component<{}, State> {
   state: State = {
@@ -36,88 +34,123 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
     settings: {
-      step: 3,
-      frameSize: 3,
-      itemWidth: 130,
+      imageWidth: 130,
+      visibleFrameOfBlockImages: 3,
+      stepToShiftBlockOfImages: 3,
       animationDuration: 1000,
-      isAnimation: true,
-      isInfinite: false,
-      shift: 0,
-      shiftInner: 0,
-      isScrollLeft: false,
+      isScrollAnimationOn: true,
+      isInfiniteScrollOn: false,
+      shiftBlockOfImages: 0,
+      shiftInnerBlockOfImages: 0,
+      isPreviousScrollLeftAnimationOver: false,
     },
   };
 
   componentDidUpdate() {
-    if (!this.state.settings.isAnimation && !this.state.settings.isInfinite) {
+    const {
+      imageWidth,
+      stepToShiftBlockOfImages,
+      animationDuration,
+      isScrollAnimationOn,
+      isInfiniteScrollOn,
+      isPreviousScrollLeftAnimationOver,
+    } = this.state.settings;
+
+    const { images } = this.state;
+
+    if (!isScrollAnimationOn && !isInfiniteScrollOn) {
       const newSettings = this.state.settings;
 
       this.setState({
         settings: {
           ...newSettings,
-          isAnimation: true,
-          shift: 0,
-          shiftInner: 0,
+          isScrollAnimationOn: true,
+          shiftBlockOfImages: 0,
+          shiftInnerBlockOfImages: 0,
         },
       });
     }
 
-    if (this.state.settings.isScrollLeft
-      && this.state.settings.isInfinite
-      && this.state.images.length === defaultLength) {
-      const prevImage = this.state.images.splice(0, this.state.settings.step);
-      const newImages = [...this.state.images, ...prevImage];
-      const shift = this.state.settings.itemWidth * this.state.settings.step;
+    if (isPreviousScrollLeftAnimationOver
+      && isInfiniteScrollOn) {
+      const prevImage = images.splice(0, stepToShiftBlockOfImages);
+      const newImages = [...images, ...prevImage];
+      const shift = imageWidth * stepToShiftBlockOfImages;
 
       setTimeout(() => {
         this.setState(({ settings }) => {
+          const {
+            shiftBlockOfImages,
+            shiftInnerBlockOfImages,
+          } = settings;
+
           return ({
             images: newImages,
             settings: {
               ...settings,
-              shift: settings.shift + shift,
-              shiftInner: settings.shiftInner,
-              isScrollLeft: false,
-              isAnimation: false,
+              isScrollAnimationOn: false,
+              shiftBlockOfImages: shiftBlockOfImages + shift,
+              shiftInnerBlockOfImages,
+              isPreviousScrollLeftAnimationOver: false,
             },
           });
         });
-      }, this.state.settings.animationDuration);
+      }, animationDuration);
     }
   }
 
   scrollLeft = () => {
-    if (this.state.settings.isInfinite && !this.state.settings.isScrollLeft) {
+    const {
+      isInfiniteScrollOn,
+      isPreviousScrollLeftAnimationOver,
+    } = this.state.settings;
+
+    if (isInfiniteScrollOn && !isPreviousScrollLeftAnimationOver) {
       this.setState(({ settings }) => {
-        const shift = settings.itemWidth * settings.step;
+        const {
+          imageWidth,
+          stepToShiftBlockOfImages,
+          shiftBlockOfImages,
+          shiftInnerBlockOfImages,
+        } = settings;
+
+        const shift = imageWidth * stepToShiftBlockOfImages;
 
         return ({
           settings: {
             ...settings,
-            shift: settings.shift - shift,
-            shiftInner: settings.shiftInner,
-            isScrollLeft: true,
-            isAnimation: true,
+            isScrollAnimationOn: true,
+            shiftBlockOfImages: shiftBlockOfImages - shift,
+            shiftInnerBlockOfImages,
+            isPreviousScrollLeftAnimationOver: true,
           },
         });
       });
     }
 
-    if (!this.state.settings.isInfinite) {
+    if (!isInfiniteScrollOn) {
       this.setState(({ images, settings }) => {
-        const shift = settings.itemWidth * settings.step;
-        let addShift = settings.shift - shift;
+        const {
+          imageWidth,
+          visibleFrameOfBlockImages,
+          stepToShiftBlockOfImages,
+          shiftBlockOfImages,
+        } = settings;
 
-        if (settings.shift - shift
-            < -(images.length - 1) * settings.itemWidth) {
-          addShift = -(images.length - settings.frameSize) * settings.itemWidth;
+        const shift = imageWidth * stepToShiftBlockOfImages;
+        let addShift = shiftBlockOfImages - shift;
+
+        if (shiftBlockOfImages - shift
+            < -(images.length - 1) * imageWidth) {
+          addShift = -(images.length - visibleFrameOfBlockImages)
+            * imageWidth;
         }
 
         return ({
           images,
           settings: {
             ...settings,
-            shift: addShift,
+            shiftBlockOfImages: addShift,
           },
         });
       });
@@ -125,31 +158,48 @@ class App extends React.Component<{}, State> {
   };
 
   scrollRight = () => {
-    if (this.state.settings.isInfinite) {
+    const {
+      isInfiniteScrollOn,
+    } = this.state.settings;
+
+    if (isInfiniteScrollOn) {
       this.setState(({ images, settings }) => {
-        const prevImage = images.splice(-settings.step);
+        const {
+          imageWidth,
+          stepToShiftBlockOfImages,
+          shiftBlockOfImages,
+          shiftInnerBlockOfImages,
+        } = settings;
+
+        const prevImage = images.splice(-stepToShiftBlockOfImages);
         const newImages = [...prevImage, ...images];
-        const shift = settings.itemWidth * settings.step;
+        const shift = imageWidth * stepToShiftBlockOfImages;
 
         return ({
           images: newImages,
           settings: {
             ...settings,
-            shift: settings.shift - shift,
-            shiftInner: settings.shiftInner + shift,
-            isAnimation: false,
+            shiftBlockOfImages: shiftBlockOfImages - shift,
+            shiftInnerBlockOfImages: shiftInnerBlockOfImages + shift,
+            isScrollAnimationOn: false,
           },
         });
       });
     }
 
-    if (!this.state.settings.isInfinite) {
+    if (!isInfiniteScrollOn) {
       this.setState(({ images, settings }) => {
-        const shift = settings.itemWidth * settings.step;
+        const {
+          imageWidth,
+          stepToShiftBlockOfImages,
+          shiftBlockOfImages,
+        } = settings;
 
-        let addShift = settings.shift + shift;
+        const shift = imageWidth * stepToShiftBlockOfImages;
 
-        if (settings.shift + shift > 0) {
+        let addShift = shiftBlockOfImages + shift;
+
+        if (shiftBlockOfImages + shift > 0) {
           addShift = 0;
         }
 
@@ -157,7 +207,7 @@ class App extends React.Component<{}, State> {
           images,
           settings: {
             ...settings,
-            shift: addShift,
+            shiftBlockOfImages: addShift,
           },
         });
       });
@@ -177,14 +227,14 @@ class App extends React.Component<{}, State> {
   render() {
     const { images } = this.state;
     const {
-      step,
-      frameSize,
-      itemWidth,
+      imageWidth,
+      visibleFrameOfBlockImages,
+      stepToShiftBlockOfImages,
       animationDuration,
-      isAnimation,
-      isInfinite,
-      shift,
-      shiftInner,
+      isScrollAnimationOn,
+      isInfiniteScrollOn,
+      shiftBlockOfImages,
+      shiftInnerBlockOfImages,
     } = this.state.settings;
 
     return (
@@ -195,12 +245,12 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
+          imageWidth={imageWidth}
+          visibleFrameOfBlockImages={visibleFrameOfBlockImages}
           animationDuration={animationDuration}
-          isAnimation={isAnimation}
-          shift={shift}
-          shiftInner={shiftInner}
+          isScrollAnimationOn={isScrollAnimationOn}
+          shiftBlockOfImages={shiftBlockOfImages}
+          shiftInnerBlockOfImages={shiftInnerBlockOfImages}
         />
         <div className="carousel__buttons">
           <button
@@ -208,8 +258,8 @@ class App extends React.Component<{}, State> {
             className="carousel__prev-button"
             onClick={this.scrollRight}
             disabled={
-              !isInfinite
-              && shift >= 0
+              !isInfiniteScrollOn
+              && shiftBlockOfImages >= 0
             }
           >
             {'<'}
@@ -219,8 +269,9 @@ class App extends React.Component<{}, State> {
             className="carousel__next-button"
             onClick={this.scrollLeft}
             disabled={
-              !isInfinite
-              && shift < -(images.length - frameSize - 1) * itemWidth
+              !isInfiniteScrollOn
+              && shiftBlockOfImages
+                < -(images.length - visibleFrameOfBlockImages - 1) * imageWidth
             }
           >
             {'>'}
@@ -234,10 +285,11 @@ class App extends React.Component<{}, State> {
               type="number"
               min="1"
               max={images.length}
-              defaultValue={step}
+              defaultValue={stepToShiftBlockOfImages}
               onChange={
                 (({ target }) => this
-                  .updateSettings('step', Number(target.value)))
+                  .updateSettings('stepToShiftBlockOfImages',
+                    Number(target.value)))
               }
             />
           </label>
@@ -249,10 +301,11 @@ class App extends React.Component<{}, State> {
               type="number"
               min="1"
               max={images.length}
-              defaultValue={frameSize}
+              defaultValue={visibleFrameOfBlockImages}
               onChange={
                 (({ target }) => this
-                  .updateSettings('frameSize', Number(target.value)))
+                  .updateSettings('visibleFrameOfBlockImages',
+                    Number(target.value)))
               }
             />
           </label>
@@ -265,10 +318,10 @@ class App extends React.Component<{}, State> {
               min="80"
               max="180"
               step="10"
-              defaultValue={itemWidth}
+              defaultValue={imageWidth}
               onChange={
                 (({ target }) => this
-                  .updateSettings('itemWidth', Number(target.value)))
+                  .updateSettings('imageWidth', Number(target.value)))
               }
             />
           </label>
@@ -294,14 +347,14 @@ class App extends React.Component<{}, State> {
             <input
               className="app__infinite"
               type="checkbox"
-              defaultChecked={isInfinite}
+              defaultChecked={isInfiniteScrollOn}
               onChange={
                 (({ target }) => this
-                  .updateSettings('isInfinite', target.checked))
+                  .updateSettings('isInfiniteScrollOn', target.checked))
               }
             />
             {
-              isInfinite
+              isInfiniteScrollOn
                 ? 'Yes'
                 : 'No'
             }
