@@ -138,12 +138,15 @@ class App extends React.Component<{}, State> {
         } = settings;
 
         const shift = imageWidth * stepToShiftBlockOfImages;
+
+        const rightEgdeOfBlockOfImages
+          = -((images.length - 1) - visibleFrameOfBlockImages) * imageWidth;
+
         let addShift = shiftBlockOfImages - shift;
 
-        if (shiftBlockOfImages - shift
-            < -(images.length - 1) * imageWidth) {
-          addShift = -(images.length - visibleFrameOfBlockImages)
-            * imageWidth;
+        if (addShift
+            < rightEgdeOfBlockOfImages) {
+          addShift = rightEgdeOfBlockOfImages - imageWidth;
         }
 
         return ({
@@ -214,18 +217,23 @@ class App extends React.Component<{}, State> {
     }
   };
 
-  updateSettings
-  <T extends keyof Settings>(parameter: T, newValue: Settings[T]) {
+  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    const newValue = (name === 'isInfiniteScrollOn')
+      ? event.currentTarget.checked
+      : Number(value);
+
     this.setState(({ settings }) => ({
       settings: {
         ...settings,
-        [parameter]: newValue,
+        [name]: newValue,
       },
     }));
-  }
+  };
 
   render() {
     const { images } = this.state;
+
     const {
       imageWidth,
       visibleFrameOfBlockImages,
@@ -236,6 +244,13 @@ class App extends React.Component<{}, State> {
       shiftBlockOfImages,
       shiftInnerBlockOfImages,
     } = this.state.settings;
+
+    const rightEgdeOfBlockOfImages
+      = -((images.length - 1) - visibleFrameOfBlockImages) * imageWidth;
+
+    const isFarLeftImage = !isInfiniteScrollOn && shiftBlockOfImages >= 0;
+    const isFarRightImage = !isInfiniteScrollOn
+      && shiftBlockOfImages < rightEgdeOfBlockOfImages;
 
     return (
       <div className="app">
@@ -257,10 +272,7 @@ class App extends React.Component<{}, State> {
             type="button"
             className="carousel__prev-button"
             onClick={this.scrollRight}
-            disabled={
-              !isInfiniteScrollOn
-              && shiftBlockOfImages >= 0
-            }
+            disabled={isFarLeftImage}
           >
             {'<'}
           </button>
@@ -268,11 +280,8 @@ class App extends React.Component<{}, State> {
             type="button"
             className="carousel__next-button"
             onClick={this.scrollLeft}
-            disabled={
-              !isInfiniteScrollOn
-              && shiftBlockOfImages
-                < -(images.length - visibleFrameOfBlockImages - 1) * imageWidth
-            }
+            disabled={isFarRightImage}
+
           >
             {'>'}
           </button>
@@ -286,11 +295,8 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               defaultValue={stepToShiftBlockOfImages}
-              onChange={
-                (({ target }) => this
-                  .updateSettings('stepToShiftBlockOfImages',
-                    Number(target.value)))
-              }
+              name="stepToShiftBlockOfImages"
+              onChange={this.handleChange}
             />
           </label>
 
@@ -302,11 +308,8 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               defaultValue={visibleFrameOfBlockImages}
-              onChange={
-                (({ target }) => this
-                  .updateSettings('visibleFrameOfBlockImages',
-                    Number(target.value)))
-              }
+              name="visibleFrameOfBlockImages"
+              onChange={this.handleChange}
             />
           </label>
 
@@ -319,10 +322,8 @@ class App extends React.Component<{}, State> {
               max="180"
               step="10"
               defaultValue={imageWidth}
-              onChange={
-                (({ target }) => this
-                  .updateSettings('imageWidth', Number(target.value)))
-              }
+              name="imageWidth"
+              onChange={this.handleChange}
             />
           </label>
 
@@ -335,10 +336,8 @@ class App extends React.Component<{}, State> {
               max="2000"
               step="500"
               defaultValue={animationDuration}
-              onChange={
-                (({ target }) => this
-                  .updateSettings('animationDuration', Number(target.value)))
-              }
+              name="animationDuration"
+              onChange={this.handleChange}
             />
           </label>
 
@@ -347,11 +346,9 @@ class App extends React.Component<{}, State> {
             <input
               className="app__infinite"
               type="checkbox"
+              name="isInfiniteScrollOn"
               defaultChecked={isInfiniteScrollOn}
-              onChange={
-                (({ target }) => this
-                  .updateSettings('isInfiniteScrollOn', target.checked))
-              }
+              onChange={this.handleChange}
             />
             {
               isInfiniteScrollOn
