@@ -51,9 +51,8 @@ class App extends React.Component<{}, State> {
           type="number"
           defaultValue={130}
           onChange={({ target }) => (
-              this.setState({ itemWidth: +(target.value) })
-            )
-          }
+            this.setState({ itemWidth: +(target.value) })
+          )}
         />
         <br />
         Framesize:
@@ -62,9 +61,8 @@ class App extends React.Component<{}, State> {
           type="number"
           defaultValue={3}
           onChange={({ target }) => (
-              this.setState({ frameSize: +(target.value) })
-            )
-          }
+            this.setState({ frameSize: +(target.value) })
+          )}
         />
         <br />
         Step:
@@ -73,9 +71,8 @@ class App extends React.Component<{}, State> {
           type="number"
           defaultValue={3}
           onChange={({ target }) => (
-              this.setState({ step: +(target.value) })
-            )
-          }
+            this.setState({ step: +(target.value) })
+          )}
         />
         <br />
         Delay:
@@ -84,9 +81,8 @@ class App extends React.Component<{}, State> {
           type="number"
           defaultValue={1000}
           onChange={({ target }) => (
-              this.setState({ delay: +(target.value) })
-            )
-          }
+            this.setState({ delay: +(target.value) })
+          )}
         />
 
         <Carousel
