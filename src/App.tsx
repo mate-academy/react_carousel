@@ -12,7 +12,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',

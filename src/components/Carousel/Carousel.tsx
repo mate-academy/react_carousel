@@ -15,7 +15,7 @@ interface State {
 }
 
 export class Carousel extends React.Component<Props, State> {
-  state = {
+  state: State = {
     currentPosition: 0,
   };
 
