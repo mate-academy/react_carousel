@@ -1,1 +1,54 @@
-// style go here
+.carousel {
+  overflow-x: hidden;
+  margin: 0 auto;
+  &__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    list-style: none;
+  }
+  &__item {
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 390px;
+  }
+}
+
+.prevBtn {
+  width: 170px;
+  height: 70px;
+  background: slateblue;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: #fff;
+  text-transform: uppercase;
+  &:disabled {
+    background: rgba(106, 90, 205, 0.5);
+  }
+}
+
+.nextBtn {
+  width: 170px;
+  height: 70px;
+  background: slateblue;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: #fff;
+  text-transform: uppercase;
+  &:disabled {
+    background: rgba(106, 90, 205, 0.5);
+  }
+}
