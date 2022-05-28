@@ -1,0 +1,48 @@
+.carousel {
+  &__family {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__content {
+    display: flex;
+  }
+
+  &__content > * {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+}
+
+.button {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  font-size: 24px;
+  border-radius: 8px;
+  background-color: white;
+  color: purple;
+  border: 1px solid purple;
+
+  &:hover {
+    background: purple;
+    color: white;
+  }
+
+  &:disabled {
+    background-color: lightgray;
+    color: white;
+    border: 2px solid lightgray;
+  }
+}
+
+@for $i from 1 through 5 {
+  .carousel__content.item-count--#{$i} > * {
+    width: calc(100% / #{$i});
+  }
+}
