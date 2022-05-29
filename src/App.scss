@@ -1,1 +1,21 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 60px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input-conteiner {
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+  }
+}
