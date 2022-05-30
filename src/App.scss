@@ -1,1 +1,20 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.App {
+  display: grid;
+  width: 100vw;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px 0;
+
+  &__title {
+    display: block;
+    font-size: 2rem;
+    color: #f37f13;
+  }
+}
