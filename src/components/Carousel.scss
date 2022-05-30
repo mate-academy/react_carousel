@@ -1,1 +1,86 @@
-// style go here
+.Carousel {
+  display: grid;
+  gap: 40px;
+
+  &-gallery {
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    gap: 50px;
+    align-items: center;
+    width: fit-content;
+
+    &__images {
+      width: fit-content;
+      overflow: hidden;
+    
+      &__list {
+        display: flex;
+      
+        &__item {
+          display: block;
+        }
+      
+        &__img {
+          display: block;
+        }
+      }
+    
+      &__button {
+        display: block;
+        height: 50px;
+        line-height: 2rem;
+        font-size: 3rem;
+        color: #f3f3f3;
+        background-color: #f37f13;
+        border: none;
+        border-radius: 3px;
+        transition: all 0.15s;
+        cursor: pointer;
+
+        &:hover {
+          color: #57b1ee;
+        }
+    
+        &:active {
+          background-color: #da7517;
+        }
+
+        &-unactive {
+          background-color: #797979;
+        }
+      }
+    }
+  }
+
+  &__settings {
+    display: grid;
+    gap: 20px;
+
+    &__label {
+      display: grid;
+      gap: 10px;
+
+      &__title {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      &:hover * {
+        color: #f37f13;
+      }
+    }
+
+    &__input {
+      width: 50px;
+      font-size: 0.8rem;
+      border: 1px solid #e2e2e2;
+      border-radius: 3px;
+
+      &:focus {
+        color: #f37f13;
+        background-color: #f5f5f5;
+        outline: none;
+      }
+    }
+  }
+}
