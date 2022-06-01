@@ -1,1 +1,35 @@
 // style go here
+body {
+  font-family: Helvetica, sans-serif;
+  background-color: rgb(255, 196, 0);
+  margin: 50px;
+}
+
+.App {
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    font-size: 20px;
+    width: max-content;
+    margin: 100px auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+  }
+
+  &__input {
+    width: 50px;
+    outline: none;
+    font-size: 18px;
+    background-color: rgb(211, 123, 51);
+    border-radius: 3px;
+    border: 1px solid;
+  }
+
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+  }
+}
