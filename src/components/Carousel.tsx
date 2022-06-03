@@ -16,7 +16,7 @@ type State = {
 class Carousel extends React.Component<Props, State> {
   state = {
     scrollWidth: 0,
-    nextDisabled: true,
+    nextDisabled: false,
     prevDisabled: true,
   };
 
@@ -119,7 +119,6 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__button"
             disabled={prevDisabled}
             onClick={this.prevBtn}
-            data-cy="next"
           >
             Prev
           </button>
@@ -128,6 +127,7 @@ class Carousel extends React.Component<Props, State> {
             className="carousel__button"
             disabled={nextDisabled}
             onClick={this.nextBtn}
+            data-cy="next"
           >
             Next
           </button>
