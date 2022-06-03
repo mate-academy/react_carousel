@@ -16,7 +16,7 @@ type State = {
 class Carousel extends React.Component<Props, State> {
   state = {
     scrollWidth: 0,
-    nextDisabled: false,
+    nextDisabled: true,
     prevDisabled: true,
   };
 
