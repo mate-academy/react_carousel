@@ -111,6 +111,7 @@ class Carousel extends React.Component<Props, State> {
           </div>
           <button
             type="button"
+            data-cy="next"
             onClick={() => {
               this.shiftToRight(step, images.length);
             }}
