@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  width: 100%;
+
+  &__container {
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
+  
+  &__list {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.btnBlock {
+  text-align: center;
+}
+
+.controlBlock {
+  display: flex;
+  padding-top: 15px;
+  justify-content: center;
+  text-align: center;
+
+  & > label:not(:last-child) {
+    padding-left: 15px;
+  }
+
+  &__infinity {
+    text-align: center;
+    padding-left: 15px;
+  }
+}
