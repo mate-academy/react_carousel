@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button-arrow {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
