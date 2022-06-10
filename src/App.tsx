@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Event } from './react-app-env';
 
 interface State {
   images: string[];
@@ -32,39 +33,27 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  changeValue = (event: { target: { value: string; name: string; } }): void => {
+  changeValue = (event: Event): void => {
     const targetName = event.target.name;
     const { value } = event.target;
 
-    if (targetName === 'itemWidth') {
-      this.setState({
-        itemWidth: +value,
-      });
-    }
-
-    if (targetName === 'animationDuration') {
-      this.setState({
-        animationDuration: +value,
-      });
-    }
-
-    if (targetName === 'frameSize') {
-      this.setState({
-        frameSize: +value,
-      });
-    }
-
-    if (targetName === 'step') {
-      this.setState({
-        step: +value,
-      });
-    }
-
-    if (targetName === 'infinite') {
-      this.setState((state) => ({
-        infinite: !state.infinite,
-      }
-      ));
+    switch (targetName) {
+      case 'itemWidth':
+        this.setState({ itemWidth: +value });
+        break;
+      case 'animationDuration':
+        this.setState({ animationDuration: +value });
+        break;
+      case 'frameSize':
+        this.setState({ frameSize: +value });
+        break;
+      case 'step':
+        this.setState({ step: +value });
+        break;
+      case 'infinite':
+        this.setState((state) => ({ infinite: !state.infinite }));
+        break;
+      default:
     }
   };
 

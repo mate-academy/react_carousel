@@ -22,8 +22,7 @@ const Carousel: React.FC<Props> = ({
   const getNext = () => {
     let moveon: number = position + itemWidth * step;
 
-    if (position + step * itemWidth >= images.length * itemWidth - itemWidth
-      || infinite) {
+    if (position + step * itemWidth >= images.length * itemWidth - itemWidth) {
       moveon = images.length * itemWidth - frameSize * itemWidth;
     }
 
@@ -36,14 +35,28 @@ const Carousel: React.FC<Props> = ({
       moveon = position;
     }
 
+    if (infinite) {
+      moveon = itemWidth * images.length - step * itemWidth;
+      if (position === moveon) {
+        moveon = 0;
+      }
+    }
+
     setPosition(() => moveon);
   };
 
   const getPrev = () => {
     let moveon: number = position - itemWidth * step;
 
-    if (position - itemWidth * step < 0 || infinite === true) {
+    if (position - itemWidth * step < 0) {
       moveon = 0;
+    }
+
+    if (infinite) {
+      moveon = 0;
+      if (position === 0) {
+        moveon = itemWidth * images.length - step * itemWidth;
+      }
     }
 
     setPosition(() => moveon);
@@ -59,7 +72,15 @@ const Carousel: React.FC<Props> = ({
             transitionDuration: `${animationDuration}ms`,
           }}
         >
-          {images.map(item => <li key={item}><img src={`${item}`} alt={item} style={{ width: itemWidth }} /></li>)}
+          {images.map(item => (
+            <li key={item}>
+              <img
+                src={`${item}`}
+                alt={item}
+                style={{ width: itemWidth }}
+              />
+            </li>
+          ))}
         </ul>
 
         <div className="Carousel__boxbuttons">
