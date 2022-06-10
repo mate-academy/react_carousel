@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  background-color: hsl(171, 100%, 41%);
+  overflow: hidden;
+  margin: 0 auto;
+  width: 390px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+
+  &__boxbuttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    font-size: 20px;
+    height: 30px;
+    width: 100px;
+  }
+}
