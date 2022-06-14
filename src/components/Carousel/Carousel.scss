@@ -30,7 +30,7 @@
   border: 1px solid darkblue;
 
   &:hover {
-    background: darkblue;
+    background: blueviolet;
     color: white;
   }
 
@@ -45,4 +45,11 @@
   .carousel__content.item-count--#{$i} > * {
     width: calc(100% / #{$i});
   }
+}
+
+.title {
+  font-size: 50px;
+  margin-left: 40vw;
+  text-shadow: rgb(72, 200, 226) 1px 0 10px;
+  color: purple;
 }

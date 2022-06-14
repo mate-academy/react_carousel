@@ -90,61 +90,64 @@ export const Carousel: React.FC<Props> = ({
   const customWidth = `${frameSize * itemWidth}px`;
 
   return (
-    <div className="container">
-      <div className="carousel__family">
-        <button
-          type="button"
-          className="button"
-          disabled={currentIndex <= 0 && !isInfinite}
-          onClick={previousButton}
-        >
-          Previous
-        </button>
-        <div
-          className="carousel__container"
-          style={{ width: customWidth }}
-        >
-          <div
-            className={`carousel__content item-count--${frameSize}`}
-            style={{
-              transform: customTransform,
-              transition: customTransition,
-            }}
-            onTransitionEnd={() => handleTransition()}
+    <>
+      <div className="container">
+        <div className="title">Carousel</div>
+        <div className="carousel__family">
+          <button
+            type="button"
+            className="button"
+            disabled={currentIndex <= 0 && !isInfinite}
+            onClick={previousButton}
           >
-            {isTransition}
-            {isInfinite && newPrevious.map(item => (
-              <img
-                key={`${item}`}
-                src={`${item}`}
-                alt="smiley"
-              />
-            ))}
-            {images.map(image => (
-              <img
-                key={`${image}`}
-                src={`${image}`}
-                alt="smiley"
-              />
-            ))}
-            {isInfinite && newNext.map(item => (
-              <img
-                key={`${item}`}
-                src={`${item}`}
-                alt="smiley"
-              />
-            ))}
+            Previous
+          </button>
+          <div
+            className="carousel__container"
+            style={{ width: customWidth }}
+          >
+            <div
+              className={`carousel__content item-count--${frameSize}`}
+              style={{
+                transform: customTransform,
+                transition: customTransition,
+              }}
+              onTransitionEnd={() => handleTransition()}
+            >
+              {isTransition}
+              {isInfinite && newPrevious.map(item => (
+                <img
+                  key={`${item}`}
+                  src={`${item}`}
+                  alt="smiley"
+                />
+              ))}
+              {images.map(image => (
+                <img
+                  key={`${image}`}
+                  src={`${image}`}
+                  alt="smiley"
+                />
+              ))}
+              {isInfinite && newNext.map(item => (
+                <img
+                  key={`${item}`}
+                  src={`${item}`}
+                  alt="smiley"
+                />
+              ))}
+            </div>
           </div>
+          <button
+            type="button"
+            className="button"
+            disabled={disabled}
+            onClick={nextButton}
+          >
+            Next
+          </button>
         </div>
-        <button
-          type="button"
-          className="button"
-          disabled={disabled}
-          onClick={nextButton}
-        >
-          Next
-        </button>
       </div>
-    </div>
+    </>
   );
 };
