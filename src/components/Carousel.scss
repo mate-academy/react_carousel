@@ -1,1 +1,24 @@
-// style go here
+img {
+  max-width: unset;
+}
+
+.carousel {
+
+  &__list {
+
+    &-wrapper {
+      overflow: hidden;
+    }
+  }
+
+  &__image {
+    display: block;
+  }
+}
+
+.inputs-container {
+  position: fixed;
+  bottom: 20px;
+  left: 100px;
+  right: 100px;
+}
