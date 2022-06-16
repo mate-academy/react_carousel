@@ -81,7 +81,7 @@ const Carousel: React.FC<Props> = (props) => {
         <label htmlFor="step">Step</label>
         <input
           value={step}
-          onChange={(e) => setParams(e)}
+          onChange={setParams}
           type="number"
           id="step"
           name="step"
@@ -91,7 +91,7 @@ const Carousel: React.FC<Props> = (props) => {
         <label htmlFor="frameSize">frameSize</label>
         <input
           value={frameSize}
-          onChange={(e) => setParams(e)}
+          onChange={setParams}
           type="number"
           id="frameSize"
           name="frameSize"
@@ -101,7 +101,7 @@ const Carousel: React.FC<Props> = (props) => {
         <label htmlFor="itemWidth">itemWidth</label>
         <input
           value={itemWidth}
-          onChange={(e) => setParams(e)}
+          onChange={setParams}
           type="number"
           id="itemWidth"
           name="itemWidth"
@@ -111,7 +111,7 @@ const Carousel: React.FC<Props> = (props) => {
         <label htmlFor="animationDuration">animationDuration</label>
         <input
           value={animationDuration}
-          onChange={(e) => setParams(e)}
+          onChange={setParams}
           type="number"
           id="animationDuration"
           name="animationDuration"
