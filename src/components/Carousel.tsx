@@ -58,6 +58,22 @@ class Carousel extends React.Component<Props, State> {
     }));
   };
 
+  changeFrame = (value: number) => {
+    this.setState({ frameSize: value });
+  };
+
+  changeTransition = (value: number) => {
+    this.setState({ animationDuration: value });
+  };
+
+  changeStep = (value: number) => {
+    this.setState({ step: value });
+  };
+
+  changePicSize = (value: number) => {
+    this.setState({ pictureSize: value });
+  };
+
   resetAll = () => {
     this.setState({
       translateX: 0,
@@ -66,8 +82,6 @@ class Carousel extends React.Component<Props, State> {
       step: 3,
       animationDuration: 1000,
     });
-
-    document.getElementById('size-input');
   };
 
   render() {
@@ -97,7 +111,7 @@ class Carousel extends React.Component<Props, State> {
             type="button"
             id="button-back"
             className="button is-medium is-success"
-            onClick={() => this.moveBack()}
+            onClick={this.moveBack}
           >
             Prev
           </button>
@@ -116,13 +130,10 @@ class Carousel extends React.Component<Props, State> {
             ))}
           </div>
           <button
-            className="
-              button
-              is-medium
-              is-success"
+            className="button is-medium is-success"
             type="button"
             id="button-forward"
-            onClick={() => this.moveForward()}
+            onClick={this.moveForward}
           >
             Next
           </button>
@@ -135,9 +146,9 @@ class Carousel extends React.Component<Props, State> {
               type="number"
               id="size-input"
               value={this.state.pictureSize}
-              onChange={(e) => (
-                this.setState({ pictureSize: e.target.valueAsNumber })
-              )}
+              onChange={
+                ({ target }) => this.changePicSize(target.valueAsNumber)
+              }
             />
           </div>
           <div className="level">
@@ -149,7 +160,7 @@ class Carousel extends React.Component<Props, State> {
               value={this.state.step}
               min={1}
               max={9}
-              onChange={(e) => this.setState({ step: e.target.valueAsNumber })}
+              onChange={({ target }) => this.changeStep(target.valueAsNumber)}
             />
           </div>
           <div className="level">
@@ -161,9 +172,7 @@ class Carousel extends React.Component<Props, State> {
               value={this.state.frameSize}
               min={1}
               max={9}
-              onChange={(e) => (
-                this.setState({ frameSize: e.target.valueAsNumber })
-              )}
+              onChange={({ target }) => this.changeFrame(target.valueAsNumber)}
             />
           </div>
           <div className="level">
@@ -175,16 +184,16 @@ class Carousel extends React.Component<Props, State> {
               min={1}
               defaultValue={this.state.animationDuration}
               max={10000}
-              onChange={(e) => (
-                this.setState({ animationDuration: e.target.valueAsNumber })
-              )}
+              onChange={
+                ({ target }) => this.changeTransition(target.valueAsNumber)
+              }
             />
           </div>
           <div>
             <button
               type="button"
               className="button is-large is-danger"
-              onClick={() => this.resetAll()}
+              onClick={this.resetAll}
             >
               Reset all
             </button>
