@@ -24,7 +24,7 @@ const App: React.FC = () => {
     infinite: false,
   });
 
-  function setParams(e: React.ChangeEvent<HTMLInputElement>) {
+  const setParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       name,
       value,
@@ -48,7 +48,6 @@ const App: React.FC = () => {
         itemWidth={corouselParams.itemWidth}
         animationDuration={corouselParams.animationDuration}
         infinite={corouselParams.infinite}
-        // eslint-disable-next-line
         setParams={setParams}
       />
     </div>
