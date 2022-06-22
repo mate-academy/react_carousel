@@ -1,5 +1,5 @@
 # React Carousel
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_carousel/)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://elinkova.github.io/react_carousel/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 - Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
@@ -26,7 +26,7 @@
 ##REQUIREMENTS:
 1. The title of the page should contain "Carousel"
 2. The page should continue the input fieds for:
-   - `ItemWidth`
+   - `itemWidth`
    - `FrameSize`
    - `Step`
    - `AnimationDuration`
