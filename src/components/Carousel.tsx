@@ -1,18 +1,114 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC <Props> = ({
+  images, itemWidth, frameSize, step, animationDuration,
+}) => {
+  const [translate, SetTranslate] = useState(0);
+
+  useEffect(() => {
+    SetTranslate(0);
+  }, [images, itemWidth, frameSize, step, animationDuration]);
+
+  return (
+    <div className="wrapper">
+      <div
+        className="Carousel"
+        style={{
+          width: `${frameSize * itemWidth}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={
+            {
+              transform: `translateX(${translate}px)`,
+              transition: `${animationDuration}ms`,
+              width: images.length * itemWidth,
+            }
+          }
+        >
+          {images.map((image, i) => (
+            <li
+              className="Carousel__list-item"
+              key={image}
+              style={{
+                width: `${itemWidth}px`,
+                height: `${itemWidth}px`,
+              }}
+            >
+              <img
+                src={image}
+                alt={(i + 1).toString()}
+                className="img"
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div
+        className="btn__container"
+      >
+        <button
+          type="button"
+          className="btn"
+          onClick={() => {
+            if (translate >= 0) {
+              return;
+            }
+
+            SetTranslate((prev) => {
+              let newValue = prev;
+
+              newValue += step * itemWidth;
+
+              if (newValue >= 0) {
+                newValue = 0;
+              }
+
+              return newValue;
+            });
+          }}
+        >
+          Prev
+        </button>
+
+        <button
+          type="button"
+          className="btn"
+          onClick={() => {
+            SetTranslate((prev) => {
+              let newValue = prev;
+
+              newValue -= step * itemWidth;
+
+              if (newValue <= -(
+                images.length * itemWidth - itemWidth * frameSize)) {
+                newValue = -(images.length * itemWidth - itemWidth * frameSize);
+              }
+
+              return newValue;
+            });
+          }}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
