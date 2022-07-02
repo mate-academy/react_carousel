@@ -1,1 +1,19 @@
-// style go here
+.carousel {
+  overflow: hidden;
+
+  &__container {
+    position: relative;
+    width: max-content;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  &__next-button,
+  &__prev-button {
+    font-size: 2em;
+  }
+}
