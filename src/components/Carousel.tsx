@@ -1,13 +1,14 @@
 import React from 'react';
 import './Carousel.scss';
+import classNames from 'classnames';
 
 type Props = {
   smiles: string[];
 };
 
 type State = {
-  x: number;
-  n: number;
+  coordX: number;
+  rightSidePic: number;
   width: number;
   size: number;
   step: number;
@@ -16,8 +17,8 @@ type State = {
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    x: 0,
-    n: 10,
+    coordX: 0,
+    rightSidePic: 10,
     width: 130,
     size: 3,
     step: 3,
@@ -25,48 +26,54 @@ class Carousel extends React.Component<Props, State> {
   };
 
   nextImages = () => {
-    if (this.state.x === -(this.state.width * 10
-      - this.state.size * this.state.width)) {
+    const {
+      coordX, rightSidePic, width, size, step,
+    } = this.state;
+
+    if (coordX === -(width * 10
+      - size * width)) {
       return;
     }
 
-    if (this.state.n - this.state.step <= this.state.size) {
+    if (rightSidePic - step <= size) {
       this.setState((state) => ({
-        x: -(state.width * 10 - state.width * state.size),
-        n: state.size,
+        coordX: -(state.width * 10 - state.width * state.size),
+        rightSidePic: state.size,
       }));
     } else {
       this.setState((state) => ({
-        x: state.x - state.width * state.step,
-        n: state.n - state.step,
+        coordX: state.coordX - state.width * state.step,
+        rightSidePic: state.rightSidePic - state.step,
       }));
     }
   };
 
   previousImages = () => {
-    if (this.state.n === 10) {
+    const { rightSidePic, step } = this.state;
+
+    if (rightSidePic === 10) {
       return;
     }
 
-    if (this.state.n + this.state.step >= 10) {
-      this.setState({ x: 0 });
-      this.setState({ n: 10 });
+    if (rightSidePic + step >= 10) {
+      this.setState({ coordX: 0 });
+      this.setState({ rightSidePic: 10 });
     } else {
       this.setState((state) => ({
-        x: state.x + state.width * state.step,
-        n: state.n + state.step,
+        coordX: state.coordX + state.width * state.step,
+        rightSidePic: state.rightSidePic + state.step,
       }));
     }
   };
 
   changeWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ width: +event.target.value });
-    this.setState({ x: 0 });
+    this.setState({ coordX: 0 });
   };
 
   changeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ size: +event.target.value });
-    this.setState({ x: 0 });
+    this.setState({ coordX: 0 });
   };
 
   changeStep = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +86,7 @@ class Carousel extends React.Component<Props, State> {
 
   render() {
     const {
-      x, n, width, size, step, animation,
+      coordX, rightSidePic, width, size, step, animation,
     } = this.state;
 
     return (
@@ -89,7 +96,7 @@ class Carousel extends React.Component<Props, State> {
             <ul
               className="Carousel_list"
               style={{
-                transform: `translateX(${x}px)`,
+                transform: `translateX(${coordX}px)`,
                 transition: `transform ${animation}ms`,
               }}
             >
@@ -113,7 +120,12 @@ class Carousel extends React.Component<Props, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button ${n === 10 ? 'disabled' : ''}`}
+            className={classNames(
+              'button',
+              {
+                disabled: rightSidePic === 10,
+              },
+            )}
             onClick={this.previousImages}
           >
             Prev
@@ -121,7 +133,12 @@ class Carousel extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={`button ${x === -(width * 10 - size * width) ? 'disabled' : ''}`}
+            className={classNames(
+              'button',
+              {
+                disabled: coordX === -(width * 10 - size * width),
+              },
+            )}
             onClick={this.nextImages}
             data-cy="next"
           >
