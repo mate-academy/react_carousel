@@ -9,6 +9,7 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
+  isInfinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,6 +30,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    isInfinite: false,
   };
 
   changeItemWidth = (value: number) => {
@@ -47,6 +49,10 @@ class App extends React.Component<{}, State> {
     this.setState({ animationDuration: value });
   };
 
+  changeIsInfinite = (value: boolean) => {
+    this.setState({ isInfinite: value });
+  };
+
   render() {
     const {
       images,
@@ -54,6 +60,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      isInfinite,
     } = this.state;
 
     return (
@@ -67,6 +74,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          isInfinite={isInfinite}
         />
 
         <div className="control">
@@ -127,6 +135,18 @@ class App extends React.Component<{}, State> {
                 step="100"
                 onChange={({ target }) => {
                   this.changeAnimationDuration(Number(target.value));
+                }}
+              />
+            </li>
+
+            <li className="control__item">
+              <span className="control__name">Infinite:</span>
+              <input
+                className="control__input"
+                type="checkbox"
+                checked={isInfinite}
+                onChange={({ target }) => {
+                  this.changeIsInfinite((target.checked));
                 }}
               />
             </li>

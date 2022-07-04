@@ -7,6 +7,7 @@ type Props = {
   frameSize: number,
   step: number,
   animationDuration: number,
+  isInfinite: boolean,
 };
 
 type State = {
@@ -21,12 +22,33 @@ class Carousel extends React.Component<Props, State> {
   };
 
   prevButton = () => {
-    const { step, itemWidt } = this.props;
+    const {
+      step,
+      itemWidt,
+      isInfinite,
+      images,
+      frameSize,
+    } = this.props;
 
     this.setState((prevState) => {
+      const maxScrolling = (images.length - frameSize) * itemWidt;
       const scrolled = prevState.scrollingWidth - (step * itemWidt);
 
-      if (scrolled >= 0) {
+      if (isInfinite) {
+        if (scrolled >= 0) {
+          return {
+            scrollingWidth: scrolled,
+            nextButtonDisabled: false,
+          };
+        }
+
+        return {
+          scrollingWidth: maxScrolling,
+          prevButtonDisabled: false,
+        };
+      }
+
+      if (scrolled > 0) {
         return {
           scrollingWidth: scrolled,
           nextButtonDisabled: false,
@@ -46,13 +68,28 @@ class Carousel extends React.Component<Props, State> {
       step,
       itemWidt,
       frameSize,
+      isInfinite,
     } = this.props;
 
     this.setState((prevState) => {
       const maxScrolling = (images.length - frameSize) * itemWidt;
       const scrolled = prevState.scrollingWidth + (step * itemWidt);
 
-      if (scrolled <= maxScrolling) {
+      if (isInfinite) {
+        if (scrolled <= maxScrolling) {
+          return {
+            scrollingWidth: scrolled,
+            prevButtonDisabled: false,
+          };
+        }
+
+        return {
+          scrollingWidth: 0,
+          nextButtonDisabled: false,
+        };
+      }
+
+      if (scrolled < maxScrolling) {
         return {
           scrollingWidth: scrolled,
           prevButtonDisabled: false,
