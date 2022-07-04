@@ -1,9 +1,14 @@
 import React from 'react';
+import Carosel from './components/Carousel';
+
 import './App.scss';
-import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,113 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  changeItemWidth = (value: number) => {
+    this.setState({ itemWidth: value });
+  };
+
+  changeFrameSize = (value: number) => {
+    this.setState({ frameSize: value });
+  };
+
+  changeStep = (value: number) => {
+    this.setState({ step: value });
+  };
+
+  changeAnimationDuration = (value: number) => {
+    this.setState({ animationDuration: value });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carosel
+          images={images}
+          itemWidt={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
+
+        <div className="control">
+          <ul className="control__list">
+            <li className="control__item">
+              <span className="control__name">Item width:</span>
+              <input
+                className="control__input"
+                type="number"
+                value={itemWidth}
+                min="100"
+                max="200"
+                step="10"
+                onChange={({ target }) => {
+                  this.changeItemWidth(Number(target.value));
+                }}
+              />
+            </li>
+
+            <li className="control__item">
+              <span className="control__name">Frame size:</span>
+              <input
+                className="control__input"
+                type="number"
+                value={frameSize}
+                min="1"
+                max="10"
+                step="1"
+                onChange={({ target }) => {
+                  this.changeFrameSize(Number(target.value));
+                }}
+              />
+            </li>
+
+            <li className="control__item">
+              <span className="control__name">Step:</span>
+              <input
+                className="control__input"
+                type="number"
+                value={step}
+                min="1"
+                max={frameSize}
+                step="1"
+                onChange={({ target }) => {
+                  this.changeStep(Number(target.value));
+                }}
+              />
+            </li>
+
+            <li className="control__item">
+              <span className="control__name">Animation duration:</span>
+              <input
+                className="control__input"
+                type="number"
+                value={animationDuration}
+                min="100"
+                max="5000"
+                step="100"
+                onChange={({ target }) => {
+                  this.changeAnimationDuration(Number(target.value));
+                }}
+              />
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }

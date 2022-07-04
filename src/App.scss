@@ -1,1 +1,32 @@
-// style go here
+.App {
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+}
+
+.control {
+  margin: 0 auto;
+  width: 350px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  &__input {
+    width: 100px;
+    text-align: center;
+  }
+}
