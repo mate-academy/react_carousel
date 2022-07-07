@@ -153,7 +153,7 @@ class Carousel extends React.Component<Props, State> {
           </ul>
         </div>
 
-        <div className="buttons">
+        <div className="carousel__buttons buttons">
           <button
             className="btn btn-secondary btn-lg"
             type="button"

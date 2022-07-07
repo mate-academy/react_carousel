@@ -17,11 +17,11 @@
     height: 100%;
     object-fit: cover;
   }
-}
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto 75px;
-  max-width: 300px;
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 75px;
+    max-width: 300px;
+  }
 }

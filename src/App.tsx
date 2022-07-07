@@ -12,6 +12,13 @@ interface State {
   isInfinite: boolean;
 }
 
+enum PropsToChange {
+  ItemWidth = 'itemWidt',
+  FrameSize = 'frameSize',
+  Step = 'step',
+  AnimationDuration = 'animationDuration',
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -53,6 +60,29 @@ class App extends React.Component<{}, State> {
     this.setState({ isInfinite: value });
   };
 
+  handleItemWidthChange = (propToChange: string, value: number) => {
+    switch (propToChange) {
+      case 'itemWidt':
+        this.changeItemWidth(value);
+        break;
+
+      case 'frameSize':
+        this.changeFrameSize(value);
+        break;
+
+      case 'step':
+        this.changeStep(value);
+        break;
+
+      case 'animationDuration':
+        this.changeAnimationDuration(value);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   render() {
     const {
       images,
@@ -64,9 +94,10 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className="App__title">Carousel with {images.length} images</h1>
+      <div className="app">
+        <h1 className="app__title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Carosel
           images={images}
@@ -77,7 +108,7 @@ class App extends React.Component<{}, State> {
           isInfinite={isInfinite}
         />
 
-        <div className="control">
+        <div className="app__control control">
           <ul className="control__list">
             <li className="control__item">
               <span className="control__name">Item width:</span>
@@ -89,7 +120,9 @@ class App extends React.Component<{}, State> {
                 max="200"
                 step="10"
                 onChange={({ target }) => {
-                  this.changeItemWidth(Number(target.value));
+                  this.handleItemWidthChange(
+                    PropsToChange.ItemWidth, Number(target.value),
+                  );
                 }}
               />
             </li>
@@ -104,7 +137,9 @@ class App extends React.Component<{}, State> {
                 max="10"
                 step="1"
                 onChange={({ target }) => {
-                  this.changeFrameSize(Number(target.value));
+                  this.handleItemWidthChange(
+                    PropsToChange.FrameSize, Number(target.value),
+                  );
                 }}
               />
             </li>
@@ -119,7 +154,9 @@ class App extends React.Component<{}, State> {
                 max={frameSize}
                 step="1"
                 onChange={({ target }) => {
-                  this.changeStep(Number(target.value));
+                  this.handleItemWidthChange(
+                    PropsToChange.Step, Number(target.value),
+                  );
                 }}
               />
             </li>
@@ -134,7 +171,9 @@ class App extends React.Component<{}, State> {
                 max="5000"
                 step="100"
                 onChange={({ target }) => {
-                  this.changeAnimationDuration(Number(target.value));
+                  this.handleItemWidthChange(
+                    PropsToChange.AnimationDuration, Number(target.value),
+                  );
                 }}
               />
             </li>
