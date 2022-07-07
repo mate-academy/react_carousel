@@ -1,1 +1,49 @@
-// style go here
+.Carousel {
+  height: auto;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    list-style: none;
+    padding: 60px 0;
+    margin: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  &__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+
+    &::after {
+      position: relative;
+      display: flex;
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-top: 1px solid #000;
+      border-right: 1px solid #000;
+    }
+
+    &--next::after {
+      transform: rotate(45deg);
+    }
+
+    &--prev {
+      flex-direction: row-reverse;
+      &::after {
+        transform: rotate(-135deg);
+      }
+    }
+  }
+}
