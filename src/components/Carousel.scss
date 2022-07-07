@@ -1,1 +1,27 @@
-// style go here
+.carousel {
+  margin: 0 auto 25px;
+  overflow-x: hidden;
+  border: 3px solid #6c757d;
+  border-radius: 30px;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 75px;
+    max-width: 300px;
+  }
+}
