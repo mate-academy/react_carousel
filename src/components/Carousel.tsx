@@ -7,66 +7,40 @@ type Props = {
   frameSize: number,
   step: number,
   animationDuration: number,
-};
-
-type State = {
   transformX: number,
+  nextTransform: () => void,
+  prevTransform:() => void,
 };
 
-class Carousel extends React.Component<Props, State> {
-  state = {
-    transformX: 0,
-  };
-
+class Carousel extends React.PureComponent<Props, {}> {
   render() {
     const {
       images,
       itemWidth,
-      frameSize,
       step,
       animationDuration,
+      frameSize,
+      transformX,
+      nextTransform,
+      prevTransform,
     } = this.props;
-
-    const { transformX } = this.state;
-
-    const totalConteinerWidth = itemWidth * images.length;
-
-    const carouselWidth = { width: `${itemWidth * frameSize}px` };
 
     const itemSize = {
       width: `${itemWidth}px`,
       height: `${itemWidth}px`,
     };
 
+    const totalConteinerWidth = itemWidth * images.length;
+
     const transform = {
       transform: `translateX(${transformX}px)`,
-      animationDuration: `${animationDuration}ms`,
-    };
-
-    const changeStyleNext = () => {
-      this.setState((prevState) => {
-        const transformNext = prevState.transformX - (itemWidth * step);
-
-        return {
-          transformX: transformNext,
-        };
-      });
-    };
-
-    const changeStylePrev = () => {
-      this.setState((prevState) => {
-        const transformNext = prevState.transformX + (itemWidth * step);
-
-        return {
-          transformX: transformNext,
-        };
-      });
+      transition: `${animationDuration}ms`,
     };
 
     const stepWidth = step * itemWidth;
 
     return (
-      <div className="Carousel" style={carouselWidth}>
+      <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
         <ul
           className="Carousel__list"
         >
@@ -90,7 +64,7 @@ class Carousel extends React.Component<Props, State> {
           <button
             className="Carousel__button Carousel__button--prev"
             type="button"
-            onClick={changeStylePrev}
+            onClick={prevTransform}
             disabled={stepWidth + transformX > 0}
           >
             Prev
@@ -99,7 +73,7 @@ class Carousel extends React.Component<Props, State> {
             className="Carousel__button Carousel__button--next"
             type="button"
             data-cy="next"
-            onClick={changeStyleNext}
+            onClick={nextTransform}
             disabled={stepWidth - transformX > totalConteinerWidth}
           >
             Next

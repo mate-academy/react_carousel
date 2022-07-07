@@ -8,6 +8,7 @@ type State = {
   frameSize: number,
   step: number,
   animationDuration: number,
+  transformX: number,
 };
 
 class App extends React.Component<{}, State> {
@@ -28,6 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    transformX: 0,
   };
 
   render() {
@@ -37,7 +39,22 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      transformX,
     } = this.state;
+
+    const stepWidth = step * itemWidth;
+
+    const changeStyleNext = () => {
+      this.setState({
+        transformX: transformX - stepWidth,
+      });
+    };
+
+    const changeStylePrev = () => {
+      this.setState({
+        transformX: transformX + stepWidth,
+      });
+    };
 
     return (
       <div className="App">
@@ -53,11 +70,12 @@ class App extends React.Component<{}, State> {
               min={60}
               max={220}
               step={10}
-              onChange={
-                (event) => {
-                  this.setState({ itemWidth: +event.target.value });
-                }
-              }
+              onChange={(event) => {
+                this.setState({
+                  itemWidth: +event.target.value,
+                  transformX: 0,
+                });
+              }}
             />
           </div>
 
@@ -119,6 +137,9 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          transformX={transformX}
+          nextTransform={changeStyleNext}
+          prevTransform={changeStylePrev}
         />
       </div>
     );
