@@ -1,1 +1,26 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+
+  &__container {
+    width: 15vw;
+  }
+
+  &__input-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__input-text {
+    font-size: 20px;
+  }
+
+  &__input {
+    width: 50px;
+    text-align: center;
+  }
+}
