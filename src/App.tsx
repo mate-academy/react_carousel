@@ -84,8 +84,11 @@ class App extends React.Component<{}, State> {
         <form className="app__form">
           {(Object.keys(userNumInputs) as (keyof typeof userNumInputs)[])
             .map(key => (
-              <label key={key}>
-                {`${key.split(/(?=[A-Z])/).join(' ').toUpperCase()}: `}
+              <label key={key} className="app__input">
+                <span>
+                  {`${key.split(/(?=[A-Z])/).join(' ').toUpperCase()} : `}
+                </span>
+
                 <input
                   name="key"
                   type="number"
