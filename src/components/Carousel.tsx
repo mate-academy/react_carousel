@@ -107,12 +107,10 @@ class Carousel extends React.Component<Props, State> {
             width: `${frameSize * itemWidth}px`,
           }}
         >
-          {images.map((image, i) => {
-            const counter = i;
-
+          {images.map((image) => {
             return (
               <li
-                key={`${image}__${counter}`}
+                key={`${image}`}
                 style={{
                   transform: `translateX(-${this.state.index * 100}%)`,
                   transition: `${animationDuration}ms`,
@@ -120,7 +118,7 @@ class Carousel extends React.Component<Props, State> {
               >
                 <img
                   src={image}
-                  alt={`${i}`}
+                  alt={`${image}`}
                   style={{ width: `${itemWidth}px` }}
                 />
               </li>
