@@ -49,9 +49,9 @@ class App extends React.Component<{}, State> {
   };
 
   disableInfinite = () => {
-    return this.state.isInfinite
-      ? this.setState({ isInfinite: false })
-      : this.setState({ isInfinite: true });
+    this.setState((prevState) => ({
+      isInfinite: !prevState.isInfinite,
+    }));
   };
 
   render() {
