@@ -13,13 +13,6 @@ type Props = {
 
 type State = {
   listShift: number,
-
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
-
   isPrevDisabled: boolean,
   isNextDisabled: boolean,
 };
@@ -27,13 +20,6 @@ type State = {
 class Carousel extends React.Component<Props, State> {
   state = {
     listShift: 0,
-
-    step: this.props.step,
-    frameSize: this.props.frameSize,
-    itemWidth: this.props.itemWidth,
-    animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
-
     isPrevDisabled: false,
     isNextDisabled: false,
   };
@@ -43,9 +29,7 @@ class Carousel extends React.Component<Props, State> {
   }
 
   componentDidUpdate() {
-    this.propsToStateUpdate();
-
-    if (this.state.infinite) {
+    if (this.props.infinite) {
       if (this.state.isNextDisabled || this.state.isPrevDisabled) {
         this.setState({ isPrevDisabled: false, isNextDisabled: false });
       }
@@ -57,42 +41,12 @@ class Carousel extends React.Component<Props, State> {
   }
 
   getShiftLimit() {
-    return (this.props.images.length - this.state.frameSize)
-       * this.state.itemWidth;
+    return (this.props.images.length - this.props.frameSize)
+       * this.props.itemWidth;
   }
 
   getStepShift() {
-    return this.state.step * this.state.itemWidth;
-  }
-
-  propsToStateUpdate() {
-    if (this.state.step !== this.props.step) {
-      this.setState({ step: this.props.step });
-
-      return;
-    }
-
-    if (this.state.frameSize !== this.props.frameSize) {
-      this.setState({ frameSize: this.props.frameSize });
-
-      return;
-    }
-
-    if (this.state.itemWidth !== this.props.itemWidth) {
-      this.setState({ itemWidth: this.props.itemWidth });
-
-      return;
-    }
-
-    if (this.state.animationDuration !== this.props.animationDuration) {
-      this.setState({ animationDuration: this.props.animationDuration });
-
-      return;
-    }
-
-    if (this.state.infinite !== this.props.infinite) {
-      this.setState({ infinite: this.props.infinite });
-    }
+    return this.props.step * this.props.itemWidth;
   }
 
   nextBtnHandler() {
@@ -112,7 +66,7 @@ class Carousel extends React.Component<Props, State> {
       return;
     }
 
-    if (this.state.infinite && this.state.listShift === shiftLimit) {
+    if (this.props.infinite && this.state.listShift === shiftLimit) {
       this.setState({ listShift: 0 });
     }
   }
@@ -132,7 +86,7 @@ class Carousel extends React.Component<Props, State> {
       return;
     }
 
-    if (this.state.infinite && this.state.listShift === 0) {
+    if (this.props.infinite && this.state.listShift === 0) {
       this.setState({ listShift: this.getShiftLimit() });
     }
   }
@@ -165,16 +119,16 @@ class Carousel extends React.Component<Props, State> {
 
   render(): React.ReactNode {
     const listStyles: React.CSSProperties = {
-      transition: `transform ${this.state.animationDuration}ms`,
+      transition: `transform ${this.props.animationDuration}ms`,
       transform: `translateX(-${this.state.listShift}px)`,
     };
 
     const imgStyles: React.CSSProperties = {
-      width: `${this.state.itemWidth}px`,
+      width: `${this.props.itemWidth}px`,
     };
 
     const wrapperStyles: React.CSSProperties = {
-      width: `${this.state.frameSize * this.state.itemWidth}px`,
+      width: `${this.props.frameSize * this.props.itemWidth}px`,
     };
 
     return (
