@@ -1,25 +1,17 @@
 import React from 'react';
 import './Carousel.scss';
-
-interface Props {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
-}
+import Props from '../types/allParameters';
 
 interface State {
-  disabledForward: boolean,
-  disabledBack: boolean,
+  isNextBtnDisabled: boolean,
+  isPrevBtnDisabled: boolean,
   index: number,
 }
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    disabledForward: false,
-    disabledBack: true,
+    isNextBtnDisabled: false,
+    isPrevBtnDisabled: true,
     index: 0,
   };
 
@@ -28,7 +20,7 @@ class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       step,
-      infinite,
+      isInfinite,
     } = this.props;
 
     const { index } = this.state;
@@ -41,12 +33,12 @@ class Carousel extends React.Component<Props, State> {
       }));
     }
 
-    if (!infinite && index + step >= lastStep) {
+    if (!isInfinite && index + step >= lastStep) {
       this.setState({ index: lastStep });
-      this.setState({ disabledForward: true });
+      this.setState({ isNextBtnDisabled: true });
     }
 
-    if (infinite) {
+    if (isInfinite) {
       if (index + step > lastStep
         && index !== lastStep) {
         this.setState({ index: lastStep });
@@ -57,7 +49,7 @@ class Carousel extends React.Component<Props, State> {
       }
     }
 
-    this.setState({ disabledBack: false });
+    this.setState({ isPrevBtnDisabled: false });
   };
 
   scrollBack = () => {
@@ -65,7 +57,7 @@ class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       step,
-      infinite,
+      isInfinite,
     } = this.props;
 
     const { index } = this.state;
@@ -79,16 +71,16 @@ class Carousel extends React.Component<Props, State> {
     if (index <= step && index !== 0) {
       this.setState({ index: 0 });
 
-      if (!infinite) {
-        this.setState({ disabledBack: true });
+      if (!isInfinite) {
+        this.setState({ isPrevBtnDisabled: true });
       }
     }
 
-    if (infinite && index === 0) {
+    if (isInfinite && index === 0) {
       this.setState({ index: images.length - frameSize });
     }
 
-    this.setState({ disabledForward: false });
+    this.setState({ isNextBtnDisabled: false });
   };
 
   render() {
@@ -110,7 +102,7 @@ class Carousel extends React.Component<Props, State> {
           {images.map((image) => {
             return (
               <li
-                key={`${image}`}
+                key={image}
                 style={{
                   transform: `translateX(-${this.state.index * 100}%)`,
                   transition: `${animationDuration}ms`,
@@ -131,7 +123,7 @@ class Carousel extends React.Component<Props, State> {
             className="Carousel__button"
             type="button"
             onClick={this.scrollBack}
-            disabled={this.state.disabledBack}
+            disabled={this.state.isPrevBtnDisabled}
           >
             Prev
           </button>
@@ -139,7 +131,7 @@ class Carousel extends React.Component<Props, State> {
             className="Carousel__button"
             type="button"
             onClick={this.scrollForward}
-            disabled={this.state.disabledForward}
+            disabled={this.state.isNextBtnDisabled}
           >
             Next
           </button>

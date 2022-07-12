@@ -1,15 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-
-interface State {
-  images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  isInfinite: boolean;
-}
+import State from './types/allParameters';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -74,7 +66,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-          infinite={this.state.isInfinite}
+          isInfinite={this.state.isInfinite}
         />
 
         <div className="App__container">
