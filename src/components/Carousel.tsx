@@ -40,16 +40,27 @@ class Carousel extends React.Component<Props, State> {
     this.buttonsSwitch();
   }
 
-  getShiftLimit() {
-    return (this.props.images.length - this.props.frameSize)
-       * this.props.itemWidth;
+  handlePrevBtnClick() {
+    if (this.state.listShift > 0) {
+      let stepShift = this.getStepShift();
+
+      if ((this.state.listShift - stepShift) < 0) {
+        stepShift = this.state.listShift;
+      }
+
+      this.setState(prev => ({
+        listShift: prev.listShift - stepShift,
+      }));
+
+      return;
+    }
+
+    if (this.props.infinite && this.state.listShift === 0) {
+      this.setState({ listShift: this.getShiftLimit() });
+    }
   }
 
-  getStepShift() {
-    return this.props.step * this.props.itemWidth;
-  }
-
-  nextBtnHandler() {
+  handleNextBtnClick() {
     const shiftLimit = this.getShiftLimit();
 
     if (this.state.listShift < shiftLimit) {
@@ -71,24 +82,13 @@ class Carousel extends React.Component<Props, State> {
     }
   }
 
-  prevBtnHandler() {
-    if (this.state.listShift > 0) {
-      let stepShift = this.getStepShift();
+  getShiftLimit() {
+    return (this.props.images.length - this.props.frameSize)
+       * this.props.itemWidth;
+  }
 
-      if ((this.state.listShift - stepShift) < 0) {
-        stepShift = this.state.listShift;
-      }
-
-      this.setState(prev => ({
-        listShift: prev.listShift - stepShift,
-      }));
-
-      return;
-    }
-
-    if (this.props.infinite && this.state.listShift === 0) {
-      this.setState({ listShift: this.getShiftLimit() });
-    }
+  getStepShift() {
+    return this.props.step * this.props.itemWidth;
   }
 
   buttonsSwitch() {
@@ -136,7 +136,7 @@ class Carousel extends React.Component<Props, State> {
         <button
           type="button"
           className="Carousel__button"
-          onClick={() => (this.prevBtnHandler())}
+          onClick={() => (this.handlePrevBtnClick())}
           disabled={this.state.isPrevDisabled}
         >
           ⬅️
@@ -165,7 +165,7 @@ class Carousel extends React.Component<Props, State> {
         <button
           type="button"
           className="Carousel__button"
-          onClick={() => (this.nextBtnHandler())}
+          onClick={() => (this.handleNextBtnClick())}
           disabled={this.state.isNextDisabled}
           data-cy="next"
         >

@@ -36,7 +36,10 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  numInputHandler(value: string, key: string) {
+  handleInputChange(
+    value: string,
+    key: (keyof State['userNumInputs']),
+  ) {
     return this.setState((prev) => ({
       userNumInputs: {
         ...prev.userNumInputs,
@@ -45,7 +48,7 @@ class App extends React.Component<{}, State> {
     }));
   }
 
-  checkboxHandler() {
+  handleCheckboxChange() {
     return this.setState(prev => ({ infinite: !prev.infinite }));
   }
 
@@ -55,17 +58,6 @@ class App extends React.Component<{}, State> {
       userNumInputs,
       infinite,
     } = this.state;
-
-    function chooseStep(key: string): number {
-      switch (key) {
-        case 'itemWidth':
-          return 10;
-        case 'animationDuration':
-          return 100;
-        default:
-          return 1;
-      }
-    }
 
     return (
       <div className="app">
@@ -82,32 +74,74 @@ class App extends React.Component<{}, State> {
         />
 
         <form className="app__form">
-          {(Object.keys(userNumInputs) as (keyof typeof userNumInputs)[])
-            .map(key => (
-              <label key={key} className="app__input">
-                <span>
-                  {`${key.split(/(?=[A-Z])/).join(' ').toUpperCase()} : `}
-                </span>
+          <label className="app__input">
+            <span>Step</span>
 
-                <input
-                  name="key"
-                  type="number"
-                  defaultValue={userNumInputs[key]}
-                  onChange={
-                    event => this.numInputHandler(event.target.value, key)
-                  }
-                  min={0}
-                  step={chooseStep(key)}
-                />
-              </label>
-            ))}
+            <input
+              name="step"
+              type="number"
+              defaultValue={userNumInputs.step}
+              onChange={
+                event => this.handleInputChange(event.target.value, 'step')
+              }
+              min={0}
+              step={1}
+            />
+          </label>
+
+          <label className="app__input">
+            <span>Frame size</span>
+
+            <input
+              name="frameSize"
+              type="number"
+              defaultValue={userNumInputs.frameSize}
+              onChange={
+                event => this.handleInputChange(event.target.value, 'frameSize')
+              }
+              min={0}
+              step={1}
+            />
+          </label>
+
+          <label className="app__input">
+            <span>Item width</span>
+
+            <input
+              name="itemWidth"
+              type="number"
+              defaultValue={userNumInputs.itemWidth}
+              onChange={
+                event => this.handleInputChange(event.target.value, 'itemWidth')
+              }
+              min={0}
+              step={10}
+            />
+          </label>
+
+          <label className="app__input">
+            <span>Animation duration</span>
+
+            <input
+              name="animationDuration"
+              type="number"
+              defaultValue={userNumInputs.animationDuration}
+              onChange={
+                event => this.handleInputChange(
+                  event.target.value, 'animationDuration',
+                )
+              }
+              min={0}
+              step={100}
+            />
+          </label>
 
           <label>
             Infinite
             <input
               name="Infinite"
               type="checkbox"
-              onChange={() => (this.checkboxHandler())}
+              onChange={() => (this.handleCheckboxChange())}
             />
           </label>
         </form>
