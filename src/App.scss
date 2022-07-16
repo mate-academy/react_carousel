@@ -1,1 +1,15 @@
-// style go here
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__input-blocks {
+    display: block;
+  }
+
+  &__input-block {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
