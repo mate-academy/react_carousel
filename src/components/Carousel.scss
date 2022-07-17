@@ -1,1 +1,46 @@
-// style go here
+.smallContainer {
+  overflow: hidden;
+}
+
+.container {
+  width: 1300px;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.Carousel_list {
+  display: flex;
+  padding: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: aliceblue;
+  }
+}
+
+.disabled {
+  color: gray;
+}
+
+.constructor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  padding: 10px;
+}
