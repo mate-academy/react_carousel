@@ -1,1 +1,64 @@
-// style go here
+@import "../fonts";
+@import "../vars";
+
+.Carousel {
+  padding-top: 10px;
+
+  background-color: $green;
+  box-shadow: 8px 12px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+
+  overflow-x: hidden;
+
+  &__list {
+    margin: 0 0 10px;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 20px 16px;
+    width: 100%;
+
+    font-family: inherit;
+    font-size: 24px;
+    line-height: 100%;
+    text-transform: uppercase;
+    color: $green;
+
+    border: none;
+    background-image: linear-gradient(
+      360deg, $darkGray 0%,
+      rgba($darkGray, 0.8) 100%);
+
+    &:first-child {
+      border-radius: 0 0 0 4px;
+    }
+
+    &:last-child {
+      border-radius: 0 0 4px;
+    }
+
+    &:disabled {
+      color: $darkGray;
+
+      background-color: $gray;
+      background-image: none;
+    }
+
+    &:not(:disabled):hover {
+      background-color: $darkGray;
+      background-image: none;
+    }
+  }
+}
