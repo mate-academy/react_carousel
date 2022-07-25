@@ -1,1 +1,48 @@
-// style go here
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__list-container {
+    border: 1px solid gray;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    position: relative;
+  }
+}
+
+.button {
+  background-color: rgba(255, 255, 255, 0);
+  width: 60px;
+  border: none;
+  border-radius: 50%;
+  color: rgb(105, 90, 205);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 46px;
+  margin: 0 8px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  color: rgba(105, 90, 205, 0.8);
+}
+
+.button:disabled {
+  color: rgba(105, 90, 205, 0.5);
+  background-color: rgba(255, 255, 255, 0);
+  cursor: auto;
+}
