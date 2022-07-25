@@ -1,1 +1,26 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  background-color: rgba(255, 192, 203, 0.5);
+}
+
+.Form {
+  width: 250px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  border: 2px solid slateblue;
+  border-radius: 5px;
+
+}
