@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  duration: string | undefined;
+  width: string | undefined;
+  frameSize: string | undefined;
+  step: string | undefined;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,7 +24,43 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    duration: '1000',
+    width: '130',
+    frameSize: '3',
+    step: '3',
   };
+
+  setDuration(event: React.ChangeEvent<HTMLInputElement>) {
+    if (!event.currentTarget.value) {
+      this.setState({ duration: '1000' });
+    }
+
+    this.setState({ duration: event.currentTarget.value });
+  }
+
+  setWidth(event: React.ChangeEvent<HTMLInputElement>) {
+    if (!event.currentTarget.value) {
+      this.setState({ width: '130' });
+    }
+
+    this.setState({ width: event.currentTarget.value });
+  }
+
+  setframeSize(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.currentTarget.value.length === 0) {
+      this.setState({ frameSize: '3' });
+    }
+
+    this.setState({ frameSize: event.currentTarget.value });
+  }
+
+  setStep(event: React.ChangeEvent<HTMLInputElement>) {
+    if (!event.currentTarget.value.length) {
+      this.setState({ step: '3' });
+    }
+
+    this.setState({ step: event.currentTarget.value });
+  }
 
   render() {
     const { images } = this.state;
@@ -28,9 +68,47 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <input
+          type="number"
+          placeholder="step"
+          id="step"
+          onChange={(e) => {
+            this.setStep(e);
+          }}
+        />
+        <input
+          type="number"
+          placeholder="width"
+          id="width"
+          onChange={(e) => {
+            this.setWidth(e);
+          }}
+        />
+        <input
+          type="number"
+          placeholder="duration"
+          id="duration"
+          onChange={(e) => {
+            this.setDuration(e);
+          }}
+        />
+        <input
+          type="number"
+          placeholder="frameSize"
+          id="frameSize"
+          onChange={(e) => {
+            this.setframeSize(e);
+          }}
+        />
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={this.state.step}
+          width={this.state.width}
+          animationDuration={this.state.duration}
+          frameSize={this.state.frameSize}
+        />
       </div>
     );
   }

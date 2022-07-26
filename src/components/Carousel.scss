@@ -1,1 +1,15 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    // width: 1300px;
+    display: flex;
+    padding: 0;
+    transition: all 0.5s linear;
+  }
+}
+
+img {
+  width: 130px;
+  height: 130px;
+}
