@@ -1,1 +1,74 @@
-// style go here
+.Carousel {
+    overflow: hidden;
+  
+    &__list {
+      display: flex;
+      padding: 0;
+      transition: all 0.5s linear;
+      list-style: none;
+    }
+  }
+
+  .input {
+    width: 110px;
+    margin-right: 37px;
+    font-size: 16px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 10px 10px 8px;
+    border: 1.5px solid black;
+    cursor: pointer;
+    border-radius: 10px;
+  
+    &:hover {
+      color: greenyellow;
+    }
+  }
+
+  .btn {
+  margin-right: 200px;
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1.5px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  border-radius: 10px;
+
+  &:after {
+    content: "";
+    background-color: #ffe54c;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 7px;
+    left: 7px;
+    transition: 0.2s;
+    border-radius: 10px;
+  }
+
+  &--red::after {
+    background-color: coral;
+
+  }
+
+  &:hover:after {
+    top: 0px;
+    left: 0px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 13px 50px 13px;
+  }
+}
+
+
+
+
