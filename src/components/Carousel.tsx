@@ -166,23 +166,25 @@ export class Carousel extends Component<Props, State> {
           ))}
         </ul>
 
-        <button
-          type="button"
-          className="carousel__button"
-          disabled={prevDisabled}
-          onClick={this.prevSlide}
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          className="carousel__button"
-          disabled={nextDisabled}
-          onClick={this.nextSlide}
-          data-cy="next"
-        >
-          Next
-        </button>
+        <div className="Carousel__btn-block">
+          <button
+            type="button"
+            className="Carousel__button"
+            disabled={prevDisabled}
+            onClick={this.prevSlide}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            className="Carousel__button"
+            disabled={nextDisabled}
+            onClick={this.nextSlide}
+            data-cy="next"
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   }
