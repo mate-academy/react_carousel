@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 75px;
+    height: 30px;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
