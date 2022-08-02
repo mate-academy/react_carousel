@@ -11,9 +11,9 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
-  scrollWidth: number,
-  prevDisabled: boolean,
-  nextDisabled: boolean,
+  scrollWidth: number;
+  prevDisabled: boolean;
+  nextDisabled: boolean;
 }
 
 export class Carousel extends Component<Props, State> {
@@ -38,23 +38,19 @@ export class Carousel extends Component<Props, State> {
     this.setState((prevState) => {
       const maxScroll = (images.length - frameSize) * itemWidth;
       let scroll = prevState.scrollWidth + (step * itemWidth * index);
-      let next = false;
-      let prev = false;
 
       if (scroll >= maxScroll) {
         scroll = maxScroll;
-        next = true;
       }
 
       if (scroll <= 0) {
         scroll = 0;
-        prev = true;
       }
 
       return {
         scrollWidth: scroll,
-        nextDisabled: next,
-        prevDisabled: prev,
+        nextDisabled: scroll === maxScroll,
+        prevDisabled: scroll === 0,
       };
     });
   };

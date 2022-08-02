@@ -36,5 +36,9 @@ iframe {
     background-color: blueviolet;
     color: #fff;
     border-color: transparent;
+    
+    &:disabled {
+      background-color: #ccc;
+    }
   }
 }
