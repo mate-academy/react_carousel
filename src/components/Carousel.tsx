@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
+
 import { v4 as uuidv4 } from 'uuid';
 import './Carousel.scss';
 
@@ -58,6 +59,10 @@ class Carousel extends Component<Props, State> {
     });
   };
 
+  changeItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value, translateFrame: 0 });
+  };
+
   render() {
     const { images } = this.props;
     const {
@@ -106,17 +111,15 @@ class Carousel extends Component<Props, State> {
         </label>
 
         <label className="Carousel__label label">
-          Item size:
+          Item width:
           <input
             type="number"
             min="130"
-            max="260"
+            max="300"
             step="10"
             value={itemWidth}
             className="Carousel__input input"
-            onChange={(event) => (
-              this.setState({ itemWidth: +event.target.value })
-            )}
+            onChange={this.changeItemWidth}
           />
         </label>
 
