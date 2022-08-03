@@ -1,4 +1,4 @@
-import { ChangeEvent, Component } from 'react';
+import { Component, ChangeEvent, KeyboardEvent } from 'react';
 
 import { v4 as uuidv4 } from 'uuid';
 import './Carousel.scss';
@@ -36,7 +36,7 @@ class Carousel extends Component<Props, State> {
 
   onClickBut = (side: number) => {
     const {
-      step, frameSize, itemWidth
+      step, frameSize, itemWidth,
     } = this.state;
 
     this.setState(prevState => {
@@ -77,6 +77,18 @@ class Carousel extends Component<Props, State> {
     });
   };
 
+  changeStep = (event: ChangeEvent<HTMLInputElement>) => (
+    this.setState({ step: +event.target.value })
+  );
+
+  changeAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => (
+    this.setState({ animationDuration: +event.target.value })
+  );
+
+  disableOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => (
+    event.preventDefault()
+  );
+
   render() {
     const { images } = this.props;
     const {
@@ -105,7 +117,8 @@ class Carousel extends Component<Props, State> {
             step="1"
             value={step}
             className="Carousel__input input"
-            onChange={(event) => this.setState({ step: +event.target.value })}
+            onKeyDown={this.disableOnKeyDown}
+            onChange={this.changeStep}
           />
         </label>
 
@@ -118,6 +131,7 @@ class Carousel extends Component<Props, State> {
             step="1"
             value={frameSize}
             className="Carousel__input input"
+            onKeyDown={this.disableOnKeyDown}
             onChange={this.changeFrameSize}
           />
         </label>
@@ -131,6 +145,7 @@ class Carousel extends Component<Props, State> {
             step="10"
             value={itemWidth}
             className="Carousel__input input"
+            onKeyDown={this.disableOnKeyDown}
             onChange={this.changeItemWidth}
           />
         </label>
@@ -144,9 +159,8 @@ class Carousel extends Component<Props, State> {
             step="100"
             value={animationDuration}
             className="Carousel__input input"
-            onChange={(event) => (
-              this.setState({ animationDuration: +event.target.value })
-            )}
+            onKeyDown={this.disableOnKeyDown}
+            onChange={this.changeAnimationDuration}
           />
         </label>
 
@@ -167,7 +181,7 @@ class Carousel extends Component<Props, State> {
             >
               <img
                 src={image}
-                alt={`${i}`}
+                alt={`smile №${i}`}
                 style={{
                   width: `${itemWidth}px`,
                 }}
