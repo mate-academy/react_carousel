@@ -36,7 +36,7 @@ class Carousel extends Component<Props, State> {
 
   onClickBut = (side: number) => {
     const {
-      step, frameSize, itemWidth,
+      step, frameSize, itemWidth
     } = this.state;
 
     this.setState(prevState => {
@@ -60,7 +60,21 @@ class Carousel extends Component<Props, State> {
   };
 
   changeItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value, translateFrame: 0 });
+    this.setState({
+      itemWidth: +event.target.value,
+      translateFrame: 0,
+      isDisabledNext: false,
+      isDisabledPrev: true,
+    });
+  };
+
+  changeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      frameSize: +event.target.value,
+      translateFrame: 0,
+      isDisabledNext: false,
+      isDisabledPrev: true,
+    });
   };
 
   render() {
@@ -104,9 +118,7 @@ class Carousel extends Component<Props, State> {
             step="1"
             value={frameSize}
             className="Carousel__input input"
-            onChange={(event) => (
-              this.setState({ frameSize: +event.target.value })
-            )}
+            onChange={this.changeFrameSize}
           />
         </label>
 
