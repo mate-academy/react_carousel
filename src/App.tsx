@@ -59,7 +59,16 @@ class App extends React.Component<{}, State> {
       this.setState({ step: '3' });
     }
 
-    this.setState({ step: event.currentTarget.value });
+    let step = '0';
+
+    if (+event.currentTarget.value <= 0
+      || +event.currentTarget.value > this.state.images.length) {
+      step = '3';
+    } else {
+      step = event.currentTarget.value;
+    }
+
+    this.setState({ step });
   }
 
   render() {
@@ -71,7 +80,7 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <input
           type="number"
-          placeholder="step"
+          placeholder="step (default: 3)"
           id="step"
           onChange={(e) => {
             this.setStep(e);
@@ -79,7 +88,7 @@ class App extends React.Component<{}, State> {
         />
         <input
           type="number"
-          placeholder="width"
+          placeholder="width (default: 130)"
           id="width"
           onChange={(e) => {
             this.setWidth(e);
@@ -87,7 +96,7 @@ class App extends React.Component<{}, State> {
         />
         <input
           type="number"
-          placeholder="duration"
+          placeholder="duration (default: 1000)"
           id="duration"
           onChange={(e) => {
             this.setDuration(e);
@@ -95,7 +104,7 @@ class App extends React.Component<{}, State> {
         />
         <input
           type="number"
-          placeholder="frameSize"
+          placeholder="frameSize (default: 3)"
           id="frameSize"
           onChange={(e) => {
             this.setframeSize(e);
