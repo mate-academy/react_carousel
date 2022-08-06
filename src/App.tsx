@@ -44,38 +44,48 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <form action="">
-          <input
-            type="text"
-            defaultValue={3}
-            className="Carousel__input"
-            onChange={(event) => {
-              this.setState({ step: +event.target.value });
-            }}
-          />
-          <input
-            type="text"
-            defaultValue={3}
-            className="Carousel__input"
-            onChange={(event) => {
-              this.setState({ frameSize: +event.target.value });
-            }}
-          />
-          <input
-            type="text"
-            defaultValue={130}
-            className="Carousel__input"
-            onChange={(event) => {
-              this.setState({ itemWidth: +event.target.value });
-            }}
-          />
-          <input
-            type="text"
-            defaultValue={1000}
-            className="Carousel__input"
-            onChange={(event) => {
-              this.setState({ animationDuration: +event.target.value });
-            }}
-          />
+          <label className="Carousel__input">
+            Step
+            <input
+              type="text"
+              defaultValue={3}
+              onChange={(event) => {
+                this.setState({ step: +event.target.value });
+              }}
+            />
+          </label>
+
+          <label className="Carousel__input">
+            Frame size
+            <input
+              type="text"
+              defaultValue={3}
+              onChange={(event) => {
+                this.setState({ frameSize: +event.target.value });
+              }}
+            />
+          </label>
+          <label className="Carousel__input">
+            Item width
+            <input
+              type="text"
+              defaultValue={130}
+              onChange={(event) => {
+                this.setState({ itemWidth: +event.target.value });
+              }}
+            />
+          </label>
+          <label className="Carousel__input">
+            Animation duration
+            <input
+              type="text"
+              defaultValue={1000}
+              className="Carousel__input"
+              onChange={(event) => {
+                this.setState({ animationDuration: +event.target.value });
+              }}
+            />
+          </label>
         </form>
 
         <Carousel
