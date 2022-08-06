@@ -1,25 +1,34 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Image } from './types/Image';
+
+const imagesFromServer = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
 
 interface State {
-  images: string[];
+  images: Image[];
 }
 
 class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+  state: Readonly<State> = {
+    images: imagesFromServer.map(img => (
+      {
+        image: img,
+        id: uuid(),
+      }
+    )),
   };
 
   render() {
@@ -30,7 +39,7 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel images={images} />
       </div>
     );
   }
