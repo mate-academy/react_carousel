@@ -1,1 +1,36 @@
-// style go here
+.wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.carousel {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #fff7b7;
+  border-radius: 8px;
+  &__list {
+    position: absolute;
+    display: flex;
+  }
+}
+
+.button {
+  background-color: #007bff;
+  border: none;
+  width: 70px;
+  height: 30px;
+  border-radius: 8px;
+  color: yellow;
+  transition: color 0.5s;
+
+  &:hover {
+    background-color: #0060cb;
+  }
+
+  &:disabled {
+    background-color: #989898;
+  }
+}
