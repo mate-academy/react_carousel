@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  margin-top: 20px;
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    transition: transform;
+  }
+
+  &__item {
+    position: relative;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
+
