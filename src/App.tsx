@@ -19,6 +19,10 @@ const imagesFromServer = [
 
 interface State {
   images: Image[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,17 +33,87 @@ class App extends React.Component<{}, State> {
         id: uuid(),
       }
     )),
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      animationDuration,
+      step,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel images={images} />
+        <label>
+          Item Width:
+          <input
+            type="number"
+            value={itemWidth}
+            min="130"
+            max="250"
+            step="5"
+            onChange={({ target }) => (
+              this.setState({ itemWidth: +target.value })
+            )}
+          />
+        </label>
+
+        <label>
+          Frame Size:
+          <input
+            type="number"
+            value={frameSize}
+            min="1"
+            max="10"
+            onChange={({ target }) => (
+              this.setState({ frameSize: +target.value })
+            )}
+          />
+        </label>
+
+        <label>
+          Step:
+          <input
+            type="number"
+            value={step}
+            min="1"
+            max="5"
+            onChange={({ target }) => (
+              this.setState({ step: +target.value })
+            )}
+          />
+        </label>
+
+        <label>
+          Animation Duration:
+          <input
+            type="number"
+            value={animationDuration}
+            min="100"
+            max="2000"
+            step="100"
+            onChange={({ target }) => (
+              this.setState({ animationDuration: +target.value })
+            )}
+          />
+        </label>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
