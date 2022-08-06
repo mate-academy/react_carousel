@@ -59,7 +59,6 @@ export class Carousel extends Component<Props, State> {
   render() {
     const {
       images,
-      step,
       frameSize,
       itemWidth,
       animationDuration,
@@ -69,16 +68,13 @@ export class Carousel extends Component<Props, State> {
     const fieldWidth = frameSize * itemWidth;
     const maxScroll = itemWidth * images.length;
 
-    // eslint-disable-next-line no-console,max-len
-    console.log(step, frameSize, itemWidth, animationDuration, infinite, this.state.scrollAmount);
-
     return (
       <div className="wrapper">
         <button
           type="button"
           className="button"
           onClick={this.slideLeft}
-          disabled={!this.props.infinite
+          disabled={!infinite
             && scrollAmount === 0}
         >
           Prev
@@ -117,7 +113,7 @@ export class Carousel extends Component<Props, State> {
           className="button"
           data-cy="next"
           onClick={this.slideRight}
-          disabled={!this.props.infinite
+          disabled={!infinite
             && scrollAmount === maxScroll - fieldWidth}
         >
           Next
