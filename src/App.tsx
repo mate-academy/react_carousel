@@ -1,9 +1,13 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,6 +24,37 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  changeWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      itemWidth: Number(e.target.value),
+    });
+  };
+
+  changeNumberOfImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (+e.target.value <= this.state.images.length) {
+      this.setState({
+        frameSize: Number(e.target.value),
+      });
+    }
+  };
+
+  changeScrollNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      step: Number(+e.target.value),
+    });
+  };
+
+  changeDurationAnimation = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: Number(+e.target.value),
+    });
   };
 
   render() {
@@ -28,9 +63,62 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1
+          data-cy="title"
+        >
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={this.state.images}
+          itemWidth={this.state.itemWidth}
+          frameSize={this.state.frameSize}
+          step={this.state.step}
+          animationDuration={this.state.animationDuration}
+        />
+
+        <label htmlFor="itemId">
+          Enter width of images
+          <input
+            type="text"
+            id="itemId"
+            placeholder="item width"
+            onChange={this.changeWidth}
+          />
+        </label>
+        <br />
+        <label htmlFor="frameId">
+          Enter number of images in a row
+          <input
+            type="number"
+            value={this.state.frameSize}
+            id="frameId"
+            placeholder="frame size"
+            onChange={this.changeNumberOfImg}
+          />
+        </label>
+        <br />
+        <label htmlFor="stepId">
+          Enter number of images to scroll
+          <input
+            type="number"
+            value={this.state.step}
+            id="stepId"
+            placeholder="step"
+            onChange={this.changeScrollNumber}
+          />
+        </label>
+        <br />
+        <label htmlFor="animationId">
+          Enter the duration of rotation
+          <input
+            type="number"
+            value={this.state.animationDuration}
+            id="animationId"
+            placeholder="step"
+            onChange={this.changeDurationAnimation}
+          />
+        </label>
       </div>
     );
   }
