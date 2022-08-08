@@ -188,6 +188,7 @@ export class Carousel extends Component<Props, State> {
           </button>
 
           <button
+            data-cy="next"
             className="Carousel__button"
             type="button"
             disabled={isInfinite ? false : isDisableNext}
