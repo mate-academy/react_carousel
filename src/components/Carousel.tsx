@@ -19,40 +19,33 @@ export class Carousel extends Component<Props, State> {
     scrollAmount: 0,
   };
 
-  slideRight = () => {
+  slide = (side: string) => {
     let scrollLength = this.props.step * this.props.itemWidth;
     const fieldLength = this.props.itemWidth * this.props.images.length;
     const lastFrame = this.props.frameSize * this.props.itemWidth;
 
     this.setState((prevState) => {
-      if (prevState.scrollAmount + lastFrame >= fieldLength) {
+      if (prevState.scrollAmount + lastFrame >= fieldLength && side === 'r') {
         return { scrollAmount: 0 };
       }
 
-      if (prevState.scrollAmount + scrollLength >= fieldLength - lastFrame) {
+      if (prevState.scrollAmount + scrollLength >= fieldLength - lastFrame
+        && side === 'r') {
         scrollLength = fieldLength - prevState.scrollAmount - lastFrame
           || this.props.itemWidth;
       }
 
-      return { scrollAmount: prevState.scrollAmount + scrollLength };
-    });
-  };
-
-  slideLeft = () => {
-    let scrollLength = this.props.step * this.props.itemWidth;
-    const fieldLength = this.props.itemWidth * this.props.images.length;
-    const lastFrame = this.props.frameSize * this.props.itemWidth;
-
-    this.setState((prevState) => {
-      if (prevState.scrollAmount <= 0) {
+      if (prevState.scrollAmount <= 0 && side === 'l') {
         return { scrollAmount: fieldLength - lastFrame };
       }
 
-      if (prevState.scrollAmount - scrollLength < 0) {
+      if (prevState.scrollAmount - scrollLength < 0 && side === 'l') {
         scrollLength = prevState.scrollAmount;
       }
 
-      return { scrollAmount: prevState.scrollAmount - scrollLength };
+      return side === 'r'
+        ? { scrollAmount: prevState.scrollAmount + scrollLength }
+        : { scrollAmount: prevState.scrollAmount - scrollLength };
     });
   };
 
@@ -73,7 +66,9 @@ export class Carousel extends Component<Props, State> {
         <button
           type="button"
           className="button"
-          onClick={this.slideLeft}
+          onClick={() => {
+            this.slide('l');
+          }}
           disabled={!infinite
             && scrollAmount === 0}
         >
@@ -112,7 +107,9 @@ export class Carousel extends Component<Props, State> {
           type="button"
           className="button"
           data-cy="next"
-          onClick={this.slideRight}
+          onClick={() => {
+            this.slide('r');
+          }}
           disabled={!infinite
             && scrollAmount === maxScroll - fieldWidth}
         >

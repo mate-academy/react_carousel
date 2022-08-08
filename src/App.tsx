@@ -30,7 +30,6 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
-
   };
 
   changeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +67,14 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <>
@@ -76,11 +82,11 @@ class App extends React.Component<{}, State> {
           <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
           <Carousel
             images={images}
-            step={this.state.step}
-            frameSize={this.state.frameSize}
-            itemWidth={this.state.itemWidth}
-            animationDuration={this.state.animationDuration}
-            infinite={this.state.infinite}
+            step={step}
+            frameSize={frameSize}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+            infinite={infinite}
           />
         </div>
 
@@ -92,8 +98,8 @@ class App extends React.Component<{}, State> {
               type="number"
               min="1"
               max={`${images.length}`}
-              value={this.state.frameSize}
-              onInput={this.changeFrameSize}
+              value={frameSize}
+              onChange={this.changeFrameSize}
               onKeyDown={this.blockInput}
             />
           </label>
@@ -104,8 +110,8 @@ class App extends React.Component<{}, State> {
               type="number"
               min="1"
               max={`${images.length}`}
-              value={this.state.step}
-              onInput={this.changeFrameStep}
+              value={step}
+              onChange={this.changeFrameStep}
               onKeyDown={this.blockInput}
             />
           </label>
@@ -117,8 +123,8 @@ class App extends React.Component<{}, State> {
               min="50"
               max="250"
               step="10"
-              value={this.state.itemWidth}
-              onInput={this.changeItemWidth}
+              value={itemWidth}
+              onChange={this.changeItemWidth}
               onKeyDown={this.blockInput}
             />
           </label>
@@ -130,8 +136,8 @@ class App extends React.Component<{}, State> {
               min="0"
               max="5000"
               step="500"
-              value={this.state.animationDuration}
-              onInput={this.changeAnimationDuration}
+              value={animationDuration}
+              onChange={this.changeAnimationDuration}
               onKeyDown={this.blockInput}
             />
           </label>
@@ -140,7 +146,7 @@ class App extends React.Component<{}, State> {
             Infinite scroll:
             <input
               type="checkbox"
-              checked={this.state.infinite}
+              checked={infinite}
               onChange={this.changeInfinite}
             />
           </label>
