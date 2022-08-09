@@ -58,7 +58,13 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
@@ -70,17 +76,18 @@ class App extends React.Component<{}, State> {
         </h1>
 
         <Carousel
-          images={this.state.images}
-          itemWidth={this.state.itemWidth}
-          frameSize={this.state.frameSize}
-          step={this.state.step}
-          animationDuration={this.state.animationDuration}
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
         />
 
         <label htmlFor="itemId">
           Enter width of images
           <input
-            type="text"
+            type="number"
+            value={itemWidth}
             id="itemId"
             placeholder="item width"
             onChange={this.changeWidth}
@@ -91,7 +98,7 @@ class App extends React.Component<{}, State> {
           Enter number of images in a row
           <input
             type="number"
-            value={this.state.frameSize}
+            value={frameSize}
             id="frameId"
             placeholder="frame size"
             onChange={this.changeNumberOfImg}
@@ -102,7 +109,7 @@ class App extends React.Component<{}, State> {
           Enter number of images to scroll
           <input
             type="number"
-            value={this.state.step}
+            value={step}
             id="stepId"
             placeholder="step"
             onChange={this.changeScrollNumber}
@@ -113,7 +120,7 @@ class App extends React.Component<{}, State> {
           Enter the duration of rotation
           <input
             type="number"
-            value={this.state.animationDuration}
+            value={animationDuration}
             id="animationId"
             placeholder="step"
             onChange={this.changeDurationAnimation}
