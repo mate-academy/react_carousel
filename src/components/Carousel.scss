@@ -1,1 +1,43 @@
-// style go here
+.Carousel {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+
+  &__wrapper {
+    margin: auto;
+    overflow: hidden;
+  }
+
+  &__list {
+    position: relative;
+    display: flex;
+    padding: 0;
+  }
+
+  &__button-group {
+    margin: 0 auto 20px;
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 5px;
+    width: 120px;
+    height: 60px;
+    border-radius: 20px;
+    font-size: 2.5rem;
+    background-color: rgb(238, 210, 96);
+    transition: all 0.4s;
+
+    &:hover:not(:disabled) {
+      background-color: rgb(232, 164, 18);
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgb(232, 132, 18);
+    }
+  }
+}  
+ 

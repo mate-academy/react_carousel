@@ -1,1 +1,30 @@
-// style go here
+* {
+  font-family: roboto, sans-serif;
+}
+
+.App {
+  margin: auto;
+  width: fit-content;
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.Option {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    margin-left: 20px;
+    width: 50px;
+  }
+}
