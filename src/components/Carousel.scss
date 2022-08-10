@@ -5,8 +5,10 @@
   width: max-content;
 
   &__wrapper {
-    margin: auto;
+    margin: 0 auto 10px;
     overflow: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
   }
 
   &__list {
@@ -16,9 +18,9 @@
   }
 
   &__button-group {
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     display: flex;
-    width: 400px;
+    width: 645px;
     justify-content: space-between;
   }
 
@@ -40,4 +42,3 @@
     }
   }
 }  
- 

@@ -93,7 +93,6 @@ export class Carousel extends React.Component<CarouselType, State> {
     }
 
     return (
-
       <div className="Carousel">
         <div
           className="Carousel__wrapper"
@@ -135,7 +134,7 @@ export class Carousel extends React.Component<CarouselType, State> {
             type="button"
             data-cy="next"
             className="Carousel__button"
-            disabled={stopNextButton}
+            disabled={infinite ? !infinite : stopNextButton}
             onClick={this.handleNextButton}
           >
             ▶▶

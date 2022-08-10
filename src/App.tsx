@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
-import { CarouselType } from './types/CarouselType';
+// import { CarouselType } from './types/CarouselType';
 
-class App extends React.Component<{}, CarouselType> {
+class App extends React.Component {
   state = {
     images: [
       './img/1.png',
@@ -22,6 +22,7 @@ class App extends React.Component<{}, CarouselType> {
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
+    error: false,
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,8 @@ class App extends React.Component<{}, CarouselType> {
     } = event.target;
 
     if ((+value >= +min && +value <= +max) || (name === 'infinite')) {
+      this.setState({ error: false });
+
       switch (name) {
         case 'itemWidth':
           this.setState({ itemWidth: +value });
@@ -54,6 +57,8 @@ class App extends React.Component<{}, CarouselType> {
         default:
           return 0;
       }
+    } else {
+      this.setState({ error: true });
     }
 
     return this.state;
@@ -67,10 +72,11 @@ class App extends React.Component<{}, CarouselType> {
       itemWidth,
       animationDuration,
       infinite,
+      error,
     } = this.state;
 
     return (
-      <div className="App">
+      <div className="App page__App">
         {/* eslint-disable-next-line */}
         <h1 className="App__title" data-cy="title">
           Carousel with
@@ -92,19 +98,21 @@ class App extends React.Component<{}, CarouselType> {
         <form
           action="#"
           method="GET"
-          className="Option"
+          className="Option App__Option"
         >
-          <h2>Select options</h2>
+          {error
+            ? <h2 className="Option__error">Enter correct values</h2>
+            : <h2>Select options</h2>}
 
           <label className="Option__title">
-            Picture size (1 - 1000)px
+            Picture size (50 - 500)px
             <input
               name="itemWidth"
               className="Option__input"
               type="number"
-              value={itemWidth}
-              min="1"
-              max="1000"
+              placeholder={String(itemWidth)}
+              min="50"
+              max="500"
               onChange={this.handleChange}
             />
           </label>
@@ -115,7 +123,7 @@ class App extends React.Component<{}, CarouselType> {
               name="frameSize"
               className="Option__input"
               type="number"
-              value={frameSize}
+              placeholder={String(frameSize)}
               min="1"
               max="10"
               onChange={this.handleChange}
@@ -128,7 +136,7 @@ class App extends React.Component<{}, CarouselType> {
               name="step"
               className="Option__input"
               type="number"
-              value={step}
+              placeholder={String(step)}
               min="1"
               max="10"
               onChange={this.handleChange}
@@ -141,7 +149,7 @@ class App extends React.Component<{}, CarouselType> {
               name="animationDuration"
               className="Option__input"
               type="number"
-              value={animationDuration}
+              placeholder={String(animationDuration)}
               min="0"
               max="5000"
               onChange={this.handleChange}
