@@ -27,24 +27,20 @@ export class Carousel extends Component<Props, State> {
     if (buttons) {
       buttons.children[0].addEventListener('click', () => {
         this.setState((state, props) => {
-          if (props.infinite && !state.position) {
-            return { position: props.images.length - props.frameSize };
-          }
-
-          return { position: Math.max(0, state.position - props.step) };
+          return props.infinite && !state.position
+            ? { position: props.images.length - props.frameSize }
+            : { position: Math.max(0, state.position - props.step) };
         });
       });
       buttons.children[1].addEventListener('click', () => {
         this.setState((state, props) => {
-          if (props.infinite && state.position
-            === props.images.length - props.frameSize) {
-            return { position: 0 };
-          }
-
-          return {
-            position: Math.min(props.images.length - props.frameSize,
-              state.position + props.step),
-          };
+          return props.infinite && state.position
+            === props.images.length - props.frameSize
+            ? { position: 0 }
+            : {
+              position: Math.min(props.images.length - props.frameSize,
+                state.position + props.step),
+            };
         });
       });
     }
@@ -75,15 +71,15 @@ export class Carousel extends Component<Props, State> {
         >
           {
             images.map((image, i) => (
-                <li key={uuid()}>
-                  <img
-                    src={image}
-                    alt={(i + 1).toString()}
-                    width={itemWidth}
-                    height={itemWidth}
-                  />
-                </li>
-              ))
+              <li key={uuid()}>
+                <img
+                  src={image}
+                  alt={(i + 1).toString()}
+                  width={itemWidth}
+                  height={itemWidth}
+                />
+              </li>
+            ))
           }
         </ul>
 
