@@ -74,8 +74,7 @@ export class Carousel extends Component<Props, State> {
           }}
         >
           {
-            images
-              .map((image, i) => (
+            images.map((image, i) => (
                 <li key={uuid()}>
                   <img
                     src={image}

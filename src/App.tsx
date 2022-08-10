@@ -48,30 +48,32 @@ class App extends React.Component<{}, State> {
     const { target } = inputEvent;
     const imagesLength = this.state.images.length;
 
-    if (target && target instanceof HTMLInputElement) {
-      if (target.classList.contains('form__itemWidth')) {
-        this.setState({
-          itemWidth: Math.min(Math.max(+target.value, 80), 200),
-        });
+    if (!target || !(target instanceof HTMLInputElement)) {
+      return;
+    }
 
-        target.value = this.state.itemWidth.toString();
-      } else if (target.classList.contains('form__frameSize')) {
-        this.setState({
-          frameSize: Math.min(Math.max(+target.value, 1), imagesLength),
-        });
+    if (target.classList.contains('form__itemWidth')) {
+      this.setState({
+        itemWidth: Math.min(Math.max(+target.value, 80), 200),
+      });
 
-        target.value = this.state.frameSize.toString();
-      } else if (target.classList.contains('form__step')) {
-        this.setState({ step: Math.max(+target.value, 1) });
+      target.value = this.state.itemWidth.toString();
+    } else if (target.classList.contains('form__frameSize')) {
+      this.setState({
+        frameSize: Math.min(Math.max(+target.value, 1), imagesLength),
+      });
 
-        target.value = this.state.step.toString();
-      } else if (target.classList.contains('form__animationDuration')) {
-        this.setState({ animationDuration: Math.max(+target.value, 0) });
+      target.value = this.state.frameSize.toString();
+    } else if (target.classList.contains('form__step')) {
+      this.setState({ step: Math.max(+target.value, 1) });
 
-        target.value = this.state.animationDuration.toString();
-      } else if (target.classList.contains('form__infinite')) {
-        this.setState({ infinite: target.checked });
-      }
+      target.value = this.state.step.toString();
+    } else if (target.classList.contains('form__animationDuration')) {
+      this.setState({ animationDuration: Math.max(+target.value, 0) });
+
+      target.value = this.state.animationDuration.toString();
+    } else if (target.classList.contains('form__infinite')) {
+      this.setState({ infinite: target.checked });
     }
   };
 
