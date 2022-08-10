@@ -52,28 +52,40 @@ class App extends React.Component<{}, State> {
       return;
     }
 
-    if (target.classList.contains('form__itemWidth')) {
-      this.setState({
-        itemWidth: Math.min(Math.max(+target.value, 80), 200),
-      });
+    switch (true) {
+      case target.classList.contains('form__itemWidth'):
+        this.setState({
+          itemWidth: Math.min(Math.max(+target.value, 80), 200),
+        });
 
-      target.value = this.state.itemWidth.toString();
-    } else if (target.classList.contains('form__frameSize')) {
-      this.setState({
-        frameSize: Math.min(Math.max(+target.value, 1), imagesLength),
-      });
+        target.value = this.state.itemWidth.toString();
 
-      target.value = this.state.frameSize.toString();
-    } else if (target.classList.contains('form__step')) {
-      this.setState({ step: Math.max(+target.value, 1) });
+        break;
+      case target.classList.contains('form__frameSize'):
+        this.setState({
+          frameSize: Math.min(Math.max(+target.value, 1), imagesLength),
+        });
 
-      target.value = this.state.step.toString();
-    } else if (target.classList.contains('form__animationDuration')) {
-      this.setState({ animationDuration: Math.max(+target.value, 0) });
+        target.value = this.state.frameSize.toString();
 
-      target.value = this.state.animationDuration.toString();
-    } else if (target.classList.contains('form__infinite')) {
-      this.setState({ infinite: target.checked });
+        break;
+      case target.classList.contains('form__step'):
+        this.setState({ step: Math.max(+target.value, 1) });
+
+        target.value = this.state.step.toString();
+
+        break;
+      case target.classList.contains('form__animationDuration'):
+        this.setState({ animationDuration: Math.max(+target.value, 0) });
+
+        target.value = this.state.animationDuration.toString();
+
+        break;
+      case target.classList.contains('form__infinite'):
+        this.setState({ infinite: target.checked });
+
+        break;
+      default:
     }
   };
 
