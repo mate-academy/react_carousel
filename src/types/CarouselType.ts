@@ -5,4 +5,5 @@ export interface CarouselType {
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
+  error: boolean,
 }

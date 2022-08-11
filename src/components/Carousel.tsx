@@ -17,6 +17,13 @@ export class Carousel extends React.Component<CarouselType, State> {
     stopNextButton: false,
   };
 
+  //  shouldComponentUpdate(prevProps) {
+  //   if (next.props.error == true) {
+  //     this.setState({ stopPrevButton: true });
+  //     this.setState({ stopNextButton: true });
+  //   }
+  //  }
+
   handleNextButton = () => {
     const {
       step, itemWidth, infinite, frameSize,
@@ -79,6 +86,7 @@ export class Carousel extends React.Component<CarouselType, State> {
       itemWidth,
       animationDuration,
       infinite,
+      error,
     } = this.props;
 
     const {
@@ -125,7 +133,7 @@ export class Carousel extends React.Component<CarouselType, State> {
           <button
             type="button"
             className="Carousel__button"
-            disabled={stopPrevButton}
+            disabled={error || stopPrevButton}
             onClick={this.handlePrevButton}
           >
             ◀◀
@@ -134,7 +142,7 @@ export class Carousel extends React.Component<CarouselType, State> {
             type="button"
             data-cy="next"
             className="Carousel__button"
-            disabled={infinite ? !infinite : stopNextButton}
+            disabled={infinite ? !infinite : stopNextButton || error}
             onClick={this.handleNextButton}
           >
             ▶▶

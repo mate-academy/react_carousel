@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
-// import { CarouselType } from './types/CarouselType';
 
 class App extends React.Component {
   state = {
@@ -93,6 +92,7 @@ class App extends React.Component {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
+          error={error}
         />
 
         <form
