@@ -17,13 +17,6 @@ export class Carousel extends React.Component<CarouselType, State> {
     stopNextButton: false,
   };
 
-  //  shouldComponentUpdate(prevProps) {
-  //   if (next.props.error == true) {
-  //     this.setState({ stopPrevButton: true });
-  //     this.setState({ stopNextButton: true });
-  //   }
-  //  }
-
   handleNextButton = () => {
     const {
       step, itemWidth, infinite, frameSize,
