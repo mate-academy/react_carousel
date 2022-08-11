@@ -109,9 +109,9 @@ export class Carousel extends React.Component<CarouselType, State> {
             }}
           >
             {newImages.map((image, index) => (
-              <li>
+              <li key={image}>
                 <img
-                  key={+new Date() + image}
+                  key={+new Date()}
                   src={`./img/${(index % 10) + 1}.png`}
                   alt={`${index + 1}`}
                   style={{
@@ -135,7 +135,7 @@ export class Carousel extends React.Component<CarouselType, State> {
             type="button"
             data-cy="next"
             className="Carousel__button"
-            disabled={infinite ? !infinite : stopNextButton || error}
+            disabled={infinite ? error : error || stopNextButton}
             onClick={this.handleNextButton}
           >
             ▶▶
