@@ -29,7 +29,7 @@ const App: React.FC<{}> = () => {
     <div className="App">
       <h1 data-cy="title">
         Carousel with
-        {images.length}
+        {` ${images.length} `}
         images
       </h1>
 
