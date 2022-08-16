@@ -1,88 +1,141 @@
-/* eslint-disable react/no-unused-prop-types */
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/default-props-match-prop-types */
-/* eslint-disable react/static-property-placement */
 import React from 'react';
 
 import './Carousel.scss';
 
 type Props = {
   images: string[],
+};
+
+type State = {
+  overallWidth: number
   step: number,
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
-};
-
-type State = {
   position: number,
-  prev: boolean,
-  next: boolean,
+  prevDisabled: boolean,
+  nextDisabled: boolean,
 };
 
 export class Carousel extends React.Component<Props, State> {
-  widthList = this.props.itemWidth * this.props.frameSize;
-
-  static defaultProps = {
-    itemWidth: 100,
-    frameSize: 2,
-  };
-
   state: Readonly<State> = {
+    overallWidth: 1300,
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
     position: 0,
-    prev: true,
-    next: false,
+    prevDisabled: true,
+    nextDisabled: false,
   };
 
   scrollPrev = () => {
-    const { step } = this.props;
+    const {
+      overallWidth,
+      itemWidth,
+      position,
+      step,
+    } = this.state;
 
-    this.setState(({ position }) => ({
-      position: position - step < 0 ? 0 : position - step,
-    }));
-    this.buttonDisabled();
+    let newWidth = position - step * itemWidth;
+
+    if (newWidth <= 0) {
+      newWidth = 0;
+
+      this.setState({
+        position: newWidth,
+        prevDisabled: true,
+        nextDisabled: false,
+      });
+    }
+
+    if (newWidth > 0 && newWidth <= overallWidth) {
+      this.setState({
+        position: newWidth,
+        nextDisabled: false,
+      });
+    }
   };
 
   scrollNext = () => {
-    const { images, step } = this.props;
+    const {
+      overallWidth,
+      itemWidth,
+      step,
+      position,
+      frameSize,
+    } = this.state;
 
-    this.setState(({ position }) => ({
-      position: (position + 2 * step) > images.length
-        ? images.length - step
-        : images.length + step,
-    }));
-    this.buttonDisabled();
+    let newWidth = position + step * itemWidth;
+
+    if (newWidth >= overallWidth - itemWidth * frameSize) {
+      newWidth = overallWidth - itemWidth * frameSize;
+
+      this.setState({
+        position: newWidth,
+        prevDisabled: false,
+        nextDisabled: true,
+      });
+    }
+
+    if (newWidth > 0 && newWidth < overallWidth - itemWidth * frameSize) {
+      this.setState({
+        position: newWidth,
+        prevDisabled: false,
+      });
+    }
   };
 
-  buttonDisabled = () => {
-    const { images, step } = this.props;
+  setFrameSize = (value: string) => {
+    const result = Number(value);
 
-    this.setState(({ position }) => ({
-      prev: position === 0,
-      next: position >= images.length - step,
-    }));
+    this.setState({ frameSize: result });
+  };
+
+  setItemWidth = (value: string) => {
+    const result = Number(value);
+
+    this.setState({
+      itemWidth: result,
+      overallWidth: result * 10,
+      position: 0,
+      prevDisabled: true,
+      nextDisabled: false,
+    });
+  };
+
+  setStep = (value: string) => {
+    const result = Number(value);
+
+    this.setState({ step: result });
+  };
+
+  setAnimationDuration = (value: string) => {
+    const result = Number(value);
+
+    this.setState({ animationDuration: result });
   };
 
   render() {
-    const { images, itemWidth, animationDuration } = this.props;
-    const { position, prev, next } = this.state;
-
-    const listStyle = {
-      width: itemWidth * images.length,
-      transitionDuration: `${animationDuration}ms`,
-      transform: `translateX(-${position * itemWidth}px)`,
-    };
+    const { images } = this.props;
 
     return (
-      <div className="Carousel">
+      <div
+        className="Carousel"
+        style={{
+          width: `${this.state.frameSize * this.state.itemWidth}px`,
+        }}
+      >
         <div
           className="Carousel__container"
-          style={{
-            width: this.widthList,
-          }}
         >
-          <ul className="Carousel__list" style={listStyle}>
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${-this.state.position}px)`,
+              transition: `${this.state.animationDuration}ms`,
+            }}
+          >
             {images.map((image, index) => {
               const id = index + 1;
 
@@ -93,8 +146,7 @@ export class Carousel extends React.Component<Props, State> {
                     alt={`${index + 1}`}
                     className="Carousel__image"
                     style={{
-                      width: itemWidth,
-                      height: itemWidth,
+                      width: `${this.state.itemWidth}px`,
                     }}
                   />
                 </li>
@@ -106,7 +158,7 @@ export class Carousel extends React.Component<Props, State> {
           <button
             type="button"
             onClick={this.scrollPrev}
-            disabled={prev}
+            disabled={this.state.prevDisabled}
             className="button__click"
           >
             Prev
@@ -115,12 +167,65 @@ export class Carousel extends React.Component<Props, State> {
           <button
             type="button"
             onClick={this.scrollNext}
-            disabled={next}
+            disabled={this.state.nextDisabled}
             className="button__click"
           >
             Next
           </button>
         </div>
+        <form className="form">
+          <label className="form__label">
+            Step
+            <input
+              type="number"
+              min={1}
+              max={5}
+              value={this.state.step}
+              onChange={(event) => {
+                this.setStep(event.target.value);
+              }}
+            />
+          </label>
+          <label className="form__label">
+            Framesize
+            <input
+              type="number"
+              min={1}
+              max={10}
+              value={this.state.frameSize}
+              onChange={(event) => {
+                this.setFrameSize(event.target.value);
+              }}
+            />
+          </label>
+
+          <label className="form__label">
+            Item width
+            <input
+              type="range"
+              min={130}
+              max={200}
+              value={this.state.itemWidth}
+              onChange={(event) => {
+                this.setItemWidth(event.target.value);
+              }}
+            />
+          </label>
+
+          <label className="form__label">
+            Animatiom duration
+            <input
+              type="range"
+              min={500}
+              max={5000}
+              step={500}
+              value={this.state.animationDuration}
+              onChange={(event) => {
+                this.setAnimationDuration(event.target.value);
+              }}
+            />
+          </label>
+        </form>
       </div>
     );
   }

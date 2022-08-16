@@ -1,9 +1,14 @@
 .Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   &__container {
-    width: 390px;
     overflow: hidden;
     margin: 0 auto;
+    width: 390px;
   }
 
   &__list {
@@ -15,8 +20,10 @@
 
 .button {
   display: flex;
+  gap: 20px;
   justify-content: space-evenly;
   transition-duration: 1s;
+  margin-bottom: 20px;
 
   &__click {
     width: 100px;
@@ -29,5 +36,17 @@
     &:hover {
       background-color: #57c2c2;
     }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 300px;
+
+  &__label {
+    display: flex;
+    justify-content: space-evenly;
   }
 }
