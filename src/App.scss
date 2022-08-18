@@ -1,1 +1,53 @@
-// style go here
+.App {
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+  position: absolute;
+  background: linear-gradient(
+    124deg, hsl(46,82%,51%), hsl(48, 100%, 67%), hsl(348, 100%, 75%));
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    animation: 2s slide-top;
+  }
+
+  &__options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  &__input {
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    &--item-width {
+      width: 80px;
+    }
+
+    &--step {
+      width: 35px;
+    }
+
+    &--animation-duration {
+      width: 142px;
+    }
+
+    &--checkbox {
+      height: 24px;
+    }
+  }
+}
+
+@keyframes slide-top {
+  from {
+    margin-top: -100px;
+  }
+
+  to {
+    margin-top: 0%;
+  }
+}
