@@ -122,9 +122,6 @@ export class Carousel extends React.Component<Props, State> {
     return (
       <div
         className="Carousel"
-        style={{
-          width: `${this.state.frameSize * this.state.itemWidth}px`,
-        }}
       >
         <div
           className="Carousel__container"
