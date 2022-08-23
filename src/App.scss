@@ -13,31 +13,26 @@
   }
 
   &__options {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin: 0 auto;
+    width: 400px;
   }
 
   &__input {
-    display: inline-flex;
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     margin-right: 10px;
     margin-bottom: 10px;
+    font-weight: 600;
+  }
 
-    &--item-width {
-      width: 80px;
-    }
-
-    &--step {
-      width: 35px;
-    }
-
-    &--animation-duration {
-      width: 142px;
-    }
+  &__input-field {
+    width: 100px;
+    height: 30px;
+    padding: 10px;
 
     &--checkbox {
-      height: 24px;
+      width: 30px;
+      margin-bottom: 20px;
     }
   }
 }

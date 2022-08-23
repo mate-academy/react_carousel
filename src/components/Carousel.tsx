@@ -28,22 +28,36 @@ export class Carousel extends React.Component<Props, State> {
 
     const { position } = this.state;
 
-    if (type === 'previous') {
-      if (position - step >= 0) {
-        this.setState({ position: position - step });
-      } else if (infinite) {
+    switch (true) {
+      case (type === 'previous') && (position - step >= 0):
+        this.setState(state => ({
+          position: state.position - step,
+        }));
+        break;
+
+      case (type === 'previous') && infinite:
         this.setState({
           position: (images.length - step),
         });
-      }
-    }
+        break;
 
-    if (type === 'next') {
-      if ((position + step) < images.length) {
-        this.setState({ position: position + step });
-      } else if (infinite) {
-        this.setState({ position: 0 });
-      }
+      case (type === 'next') && ((position + step) < images.length):
+        this.setState(state => ({
+          position: state.position + step,
+        }));
+        break;
+
+      case (type === 'next') && infinite:
+        this.setState({
+          position: 0,
+        });
+        break;
+
+      default:
+        this.setState({
+          position: 0,
+        });
+        break;
     }
   };
 
@@ -58,6 +72,8 @@ export class Carousel extends React.Component<Props, State> {
 
     const { position } = this.state;
 
+    const slideLimit = -((images.length * itemWidth) - (itemWidth * frameSize));
+
     return (
       <div
         className="Carousel"
@@ -69,7 +85,11 @@ export class Carousel extends React.Component<Props, State> {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${-position * itemWidth}px)`,
+            transform: `translateX(${
+              (-position * itemWidth) >= slideLimit
+                ? (-position * itemWidth)
+                : slideLimit
+            }px)`,
             transition: `${animationDuration}ms`,
           }}
         >
@@ -95,7 +115,11 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="Carousel__buttons">
           <button
-            className="Carousel__buttons--prev button is-warning is-medium"
+            className="
+              Carousel__buttons--prev
+              button
+              is-warning
+              is-medium"
             type="button"
             onClick={() => this.buttonHandler('previous')}
             disabled={(position <= 0) && !infinite}
@@ -103,7 +127,11 @@ export class Carousel extends React.Component<Props, State> {
           />
 
           <button
-            className="Carousel__buttons--next button is-warning is-medium"
+            className="
+              Carousel__buttons--next
+              button
+              is-warning
+              is-medium"
             type="button"
             data-cy="next"
             onClick={() => this.buttonHandler('next')}

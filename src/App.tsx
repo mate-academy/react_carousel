@@ -49,9 +49,10 @@ export class App extends React.Component<{}, State> {
           {`Carousel with ${images.length} images`}
         </h1>
         <form className="App__options">
-          <label className="App__input App__input--item-width">
+          <label className="App__input">
             Item width:
             <input
+              className="App__input-field"
               type="number"
               min="0"
               defaultValue={itemWidth}
@@ -64,6 +65,7 @@ export class App extends React.Component<{}, State> {
           <label className="App__input">
             Frame size:
             <input
+              className="App__input-field"
               type="number"
               min="2"
               max={images.length}
@@ -74,9 +76,10 @@ export class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="App__input App__input--step">
+          <label className="App__input">
             Step:
             <input
+              className="App__input-field"
               type="number"
               min="0"
               max={images.length}
@@ -94,6 +97,7 @@ export class App extends React.Component<{}, State> {
           >
             Animation duration:
             <input
+              className="App__input-field"
               type="number"
               min="0"
               defaultValue={animationDuration}
@@ -106,9 +110,11 @@ export class App extends React.Component<{}, State> {
           <label className="App__input">
             Infinite:
             <input
+              className="
+                App__input-field
+                App__input-field--checkbox"
               type="checkbox"
               checked={infinite}
-              className="App__input--checkbox"
               onChange={() => {
                 this.setState({ infinite: !infinite });
               }}
