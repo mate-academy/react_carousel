@@ -1,8 +1,9 @@
+body {
+  box-sizing: border-box;
+}
+
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 390px;
-  margin: 0 auto;
+  align-items: center;
 }
