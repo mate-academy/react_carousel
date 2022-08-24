@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+
+  &__container {
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.button {
+  display: flex;
+  gap: 20px;
+  justify-content: space-evenly;
+  transition-duration: 1s;
+  margin-bottom: 20px;
+
+  &__click {
+    width: 100px;
+    height: 30px;
+    background-color: #baeeee;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #57c2c2;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 300px;
+
+  &__label {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
