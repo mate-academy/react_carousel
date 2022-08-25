@@ -1,1 +1,40 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #e2fbf5;
+  color: #6c7a89;
+}
+
+.App {
+  margin: 0 auto;
+  
+  & h1 {
+    text-align: center;
+  }
+
+  & fieldset {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #f4f8ec;
+    
+    & label {
+      background-color: inherit;
+    }
+    
+    & input {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #6c7a89;
+      border-radius: 50px;
+      background-color: inherit;
+
+      &:focus {
+        border: 1px solid #e2fbf5;
+      }
+    }
+  }
+}
