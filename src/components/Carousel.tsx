@@ -23,41 +23,32 @@ export class Carousel extends React.Component<Props, State> {
     const {
       images,
       step,
-      infinite,
     } = this.props;
 
     const { position } = this.state;
 
-    switch (true) {
-      case (type === 'previous') && (position - step >= 0):
+    if (type === 'previous') {
+      if (position - step >= 0) {
         this.setState(state => ({
           position: state.position - step,
         }));
-        break;
-
-      case (type === 'previous') && infinite:
+      } else {
         this.setState({
           position: (images.length - step),
         });
-        break;
+      }
+    }
 
-      case (type === 'next') && ((position + step) < images.length):
+    if (type === 'next') {
+      if ((position + step) < images.length) {
         this.setState(state => ({
           position: state.position + step,
         }));
-        break;
-
-      case (type === 'next') && infinite:
+      } else {
         this.setState({
           position: 0,
         });
-        break;
-
-      default:
-        this.setState({
-          position: 0,
-        });
-        break;
+      }
     }
   };
 
