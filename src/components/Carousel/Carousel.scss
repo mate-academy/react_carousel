@@ -1,0 +1,12 @@
+.Carousel {
+  max-width: 1300px;
+  margin: 0 auto;
+  overflow: hidden;
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    transition-property: transform;
+    transform: translateX(0);
+  }
+}
