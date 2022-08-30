@@ -1,4 +1,5 @@
 import { Component, CSSProperties } from 'react';
+import classNames from 'classnames';
 import CarouselType from '../../types/CarouselType';
 
 import './Carousel.scss';
@@ -25,7 +26,7 @@ const getFrameSize = (props: Props): number => {
 
 export class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
-    firstItemIndex: 1,
+    firstItemIndex: 0,
   };
 
   getRandomKey = (index = 0) => (
@@ -40,6 +41,22 @@ export class Carousel extends Component<Props, State> {
     } = this.props;
 
     return firstItemIndex * (itemWidth + itemGap);
+  };
+
+  getPrevButtonEnabled = () => {
+    const { firstItemIndex } = this.state;
+    const { images, infinite } = this.props;
+
+    return infinite
+      || (firstItemIndex !== 0 && images.length > getFrameSize(this.props));
+  };
+
+  getNextButtonEnabled = () => {
+    const { firstItemIndex } = this.state;
+    const { images, infinite } = this.props;
+
+    return infinite
+      || (firstItemIndex !== images.length - getFrameSize(this.props));
   };
 
   handleNext = () => this.setState((prevSate) => {
@@ -96,12 +113,12 @@ export class Carousel extends Component<Props, State> {
   render() {
     const {
       images,
-      // step,
       itemWidth,
       itemGap,
       carouselMaxWidth,
       animationDuration,
     } = this.props;
+
     const frameSize = getFrameSize(this.props);
 
     const carouselStyle: CSSProperties = {
@@ -119,38 +136,59 @@ export class Carousel extends Component<Props, State> {
         className="Carousel"
         style={carouselStyle}
       >
-        <ul
-          className="Carousel__list"
-          style={listStyle}
-        >
-          {images.map((image, index) => (
-            <li
-              className="Carousel__item"
-              key={this.getRandomKey(index)}
-            >
-              <img
-                src={image}
-                width={itemWidth}
-                alt={`${index}`}
-              />
-            </li>
-          ))}
-        </ul>
+        <div className="Carousel__list-wrapper">
+          <ul
+            className="Carousel__list"
+            style={listStyle}
+          >
+            {images.map((image, index) => (
+              <li
+                className="Carousel__item"
+                key={this.getRandomKey(index)}
+              >
+                <img
+                  src={image}
+                  width={itemWidth}
+                  alt={`${index + 1}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <button
-          type="button"
-          onClick={this.handlePrev}
-        >
-          Prev
-        </button>
-
-        <button
-          type="button"
-          data-cy="next"
-          onClick={this.handleNext}
-        >
-          Next
-        </button>
+        <div className="Carousel__controls">
+          <button
+            className={
+              classNames(
+                'Carousel__button',
+                'Carousel__button--prev',
+                {
+                  'Carousel__button--disabled': !this.getPrevButtonEnabled(),
+                },
+              )
+            }
+            type="button"
+            onClick={this.handlePrev}
+          >
+            🢀
+          </button>
+          <button
+            className={
+              classNames(
+                'Carousel__button',
+                'Carousel__button--next',
+                {
+                  'Carousel__button--disabled': !this.getNextButtonEnabled(),
+                },
+              )
+            }
+            type="button"
+            data-cy="next"
+            onClick={this.handleNext}
+          >
+            🢂
+          </button>
+        </div>
       </div>
     );
   }
