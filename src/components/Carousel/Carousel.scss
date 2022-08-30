@@ -1,12 +1,56 @@
 .Carousel {
-  max-width: 1300px;
   margin: 0 auto;
   overflow: hidden;
+
   &__list {
     display: flex;
     gap: 20px;
 
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
     transition-property: transform;
+    transform: translateX(0);
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+
+    color: black;
+
+    transition: transform 300ms;
+    transform: translateX(var(--button-ofsset));
+
+    cursor: pointer;
+
+    &--prev {
+      --button-ofsset: 10px;
+    }
+
+    &--next {
+      --button-ofsset: -10px;
+    }
+
+    &--disabled {
+      color: grey;
+
+      cursor: not-allowed;
+    }
+  }
+
+  &__button:not(.Carousel__button--disabled):hover {
     transform: translateX(0);
   }
 }
