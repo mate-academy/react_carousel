@@ -102,49 +102,55 @@ class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {carousel.images.length} images</h1>
+        <h1
+          className="App__title"
+          data-cy="title"
+        >
+          {`Carousel with ${carousel.images.length} images`}
+        </h1>
 
-        {controls.map(control => {
-          const key = control.name as keyof CarouselType;
+        <div className="App__controls">
+          {controls.map(control => {
+            const key = control.name as keyof CarouselType;
 
-          switch (control.type) {
-            case 'number': {
-              const value = Number((key in carousel
-                ? carousel[key]
-                : control.value
-              ) || 0);
+            switch (control.type) {
+              case 'number': {
+                const value = Number((key in carousel
+                  ? carousel[key]
+                  : control.value
+                ) || 0);
 
-              return (
-                <InputControl
-                  {...control}
-                  value={value}
-                  key={control.name}
-                  handleControlChange={this.handleControlChange}
-                />
-              );
+                return (
+                  <InputControl
+                    {...control}
+                    value={value}
+                    key={control.name}
+                    handleControlChange={this.handleControlChange}
+                  />
+                );
+              }
+
+              case 'checkbox': {
+                const value = Boolean((key in carousel
+                  ? carousel[key]
+                  : control.value
+                ) || false);
+
+                return (
+                  <CheckboxControl
+                    {...control}
+                    value={value}
+                    key={control.name}
+                    handleControlChange={this.handleControlChange}
+                  />
+                );
+              }
+
+              default:
+                return null;
             }
-
-            case 'checkbox': {
-              const value = Boolean((key in carousel
-                ? carousel[key]
-                : control.value
-              ) || false);
-
-              return (
-                <CheckboxControl
-                  {...control}
-                  value={value}
-                  key={control.name}
-                  handleControlChange={this.handleControlChange}
-                />
-              );
-            }
-
-            default:
-              return null;
-          }
-        })}
+          })}
+        </div>
 
         <Carousel {...carousel} />
       </div>
