@@ -2,6 +2,8 @@ import { ChangeEvent, Component } from 'react';
 
 import { NumberInput } from '../../types/Controls';
 
+import './InputControl.scss';
+
 type Props = NumberInput & {
   handleControlChange: (name: string, value: number) => void,
 };

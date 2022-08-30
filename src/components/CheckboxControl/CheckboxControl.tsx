@@ -2,6 +2,8 @@ import { ChangeEvent, Component } from 'react';
 
 import { Checkbox } from '../../types/Controls';
 
+import './CheckboxControl.scss';
+
 type Props = Checkbox & {
   handleControlChange: (name: string, value: boolean) => void,
 };
