@@ -51,13 +51,11 @@ class App extends React.Component<{}, State> {
       infinite,
     } = this.state;
 
-    const maxWidth = 1300;
+    const maxItemWidth = 1300 / images.length;
+    const maxDisplayedItems = Math.floor(1300 / itemWidth);
 
     return (
-      <div
-        className="App"
-        style={{ width: `${maxWidth}px` }}
-      >
+      <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {this.state.images.length} images</h1>
         <fieldset>
@@ -69,7 +67,7 @@ class App extends React.Component<{}, State> {
             value={itemWidth}
             onChange={this.onChangeHandler}
             min={1}
-            max={maxWidth / images.length}
+            max={maxItemWidth}
           />
 
           <label htmlFor="frameId">Frame size</label>
@@ -80,7 +78,7 @@ class App extends React.Component<{}, State> {
             value={frameSize}
             onChange={this.onChangeHandler}
             min={1}
-            max={Math.floor(maxWidth / itemWidth)}
+            max={maxDisplayedItems}
           />
           <label htmlFor="stepId">Step</label>
           <input
@@ -109,7 +107,6 @@ class App extends React.Component<{}, State> {
                 infinite: event.currentTarget.checked,
               })}
               checked={infinite}
-              style={{ marginLeft: 10 }}
             />
           </label>
         </fieldset>
