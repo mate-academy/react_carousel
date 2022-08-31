@@ -3,7 +3,11 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images?: string[];
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,83 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: Number(value) });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
+
+        <label>
+          ItemWidth:
+          <input
+            type="number"
+            name="itemWidth"
+            value={itemWidth}
+            onChange={this.handleChange}
+            min="100"
+            max="500"
+          />
+        </label>
+
+        <label>
+          FrameSize:
+          <input
+            type="number"
+            name="frameSize"
+            value={frameSize}
+            onChange={this.handleChange}
+            min="1"
+          />
+        </label>
+
+        <label>
+          Step:
+          <input
+            type="number"
+            name="step"
+            value={step}
+            onChange={this.handleChange}
+            min="1"
+          />
+        </label>
+
+        <label>
+          AnimatioDuration:
+          <input
+            type="number"
+            name="animationDuration"
+            value={animationDuration}
+            onChange={this.handleChange}
+          />
+        </label>
       </div>
     );
   }
