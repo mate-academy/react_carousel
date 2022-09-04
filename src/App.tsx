@@ -33,11 +33,17 @@ class App extends React.Component<{}, State> {
   };
 
   onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
+    const {
+      name, value, min, max,
+    } = event.currentTarget;
+    const defaultValue = Math.max(
+      Number(min),
+      Math.min(Number(max), Number(value)),
+    );
 
     this.setState((state) => (({
       ...state,
-      [name]: +value,
+      [name]: +defaultValue,
     })));
   };
 
@@ -51,8 +57,8 @@ class App extends React.Component<{}, State> {
       infinite,
     } = this.state;
 
-    const maxItemWidth = 1300 / images.length;
-    const maxDisplayedItems = Math.floor(1300 / itemWidth);
+    const maxItemWidth = 1300;
+    const maxDisplayedItems = Math.floor(maxItemWidth / itemWidth);
 
     return (
       <div className="App">
@@ -88,15 +94,17 @@ class App extends React.Component<{}, State> {
             value={step}
             onChange={this.onChangeHandler}
             min={1}
-            max={10}
+            max={images.length}
           />
           <label htmlFor="animationDuration">Animation duration</label>
           <input
             name="animationDuration"
             type="number"
-            defaultValue={animationDuration}
+            value={animationDuration}
             onChange={this.onChangeHandler}
             step={1000}
+            min={1}
+            max={1000 * images.length}
           />
           <label>
             Infinite
