@@ -58,7 +58,7 @@ class App extends Component<{}, State> {
 
         <div className="App__controls">
           {controls.map(control => {
-            const key = control.name as keyof CarouselType;
+            const key = control.name;
 
             switch (control.type) {
               case 'number': {

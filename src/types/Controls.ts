@@ -1,6 +1,8 @@
+import CarouselType from './CarouselType';
+
 export interface NumberInput {
   title: string,
-  name: string,
+  name: keyof CarouselType,
   type: 'number',
   value: number,
   min?: number,
@@ -10,7 +12,7 @@ export interface NumberInput {
 
 export interface Checkbox {
   title: string,
-  name: string,
+  name: keyof CarouselType,
   type: 'checkbox',
   value: boolean,
 }
