@@ -1,12 +1,16 @@
-import React from 'react';
+import { Component } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
-  images: string[];
+  images?: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
 }
 
-class App extends React.Component<{}, State> {
+export class App extends Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,20 +24,87 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: +(value) });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 title="carousel">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <div className="labels">
+          <label className="labels__item">
+            Item width:
+            <input
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              onChange={this.handleInput}
+              min="100"
+              max="200"
+            />
+          </label>
+
+          <label className="labels__item">
+            Frame size:
+            <input
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              onChange={this.handleInput}
+              min="1"
+              max="5"
+            />
+          </label>
+
+          <label className="labels__item">
+            Step:
+            <input
+              type="number"
+              name="step"
+              value={step}
+              onChange={this.handleInput}
+              min="1"
+            />
+          </label>
+
+          <label className="labels__item">
+            Animation duration:
+            <input
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleInput}
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
 }
-
-export default App;

@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+  &__list {
+    width: 390px;
+    display: flex;
+    overflow: hidden;
+
+    padding: 0;
+    margin: 0 50px;
+    list-style: none;
+
+    border: 2px solid black;
+    border-radius: 40px;
+    box-shadow: 10px 10px 25px;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    border-radius: 20px;
+
+    transition: transform 0.3s linear;
+  }
+}
+
+.btn-prev:hover {
+  transform: scale(1.2);
+}
+
+.btn-next:hover {
+  transform: scale(1.2);
+}
