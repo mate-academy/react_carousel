@@ -1,5 +1,9 @@
 import { Component, CSSProperties } from 'react';
+import uuid from 'react-uuid';
 import classNames from 'classnames';
+
+import { getFrameSize } from './helpers';
+
 import CarouselType from '../../types/CarouselType';
 
 import './Carousel.scss';
@@ -10,28 +14,10 @@ type State = {
   firstItemIndex: number,
 };
 
-const getFrameSize = (props: Props): number => {
-  const {
-    frameSize,
-    itemWidth,
-    itemGap,
-    carouselMaxWidth,
-  } = props;
-  const maxFrames = Math.floor(
-    (carouselMaxWidth + itemGap) / (itemWidth + itemGap),
-  );
-
-  return frameSize <= maxFrames ? frameSize : maxFrames;
-};
-
 export class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
     firstItemIndex: 0,
   };
-
-  getRandomKey = (index = 0) => (
-    Math.trunc(Date.now() * Math.random()) + index
-  );
 
   getCurrentOffset = () => {
     const { firstItemIndex } = this.state;
@@ -144,7 +130,7 @@ export class Carousel extends Component<Props, State> {
             {images.map((image, index) => (
               <li
                 className="Carousel__item"
-                key={this.getRandomKey(index)}
+                key={uuid()}
               >
                 <img
                   src={image}
@@ -170,7 +156,7 @@ export class Carousel extends Component<Props, State> {
             type="button"
             onClick={this.handlePrev}
           >
-            🢀
+            &larr;
           </button>
           <button
             className={
@@ -186,7 +172,7 @@ export class Carousel extends Component<Props, State> {
             data-cy="next"
             onClick={this.handleNext}
           >
-            🢂
+            &rarr;
           </button>
         </div>
       </div>
