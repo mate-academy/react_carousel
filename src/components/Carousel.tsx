@@ -13,6 +13,8 @@ interface Props {
 
 const Carousel: React.FC<Props> = ( props ) => {
   const [scrollWidth, setScrollWidth] = useState(0);
+  const oneStep = props.itemWidth * props.step;
+  const listLength = props.itemWidth * props.images.length;
 
   return (
     <div className="Carousel">
@@ -42,15 +44,25 @@ const Carousel: React.FC<Props> = ( props ) => {
       <div className='swipe-buttons'>
         <button 
           type="button"
-          // onClick={() => setScrolled(0)}
+          disabled={scrollWidth === 0 ? true : false}
+          onClick={() => setScrollWidth(prev => {
+            if (prev - oneStep < 0) {
+              return 0;
+            }
+            return prev - oneStep;
+          })}
         >
           Prev
         </button>
         <button
           type="button"
+          disabled={scrollWidth === listLength - oneStep ? true : false}
           data-qa="next"
           onClick={() => setScrollWidth(prev => {
-            return prev + (props.itemWidth * props.step);
+            if (prev + oneStep + oneStep > listLength) {
+              return listLength - oneStep;
+            } 
+             return prev + oneStep;
           })}
         >
           Next
