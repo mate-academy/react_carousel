@@ -27,8 +27,8 @@
 
     transition: transform 0.3s linear;
 
-    &--prev:hover,
-    &--next:hover {
+    &--prev:not([disabled]):hover,
+    &--next:not([disabled]):hover {
       transform: scale(1.2);
     }
   }
