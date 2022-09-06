@@ -1,1 +1,27 @@
-// style go here
+html {
+  font-family: "Aboreto", cursive;
+  transition-duration: 1000ms;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  width: max-content;
+  display: block;
+  margin: 0 auto 30px;
+}
+
+.controllers {
+  margin: 50px auto;
+  width: max-content;
+  background-color: #00fc;
+  padding: 40px;
+  border-radius: 40px;
+
+  &__item {
+    margin-bottom: 5px;
+
+    &:nth-child(5) {
+      margin-bottom: 20px;
+    }
+  }
+}
