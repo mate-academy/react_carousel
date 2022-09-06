@@ -24,21 +24,21 @@ export class Carousel extends Component<Props, State> {
     canMoveNext: true,
   };
 
-  handleClickPrev = () => {
-    const { translate, gap } = this.state;
+  handleClickPrev = () => this.setState((state) => {
+    const { translate, gap } = state;
     const { step, itemWidth } = this.props;
 
     const previousStep = translate + step * itemWidth + gap * step;
 
-    this.setState({
+    return {
       translate: (previousStep > 0) ? 0 : previousStep,
-      canMovePrev: !(previousStep > 0),
+      canMovePrev: !(previousStep >= 0),
       canMoveNext: true,
-    });
-  };
+    };
+  });
 
-  handleClickNext = () => {
-    const { translate, gap } = this.state;
+  handleClickNext = () => this.setState((state) => {
+    const { translate, gap } = state;
     const {
       step,
       itemWidth,
@@ -51,12 +51,12 @@ export class Carousel extends Component<Props, State> {
 
     const nextStep = translate - step * itemWidth - gap * step;
 
-    this.setState({
+    return {
       translate: (nextStep < -limit) ? -limit : nextStep,
       canMovePrev: true,
-      canMoveNext: !(nextStep < -limit),
-    });
-  };
+      canMoveNext: !(nextStep <= -limit),
+    };
+  });
 
   render() {
     const {
