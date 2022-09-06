@@ -23,15 +23,13 @@
     align-items: center;
     padding: 10px 30px;
     border-radius: 20px;
+    font-size: 30px;
 
     transition: transform 0.3s linear;
+
+    &--prev:hover,
+    &--next:hover {
+      transform: scale(1.2);
+    }
   }
-}
-
-.btn-prev:hover {
-  transform: scale(1.2);
-}
-
-.btn-next:hover {
-  transform: scale(1.2);
 }

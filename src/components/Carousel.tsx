@@ -19,7 +19,7 @@ type State = {
 export class Carousel extends Component<Props, State> {
   state = {
     translate: 0,
-    gap: 30,
+    gap: 50,
     canMovePrev: false,
     canMoveNext: true,
   };
@@ -30,41 +30,32 @@ export class Carousel extends Component<Props, State> {
 
     const previousStep = translate + step * itemWidth + gap * step;
 
-    if (previousStep > 0) {
-      this.setState({
-        translate: 0,
-        canMovePrev: false,
-        canMoveNext: true,
-      });
-    } else {
-      this.setState({
-        translate: previousStep,
-        canMoveNext: true,
-      });
-    }
+    this.setState({
+      translate: (previousStep > 0) ? 0 : previousStep,
+      canMovePrev: !(previousStep > 0),
+      canMoveNext: true,
+    });
   };
 
   handleClickNext = () => {
     const { translate, gap } = this.state;
-    const { step, itemWidth, frameSize } = this.props;
+    const {
+      step,
+      itemWidth,
+      frameSize,
+      images,
+    } = this.props;
 
-    const limit = itemWidth * 10 - itemWidth * frameSize + gap * 9
+    const limit = itemWidth * images.length - itemWidth * frameSize + gap * 9
     - gap * (frameSize - 1);
 
     const nextStep = translate - step * itemWidth - gap * step;
 
-    if (nextStep < -limit) {
-      this.setState({
-        translate: -limit,
-        canMovePrev: true,
-        canMoveNext: false,
-      });
-    } else {
-      this.setState({
-        translate: nextStep,
-        canMovePrev: true,
-      });
-    }
+    this.setState({
+      translate: (nextStep < -limit) ? -limit : nextStep,
+      canMovePrev: true,
+      canMoveNext: !(nextStep < -limit),
+    });
   };
 
   render() {
@@ -85,12 +76,12 @@ export class Carousel extends Component<Props, State> {
     return (
       <div className="Carousel">
         <button
-          className="Carousel__btn btn-prev"
+          className="Carousel__btn Carousel__btn--prev"
           type="button"
           onClick={this.handleClickPrev}
-          disabled={!canMovePrev}
+          disabled={canMovePrev === false}
         >
-          Prev
+          &larr;
         </button>
 
         <ul
@@ -116,13 +107,13 @@ export class Carousel extends Component<Props, State> {
         </ul>
 
         <button
-          className="Carousel__btn btn-next"
+          className="Carousel__btn Carousel__btn--next"
           type="button"
           data-cy="next"
           onClick={this.handleClickNext}
-          disabled={!canMoveNext}
+          disabled={canMoveNext === false}
         >
-          Next
+          &rarr;
         </button>
       </div>
     );

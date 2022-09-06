@@ -3,27 +3,31 @@ import './App.scss';
 import { Carousel } from './components/Carousel';
 
 interface State {
-  images?: string[];
-  itemWidth?: number;
-  frameSize?: number;
-  step?: number;
-  animationDuration?: number;
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
-export class App extends Component<{}, State> {
+type Props = {
+  images: string[]
+};
+
+export const imagesList = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
+
+export class App extends Component<Props, State> {
   state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
     itemWidth: 130,
     frameSize: 3,
     step: 3,
@@ -33,17 +37,23 @@ export class App extends Component<{}, State> {
   handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: +(value) });
+    this.setState(prevState => (
+      {
+        ...prevState,
+        [name]: +value,
+      }
+    ));
   };
 
   render() {
     const {
-      images,
       itemWidth,
       frameSize,
       step,
       animationDuration,
     } = this.state;
+
+    const { images } = this.props;
 
     return (
       <div className="App">
