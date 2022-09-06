@@ -1,1 +1,8 @@
-// style go here
+.App {
+  margin: 50px auto;
+  &__title {
+    padding: 50px;
+    text-align: center;
+    color: #000;
+  }
+}
