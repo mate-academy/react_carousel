@@ -1,1 +1,26 @@
-// style go here
+button {
+  font-family: "Aboreto", cursive;
+}
+
+.Carousel {
+  margin-top: 10px;
+}
+
+.container {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  width: 1300px;
+}
+
+.swipe-buttons {
+  display: flex;
+  width: max-content;
+  margin: 10px auto 0;
+  gap: 20px;
+}
