@@ -9,7 +9,6 @@ interface State {
   frameSize:string;
   itemWidth:string;
   animationDuration:string;
-  infinite:boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -30,7 +29,6 @@ class App extends React.Component<{}, State> {
     frameSize: '3',
     itemWidth: '130',
     animationDuration: '1000',
-    infinite: false,
   };
 
   handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
@@ -47,9 +45,6 @@ class App extends React.Component<{}, State> {
       case 'animationDuration':
         this.setState({ animationDuration: event.currentTarget.value });
         break;
-      case 'infinite':
-        this.setState({ infinite: event.currentTarget.checked });
-        break;
     }
   };
 
@@ -60,7 +55,6 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
     } = this.state;
 
     return (
@@ -120,15 +114,6 @@ class App extends React.Component<{}, State> {
             min="1000"
             max="3000"
             step="500"
-            onChange={this.handleChange}
-          />
-
-          <label htmlFor="infinite">Infinite</label>
-          <input
-            className="App__input"
-            type="checkbox"
-            id="infinite"
-            checked={infinite}
             onChange={this.handleChange}
           />
         </div>

@@ -1,24 +1,20 @@
 import { Component } from 'react';
 import './Carousel.scss';
 
-type Props = {
-  images: string[];
-  step:string;
-  frameSize:string;
-  itemWidth:string;
-  animationDuration:string;
-};
-
+interface Props {
+  images:string[],
+  step:string,
+  frameSize:string,
+  itemWidth:string,
+  animationDuration:string,
+}
 interface State {
   shift: number,
-  isNextDisabled: boolean,
 }
 
 export class Carousel extends Component<Props, State> {
   state = {
     shift: 0,
-    isNextDisabled: false,
-    isPrevDisabled: true,
   };
 
   prevButtonHandler = () => {
@@ -31,8 +27,8 @@ export class Carousel extends Component<Props, State> {
       const scrolledDist = prevState.shift - +step * +itemWidth;
 
       return (scrolledDist >= 0)
-        ? { shift: scrolledDist, isPrevDisabled: false, isNextDisabled: false }
-        : { shift: 0, isPrevDisabled: true, isNextDisabled: false };
+        ? { shift: scrolledDist }
+        : { shift: 0 };
     });
   };
 
@@ -49,13 +45,13 @@ export class Carousel extends Component<Props, State> {
       const endOfScroll = (images.length - +frameSize) * +itemWidth;
 
       return (scrolledDist <= endOfScroll)
-        ? { shift: scrolledDist, isPrevDisabled: false, isNextDisabled: false }
-        : { shift: endOfScroll, isPrevDisabled: false, isNextDisabled: true };
+        ? { shift: scrolledDist }
+        : { shift: endOfScroll };
     });
   };
 
   render() {
-    const { shift, isNextDisabled, isPrevDisabled } = this.state;
+    const { shift } = this.state;
     const {
       images,
       frameSize,
@@ -103,7 +99,7 @@ export class Carousel extends Component<Props, State> {
           <button
             className="Carousel__button"
             type="button"
-            disabled={isPrevDisabled}
+            disabled={(shift <= 0)}
             onClick={this.prevButtonHandler}
           >
             &larr;
@@ -112,7 +108,7 @@ export class Carousel extends Component<Props, State> {
             className="Carousel__button"
             type="button"
             data-cy="next"
-            disabled={isNextDisabled}
+            disabled={(shift >= (images.length - +frameSize) * +itemWidth)}
             onClick={this.nextButtonHandler}
           >
             &rarr;
