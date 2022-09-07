@@ -57,8 +57,9 @@ export class App extends Component<Props, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 title="carousel">Carousel with {images.length} images</h1>
+        <h1 title="carousel">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <div className="labels">
           <label className="labels__item">
