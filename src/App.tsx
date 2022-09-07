@@ -26,9 +26,6 @@ const App: React.FC = () => {
   const [tempItemWidth, setTempItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [tempAnimationDuration, setTempAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
-  const [tempInfinite, setTempInfinite] = useState(false);
-
 
   return (
     <div className="App">
@@ -40,7 +37,6 @@ const App: React.FC = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
-        infinite={infinite}
       />
 
       <form
@@ -51,7 +47,6 @@ const App: React.FC = () => {
           setItemWidth(tempItemWidth);
           setStep(tempStep);
           setFrameSize(tempFrameSize);
-          setInfinite(tempInfinite);
         }}
       >
         <div className="controllers__item">
@@ -91,16 +86,6 @@ const App: React.FC = () => {
             name="animationDuration"
             value={tempAnimationDuration}
             onChange={(event) => setTempAnimationDuration(+event.target.value)}
-          />
-        </div>
-
-        <div className="controllers__item">
-          Infinite{" "}
-          <input
-            type="checkbox"
-            name="infinite"
-            checked={tempInfinite}
-            onChange={(event) => setTempInfinite(event.target.checked)}
           />
         </div>
 
