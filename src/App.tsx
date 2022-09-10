@@ -102,8 +102,7 @@ class App extends React.Component<{}, State> {
             type="number"
             value={animationDuration}
             onChange={this.onChangeHandler}
-            step={1000}
-            min={1}
+            min={0}
             max={1000 * images.length}
           />
           <label>
