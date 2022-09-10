@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  overflow-x: hidden;
+
+  &__list {
+    display: flex;
+    // align-items: center;
+    padding: 0;
+    list-style: none;
+
+  }
+  &__item {
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.button {
+  width: 140px;
+  height: 40px;
+  background: slategray;
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-right: 15px;
+}
