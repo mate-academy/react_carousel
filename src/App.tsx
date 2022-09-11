@@ -34,8 +34,9 @@ class App extends React.Component<{}, State> {
 
   onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value, min, max,
+      name, value, max,
     } = event.currentTarget;
+    const min = 0;
     const defaultValue = Math.max(
       Number(min),
       Math.min(Number(max), Number(value)),
@@ -70,9 +71,8 @@ class App extends React.Component<{}, State> {
             id="itemId"
             name="itemWidth"
             type="number"
-            value={itemWidth}
+            value={itemWidth.toString()}
             onChange={this.onChangeHandler}
-            min={1}
             max={maxItemWidth}
           />
 
@@ -81,9 +81,8 @@ class App extends React.Component<{}, State> {
             id="frameId"
             name="frameSize"
             type="number"
-            value={frameSize}
+            value={frameSize.toString()}
             onChange={this.onChangeHandler}
-            min={1}
             max={maxDisplayedItems}
           />
           <label htmlFor="stepId">Step</label>
@@ -91,18 +90,16 @@ class App extends React.Component<{}, State> {
             id="stepId"
             name="step"
             type="number"
-            value={step}
+            value={step.toString()}
             onChange={this.onChangeHandler}
-            min={1}
             max={images.length}
           />
           <label htmlFor="animationDuration">Animation duration</label>
           <input
             name="animationDuration"
             type="number"
-            value={animationDuration}
+            value={animationDuration.toString()}
             onChange={this.onChangeHandler}
-            min={0}
             max={1000 * images.length}
           />
           <label>
