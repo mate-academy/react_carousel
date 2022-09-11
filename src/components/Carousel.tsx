@@ -81,8 +81,6 @@ export class Carousel extends React.Component<Props, State> {
             <li
               key={image}
               className="carousel__item"
-              style={{
-              }}
             >
               <img
                 src={image}
