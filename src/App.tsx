@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 className='App__carousel'>Carousel with {frameSize} images</h1>
+        <h1 className='App__carousel' data-cy = 'title'>Carousel with {frameSize} images</h1>
         <div className="App__name">
           <span className="App__title">Step:</span>
           <input

@@ -104,6 +104,7 @@ export class Carousel extends React.Component<Props, State> {
         </button>
         <button
           className="button"
+          data-cy="next"
           type="button"
           onClick={this.buttonNext}
         >
