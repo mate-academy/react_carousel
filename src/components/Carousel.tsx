@@ -168,6 +168,7 @@ class Carousel extends React.Component<Props, State> {
 
             <button
               type="button"
+              data-cy="next"
               className={classNames(
                 'Carousel__button',
                 { 'Carousel__button--enabled': !rightDisable },
