@@ -8,6 +8,7 @@ type State = {
   translate: number;
   leftDisable: boolean;
   rightDisable: boolean;
+  frameSize: number;
 };
 
 type Props = {
@@ -15,91 +16,112 @@ type Props = {
   step: number;
   frameSize: number;
   itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 class Carousel extends React.Component<Props, State> {
-  state: Readonly<State> = {
-    translate: 0,
-    leftDisable: true,
-    rightDisable: false,
-  };
-
-  frameSize = this.props.frameSize;
-
   gap = 20;
 
-  itemWidthWithGap = this.props.itemWidth + this.gap;
+  state: Readonly<State> = {
+    translate: 0,
+    leftDisable: !this.props.infinite,
+    rightDisable: false,
+    frameSize: this.props.frameSize,
+  };
 
-  newFrameSize = this.props.frameSize;
+  newFrameSize = this.state.frameSize;
 
   moveNext = () => {
-    const { translate: prevTranslate } = this.state;
+    const {
+      translate: prevTranslate,
+    } = this.state;
     const {
       step,
+      itemWidth,
+      infinite,
     } = this.props;
 
-    const newTranslate = prevTranslate - step * this.itemWidthWithGap;
+    const itemWidthWithGap = itemWidth + this.gap;
 
-    if (newTranslate > -this.itemWidthWithGap * (10 - this.newFrameSize)) {
+    const newTranslate = prevTranslate - step * itemWidthWithGap;
+
+    if (newTranslate >= -itemWidthWithGap * (10 - this.newFrameSize)) {
       this.setState({
         translate: newTranslate,
         rightDisable: false,
         leftDisable: false,
       });
     } else {
-      this.setState({
-        translate: -this.itemWidthWithGap * (10 - this.newFrameSize),
-        rightDisable: true,
-        leftDisable: false,
-      });
+      const state = {
+        translate: infinite ? 0 : -itemWidthWithGap * (10 - this.newFrameSize),
+      };
+
+      this.setState(state);
     }
   };
 
   moveBack = () => {
-    const { translate: prevTranslate } = this.state;
+    const {
+      translate: prevTranslate,
+    } = this.state;
     const {
       step,
+      itemWidth,
+      infinite,
     } = this.props;
 
-    const newTranslate = prevTranslate + step * this.itemWidthWithGap;
+    const itemWidthWithGap = itemWidth + this.gap;
 
-    if (newTranslate < 0) {
+    const newTranslate = prevTranslate + step * itemWidthWithGap;
+
+    if (newTranslate <= 0) {
       this.setState({
         translate: newTranslate,
         leftDisable: false,
         rightDisable: false,
       });
     } else {
-      this.setState({
-        translate: 0,
-        leftDisable: true,
-        rightDisable: false,
-      });
+      const state = {
+        translate: infinite ? -itemWidthWithGap * (10 - this.newFrameSize) : 0,
+      };
+
+      this.setState(state);
     }
   };
 
-  calcWrapperWidth = (frameSize: number) => {
-    if (frameSize * this.itemWidthWithGap - 20 > 1300) {
-      this.newFrameSize = Math.trunc(1300
-        / (this.itemWidthWithGap));
+  calcWrapperWidth = () => {
+    const {
+      itemWidth,
+      frameSize,
+    } = this.props;
 
-      return this.newFrameSize * this.itemWidthWithGap - this.gap;
+    const itemWidthWithGap = itemWidth + this.gap;
+
+    if (frameSize * itemWidthWithGap - 20 > 1300) {
+      this.newFrameSize = Math.trunc(
+        1300 / (itemWidthWithGap),
+      );
+
+      return this.newFrameSize * itemWidthWithGap - this.gap;
     }
 
-    return frameSize * this.itemWidthWithGap - this.gap;
+    this.newFrameSize = frameSize;
+
+    return frameSize * itemWidthWithGap - this.gap;
   };
 
   render() {
     const {
       images,
-      frameSize,
       itemWidth,
+      animationDuration,
     } = this.props;
 
     const { rightDisable, leftDisable } = this.state;
 
     const wrapperStyle: CSSProperties = {
-      width: this.calcWrapperWidth(frameSize),
+      width: this.calcWrapperWidth(),
     };
 
     const itemStyle: CSSProperties = {
@@ -107,7 +129,7 @@ class Carousel extends React.Component<Props, State> {
     };
 
     const listStyle: CSSProperties = {
-      transitionDuration: `${1000}ms`,
+      transitionDuration: `${animationDuration}ms`,
       transform: `translateX(${this.state.translate}px)`,
       gap: this.gap,
     };

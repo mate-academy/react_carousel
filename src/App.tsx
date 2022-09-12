@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -7,6 +7,8 @@ interface State {
   step: number;
   frameSize: number;
   itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -24,8 +26,55 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
     step: 2,
-    frameSize: 3,
-    itemWidth: 100,
+    frameSize: 2,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        itemWidth: Number(event.target.value),
+      }
+    ));
+  };
+
+  handleFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        frameSize: Number(event.target.value),
+      }
+    ));
+  };
+
+  handleStep = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        step: Number(event.target.value),
+      }
+    ));
+  };
+
+  handleAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        animationDuration: Number(event.target.value),
+      }
+    ));
+  };
+
+  handleInfinite = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        infinite: event.target.checked,
+      }
+    ));
   };
 
   render() {
@@ -34,18 +83,78 @@ class App extends React.Component<{}, State> {
       step,
       frameSize,
       itemWidth,
+      animationDuration,
+      infinite,
     } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
+        <div className="controls">
+          <label>
+            {'ItemWidth: '}
+            <input
+              type="number"
+              name="itemWidth"
+              id="ItemWidth"
+              defaultValue="130"
+              onChange={this.handleItemWidth}
+            />
+          </label>
+
+          <label>
+            {'FrameSize: '}
+            <input
+              type="number"
+              name="frameSize"
+              id="frameSize"
+              defaultValue="2"
+              onChange={this.handleFrameSize}
+            />
+          </label>
+
+          <label>
+            {'Step: '}
+            <input
+              type="number"
+              name="step"
+              id="step"
+              defaultValue="2"
+              onChange={this.handleStep}
+            />
+          </label>
+
+          <label>
+            {'AnimationDuration: '}
+            <input
+              type="number"
+              name="animationDuration"
+              id="animationDuration"
+              defaultValue="1000"
+              onChange={this.handleAnimationDuration}
+            />
+          </label>
+
+          <label>
+            {'Infinite: '}
+            <input
+              type="checkbox"
+              name="infinite"
+              id="infinite"
+              checked={infinite}
+              onChange={this.handleInfinite}
+            />
+          </label>
+        </div>
 
         <Carousel
           images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );
