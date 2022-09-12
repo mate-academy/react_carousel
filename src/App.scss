@@ -1,1 +1,14 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  padding: 200px 100px;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+}

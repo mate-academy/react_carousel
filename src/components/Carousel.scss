@@ -1,1 +1,57 @@
-// style go here
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1300px;
+  margin-bottom: 20px;
+}
+
+.Carousel {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid black;
+  border-radius: 15px;
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  margin-right: 200px;
+  width: 150px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 15px;
+  text-align: center;
+
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: white;
+    background-color: black;
+    transition: all 0.3s;
+  }
+}
+
+.inputs__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-bottom: 10px;
+  width: 100px;
+}
