@@ -45,16 +45,18 @@ class Carousel extends React.Component<Props, State> {
     const itemWidthWithGap = itemWidth + this.gap;
 
     const newTranslate = prevTranslate - step * itemWidthWithGap;
+    const maxShift = -itemWidthWithGap * (10 - this.newFrameSize);
 
-    if (newTranslate >= -itemWidthWithGap * (10 - this.newFrameSize)) {
+    if (newTranslate >= maxShift) {
       this.setState({
         translate: newTranslate,
-        rightDisable: false,
+        rightDisable: newTranslate === maxShift ? !infinite : false,
         leftDisable: false,
       });
     } else {
       const state = {
-        translate: infinite ? 0 : -itemWidthWithGap * (10 - this.newFrameSize),
+        translate: infinite ? 0 : maxShift,
+        rightDisable: !infinite,
       };
 
       this.setState(state);
@@ -78,12 +80,13 @@ class Carousel extends React.Component<Props, State> {
     if (newTranslate <= 0) {
       this.setState({
         translate: newTranslate,
-        leftDisable: false,
+        leftDisable: newTranslate === 0 ? !infinite : false,
         rightDisable: false,
       });
     } else {
       const state = {
         translate: infinite ? -itemWidthWithGap * (10 - this.newFrameSize) : 0,
+        leftDisable: !infinite,
       };
 
       this.setState(state);
