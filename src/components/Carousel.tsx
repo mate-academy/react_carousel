@@ -2,9 +2,12 @@
 import uuid from 'react-uuid';
 import React, { CSSProperties } from 'react';
 import './Carousel.scss';
+import classNames from 'classnames';
 
 type State = {
   translate: number;
+  leftDisable: boolean;
+  rightDisable: boolean;
 };
 
 type Props = {
@@ -17,6 +20,8 @@ type Props = {
 class Carousel extends React.Component<Props, State> {
   state: Readonly<State> = {
     translate: 0,
+    leftDisable: true,
+    rightDisable: false,
   };
 
   frameSize = this.props.frameSize;
@@ -36,10 +41,16 @@ class Carousel extends React.Component<Props, State> {
     const newTranslate = prevTranslate - step * this.itemWidthWithGap;
 
     if (newTranslate > -this.itemWidthWithGap * (10 - this.newFrameSize)) {
-      this.setState({ translate: newTranslate });
+      this.setState({
+        translate: newTranslate,
+        rightDisable: false,
+        leftDisable: false,
+      });
     } else {
       this.setState({
         translate: -this.itemWidthWithGap * (10 - this.newFrameSize),
+        rightDisable: true,
+        leftDisable: false,
       });
     }
   };
@@ -53,21 +64,29 @@ class Carousel extends React.Component<Props, State> {
     const newTranslate = prevTranslate + step * this.itemWidthWithGap;
 
     if (newTranslate < 0) {
-      this.setState({ translate: newTranslate });
+      this.setState({
+        translate: newTranslate,
+        leftDisable: false,
+        rightDisable: false,
+      });
     } else {
-      this.setState({ translate: 0 });
+      this.setState({
+        translate: 0,
+        leftDisable: true,
+        rightDisable: false,
+      });
     }
   };
 
   calcWrapperWidth = (frameSize: number) => {
     if (frameSize * this.itemWidthWithGap - 20 > 1300) {
       this.newFrameSize = Math.trunc(1300
-        / (this.itemWidthWithGap - this.gap / 2));
+        / (this.itemWidthWithGap));
 
-      return this.newFrameSize * this.itemWidthWithGap;
+      return this.newFrameSize * this.itemWidthWithGap - this.gap;
     }
 
-    return frameSize * this.itemWidthWithGap;
+    return frameSize * this.itemWidthWithGap - this.gap;
   };
 
   render() {
@@ -76,6 +95,8 @@ class Carousel extends React.Component<Props, State> {
       frameSize,
       itemWidth,
     } = this.props;
+
+    const { rightDisable, leftDisable } = this.state;
 
     const wrapperStyle: CSSProperties = {
       width: this.calcWrapperWidth(frameSize),
@@ -97,7 +118,6 @@ class Carousel extends React.Component<Props, State> {
         style={wrapperStyle}
       >
         <div className="Carousel">
-          <h2>{listStyle.transform}</h2>
           <ul
             className="Carousel__list"
             style={listStyle}
@@ -109,8 +129,29 @@ class Carousel extends React.Component<Props, State> {
             ))}
           </ul>
 
-          <button type="button" onClick={this.moveBack}>Prev</button>
-          <button type="button" onClick={this.moveNext}>Next</button>
+          <div className="Carousel__controls">
+            <button
+              type="button"
+              className={classNames(
+                'Carousel__button',
+                { 'Carousel__button--enabled': !leftDisable },
+              )}
+              onClick={this.moveBack}
+            >
+              {'<'}
+            </button>
+
+            <button
+              type="button"
+              className={classNames(
+                'Carousel__button',
+                { 'Carousel__button--enabled': !rightDisable },
+              )}
+              onClick={this.moveNext}
+            >
+              {'>'}
+            </button>
+          </div>
         </div>
       </div>
     );

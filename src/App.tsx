@@ -25,7 +25,7 @@ class App extends React.Component<{}, State> {
     ],
     step: 2,
     frameSize: 3,
-    itemWidth: 130,
+    itemWidth: 100,
   };
 
   render() {
