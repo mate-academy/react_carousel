@@ -59,10 +59,18 @@ class Carousel extends React.Component<Props, State> {
         leftDisable: false,
       });
     } else {
-      this.setState({
-        translate: infinite ? 0 : maxShift,
-        rightDisable: !infinite,
-      });
+      // eslint-disable-next-line no-lonely-if
+      if (prevTranslate === maxShift && infinite) {
+        this.setState({
+          translate: 0,
+          rightDisable: !infinite,
+        });
+      } else {
+        this.setState({
+          translate: maxShift,
+          rightDisable: !infinite,
+        });
+      }
     }
   };
 
@@ -83,6 +91,7 @@ class Carousel extends React.Component<Props, State> {
     const itemWidthWithGap = itemWidth + this.gap;
 
     const newTranslate = prevTranslate + step * itemWidthWithGap;
+    const maxShift = -itemWidthWithGap * (10 - this.newFrameSize);
 
     if (newTranslate <= 0) {
       this.setState({
@@ -91,10 +100,18 @@ class Carousel extends React.Component<Props, State> {
         rightDisable: false,
       });
     } else {
-      this.setState({
-        translate: infinite ? -itemWidthWithGap * (10 - this.newFrameSize) : 0,
-        leftDisable: !infinite,
-      });
+      // eslint-disable-next-line no-lonely-if
+      if (prevTranslate === 0 && infinite) {
+        this.setState({
+          translate: maxShift,
+          leftDisable: !infinite,
+        });
+      } else {
+        this.setState({
+          translate: 0,
+          leftDisable: !infinite,
+        });
+      }
     }
   };
 
