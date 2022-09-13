@@ -36,6 +36,7 @@ class Carousel extends React.Component<Props, State> {
     const {
       translate: prevTranslate,
     } = this.state;
+
     const {
       step,
       itemWidth,
@@ -54,12 +55,10 @@ class Carousel extends React.Component<Props, State> {
         leftDisable: false,
       });
     } else {
-      const state = {
+      this.setState({
         translate: infinite ? 0 : maxShift,
         rightDisable: !infinite,
-      };
-
-      this.setState(state);
+      });
     }
   };
 
@@ -84,12 +83,10 @@ class Carousel extends React.Component<Props, State> {
         rightDisable: false,
       });
     } else {
-      const state = {
+      this.setState({
         translate: infinite ? -itemWidthWithGap * (10 - this.newFrameSize) : 0,
         leftDisable: !infinite,
-      };
-
-      this.setState(state);
+      });
     }
   };
 

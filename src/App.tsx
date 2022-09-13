@@ -33,48 +33,23 @@ class App extends React.Component<{}, State> {
   };
 
   handleItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState((prevState) => (
-      {
-        ...prevState,
-        itemWidth: Number(event.target.value),
-      }
-    ));
+    this.setState({ itemWidth: Number(event.target.value) });
   };
 
   handleFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState((prevState) => (
-      {
-        ...prevState,
-        frameSize: Number(event.target.value),
-      }
-    ));
+    this.setState({ frameSize: Number(event.target.value) });
   };
 
   handleStep = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState((prevState) => (
-      {
-        ...prevState,
-        step: Number(event.target.value),
-      }
-    ));
+    this.setState({ step: Number(event.target.value) });
   };
 
   handleAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState((prevState) => (
-      {
-        ...prevState,
-        animationDuration: Number(event.target.value),
-      }
-    ));
+    this.setState({ animationDuration: Number(event.target.value) });
   };
 
   handleInfinite = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState((prevState) => (
-      {
-        ...prevState,
-        infinite: event.target.checked,
-      }
-    ));
+    this.setState({ infinite: event.target.checked });
   };
 
   render() {
