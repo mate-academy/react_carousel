@@ -33,19 +33,55 @@ class App extends React.Component<{}, State> {
   };
 
   handleItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: Number(event.target.value) });
+    let itemWidth = Number(event.target.value);
+
+    if (itemWidth < 70) {
+      itemWidth = 70;
+    }
+
+    if (itemWidth > 500) {
+      itemWidth = 500;
+    }
+
+    this.setState({ itemWidth });
   };
 
   handleFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: Number(event.target.value) });
+    let frameSize = Number(event.target.value);
+
+    if (frameSize < 1) {
+      frameSize = 1;
+    }
+
+    if (frameSize > 10) {
+      frameSize = 10;
+    }
+
+    this.setState({ frameSize });
   };
 
   handleStep = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: Number(event.target.value) });
+    let step = Number(event.target.value);
+
+    if (step < 1) {
+      step = 1;
+    }
+
+    if (step > 10) {
+      step = 10;
+    }
+
+    this.setState({ step });
   };
 
   handleAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: Number(event.target.value) });
+    let animationDuration = Number(event.target.value);
+
+    if (animationDuration < 1) {
+      animationDuration = 1;
+    }
+
+    this.setState({ animationDuration });
   };
 
   handleInfinite = (event: ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +109,8 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               id="ItemWidth"
+              min="70"
+              max="500"
               defaultValue={itemWidth}
               onChange={this.handleItemWidth}
             />
@@ -84,7 +122,9 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               id="frameSize"
-              defaultValue="2"
+              min="1"
+              max="10"
+              defaultValue={frameSize}
               onChange={this.handleFrameSize}
             />
           </label>
@@ -95,7 +135,9 @@ class App extends React.Component<{}, State> {
               type="number"
               name="step"
               id="step"
-              defaultValue="2"
+              min="1"
+              max="10"
+              defaultValue={step}
               onChange={this.handleStep}
             />
           </label>
@@ -106,7 +148,8 @@ class App extends React.Component<{}, State> {
               type="number"
               name="animationDuration"
               id="animationDuration"
-              defaultValue="1000"
+              min="1"
+              defaultValue={animationDuration}
               onChange={this.handleAnimationDuration}
             />
           </label>

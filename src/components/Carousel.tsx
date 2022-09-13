@@ -43,6 +43,10 @@ class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
+    if (step > (10 - this.newFrameSize) && !infinite) {
+      return;
+    }
+
     const itemWidthWithGap = itemWidth + this.gap;
 
     const newTranslate = prevTranslate - step * itemWidthWithGap;
@@ -72,6 +76,10 @@ class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
+    if (step > (10 - this.newFrameSize) && !infinite) {
+      return;
+    }
+
     const itemWidthWithGap = itemWidth + this.gap;
 
     const newTranslate = prevTranslate + step * itemWidthWithGap;
@@ -95,16 +103,10 @@ class Carousel extends React.Component<Props, State> {
       translate: prevTranslate,
     } = this.state;
     const {
-      step,
-      itemWidth,
       infinite,
     } = this.props;
 
-    const itemWidthWithGap = itemWidth + this.gap;
-
-    const newTranslate = prevTranslate + step * itemWidthWithGap;
-
-    if (newTranslate <= 0) {
+    if (prevTranslate < 0) {
       return false;
     }
 
@@ -117,18 +119,16 @@ class Carousel extends React.Component<Props, State> {
     } = this.state;
 
     const {
-      step,
       itemWidth,
       infinite,
     } = this.props;
 
     const itemWidthWithGap = itemWidth + this.gap;
 
-    const newTranslate = prevTranslate - step * itemWidthWithGap;
     const maxShift = -itemWidthWithGap * (10 - this.newFrameSize);
 
-    if (newTranslate >= maxShift) {
-      return false;
+    if (prevTranslate >= maxShift) {
+      return prevTranslate === maxShift ? !infinite : false;
     }
 
     return !infinite;
