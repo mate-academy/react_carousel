@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+
+    transition-property: transform;
+    transform: translateX(0);
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    background-color: white;
+    color: #4caf50;
+    padding: 0 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    opacity: 0.3;
+    cursor: not-allowed;
+
+    border-radius: 50%;
+    border: 2px solid #4caf50;
+
+    transition-property: background-color, color;
+    transition-duration: 0.3s;
+
+    &--enabled {
+      opacity: 1;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #4caf50;
+        color: white;
+      }
+    }
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1300px;
+  overflow: hidden;
+}

@@ -1,1 +1,18 @@
-// style go here
+.App {
+  text-align: center;
+}
+
+.controls {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: left;
+
+  & > * {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  & input {
+    width: 100px;
+  }
+}
