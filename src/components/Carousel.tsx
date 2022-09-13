@@ -90,6 +90,50 @@ class Carousel extends React.Component<Props, State> {
     }
   };
 
+  setLeftButton = () => {
+    const {
+      translate: prevTranslate,
+    } = this.state;
+    const {
+      step,
+      itemWidth,
+      infinite,
+    } = this.props;
+
+    const itemWidthWithGap = itemWidth + this.gap;
+
+    const newTranslate = prevTranslate + step * itemWidthWithGap;
+
+    if (newTranslate <= 0) {
+      return false;
+    }
+
+    return !infinite;
+  };
+
+  setRightButton = () => {
+    const {
+      translate: prevTranslate,
+    } = this.state;
+
+    const {
+      step,
+      itemWidth,
+      infinite,
+    } = this.props;
+
+    const itemWidthWithGap = itemWidth + this.gap;
+
+    const newTranslate = prevTranslate - step * itemWidthWithGap;
+    const maxShift = -itemWidthWithGap * (10 - this.newFrameSize);
+
+    if (newTranslate >= maxShift) {
+      return false;
+    }
+
+    return !infinite;
+  };
+
   calcWrapperWidth = () => {
     const {
       itemWidth,
@@ -118,7 +162,7 @@ class Carousel extends React.Component<Props, State> {
       animationDuration,
     } = this.props;
 
-    const { rightDisable, leftDisable } = this.state;
+    let { rightDisable, leftDisable } = this.state;
 
     const wrapperStyle: CSSProperties = {
       width: this.calcWrapperWidth(),
@@ -133,6 +177,9 @@ class Carousel extends React.Component<Props, State> {
       transform: `translateX(${this.state.translate}px)`,
       gap: this.gap,
     };
+
+    leftDisable = this.setLeftButton();
+    rightDisable = this.setRightButton();
 
     return (
       <div

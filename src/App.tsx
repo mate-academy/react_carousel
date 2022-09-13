@@ -12,7 +12,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -25,8 +25,8 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 2,
-    frameSize: 2,
+    step: 3,
+    frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
@@ -73,7 +73,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               id="ItemWidth"
-              defaultValue="130"
+              defaultValue={itemWidth}
               onChange={this.handleItemWidth}
             />
           </label>
