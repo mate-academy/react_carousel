@@ -1,5 +1,4 @@
-import React from 'react';
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 

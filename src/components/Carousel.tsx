@@ -18,27 +18,30 @@ export class Carousel extends React.Component<Props, State> {
     moveX: 0,
   };
 
-  maxMove = this.props.frameSize * (10 - this.props.step);
+  // maxMove = this.props.frameSize * (10 - this.props.step);
 
-  distinationMove = this.props.step * this.props.frameSize;
+  // distinationMove = this.props.step * this.props.frameSize;
 
   handleClickMoveRight = () => {
     const prevmoveX = this.state.moveX;
+    const maxMove = this.props.frameSize * (10 - this.props.step);
+    const distinationMove = this.props.step * this.props.frameSize;
 
     this.setState({
-      moveX: ((prevmoveX - this.distinationMove) < (-this.maxMove))
-        ? -this.maxMove
-        : (prevmoveX - this.distinationMove),
+      moveX: ((prevmoveX - distinationMove) < (-maxMove))
+        ? -maxMove
+        : (prevmoveX - distinationMove),
     });
   };
 
   handleClickMoveLeft = () => {
     const prevmoveX = this.state.moveX;
+    const distinationMove = this.props.step * this.props.frameSize;
 
     this.setState({
-      moveX: ((prevmoveX + this.distinationMove) > 0)
+      moveX: ((prevmoveX + distinationMove) > 0)
         ? 0
-        : (prevmoveX + this.distinationMove),
+        : (prevmoveX + distinationMove),
     });
   };
 
