@@ -32,6 +32,13 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  changeProp = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState((state) => ({
+      ...state,
+      [e.target.name]: +e.target.value,
+    }));
+  };
+
   render() {
     const {
       images,
@@ -69,9 +76,7 @@ class App extends React.Component<{}, State> {
               name="itemWidth"
               type="number"
               value={itemWidth}
-              onChange={(e) => {
-                this.setState({ itemWidth: +e.target.value });
-              }}
+              onChange={this.changeProp}
             />
           </label>
           <label>
@@ -82,9 +87,7 @@ class App extends React.Component<{}, State> {
               type="number"
               max="10"
               value={frameSize}
-              onChange={(e) => {
-                this.setState({ frameSize: +e.target.value });
-              }}
+              onChange={this.changeProp}
             />
           </label>
           <label>
@@ -95,9 +98,7 @@ class App extends React.Component<{}, State> {
               type="number"
               max="9"
               value={step}
-              onChange={(e) => {
-                this.setState({ step: +e.target.value });
-              }}
+              onChange={this.changeProp}
             />
           </label>
           <label>
@@ -107,9 +108,7 @@ class App extends React.Component<{}, State> {
               name="animationDuration"
               type="number"
               value={animationDuration}
-              onChange={(e) => {
-                this.setState({ animationDuration: +e.target.value });
-              }}
+              onChange={this.changeProp}
             />
           </label>
           <label>

@@ -66,6 +66,8 @@ class Carousel extends React.Component<Props, State> {
     }
   };
 
+  getNameFromPath = (path:string) => path.split('g/')[1].split('.')[0];
+
   render() {
     const {
       images,
@@ -75,7 +77,6 @@ class Carousel extends React.Component<Props, State> {
     } = this.props;
 
     const { offset } = this.state;
-    let count = 0;
 
     return (
       <>
@@ -93,16 +94,14 @@ class Carousel extends React.Component<Props, State> {
                 }
               }
             >
-              {images.map(image => {
-                count += 1;
-
+              {images.map(imagePath => {
                 return (
-                  <li className="Carousel__item" key={image}>
+                  <li className="Carousel__item" key={imagePath}>
                     <img
                       className="Carousel__image"
                       style={{ width: `${itemWidth}px` }}
-                      src={`${image}`}
-                      alt={`${count}`}
+                      src={`${imagePath}`}
+                      alt={`${this.getNameFromPath(imagePath)}`}
                     />
                   </li>
                 );
