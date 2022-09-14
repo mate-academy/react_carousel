@@ -1,9 +1,10 @@
 import React from 'react';
+import { ChangeEvent } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
 interface State {
-  images: string[] | string;
+  images: string[];
   step: number;
   frameSize: number;
   itemWidth?: number;
@@ -30,12 +31,33 @@ class App extends React.Component<{}, State> {
     step: 3,
   };
 
-  // handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-  //   const newValueVariable = Number(event.target.value);
-  //   const name = event.target.name;
+  // handleChange = (name: string, value:number) => {
+  //   this.setState((prevState) => ({ ...prevState, [name]: value }));
+  // };
 
-  //   this.setState([name]: newValueVariable);
-  // }
+  handleChangeWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    const itemWidth1 = Number(event.target.value);
+
+    this.setState({ itemWidth: itemWidth1 });
+  };
+
+  handleChangeAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
+    const animationDuration = Number(event.target.value);
+
+    this.setState({ animationDuration });
+  };
+
+  handleChangeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    const frameSize = Number(event.target.value);
+
+    this.setState({ frameSize });
+  };
+
+  handleChangeStep = (event: ChangeEvent<HTMLInputElement>) => {
+    const step = Number(event.target.value);
+
+    this.setState({ step });
+  };
 
   render() {
     const {
@@ -63,7 +85,7 @@ class App extends React.Component<{}, State> {
             type="number"
             name="itemWidth"
             value={itemWidth}
-            // onChange={this.handleChange}
+            onChange={this.handleChangeWidth}
           />
         </label>
 
@@ -74,7 +96,7 @@ class App extends React.Component<{}, State> {
             type="number"
             name="frameSize"
             value={frameSize}
-            // onChange={this.handleChange}
+            onChange={this.handleChangeFrameSize}
           />
         </label>
 
@@ -85,7 +107,7 @@ class App extends React.Component<{}, State> {
             type="number"
             name="step"
             value={step}
-            // onChange={this.handleChange}
+            onChange={this.handleChangeStep}
           />
         </label>
 
@@ -96,7 +118,7 @@ class App extends React.Component<{}, State> {
             type="number"
             name="animationDuration"
             value={animationDuration}
-            // onChange={this.handleChange}
+            onChange={this.handleChangeAnimationDuration}
           />
         </label>
         <Carousel
@@ -112,7 +134,7 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name={`${variable}`}
-              value={this.state.step}
+              value={this.state[`${variable}`]}
               onChange={this.handleChange}
             />
           </label>

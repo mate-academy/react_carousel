@@ -104,4 +104,3 @@ export class Carousel extends React.Component<Props, State> {
     );
   }
 }
-

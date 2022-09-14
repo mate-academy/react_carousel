@@ -2,16 +2,16 @@
 .Carousel {
   overflow: hidden;
   margin: auto;
-
 }
+
 .Carousel__list {
   position: relative;
-  padding: 0;
+  padding: 20px 0;
   display: flex;
-
 }
+
 .oneImg {
- text-decoration: none;
+  text-decoration: none;
 }
 
 .buttonBlock {
@@ -23,7 +23,7 @@
   &__button {
     font-size: 25px;
     width: 160px;
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid #fff;
     &:hover {
       background-color: beige;
