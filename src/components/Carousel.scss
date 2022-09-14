@@ -1,1 +1,32 @@
-// style go here
+
+.Carousel {
+  overflow: hidden;
+  margin: auto;
+
+}
+.Carousel__list {
+  position: relative;
+  padding: 0;
+  display: flex;
+
+}
+.oneImg {
+ text-decoration: none;
+}
+
+.buttonBlock {
+  height: 80px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  &__button {
+    font-size: 25px;
+    width: 160px;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    &:hover {
+      background-color: beige;
+    }
+  }
+}
