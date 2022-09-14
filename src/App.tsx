@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+
+function checkValueValid(value: number, min: number, max: number): number {
+  if (value < min) {
+    return min;
+  }
+
+  if (value > max) {
+    return max;
+  }
+
+  return value;
+}
 
 interface State {
   images: string[];
+  ItemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +37,150 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    ItemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    const min = 70;
+    const max = 500;
+
+    const ItemWidth = checkValueValid(
+      Number(event.target.value),
+      min,
+      max,
+    );
+
+    this.setState({ ItemWidth });
+  };
+
+  handleFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    const min = 1;
+    const max = this.state.images.length;
+
+    const frameSize = checkValueValid(
+      Number(event.target.value),
+      min,
+      max,
+    );
+
+    this.setState({ frameSize });
+  };
+
+  handleAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
+    const min = 100;
+    const max = 2000;
+
+    const animationDuration = checkValueValid(
+      Number(event.target.value),
+      min,
+      max,
+    );
+
+    this.setState({ animationDuration });
+  };
+
+  handleInfinite = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: event.target.checked });
+  };
+
+  handleStep = (event: ChangeEvent<HTMLInputElement>) => {
+    const min = 1;
+    const max = this.state.images.length;
+    const step = checkValueValid(Number(event.target.value), min, max);
+
+    this.setState({ step });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      ItemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+        <div className="inputSettingsContainer">
 
-        <Carousel />
+          <label>
+            Item Width:
+            <input
+              type="number"
+              name="itemWidth"
+              id="ItemWidth"
+              min="70"
+              max="500"
+              defaultValue={ItemWidth}
+              onChange={this.handleItemWidth}
+            />
+          </label>
+
+          <label>
+            Frame Size:
+            <input
+              type="number"
+              name="frameSize"
+              id="frameSize"
+              min={1}
+              max={images.length}
+              defaultValue={frameSize}
+              onChange={this.handleFrameSize}
+            />
+          </label>
+
+          <label>
+            Step:
+            <input
+              type="number"
+              name="step"
+              id="step"
+              min={1}
+              max={images.length}
+              defaultValue={step}
+              onChange={this.handleStep}
+            />
+          </label>
+
+          <label>
+            Animation Duration:
+            <input
+              type="number"
+              name="animationDuration"
+              id="animationDuration"
+              min={100}
+              max={2000}
+              defaultValue={animationDuration}
+              onChange={this.handleAnimationDuration}
+            />
+          </label>
+
+          <label>
+            Infinite:
+            <input
+              type="checkbox"
+              name="infinite"
+              id="infinite"
+              checked={infinite}
+              onChange={this.handleInfinite}
+            />
+          </label>
+        </div>
+        <Carousel
+          images={images}
+          ItemWidth={ItemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
