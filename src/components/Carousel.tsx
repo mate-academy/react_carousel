@@ -1,18 +1,136 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  offset: number;
+  frameSize: number;
+  infinite: boolean;
+};
+
+class Carousel extends React.Component<Props, State> {
+  state = {
+    offset: 0,
+    frameSize: this.props.frameSize,
+    infinite: this.props.infinite,
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.frameSize !== prevProps.frameSize) {
+      this.setState({ frameSize: this.props.frameSize });
+    }
+
+    if (this.props.infinite !== prevProps.infinite) {
+      this.setState({ infinite: this.props.infinite });
+    }
+  }
+
+  handleNextClick = () => {
+    // I'm using here a lot of const cause it more easy than change them like class-prop
+    const frameSpace = this.state.frameSize * this.props.itemWidth;
+    const maxOffset = this.props.itemWidth * 10 - frameSpace;
+    const newOffset = this.props.itemWidth * this.props.step;
+
+    if (this.state.offset + newOffset > maxOffset) {
+      this.setState({ offset: maxOffset });
+    } else {
+      this.setState(prev => ({ offset: newOffset + prev.offset }));
+    }
+
+    if (this.state.offset === maxOffset && this.state.infinite) {
+      this.setState({ offset: 0 });
+    }
+  };
+
+  handlePrevClick = () => {
+    const frameSpace = this.state.frameSize * this.props.itemWidth;
+    const maxOffset = this.props.itemWidth * 10 - frameSpace;
+    const newOffset = this.props.itemWidth * this.props.step;
+
+    if (this.state.offset - newOffset <= 0) {
+      this.setState({ offset: 0 });
+    } else {
+      this.setState(prev => ({ offset: prev.offset - newOffset }));
+    }
+
+    if (this.state.offset === 0 && this.state.infinite) {
+      this.setState({ offset: maxOffset });
+    }
+  };
+
+  getNameFromPath = (path:string) => path.split('g/')[1].split('.')[0];
+
+  render() {
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.props;
+
+    const { offset } = this.state;
+
+    return (
+      <>
+        <div className="wrapper">
+          <div
+            className="Carousel"
+            style={{ width: `${frameSize * itemWidth}px` }}
+          >
+            <ul
+              className="Carousel__list"
+              style={
+                {
+                  transform: `translateX(-${offset}px)`,
+                  transition: `transform ${animationDuration / 1000}s`,
+                }
+              }
+            >
+              {images.map(imagePath => {
+                return (
+                  <li className="Carousel__item" key={imagePath}>
+                    <img
+                      className="Carousel__image"
+                      style={{ width: `${itemWidth}px` }}
+                      src={`${imagePath}`}
+                      alt={`${this.getNameFromPath(imagePath)}`}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+        </div>
+        <div className="container">
+          <button
+            className="button"
+            type="button"
+            onClick={this.handlePrevClick}
+          >
+            Prev
+          </button>
+
+          <button
+            className="button"
+            type="button"
+            onClick={this.handleNextClick}
+            data-cy="next"
+          >
+            Next
+          </button>
+        </div>
+      </>
+    );
+  }
+}
 
 export default Carousel;
