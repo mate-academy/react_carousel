@@ -4,10 +4,9 @@
   &__list {
     display: flex;
     padding: 0;
-    list-style: none;
-
   }
   &__item {
+    list-style: none;
     img {
       display: block;
       width: 100%;

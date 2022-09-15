@@ -61,14 +61,12 @@ export class Carousel extends React.Component<Props, State> {
     } = this.props;
 
     return (
-
       <div
         className="Carousel"
         style={{
           width: `${itemWidth * frameSize}px`,
         }}
       >
-
         <ul
           className="Carousel__list"
           style={{
@@ -76,7 +74,6 @@ export class Carousel extends React.Component<Props, State> {
             transition: `${animationDuration}ms`,
           }}
         >
-
           {images.map((image) => (
             <li
               key={image}
