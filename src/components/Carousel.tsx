@@ -46,7 +46,6 @@ export class Carousel extends React.Component<Props, State> {
       itemWidth,
       frameSize,
       animationDuration,
-      step,
     } = this.props;
 
     const {
@@ -61,7 +60,7 @@ export class Carousel extends React.Component<Props, State> {
       >
         <button
           type="button"
-          className="buttonBlock__button"
+          className="button"
           onClick={this.handleClickMoveLeft}
           disabled={moveX === 0}
         >
@@ -94,10 +93,10 @@ export class Carousel extends React.Component<Props, State> {
 
         <button
           type="button"
-          className="buttonBlock__button"
+          className="button"
           data-cy="next"
           onClick={this.handleClickMoveRight}
-          disabled={-moveX === frameSize * (10 - step)}
+          disabled={-moveX === itemWidth * (10 - frameSize)}
         >
           {'>'}
         </button>

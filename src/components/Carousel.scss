@@ -1,7 +1,7 @@
 
 .Carousel {
+  box-sizing: border-box;
   justify-content: center;
-  margin: auto;
   display: flex;
 
 }
@@ -13,30 +13,22 @@
 }
 
 .Carousel__box {
-  position: relative;
   overflow: hidden;
-
 }
-
 
 .oneImg {
   text-decoration: none;
   box-shadow: 2px 2px 5px 10px  rgb(241, 241, 8);
 }
 
-.buttonBlock {
-  &__button {
-
-    background-color: rgb(247, 247, 157);
-    font-size: 40px;
-    // padding: 0 15px;
-    border-radius: 20%;
-    border: 2px solid rgb(241, 241, 8);
-
-    transition-property: background-color, color;
-    transition-duration: 0.3s;
-    &:hover {
-      background-color: white;
-   }
- }
+.button {
+  background-color: rgb(247, 247, 157);
+  font-size: 40px;
+  border-radius: 20%;
+  border: 2px solid rgb(241, 241, 8);
+  transition-property: background-color, color;
+  transition-duration: 0.3s;
+  &:hover {
+    background-color: white;
+  }
 }
