@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
@@ -30,32 +30,20 @@ class App extends React.Component<{}, State> {
     step: 3,
   };
 
-  // handleChange = (name: string, value:number) => {
-  //   this.setState((prevState) => ({ ...prevState, [name]: value }));
-  // };
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValueVariable = Number(event.target.value);
+    const { name } = event.target;
 
-  handleChangeWidth = (event: ChangeEvent<HTMLInputElement>) => {
-    const itemWidth1 = Number(event.target.value);
+    const isStateKey = (str: string): str is keyof State => (
+      Object.keys(this.state).includes(str)
+    );
 
-    this.setState({ itemWidth: itemWidth1 });
-  };
-
-  handleChangeAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
-    const animationDuration = Number(event.target.value);
-
-    this.setState({ animationDuration });
-  };
-
-  handleChangeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
-    const frameSize = Number(event.target.value);
-
-    this.setState({ frameSize });
-  };
-
-  handleChangeStep = (event: ChangeEvent<HTMLInputElement>) => {
-    const step = Number(event.target.value);
-
-    this.setState({ step });
+    if (isStateKey(name)) {
+      this.setState({
+        [name]: newValueVariable,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
+    }
   };
 
   render() {
@@ -66,8 +54,8 @@ class App extends React.Component<{}, State> {
       step,
       animationDuration,
     } = this.state;
-    // const inputs:string[] = Object.keys(this.state)
-    //   .filter(el => el !== 'images');
+    const inputs:string[] = Object.keys(this.state)
+      .filter(el => el !== 'images');
 
     return (
       <div className="App">
@@ -77,49 +65,6 @@ class App extends React.Component<{}, State> {
         >
           {`Carousel with ${images.length} images`}
         </h1>
-        <label className="variables">
-          Item width:
-          <input
-            className="variables__input"
-            type="number"
-            name="itemWidth"
-            value={itemWidth}
-            onChange={this.handleChangeWidth}
-          />
-        </label>
-
-        <label className="variables">
-          Frame size:
-          <input
-            className="variables__input"
-            type="number"
-            name="frameSize"
-            value={frameSize}
-            onChange={this.handleChangeFrameSize}
-          />
-        </label>
-
-        <label className="variables">
-          Step:
-          <input
-            className="variables__input"
-            type="number"
-            name="step"
-            value={step}
-            onChange={this.handleChangeStep}
-          />
-        </label>
-
-        <label className="variables">
-          Animation duration:
-          <input
-            className="variables__input"
-            type="number"
-            name="animationDuration"
-            value={animationDuration}
-            onChange={this.handleChangeAnimationDuration}
-          />
-        </label>
         <Carousel
           images={images}
           itemWidth={itemWidth}
@@ -127,17 +72,17 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
           step={step}
         />
-        {/* {inputs.map(variable => (
+        {inputs.map(variable => (
           <label className="variables" key={variable}>
             {`${variable[0].toLocaleUpperCase() + variable.slice(1)} :`}
             <input
               type="number"
               name={`${variable}`}
-              value={this.state[`${variable}`]}
+              value={this.state[variable as keyof State]}
               onChange={this.handleChange}
             />
           </label>
-        ))} */}
+        ))}
       </div>
     );
   }
