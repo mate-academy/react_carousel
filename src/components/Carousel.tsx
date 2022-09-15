@@ -18,14 +18,10 @@ export class Carousel extends React.Component<Props, State> {
     moveX: 0,
   };
 
-  // maxMove = this.props.frameSize * (10 - this.props.step);
-
-  // distinationMove = this.props.step * this.props.frameSize;
-
   handleClickMoveRight = () => {
     const prevmoveX = this.state.moveX;
-    const maxMove = this.props.frameSize * (10 - this.props.step);
-    const distinationMove = this.props.step * this.props.frameSize;
+    const maxMove = this.props.itemWidth * (10 - this.props.frameSize);
+    const distinationMove = this.props.step * this.props.itemWidth;
 
     this.setState({
       moveX: ((prevmoveX - distinationMove) < (-maxMove))
@@ -36,7 +32,7 @@ export class Carousel extends React.Component<Props, State> {
 
   handleClickMoveLeft = () => {
     const prevmoveX = this.state.moveX;
-    const distinationMove = this.props.step * this.props.frameSize;
+    const distinationMove = this.props.step * this.props.itemWidth;
 
     this.setState({
       moveX: ((prevmoveX + distinationMove) > 0)
@@ -57,52 +53,54 @@ export class Carousel extends React.Component<Props, State> {
       moveX,
     } = this.state;
 
+    const width:number = frameSize * itemWidth;
+
     return (
       <div
         className="Carousel"
-        style={{
-          width: itemWidth,
-        }}
       >
-        <ul
-          className="Carousel__list"
-          style={{
-            transform: `translateX(${moveX}px)`,
-            transition: `transform  ${animationDuration}ms`,
-          }}
+        <button
+          type="button"
+          className="buttonBlock__button"
+          onClick={this.handleClickMoveLeft}
+          disabled={moveX === 0}
         >
-          {this.props.images.map((img, ind) => (
-            <li className="oneImg" key={img}>
-              <img
-                src={img}
-                style={{
-                  width: frameSize,
-                }}
-                alt={String(ind + 1)}
-              />
-            </li>
-          ))}
-        </ul>
-        <div className="buttonBlock">
-          <button
-            type="button"
-            className="buttonBlock__button"
-            onClick={this.handleClickMoveLeft}
-            disabled={moveX === 0}
+          {'<'}
+        </button>
+
+        <div className="Carousel__box">
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${moveX}px)`,
+              transition: `transform  ${animationDuration}ms`,
+              width,
+            }}
           >
-            Prev
-          </button>
-          <button
-            type="button"
-            className="buttonBlock__button"
-            data-cy="next"
-            onClick={this.handleClickMoveRight}
-            disabled={-moveX === frameSize * (10 - step)}
-          >
-            Next
-          </button>
+            {this.props.images.map((img, ind) => (
+              <li className="oneImg" key={img}>
+                <img
+                  src={img}
+                  style={{
+                    width: itemWidth,
+                  }}
+                  alt={String(ind + 1)}
+                />
+              </li>
+            ))}
+          </ul>
 
         </div>
+
+        <button
+          type="button"
+          className="buttonBlock__button"
+          data-cy="next"
+          onClick={this.handleClickMoveRight}
+          disabled={-moveX === frameSize * (10 - step)}
+        >
+          {'>'}
+        </button>
       </div>
     );
   }

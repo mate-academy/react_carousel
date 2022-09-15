@@ -1,7 +1,9 @@
 
 .Carousel {
-  overflow: hidden;
+  justify-content: center;
   margin: auto;
+  display: flex;
+
 }
 
 .Carousel__list {
@@ -10,23 +12,31 @@
   display: flex;
 }
 
+.Carousel__box {
+  position: relative;
+  overflow: hidden;
+
+}
+
+
 .oneImg {
   text-decoration: none;
+  box-shadow: 2px 2px 5px 10px  rgb(241, 241, 8);
 }
 
 .buttonBlock {
-  height: 80px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
   &__button {
-    font-size: 25px;
-    width: 160px;
-    border-radius: 10px;
-    border: 2px solid #fff;
+
+    background-color: rgb(247, 247, 157);
+    font-size: 40px;
+    // padding: 0 15px;
+    border-radius: 20%;
+    border: 2px solid rgb(241, 241, 8);
+
+    transition-property: background-color, color;
+    transition-duration: 0.3s;
     &:hover {
-      background-color: beige;
-    }
-  }
+      background-color: white;
+   }
+ }
 }

@@ -24,8 +24,8 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    itemWidth: 390,
-    frameSize: 130,
+    itemWidth: 130,
+    frameSize: 3,
     animationDuration: 500,
     step: 3,
   };
@@ -54,6 +54,7 @@ class App extends React.Component<{}, State> {
       step,
       animationDuration,
     } = this.state;
+
     const inputs:string[] = Object.keys(this.state)
       .filter(el => el !== 'images');
 
@@ -77,6 +78,7 @@ class App extends React.Component<{}, State> {
             {`${variable[0].toLocaleUpperCase() + variable.slice(1)} :`}
             <input
               type="number"
+              className="variables__input"
               name={`${variable}`}
               value={this.state[variable as keyof State]}
               onChange={this.handleChange}
