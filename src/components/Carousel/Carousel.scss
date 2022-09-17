@@ -1,0 +1,17 @@
+.Carousel {
+  margin: 48px auto;
+  overflow: hidden;
+
+  &__list {
+    transition-property: translate;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__buttons {
+    width: fit-content;
+    margin: 24px auto 0;
+  }
+}
