@@ -1,6 +1,9 @@
 .Carousel {
-  margin: 48px auto;
-  overflow: hidden;
+  
+  &__list-wrapper {
+    margin: 48px auto 0;
+    overflow: hidden;
+  }
 
   &__list {
     transition-property: translate;

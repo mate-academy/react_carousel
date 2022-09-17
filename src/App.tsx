@@ -11,7 +11,7 @@ interface State {
   frameSize: string;
   step: string;
   animationDuration: string;
-  infinite: boolean;
+  // infinite: boolean;
   position: string;
 }
 
@@ -33,15 +33,21 @@ class App extends React.Component<{}, State> {
     frameSize: '3',
     step: '3',
     animationDuration: '1000',
-    infinite: false,
+    // infinite: false,
     position: '0',
   };
 
   handleMoveForvard = () => {
-    const moveValue = +this.state.itemWidth * +this.state.step;
+    const {
+      itemWidth, step, frameSize, images,
+    } = this.state;
+    const moveValue = +itemWidth * +step;
+    const maxValue = +itemWidth * (images.length - +frameSize);
 
     this.setState(prevState => ({
-      position: String(+prevState.position - moveValue),
+      position: Math.abs(+prevState.position - moveValue) > Math.abs(maxValue)
+        ? String(-maxValue)
+        : String(+prevState.position - moveValue),
     }));
   };
 
@@ -49,21 +55,26 @@ class App extends React.Component<{}, State> {
     const moveValue = +this.state.itemWidth * +this.state.step;
 
     this.setState(prevState => ({
-      position: String(+prevState.position + moveValue),
+      position: (+prevState.position + moveValue) > 0
+        ? '0'
+        : String(+prevState.position + moveValue),
     }));
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: value } as never);
+    this.setState({
+      [name]: value,
+      position: '0',
+    } as never);
   };
 
-  handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
+  // handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { checked } = event.target;
 
-    this.setState({ infinite: checked });
-  };
+  //   this.setState({ infinite: checked });
+  // };
 
   render() {
     const {
@@ -72,7 +83,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
-      infinite,
+      // infinite,
       position,
     } = this.state;
 
@@ -88,10 +99,10 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-          infinite={infinite}
+          // infinite={infinite}
           length={images.length}
           onChange={this.handleChange}
-          onChecked={this.handleChecked}
+          // onChecked={this.handleChecked}
         />
 
         <Carousel

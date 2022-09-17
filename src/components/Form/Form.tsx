@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox } from '../Checkbox/Checkbox';
+// import { Checkbox } from '../Checkbox/Checkbox';
 import { Input } from '../Input/Input';
 import './Form.scss';
 
@@ -11,10 +11,10 @@ interface Props {
   frameSize: string;
   step: string;
   animationDuration: string;
-  infinite: boolean;
+  // infinite: boolean;
   length: number,
   onChange: HandleFunction;
-  onChecked: HandleFunction;
+  // onChecked: HandleFunction;
 }
 
 export const Form: React.FC<Props> = ({
@@ -22,10 +22,10 @@ export const Form: React.FC<Props> = ({
   frameSize,
   step,
   animationDuration,
-  infinite,
+  // infinite,
   length,
   onChange,
-  onChecked,
+  // onChecked,
 }) => {
   return (
     <form className="Form box">
@@ -69,11 +69,11 @@ export const Form: React.FC<Props> = ({
         onChange={onChange}
       />
 
-      <Checkbox
+      {/* <Checkbox
         label="Infinite"
         value={infinite}
         onChecked={onChecked}
-      />
+      /> */}
     </form>
   );
 };

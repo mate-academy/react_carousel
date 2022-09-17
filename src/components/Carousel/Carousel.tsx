@@ -29,33 +29,35 @@ export const Carousel: React.FC<Props> = ({
   onPrev,
 }) => {
   return (
-    <div
-      className="Carousel"
-      style={{ width: +itemWidth * +frameSize }}
-    >
-      <ul
-        className="Carousel__list"
-        style={{
-          width: +itemWidth * images.length,
-          translate: `${position}px`,
-          transitionDuration: `${animationDuration}ms`,
-        }}
+    <div className="Carousel">
+      <div
+        className="Carousel__list-wrapper"
+        style={{ width: +itemWidth * +frameSize }}
       >
-        {images.map(((img, i) => (
-          <li className="Carousel__item" key={img}>
-            <img
-              src={img}
-              alt={String(i + 1)}
-              style={{ width: `${itemWidth}px` }}
-            />
-          </li>
-        )))}
-      </ul>
+        <ul
+          className="Carousel__list"
+          style={{
+            width: +itemWidth * images.length,
+            translate: `${position}px`,
+            transitionDuration: `${animationDuration}ms`,
+          }}
+        >
+          {images.map(((img, i) => (
+            <li className="Carousel__item" key={img}>
+              <img
+                src={img}
+                alt={String(i + 1)}
+                style={{ width: `${itemWidth}px` }}
+              />
+            </li>
+          )))}
+        </ul>
+      </div>
 
       <div className="Carousel__buttons">
         <button
           type="button"
-          className="button is-primary mr-5"
+          className="button is-primary mr-5 is-rounded"
           disabled={position === '0'}
           onClick={() => onPrev()}
         >
@@ -64,8 +66,10 @@ export const Carousel: React.FC<Props> = ({
 
         <button
           type="button"
-          className="button is-primary mr-5"
-          disabled={position === String(+itemWidth * images.length)}
+          className="button is-primary is-rounded"
+          disabled={
+            position === String(-(+itemWidth * (images.length - +frameSize)))
+          }
           onClick={() => onNext()}
         >
           Next
