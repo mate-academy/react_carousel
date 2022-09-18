@@ -52,6 +52,12 @@ class App extends React.Component<{}, State> {
     this.setState({ step: Number(value) });
   };
 
+  handleAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    this.setState({ animationDuration: Number(value) });
+  };
+
   handleInfinity = () => {
     const { infinite } = this.state;
 
@@ -71,7 +77,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
@@ -86,11 +92,11 @@ class App extends React.Component<{}, State> {
           {'Item Width: '}
           <input
             type="number"
-            name="frameWidth"
+            name="ItemWidth"
             value={itemWidth}
             onChange={this.handleWidthChange}
-            min={100}
-            max={400}
+            min="100"
+            max="400"
           />
         </label>
 
@@ -98,7 +104,7 @@ class App extends React.Component<{}, State> {
           {'Frame Size: '}
           <input
             type="number"
-            name="frameSize"
+            name="FrameSize"
             value={frameSize}
             onChange={this.handleFrameSize}
             min={1}
@@ -110,11 +116,23 @@ class App extends React.Component<{}, State> {
           {'Carousel step: '}
           <input
             type="number"
-            name="step"
+            name="Step"
             value={step}
             onChange={this.handleChangeStep}
             min={1}
             max={10}
+          />
+        </label>
+
+        <label>
+          {'Animation duration: '}
+          <input
+            type="number"
+            name="AnimationDuration"
+            value={animationDuration}
+            onChange={this.handleAnimationDuration}
+            min={1}
+            max={5000}
           />
         </label>
 

@@ -31,19 +31,15 @@ export class Carousel extends React.Component<Props, State> {
       step,
       frameSize,
       infinite,
+      images,
     } = this.props;
     const { buttonType } = event.currentTarget.dataset;
     let goPrev = translation + ((itemWidth + gap) * step);
     let goNext = translation - ((itemWidth + gap) * step);
-    const maxWidth = (10 - frameSize) * (itemWidth + gap);
+    const maxWidth = (images.length - frameSize) * (itemWidth + gap);
 
     if (goNext - frameSize * step < -maxWidth) {
       goNext = -maxWidth;
-
-      if (infinite) {
-        goNext = -maxWidth;
-        goNext = 0;
-      }
     }
 
     if (goPrev - frameSize * step >= 0) {
@@ -54,12 +50,24 @@ export class Carousel extends React.Component<Props, State> {
       this.setState(
         { translation: goNext },
       );
+
+      if (translation === -maxWidth && infinite) {
+        this.setState(
+          { translation: 0 },
+        );
+      }
     }
 
     if (buttonType === 'prev') {
       this.setState(
         { translation: goPrev },
       );
+
+      if (translation === 0 && infinite) {
+        this.setState(
+          { translation: -maxWidth },
+        );
+      }
     }
   };
 
@@ -77,56 +85,56 @@ export class Carousel extends React.Component<Props, State> {
       translation,
     } = this.state;
 
-    const maxWidth = (10 - frameSize) * (itemWidth + gap);
+    const maxWidth = (images.length - frameSize) * (itemWidth + gap);
 
     return (
       (
-        <>
-          <div className="Carousel">
+        <div className="Carousel">
 
-            <button
-              type="button"
-              className="Carousel__button"
-              data-button-type="prev"
-              onClick={this.handleButton}
-              disabled={!infinite && translation === 0}
-            >
-              «
-            </button>
+          <button
+            type="button"
+            className="Carousel__button"
+            data-button-type="prev"
+            data-cy="prev"
+            onClick={this.handleButton}
+            disabled={!infinite && translation === 0}
+          >
+            «
+          </button>
 
-            <ul
-              className="Carousel__list"
-              style={{ width: `${(itemWidth + gap) * frameSize}px` }}
-            >
-              {images.map((image, index) => (
-                <li
-                  key={image}
-                  className="Carousel__image"
-                  style={{
-                    transform: `translateX(${translation}px)`,
-                    transitionDuration: `${transitionDuration}ms`,
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`${index}`}
-                    style={{ width: `${itemWidth}px` }}
-                  />
-                </li>
-              ))}
-            </ul>
+          <ul
+            className="Carousel__list"
+            style={{ width: `${(itemWidth + gap) * frameSize}px` }}
+          >
+            {images.map((image, index) => (
+              <li
+                key={image}
+                className="Carousel__image"
+                style={{
+                  transform: `translateX(${translation}px)`,
+                  transitionDuration: `${transitionDuration}ms`,
+                }}
+              >
+                <img
+                  src={image}
+                  alt={`${index}`}
+                  style={{ width: `${itemWidth}px` }}
+                />
+              </li>
+            ))}
+          </ul>
 
-            <button
-              type="button"
-              className="Carousel__button"
-              data-button-type="next"
-              onClick={this.handleButton}
-              disabled={!infinite && translation === -maxWidth}
-            >
-              »
-            </button>
-          </div>
-        </>
+          <button
+            type="button"
+            className="Carousel__button"
+            data-button-type="next"
+            data-cy="next"
+            onClick={this.handleButton}
+            disabled={!infinite && translation === -maxWidth}
+          >
+            »
+          </button>
+        </div>
       )
     );
   }
