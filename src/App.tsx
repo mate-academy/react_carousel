@@ -6,11 +6,12 @@ interface State {
   images: string[];
   step: number;
   frameSize: number;
-  itemWidth?: number;
+  itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
-class App extends React.Component<{}, State> {
+class AppAltern extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -26,8 +27,9 @@ class App extends React.Component<{}, State> {
     ],
     itemWidth: 130,
     frameSize: 3,
-    animationDuration: 500,
+    animationDuration: 1000,
     step: 3,
+    infinite: false,
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +48,10 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  handleInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: event.target.checked });
+  };
+
   render() {
     const {
       images,
@@ -53,10 +59,8 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      infinite,
     } = this.state;
-
-    const inputs:string[] = Object.keys(this.state)
-      .filter(el => el !== 'images');
 
     return (
       <div className="App">
@@ -72,22 +76,73 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           animationDuration={animationDuration}
           step={step}
+          infinite={infinite}
         />
-        {inputs.map(variable => (
-          <label className="variables" key={variable}>
-            {`${variable[0].toLocaleUpperCase() + variable.slice(1)} :`}
-            <input
-              type="number"
-              className="variables__input"
-              name={`${variable}`}
-              value={this.state[variable as keyof State]}
-              onChange={this.handleChange}
-            />
-          </label>
-        ))}
+
+        <label className="variables">
+          Item width:
+          <input
+            className="variables__input"
+            type="number"
+            name="itemWidth"
+            value={itemWidth}
+            onChange={this.handleChange}
+            min="130"
+            max="390"
+          />
+        </label>
+
+        <label className="variables">
+          Frame size:
+          <input
+            className="variables__input"
+            type="number"
+            name="frameSize"
+            value={frameSize}
+            onChange={this.handleChange}
+            min="1"
+            max="10"
+          />
+        </label>
+
+        <label className="variables">
+          Step:
+          <input
+            className="variables__input"
+            type="number"
+            name="step"
+            value={step}
+            onChange={this.handleChange}
+            min="1"
+            max="10"
+          />
+        </label>
+
+        <label className="variables">
+          Animation duration:
+          <input
+            className="variables__input"
+            type="number"
+            name="animationDuration"
+            value={animationDuration}
+            onChange={this.handleChange}
+          />
+        </label>
+
+        <label className="variables">
+          {'Infinite: '}
+          <input
+            type="checkbox"
+            name="infinite"
+            id="infinite"
+            className="variables__input"
+            checked={infinite}
+            onChange={this.handleInfinite}
+          />
+        </label>
       </div>
     );
   }
 }
 
-export default App;
+export default AppAltern;

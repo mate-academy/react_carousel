@@ -3,6 +3,7 @@
   box-sizing: border-box;
   justify-content: center;
   display: flex;
+  list-style: none;
 
 }
 
@@ -30,5 +31,8 @@
   transition-duration: 0.3s;
   &:hover {
     background-color: white;
+  }
+  &--disabled {
+    background-color: rgb(154, 154, 142);
   }
 }
