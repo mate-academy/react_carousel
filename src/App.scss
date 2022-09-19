@@ -1,1 +1,41 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    list-style: none;
+    padding: 0 0 0 10px;
+    border-radius: 40px;
+  }
+
+  &__image {
+    position: relative;
+  }
+
+  &__button {
+    height: 30px;
+    width: 30px;
+  }
+}
+
+input {
+  width: 50px;
+  margin: 5px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+label {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+}
