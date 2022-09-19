@@ -64,6 +64,7 @@ export const Carousel: React.FC<Props> = ({
         </button>
 
         <button
+          data-cy="next"
           type="button"
           className="button is-primary is-rounded"
           disabled={

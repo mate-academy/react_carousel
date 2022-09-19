@@ -115,7 +115,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 className="title mt-5 has-text-info has-text-centered">
+        <h1 data-cy="title" className="title mt-5 has-text-info has-text-centered">
           {`Carousel with ${images.length} images`}
         </h1>
 
