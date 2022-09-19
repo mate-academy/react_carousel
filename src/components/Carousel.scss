@@ -1,1 +1,44 @@
-// style go here
+.Carousel {
+  position: relative;
+  width: 390px;
+  margin: 0 auto;
+
+  &__list {
+    margin-top: 5rem;
+
+    overflow-x: hidden;
+  }
+}
+
+.Prev {
+  transform: translate(-120%, -50%);
+}
+
+.Next {
+  transform: translate(120%, -50%);
+  right: 0;
+  margin-left: 20px;
+}
+
+.Prev,
+.Next {
+  position: absolute;
+  top: 50%;
+  padding: 10px 12px;
+  border: 1px solid rgb(233, 233, 233);
+  border-radius: 20px;
+  outline: none;
+  background: rgb(51, 15, 150);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+.Container {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.83, 0.24, 0.48, 0.83);
+}
