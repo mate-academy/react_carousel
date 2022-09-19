@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
+import { LabelInput } from './components/Label';
 
 interface State {
   images?: string[];
@@ -34,34 +35,22 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    this.setState({ itemWidth: Number(value) });
-  };
-
-  handleFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    this.setState({ frameSize: Number(value) });
-  };
-
-  handleChangeStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    this.setState({ step: Number(value) });
-  };
-
-  handleAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    this.setState({ animationDuration: Number(value) });
-  };
-
   handleInfinity = () => {
     const { infinite } = this.state;
 
     this.setState({ infinite: !infinite });
+  };
+
+  changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name, value, type, checked,
+    } = event.target;
+
+    this.setState({
+      [name]: type === 'checkbox'
+        ? checked
+        : +value,
+    });
   };
 
   render() {
@@ -76,8 +65,8 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
         <Carousel
           images={images}
@@ -88,53 +77,41 @@ class App extends React.Component<{}, State> {
           infinite={infinite}
         />
 
-        <label>
-          {'Item Width: '}
-          <input
-            type="number"
-            name="ItemWidth"
-            value={itemWidth}
-            onChange={this.handleWidthChange}
-            min="100"
-            max="400"
-          />
-        </label>
+        <LabelInput
+          labelName="Item Width: "
+          value={itemWidth}
+          onChange={this.changeInput}
+          min={100}
+          max={300}
+          name="itemWidth"
+        />
 
-        <label>
-          {'Frame Size: '}
-          <input
-            type="number"
-            name="FrameSize"
-            value={frameSize}
-            onChange={this.handleFrameSize}
-            min={1}
-            max={10}
-          />
-        </label>
+        <LabelInput
+          labelName="Frame Size: "
+          value={frameSize}
+          onChange={this.changeInput}
+          min={0}
+          max={10}
+          name="frameSize"
+        />
 
-        <label>
-          {'Carousel step: '}
-          <input
-            type="number"
-            name="Step"
-            value={step}
-            onChange={this.handleChangeStep}
-            min={1}
-            max={10}
-          />
-        </label>
+        <LabelInput
+          labelName="Carousel step: "
+          value={step}
+          onChange={this.changeInput}
+          min={0}
+          max={10}
+          name="step"
+        />
 
-        <label>
-          {'Animation duration: '}
-          <input
-            type="number"
-            name="AnimationDuration"
-            value={animationDuration}
-            onChange={this.handleAnimationDuration}
-            min={1}
-            max={5000}
-          />
-        </label>
+        <LabelInput
+          labelName="Animation duration"
+          value={animationDuration}
+          onChange={this.changeInput}
+          min={0}
+          max={5000}
+          name="animationDuration"
+        />
 
         <label>
           {'Infinite? '}
