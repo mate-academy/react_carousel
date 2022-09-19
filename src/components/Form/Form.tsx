@@ -3,8 +3,7 @@ import React from 'react';
 import { Input } from '../Input/Input';
 import './Form.scss';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type HandleFunction = Function;
+type HandleFunction = React.ChangeEventHandler<HTMLInputElement>;
 
 interface Props {
   itemWidth: string;

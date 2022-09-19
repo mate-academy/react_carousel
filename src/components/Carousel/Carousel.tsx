@@ -2,8 +2,7 @@ import React from 'react';
 import './Carousel.scss';
 
 type Image = string;
-// eslint-disable-next-line @typescript-eslint/ban-types
-type HandleFunction = Function;
+type HandleFunction = React.MouseEventHandler<HTMLButtonElement>;
 
 interface Props {
   images: Image[]
@@ -59,7 +58,7 @@ export const Carousel: React.FC<Props> = ({
           type="button"
           className="button is-primary mr-5 is-rounded"
           disabled={position === '0'}
-          onClick={() => onPrev()}
+          onClick={onPrev}
         >
           Prev
         </button>
@@ -70,7 +69,7 @@ export const Carousel: React.FC<Props> = ({
           disabled={
             position === String(-(+itemWidth * (images.length - +frameSize)))
           }
-          onClick={() => onNext()}
+          onClick={onNext}
         >
           Next
         </button>

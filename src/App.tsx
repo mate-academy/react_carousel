@@ -63,11 +63,36 @@ class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    const { itemWidth } = this.state;
 
-    this.setState({
-      [name]: value,
-      position: '0',
-    } as never);
+    this.setState(prevState => {
+      let corectedPosition;
+
+      switch (name) {
+        case 'itemWidth':
+          corectedPosition
+            = String(+prevState.position * (+value / +prevState.itemWidth));
+          break;
+
+        case 'frameSize':
+          corectedPosition
+            = prevState.position === '0'
+              ? prevState.position
+              : String(+prevState.position + +itemWidth);
+          break;
+
+        default:
+          corectedPosition = prevState.position;
+          break;
+      }
+
+      return ({
+        [name]: value,
+        position: name === 'itemWidth' || name === 'frameSize'
+          ? corectedPosition
+          : prevState.position,
+      }) as never;
+    });
   };
 
   // handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
