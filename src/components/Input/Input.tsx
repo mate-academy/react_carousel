@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type HandleFunction = Function;
+type HandleFunction = React.ChangeEventHandler<HTMLInputElement>;
 
 interface Props {
   label: string;
@@ -24,7 +23,6 @@ export const Input: React.FC<Props> = ({
 }) => {
   return (
     <div className="field">
-      {/* eslint-disable-next-line */}
       <label className="label">{label}</label>
       <div className="control">
         <input
@@ -35,7 +33,7 @@ export const Input: React.FC<Props> = ({
           min={minValue}
           max={maxValue}
           value={value}
-          onChange={(event) => onChange(event)}
+          onChange={onChange}
         />
       </div>
     </div>
