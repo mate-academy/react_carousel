@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { RefObject } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -18,12 +18,19 @@ type State = {
 
 let newImages: string[] = [];
 
-export class Carousel extends Component<Props, State> {
+export class Carousel extends React.PureComponent<Props, State> {
   state: State = {
     leftSide: 0,
     stopPrevButton: true,
     stopNextButton: false,
   };
+
+  public myRef: RefObject<HTMLInputElement>;
+
+  constructor(props: Props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
 
   handleNextButton = () => {
     const {
@@ -40,15 +47,14 @@ export class Carousel extends Component<Props, State> {
       this.setState({ stopPrevButton: false });
     }
 
-    if (infinite) {
-      this.setState({ stopNextButton: false });
-      newImages = [...newImages, ...this.props.images];
-    }
-
     if (!infinite
       && ((leftSide - shift - frameSize * itemWidth) <= -carouselWidth)) {
       this.setState({ stopNextButton: true });
       this.setState({ leftSide: frameSize * itemWidth - carouselWidth });
+    }
+
+    if (infinite) {
+      newImages = [...newImages, ...this.props.images];
     }
   };
 
@@ -85,6 +91,13 @@ export class Carousel extends Component<Props, State> {
     }
   };
 
+  isInfinite = () => {
+    this.setState({
+      stopNextButton: false,
+      stopPrevButton: false,
+    });
+  };
+
   render() {
     const {
       frameSize,
@@ -104,8 +117,20 @@ export class Carousel extends Component<Props, State> {
       this.checkPosition();
     }
 
+    if (infinite) {
+      if (this.myRef.current !== null) {
+        this.myRef.current.click();
+      }
+    }
+
     return (
       <>
+        <input
+          ref={this.myRef}
+          id="inp"
+          type="checkbox"
+          onClick={this.isInfinite}
+        />
         <h1>{`Carousel with ${this.props.images.length} images`}</h1>
 
         <div className="Carousel">

@@ -94,12 +94,15 @@ $sway-type: "sway-left-to-right", "sway-right-to-left";
 
 .Carousel__setting {
   display: flex;
+  gap: 5px;
   flex-direction: column;
 }
 
 label {
   display: flex;
+  text-transform: uppercase;
   justify-content: space-between;
+  align-items: center;
 }
 
 input {

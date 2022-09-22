@@ -35,7 +35,7 @@ class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value, min, max, checked,
+      name, value, min, max,
     } = event.target;
 
     if ((+value >= +min && +value <= +max) || (name === 'infinite')) {
@@ -57,7 +57,7 @@ class App extends React.Component<{}, State> {
           break;
 
         case 'infinite':
-          this.setState({ infinite: checked });
+          this.setState(state => ({ infinite: !state.infinite }));
           break;
 
         default:
@@ -80,15 +80,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <Carousel
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
-        />
-
         <form className="Carousel__setting">
           <label htmlFor="step">
             Step:
@@ -147,6 +138,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
         </form>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
 
         <Bubble />
       </div>

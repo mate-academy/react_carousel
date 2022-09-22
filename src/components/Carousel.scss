@@ -3,6 +3,7 @@
   align-items: center;
   flex-direction: column;
   font-size: 24px;
+  position: static;
 
   .wrapper {
     overflow: hidden;
@@ -18,7 +19,6 @@
     position: relative;
     left: 0;
     top: 0;
-    height: 130px;
   }
 
   &__buttons {
@@ -75,4 +75,9 @@
       left: calc(100% - 1.5em);
     }
   }
+}
+
+#inp {
+  height: 0;
+  position: absolute;
 }
