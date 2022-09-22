@@ -1,1 +1,26 @@
-// style go here
+@import url("https://fonts.googleapis.com/css?family=Montserrat+Subrayada:regular,700");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+}
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  width: max-content;
+  margin: 3rem auto 0;
+
+}
+
+ul {
+  list-style-type: none;
+}
