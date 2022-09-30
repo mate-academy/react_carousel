@@ -1,1 +1,32 @@
-// style go here
+.carousel {
+  overflow-x: hidden;
+  margin: auto auto;
+
+  &__list {
+    display: flex;
+    margin: auto auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px auto;
+    width: 390px;
+  }
+}
+
+.nextBtn,
+.prevBtn {
+  width: 170px;
+  height: 70px;
+  cursor: pointer;
+  font-size: 28px;
+  color: #fff;
+  text-transform: uppercase;
+
+  &:disabled {
+    background: rgba(106, 90, 205, 0.5);
+  }
+}
