@@ -1,1 +1,55 @@
-// style go here
+.App {
+  &__title {
+    text-align: center;
+  }
+
+  &__inputs {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  &__inputName {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  &__input {
+    font-size: 17px;
+    width: 50%;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #d8cd29;
+    box-shadow: 4px 4px 10px rgba(0,0,0,006);
+  }
+
+  &__checkbox {
+    opacity: 0;
+
+    & ~ span::after {
+      content: "\2713";
+      text-align: center;
+      color: white;
+      line-height: 1em;
+      width: 1em;
+      height: 1em;
+      border: 2px inset #d8cd29;
+      border-radius: 0.25em;
+      margin: 0.25em;
+      display: inline-block;
+      margin-right: 80px;
+    }
+
+    &:checked ~ span::after {
+      color: red;
+      border: 2px inset red;
+    }
+  }
+}

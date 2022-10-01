@@ -1,1 +1,54 @@
-// style go here
+.Carousel {
+  width: 260px;
+  margin: 0 auto;
+
+  &__list {
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+    list-style-type: none;
+    border: 3px solid #d8cd29;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  }
+
+  &__item {
+    transition: transform 0.5s ease;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: black;
+  background-color: #d8cd29;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+
+  &:disabled {
+    border: 1px solid #999;
+    background-color: #ccc;
+    color: #666;
+    cursor: auto;
+  }
+
+  &:not([disabled]):hover {
+    background-color: #b7ad28;
+  }
+
+  &:not([disabled]):active {
+    background-color: #fded0e;
+    transform: translateY(2px);
+  }
+}
