@@ -20,7 +20,7 @@ class Carousel extends React.Component<Props, State> {
     prevDisabled: true,
   };
 
-  prevBtn = () => {
+  handlePrevBtn = () => {
     const { step, itemWidth } = this.props;
 
     this.setState((prevState) => {
@@ -103,6 +103,7 @@ class Carousel extends React.Component<Props, State> {
               }}
             >
               <img
+                className="carousel__item--image"
                 src={img}
                 alt={img}
                 style={{
@@ -118,7 +119,7 @@ class Carousel extends React.Component<Props, State> {
             type="button"
             className="carousel__button"
             disabled={prevDisabled}
-            onClick={this.prevBtn}
+            onClick={this.handlePrevBtn}
             data-cy="next"
           >
             Prev
