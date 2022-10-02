@@ -127,6 +127,7 @@ class Carousel extends React.Component<Props> {
 
           <button
             type="button"
+            data-cy="next"
             className={`button button__right ${(position === -10 + frameSize && !infinite) && 'button__inactive'}`}
             onClick={this.slideRight}
           >
@@ -135,7 +136,7 @@ class Carousel extends React.Component<Props> {
         </div>
 
         <div className="input">
-          <label className="input__item">
+          <label className="input__item" htmlFor="stepId">
             Step
             <input
               className="input__box"
@@ -143,6 +144,7 @@ class Carousel extends React.Component<Props> {
               type="number"
               min="1"
               max="10"
+              id="stepId"
               value={step}
               onChange={(event) => {
                 this.setState({ step: +event.target.value });
@@ -150,12 +152,13 @@ class Carousel extends React.Component<Props> {
             />
           </label>
 
-          <label className="input__item">
+          <label className="input__item" htmlFor="frameId">
             Frame size
             <input
               className="input__box"
               name="frameSize"
               type="number"
+              id="frameId"
               min="1"
               max="10"
               value={frameSize}
@@ -165,12 +168,13 @@ class Carousel extends React.Component<Props> {
             />
           </label>
 
-          <label className="input__item">
+          <label className="input__item" htmlFor="itemId">
             Item width
             <input
               className="input__box"
               name="itemWidth"
               type="number"
+              id="itemId"
               min="50"
               max="190"
               step="10"
