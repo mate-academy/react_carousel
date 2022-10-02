@@ -1,32 +1,190 @@
-.carousel {
-  overflow-x: hidden;
-  margin: auto auto;
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  &__list {
-    display: flex;
-    margin: auto auto;
-    padding: 0;
-    list-style: none;
+  &__container {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #0a5490;
+    border-radius: 20px;
+    margin-top: 150px;
+    padding: 0 10px;
   }
 
-  &__buttons {
+  &__list {
+    list-style: none;
     display: flex;
-    justify-content: space-between;
-    margin: 50px auto;
-    width: 390px;
+
+    transition: transform 1000ms;
+    transform: translateX(-390px);
+
+    padding: 0;
+  }
+
+  &__item {
+    height: 100%;
   }
 }
 
-.nextBtn,
-.prevBtn {
-  width: 170px;
-  height: 70px;
-  cursor: pointer;
-  font-size: 28px;
-  color: #fff;
-  text-transform: uppercase;
+.button {
+  position: absolute;
+  top: 15%;
+  transform: translateY(-50%);
+  background-color: #ff00;
+  border: none;
 
-  &:disabled {
-    background: rgba(106, 90, 205, 0.5);
+  cursor: pointer;
+
+  &__inactive {
+    display: none;
   }
+
+  &__left {
+    left: 45%;
+  }
+
+  &__right {
+    right: 45%;
+  }
+}
+
+.input {
+  display: grid;
+  position: absolute;
+  margin-top: 40px;
+  top: 65%;
+  gap: 20px;
+
+  border: 3px solid #000d;
+  border-radius: 20px;
+
+  padding: 20px;
+  width: 400px;
+  box-sizing: border-box;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    color: #000d;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__box {
+    border: 1px inset #f00;
+    border-radius: 5px;
+
+    width: 100px;
+  }
+}
+
+#input {
+  display: none;
+}
+
+#label {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  background-color: #f72414;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: 0 7px 10px #ffbeb8;
+  cursor: pointer;
+  transition: 0.2s ease transform,
+    0.2s ease background-color,
+    0.2s ease box-shadow;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid rgba(0, 0, 0, 0.44);
+}
+
+#label:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  background-color: #fff;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: inset 0 7px 10px #ffbeb8;
+  transition: 0.2s ease width, 0.2s ease height;
+  border: 1px solid black;
+}
+
+#label:hover:before {
+  width: 55px;
+  height: 55px;
+  box-shadow: inset 0 7px 10px #ff9d96;
+}
+
+#label:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+#tick_mark {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0 14px;
+  transform: rotateZ(-40deg);
+}
+
+#tick_mark:before,
+#tick_mark:after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  border-radius: 2px;
+  opacity: 0;
+  transition: 0.2s ease transform, 0.2s ease opacity;
+}
+
+#tick_mark:before {
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 30px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+  transform: translateY(-68px);
+}
+
+#tick_mark:after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+  transform: translateX(78px);
+}
+
+#input:checked + .checkLabel {
+  background-color: #07d410;
+  box-shadow: 0 7px 10px #92ff97;
+}
+
+#input:checked + .checkLabel:before {
+  width: 0;
+  height: 0;
+}
+
+#input:checked + .checkLabel .checkDiv:before,
+#input:checked + .checkLabel .checkDiv:after {
+  transform: translate(0);
+  opacity: 1;
 }

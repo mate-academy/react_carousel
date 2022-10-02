@@ -1,30 +1,4 @@
-iframe {
-  pointer-events: none;
-}
-
 .App {
-  width: 1300px;
-  margin: 10% auto;
-}
-
-.nav {
-  width: 400px;
-  margin: 50px auto;
-
-  &__item {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-
-    &:not(:last-child) {
-      margin-bottom: 10px;
-    }
-
-    input {
-      width: 100px;
-      text-align: center;
-      font-size: 16px;
-    }
-  }
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }

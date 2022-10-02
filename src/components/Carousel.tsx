@@ -3,136 +3,216 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  duration: number;
 };
 
-type State = {
-  scrollWidth: number;
-};
-
-class Carousel extends React.Component<Props, State> {
+class Carousel extends React.Component<Props> {
   state = {
-    scrollWidth: 0,
-    nextDisabled: false,
-    prevDisabled: false,
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+    position: 0,
   };
 
-  prevBtn = () => {
-    const { step, itemWidth } = this.props;
+  slideLeft = () => {
+    const {
+      position,
+      step,
+      frameSize,
+      infinite,
+    } = this.state;
 
-    this.setState((prevState) => {
-      const scrolled = prevState.scrollWidth - (step * itemWidth);
+    const infiniteLeft = () => {
+      if (infinite) {
+        if (position !== 0) {
+          return 0;
+        }
 
-      if (scrolled >= 0) {
-        return {
-          scrollWidth: scrolled,
-          nextDisabled: false,
-        };
+        return -10 + frameSize;
       }
 
-      return {
-        scrollWidth: 0,
-        prevDisabled: true,
-      };
+      return 0;
+    };
+
+    this.setState({
+      position: position + step >= 0
+        ? infiniteLeft()
+        : position + step,
     });
   };
 
-  nextBtn = () => {
+  slideRight = () => {
     const {
-      images,
+      position,
       step,
       frameSize,
-      itemWidth,
-    } = this.props;
+      infinite,
+    } = this.state;
 
-    this.setState((prevState) => {
-      const maxScroll = (images.length - frameSize) * itemWidth;
-      const scrolled = prevState.scrollWidth + (step * itemWidth);
+    const infiniteRight = () => {
+      if (infinite) {
+        if (position !== -10 + frameSize) {
+          return -10 + frameSize;
+        }
 
-      if (scrolled <= maxScroll) {
-        return {
-          scrollWidth: scrolled,
-          prevDisabled: false,
-        };
+        return 0;
       }
 
-      return {
-        scrollWidth: maxScroll,
-        nextDisabled: true,
-      };
+      return -10 + frameSize;
+    };
+
+    this.setState({
+      position: position <= -10 + step + frameSize
+        ? infiniteRight()
+        : position - step,
     });
   };
 
   render() {
+    const { images } = this.props;
     const {
-      scrollWidth,
-      prevDisabled,
-      nextDisabled,
-    } = this.state;
-
-    const {
-      images,
+      step,
       frameSize,
       itemWidth,
-      duration,
-    } = this.props;
+      animationDuration,
+      infinite,
+      position,
+    } = this.state;
 
     return (
       <div
-        className="carousel"
-        style={{
-          width: '400px',
-        }}
+        className="Carousel"
       >
-        <ul
-          className="carousel__list"
+        <div
+          className="Carousel__container"
           style={{
             width: `${itemWidth * frameSize}px`,
-            transform: `translateX(${-scrollWidth}px)`,
-            transition: `${duration}ms`,
           }}
         >
-          {images.map((img) => (
-            <li
-              key={img}
-              className="carousel__item is-block is-responsive"
-              style={{
-                width: `${itemWidth}px`,
+          <ul
+            className="Carousel__list"
+            id="carousel__list"
+            style={{
+              transition: `transform ${animationDuration}ms`,
+              transform: `translateX(${position * itemWidth}px)`,
+            }}
+          >
+            {images.map(img => (
+              <li
+                key={img}
+                className="Carousel__item"
+              >
+                <img
+                  src={img}
+                  alt={`${images.indexOf(img) + 1}`}
+                  style={{
+                    width: `${itemWidth}px`,
+                    height: `${itemWidth}px`,
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id="buttons">
+          <button
+            type="button"
+            className={`button button__left ${(position === 0 && !infinite) && 'button__inactive'}`}
+            onClick={this.slideLeft}
+          >
+            <img src="./img/left-arrow.svg" alt="Arrow-left" />
+          </button>
+
+          <button
+            type="button"
+            className={`button button__right ${(position === -10 + frameSize && !infinite) && 'button__inactive'}`}
+            onClick={this.slideRight}
+          >
+            <img src="./img/right-arrow.svg" alt="Arrow-right" />
+          </button>
+        </div>
+
+        <div className="input">
+          <label className="input__item">
+            Step
+            <input
+              className="input__box"
+              name="step"
+              type="number"
+              min="1"
+              max="10"
+              value={step}
+              onChange={(event) => {
+                this.setState({ step: +event.target.value });
+              }}
+            />
+          </label>
+
+          <label className="input__item">
+            Frame size
+            <input
+              className="input__box"
+              name="frameSize"
+              type="number"
+              min="1"
+              max="10"
+              value={frameSize}
+              onChange={(event) => {
+                this.setState({ frameSize: +event.target.value });
+              }}
+            />
+          </label>
+
+          <label className="input__item">
+            Item width
+            <input
+              className="input__box"
+              name="itemWidth"
+              type="number"
+              min="50"
+              max="190"
+              step="10"
+              value={itemWidth}
+              onChange={(event) => {
+                this.setState({ itemWidth: +event.target.value });
+              }}
+            />
+          </label>
+
+          <label className="input__item">
+            Animation duration
+            <input
+              className="input__box"
+              name="animationDuration"
+              type="number"
+              min="100"
+              max="2500"
+              step="100"
+              value={animationDuration}
+              onChange={(event) => {
+                this.setState({ animationDuration: +event.target.value });
+              }}
+            />
+            <input
+              name="infinite"
+              type="checkbox"
+              id="input"
+              checked={infinite}
+            />
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+            <label
+              htmlFor="checkbox"
+              className="checkLabel"
+              id="label"
+              onClick={() => {
+                this.setState({ infinite: !infinite });
               }}
             >
-              <img
-                src={img}
-                alt={img}
-                style={{
-                  width: `${itemWidth}px`,
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-
-        <div className="carousel__buttons">
-          <button
-            type="button"
-            /* eslint-disable-next-line max-len */
-            className="prevBtn button is-danger is-outlined is-rounded is-responsive"
-            disabled={prevDisabled}
-            onClick={this.prevBtn}
-          >
-            Prev
-          </button>
-          <button
-            type="button"
-            /* eslint-disable-next-line max-len */
-            className="nextBtn button is-black is-outlined is-rounded is-responsive"
-            disabled={nextDisabled}
-            onClick={this.nextBtn}
-          >
-            Next
-          </button>
+              <div id="tick_mark" className="checkDiv" />
+            </label>
+          </label>
         </div>
       </div>
     );
