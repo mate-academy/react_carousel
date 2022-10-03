@@ -106,10 +106,8 @@ class Carousel extends React.Component<Props> {
                 <img
                   src={img}
                   alt={`${images.indexOf(img) + 1}`}
-                  style={{
-                    width: `${itemWidth}px`,
-                    height: `${itemWidth}px`,
-                  }}
+                  width=`${itemWidth}`
+                  height=`${itemWidth}`
                 />
               </li>
             ))}
