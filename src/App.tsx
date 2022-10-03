@@ -47,6 +47,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               min={130}
+              max={360}
               value={itemWidth}
               onChange={e => {
                 this.setState({ itemWidth: +e.target.value });
@@ -59,6 +60,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               min={1}
+              max={10}
               value={frameSize}
               onChange={e => {
                 this.setState({ frameSize: +e.target.value });
@@ -71,6 +73,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="step"
               min={1}
+              max={10}
               value={step}
               onChange={e => {
                 this.setState({ step: +e.target.value });
