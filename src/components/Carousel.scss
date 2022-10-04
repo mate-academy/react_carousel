@@ -1,1 +1,67 @@
-// style go here
+.Carousel {
+  text-align: center;
+
+  &__list {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    list-style-type: none;
+    margin-top: 50px;
+    padding: 0;
+    box-shadow: 0 5px 20px yellow;
+  }
+
+  &__item {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__button {
+    margin-top: 30px;
+    cursor: pointer;
+    border: none;
+    color: transparent;
+    background-color: transparent;
+    padding: 0;
+  }
+
+  &__button:disabled {
+    background-color: transparent;
+    color: transparent;
+    border-color: transparent;
+    fill: grey;
+  }
+
+  &__button--prev {
+    background-image: url(../img_arrows/arr_left.svg);
+    width: 100px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    &:disabled {
+      opacity: 0;
+    }
+
+    &:hover {
+      background-image: url(../img_arrows/arr_left_dis.svg);
+    }
+  }
+
+  &__button--next {
+    background-image: url(../img_arrows/arr_right.svg);
+    width: 100px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    &:disabled {
+      opacity: 0;
+    }
+
+    &:hover {
+      background-image: url(../img_arrows/arr_right_dis.svg);
+    }
+  }
+}

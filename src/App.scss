@@ -1,1 +1,40 @@
-// style go here
+.App {
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px lightblue;
+    width: 300px;
+    margin-top: 20px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+
+    &:last-child {
+      margin-right: 20px;
+    }
+  }
+
+  &__inputName {
+    font-size: 20px;
+  }
+
+  &__input {
+    font-size: 18px;
+    border: none;
+    outline: none;
+    text-align: right;
+  }
+}
