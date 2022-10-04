@@ -1,1 +1,78 @@
 // style go here
+label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input {
+  display: block;
+}
+
+input[type="number"] {
+  width: 40px;
+}
+
+.Carousel-container {
+  position: relative;
+}
+
+.Carousel {
+  //display: flex;
+  border-left: black 1px solid;
+  border-right: black 1px solid;
+}
+
+.Carousel__list {
+  padding: 0;
+  display: flex;
+  transform: translateX(0);
+}
+
+.current-info {
+  &__title {
+    font-weight: bold;
+  }
+}
+
+.current-info li::marker {
+  content: "👉";
+}
+
+.button {
+  position: absolute;
+  transform: translateY(-50%);
+  outline: none;
+  border: none;
+
+  height: 100%;
+  width: 40px;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #5bc0de;
+  }
+
+  &:active {
+    background-color: #03a9f4;
+  }
+
+  &:disabled:hover {
+    background-color: transparent;
+  }
+
+  &:disabled:active {
+    background-color: red;
+  }
+}
+
+.button-prew {
+  top: 50%;
+  left: -40px;
+}
+
+.button-next {
+  top: 50%;
+  right: -40px;
+}
