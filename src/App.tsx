@@ -11,6 +11,14 @@ interface State {
   infinite: boolean;
 }
 
+enum Cases {
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -37,19 +45,19 @@ class App extends React.Component<{}, State> {
     const { id } = event.currentTarget;
 
     switch (id) {
-      case 'itemWidth':
+      case String(Cases.itemWidth):
         this.setState({ itemWidth: currentValue });
         break;
-      case 'frameSize':
+      case String(Cases.frameSize):
         this.setState({ frameSize: currentValue });
         break;
-      case 'step':
+      case String(Cases.step):
         this.setState({ step: currentValue });
         break;
-      case 'animationDuration':
+      case String(Cases.animationDuration):
         this.setState({ animationDuration: currentValue });
         break;
-      case 'infinite':
+      case String(Cases.infinite):
         this.setState(prevState => ({ infinite: !prevState.infinite }));
         break;
       default:
@@ -124,6 +132,7 @@ class App extends React.Component<{}, State> {
 
           <label htmlFor="infinite" className="App__label">
             <span className="App__inputName">Infinite:</span>
+
             <input
               type="checkbox"
               id="infinite"
@@ -133,6 +142,7 @@ class App extends React.Component<{}, State> {
             />
           </label>
         </form>
+
         <Carousel
           images={images}
           step={this.state.step}
