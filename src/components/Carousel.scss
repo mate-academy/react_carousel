@@ -19,6 +19,7 @@ input[type="number"] {
 
 .Carousel {
   //display: flex;
+  margin: 0 auto;
   border-left: black 1px solid;
   border-right: black 1px solid;
 }
@@ -27,6 +28,10 @@ input[type="number"] {
   padding: 0;
   display: flex;
   transform: translateX(0);
+}
+
+.Carousel__list li {
+  list-style-type: none;
 }
 
 .current-info {
@@ -63,7 +68,7 @@ input[type="number"] {
   }
 
   &:disabled:active {
-    background-color: red;
+    background-color: lightcoral;
   }
 }
 
