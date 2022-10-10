@@ -1,1 +1,34 @@
-// style go here
+.Wrapper {
+  &__Carousel {
+    overflow: hidden;
+  }
+}
+
+.Carousel {
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__btn-wrapper {
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__btn {
+    font-size: 32px;
+    font-weight: 900;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &--disable {
+      cursor: pointer;
+      pointer-events: none;
+      color: red;
+    }
+  }
+}
