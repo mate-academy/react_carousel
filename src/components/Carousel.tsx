@@ -54,7 +54,7 @@ const Carousel: React.FC<Props> = ({
     <div className="Wrapper">
       <div
         className="Carousel Wrapper__Carousel"
-        style={{ width: maxWidthOfWrapper }}
+        style={{ width: `${maxWidthOfWrapper}px` }}
       >
         <ul
           className="Carousel__list"
@@ -75,7 +75,7 @@ const Carousel: React.FC<Props> = ({
                 <img
                   src={image}
                   alt={`${index + 1}`}
-                  style={{ width: itemWidth }}
+                  style={{ width: `${itemWidth}px` }}
                 />
               </li>
             );

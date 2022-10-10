@@ -81,40 +81,44 @@ class App extends React.Component<{}, State> {
 
         <h2>Set Controler Values for Carosel</h2>
         <form className="App__form">
-          <label className="App__label">
+          <label className="App__label" htmlFor="itemId">
             ItemWidth:
             <input
               className="App__input"
+              id="itemId"
               type="number"
               value={this.state.itemWidth}
               onChange={(event) => this.onChangeformInput(event, 'itemWidth')}
             />
           </label>
 
-          <label className="App__label">
+          <label className="App__label" htmlFor="frameId">
             FrameSize:
             <input
               className="App__input"
+              id="frameId"
               type="number"
               value={this.state.frameSize}
               onChange={(event) => this.onChangeformInput(event, 'frameSize')}
             />
           </label>
 
-          <label className="App__label">
+          <label className="App__label" htmlFor="stepId">
             Step:
             <input
               className="App__input"
+              id="stepId"
               type="number"
               value={this.state.step}
               onChange={(event) => this.onChangeformInput(event, 'step')}
             />
           </label>
 
-          <label className="App__label">
+          <label className="App__label" htmlFor="animationId">
             AnimationDuration:
             <input
               className="App__input"
+              id="animationId"
               type="number"
               value={this.state.animationDuration}
               onChange={(event) => this.onChangeformInput(
