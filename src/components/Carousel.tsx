@@ -71,8 +71,7 @@ const Carousel: React.FC<Images> = ({
         <div
           className="overflow-hidden"
           style={{
-            width: Math
-              .min((size * frameSize), window.innerWidth - 140),
+            width: size * frameSize,
           }}
         >
           <ul
