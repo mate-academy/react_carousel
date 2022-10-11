@@ -1,1 +1,36 @@
-// style go here
+
+.App {
+
+  width: min-content;
+  border: 1px solid black;
+
+  &__name {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+
+  }
+
+  &__input {
+    width: 70px;
+    text-align: center;
+    padding-left: 14px;
+    font-size: 16px;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__carousel {
+    padding-left: 20px;
+  }
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
