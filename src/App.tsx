@@ -59,11 +59,12 @@ class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 className='App__carousel' data-cy = 'title'>Carousel with {frameSize} images</h1>
-        <label className="App__name" htmlFor="step">
-          Step:
+
+        <fieldset>
+          <label htmlFor="stepId">Step</label>
           <input
             className="App__input"
-            id="step"
+            id="stepId"
             type="number"
             min="1"
             max={frameSize}
@@ -72,12 +73,11 @@ class App extends React.Component<{}, State> {
               this.changeStep(+target.value);
             }}
           />
-        </label>
-        <label className="App__name" htmlFor="frameSize">
-          Frame size:
+
+          <label htmlFor="frameId">Frame size</label>
           <input
             className="App__input"
-            id="frameSize"
+            id="frameId"
             type="number"
             min="3"
             max="10"
@@ -86,12 +86,10 @@ class App extends React.Component<{}, State> {
               this.changeFrameSize(+target.value);
             }}
           />
-        </label>
-        <label className="App__name" htmlFor="itemWidth">
-          Item width:
+          <label htmlFor="itemId">Item width</label>
           <input
             className="App__input"
-            id="itemWidth"
+            id="itemId"
             type="number"
             min="130"
             max={1300 / frameSize}
@@ -101,8 +99,7 @@ class App extends React.Component<{}, State> {
               this.changeItemWidth(+target.value);
             }}
           />
-        </label>
-        <label className="App__name" htmlFor="animationDuration">
+          <label htmlFor="animationDuration">Animation duration</label>
           Animation duration:
           <input
             className="App__input"
@@ -115,7 +112,8 @@ class App extends React.Component<{}, State> {
               this.changeAnimationDuration(+target.value);
             }}
           />
-        </label>
+        </fieldset>
+
         <Carousel
           images={images}
           step={step}
