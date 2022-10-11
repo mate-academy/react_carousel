@@ -94,6 +94,7 @@ export class Carousel extends React.Component<Props, State> {
           className="button"
           type="button"
           onClick={this.buttonPrev}
+          disabled={scroll <= 0}
         >
           Prev
         </button>
@@ -102,6 +103,7 @@ export class Carousel extends React.Component<Props, State> {
           data-cy="next"
           type="button"
           onClick={this.buttonNext}
+          disabled={scroll === (images.length - frameSize) * itemWidth}
         >
           Next
         </button>
