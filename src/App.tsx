@@ -59,10 +59,11 @@ class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 className='App__carousel' data-cy = 'title'>Carousel with {frameSize} images</h1>
-        <div className="App__name">
-          <span className="App__title">Step:</span>
+        <label className="App__name" htmlFor="step">
+          Step:
           <input
             className="App__input"
+            id="step"
             type="number"
             min="1"
             max={frameSize}
@@ -71,11 +72,12 @@ class App extends React.Component<{}, State> {
               this.changeStep(+target.value);
             }}
           />
-        </div>
-        <div className="App__name">
-          <span className="App__title">Frame size:</span>
+        </label>
+        <label className="App__name" htmlFor="frameSize">
+          Frame size:
           <input
             className="App__input"
+            id="frameSize"
             type="number"
             min="3"
             max="10"
@@ -84,11 +86,12 @@ class App extends React.Component<{}, State> {
               this.changeFrameSize(+target.value);
             }}
           />
-        </div>
-        <div className="App__name">
-          <span className="App__title">Item width:</span>
+        </label>
+        <label className="App__name" htmlFor="itemWidth">
+          Item width:
           <input
             className="App__input"
+            id="itemWidth"
             type="number"
             min="130"
             max={1300 / frameSize}
@@ -98,11 +101,12 @@ class App extends React.Component<{}, State> {
               this.changeItemWidth(+target.value);
             }}
           />
-        </div>
-        <div className="App__name">
-          <span className="App__title">Animation duration:</span>
+        </label>
+        <label className="App__name" htmlFor="animationDuration">
+          Animation duration:
           <input
             className="App__input"
+            id="animationDuration"
             type="number"
             min="400"
             value={animationDuration}
@@ -111,7 +115,7 @@ class App extends React.Component<{}, State> {
               this.changeAnimationDuration(+target.value);
             }}
           />
-        </div>
+        </label>
         <Carousel
           images={images}
           step={step}
