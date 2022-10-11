@@ -57,8 +57,14 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className='App__carousel' data-cy = 'title'>Carousel with {frameSize} images</h1>
+        <h1
+          className="App__carousel"
+          data-cy="title"
+        >
+          Carousel with
+          {frameSize}
+          images
+        </h1>
 
         <fieldset>
           <label htmlFor="stepId">Step</label>
@@ -100,7 +106,6 @@ class App extends React.Component<{}, State> {
             }}
           />
           <label htmlFor="animationDuration">Animation duration</label>
-          Animation duration:
           <input
             className="App__input"
             id="animationDuration"
