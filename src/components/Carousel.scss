@@ -1,1 +1,19 @@
-// style go here
+:root {
+  --animation-duration: 1s;
+  --change: 390px;
+}
+
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+
+  &__item {
+    list-style: none;
+  }
+}
