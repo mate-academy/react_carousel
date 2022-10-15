@@ -20,22 +20,58 @@ class Carousel extends React.Component<Props, State> {
   };
 
   render() {
-    const { images, frameSize } = this.props;
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.props;
+
+    const prevButtonDisable = !infinite && this.state.position === 0;
+    const nextButtonDisable = !infinite && this.state.position
+      === -(images.length - frameSize);
+
+    const prevButtonHandler = () => {
+      this.setState((state, props) => {
+        return props.infinite && state.position === 0
+          ? {
+            position: -(images.length - props.frameSize),
+          }
+          : {
+            position: Math.min((state.position + props.step), (0)),
+          };
+      });
+    };
+
+    const nextButtonHandler = () => {
+      this.setState((state, props) => {
+        return props.infinite && state.position
+        === -(images.length - props.frameSize)
+          ? { position: 0 }
+          : {
+            position: Math.max(
+              (state.position - props.step),
+              -(images.length - props.frameSize),
+            ),
+          };
+      });
+    };
 
     return (
       <div className="Carousel-container">
         <div
           className="Carousel"
           style={{
-            width: `${this.props.itemWidth * frameSize}px`,
+            width: `${itemWidth * frameSize}px`,
             overflow: 'hidden',
           }}
         >
           <ul
             className="Carousel__list"
             style={{
-              transform: `translateX(${this.state.position * this.props.itemWidth}px)`,
-              transition: `transform ${this.props.animationDuration}ms`,
+              transform: `translateX(${this.state.position * itemWidth}px)`,
+              transition: `transform ${animationDuration}ms`,
             }}
           >
             {images.map((image, index) => {
@@ -44,54 +80,28 @@ class Carousel extends React.Component<Props, State> {
                   <img
                     src={image}
                     alt={String(index)}
-                    width={this.props.itemWidth}
+                    width={itemWidth}
                   />
                 </li>
               );
             })}
           </ul>
-
         </div>
         <button
           className="button-prew button"
-          disabled={!this.props.infinite && this.state.position === 0}
+          disabled={prevButtonDisable}
           type="button"
-          onClick={() => {
-            this.setState((state, props) => {
-              return props.infinite && state.position === 0
-                ? {
-                  position: -(this.props.images.length - props.frameSize),
-                }
-                : {
-                  position: Math.min((state.position + props.step), (0)),
-                };
-            });
-          }}
+          onClick={prevButtonHandler}
         >
           ⏪
         </button>
 
         <button
           className="button-next button"
-          disabled={
-            !this.props.infinite && this.state.position
-            === -(this.props.images.length - this.props.frameSize)
-          }
+          disabled={nextButtonDisable}
           data-cy="next"
           type="button"
-          onClick={() => {
-            this.setState((state, props) => {
-              return props.infinite && state.position
-              === -(this.props.images.length - props.frameSize)
-                ? { position: 0 }
-                : {
-                  position: Math.max(
-                    (state.position - props.step),
-                    -(this.props.images.length - props.frameSize),
-                  ),
-                };
-            });
-          }}
+          onClick={nextButtonHandler}
         >
           ⏩
         </button>
