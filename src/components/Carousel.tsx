@@ -36,23 +36,10 @@ export class Carousel extends Component<Props, State> {
       animationDuration,
     } = this.props;
 
-    const keyPoints: number[] = [];
-    const fullLength = itemWidth * images.length;
-    const stepLength = itemWidth * step;
-    const windowSize = itemWidth * frameSize;
-    const stopLength = fullLength - windowSize;
-    const currentPosition = 0;
-
-    for (let i = currentPosition; i < fullLength; i += stepLength) {
-      if (i > stopLength) {
-        keyPoints.push(stopLength - stopLength * 2);
-        break;
-      }
-
-      keyPoints.push(i - i * 2);
-    }
-
-    this.setState({ allPositions: keyPoints });
+    const keyPoints = this.calculateCheckPoints(images,
+      step,
+      frameSize,
+      itemWidth);
 
     let pointIndex = 0;
 
@@ -70,9 +57,47 @@ export class Carousel extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate() {
-    if (this.state.infinity) {
+  componentDidUpdate(prevProps: Props) {
+    const {
+      infinity,
+    } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.props;
+
+    if (infinity) {
       window.clearInterval(this.carousel);
+    }
+
+    if (prevProps.itemWidth !== this.props.itemWidth
+      || prevProps.step !== this.props.step
+      || prevProps.frameSize !== this.props.frameSize
+      || prevProps.animationDuration !== this.props.animationDuration) {
+      const keyPoints = this.calculateCheckPoints(images,
+        step,
+        frameSize,
+        itemWidth);
+      let pointIndex = 0;
+
+      this.setState({ allPositions: keyPoints });
+
+      if (!infinity) {
+        window.clearInterval(this.carousel);
+        this.carousel = window.setInterval(() => {
+          this.setState({ currentPosition: keyPoints[pointIndex] });
+          if (pointIndex !== keyPoints.length - 1) {
+            pointIndex += 1;
+          } else {
+            pointIndex = 0;
+          }
+
+          this.setState({ currentIndex: pointIndex });
+        }, animationDuration);
+      }
     }
   }
 
@@ -123,6 +148,68 @@ export class Carousel extends Component<Props, State> {
     });
   };
 
+  clickAuto = () => {
+    const {
+      allPositions,
+      currentIndex,
+      infinity,
+    } = this.state;
+    const { animationDuration } = this.props;
+
+    if (infinity) {
+      this.setState({ infinity: false });
+
+      const keyPoints = allPositions;
+      let pointIndex = currentIndex;
+
+      this.carousel = window.setInterval(() => {
+        this.setState({ currentPosition: keyPoints[pointIndex] });
+        if (pointIndex !== keyPoints.length - 1) {
+          pointIndex += 1;
+        } else {
+          pointIndex = 0;
+        }
+
+        this.setState({ currentIndex: pointIndex });
+      }, animationDuration);
+    }
+  };
+
+  clickStop = () => {
+    const {
+      infinity,
+    } = this.state;
+
+    if (!infinity) {
+      this.setState({ infinity: true });
+    }
+  };
+
+  calculateCheckPoints(images: string[],
+    step: number,
+    frameSize: number,
+    itemWidth: number) {
+    const keyPoints: number[] = [];
+    const fullLength = itemWidth * images.length;
+    const stepLength = itemWidth * step;
+    const windowSize = itemWidth * frameSize;
+    const stopLength = fullLength - windowSize;
+    const currentPosition = 0;
+
+    for (let i = currentPosition; i < fullLength; i += stepLength) {
+      if (i > stopLength) {
+        keyPoints.push(stopLength - stopLength * 2);
+        break;
+      }
+
+      keyPoints.push(i - i * 2);
+    }
+
+    this.setState({ allPositions: keyPoints });
+
+    return keyPoints;
+  }
+
   render() {
     const {
       images,
@@ -165,19 +252,42 @@ export class Carousel extends Component<Props, State> {
           ))}
         </ul>
 
-        <button
-          type="button"
-          onClick={this.clickPrev}
-        >
-          Prev
-        </button>
-        <button
-          data-cy="next"
-          type="button"
-          onClick={this.clickNext}
-        >
-          next
-        </button>
+        <div className="Carousel__buttons-box navigation">
+          <button
+            type="button"
+            className="navigation__button button-56"
+            onClick={this.clickPrev}
+          >
+            PREV
+          </button>
+
+          <button
+            data-cy="next"
+            type="button"
+            className="navigation__button button-56"
+            onClick={this.clickAuto}
+          >
+            AUTO
+          </button>
+
+          <button
+            data-cy="next"
+            type="button"
+            className="navigation__button button-56"
+            onClick={this.clickStop}
+          >
+            STOP
+          </button>
+
+          <button
+            data-cy="next"
+            type="button"
+            className="navigation__button button-56"
+            onClick={this.clickNext}
+          >
+            NEXT
+          </button>
+        </div>
       </div>
     );
   }

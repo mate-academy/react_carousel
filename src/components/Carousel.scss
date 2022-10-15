@@ -1,8 +1,3 @@
-:root {
-  --animation-duration: 1s;
-  --change: 390px;
-}
-
 .Carousel {
   overflow: hidden;
 
@@ -12,8 +7,75 @@
     display: flex;
   }
 
-
   &__item {
     list-style: none;
+  }
+}
+
+.navigation {
+  margin: 20px 0;
+  display: flex;
+  padding: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  height: fit-content;
+
+  &__button {
+    font-size: 16px;
+    background-color: white;
+  }
+}
+
+/* CSS */
+.button-56 {
+  align-items: center;
+  background-color: white;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  height: 28px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 12px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  &:after {
+    background-color: #111;
+    border-radius: 8px;
+    content: "";
+    display: block;
+    height: 28px;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    transform: translate(4px, 4px);
+    transition: transform 0.2s ease-out;
+    z-index: -1;
+  }
+
+  &:hover:after {
+    transform: translate(0, 0);
+  }
+
+  &:active {
+    background-color: #ffdeda;
+    outline: 0;
+  }
+
+  &:hover {
+    outline: 0;
   }
 }
