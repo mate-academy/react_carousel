@@ -1,0 +1,67 @@
+%arrow {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #5d4a4a;
+}
+
+.Carousel {
+  width: 1300px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+
+  &__list {
+    display: flex;
+    width: 260px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  &__buttonLeft {
+    &::before {
+      transform: translateX(5px) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(-23px, 14px) rotate(45deg);
+    }
+  }
+
+  &__buttonRight {
+    &::before {
+      transform: translateX(3px) rotate(45deg);
+    }
+
+    &::after {
+      transform: translate(-25px, 14px) rotate(-45deg);
+    }
+  }
+
+  &__buttonLeft,
+  &__buttonRight {
+    position: relative;
+    top: 50%;
+    background-color: #fff;
+    color: transparent;
+    transition: opacity 0.5s;
+    border-radius: 25%;
+    border-width: 1px;
+    height: 50px;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &::before {
+      @extend %arrow;
+    }
+
+    &::after {
+      @extend %arrow;
+    }
+  }
+}
