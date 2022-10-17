@@ -101,6 +101,10 @@ export class Carousel extends Component<Props, State> {
     }
   }
 
+  componentWillUnmount() {
+    window.clearInterval(this.carousel);
+  }
+
   clickNext = () => {
     const {
       allPositions,
