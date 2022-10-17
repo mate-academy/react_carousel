@@ -1,1 +1,49 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.parameters-of-carousel {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  
+  width: max-content;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
+  &__container {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__input {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__isInfinite {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+
+    &__input {
+      width: 70px;
+    }
+  }
+}
