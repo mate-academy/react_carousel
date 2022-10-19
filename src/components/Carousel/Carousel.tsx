@@ -19,42 +19,34 @@ export class Carousel extends React.Component<Props, State> {
     shiftWidth: 0,
   };
 
-  getMaxWidth = () => {
-    return this.props.itemWidth * this.props.images.length;
-  };
+  getMaxWidth = () => this.props.itemWidth * this.props.images.length;
 
-  getFrameWidth = () => {
-    return this.props.itemWidth * this.props.frameSize;
-  };
+  getFrameWidth = () => this.props.itemWidth * this.props.frameSize;
 
-  getStepWidth = () => {
-    return this.props.itemWidth * this.props.step;
-  };
+  getStepWidth = () => this.props.itemWidth * this.props.step;
 
-  isGetMaxLength = () => {
-    return this.state.shiftWidth + this.getFrameWidth();
-  };
+  isGetMaxLength = () => this.state.shiftWidth + this.getFrameWidth();
 
   mooveRight = () => {
-    return (
-      ((this.isGetMaxLength() + this.getStepWidth()) > this.getMaxWidth())
-        ? this.setState({
-          shiftWidth: this.getMaxWidth() - this.getFrameWidth(),
-        })
-        : this.setState(prevState => ({
-          shiftWidth: prevState.shiftWidth + this.getStepWidth(),
-        }))
-    );
+    if ((this.isGetMaxLength() + this.getStepWidth()) > this.getMaxWidth()) {
+      this.setState({
+        shiftWidth: this.getMaxWidth() - this.getFrameWidth(),
+      });
+    } else {
+      this.setState(prevState => ({
+        shiftWidth: prevState.shiftWidth + this.getStepWidth(),
+      }));
+    }
   };
 
   mooveLeft = () => {
-    return (
-      ((this.state.shiftWidth - this.getStepWidth()) < 0)
-        ? this.setState({ shiftWidth: 0 })
-        : this.setState(prevState => ({
-          shiftWidth: prevState.shiftWidth - this.getStepWidth(),
-        }))
-    );
+    if ((this.state.shiftWidth - this.getStepWidth()) < 0) {
+      this.setState({ shiftWidth: 0 });
+    } else {
+      this.setState(prevState => ({
+        shiftWidth: prevState.shiftWidth - this.getStepWidth(),
+      }));
+    }
   };
 
   render() {

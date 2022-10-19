@@ -6,7 +6,7 @@ type Props = {
 };
 
 export class Image extends React.Component<Props, {}> {
-  alt = parseInt(this.props.image, 10);
+  alt = this.props.image.replace(/[^0-9]/g, '');
 
   render() {
     const { image, itemWidth } = this.props;
@@ -14,7 +14,7 @@ export class Image extends React.Component<Props, {}> {
     return (
       <img
         src={image}
-        style={{ width: itemWidth }}
+        style={{ width: `${itemWidth}px` }}
         alt={`${this.alt}`}
       />
     );

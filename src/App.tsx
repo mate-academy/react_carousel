@@ -30,17 +30,14 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleChange = (property: string, value: number) => {
-    switch (property) {
-      case 'step':
-        return this.setState({ step: value });
-      case 'frameSize':
-        return this.setState({ frameSize: value });
-      case 'itemWidth':
-        return this.setState({ itemWidth: value });
-      default:
-        return this.setState({ animationDuration: value });
-    }
+  handleChange = (target: EventTarget & HTMLInputElement) => {
+    const { name, value } = target;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: value,
+
+    }));
   };
 
   render() {
@@ -71,9 +68,10 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="step"
+              min={1}
               value={step}
               onChange={(event) => {
-                this.handleChange(event.target.name, +event.target.value);
+                this.handleChange(event.target);
               }}
             />
             <span> - step</span>
@@ -83,9 +81,10 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="frameSize"
+              min={1}
               value={frameSize}
               onChange={(event) => {
-                this.handleChange(event.target.name, +event.target.value);
+                this.handleChange(event.target);
               }}
             />
             <span> - frameSize</span>
@@ -95,21 +94,23 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="itemWidth"
+              min={1}
               value={itemWidth}
               onChange={(event) => {
-                this.handleChange(event.target.name, +event.target.value);
+                this.handleChange(event.target);
               }}
             />
             <span> - itemWidth</span>
           </label>
 
-          <label htmlFor="">
+          <label>
             <input
               type="number"
               name="animationDuration"
+              min={0}
               value={animationDuration}
               onChange={(event) => {
-                this.handleChange(event.target.name, +event.target.value);
+                this.handleChange(event.target);
               }}
             />
             <span> - animationDuration</span>
