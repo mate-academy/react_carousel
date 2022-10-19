@@ -30,6 +30,7 @@ h1 {
   &__input {
     display: flex;
     gap: 5px;
+    width: 150px;
   }
 
   &__isInfinite {
@@ -41,9 +42,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     gap: 5px;
+  }
 
-    &__input {
-      width: 70px;
-    }
+  &__radio {
+    display: flex;
+    gap: 5px;
   }
 }

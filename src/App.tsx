@@ -54,11 +54,11 @@ class App extends React.Component<{}, State> {
               className="parameters-of-carousel__input"
               name="itemWidth"
               type="number"
+              min={50}
+              max={300}
               value={itemWidth}
               onChange={(event) => {
-                if (+event.target.value >= 50 && +event.target.value < 300) {
-                  this.setState({ itemWidth: +event.target.value });
-                }
+                this.setState({ itemWidth: +event.target.value });
               }}
             />
           </label>
@@ -69,14 +69,11 @@ class App extends React.Component<{}, State> {
               className="parameters-of-carousel__input"
               name="frameSize"
               type="number"
+              min={1}
+              max={images.length}
               value={frameSize}
               onChange={(event) => {
-                if (
-                  +event.target.value >= 1
-                    && +event.target.value <= images.length
-                ) {
-                  this.setState({ frameSize: +event.target.value });
-                }
+                this.setState({ frameSize: +event.target.value });
               }}
             />
           </label>
@@ -87,14 +84,11 @@ class App extends React.Component<{}, State> {
               className="parameters-of-carousel__input"
               name="step"
               type="number"
+              min={1}
+              max={images.length}
               value={step}
               onChange={(event) => {
-                if (
-                  +event.target.value >= 1
-                    && +event.target.value <= images.length
-                ) {
-                  this.setState({ step: +event.target.value });
-                }
+                this.setState({ step: +event.target.value });
               }}
             />
           </label>
@@ -105,6 +99,8 @@ class App extends React.Component<{}, State> {
               className="parameters-of-carousel__input"
               name="animationDuration"
               type="number"
+              min={250}
+              max={3000}
               value={animationDuration}
               onChange={(event) => {
                 this.setState({ animationDuration: +event.target.value });
@@ -115,7 +111,7 @@ class App extends React.Component<{}, State> {
           <div className="parameters-of-carousel__isInfinite">
             Is carousel infinite:
             <div className="parameters-of-carousel__container">
-              <div className="parameters-of-carousel__input">
+              <div className="parameters-of-carousel__radio">
                 <input
                   name="infinite"
                   type="radio"
@@ -127,7 +123,7 @@ class App extends React.Component<{}, State> {
                 Yes
               </div>
 
-              <div className="parameters-of-carousel__input">
+              <div className="parameters-of-carousel__radio">
                 <input
                   name="infinite"
                   type="radio"
