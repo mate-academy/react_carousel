@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.scss';
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
 import { Carousel } from './components/Carousel';
 
 type State = {
-  images: string[],
+  images: { imgPath: string, id: string }[],
   step: number,
   frameSize: number,
   itemWidth: number,
@@ -14,16 +16,46 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
+      {
+        imgPath: './img/1.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/2.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/3.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/4.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/5.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/6.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/7.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/8.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/9.png',
+        id: uuid(),
+      },
+      {
+        imgPath: './img/10.png',
+        id: uuid(),
+      },
     ],
     itemWidth: 130,
     frameSize: 3,

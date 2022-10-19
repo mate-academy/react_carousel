@@ -2,7 +2,7 @@ import React from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[],
+  images: { imgPath: string, id: string }[],
   step: number,
   frameSize: number,
   itemWidth: number,
@@ -102,15 +102,14 @@ export class Carousel extends React.Component<Props, State> {
               <>
                 <li
                   className="Carousel__item"
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
+                  key={image.id}
                   style={{
-                    transform: `translate(-${scroll}px)`,
                     transition: `${animationDuration}ms`,
+                    transform: `translate(-${scroll}px)`,
                   }}
                 >
                   <img
-                    src={image}
+                    src={image.imgPath}
                     alt={`${index}`}
                     style={{ width: `${itemWidth}px` }}
                   />
