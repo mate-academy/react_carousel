@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.scss';
-import 'react-native-get-random-values';
-import { v4 as uuid } from 'uuid';
 import { Carousel } from './components/Carousel';
 
 type State = {
@@ -13,48 +11,52 @@ type State = {
   infinite: boolean,
 };
 
+function randomId() {
+  return String(Math.floor(Math.random() * 1000));
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
       {
         imgPath: './img/1.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/2.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/3.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/4.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/5.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/6.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/7.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/8.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/9.png',
-        id: uuid(),
+        id: randomId(),
       },
       {
         imgPath: './img/10.png',
-        id: uuid(),
+        id: randomId(),
       },
     ],
     itemWidth: 130,
@@ -65,21 +67,21 @@ class App extends React.Component<{}, State> {
   };
 
   handlerOfInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const currenValue = +(event.currentTarget.value);
+    const currentValue = +(event.currentTarget.value);
     const { id } = event.currentTarget;
 
     switch (id) {
       case 'step':
-        this.setState({ step: currenValue });
+        this.setState({ step: currentValue });
         break;
       case 'itemWidth':
-        this.setState({ itemWidth: currenValue });
+        this.setState({ itemWidth: currentValue });
         break;
       case 'frameSize':
-        this.setState({ frameSize: currenValue });
+        this.setState({ frameSize: currentValue });
         break;
       case 'animationDuration':
-        this.setState({ animationDuration: currenValue });
+        this.setState({ animationDuration: currentValue });
         break;
       case 'infinite':
         this.setState(prevState => ({ infinite: !prevState.infinite }));
