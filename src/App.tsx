@@ -1,39 +1,37 @@
-import React from 'react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import './App.scss';
-import Carousel from './components/Carousel';
+import { useState } from 'react';
+import { Carousel } from './components/Carousel';
+import { carouselLengthSelector } from './utils/carouselLengthSelector';
 
-interface State {
-  images: string[];
-}
+export const App = () => {
+  const [carouselLength, setCarouselLength] = useState(3);
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+  return (
+    <div className="App">
+      <Carousel carouselLength={carouselLength} />
 
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+      <div className="select">
+        <h4 className="select__title">Chose length of carousel:</h4>
+        <select
+          value={carouselLength}
+          defaultValue={3}
+          onChange={(event) => {
+            setCarouselLength(+event.target.value);
+          }}
+        >
+          {carouselLengthSelector.map(selector => (
+            <option
+              value={selector.number}
+              key={selector.id}
+            >
+              {selector.number}
+            </option>
+          ))}
+        </select>
       </div>
-    );
-  }
-}
-
-export default App;
+    </div>
+  );
+};

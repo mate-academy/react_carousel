@@ -1,1 +1,32 @@
-// style go here
+.carousel {
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}
+
+.button {
+  height: 30px;
+}
+
+.select {
+  margin-top: 40px;
+  padding: 10px;
+  &__title {
+    display: inline-block;
+    margin: 0 5px 0 0;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
