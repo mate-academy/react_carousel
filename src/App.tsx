@@ -63,7 +63,7 @@ const App: FC = () => {
             name="step"
             value={`${step}`}
             min="1"
-            max={`${images.length}`}
+            max={`${images.length - 1}`}
             step="1"
             onChange={(e) => setStep(Number(e.currentTarget.value))}
           />
