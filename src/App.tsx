@@ -36,7 +36,6 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({
       ...prevState,
       [name]: value,
-
     }));
   };
 

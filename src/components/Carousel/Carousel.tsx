@@ -27,7 +27,7 @@ export class Carousel extends React.Component<Props, State> {
 
   isGetMaxLength = () => this.state.shiftWidth + this.getFrameWidth();
 
-  mooveRight = () => {
+  moveRight = () => {
     if ((this.isGetMaxLength() + this.getStepWidth()) > this.getMaxWidth()) {
       this.setState({
         shiftWidth: this.getMaxWidth() - this.getFrameWidth(),
@@ -39,7 +39,7 @@ export class Carousel extends React.Component<Props, State> {
     }
   };
 
-  mooveLeft = () => {
+  moveLeft = () => {
     if ((this.state.shiftWidth - this.getStepWidth()) < 0) {
       this.setState({ shiftWidth: 0 });
     } else {
@@ -61,7 +61,7 @@ export class Carousel extends React.Component<Props, State> {
         <button
           className="Carousel__buttonLeft"
           type="button"
-          onClick={this.mooveLeft}
+          onClick={this.moveLeft}
           disabled={this.state.shiftWidth === 0}
         >
           Prev
@@ -85,7 +85,7 @@ export class Carousel extends React.Component<Props, State> {
         <button
           className="Carousel__buttonRight"
           type="button"
-          onClick={this.mooveRight}
+          onClick={this.moveRight}
           disabled={this.isGetMaxLength() === this.getMaxWidth()}
         >
           Next
