@@ -1,7 +1,7 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC<{
+interface Props {
   images: string[]
   step: string
   itemWidth: string
@@ -9,7 +9,8 @@ const Carousel: React.FC<{
   scroll: number
   scrollFn: (arg: number) => void
   animationDuration: string
-}> = ({
+}
+const Carousel: React.FC<Props> = ({
   images,
   step,
   itemWidth,
@@ -18,6 +19,10 @@ const Carousel: React.FC<{
   scrollFn,
   animationDuration,
 }) => {
+  const disabledPrev = (scroll) * -1 * +itemWidth <= 0;
+  const disabledNext = images.length
+  * +itemWidth <= (scroll - +frameSize) * -1 * +itemWidth;
+
   return (
     <div className="Carousel">
       <div
@@ -55,17 +60,14 @@ const Carousel: React.FC<{
         onClick={() => {
           scrollFn(scroll + +step);
         }}
-        disabled={(scroll) * -1 * +itemWidth <= 0}
+        disabled={disabledPrev}
       >
         Prev
       </button>
       <button
         type="button"
-        onClick={() => {
-          scrollFn(scroll - +step);
-        }}
-        disabled={images.length
-          * +itemWidth <= (scroll - +frameSize) * -1 * +itemWidth}
+        onClick={() => scrollFn(scroll - +step)}
+        disabled={disabledNext}
       >
         Next
       </button>

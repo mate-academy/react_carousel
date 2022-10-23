@@ -8,7 +8,6 @@ interface State {
   itemWidth: string
   frameSize: string
   animationDuration: string
-  infinite: boolean
   scrollFn: (arg: number) => void
   scroll: number
 }
@@ -20,7 +19,6 @@ class App extends React.Component<{}, State> {
     itemWidth: string
     frameSize: string
     animationDuration: string
-    infinite: boolean
     scroll: number
     scrollFn: (arg: number) => void
   }> = {
@@ -40,7 +38,6 @@ class App extends React.Component<{}, State> {
     frameSize: '3',
     itemWidth: '130',
     animationDuration: '1000',
-    infinite: false,
     scroll: 0,
     scrollFn: this.scrollFn.bind(this),
   };
@@ -56,7 +53,6 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
       scroll,
       scrollFn,
     } = this.state;
@@ -135,25 +131,6 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="carousel__nav__item" htmlFor="inite">
-            inite
-            <input
-              id="inite"
-              type="checkbox"
-              className="carousel__input"
-              checked={infinite}
-              onChange={(e) => {
-                // eslint-disable-next-line no-console
-                console.log(e.target.checked);
-
-                if (e.target.checked) {
-                  this.setState({ infinite: true });
-                } else {
-                  this.setState({ infinite: false });
-                }
-              }}
-            />
-          </label>
         </form>
 
         <Carousel
