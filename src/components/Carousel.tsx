@@ -107,6 +107,7 @@ export class Carousel extends Component<Props, State> {
             className="Button"
             type="button"
             onClick={handleNextClick}
+            data-cy="next"
           >
             {'>'}
           </button>
