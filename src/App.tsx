@@ -53,6 +53,7 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="itemWidth"
+              id="width"
               min={130}
               max={360}
               value={itemWidth}
@@ -67,6 +68,7 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="frameSize"
+              id="frameSize"
               min={1}
               max={10}
               value={frameSize}
@@ -81,6 +83,7 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="step"
+              id="step"
               min={1}
               max={10}
               value={step}
@@ -95,6 +98,7 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="animationDuration"
+              id="duration"
               min={100}
               max={2000}
               value={animationDuration}

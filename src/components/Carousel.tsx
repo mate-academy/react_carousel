@@ -68,6 +68,7 @@ class Carousel extends React.PureComponent<Props, State> {
       >
         <ul
           className="Carousel__list"
+          id="Carousel__list"
           style={{
             transform: `translateX(${movement}px)`,
             transition: `transform ${animationDuration}ms`,
@@ -96,6 +97,7 @@ class Carousel extends React.PureComponent<Props, State> {
         <button
           className="Carousel__button"
           type="button"
+          data-cy="next"
           onClick={this.moveNext}
         >
           Next
