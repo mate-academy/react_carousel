@@ -90,7 +90,7 @@ export class Carousel extends Component<Props, State> {
                 <li key={image}>
                   <img
                     src={image}
-                    alt={`${index + 1}`}
+                    alt={`emoji${index + 1}`}
                     style={
                       {
                         width: `${itemWidth}px`,
@@ -113,73 +113,88 @@ export class Carousel extends Component<Props, State> {
           </button>
         </div>
 
-        <label className="Carousel__label">
+        <label className="Carousel__label" htmlFor="width">
           Set width of items:
-          <input
-            type="range"
-            value={itemWidth}
-            min={90}
-            max={170}
-            onChange={(event) => {
-              this.setState({ itemWidth: Number(event.currentTarget.value) });
-            }}
-          />
         </label>
 
-        <label className="Carousel__label">
+        <input
+          className="Carousel__input"
+          id="width"
+          type="range"
+          value={itemWidth}
+          min={90}
+          max={170}
+          onChange={(event) => {
+            this.setState({ itemWidth: Number(event.currentTarget.value) });
+          }}
+        />
+
+        <label className="Carousel__label" htmlFor="amount">
           Set amount of items:
-          <input
-            type="number"
-            value={frameSize}
-            min={1}
-            max={10}
-            onChange={(event) => {
-              this.setState({ frameSize: Number(event.currentTarget.value) });
-            }}
-          />
         </label>
 
-        <label className="Carousel__label">
+        <input
+          id="amount"
+          className="Carousel__input"
+          type="number"
+          value={frameSize}
+          min={1}
+          max={10}
+          onChange={(event) => {
+            this.setState({ frameSize: Number(event.currentTarget.value) });
+          }}
+        />
+
+        <label className="Carousel__label" htmlFor="step">
           Set step:
-          <input
-            type="number"
-            value={step}
-            min={1}
-            max={10}
-            onChange={(event) => {
-              this.setState({ step: Number(event.currentTarget.value) });
-            }}
-          />
         </label>
 
-        <label className="Carousel__label">
+        <input
+          id="step"
+          className="Carousel__input"
+          type="number"
+          value={step}
+          min={1}
+          max={10}
+          onChange={(event) => {
+            this.setState({ step: Number(event.currentTarget.value) });
+          }}
+        />
+
+        <label className="Carousel__label" htmlFor="animation">
           Set duration of animation:
-          <input
-            type="range"
-            value={animationDuration}
-            min={0}
-            max={5}
-            step={0.1}
-            onChange={(event) => {
-              this.setState({
-                animationDuration: Number(event.currentTarget.value),
-              });
-            }}
-          />
         </label>
 
-        <label className="Carousel__label">
+        <input
+          id="animation"
+          className="Carousel__input"
+          type="range"
+          value={animationDuration}
+          min={0}
+          max={5}
+          step={0.1}
+          onChange={(event) => {
+            this.setState({
+              animationDuration: Number(event.currentTarget.value),
+            });
+          }}
+        />
+
+        <label className="Carousel__label" htmlFor="infinite">
           Infinite:
-          <input
-            type="checkbox"
-            checked={infinite}
-            onChange={() => {
-              this.setState({
-                infinite: !infinite,
-              });
-            }}
-          />
         </label>
+
+        <input
+          id="infinite"
+          className="Carousel__input"
+          type="checkbox"
+          checked={infinite}
+          onChange={() => {
+            this.setState({
+              infinite: !infinite,
+            });
+          }}
+        />
       </div>
     );
   }
