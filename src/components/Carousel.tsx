@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import { images } from '../utils/images';
 import { carouselLengthSelector } from '../utils/carouselLengthSelector';
@@ -9,23 +9,7 @@ export const Carousel: React.FC = () => {
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDurarion, setAnimationDurarion] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
-
-  function increaseWidth(value: number, fn: (par: number) => void) {
-    let plus = value;
-
-    plus += 1;
-
-    fn(plus);
-  }
-
-  function decreaseWidth(value: number, fn: (par: number) => void) {
-    let plus = value;
-
-    plus -= 1;
-
-    fn(plus);
-  }
+  const [isInfinite, setInfinite] = useState(false);
 
   const next = () => {
     if (sliderRef.current) {
@@ -39,15 +23,17 @@ export const Carousel: React.FC = () => {
     }
   };
 
-  const settings = {
-    className: 'carousel',
-    dots: true,
-    infinite,
-    speed: animationDurarion,
-    slidesToShow: frameSize,
-    slidesToScroll: step,
-    arrows: false,
-  };
+  const settings = useMemo(() => {
+    return {
+      className: 'carousel',
+      dots: true,
+      infinite: isInfinite,
+      speed: animationDurarion,
+      slidesToShow: frameSize,
+      slidesToScroll: step,
+      arrows: false,
+    };
+  }, [isInfinite, animationDurarion, frameSize, step]);
 
   return (
     <>
@@ -94,7 +80,7 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            decreaseWidth(itemWidth, setItemWidth);
+            setItemWidth(itemWidth - 1);
           }}
         >
           -
@@ -103,14 +89,14 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            increaseWidth(itemWidth, setItemWidth);
+            setItemWidth(itemWidth + 1);
           }}
         >
           +
         </button>
         <br />
         <br />
-        <h4 className="select__title">Chose frame size:</h4>
+        <h4 className="select__title">Choose frame size:</h4>
         <select
           value={frameSize}
           defaultValue={3}
@@ -152,7 +138,7 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            decreaseWidth(animationDurarion, setAnimationDurarion);
+            setAnimationDurarion(animationDurarion - 1);
           }}
         >
           -
@@ -161,7 +147,7 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            increaseWidth(animationDurarion, setAnimationDurarion);
+            setAnimationDurarion(animationDurarion + 1);
           }}
         >
           +
@@ -171,9 +157,9 @@ export const Carousel: React.FC = () => {
         <input
           type="checkbox"
           id="1"
-          checked={infinite}
+          checked={isInfinite}
           onClick={() => {
-            setInfinite(!infinite);
+            setInfinite(!isInfinite);
           }}
         />
         <label htmlFor="1">Infinite</label>
