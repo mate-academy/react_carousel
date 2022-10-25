@@ -3,12 +3,12 @@ import './Carousel.scss';
 
 interface Props {
   images: string[]
-  step: string
-  itemWidth: string
-  frameSize: string
+  step: number
+  itemWidth: number
+  frameSize: number
   scroll: number
   scrollFn: (arg: number) => void
-  animationDuration: string
+  animationDuration: number
 }
 const Carousel: React.FC<Props> = ({
   images,
@@ -19,9 +19,9 @@ const Carousel: React.FC<Props> = ({
   scrollFn,
   animationDuration,
 }) => {
-  const disabledPrev = (scroll) * -1 * +itemWidth <= 0;
-  const disabledNext = images.length
-  * +itemWidth <= (scroll - +frameSize) * -1 * +itemWidth;
+  const rowWidth = images.length * +itemWidth;
+  const disabledPrev = (scroll * -1 * itemWidth) <= 0;
+  const disabledNext = rowWidth <= (scroll - frameSize) * -1 * +itemWidth;
 
   return (
     <div className="Carousel">
@@ -38,12 +38,12 @@ const Carousel: React.FC<Props> = ({
             transition: `${animationDuration}ms`,
           }}
         >
-          {images.map((img) => {
+          {images.map((imgPath, i) => {
             return (
-              <li key={img}>
+              <li key={imgPath}>
                 <img
-                  src={img}
-                  alt="1"
+                  src={imgPath}
+                  alt={`${i}`}
                   style={{
                     width: `${itemWidth}px`,
                   }}

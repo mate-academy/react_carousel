@@ -135,12 +135,12 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          step={step}
-          itemWidth={itemWidth}
-          frameSize={frameSize}
+          step={+step}
+          itemWidth={+itemWidth}
+          frameSize={+frameSize}
           scroll={scroll}
           scrollFn={scrollFn}
-          animationDuration={animationDuration}
+          animationDuration={+animationDuration}
         />
       </div>
     );
