@@ -1,18 +1,78 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[]
+  step: number
+  itemWidth: number
+  frameSize: number
+  scroll: number
+  scrollFn: (arg: number) => void
+  animationDuration: number
+}
+const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  itemWidth,
+  frameSize,
+  scroll,
+  scrollFn,
+  animationDuration,
+}) => {
+  const rowWidth = images.length * +itemWidth;
+  const disabledPrev = (scroll * -1 * itemWidth) <= 0;
+  const disabledNext = rowWidth <= (scroll - frameSize) * -1 * +itemWidth;
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  return (
+    <div className="Carousel">
+      <div
+        className="slider"
+        style={{
+          width: `${+frameSize * +itemWidth}px`,
+        }}
+      >
+        <div
+          className="slider__rov"
+          style={{
+            transform: `translateX(${scroll * +itemWidth}px)`,
+            transition: `${animationDuration}ms`,
+          }}
+        >
+          {images.map((imgPath, i) => {
+            return (
+              <li key={imgPath}>
+                <img
+                  src={imgPath}
+                  alt={`${i}`}
+                  style={{
+                    width: `${itemWidth}px`,
+                  }}
+                  className="carousel__img"
+                />
+              </li>
+            );
+          })}
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          scrollFn(scroll + +step);
+        }}
+        disabled={disabledPrev}
+      >
+        Prev
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollFn(scroll - +step)}
+        disabled={disabledNext}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;

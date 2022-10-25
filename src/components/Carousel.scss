@@ -1,1 +1,7 @@
-// style go here
+.slider {
+  margin: 0 auto;
+  overflow: hidden;
+  &__rov {
+    display: flex;
+  }
+}
