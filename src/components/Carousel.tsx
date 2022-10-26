@@ -111,7 +111,7 @@ export class Carousel extends React.Component<Props, State> {
           >
             <div />
           </button>
-          
+
           <button
             type="button"
             className="Carousel__button Carousel__button--next"
