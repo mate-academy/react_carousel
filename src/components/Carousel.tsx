@@ -16,7 +16,7 @@ type State = {
 };
 
 export class Carousel extends React.Component<Props, State> {
-  state = {
+  state: State = {
     scroll: 0,
     hiddenImages: this.props.images.length - this.props.frameSize,
   };
@@ -86,16 +86,16 @@ export class Carousel extends React.Component<Props, State> {
 
     return (
       <div className="Carousel">
-        <ul className="Carousel__list" style={{ width: `${frameSize * itemWidth} px` }}>
+        <ul className="Carousel__list" style={{ width: `${frameSize * itemWidth}px` }}>
           {images.map((image, index) => {
             return (
               <>
                 <li
                   className="Carousel__item"
                   key={String(index + 1)}
-                  style={{ transform: `translateX(-${scroll} px)`, transition: `${animationDuration} ms` }}
+                  style={{ transform: `translateX(-${scroll}px)`, transition: `${animationDuration}ms` }}
                 >
-                  <img src={image} alt={String(index + 1)} style={{ width: `${itemWidth} px` }} />
+                  <img src={image} alt={String(index + 1)} style={{ width: `${itemWidth}px` }} />
                 </li>
               </>
             );
