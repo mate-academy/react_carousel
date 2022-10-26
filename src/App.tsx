@@ -76,40 +76,40 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title" className="App__title">Carousel with {images.length} images</h1>
 
         <form className="App__form">
-          <label htmlFor="itemWidth" className="App__label">
+          <label htmlFor="itemId" className="App__label">
             <span className="App__inputName">Item Width:</span>
             <input
               type="number"
-              id="itemWidth"
+              id="itemId"
               className="App__input"
               min="100"
               max="180"
               step="10"
-              value={itemWidth}
+              defaultValue={itemWidth}
               onChange={this.handlerOfInput}
             />
           </label>
 
-          <label htmlFor="frameSize" className="App__label">
+          <label htmlFor="frameId" className="App__label">
             <span className="App__inputName">Frame Size:</span>
             <input
               type="number"
-              id="frameSize"
+              id="frameId"
               className="App__input"
               min="1"
               max="10"
-              value={frameSize}
+              defaultValue={frameSize}
               onChange={this.handlerOfInput}
             />
           </label>
 
-          <label htmlFor="step" className="App__label">
+          <label htmlFor="stepId" className="App__label">
             <span className="App__inputName">Step:</span>
             <input
               type="number"
-              id="step"
+              id="stepId"
               className="App__input"
-              value={step}
+              defaultValue={step}
               min="1"
               max="5"
               onChange={this.handlerOfInput}
@@ -125,7 +125,7 @@ class App extends React.Component<{}, State> {
               min="100"
               max="3000"
               step="100"
-              value={animationDuration}
+              defaultValue={animationDuration}
               onChange={this.handlerOfInput}
             />
           </label>
@@ -137,7 +137,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               id="infinite"
               className="App__input--checkbox"
-              value={String(infinite)}
+              defaultValue={String(infinite)}
               onChange={this.handlerOfInput}
             />
           </label>
