@@ -76,11 +76,11 @@ export const Carousel: React.FC = () => {
 
       </div>
       <div className="select">
-        <h4 className="select__title">Chose image width:</h4>
+        <h4 className="select__title">Choose image width:</h4>
         <button
           type="button"
           onClick={() => {
-            setItemWidth(itemWidth - 1);
+            setItemWidth(prevWidth => prevWidth - 1);
           }}
         >
           -
@@ -89,7 +89,7 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            setItemWidth(itemWidth + 1);
+            setItemWidth(prevWidth => prevWidth + 1);
           }}
         >
           +
@@ -115,7 +115,7 @@ export const Carousel: React.FC = () => {
         </select>
         <br />
         <br />
-        <h4 className="select__title">Chose steps:</h4>
+        <h4 className="select__title">Choose steps:</h4>
         <select
           value={step}
           defaultValue={3}
@@ -134,11 +134,13 @@ export const Carousel: React.FC = () => {
         </select>
         <br />
         <br />
-        <h4 className="select__title">Chose animation duration:</h4>
+        <h4 className="select__title">Choose animation duration:</h4>
         <button
           type="button"
           onClick={() => {
-            setAnimationDurarion(animationDurarion - 1);
+            setAnimationDurarion(
+              prevAnimationDurarion => prevAnimationDurarion - 1,
+            );
           }}
         >
           -
@@ -147,7 +149,9 @@ export const Carousel: React.FC = () => {
         <button
           type="button"
           onClick={() => {
-            setAnimationDurarion(animationDurarion + 1);
+            setAnimationDurarion(
+              prevAnimationDurarion => prevAnimationDurarion + 1,
+            );
           }}
         >
           +
