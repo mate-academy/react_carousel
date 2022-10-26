@@ -85,7 +85,7 @@ class App extends React.Component<{}, State> {
               min="100"
               max="180"
               step="10"
-              defaultValue={itemWidth}
+              value={itemWidth}
               onChange={this.handlerOfInput}
             />
           </label>
@@ -98,7 +98,7 @@ class App extends React.Component<{}, State> {
               className="App__input"
               min="1"
               max="10"
-              defaultValue={frameSize}
+              value={frameSize}
               onChange={this.handlerOfInput}
             />
           </label>
@@ -109,7 +109,7 @@ class App extends React.Component<{}, State> {
               type="number"
               id="step"
               className="App__input"
-              defaultValue={step}
+              value={step}
               min="1"
               max="5"
               onChange={this.handlerOfInput}
@@ -125,7 +125,7 @@ class App extends React.Component<{}, State> {
               min="100"
               max="3000"
               step="100"
-              defaultValue={animationDuration}
+              value={animationDuration}
               onChange={this.handlerOfInput}
             />
           </label>
@@ -137,7 +137,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               id="infinite"
               className="App__input--checkbox"
-              defaultValue={String(infinite)}
+              value={String(infinite)}
               onChange={this.handlerOfInput}
             />
           </label>
