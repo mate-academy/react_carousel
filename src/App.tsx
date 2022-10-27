@@ -33,11 +33,27 @@ class App extends React.Component<{}, State> {
     infinity: false,
   };
 
-  // handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
+  handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value });
+  };
 
-  //   this.setState({ [name]: +value });
-  // };
+  handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +event.target.value });
+  };
+
+  handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +event.target.value });
+  };
+
+  handleAnimationDurationChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    this.setState({ animationDuration: +event.target.value });
+  };
+
+  handleInfinityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinity: event.target.checked });
+  };
 
   render() {
     const {
@@ -80,9 +96,7 @@ class App extends React.Component<{}, State> {
               value={itemWidth}
               min="100"
               max="200"
-              onChange={(event) => {
-                this.setState({ itemWidth: +event.target.value });
-              }}
+              onChange={this.handleItemWidthChange}
               className="input_range"
             />
           </div>
@@ -100,9 +114,7 @@ class App extends React.Component<{}, State> {
               value={frameSize}
               min="2"
               max="5"
-              onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
-              }}
+              onChange={this.handleFrameSizeChange}
               className="input_range"
             />
           </div>
@@ -120,9 +132,7 @@ class App extends React.Component<{}, State> {
               value={step}
               min="2"
               max="5"
-              onChange={(event) => {
-                this.setState({ step: +event.target.value });
-              }}
+              onChange={this.handleStepChange}
               className="input_range"
             />
           </div>
@@ -140,9 +150,7 @@ class App extends React.Component<{}, State> {
               value={animationDuration}
               min="1000"
               max="3000"
-              onChange={(event) => {
-                this.setState({ animationDuration: +event.target.value });
-              }}
+              onChange={this.handleAnimationDurationChange}
               className="input_range"
             />
           </div>
@@ -157,9 +165,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               name="infinity"
               checked={infinity}
-              onChange={(event) => {
-                this.setState({ infinity: event.target.checked });
-              }}
+              onChange={this.handleInfinityChange}
             />
 
           </div>

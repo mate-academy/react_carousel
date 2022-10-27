@@ -35,9 +35,12 @@ h1 {
   border-radius: 10px;
 
   &__title {
-  font-size: 48px;
-  text-shadow: -1px 0 $border-color, 0 1px $border-color, 1px 0 $border-color, 0 -1px $border-color;
-  color: $borange-color;
+    font-size: 48px;
+    text-shadow: -1px 0 $border-color,
+      0 1px $border-color,
+      1px 0 $border-color,
+      0 -1px $border-color;
+    color: $borange-color;
   }
 }
 
@@ -50,8 +53,10 @@ h1 {
   width: 75%;
 
   &__text {
-
-    text-shadow: -1px 0 $border-color, 0 1px $border-color, 1px 0 $border-color, 0 -1px $border-color;
+    text-shadow: -1px 0 $border-color,
+      0 1px $border-color,
+      1px 0 $border-color,
+      0 -1px $border-color;
     color: white;
     letter-spacing: 1.2px;
   }

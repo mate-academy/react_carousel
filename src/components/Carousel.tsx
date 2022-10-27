@@ -77,7 +77,6 @@ export class Carousel extends Component<Props, State> {
           <ul
             className="Carousel__list"
             style={{
-              width: `${itemWidth * images.length}px`,
               transform: `translateX(-${itemWidth * position}px)`,
               transition: `transform ${animationDuration}ms`,
             }}

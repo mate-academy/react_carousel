@@ -33,7 +33,7 @@ $border-color: rgb(119, 119, 119);
 
   &--disabled {
     pointer-events: none;
-    border-color: $border-color
+    border-color: $border-color;
   }
 
   &:hover {
@@ -41,4 +41,3 @@ $border-color: rgb(119, 119, 119);
     color: white;
   }
 }
-
