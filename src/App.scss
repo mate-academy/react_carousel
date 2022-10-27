@@ -1,1 +1,76 @@
-// style go here
+$border-color: rgb(119, 119, 119);
+$borange-color: #ffa601;
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+h1 {
+  text-transform: uppercase;
+  background: linear-gradient(to right, $borange-color 0%, #a80802 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 450px;
+  width: 700px;
+
+  background-color: rgb(247, 247, 247);
+  border: 1px solid $border-color;
+  border-radius: 10px;
+
+  &__title {
+  font-size: 48px;
+  text-shadow: -1px 0 $border-color, 0 1px $border-color, 1px 0 $border-color, 0 -1px $border-color;
+  color: $borange-color;
+  }
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 50px;
+  width: 75%;
+
+  &__text {
+
+    text-shadow: -1px 0 $border-color, 0 1px $border-color, 1px 0 $border-color, 0 -1px $border-color;
+    color: white;
+    letter-spacing: 1.2px;
+  }
+
+  &__value {
+    color: $borange-color;
+    letter-spacing: 1.2px;
+  }
+
+  &--checkbox {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
+input[type="range"] {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
