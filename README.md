@@ -1,7 +1,5 @@
 # React Carousel
 - [DEMO LINK](https://yegorkochetkov.github.io/react_carousel/)
-- Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
-- Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
 ## Task
 1. implement a carousel described [here](https://github.com/mate-academy/dom_carousel) as a React component
