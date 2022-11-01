@@ -67,7 +67,7 @@ export class Carousel extends React.Component<Props, State> {
 
     const { images } = this.props;
     const maxShift = (images.length - frameSize) * itemWidth * -1;
-    const stepWidth = itemWidth * step * -1;
+    const stepWidth = (itemWidth * step * -1);
     const current = currentPosition + stepWidth;
 
     if (current < maxShift) {
@@ -234,7 +234,7 @@ export class Carousel extends React.Component<Props, State> {
               id="frameSize"
               type="number"
               value={frameSize}
-              min={1}
+              min={2}
               max={5}
               onChange={this.setFrameSize}
             />
