@@ -5,7 +5,7 @@
     padding: 10px;
     width: 130px;
 
-    border: 20px  #7393b3 inset;
+    border: 15px  #7393b3 inset;
     border-radius: 10px;
 
     background-color: #89cff0;
@@ -13,6 +13,10 @@
     list-style: none;
     overflow: hidden;
     transition: transform 0.3s;
+  }
+
+  &__image {
+    padding: 0 10px;
   }
 
   &__buttons {
