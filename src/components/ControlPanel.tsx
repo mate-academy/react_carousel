@@ -1,5 +1,6 @@
 import React from 'react';
 import './ControlPanel.scss';
+import { OptionInterface } from '../types/Option';
 
 type Props = {
   onChangeOptions: (option: string, value: number) => void;
@@ -20,43 +21,63 @@ export const ControlPanel: React.FC<Props> = (
     defaultAnimationDuration,
   },
 ) => {
+  class Option implements OptionInterface {
+    constructor(
+      public title: string,
+      public name: string,
+      public id: string,
+      public defaultValue: number,
+      public min: string,
+      public max: string,
+      public step: string,
+    ) {}
+  }
+
+  const optionWidth = new Option(
+    'Item width',
+    'itemWidth',
+    'width',
+    defaultItemWidth,
+    '50',
+    '350',
+    '10',
+  );
+
+  const optionFrameSize = new Option(
+    'Frame size',
+    'frameSize',
+    'frameSize',
+    defaultFrameSize,
+    '1',
+    `${imagesCount}`,
+    '1',
+  );
+
+  const optionStep = new Option(
+    'Step',
+    'step',
+    'step',
+    defaultStep,
+    '1',
+    '5',
+    '1',
+  );
+
+  const optionAnimationDuration = new Option(
+    'Animation Duration',
+    'animationDuration',
+    'animationDuration',
+    defaultAnimationDuration,
+    '0',
+    '5000',
+    '500',
+  );
+
   const options = [
-    {
-      title: 'Item width',
-      name: 'itemWidth',
-      id: 'width',
-      defaultValue: defaultItemWidth,
-      min: '50',
-      max: '350',
-      step: '10',
-    },
-    {
-      title: 'Frame size',
-      name: 'frameSize',
-      id: 'frameSize',
-      defaultValue: defaultFrameSize,
-      min: '1',
-      max: imagesCount,
-      step: '1',
-    },
-    {
-      title: 'Step',
-      name: 'step',
-      id: 'step',
-      defaultValue: defaultStep,
-      min: '1',
-      max: '5',
-      step: '1',
-    },
-    {
-      title: 'Animation Duration',
-      name: 'animationDuration',
-      id: 'animationDuration',
-      defaultValue: defaultAnimationDuration,
-      min: '0',
-      max: '5000',
-      step: '500',
-    },
+    optionWidth,
+    optionFrameSize,
+    optionStep,
+    optionAnimationDuration,
   ];
 
   return (
