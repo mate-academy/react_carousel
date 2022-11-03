@@ -1,1 +1,18 @@
-// style go here
+.Carousel {
+  padding: 10px;
+  border: 5px solid lightblue;
+  border-radius: 20px;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    transition: all 1001ms;
+  }
+
+  &__button-box {
+    display: flex;
+    justify-content: space-between;
+  }
+}
