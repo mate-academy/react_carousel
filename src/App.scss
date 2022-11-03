@@ -1,1 +1,9 @@
-// style go here
+.App {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+  }
+}
