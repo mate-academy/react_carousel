@@ -11,16 +11,16 @@ html {
   grid-template-rows: 100px 300px auto;
   justify-content: center;
   justify-items: center;
-}
 
-h1 {
-  margin: 0;
-  padding: 20px;
-  text-transform: uppercase;
-  background: linear-gradient(to right, $borange-color 0%, #a80802 100%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 60px;
+  &__title {
+    margin: 0;
+    padding: 20px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, $borange-color 0%, #a80802 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 60px;
+  }
 }
 
 .inputs {

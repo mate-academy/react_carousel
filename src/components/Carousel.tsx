@@ -21,6 +21,37 @@ export class Carousel extends Component<Props, State> {
     position: 0,
   };
 
+  onNextClick = (
+    infinity: boolean,
+    images: Image[],
+    step: number,
+    frameSize: number,
+  ) => {
+    this.setState(state => (
+      (infinity && state.position === images.length - frameSize)
+        ? { position: 0 }
+        : {
+          position: Math.min(
+            state.position + step,
+            images.length - frameSize,
+          ),
+        }
+    ));
+  };
+
+  onPrevClick = (
+    infinity: boolean,
+    images: Image[],
+    step: number,
+    frameSize: number,
+  ) => {
+    this.setState(state => (
+      (infinity && state.position === 0)
+        ? { position: images.length - frameSize }
+        : { position: Math.max(state.position - step, 0) }
+    ));
+  };
+
   render() {
     const {
       images,
@@ -33,32 +64,16 @@ export class Carousel extends Component<Props, State> {
 
     const { position } = this.state;
 
-    const onNextClick = () => {
-      this.setState(state => (
-        (infinity && state.position === images.length - frameSize)
-          ? { position: 0 }
-          : {
-            position: Math.min(
-              state.position + step,
-              images.length - frameSize,
-            ),
-          }
-      ));
-    };
-
-    const onPrevClick = () => {
-      this.setState(state => (
-        (infinity && state.position === 0)
-          ? { position: images.length - frameSize }
-          : { position: Math.max(state.position - step, 0) }
-      ));
-    };
-
     return (
       <div className="container">
         <button
           type="button"
-          onClick={onPrevClick}
+          onClick={() => this.onPrevClick(
+            infinity,
+            images,
+            step,
+            frameSize,
+          )}
           className={cn(
             'button',
             { 'button--disabled': !infinity && !position },
@@ -97,7 +112,12 @@ export class Carousel extends Component<Props, State> {
         <button
           type="button"
           data-cy="next"
-          onClick={onNextClick}
+          onClick={() => this.onNextClick(
+            infinity,
+            images,
+            step,
+            frameSize,
+          )}
           className={cn(
             'button',
             {
