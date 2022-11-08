@@ -1,4 +1,5 @@
 import React from 'react';
+import './components/reset.scss';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -23,13 +24,13 @@ class App extends React.Component<{}, {}> {
 
     return (
       <div className="App">
-        <h1 
-          data-cy="title" 
+        <h1
+          data-cy="title"
           style={{
             display: 'flex',
             justifyContent: 'center',
             fontSize: '30px',
-        }}
+          }}
         >
           {`Carousel with ${images.length} images`}
         </h1>

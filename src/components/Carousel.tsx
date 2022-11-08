@@ -25,6 +25,62 @@ class Carousel extends React.Component<Props, State> {
     transtaleX: 0,
   };
 
+  infiniteState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      this.setState({ infinite: true });
+
+      const root = document.documentElement;
+
+      switch (this.state.frameSize) {
+        case 2:
+          root.style.setProperty('--length', '4.2');
+          break;
+
+        case 4:
+          root.style.setProperty('--length', '1.6');
+          break;
+
+        case 5:
+          root.style.setProperty('--length', '1.1');
+          break;
+
+        default:
+          root.style.setProperty('--length', '2.4');
+          break;
+      }
+
+      return;
+    }
+
+    if (!e.target.checked) {
+      this.setState({ infinite: false });
+    }
+  };
+
+  frameSizeState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      frameSize: +e.currentTarget.value,
+    });
+  };
+
+  stepState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      step: +e.currentTarget.value,
+    });
+  };
+
+  itemWidthState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      itemWidth: +e.currentTarget.value,
+    });
+  };
+
+  animationState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: +e.currentTarget.value,
+    });
+  };
+
   render() {
     const {
       step,
@@ -119,15 +175,12 @@ class Carousel extends React.Component<Props, State> {
             <label htmlFor="">
               {`Frame size is ${frameSize} `}
               <input
-                onInput={(e) => {
-                  this.setState({
-                    frameSize: +e.currentTarget.value,
-                  });
-                }}
+                onInput={this.frameSizeState}
                 type="range"
                 min={2}
                 max={5}
                 defaultValue={frameSize}
+                disabled={infinite}
               />
             </label>
           </div>
@@ -135,15 +188,12 @@ class Carousel extends React.Component<Props, State> {
             <label htmlFor="">
               {`Step number is ${step} `}
               <input
-                onInput={(e) => {
-                  this.setState({
-                    step: +e.currentTarget.value,
-                  });
-                }}
+                onInput={this.stepState}
                 type="range"
                 min={2}
                 max={5}
                 defaultValue={step}
+                disabled={infinite}
               />
             </label>
           </div>
@@ -151,15 +201,12 @@ class Carousel extends React.Component<Props, State> {
             <label htmlFor="">
               {`Itemwidth is ${itemWidth}px `}
               <input
-                onInput={(e) => {
-                  this.setState({
-                    itemWidth: +e.currentTarget.value,
-                  });
-                }}
+                onInput={this.itemWidthState}
                 type="range"
                 min={130}
                 max={200}
                 defaultValue={itemWidth}
+                disabled={infinite}
               />
             </label>
           </div>
@@ -167,15 +214,12 @@ class Carousel extends React.Component<Props, State> {
             <label htmlFor="">
               {`Animation duration is ${Math.round(animationDuration / 1000)}s `}
               <input
-                onInput={(e) => {
-                  this.setState({
-                    animationDuration: +e.currentTarget.value,
-                  });
-                }}
+                onInput={this.animationState}
                 type="range"
                 min={1000}
                 max={3000}
                 defaultValue={animationDuration}
+                disabled={infinite}
               />
             </label>
           </div>
@@ -183,17 +227,7 @@ class Carousel extends React.Component<Props, State> {
             <label htmlFor="">
               {'Infinite '}
               <input
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    this.setState({ infinite: true });
-
-                    return;
-                  }
-
-                  if (!e.target.checked) {
-                    this.setState({ infinite: false });
-                  }
-                }}
+                onChange={this.infiniteState}
                 type="checkbox"
               />
             </label>
