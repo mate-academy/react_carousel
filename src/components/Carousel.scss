@@ -1,1 +1,42 @@
-// style go here
+body {
+  background-color: yellow;
+}
+
+.Carousel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    width: 1300px;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__buttons-button {
+    width: 180px;
+  }
+}
+
+.container {
+  margin-bottom: 20px;
+  border-radius: 20%;
+  background-color: #00a2ff;
+  box-shadow: 0 1px 20px rgba(61, 78, 97, 0.1);
+  overflow: hidden;
+}
+
+.container2 {
+  width: 1300px;
+  box-sizing: border-box;
+}
+
