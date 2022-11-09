@@ -21,7 +21,7 @@
       infinite={false}
     />
     ```
-    
+
 ## REQUIREMENTS:
 
 1. The title of the page should contain "Carousel"
