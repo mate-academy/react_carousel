@@ -1,1 +1,51 @@
-// style go here
+.carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    border: solid black;
+    border-radius: 20px;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: orange;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+
+    &--prev {
+      left: 0;
+    }
+
+    &--next {
+      right: 0;
+    }
+
+    &--disabled {
+      background-color: grey;
+    }
+  }
+
+  &__container-inputs {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    transform: translateY(200%);
+  }
+}
