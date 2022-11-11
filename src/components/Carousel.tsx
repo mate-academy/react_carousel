@@ -106,6 +106,29 @@ class Carousel extends React.Component<Props, State> {
       transform: `translateX(${transtaleX}px)`,
     };
 
+    const handleRightClick = () => {
+      if (transtaleX + translateShift > 0) {
+        this.setState({ transtaleX: 0 });
+
+        return;
+      }
+
+      this.setState({ transtaleX: transtaleX + translateShift });
+    };
+
+    const handleLeftClick = () => {
+      if (transtaleX + (-translateShift)
+      - containerWidth <= -maxContainerWidth) {
+        this.setState({
+          transtaleX: -maxContainerWidth + containerWidth,
+        });
+
+        return;
+      }
+
+      this.setState({ transtaleX: transtaleX + -translateShift });
+    };
+
     return (
       <div className="wrapper">
         <div className="Carousel">
@@ -117,15 +140,7 @@ class Carousel extends React.Component<Props, State> {
             })}
             type="button"
             disabled={transtaleX === 0}
-            onClick={() => {
-              if (transtaleX + translateShift > 0) {
-                this.setState({ transtaleX: 0 });
-
-                return;
-              }
-
-              this.setState({ transtaleX: transtaleX + translateShift });
-            }}
+            onClick={handleRightClick}
           >
             {' '}
           </button>
@@ -154,18 +169,7 @@ class Carousel extends React.Component<Props, State> {
             })}
             data-cy="next"
             disabled={transtaleX === -maxContainerWidth + containerWidth}
-            onClick={() => {
-              if (transtaleX + (-translateShift)
-                - containerWidth <= -maxContainerWidth) {
-                this.setState({
-                  transtaleX: -maxContainerWidth + containerWidth,
-                });
-
-                return;
-              }
-
-              this.setState({ transtaleX: transtaleX + -translateShift });
-            }}
+            onClick={handleLeftClick}
           >
             {' '}
           </button>
