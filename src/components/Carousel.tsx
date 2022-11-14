@@ -29,26 +29,6 @@ class Carousel extends React.Component<Props, State> {
     if (e.target.checked) {
       this.setState({ infinite: true });
 
-      const root = document.documentElement;
-
-      switch (this.state.frameSize) {
-        case 2:
-          root.style.setProperty('--length', '4.2');
-          break;
-
-        case 4:
-          root.style.setProperty('--length', '1.6');
-          break;
-
-        case 5:
-          root.style.setProperty('--length', '1.1');
-          break;
-
-        default:
-          root.style.setProperty('--length', '2.4');
-          break;
-      }
-
       return;
     }
 
@@ -106,7 +86,13 @@ class Carousel extends React.Component<Props, State> {
       transform: `translateX(${transtaleX}px)`,
     };
 
-    const handleRightClick = () => {
+    const handleLeftClick = () => {
+      if (transtaleX === 0 && infinite) {
+        this.setState({ transtaleX: -maxContainerWidth + containerWidth });
+
+        return;
+      }
+
       if (transtaleX + translateShift > 0) {
         this.setState({ transtaleX: 0 });
 
@@ -116,7 +102,13 @@ class Carousel extends React.Component<Props, State> {
       this.setState({ transtaleX: transtaleX + translateShift });
     };
 
-    const handleLeftClick = () => {
+    const handleRightClick = () => {
+      if (transtaleX === -maxContainerWidth + containerWidth && infinite) {
+        this.setState({ transtaleX: 0 });
+
+        return;
+      }
+
       if (transtaleX + (-translateShift)
       - containerWidth <= -maxContainerWidth) {
         this.setState({
@@ -136,11 +128,11 @@ class Carousel extends React.Component<Props, State> {
             className={classnames({
               Carousel__button: true,
               Carousel__button_left: true,
-              disabledLeft: transtaleX === 0,
+              disabledLeft: transtaleX === 0 && !infinite,
             })}
             type="button"
-            disabled={transtaleX === 0}
-            onClick={handleRightClick}
+            disabled={transtaleX === 0 && !infinite}
+            onClick={handleLeftClick}
           >
             {' '}
           </button>
@@ -165,11 +157,14 @@ class Carousel extends React.Component<Props, State> {
             className={classnames({
               Carousel__button: true,
               Carousel__button_right: true,
-              disabledRight: transtaleX === -maxContainerWidth + containerWidth,
+              disabledRight:
+                transtaleX === -maxContainerWidth + containerWidth && !infinite,
             })}
             data-cy="next"
-            disabled={transtaleX === -maxContainerWidth + containerWidth}
-            onClick={handleLeftClick}
+            disabled={
+              transtaleX === -maxContainerWidth + containerWidth && !infinite
+            }
+            onClick={handleRightClick}
           >
             {' '}
           </button>
@@ -184,7 +179,6 @@ class Carousel extends React.Component<Props, State> {
                 min={2}
                 max={5}
                 defaultValue={frameSize}
-                disabled={infinite}
               />
             </label>
           </div>
@@ -197,7 +191,6 @@ class Carousel extends React.Component<Props, State> {
                 min={2}
                 max={5}
                 defaultValue={step}
-                disabled={infinite}
               />
             </label>
           </div>
@@ -210,7 +203,6 @@ class Carousel extends React.Component<Props, State> {
                 min={130}
                 max={200}
                 defaultValue={itemWidth}
-                disabled={infinite}
               />
             </label>
           </div>
@@ -223,7 +215,6 @@ class Carousel extends React.Component<Props, State> {
                 min={1000}
                 max={3000}
                 defaultValue={animationDuration}
-                disabled={infinite}
               />
             </label>
           </div>

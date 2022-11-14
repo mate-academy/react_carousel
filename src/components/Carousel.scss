@@ -1,6 +1,5 @@
 .Carousel {
   display: flex;
-  max-width: 1300px;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
@@ -39,14 +38,15 @@
   }
 
   &__container {
+    box-sizing: border-box;
     background-color: #fff;
     overflow: hidden;
-    border: 1px solid purple;
     border-radius: 15px;
   }
   
   &__list {
     display: flex;
+    padding-left: 0;
   }
 }
 

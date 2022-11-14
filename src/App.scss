@@ -3,10 +3,6 @@ body {
   padding: 20px;
 }
 
-:root {
-  --length: 2.4;
-}
-
 .wrapper {
   padding: 20px;
 
@@ -18,19 +14,5 @@ body {
  
   &__item {
     margin-bottom: 15px;
-  }
-}
-
-._active {
-  animation: scroll 5s linear infinite;
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(calc(-100% * var(--length)));
-    }
   }
 }
