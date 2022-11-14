@@ -1,1 +1,65 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+
+  &__button {
+    position: relative;
+
+    &_left {
+      &::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-color: transparent;
+        top: -7px;
+        left: -20px;
+        border-left: 5px solid blue;
+        border-top: 5px solid blue;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &_right {
+      &::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: -7px;
+        right: -20px;
+        border-right: 5px solid blue;
+        border-top: 5px solid blue;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__container {
+    box-sizing: border-box;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+  
+  &__list {
+    display: flex;
+    padding-left: 0;
+  }
+}
+
+.disabledLeft {
+  &::after {
+    border-left: 5px rgba(150, 65, 9, 0.45) solid;
+    border-top: 5px rgba(150, 65, 9, 0.45) solid;
+  }
+}
+
+.disabledRight {
+  &::after {
+    border-right: 5px rgba(150, 65, 9, 0.45) solid;
+    border-top: 5px rgba(150, 65, 9, 0.45) solid;
+  }
+}
