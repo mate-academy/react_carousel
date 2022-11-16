@@ -160,7 +160,6 @@ export class Carousel extends React.Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
       currentPosition,
       disabledLeft,
       disabledRight,
@@ -269,19 +268,6 @@ export class Carousel extends React.Component<Props, State> {
               step={100}
               value={animationDuration}
               onChange={this.setAnimationDuration}
-            />
-          </label>
-
-          <label
-            htmlFor="infinite"
-            className="Carousel__label"
-          >
-            Infinite
-            <input
-              id="infinite"
-              type="checkbox"
-              checked={infinite}
-              onChange={this.changeInfinite}
             />
           </label>
         </div>
