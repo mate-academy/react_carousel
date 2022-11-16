@@ -1,1 +1,59 @@
-// style go here
+.Carousel {
+  &__list {
+    display: flex;
+    margin: 20px auto;
+    padding: 10px;
+    width: 130px;
+
+    border: 15px  #7393b3 inset;
+    border-radius: 10px;
+
+    background-color: #89cff0;
+
+    list-style: none;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    height: 60px;
+    width: 60px;
+    margin: 20px;
+
+    font-size: 16px;
+    color: #000;
+
+    border: 4px  #7393b3 solid;
+    border-radius: 50%;
+    background-color: #d0efff;
+
+    cursor: pointer;
+
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__label-container {
+    width: 350px;
+    margin: 20px auto;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+
+    font-size: 16px;
+    color: #000;
+
+    cursor: pointer;
+  }
+}
