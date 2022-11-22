@@ -1,1 +1,9 @@
 // style go here
+.input {
+    display: flex;
+
+    &-block {
+        display: flex;
+        flex-direction: column;
+    }
+}
