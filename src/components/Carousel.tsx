@@ -28,6 +28,10 @@ class Carousel extends Component<Props, State> {
 
   newPosition = 0;
 
+  repeat = false;
+
+  hiddenImage = this.props.images.length - this.state.frameSize;
+
   moveLeft = () => {
     const {
       itemWidth,
@@ -37,15 +41,20 @@ class Carousel extends Component<Props, State> {
       infinite,
     } = this.state;
 
-    this.newPosition = currentPosition + itemWidth * step;
+    const maxLeft = 0;
+    const maxRight = -(
+      (this.props.images.length - frameSize) * itemWidth);
 
-    if (this.newPosition > 0) {
-      this.newPosition = 0;
+    this.newPosition = currentPosition + (itemWidth * step);
 
-      if (infinite) {
-        this.newPosition = -(
-          (this.props.images.length - frameSize) * itemWidth);
-      }
+    if (this.repeat && infinite) {
+      this.newPosition = maxRight;
+      this.repeat = false;
+    }
+
+    if (this.newPosition >= maxLeft) {
+      this.newPosition = maxLeft;
+      this.repeat = true;
     }
 
     return this.setState({
@@ -62,16 +71,20 @@ class Carousel extends Component<Props, State> {
       infinite,
     } = this.state;
 
-    this.newPosition = currentPosition - itemWidth * step;
+    const maxLeft = 0;
+    const maxRight = -(
+      (this.props.images.length - frameSize) * itemWidth);
 
-    if (this.newPosition < -(
-      (this.props.images.length - frameSize) * itemWidth)) {
-      this.newPosition = -(
-        (this.props.images.length - frameSize) * itemWidth);
+    this.newPosition = currentPosition - (itemWidth * step);
 
-      if (infinite) {
-        this.newPosition = 0;
-      }
+    if (this.repeat && infinite) {
+      this.newPosition = maxLeft;
+      this.repeat = false;
+    }
+
+    if (this.newPosition <= maxRight) {
+      this.newPosition = maxRight;
+      this.repeat = true;
     }
 
     return this.setState({ currentPosition: this.newPosition });

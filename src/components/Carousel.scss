@@ -1,3 +1,5 @@
+$greenColor: #9acd32;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,8 +18,8 @@
 
     border: 3px solid;
     border-radius: 30px;
-    box-shadow: 0 0 40px yellowgreen;
-    background-color: yellowgreen;
+    box-shadow: 0 0 40px $greenColor;
+    background-color: $greenColor;
 
     &__item {
       display: block;
@@ -32,14 +34,6 @@
   }
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 button {
   margin: 10px 50px;
 
@@ -48,12 +42,12 @@ button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: yellowgreen;
+  background-color: $greenColor;
 
   &:hover {
     transition: transform 0.5s;
     transform: scale(1.05);
-    box-shadow: 0 0 20px yellowgreen;
+    box-shadow: 0 0 20px $greenColor;
   }
 }
 
@@ -65,13 +59,14 @@ input {
 
   width: 50px;
   height: 40px;
+  border: 1px solid;
   border-radius: 20%;
-  background-color: yellowgreen;
+  background-color: $greenColor;
 
   &:hover {
     transition: transform 0.5s;
     transform: scale(1.02);
-    box-shadow: 0 0 10px yellowgreen;
+    box-shadow: 0 0 10px $greenColor;
   }
 }
 
@@ -84,6 +79,6 @@ input {
 
   border: 2px solid;
   border-radius: 30px;
-  box-shadow: 0 0 30px yellowgreen;
+  box-shadow: 0 0 30px $greenColor;
 
 }
