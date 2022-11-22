@@ -8,7 +8,6 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // eslint-disable-next-line
   infinite: boolean;
 };
 
@@ -28,7 +27,7 @@ export class Carousel extends Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      // infinite,
+      infinite,
     } = this.props;
 
     const {
@@ -49,10 +48,57 @@ export class Carousel extends Component<Props, State> {
     };
 
     const minDisplacement = 0;
-    const maxDisplacement = -itemWidth * (images.length - step);
+    const maxDisplacement = -itemWidth * (images.length - frameSize);
 
     return (
       <div className="Carousel">
+        <div className="Carousel__buttons">
+          <button
+            type="button"
+            className={classNames({
+              Carousel__button: true,
+              disabled: minDisplacement === position && !infinite,
+            })}
+            onClick={() => {
+              if (infinite && minDisplacement === position) {
+                this.setState({
+                  position: -(images.length - frameSize) * itemWidth,
+                });
+              } else {
+                const displacement = position + itemWidth * step;
+
+                this.setState({
+                  position: Math.min(minDisplacement, displacement),
+                });
+              }
+            }}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            data-cy="next "
+            className={classNames({
+              Carousel__button: true,
+              disabled: maxDisplacement === position && !infinite,
+            })}
+            onClick={() => {
+              if (infinite && maxDisplacement === position) {
+                this.setState({
+                  position: 0,
+                });
+              } else {
+                const displacement = position - itemWidth * step;
+
+                this.setState({
+                  position: Math.max(maxDisplacement, displacement),
+                });
+              }
+            }}
+          >
+            Next
+          </button>
+        </div>
         <div
           className="Carousel__wrapper"
           style={wrapperStyle}
@@ -69,37 +115,6 @@ export class Carousel extends Component<Props, State> {
             ))}
           </ul>
         </div>
-
-        <button
-          type="button"
-          className={classNames({
-            disabled: minDisplacement === position,
-          })}
-          onClick={() => {
-            const displacement = position + itemWidth * step;
-
-            this.setState({
-              position: Math.min(minDisplacement, displacement),
-            });
-          }}
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          className={classNames({
-            disabled: maxDisplacement === position,
-          })}
-          onClick={() => {
-            const displacement = position - itemWidth * step;
-
-            this.setState({
-              position: Math.max(maxDisplacement, displacement),
-            });
-          }}
-        >
-          Next
-        </button>
       </div>
     );
   }

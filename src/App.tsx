@@ -44,8 +44,97 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1>{`Carousel with ${images.length} images`}</h1>
+        <div className="App__wrapper">
+          <h1 className="App__title" data-cy="title">
+            {`Carousel with ${images.length} images`}
+          </h1>
+          <form className="App__form">
+            <label className="App__form-field">
+              Frame size:
+              <input
+                type="range"
+                min={1}
+                max={5}
+                value={frameSize}
+                onChange={(event) => {
+                  const input = event.currentTarget;
 
+                  this.setState({ frameSize: +input.value });
+                  if (input.nextElementSibling) {
+                    input.nextElementSibling.textContent = `${input.value} ea.`;
+                  }
+
+                  this.render();
+                }}
+              />
+              <span>{`${frameSize} ea.`}</span>
+            </label>
+            <label className="App__form-field">
+              Item width:
+              <input
+                type="range"
+                min={100}
+                max={250}
+                value={itemWidth}
+                onChange={(event) => {
+                  const input = event.currentTarget;
+
+                  this.setState({ itemWidth: +input.value });
+                  if (input.nextElementSibling) {
+                    input.nextElementSibling.textContent = `${input.value} px`;
+                  }
+                }}
+              />
+              <span>{`${itemWidth} px`}</span>
+            </label>
+            <label className="App__form-field">
+              Animation duration:
+              <input
+                type="range"
+                min={300}
+                max={2000}
+                value={animationDuration}
+                onChange={(event) => {
+                  const input = event.currentTarget;
+
+                  this.setState({ animationDuration: +input.value });
+                  if (input.nextElementSibling) {
+                    input.nextElementSibling.textContent = `${input.value} ms`;
+                  }
+                }}
+              />
+              <span>{`${animationDuration} ms`}</span>
+            </label>
+            <label className="App__form-field">
+              Slide step:
+              <input
+                type="range"
+                min={1}
+                max={5}
+                value={step}
+                onChange={(event) => {
+                  const input = event.currentTarget;
+
+                  this.setState({ step: +input.value });
+                  if (input.nextElementSibling) {
+                    input.nextElementSibling.textContent = `${input.value} ea.`;
+                  }
+                }}
+              />
+              <span>{`${step} ea.`}</span>
+            </label>
+            <label className="App__form-field">
+              Make it infinite:
+              <input
+                type="checkbox"
+                checked={this.state.infinite}
+                onChange={(event) => {
+                  this.setState({ infinite: event.currentTarget.checked });
+                }}
+              />
+            </label>
+          </form>
+        </div>
         <Carousel
           images={images}
           step={step}
@@ -53,66 +142,6 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
-        />
-
-        <label>
-          Frame size:
-          <input
-            type="number"
-            min={1}
-            max={5}
-            value={frameSize}
-            onChange={(event) => {
-              this.setState({ frameSize: +event.currentTarget.value });
-            }}
-          />
-        </label>
-
-        <label>
-          Item width:
-          <input
-            type="number"
-            min={100}
-            max={250}
-            value={itemWidth}
-            onChange={(event) => {
-              this.setState({ itemWidth: +event.currentTarget.value });
-            }}
-          />
-        </label>
-
-        <label>
-          Animation duration:
-          <input
-            type="number"
-            min={300}
-            max={2000}
-            value={animationDuration}
-            onChange={(event) => {
-              this.setState({ animationDuration: +event.currentTarget.value });
-            }}
-          />
-        </label>
-
-        <label>
-          Slide step:
-          <input
-            type="number"
-            min={1}
-            max={5}
-            value={step}
-            onChange={(event) => {
-              this.setState({ step: +event.currentTarget.value });
-            }}
-          />
-        </label>
-
-        <input
-          type="checkbox"
-          checked={this.state.infinite}
-          onChange={(event) => {
-            this.setState({ infinite: event.currentTarget.checked });
-          }}
         />
       </div>
     );

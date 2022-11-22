@@ -1,6 +1,8 @@
 .Carousel {
   &__wrapper {
     overflow: hidden;
+    margin: auto;
+    border-radius: 25%;
   }
 
   &__list {
@@ -8,6 +10,20 @@
     padding: 0;
     list-style: none;
     display: flex;
+  }
+
+  &__buttons {
+    width: max-content;
+    margin: 0 auto 50px;
+  }
+
+  &__button {
+    height: 50px;
+    width: 150px;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 }
 
