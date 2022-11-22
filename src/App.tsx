@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  // step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  // infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,95 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    this.setState(state => ({
+      ...state,
+      [name]: +value,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title"> Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <form className="App__form">
+          <label>
+            {'Item Width '}
+            <input
+              className="App__form__field"
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              onChange={this.handleValue}
+            />
+          </label>
+
+          <label>
+            {'Frame Size '}
+            <input
+              className="App__form__field"
+              type="number"
+              name="frameSize"
+              min="1"
+              max={images.length - 1}
+              value={frameSize}
+              onChange={this.handleValue}
+            />
+          </label>
+
+          <label>
+            {'Step '}
+            <input
+              className="App__form__field"
+              type="number"
+              name="step"
+              min="1"
+              max={frameSize}
+              value={step}
+              onChange={this.handleValue}
+            />
+          </label>
+
+          <label>
+            {'Animation Duration '}
+            <input
+              className="App__form__field"
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleValue}
+            />
+          </label>
+        </form>
       </div>
     );
   }
