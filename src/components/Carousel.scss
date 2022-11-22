@@ -1,1 +1,84 @@
-// style go here
+$greenColor: #9acd32;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+
+  &__list {
+    margin: 30px auto;
+    min-height: 50px;
+
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+
+    border: 3px solid;
+    border-radius: 30px;
+    box-shadow: 0 0 40px $greenColor;
+    background-color: $greenColor;
+
+    &__item {
+      display: block;
+      min-height: 50px;
+
+      &__img {
+        display: block;
+        width: 20px;
+        height: width;
+      }
+    }
+  }
+}
+
+button {
+  margin: 10px 50px;
+
+  font-weight: bold;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $greenColor;
+
+  &:hover {
+    transition: transform 0.5s;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px $greenColor;
+  }
+}
+
+input {
+  margin: 10px 50px;
+  text-align: center;
+
+  font-weight: bold;
+
+  width: 50px;
+  height: 40px;
+  border: 1px solid;
+  border-radius: 20%;
+  background-color: $greenColor;
+
+  &:hover {
+    transition: transform 0.5s;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px $greenColor;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 30px 50px;
+  padding: 10px;
+
+  border: 2px solid;
+  border-radius: 30px;
+  box-shadow: 0 0 30px $greenColor;
+
+}

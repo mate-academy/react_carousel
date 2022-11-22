@@ -1,18 +1,228 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  currentPosition: number
+  animationDuration: number;
+  disabledValue: boolean;
+  infinite: boolean;
+};
+
+class Carousel extends Component<Props, State> {
+  state: Readonly<State> = {
+    itemWidth: 130,
+    frameSize: 2,
+    step: 2,
+    currentPosition: 0,
+    animationDuration: 1000,
+    disabledValue: false,
+    infinite: false,
+  };
+
+  newPosition = 0;
+
+  repeat = false;
+
+  hiddenImage = this.props.images.length - this.state.frameSize;
+
+  moveLeft = () => {
+    const {
+      itemWidth,
+      step,
+      currentPosition,
+      frameSize,
+      infinite,
+    } = this.state;
+
+    const maxLeft = 0;
+    const maxRight = -(
+      (this.props.images.length - frameSize) * itemWidth);
+
+    this.newPosition = currentPosition + (itemWidth * step);
+
+    if (this.repeat && infinite) {
+      this.newPosition = maxRight;
+      this.repeat = false;
+    }
+
+    if (this.newPosition >= maxLeft) {
+      this.newPosition = maxLeft;
+      this.repeat = true;
+    }
+
+    return this.setState({
+      currentPosition: this.newPosition,
+    });
+  };
+
+  moveRight = () => {
+    const {
+      itemWidth,
+      step,
+      currentPosition,
+      frameSize,
+      infinite,
+    } = this.state;
+
+    const maxLeft = 0;
+    const maxRight = -(
+      (this.props.images.length - frameSize) * itemWidth);
+
+    this.newPosition = currentPosition - (itemWidth * step);
+
+    if (this.repeat && infinite) {
+      this.newPosition = maxLeft;
+      this.repeat = false;
+    }
+
+    if (this.newPosition <= maxRight) {
+      this.newPosition = maxRight;
+      this.repeat = true;
+    }
+
+    return this.setState({ currentPosition: this.newPosition });
+  };
+
+  changeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'infinite') {
+      return this.setState({
+        [event.target.name]: event.currentTarget.checked,
+      });
+    }
+
+    return this.setState((state) => ({
+      ...state,
+      [event.target.name]: +(event.target.value),
+    }));
+  };
+
+  render() {
+    const { images } = this.props;
+    const {
+      itemWidth,
+      frameSize,
+      step,
+      currentPosition,
+      animationDuration,
+      infinite,
+    } = this.state;
+
+    return (
+      <div className="Carousel">
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${itemWidth * frameSize}px`,
+          }}
+        >
+          {images.map(image => (
+            <li
+              key={image[6] + image[7]}
+              className="Carousel__list__item"
+            >
+              <img
+                src={image}
+                alt={image}
+                className="Carousel__list__item__img"
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                  transition: `transform ${animationDuration}ms`,
+                  transform: `translateX(${currentPosition}px)`,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div>
+          <button
+            type="button"
+            onClick={this.moveLeft}
+            disabled={!infinite && this.newPosition === 0}
+          >
+            Prev
+          </button>
+          <button
+            data-cy="next"
+            type="button"
+            onClick={this.moveRight}
+            disabled={
+              !infinite && this.newPosition === -(
+                (images.length - frameSize) * itemWidth)
+            }
+          >
+            Next
+          </button>
+        </div>
+
+        <div className="panel">
+          <label>
+            <p>Change size:</p>
+            <input
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              min="50"
+              onChange={this.changeValue}
+            />
+          </label>
+
+          <label>
+            <p>Show icon:</p>
+            <input
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              min="1"
+              max="5"
+              onChange={this.changeValue}
+            />
+          </label>
+
+          <label>
+            <p>Animations speed:</p>
+            <input
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              min="0"
+              onChange={this.changeValue}
+            />
+          </label>
+
+          <label>
+            <p>Step:</p>
+            <input
+              type="number"
+              name="step"
+              value={step}
+              min="0"
+              max="10"
+              onChange={this.changeValue}
+            />
+          </label>
+
+          <label>
+            <p>infinite:</p>
+            <input
+              type="checkbox"
+              name="infinite"
+              checked={infinite}
+              onChange={this.changeValue}
+            />
+          </label>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
