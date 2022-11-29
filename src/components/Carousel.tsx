@@ -130,14 +130,12 @@ class Carousel extends React.Component<Props> {
         >
           {images.map((image) => (
             <li className="Carousel__item" key={image}>
-              <div className="image-container" style={{ width: `${itemWidth}px` }}>
-                <img
-                  src={image}
-                  alt={image}
-                  className="Carousel__image"
-                  width={itemWidth}
-                />
-              </div>
+              <img
+                src={image}
+                alt={image}
+                className="Carousel__image"
+                width={itemWidth}
+              />
             </li>
           ))}
         </ul>
