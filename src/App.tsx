@@ -56,11 +56,10 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="app">
-        {/* eslint-disable-next-line */}
-        <h1 className="app__title" datatype="title">
-          Carousel with
-          {images.length}
-          images
+        <h1 data-cy="title" className="app__title">
+          {'Carousel with '}
+          { images.length }
+          {' images'}
         </h1>
 
         <form
@@ -72,6 +71,7 @@ class App extends React.Component<{}, State> {
               className="app__input"
               min={1}
               max={10}
+              data-cy="frameSize"
               name="frameSize"
               type="number"
               defaultValue={frameSize}
