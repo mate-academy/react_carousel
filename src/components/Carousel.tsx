@@ -77,7 +77,12 @@ class Carousel extends React.Component<Props> {
     });
   };
 
-  scroll = (scrollLeft: number, scrollWidth: number, clientWidth: number) => {
+  scroll = (e: React.UIEvent<HTMLUListElement, UIEvent>) => {
+    const {
+      scrollLeft,
+      scrollWidth,
+      clientWidth,
+    } = e.currentTarget;
     const nextButton = document.querySelector('.Carousel__button--next');
     const prevButton = document.querySelector('.Carousel__button--prev');
 
@@ -98,14 +103,21 @@ class Carousel extends React.Component<Props> {
       }, 2000);
     }
 
-    if (Math.ceil(scrollLeft) === (scrollWidth
-      - clientWidth)) {
-      nextButton?.classList.add('disabled');
-    } else if (scrollLeft === 0) {
-      prevButton?.classList.add('disabled');
-    } else {
-      nextButton?.classList.remove('disabled');
-      prevButton?.classList.remove('disabled');
+    const maxWidth = (scrollWidth - clientWidth);
+
+    switch (Math.ceil(scrollLeft)) {
+      case maxWidth:
+        nextButton?.classList.add('disabled');
+        break;
+
+      case 0:
+        prevButton?.classList.add('disabled');
+        break;
+
+      default:
+        nextButton?.classList.remove('disabled');
+        prevButton?.classList.remove('disabled');
+        break;
     }
   };
 
@@ -122,11 +134,7 @@ class Carousel extends React.Component<Props> {
         <ul
           className="Carousel__list"
           style={{ width: `${containerWidth}px` }}
-          onScroll={(e) => {
-            this.scroll(e.currentTarget.scrollLeft,
-              e.currentTarget.scrollWidth,
-              e.currentTarget.clientWidth);
-          }}
+          onScroll={this.scroll}
         >
           {images.map((image) => (
             <li className="Carousel__item" key={image}>
