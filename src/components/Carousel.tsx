@@ -48,6 +48,10 @@ class Carousel extends React.Component<Props, State> {
     const { itemOffset } = this.state;
     const imagesToHide = (images.length - frameSize) * itemWidth;
 
+    if ((itemOffset / itemWidth) >= 0) {
+      return;
+    }
+
     if (imagesToHide - Math.abs(itemOffset) <= itemWidth * step) {
       this.setState({ itemOffset: itemOffset + (itemWidth * step) });
 
@@ -82,7 +86,10 @@ class Carousel extends React.Component<Props, State> {
         >
           {images.map((image: string, i: number) => {
             return (
-              <li className="Carousel__item" key={image}>
+              <li
+                className="Carousel__item"
+                key={image}
+              >
                 <img
                   width={itemWidth}
                   className="item"

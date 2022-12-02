@@ -28,7 +28,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    infinite: true,
+    infinite: false,
   };
 
   updateInputValue(value: string, className: string) {
