@@ -1,1 +1,18 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    background-color: #ccc;
+    border: 1px solid #000;
+  }
+
+  &__form-field {
+    margin-bottom: 10px;
+  }
+}
