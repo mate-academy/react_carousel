@@ -1,1 +1,28 @@
-// style go here
+body {
+  background-color: #74ebd5;
+  background-image: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+}
+
+.App {
+  &__title {
+    margin-bottom: 50px;
+  }
+
+  &__wrapper {
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  &__form-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}
