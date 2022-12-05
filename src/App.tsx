@@ -32,6 +32,13 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  handleInput = (input: HTMLInputElement) => {
+    this.setState(prevStete => ({
+      ...prevStete,
+      [input.name]: +input.value,
+    }));
+  };
+
   render() {
     const {
       images,
@@ -52,19 +59,13 @@ class App extends React.Component<{}, State> {
             <label className="App__form-field">
               Frame size:
               <input
+                name="frameSize"
                 type="range"
                 min={1}
                 max={5}
                 value={frameSize}
                 onChange={(event) => {
-                  const input = event.currentTarget;
-
-                  this.setState({ frameSize: +input.value });
-                  if (input.nextElementSibling) {
-                    input.nextElementSibling.textContent = `${input.value} ea.`;
-                  }
-
-                  this.render();
+                  this.handleInput(event.currentTarget);
                 }}
               />
               <span>{`${frameSize} ea.`}</span>
@@ -72,17 +73,13 @@ class App extends React.Component<{}, State> {
             <label className="App__form-field">
               Item width:
               <input
+                name="itemWidth"
                 type="range"
                 min={100}
                 max={250}
                 value={itemWidth}
                 onChange={(event) => {
-                  const input = event.currentTarget;
-
-                  this.setState({ itemWidth: +input.value });
-                  if (input.nextElementSibling) {
-                    input.nextElementSibling.textContent = `${input.value} px`;
-                  }
+                  this.handleInput(event.currentTarget);
                 }}
               />
               <span>{`${itemWidth} px`}</span>
@@ -90,6 +87,7 @@ class App extends React.Component<{}, State> {
             <label className="App__form-field">
               Animation duration:
               <input
+                name="animationDuration"
                 type="range"
                 min={300}
                 max={2000}
@@ -97,10 +95,11 @@ class App extends React.Component<{}, State> {
                 onChange={(event) => {
                   const input = event.currentTarget;
 
-                  this.setState({ animationDuration: +input.value });
                   if (input.nextElementSibling) {
-                    input.nextElementSibling.textContent = `${input.value} ms`;
+                    input.nextElementSibling.textContent = `${input.value} ea.`;
                   }
+
+                  this.handleInput(input);
                 }}
               />
               <span>{`${animationDuration} ms`}</span>
@@ -108,17 +107,13 @@ class App extends React.Component<{}, State> {
             <label className="App__form-field">
               Slide step:
               <input
+                name="step"
                 type="range"
                 min={1}
                 max={5}
                 value={step}
                 onChange={(event) => {
-                  const input = event.currentTarget;
-
-                  this.setState({ step: +input.value });
-                  if (input.nextElementSibling) {
-                    input.nextElementSibling.textContent = `${input.value} ea.`;
-                  }
+                  this.handleInput(event.currentTarget);
                 }}
               />
               <span>{`${step} ea.`}</span>
