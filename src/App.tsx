@@ -3,12 +3,12 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -32,16 +32,61 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
-    const stateValue = (name === 'infinite')
-      ? event.currentTarget.checked
-      : +value;
+  componentDidMount() {
+    const buttons: NodeListOf<HTMLButtonElement> | []
+      = document.querySelectorAll('.Carousel__button');
 
-    this.setState(previousState => ({
-      ...previousState,
-      [name]: stateValue,
+    if (!buttons) {
+      return;
+    }
+
+    buttons.forEach(button => button.addEventListener('click', () => {
+      this.setState({ infinite: true });
     }));
+  }
+
+  setStep = () => {
+    const stepValue: HTMLInputElement | null
+      = document.querySelector('#stepId');
+
+    if (!stepValue) {
+      return;
+    }
+
+    this.setState({ step: Number(stepValue.value) });
+  };
+
+  setFrameSize = () => {
+    const frameSizeValue: HTMLInputElement | null
+      = document.querySelector('#frameId');
+
+    if (!frameSizeValue) {
+      return;
+    }
+
+    this.setState({ frameSize: Number(frameSizeValue.value) });
+  };
+
+  setItemWidth = () => {
+    const itemWidthValue: HTMLInputElement | null
+      = document.querySelector('#itemId');
+
+    if (!itemWidthValue) {
+      return;
+    }
+
+    this.setState({ itemWidth: Number(itemWidthValue.value) });
+  };
+
+  setAnimationDuration = () => {
+    const animationDurationValue: HTMLInputElement | null
+      = document.querySelector('#AnimationDuration');
+
+    if (!animationDurationValue) {
+      return;
+    }
+
+    this.setState({ animationDuration: Number(animationDurationValue.value) });
   };
 
   render() {
@@ -55,80 +100,75 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <div className="app">
-        <h1 data-cy="title" className="app__title">
-          {'Carousel with '}
-          { images.length }
-          {' images'}
+      <div className="App">
+        <h1 className="App__title" data-cy="title">
+          {`Carousel with ${images.length} images`}
         </h1>
 
-        <form
-          className="app__form"
-        >
-          <label className="app__label">
-            Frame size:
-            <input
-              className="app__input"
-              min={1}
-              max={10}
-              data-cy="frameSize"
-              name="frameSize"
-              type="number"
-              defaultValue={frameSize}
-              onChange={this.handleChange}
-            />
-          </label>
+        <div className="App__inputs">
+          <div className="App__inputs-wrap">
+            <label
+              className="App__inputs-label"
+              htmlFor="itemId"
+            >
+              ItemWidth:
+            </label>
 
-          <label className="app__label">
-            Step:
             <input
-              className="app__input"
-              min={1}
-              max={5}
-              name="step"
+              className="App__inputs-input"
               type="number"
-              defaultValue={step}
-              onChange={this.handleChange}
+              name="ItemWidth"
+              id="itemId"
+              defaultValue={130}
+              min="1"
+              onChange={this.setItemWidth}
             />
-          </label>
 
-          <label className="app__label">
-            Item width:
+            <label
+              className="App__inputs-label"
+              htmlFor="frameId"
+            >
+              FrameSize:
+            </label>
+
             <input
-              className="app__input"
-              min={50}
-              max={400}
-              name="itemWidth"
+              className="App__inputs-input"
               type="number"
-              defaultValue={itemWidth}
-              onChange={this.handleChange}
+              name="FrameSize"
+              id="frameId"
+              min="1"
+              defaultValue={3}
+              onChange={this.setFrameSize}
             />
-          </label>
+          </div>
 
-          <label className="app__label">
-            Animation:
+          <div className="App__inputs-wrap">
+            <label className="App__inputs-label" htmlFor="stepId">Step: </label>
             <input
-              className="app__input"
-              min={100}
-              max={10000}
-              name="animationDuration"
+              className="App__inputs-input"
               type="number"
-              defaultValue={animationDuration}
-              onChange={this.handleChange}
+              name="Step"
+              id="stepId"
+              min="1"
+              defaultValue={3}
+              onChange={this.setStep}
             />
-          </label>
-
-          <label className="app__label">
-            Infinite:
+            <label
+              className="App__inputs-label"
+              htmlFor="AnimationDuration"
+            >
+              AnimationDuration:
+            </label>
             <input
-              className="app__check"
-              name="infinite"
-              type="checkbox"
-              checked={infinite}
-              onChange={this.handleChange}
+              className="App__inputs-input"
+              type="number"
+              name="AnimationDuration"
+              id="AnimationDuration"
+              defaultValue={1000}
+              onChange={this.setAnimationDuration}
             />
-          </label>
-        </form>
+          </div>
+        </div>
 
         <Carousel
           images={images}

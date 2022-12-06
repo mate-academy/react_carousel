@@ -1,40 +1,75 @@
-@import "../utils/mixins";
-
-.carousel {
+.Carousel {
+  min-width: 1300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-
-  &__wraper {
-    position: relative;
-    height: auto;
-    @include borderstyle;
-    overflow: hidden;
-  }
 
   &__list {
     display: flex;
-    list-style: none;
-    margin: 0;
+    overflow: hidden;
+    list-style-type: none;
     padding: 0;
-    position: absolute;
+    border: 5px solid gray;
+    border-radius: 10px;
   }
 
   &__item {
-    display: flex;
+    margin-right: 10px;
+    display: inline-block;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
-  &__buttons {
+  &__image {
+    vertical-align: bottom;
+  }
+
+  &__buttons-container {
     display: flex;
+    width: 100%;
     gap: 20px;
+    justify-content: center;
   }
 
   &__button {
-    width: 80px;
-    height: 60px;
-    font-size: 40px;
-    font-weight: normal;
-    @include borderstyle;
+    height: 50px;
+    border: none;
+    background-color: gray;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+
+    &--next {
+      padding: 0 1em 0 1em;
+    }
+
+    &--prev {
+      padding: 0 1em 0 1em;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      height: 0;
+      width: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.disabled {
+  background-color: lightgrey;
+  color: lightslategray;
+  cursor: default;
+
+  &::after {
+    border-left-color: lightgrey;
+    border-right-color: lightgrey;
   }
 }
