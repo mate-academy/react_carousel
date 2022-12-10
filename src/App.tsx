@@ -8,7 +8,6 @@ type State = {
   step: number;
   frameSize: number;
   animationDuration: number;
-  infinite: boolean;
 };
 
 export class App extends React.Component<{}, State> {
@@ -29,19 +28,10 @@ export class App extends React.Component<{}, State> {
     itemWidth: 130,
     step: 3,
     animationDuration: 1000,
-    infinite: false,
   };
 
   maxItemWidth = () => {
-    const { frameSize, images } = this.state;
-
-    return -(images.length - frameSize) * 100;
-  };
-
-  changeInfiniteValue = () => {
-    this.setState(() => ({
-      infinite: true,
-    }));
+    return (this.state.images.length - this.state.frameSize) * -1 * 100;
   };
 
   render() {
@@ -51,14 +41,13 @@ export class App extends React.Component<{}, State> {
       itemWidth,
       step,
       animationDuration,
-      infinite,
     } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
-        <form action="get">
+        <form action="get" className="App_form">
           <label
             htmlFor="itemWidth"
             className="App_label"
@@ -69,8 +58,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={130}
-              onChange={({ target }) => (
-                this.setState({ itemWidth: +(target.value) })
+              onChange={({ currentTarget }) => (
+                this.setState({ itemWidth: +currentTarget.value })
               )}
             />
           </label>
@@ -87,8 +76,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={3}
-              onChange={({ target }) => (
-                this.setState({ frameSize: +(target.value) })
+              onChange={({ currentTarget }) => (
+                this.setState({ frameSize: +currentTarget.value })
               )}
             />
           </label>
@@ -103,8 +92,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={3}
-              onChange={({ target }) => (
-                this.setState({ step: +(target.value) })
+              onChange={({ currentTarget }) => (
+                this.setState({ step: +currentTarget.value })
               )}
             />
           </label>
@@ -119,23 +108,9 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={1000}
-              onChange={({ target }) => (
-                this.setState({ animationDuration: +(target.value) })
+              onChange={({ currentTarget }) => (
+                this.setState({ animationDuration: +currentTarget.value })
               )}
-            />
-          </label>
-          <br />
-          <label
-            htmlFor="infinite"
-            className="App_label"
-          >
-            <span>Infinite:</span>
-            <input
-              className="App_input"
-              id="infinite"
-              type="checkbox"
-              checked={infinite}
-              onChange={this.changeInfiniteValue}
             />
           </label>
         </form>

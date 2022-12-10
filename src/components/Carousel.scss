@@ -5,9 +5,16 @@
     list-style: none;
     padding: 0;
     overflow: hidden;
-    transition: transform 0.3s;
     border: 3px solid rgb(11, 11, 11);
     border-radius: 20px;
+  }
+
+  &__button {
+    font-weight: bold;
+    font-size: 14px;
+    width: 100px;
+    border-color: antiquewhite;
+    background-color: antiquewhite;
   }
 
 }
