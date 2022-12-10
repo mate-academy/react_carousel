@@ -58,8 +58,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={130}
-              onChange={({ currentTarget }) => (
-                this.setState({ itemWidth: +currentTarget.value })
+              onChange={(event) => (
+                this.setState({ itemWidth: +(event.target.value) })
               )}
             />
           </label>
@@ -76,8 +76,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={3}
-              onChange={({ currentTarget }) => (
-                this.setState({ frameSize: +currentTarget.value })
+              onChange={(event) => (
+                this.setState({ frameSize: +(event.target.value) })
               )}
             />
           </label>
@@ -92,8 +92,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={3}
-              onChange={({ currentTarget }) => (
-                this.setState({ step: +currentTarget.value })
+              onChange={(event) => (
+                this.setState({ step: +(event.target.value) })
               )}
             />
           </label>
@@ -108,8 +108,8 @@ export class App extends React.Component<{}, State> {
               className="App_input"
               type="number"
               defaultValue={1000}
-              onChange={({ currentTarget }) => (
-                this.setState({ animationDuration: +currentTarget.value })
+              onChange={(event) => (
+                this.setState({ animationDuration: +(event.target.value) })
               )}
             />
           </label>
