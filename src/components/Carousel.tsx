@@ -11,7 +11,6 @@ type Props = {
   frameSize: number,
   step: number,
   animationDuration: number,
-  startValue: number,
 };
 
 export class Carousel extends React.Component<Props, State> {
@@ -19,13 +18,17 @@ export class Carousel extends React.Component<Props, State> {
     position: 0,
   };
 
-  moveRight = (step: number, startValue: number) => {
+  maxItemsWidth = () => {
+    return (this.props.images.length - this.props.frameSize) * -100;
+  };
+
+  moveRight = (step: number) => {
     this.setState((move: State) => {
       const currentPosition = move.position + (-100 * step);
 
-      if (startValue >= currentPosition) {
+      if (this.maxItemsWidth() >= currentPosition) {
         return {
-          position: startValue,
+          position: this.maxItemsWidth(),
         };
       }
 
@@ -58,7 +61,6 @@ export class Carousel extends React.Component<Props, State> {
       frameSize,
       step,
       animationDuration,
-      startValue,
     } = this.props;
 
     const { position } = this.state;
@@ -99,8 +101,8 @@ export class Carousel extends React.Component<Props, State> {
           className="Carousel__button"
           data-cy="next"
           type="button"
-          disabled={startValue >= position}
-          onClick={() => this.moveRight(step, startValue)}
+          disabled={this.maxItemsWidth() >= position}
+          onClick={() => this.moveRight(step)}
         >
           Next
         </button>
