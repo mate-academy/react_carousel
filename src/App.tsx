@@ -30,7 +30,7 @@ export class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  maxItemWidth = () => {
+  maxItemsWidth = () => {
     return (this.state.images.length - this.state.frameSize) * -100;
   };
 
@@ -120,7 +120,7 @@ export class App extends React.Component<{}, State> {
           step={step}
           images={images}
           animationDuration={animationDuration}
-          maxValue={this.maxItemWidth()}
+          startValue={this.maxItemsWidth()}
         />
       </div>
     );

@@ -11,7 +11,7 @@ type Props = {
   frameSize: number,
   step: number,
   animationDuration: number,
-  maxValue: number,
+  startValue: number,
 };
 
 export class Carousel extends React.Component<Props, State> {
@@ -20,23 +20,23 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    const { maxValue, step } = this.props;
+    const { startValue, step } = this.props;
     const { position } = this.state;
 
-    if (maxValue > position) {
-      if (prevProps.maxValue !== maxValue) {
-        this.moveRight(step, maxValue);
+    if (startValue > position) {
+      if (prevProps.startValue !== startValue) {
+        this.moveRight(step, startValue);
       }
     }
   }
 
-  moveRight = (step: number, maxValue: number) => {
+  moveRight = (step: number, startValue: number) => {
     this.setState((prevState: State) => {
-      const currentPosition = prevState.position + (100 * step * -1);
+      const currentPosition = prevState.position + (-100 * step);
 
-      if (maxValue >= currentPosition) {
+      if (startValue >= currentPosition) {
         return {
-          position: maxValue,
+          position: startValue,
         };
       }
 
@@ -69,7 +69,7 @@ export class Carousel extends React.Component<Props, State> {
       frameSize,
       step,
       animationDuration,
-      maxValue,
+      startValue,
     } = this.props;
 
     const { position } = this.state;
@@ -81,7 +81,6 @@ export class Carousel extends React.Component<Props, State> {
             className="Carousel__list"
             style={{
               width: `${itemWidth * frameSize}px`,
-              height: `${itemWidth}px`,
             }}
           >
             {images.map((image) => (
@@ -93,7 +92,6 @@ export class Carousel extends React.Component<Props, State> {
                     transform: `translateX(${position}%)`,
                     transition: `${animationDuration}ms`,
                     width: `${itemWidth}px`,
-                    height: `${itemWidth}px`,
                   }}
                 />
               </li>
@@ -112,8 +110,8 @@ export class Carousel extends React.Component<Props, State> {
           className="Carousel__button"
           data-cy="next"
           type="button"
-          disabled={maxValue >= this.state.position}
-          onClick={() => this.moveRight(step, maxValue)}
+          disabled={startValue >= this.state.position}
+          onClick={() => this.moveRight(step, startValue)}
         >
           Next
         </button>
