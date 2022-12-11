@@ -20,9 +20,12 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.maxValue > this.state.position) {
-      if (prevProps.maxValue !== this.props.maxValue) {
-        this.moveRight(this.props.step, this.props.maxValue);
+    const { maxValue, step } = this.props;
+    const { position } = this.state;
+
+    if (maxValue > position) {
+      if (prevProps.maxValue !== maxValue) {
+        this.moveRight(step, maxValue);
       }
     }
   }
@@ -81,13 +84,13 @@ export class Carousel extends React.Component<Props, State> {
               height: `${itemWidth}px`,
             }}
           >
-            {images.map((image, index) => (
+            {images.map((image) => (
               <li key={image}>
                 <img
                   src={image}
-                  alt={`${index}`}
+                  alt={`${image}`}
                   style={{
-                    transform: `translate(${position}%)`,
+                    transform: `translateX(${position}%)`,
                     transition: `${animationDuration}ms`,
                     width: `${itemWidth}px`,
                     height: `${itemWidth}px`,

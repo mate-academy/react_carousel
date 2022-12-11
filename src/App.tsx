@@ -31,7 +31,7 @@ export class App extends React.Component<{}, State> {
   };
 
   maxItemWidth = () => {
-    return (this.state.images.length - this.state.frameSize) * -1 * 100;
+    return (this.state.images.length - this.state.frameSize) * -100;
   };
 
   render() {
