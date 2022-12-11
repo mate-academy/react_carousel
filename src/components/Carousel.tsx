@@ -20,8 +20,8 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   moveRight = (step: number, startValue: number) => {
-    this.setState((prevState: State) => {
-      const currentPosition = prevState.position + (-100 * step);
+    this.setState((move: State) => {
+      const currentPosition = move.position + (-100 * step);
 
       if (startValue >= currentPosition) {
         return {
@@ -36,8 +36,8 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   moveLeft = (step: number) => {
-    this.setState((prevState: State) => {
-      const currentPosition = prevState.position + (100 * step);
+    this.setState((move: State) => {
+      const currentPosition = move.position + (100 * step);
 
       if (currentPosition > 0) {
         return {
@@ -99,7 +99,7 @@ export class Carousel extends React.Component<Props, State> {
           className="Carousel__button"
           data-cy="next"
           type="button"
-          disabled={startValue >= this.state.position}
+          disabled={startValue >= position}
           onClick={() => this.moveRight(step, startValue)}
         >
           Next
