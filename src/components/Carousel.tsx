@@ -19,17 +19,6 @@ export class Carousel extends React.Component<Props, State> {
     position: 0,
   };
 
-  componentDidUpdate(prevProps: Props) {
-    const { startValue, step } = this.props;
-    const { position } = this.state;
-
-    if (startValue > position) {
-      if (prevProps.startValue !== startValue) {
-        this.moveRight(step, startValue);
-      }
-    }
-  }
-
   moveRight = (step: number, startValue: number) => {
     this.setState((prevState: State) => {
       const currentPosition = prevState.position + (-100 * step);
