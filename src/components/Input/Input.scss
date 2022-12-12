@@ -1,19 +1,17 @@
 .Inputs {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 20px;
-    margin: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  margin: 40px;
 
-    &__item {
-      margin-right: 20px;
-      background-color: #4387f3;
-      &:focus {
-        background-color: #729ee4;
-      }
+  &__item {
+    margin-right: 20px;
+    background-color: #4387f3;
+    &:focus {
+      background-color: #729ee4;
     }
+  }
 }
-
-

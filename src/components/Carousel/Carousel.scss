@@ -5,15 +5,13 @@
   justify-content: center;
   align-items: center;
   column-gap: 20px;
-  grid-template-areas:
-    "prev list-img next";
-
+  grid-template-areas: "prev list-img next";
 
   &__list {
     display: flex;
     list-style: none;
     overflow: hidden;
-    justify-content:space-between;
+    justify-content: space-between;
     grid-area: list-img;
     padding: 0;
   }
@@ -46,7 +44,11 @@
       right: -50px;
       top: 0;
       content: "";
-      }
+    }
+
+    &:hover {
+      background-color: #0741a0;
+    }
 
     &:disabled {
       background-color: #ccd4e2;
@@ -56,44 +58,40 @@
       }
     }
 
-    &:hover {
-      background-color: #0741a0;
-    }
-
     &--next {
       grid-area: next;
 
-        &:hover::after {
-          border-color: transparent transparent transparent #0741a0;
-        }
+      &:hover::after {
+        border-color: transparent transparent transparent #0741a0;
+      }
 
-        &:disabled::after {
-          border-color: transparent transparent transparent #ccd4e2;
-        }
+      &:disabled::after {
+        border-color: transparent transparent transparent #ccd4e2;
+      }
 
-        &:disabled:hover::after {
-          border-color: transparent transparent transparent #e1e7f1;
-        }
+      &:disabled:hover::after {
+        border-color: transparent transparent transparent #e1e7f1;
+      }
     }
 
     &--prev {
       grid-area: prev;
 
       &::after {
-      border-color: transparent #226de7 transparent transparent ;
-      left: -50px;
+        border-color: transparent #226de7 transparent transparent;
+        left: -50px;
       }
 
       &:hover::after {
-        border-color: transparent #0741a0 transparent transparent ;
+        border-color: transparent #0741a0 transparent transparent;
       }
 
       &:disabled::after {
-        border-color: transparent #ccd4e2 transparent transparent ;
+        border-color: transparent #ccd4e2 transparent transparent;
       }
 
       &:disabled:hover::after {
-        border-color: transparent #e1e7f1 transparent transparent ;
+        border-color: transparent #e1e7f1 transparent transparent;
       }
     }
   }
