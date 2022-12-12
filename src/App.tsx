@@ -128,7 +128,7 @@ class App extends React.Component<{}, State> {
           />
 
           <Input
-            name="frame-size"
+            name="frame"
             step={1}
             min={3}
             max={10}

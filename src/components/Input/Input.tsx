@@ -20,11 +20,11 @@ export const Input: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <label htmlFor={name}>{`Set ${name}: `}</label>
+      <label htmlFor={`${name}Id`}>{`Set ${name}: `}</label>
       <input
         type="number"
         name={name}
-        id={name}
+        id={`${name}Id`}
         step={step}
         min={min}
         max={max}
