@@ -1,0 +1,100 @@
+.Carousel {
+  width: 1300px;
+  display: grid;
+  grid-template-columns: 100px auto 100px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  grid-template-areas:
+    "prev list-img next";
+
+
+  &__list {
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+    justify-content:space-between;
+    grid-area: list-img;
+    padding: 0;
+  }
+
+  &__item {
+    margin: 0 5px;
+  }
+
+  &__img {
+    display: flex;
+  }
+
+  &__button {
+    height: 50px;
+    border: none;
+    background-color: #226de7;
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    padding: 0 20px;
+    position: relative;
+
+    &::after {
+      display: inline-block;
+      border: 25px solid;
+      border-color: transparent transparent transparent #226de7;
+      height: 0;
+      width: 0;
+      position: absolute;
+      right: -50px;
+      top: 0;
+      content: "";
+      }
+
+    &:disabled {
+      background-color: #ccd4e2;
+
+      &:hover {
+        background-color: #e1e7f1;
+      }
+    }
+
+    &:hover {
+      background-color: #0741a0;
+    }
+
+    &--next {
+      grid-area: next;
+
+        &:hover::after {
+          border-color: transparent transparent transparent #0741a0;
+        }
+
+        &:disabled::after {
+          border-color: transparent transparent transparent #ccd4e2;
+        }
+
+        &:disabled:hover::after {
+          border-color: transparent transparent transparent #e1e7f1;
+        }
+    }
+
+    &--prev {
+      grid-area: prev;
+
+      &::after {
+      border-color: transparent #226de7 transparent transparent ;
+      left: -50px;
+      }
+
+      &:hover::after {
+        border-color: transparent #0741a0 transparent transparent ;
+      }
+
+      &:disabled::after {
+        border-color: transparent #ccd4e2 transparent transparent ;
+      }
+
+      &:disabled:hover::after {
+        border-color: transparent #e1e7f1 transparent transparent ;
+      }
+    }
+  }
+}
