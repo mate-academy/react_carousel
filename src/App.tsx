@@ -59,7 +59,7 @@ class App extends React.Component<{}, State> {
 
   setWidth = () => {
     const inputWidth: HTMLInputElement | null
-      = document.querySelector('#widthId');
+      = document.querySelector('#itemId');
 
     if (!inputWidth) {
       return;
