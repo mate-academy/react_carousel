@@ -83,6 +83,7 @@ export class Carousel extends React.Component<Props, State> {
                     transform: `translateX(${position}%)`,
                     transition: `${animationDuration}ms`,
                     width: `${itemWidth}px`,
+                    height: `${itemWidth}px`,
                   }}
                 />
               </li>

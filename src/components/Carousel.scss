@@ -1,15 +1,16 @@
 .Carousel {
   &__list {
-    margin: 0 auto 20px;
+    margin: 0 auto;
     display: flex;
     list-style: none;
     padding: 0;
     overflow: hidden;
-    border: 3px solid rgb(11, 11, 11);
+    border: 2px solid black;
     border-radius: 20px;
   }
 
   &__button {
+    margin-top: 20px;
     font-weight: bold;
     font-size: 14px;
     width: 100px;

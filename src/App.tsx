@@ -45,15 +45,15 @@ export class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <form action="get" className="App_form">
           <label
-            htmlFor="itemWidth"
+            htmlFor="itemId"
             className="App_label"
           >
             <span>Width:</span>
             <input
-              id="itemWidth"
+              id="itemId"
               className="App_input"
               type="number"
-              defaultValue="130"
+              defaultValue={130}
               onChange={(event) => (
                 this.setState({ itemWidth: +(event.target.value) })
               )}
@@ -61,17 +61,17 @@ export class App extends React.Component<{}, State> {
           </label>
           <br />
           <label
-            htmlFor="frameSize"
+            htmlFor="frameId"
             className="App_label"
           >
             <span>Framesize:</span>
             <input
-              id="frameSize"
+              id="frameId"
               min="1"
               max="5"
               className="App_input"
               type="number"
-              defaultValue="3"
+              defaultValue={3}
               onChange={(event) => (
                 this.setState({ frameSize: +(event.target.value) })
               )}
@@ -79,15 +79,15 @@ export class App extends React.Component<{}, State> {
           </label>
           <br />
           <label
-            htmlFor="step"
+            htmlFor="stepId"
             className="App_label"
           >
             <span>Step:</span>
             <input
-              id="step"
+              id="stepId"
               className="App_input"
               type="number"
-              defaultValue="3"
+              defaultValue={3}
               onChange={(event) => (
                 this.setState({ step: +(event.target.value) })
               )}
@@ -103,7 +103,7 @@ export class App extends React.Component<{}, State> {
               id="animationDuration"
               className="App_input"
               type="number"
-              defaultValue="1000"
+              defaultValue={1000}
               onChange={(event) => (
                 this.setState({ animationDuration: +(event.target.value) })
               )}
