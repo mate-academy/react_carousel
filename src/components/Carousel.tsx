@@ -72,6 +72,7 @@ export class Carousel extends React.Component<Props, State> {
             className="Carousel__list"
             style={{
               width: `${itemWidth * frameSize}px`,
+              height: `${itemWidth}px`,
             }}
           >
             {images.map((image) => (
