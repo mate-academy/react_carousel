@@ -48,7 +48,7 @@ class App extends React.Component<{}, State> {
 
   setStep = () => {
     const inputStep: HTMLInputElement | null
-      = document.querySelector('#step');
+      = document.querySelector('#stepId');
 
     if (!inputStep) {
       return;
@@ -59,7 +59,7 @@ class App extends React.Component<{}, State> {
 
   setWidth = () => {
     const inputWidth: HTMLInputElement | null
-      = document.querySelector('#width');
+      = document.querySelector('#widthId');
 
     if (!inputWidth) {
       return;
@@ -70,7 +70,7 @@ class App extends React.Component<{}, State> {
 
   setFrameSize = () => {
     const inputFrameSize: HTMLInputElement | null
-      = document.querySelector('#frame-size');
+      = document.querySelector('#frameId');
 
     if (!inputFrameSize) {
       return;
@@ -81,7 +81,7 @@ class App extends React.Component<{}, State> {
 
   setAnimationDuration = () => {
     const inputAnimationDuration: HTMLInputElement | null
-      = document.querySelector('#duration');
+      = document.querySelector('#durationId');
 
     if (!inputAnimationDuration) {
       return;
