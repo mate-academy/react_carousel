@@ -31,8 +31,8 @@ class App extends React.Component<{}, State> {
         <h1>Carousel with {images.length} images</h1>
         <Carousel
           images={images}
-          step={2}
-          frameSize={4}
+          step={1}
+          frameSize={3}
           itemWidth={130}
           animationDuration={1000}
           // infinite={false}

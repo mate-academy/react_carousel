@@ -13,10 +13,10 @@ type Props = {
 const Carousel: React.FC<Props> = (props) => {
   const {
     images,
-    step,
-    frameSize,
-    itemWidth,
-    animationDuration,
+    step = 1,
+    frameSize = 3,
+    itemWidth = 130,
+    animationDuration = 1000,
     // infinite,
   } = props;
 
