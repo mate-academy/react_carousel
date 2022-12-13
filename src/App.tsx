@@ -86,6 +86,7 @@ export class App extends React.Component<{}, State> {
             <input
               id="stepId"
               className="App_input"
+              step="1"
               type="number"
               defaultValue={step}
               onChange={(event) => (
