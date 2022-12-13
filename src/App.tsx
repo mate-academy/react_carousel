@@ -30,7 +30,7 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleChangeItemWidth = (ev: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.currentTarget;
 
     if (name === 'itemWidth') {
@@ -41,10 +41,6 @@ class App extends React.Component<{}, State> {
         }));
       }
     }
-  };
-
-  handleChangeFrameAndSteps = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = ev.currentTarget;
 
     if (name === 'frameSize' || name === 'step') {
       if (+value <= 10 && +value >= 0) {
@@ -54,10 +50,6 @@ class App extends React.Component<{}, State> {
         }));
       }
     }
-  };
-
-  handleChangeAnimation = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = ev.currentTarget;
 
     if (name === 'animationDuration') {
       if (+value <= 4000 && +value >= 0) {
@@ -95,7 +87,7 @@ class App extends React.Component<{}, State> {
               max="300"
               step="10"
               className="App__item"
-              onChange={this.handleChangeItemWidth}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -108,7 +100,7 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               className="App__item"
-              onChange={this.handleChangeFrameAndSteps}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -121,7 +113,7 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               className="App__item"
-              onChange={this.handleChangeFrameAndSteps}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -135,7 +127,7 @@ class App extends React.Component<{}, State> {
               max="4000"
               step="100"
               className="App__item"
-              onChange={this.handleChangeAnimation}
+              onChange={this.handleChange}
             />
           </label>
         </div>
