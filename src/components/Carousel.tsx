@@ -6,7 +6,7 @@ type Props = {
   step: number,
   frameSize: number,
   itemWidth: number,
-  // animationDuration: number,
+  animationDuration: number,
   // infinite: boolean,
 };
 
@@ -16,8 +16,8 @@ const Carousel: React.FC<Props> = (props) => {
     step,
     frameSize,
     itemWidth,
-    // animationDuration,
-    // infinite
+    animationDuration,
+    // infinite,
   } = props;
 
   let currentPositionImgList = 0;
@@ -34,10 +34,11 @@ const Carousel: React.FC<Props> = (props) => {
       > (images.length * itemWidth - frameSize * itemWidth) * -1) {
       currentPositionImgList -= (itemWidth * step);
       carouselList.style.transform = `translate(${currentPositionImgList}px, 0)`;
+      carouselList.style.transition = `all ${animationDuration}ms ease`;
     }
 
     if (currentPositionImgList
-      <= (images.length * itemWidth - frameSize * itemWidth) * -1) {
+      === (images.length * itemWidth - frameSize * itemWidth) * -1) {
       event.currentTarget.disabled = true;
     }
 
@@ -56,7 +57,7 @@ const Carousel: React.FC<Props> = (props) => {
 
     if (currentPositionImgList < 0) {
       currentPositionImgList += (itemWidth * step);
-
+      carouselList.style.transition = `all ${animationDuration}ms ease`;
       carouselList.style.transform = `translate(${currentPositionImgList}px, 0)`;
     }
 

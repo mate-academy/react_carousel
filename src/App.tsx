@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
           step={2}
           frameSize={4}
           itemWidth={130}
-          // animationDuration={1000}
+          animationDuration={1000}
           // infinite={false}
         />
       </div>
