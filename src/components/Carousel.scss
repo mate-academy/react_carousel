@@ -1,8 +1,8 @@
+@import "../utils/mixins";
+
 .Carousel {
   min-width: 1300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include centering;
 
   &__list {
     display: flex;
@@ -44,11 +44,11 @@
     border-radius: 10px;
 
     &--next {
-      padding: 0 1em 0 1em;
+      padding: 0 1em;
     }
 
     &--prev {
-      padding: 0 1em 0 1em;
+      padding: 0 1em;
     }
 
     &::after {

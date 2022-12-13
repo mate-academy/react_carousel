@@ -1,3 +1,4 @@
+
 const page = {
   getImg(number) {
     return cy.get(`[src="./img/${number}.png"]`);
