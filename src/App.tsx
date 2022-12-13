@@ -52,6 +52,8 @@ export class App extends React.Component<{}, State> {
             <input
               id="itemId"
               className="App_input"
+              min={50}
+              max={400}
               type="number"
               defaultValue={itemWidth}
               onChange={(event) => (
@@ -67,8 +69,8 @@ export class App extends React.Component<{}, State> {
             <span>Framesize:</span>
             <input
               id="frameId"
-              min="1"
-              max="10"
+              min={1}
+              max={10}
               className="App_input"
               type="number"
               defaultValue={frameSize}
@@ -86,7 +88,8 @@ export class App extends React.Component<{}, State> {
             <input
               id="stepId"
               className="App_input"
-              step="1"
+              min={1}
+              max={10}
               type="number"
               defaultValue={step}
               onChange={(event) => (
@@ -102,6 +105,8 @@ export class App extends React.Component<{}, State> {
             <span>Duration:</span>
             <input
               id="animationDuration"
+              min={0}
+              max={10000}
               className="App_input"
               type="number"
               defaultValue={animationDuration}

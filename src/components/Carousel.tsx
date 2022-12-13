@@ -18,6 +18,12 @@ export class Carousel extends React.Component<Props, State> {
     position: 0,
   };
 
+  componentDidUpdate() {
+    if (this.maxItemsWidth() > this.state.position) {
+      this.moveRight(this.props.step);
+    }
+  }
+
   maxItemsWidth = () => {
     return (this.props.images.length - this.props.frameSize) * -100;
   };
@@ -83,8 +89,8 @@ export class Carousel extends React.Component<Props, State> {
                   style={{
                     transform: `translateX(${position}%)`,
                     transition: `${animationDuration}ms`,
-                    height: `${itemWidth}px`,
                     width: `${itemWidth}px`,
+                    height: `${itemWidth}px`,
                   }}
                 />
               </li>
