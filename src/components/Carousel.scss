@@ -1,1 +1,73 @@
-// style go here
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  margin-bottom: 50px;
+
+  &__list {
+    width: 390px;
+    height: 130px;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 50px;
+  }
+
+  &__button {
+    cursor: pointer;
+    height: 100%;
+    width: 100px;
+    background-color: orange;
+    border: none;
+    position: relative;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      height: 0;
+      width: 0;
+      bottom: 0;
+    }
+
+    &--prev::after {
+      border-right: 30px solid orange;
+      left: 0;
+      margin-left: -30px;
+    }
+
+    &--next::after {
+      border-left: 30px solid orange;
+      right: 0;
+      margin-right: -30px;
+    }
+  }
+}

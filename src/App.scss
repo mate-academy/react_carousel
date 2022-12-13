@@ -1,1 +1,21 @@
-// style go here
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    border: 3px orange solid;
+    border-radius: 20px;
+    margin-bottom: 50px;
+  }
+
+  &__item {
+    margin-right: 20px;
+  }
+}
