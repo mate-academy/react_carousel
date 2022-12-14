@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -7,90 +7,77 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
+  infinite: boolean,
 };
 
 const Carousel: React.FC<Props> = (props) => {
+  const [currentPositionImgList, setState] = useState(0);
   const {
     images,
     step = 1,
     frameSize = 3,
     itemWidth = 130,
     animationDuration = 1000,
-    // infinite,
+    infinite,
   } = props;
 
-  let currentPositionImgList = 0;
-
-  const showNexImg
-  = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const carouselList
-    = document.querySelector('.Carousel__list') as HTMLElement;
-    const previousButton
-    = document.querySelector('.PreviousButton') as HTMLButtonElement;
-    const event = ev;
-
+  const showNexImg = () => {
     if (currentPositionImgList
       > (images.length * itemWidth - frameSize * itemWidth) * -1) {
-      currentPositionImgList -= (itemWidth * step);
-      carouselList.style.transform = `translate(${currentPositionImgList}px, 0)`;
-      carouselList.style.transition = `all ${animationDuration}ms ease`;
+      setState(state => state - (itemWidth * step));
     }
 
-    if (currentPositionImgList
+    if (infinite && currentPositionImgList
       === (images.length * itemWidth - frameSize * itemWidth) * -1) {
-      event.currentTarget.disabled = true;
-    }
-
-    if (previousButton.disabled) {
-      previousButton.disabled = false;
+      setState(0);
     }
   };
 
-  const showPrevImg
-  = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const carouselList
-    = document.querySelector('.Carousel__list') as HTMLElement;
-    const nextButton
-    = document.querySelector('.NextButton') as HTMLButtonElement;
-    const event = ev;
-
+  const showPrevImg = () => {
     if (currentPositionImgList < 0) {
-      currentPositionImgList += (itemWidth * step);
-      carouselList.style.transition = `all ${animationDuration}ms ease`;
-      carouselList.style.transform = `translate(${currentPositionImgList}px, 0)`;
+      setState(state => state + (itemWidth * step));
     }
 
-    if (currentPositionImgList === 0) {
-      event.currentTarget.disabled = true;
-    }
-
-    if (nextButton.disabled) {
-      nextButton.disabled = false;
+    if (infinite && currentPositionImgList === 0) {
+      setState((images.length * itemWidth - frameSize * itemWidth) * -1);
     }
   };
 
   return (
-    <div className="Carousel" style={{ width: frameSize * itemWidth }}>
-      <ul className="Carousel__list">
+    <div className="carousel" style={{ width: frameSize * itemWidth }}>
+      <ul
+        className="carousel__list"
+        style={{
+          transform: `translate(${currentPositionImgList}px, 0)`,
+          transition: `all ${animationDuration}ms ease`,
+        }}
+      >
         {images.map(img => (
           <li key={images.indexOf(img)}>
             <img src={`${img}`} alt={`${images.indexOf(img)}`} />
           </li>
         ))}
       </ul>
-      <div className="Buttons">
+      <div className="buttons">
         <button
-          className="PreviousButton"
+          className="previousButton"
           type="button"
           onClick={showPrevImg}
+          disabled={
+            infinite ? false : currentPositionImgList === 0
+          }
         >
           &#8592;
         </button>
         <button
-          className="NextButton"
+          className="nextButton"
           type="button"
           onClick={showNexImg}
+          disabled={
+            infinite ? false
+              : currentPositionImgList
+            === (images.length * itemWidth - frameSize * itemWidth) * -1
+          }
         >
           &#8594;
         </button>

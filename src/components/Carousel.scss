@@ -1,8 +1,8 @@
-.Carousel {
+.carousel {
   overflow: hidden;
 }
 
-.Carousel__list {
+.carousel__list {
   padding: 0;
   list-style: none;
   display: flex;
@@ -10,7 +10,7 @@
   transform: translate(0, 0);
 }
 
-.Buttons {
+.buttons {
   display: flex;
   justify-content: space-around;
 }
