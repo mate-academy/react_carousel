@@ -5,7 +5,7 @@ import { Options } from './components/Options';
 
 const App = () => {
   const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(400);
+  const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1);
   const [infinite, setInfinite] = useState(true);

@@ -58,9 +58,8 @@ class Carousel extends React.Component<Props, State> {
           : prev.selected + this.props.step;
       } else {
         selected = (prev.selected + this.props.step
-          > prev.size - Math.floor(this.props.frameSize / this.props.itemWidth))
-          ? prev.size
-            - Math.floor(this.props.frameSize / this.props.itemWidth)
+          > prev.size - this.props.frameSize)
+          ? prev.size - this.props.frameSize
           : prev.selected + this.props.step;
       }
 
@@ -130,8 +129,6 @@ class Carousel extends React.Component<Props, State> {
       return 'rotateZ(180deg)';
     };
 
-    const frameLength = frameSize / (Math.floor(frameSize / itemWidth));
-
     let list;
 
     if (infinite) {
@@ -140,7 +137,7 @@ class Carousel extends React.Component<Props, State> {
           className="Carousel__list-inf"
           style={{
             height: `${itemWidth}px`,
-            transform: `translateX(${-frameLength / 2}px)`,
+            transform: `translateX(${-itemWidth / 2}px)`,
           }}
         >
           {images.map((img, i) => (
@@ -148,8 +145,6 @@ class Carousel extends React.Component<Props, State> {
               key={(i + 1).toString()}
               className="Carousel__item-inf"
               style={{
-                width: `${frameLength}px`,
-                height: `${frameLength}px`,
                 opacity: i === selected ? 1 : 0.1,
                 transform: determineTransform(i),
                 transition: `transform ${animationDuration}s`,
@@ -170,7 +165,7 @@ class Carousel extends React.Component<Props, State> {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${selected * frameLength}px)`,
+            transform: `translateX(-${selected * itemWidth}px)`,
             transition: `transform ${animationDuration}s`,
             height: `${itemWidth}px`,
           }}
@@ -179,10 +174,6 @@ class Carousel extends React.Component<Props, State> {
             <li
               key={(i + 1).toString()}
               className="Carousel__item"
-              style={{
-                width: `${frameLength}px`,
-                height: `${frameLength}`,
-              }}
             >
               <img
                 width={itemWidth}
@@ -199,8 +190,8 @@ class Carousel extends React.Component<Props, State> {
     return (
       <div className="Carousel">
         <div
-          className="Carousel__wrapper"
-          style={{ width: `${frameSize}px` }}
+          className={`Carousel__wrapper${infinite ? ' Carousel__wrapper-inf' : ''}`}
+          style={{ width: `${frameSize * itemWidth}px` }}
         >
           {list}
         </div>
@@ -216,8 +207,7 @@ class Carousel extends React.Component<Props, State> {
           data-cy="next"
           onClick={() => this.handleNext()}
           type="button"
-          disabled={selected >= size
-            - Math.floor(this.props.frameSize / this.props.itemWidth)
+          disabled={selected >= size - frameSize
             && !infinite}
         >
           Next
