@@ -4,9 +4,9 @@ import { Carousel } from './components/Carousel';
 
 type State = {
   images: string[];
+  frameSize: number;
   itemWidth: number;
   step: number;
-  frameSize: number;
   animationDuration: number;
 };
 
@@ -52,11 +52,12 @@ export class App extends React.Component<{}, State> {
             <input
               id="itemId"
               className="App_input"
+              name="itemWidth"
               min={50}
               max={400}
               type="number"
-              defaultValue={itemWidth}
-              onChange={(event) => (
+              defaultValue={itemWidth.toString()}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
                 this.setState({ itemWidth: +(event.target.value) })
               )}
             />
@@ -69,12 +70,13 @@ export class App extends React.Component<{}, State> {
             <span>Framesize:</span>
             <input
               id="frameId"
+              name="frameSize"
               min={1}
               max={10}
               className="App_input"
               type="number"
-              defaultValue={frameSize}
-              onChange={(event) => (
+              defaultValue={frameSize.toString()}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
                 this.setState({ frameSize: +(event.target.value) })
               )}
             />
@@ -87,12 +89,13 @@ export class App extends React.Component<{}, State> {
             <span>Step:</span>
             <input
               id="stepId"
+              name="step"
               className="App_input"
               min={1}
               max={10}
               type="number"
-              defaultValue={step}
-              onChange={(event) => (
+              defaultValue={step.toString()}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
                 this.setState({ step: +(event.target.value) })
               )}
             />
@@ -105,22 +108,25 @@ export class App extends React.Component<{}, State> {
             <span>Duration:</span>
             <input
               id="animationDuration"
+              name="animationDuration"
               min={0}
               max={10000}
               className="App_input"
               type="number"
-              defaultValue={animationDuration}
-              onChange={(event) => (
-                this.setState({ animationDuration: +(event.target.value) })
+              defaultValue={animationDuration.toString()}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+                this.setState({
+                  animationDuration: +(event.target.value),
+                })
               )}
             />
           </label>
         </form>
         <Carousel
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
           images={images}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          step={step}
           animationDuration={animationDuration}
         />
       </div>

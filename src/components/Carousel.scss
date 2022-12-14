@@ -2,22 +2,22 @@
   margin: 0 auto;
 
   &__list {
-    margin: 0 auto;
     display: flex;
-    list-style: none;
-    padding: 0;
     overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
     border: 2px solid black;
     border-radius: 20px;
+    list-style: none;
   }
 
   &__button {
     margin-top: 20px;
-    font-weight: bold;
-    font-size: 14px;
     width: 100px;
-    border-color: antiquewhite;
     background-color: antiquewhite;
+    border-color: antiquewhite;
+    font-size: 14px;
+    font-weight: bold;
   }
 
 }

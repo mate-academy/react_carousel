@@ -20,7 +20,7 @@ export class Carousel extends React.Component<Props, State> {
 
   componentDidUpdate() {
     if (this.maxItemsWidth() > this.state.position) {
-      this.moveRight(this.props.step);
+      this.moveRight();
     }
   }
 
@@ -28,9 +28,10 @@ export class Carousel extends React.Component<Props, State> {
     return (this.props.images.length - this.props.frameSize) * -100;
   };
 
-  moveRight = (step: number) => {
-    this.setState((move: State) => {
-      const currentPosition = move.position + (-100 * step);
+  moveRight = () => {
+    this.setState((state: State) => {
+      const { step } = this.props;
+      const currentPosition = state.position - (100 * step);
 
       if (this.maxItemsWidth() >= currentPosition) {
         return {
@@ -44,9 +45,11 @@ export class Carousel extends React.Component<Props, State> {
     });
   };
 
-  moveLeft = (step: number) => {
-    this.setState((move: State) => {
-      const currentPosition = move.position + (100 * step);
+  moveLeft = () => {
+    this.setState((state: State) => {
+      const { step } = this.props;
+
+      const currentPosition = state.position + (100 * step);
 
       if (currentPosition > 0) {
         return {
@@ -65,7 +68,6 @@ export class Carousel extends React.Component<Props, State> {
       images,
       itemWidth,
       frameSize,
-      step,
       animationDuration,
     } = this.props;
 
@@ -101,7 +103,7 @@ export class Carousel extends React.Component<Props, State> {
           className="Carousel__button"
           type="button"
           disabled={position >= 0}
-          onClick={() => this.moveLeft(step)}
+          onClick={() => this.moveLeft()}
         >
           Prev
         </button>
@@ -110,7 +112,7 @@ export class Carousel extends React.Component<Props, State> {
           data-cy="next"
           type="button"
           disabled={this.maxItemsWidth() >= position}
-          onClick={() => this.moveRight(step)}
+          onClick={() => this.moveRight()}
         >
           Next
         </button>
