@@ -8,7 +8,7 @@ const App = () => {
   const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1);
-  const [infinite, setInfinite] = useState(true);
+  const [infinite, setInfinite] = useState(false);
   const images = [
     './img/1.png',
     './img/2.png',
@@ -29,7 +29,7 @@ const App = () => {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <Carousel
           images={images}
-          step={step}
+          step={step || 0}
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}

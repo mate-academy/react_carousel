@@ -151,8 +151,7 @@ class Carousel extends React.Component<Props, State> {
               }}
             >
               <img
-                width={itemWidth}
-                height={itemWidth}
+                style={{ width: `${itemWidth}`, height: `${itemWidth}` }}
                 src={img}
                 alt={(i + 1).toString()}
               />
@@ -176,8 +175,7 @@ class Carousel extends React.Component<Props, State> {
               className="Carousel__item"
             >
               <img
-                width={itemWidth}
-                height={itemWidth}
+                style={{ width: `${itemWidth}`, height: `${itemWidth}` }}
                 src={img}
                 alt={(i + 1).toString()}
               />
