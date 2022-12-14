@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  &__wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__list {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__list-inf {
+    position: relative;
+    display: flex;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item-inf {
+    position: absolute;
+    transform-origin: 0 -1000px;
+    opacity: 0.1;
+  }
+}

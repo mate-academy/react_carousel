@@ -1,1 +1,42 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.Options {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    display: flex;
+    width: 20vw;
+    justify-content: space-between;
+
+    background-color: #ddd;
+
+    & + & {
+      margin-top: 7px;
+    }
+  }
+
+  &__input {
+    width: 70px;
+    border: none;
+    background-color: #eee;
+    text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
