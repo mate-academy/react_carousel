@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
-
-interface State {
-  images: string[];
-}
+import './Page/Page.scss';
+import { Carousel } from './components/Carousel';
+import { Carousel as State } from './types/Carousel';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,17 +18,203 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const curentValue = Number(event.target.value);
+
+    let newValue;
+
+    switch (true) {
+      case curentValue > 10:
+        newValue = 10;
+        break;
+      case curentValue < 0:
+        newValue = 0;
+        break;
+
+      default:
+        newValue = curentValue;
+        break;
+    }
+
+    this.setState({
+      step: newValue,
+    });
+  };
+
+  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const curentValue = Number(event.target.value);
+
+    let newValue;
+
+    switch (true) {
+      case curentValue > 1300:
+        newValue = 1300;
+        break;
+      case curentValue < 130:
+        newValue = 130;
+        break;
+
+      default:
+        newValue = curentValue;
+        break;
+    }
+
+    this.setState({
+      itemWidth: newValue,
+    });
+  };
+
+  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const curentValue = Number(event.target.value);
+
+    let newValue;
+
+    switch (true) {
+      case curentValue > 10:
+        newValue = 10;
+        break;
+      case curentValue < 1:
+        newValue = 1;
+        break;
+
+      default:
+        newValue = curentValue;
+        break;
+    }
+
+    this.setState({
+      frameSize: newValue,
+    });
+  };
+
+  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const curentValue = Number(event.target.value);
+
+    let newValue;
+
+    switch (true) {
+      case curentValue > 10000:
+        newValue = 10000;
+        break;
+      case curentValue < 500:
+        newValue = 500;
+        break;
+
+      default:
+        newValue = curentValue;
+        break;
+    }
+
+    this.setState({
+      animationDuration: newValue,
+    });
+  };
+
+  setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+
+    this.setState({
+      infinite: isChecked,
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
-      <div className="App">
+      <div className="App Page">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <form
+          action="#"
+          method="post"
+          className="Page__form"
+        >
+          <label className="Page__input-lable">
+            {'Step '}
+
+            <input
+              className="Page__input"
+              type="number"
+              defaultValue={step}
+              onChange={(event) => this.setStep(event)}
+              min="1"
+              max="10"
+            />
+          </label>
+
+          <label className="Page__input-lable">
+            {'Frame Size '}
+
+            <input
+              className="Page__input"
+              type="number"
+              defaultValue={frameSize}
+              onChange={(event) => this.setFrameSize(event)}
+              min="1"
+              max="10"
+            />
+          </label>
+
+          <label className="Page__input-lable">
+            {'Item Width '}
+
+            <input
+              className="Page__input"
+              type="number"
+              defaultValue={itemWidth}
+              onChange={(event) => this.setItemWidth(event)}
+              min="130"
+              max="1300"
+            />
+          </label>
+
+          <label className="Page__input-lable">
+            {'Animation Duration '}
+
+            <input
+              className="Page__input"
+              type="number"
+              defaultValue={animationDuration}
+              onChange={(event) => this.setAnimationDuration(event)}
+              min="500"
+              max="10000"
+            />
+          </label>
+
+          <label className="Page__input-lable">
+            {'infinite '}
+
+            <input
+              type="checkbox"
+              onChange={(event) => this.setInfinite(event)}
+            />
+          </label>
+        </form>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
