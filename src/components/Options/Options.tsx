@@ -19,12 +19,14 @@ export const Options = (props: Props) => {
   const inputs:{
     type: 'number' | 'boolean',
     name: string,
+    id: string,
     value: number | boolean,
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   }[] = [
     {
       type: 'number',
       name: 'Step',
+      id: 'step',
       value: props.step,
       handleChange: (e: React.ChangeEvent<HTMLInputElement>) => props.sS
         .step(Number.parseInt(e.target.value, 10)),
@@ -32,6 +34,7 @@ export const Options = (props: Props) => {
     {
       type: 'number',
       name: 'Frame size',
+      id: 'frame',
       value: props.frameSize,
       handleChange: (e: React.ChangeEvent<HTMLInputElement>) => props.sS
         .frameSize(Number.parseInt(e.target.value, 10)),
@@ -39,6 +42,7 @@ export const Options = (props: Props) => {
     {
       type: 'number',
       name: 'Item width',
+      id: 'item',
       value: props.itemWidth,
       handleChange: (e: React.ChangeEvent<HTMLInputElement>) => props.sS
         .itemWidth(Number.parseInt(e.target.value, 10)),
@@ -46,6 +50,7 @@ export const Options = (props: Props) => {
     {
       type: 'number',
       name: 'Animation duration',
+      id: 'animation',
       value: props.animationDuration,
       handleChange: (e: React.ChangeEvent<HTMLInputElement>) => props.sS
         .animationDuration(Number.parseInt(e.target.value, 10)),
@@ -53,6 +58,7 @@ export const Options = (props: Props) => {
     {
       type: 'boolean',
       name: 'Infinite',
+      id: 'inf',
       value: props.infinite,
       handleChange: (e: React.ChangeEvent<HTMLInputElement>) => props.sS
         .infinite(Boolean(e.target.checked)),

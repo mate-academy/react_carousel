@@ -3,6 +3,7 @@ import React from 'react';
 type Props = {
   type: 'number' | 'boolean';
   name: string;
+  id: string;
   value: number | boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 };
@@ -18,11 +19,11 @@ export const Input = (props: Props) => {
       if (val >= 0 && val <= 10) {
         props.handleChange(e);
       }
-    } else if (name === 'frameSize') {
+    } else if (name === 'frame') {
       if (val >= 0 && val <= 1300) {
         props.handleChange(e);
       }
-    } else if (name === 'itemWidth') {
+    } else if (name === 'item') {
       if (val >= 0) {
         props.handleChange(e);
       }
@@ -38,7 +39,7 @@ export const Input = (props: Props) => {
   if (props.type === 'number') {
     return (
       <label
-        htmlFor="step"
+        htmlFor={`${props.id}Id`}
         className="Options__label"
       >
         {props.name}
@@ -48,8 +49,8 @@ export const Input = (props: Props) => {
           onChange={(e) => dimensionChecks(props.name, e)}
           value={props.value as number}
           type={props.type}
-          name="step"
-          id="step"
+          name={props.name}
+          id={`${props.id}Id`}
         />
       </label>
     );
@@ -58,7 +59,7 @@ export const Input = (props: Props) => {
   if (props.type === 'boolean') {
     return (
       <label
-        htmlFor="inf"
+        htmlFor={`${props.id}Id`}
         className="Options__label"
       >
         Infinite:
@@ -68,7 +69,7 @@ export const Input = (props: Props) => {
           checked={props.value as boolean}
           type="checkbox"
           name="inf"
-          id="inf"
+          id={`${props.id}Id`}
         />
       </label>
     );
