@@ -17,7 +17,7 @@ type State = {
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    selected: 0,
+    selected: this.props.infinite ? this.props.images.length - 1 : 0,
     size: this.props.images.length || 0,
   };
 
