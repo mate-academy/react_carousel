@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 import { Options } from './components/Options';
