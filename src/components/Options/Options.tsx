@@ -1,4 +1,5 @@
 import { Input } from './Input';
+import './Options.scss';
 
 interface Props {
   step: number,

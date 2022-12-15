@@ -1,12 +1,13 @@
 .Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
   &__wrapper {
     overflow: hidden;
     display: flex;
     align-items: center;
-
-    &-inf {
-      justify-content: center;
-    }
   }
 
   &__list {
@@ -19,14 +20,44 @@
 
   &__list-inf {
     position: relative;
+    width: 500px;
+    left: 250px;
+    transform: translateX(-50%);
     display: flex;
     padding: 0;
     list-style: none;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+
+    justify-content: center;
+    overflow: hidden;
   }
 
   &__item-inf {
     position: absolute;
-    transform-origin: 0 -1000px;
-    opacity: 0.1;
+    transform-origin: 0 0 -1000px;
+  }
+
+  &__button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 7px;
+
+    background-color: transparent;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &:active {
+      background-color: #aaa;
+    }
+
+    & + & {
+      margin-left: 30px;
+    }
   }
 }

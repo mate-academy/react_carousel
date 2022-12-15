@@ -25,8 +25,14 @@ const App = () => {
   return (
     <div className="App">
       <div>
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1
+          className="title"
+          data-cy="title"
+        >
+          {/* eslint-disable-next-line */}
+          Carousel with {images.length} images
+        </h1>
+
         <Carousel
           images={images}
           step={step || 0}

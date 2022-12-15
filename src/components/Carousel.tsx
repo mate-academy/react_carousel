@@ -17,13 +17,15 @@ type State = {
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    selected: this.props.infinite ? this.props.images.length - 1 : 0,
+    selected: 0,
     size: this.props.images.length || 0,
   };
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
     if (prevProps.infinite !== this.props.infinite) {
-      this.setState({ selected: 0 });
+      this.setState({
+        selected: 0,
+      });
     }
   }
 
@@ -52,10 +54,9 @@ class Carousel extends React.Component<Props, State> {
       let selected;
 
       if (this.props.infinite) {
-        selected = (prev.selected + this.props.step
-          >= prev.size)
+        selected = (prev.selected + this.props.step >= prev.size
           ? prev.selected + this.props.step - prev.size
-          : prev.selected + this.props.step;
+          : prev.selected + this.props.step);
       } else {
         selected = (prev.selected + this.props.step
           > prev.size - this.props.frameSize)
@@ -83,50 +84,52 @@ class Carousel extends React.Component<Props, State> {
       size,
     } = this.state;
 
-    const determineTransform = (index: number) => {
-      if (index === selected) {
-        return 'rotateZ(0)';
-      }
-
-      for (let i = 2; i < size / 2; i += 1) {
-        if (index === selected + i) {
-          return 'rotateZ(-180deg)';
-        }
-
+    const determineHidden = (index: number) => {
+      for (let i = 0; i < frameSize; i += 1) {
         if (selected + i >= size) {
           if (selected + i - size === index) {
-            return 'rotateZ(-180deg)';
+            return 1;
           }
+        } else if (selected + i === index) {
+          return 1;
         }
+      }
 
-        if (selected - i === index) {
-          return 'rotateZ(180deg)';
-        }
+      return 0;
+    };
 
-        if (selected - i < 0) {
-          if (selected - i + size === index) {
-            return 'rotateZ(180deg)';
+    const determineTransform = (index: number) => { // selected: 9, index: 2
+      for (let i = 0; i < frameSize; i += 1) {
+        if (selected + i >= size) {
+          if (selected + i - size === index) {
+            return `rotateY(${-10 + ((i * 20) / (frameSize - 1))}deg)`;
           }
+        } else if (selected + i === index) {
+          return `rotateY(${-10 + ((i * 20) / (frameSize - 1))}deg)`;
         }
       }
 
-      if (selected === 0 && index === size - 1) {
-        return `rotateZ(${(itemWidth / 130) * 7}deg)`;
+      if (selected - this.props.step < 0) {
+        if (selected - this.props.step + size <= index) {
+          return 'rotateY(-180deg)';
+        }
       }
 
-      if (index === 0 && selected === size - 1) {
-        return `rotateZ(-${(itemWidth / 130) * 7}deg)`;
+      if (selected + frameSize + this.props.step >= size) {
+        if (index <= selected + frameSize + this.props.step - size) {
+          return 'rotateY(180deg)';
+        }
       }
 
-      if (index + 1 === selected) {
-        return `rotateZ(${(itemWidth / 130) * 7}deg)`;
+      if (index < selected) {
+        return 'rotateY(-180deg)';
       }
 
-      if (index - 1 === selected) {
-        return `rotateZ(-${(itemWidth / 130) * 7}deg)`;
+      if (index > selected + frameSize) {
+        return 'rotateY(180deg)';
       }
 
-      return 'rotateZ(180deg)';
+      return 'rotateY(180deg)';
     };
 
     let list;
@@ -137,7 +140,6 @@ class Carousel extends React.Component<Props, State> {
           className="Carousel__list-inf"
           style={{
             height: `${itemWidth}px`,
-            transform: `translateX(${-itemWidth / 2}px)`,
           }}
         >
           {images.map((img, i) => (
@@ -145,13 +147,15 @@ class Carousel extends React.Component<Props, State> {
               key={(i + 1).toString()}
               className="Carousel__item-inf"
               style={{
-                opacity: i === selected ? 1 : 0.1,
                 transform: determineTransform(i),
-                transition: `transform ${animationDuration}s`,
+                transition: `transform ${animationDuration}s,
+                  opacity ${animationDuration}s ease-in-out`,
+                opacity: determineHidden(i),
               }}
             >
               <img
-                style={{ width: `${itemWidth}`, height: `${itemWidth}` }}
+                width={itemWidth}
+                height={itemWidth}
                 src={img}
                 alt={(i + 1).toString()}
               />
@@ -161,58 +165,109 @@ class Carousel extends React.Component<Props, State> {
       );
     } else {
       list = (
-        <ul
-          className="Carousel__list"
-          style={{
-            transform: `translateX(-${selected * itemWidth}px)`,
-            transition: `transform ${animationDuration}s`,
-            height: `${itemWidth}px`,
-          }}
+        <div
+          className={`Carousel__wrapper${infinite ? ' Carousel__wrapper-inf' : ''}`}
+          style={{ width: `${frameSize * itemWidth}px` }}
         >
-          {images.map((img, i) => (
-            <li
-              key={(i + 1).toString()}
-              className="Carousel__item"
-            >
-              <img
-                style={{ width: `${itemWidth}`, height: `${itemWidth}` }}
-                src={img}
-                alt={(i + 1).toString()}
-              />
-            </li>
-          ))}
-        </ul>
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(-${selected * itemWidth}px)`,
+              transition: `transform ${animationDuration}s`,
+              height: `${itemWidth}px`,
+            }}
+          >
+            {images.map((img, i) => (
+              <li
+                key={(i + 1).toString()}
+                className="Carousel__item"
+              >
+                <img
+                  width={itemWidth}
+                  height={itemWidth}
+                  src={img}
+                  alt={(i + 1).toString()}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       );
     }
 
     return (
       <div className="Carousel">
-        <div
-          className={`Carousel__wrapper${infinite ? ' Carousel__wrapper-inf' : ''}`}
-          style={{ width: `${frameSize * itemWidth}px` }}
-        >
-          {list}
-        </div>
+        {list}
 
-        <button
-          onClick={() => this.handlePrev()}
-          type="button"
-          disabled={selected === 0 && !infinite}
-        >
-          Prev
-        </button>
-        <button
-          data-cy="next"
-          onClick={() => this.handleNext()}
-          type="button"
-          disabled={selected >= size - frameSize
-            && !infinite}
-        >
-          Next
-        </button>
+        <div>
+          <button
+            className="Carousel__button"
+            onClick={() => this.handlePrev()}
+            type="button"
+            disabled={selected === 0 && !infinite}
+          >
+            Prev
+          </button>
+          <button
+            className="Carousel__button"
+            data-cy="next"
+            onClick={() => this.handleNext()}
+            type="button"
+            disabled={selected >= size - frameSize
+              && !infinite}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   }
 }
 
 export default Carousel;
+
+/**
+ * A function to determine where the incoming items should be directed from.
+ * Let's see if it will be implemented.
+  setPositions(towards: boolean) {
+    const {
+      frameSize,
+      step,
+      images,
+    } = this.props;
+
+    const {
+      size,
+      selected,
+    } = this.state;
+
+    this.setState({
+      position: images.map((_el, i) => {
+        if (towards) {
+          if (i >= selected + frameSize) {
+            if (selected + frameSize + step > size) {
+              if (selected + frameSize + step - size > i) {
+                return true;
+              }
+            } else {
+              return true;
+            }
+          }
+        }
+
+        if (i < selected) {
+          if (selected - step < 0) {
+            if (selected - step + size < i) {
+              return true;
+            }
+          } else {
+            return true;
+          }
+        }
+
+        return false;
+      }),
+    });
+  }
+
+ */
