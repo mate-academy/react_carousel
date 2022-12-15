@@ -54,7 +54,7 @@ const Carousel: React.FC<Props> = (props) => {
       >
         {images.map(img => (
           <li key={images.indexOf(img)}>
-            <img src={`${img}`} alt={`${images.indexOf(img)}`} />
+            <img src={`${img}`} alt="Smile head" />
           </li>
         ))}
       </ul>
@@ -74,9 +74,11 @@ const Carousel: React.FC<Props> = (props) => {
           type="button"
           onClick={showNexImg}
           disabled={
-            infinite ? false
-              : currentPositionImgList
-            === (images.length * itemWidth - frameSize * itemWidth) * -1
+            infinite
+              ? false
+              : currentPositionImgList === (
+                images.length * itemWidth - frameSize * itemWidth
+              ) * -1
           }
         >
           &#8594;
