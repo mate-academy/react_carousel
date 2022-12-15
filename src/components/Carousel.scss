@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
 
-
   &__wrapper {
     overflow: hidden;
     display: flex;
@@ -20,8 +19,6 @@
 
   &__list-inf {
     position: relative;
-    width: 500px;
-    left: 250px;
     transform: translateX(-50%);
     display: flex;
     padding: 0;

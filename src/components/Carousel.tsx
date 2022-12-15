@@ -99,13 +99,15 @@ class Carousel extends React.Component<Props, State> {
     };
 
     const determineTransform = (index: number) => { // selected: 9, index: 2
+      const widthScalar = itemWidth / 13;
+
       for (let i = 0; i < frameSize; i += 1) {
         if (selected + i >= size) {
           if (selected + i - size === index) {
-            return `rotateY(${-10 + ((i * 20) / (frameSize - 1))}deg)`;
+            return `rotateY(${-widthScalar + ((i * 2 * widthScalar) / (frameSize - 1))}deg)`;
           }
         } else if (selected + i === index) {
-          return `rotateY(${-10 + ((i * 20) / (frameSize - 1))}deg)`;
+          return `rotateY(${-widthScalar + ((i * 2 * widthScalar) / (frameSize - 1))}deg)`;
         }
       }
 
@@ -140,6 +142,8 @@ class Carousel extends React.Component<Props, State> {
           className="Carousel__list-inf"
           style={{
             height: `${itemWidth}px`,
+            width: `${itemWidth * frameSize * 1.3}px`,
+            left: `${(itemWidth * frameSize * 1.3) / 2}px`,
           }}
         >
           {images.map((img, i) => (
@@ -174,7 +178,6 @@ class Carousel extends React.Component<Props, State> {
             style={{
               transform: `translateX(-${selected * itemWidth}px)`,
               transition: `transform ${animationDuration}s`,
-              height: `${itemWidth}px`,
             }}
           >
             {images.map((img, i) => (
