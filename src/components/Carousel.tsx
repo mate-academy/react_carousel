@@ -119,6 +119,7 @@ export class Carousel extends Component<Props, State> {
   render() {
     const {
       images,
+      itemWidth,
     } = this.props;
 
     return (
@@ -132,9 +133,10 @@ export class Carousel extends Component<Props, State> {
                   className={this.calculateItemClasses(this.props)}
                 >
                   <img
+                    className="Carousel__item-img"
                     src={image}
                     alt={`${index + 1}`}
-                    className="Carousel__item-img"
+                    width={itemWidth}
                   />
                 </li>
               ))

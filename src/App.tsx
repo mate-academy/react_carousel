@@ -145,66 +145,80 @@ class App extends React.Component<{}, State> {
           method="post"
           className="Page__form"
         >
-          <label className="Page__input-lable">
-            {'Step '}
+          <div className="Page__Input-block">
+            <label className="Page__input-lable" htmlFor="stepId">
+              {'Step '}
+            </label>
 
             <input
               className="Page__input"
+              id="stepId"
               type="number"
               defaultValue={step}
               onChange={(event) => this.setStep(event)}
               min="1"
               max="10"
             />
-          </label>
+          </div>
 
-          <label className="Page__input-lable">
-            {'Frame Size '}
+          <div className="Page__Input-block">
+            <label className="Page__input-lable" htmlFor="frameId">
+              {'Frame Size '}
+            </label>
 
             <input
               className="Page__input"
+              id="frameId"
               type="number"
               defaultValue={frameSize}
               onChange={(event) => this.setFrameSize(event)}
               min="1"
               max="10"
             />
-          </label>
+          </div>
 
-          <label className="Page__input-lable">
-            {'Item Width '}
+          <div className="Page__Input-block">
+            <label className="Page__input-lable" htmlFor="itemId">
+              {'Item Width '}
+            </label>
 
             <input
               className="Page__input"
+              id="itemId"
               type="number"
               defaultValue={itemWidth}
               onChange={(event) => this.setItemWidth(event)}
               min="130"
               max="1300"
             />
-          </label>
+          </div>
 
-          <label className="Page__input-lable">
-            {'Animation Duration '}
+          <div className="Page__Input-block">
+            <label className="Page__input-lable" htmlFor="Animation">
+              {'Animation Duration '}
+            </label>
 
             <input
               className="Page__input"
+              id="Animation"
               type="number"
               defaultValue={animationDuration}
               onChange={(event) => this.setAnimationDuration(event)}
               min="500"
               max="10000"
             />
-          </label>
+          </div>
 
-          <label className="Page__input-lable">
-            {'infinite '}
-
+          <div className="Page__Input-block">
+            <label className="Page__input-lable" htmlFor="infinite">
+              {'infinite '}
+            </label>
             <input
+              id="infinite"
               type="checkbox"
               onChange={(event) => this.setInfinite(event)}
             />
-          </label>
+          </div>
         </form>
 
         <Carousel
