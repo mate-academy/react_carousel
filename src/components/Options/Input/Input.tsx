@@ -1,89 +1,98 @@
 import React, { useState } from 'react';
 
 type Props = {
-  type: 'number' | 'boolean';
-  name: string;
-  id: string;
-  value: number | boolean;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  props: {
+    type: 'number' | 'boolean';
+    name: string;
+    id: string;
+    value: number | boolean;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  }
 };
 
-export const Input = (props: Props) => {
+export const Input = ({ props }: Props) => {
   const [error, setError] = useState(false);
 
+  const {
+    type,
+    name,
+    id,
+    value,
+    handleChange,
+  } = props;
+
   const dimensionChecks = (
-    name:string,
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const val = parseInt(e.target.value, 10);
 
     if (name === 'Step') {
-      if (val >= 0 && val <= 5) {
+      if (!val || (val >= 0 && val <= 5)) {
         setError(false);
-        props.handleChange(e);
+        handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Frame size') {
-      if (val >= 0 && val <= 5) {
+      if (!val || (val >= 0 && val <= 5)) {
         setError(false);
-        props.handleChange(e);
+        handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Item width') {
-      if (val >= 0) {
+      if (!val || val >= 0) {
         setError(false);
-        props.handleChange(e);
+        handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Animation duration') {
-      if (val >= 0) {
+      if (!val || val >= 0) {
         setError(false);
-        props.handleChange(e);
+        handleChange(e);
       } else {
         setError(true);
       }
     } else {
-      props.handleChange(e);
+      handleChange(e);
     }
   };
 
-  if (props.type === 'number') {
+  if (type === 'number') {
     return (
       <label
-        htmlFor={`${props.id}Id`}
+        htmlFor={`${id}Id`}
         className={`Options__label${error ? ' Options__error' : ''}`}
       >
-        {props.name}
+        {name}
         :
         <input
           className="Options__input"
-          onBlur={(e) => dimensionChecks(props.name, e)}
-          placeholder={props.value.toString()}
-          type={props.type}
-          name={props.name}
-          id={`${props.id}Id`}
+          onChange={(e) => dimensionChecks(e)}
+          placeholder={value.toString()}
+          type={type}
+          name={name}
+          id={`${id}Id`}
         />
       </label>
     );
   }
 
-  if (props.type === 'boolean') {
+  if (type === 'boolean') {
     return (
       <label
-        htmlFor={`${props.id}Id`}
+        htmlFor={`${id}Id`}
         className="Options__label"
       >
         Infinite:
         <input
           className="Options__input"
-          onChange={(e) => dimensionChecks(props.name, e)}
-          checked={props.value as boolean}
+          onChange={(e) => dimensionChecks(e)}
+          checked={value as boolean}
           type="checkbox"
           name="inf"
-          id={`${props.id}Id`}
+          id={`${id}Id`}
         />
       </label>
     );
