@@ -2,14 +2,6 @@ import { FC, ChangeEvent, useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-// interface State {
-//   images: string[];
-//   step: number;
-//   frameSize: number;
-//   itemWidth: number;
-//   // infinite: boolean;
-// }
-
 const App: FC = () => {
   const images = [
     './img/1.png',

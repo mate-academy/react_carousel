@@ -26,6 +26,15 @@ const Carousel: React.FC<Props> = ({
   const carouselList = useRef<HTMLUListElement>(null);
   const wrapper = useRef<HTMLDivElement>(null);
 
+  const moveItems = () => {
+    if (carouselList && carouselList.current) {
+      carouselList.current.style.transform
+      = itemPosition >= maxItemPosition
+          ? `translateX(${(-maxItemPosition) * itemWidth}px)`
+          : `translateX(${-itemPosition * itemWidth}px)`;
+    }
+  };
+
   const handlePrevClick = () => {
     if (infinite && itemPosition === 0) {
       itemPosition = maxItemPosition + step;
@@ -39,12 +48,7 @@ const Carousel: React.FC<Props> = ({
       itemPosition = 0;
     }
 
-    if (carouselList && carouselList.current) {
-      carouselList.current.style.transform
-      = itemPosition <= 0
-          ? 'translateX(0)'
-          : `translateX(${-itemPosition * itemWidth}px)`;
-    }
+    moveItems();
   };
 
   const handleNextClick = () => {
@@ -60,12 +64,7 @@ const Carousel: React.FC<Props> = ({
       itemPosition = maxItemPosition;
     }
 
-    if (carouselList && carouselList.current) {
-      carouselList.current.style.transform
-      = itemPosition >= maxItemPosition
-          ? `translateX(${(-maxItemPosition) * itemWidth}px)`
-          : `translateX(${-itemPosition * itemWidth}px)`;
-    }
+    moveItems();
   };
 
   useEffect(() => {
@@ -83,7 +82,12 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         onClick={handlePrevClick}
-        className="Carousel__arrow Carousel__arrow--prev"
+        className={cn(
+          'Carousel__arrow Carousel__arrow--prev',
+          {
+            disabled: !infinite,
+          },
+        )}
       >
         {'<='}
       </button>
