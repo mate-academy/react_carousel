@@ -1,10 +1,28 @@
 // style go here
 .Carousel {
   width: 390px;
+  position: relative;
   overflow: hidden;
+
   &__list {
     list-style: none;
     display: flex;
     padding: 0;
+  }
+
+  &__button {
+    position: absolute;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    top: 50%;
+    color: red;
+    &--prev {
+      left: -50px;
+    }
+
+    &--next {
+      right: -50px;
+    }
   }
 }

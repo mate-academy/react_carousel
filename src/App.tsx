@@ -1,109 +1,131 @@
-import React, { ChangeEvent } from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  // infinite: boolean;
-}
+// interface State {
+//   images: string[];
+//   step: number;
+//   frameSize: number;
+//   itemWidth: number;
+//   // infinite: boolean;
+// }
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    step: 2,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    // infinite: false,
-  };
+const App: FC = () => {
+  const images = [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ];
 
-  handleChange = (event: ChangeEvent<HTMLInputElement>, key: string) => {
-    const input = event.target.value;
+  const [carouselElements, setCarouselElements] = useState(
+    {
+      step: 2,
+      frameSize: 3,
+      itemWidth: 130,
+      animationDuration: 1000,
+      infinite: false,
+    },
+  );
 
-    this.setState(state => (
+  const {
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+    infinite,
+  } = carouselElements;
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, id } = event.target;
+
+    setCarouselElements(state => (
       {
         ...state,
-        [key]: +input,
+        [id]: +value,
       }
     ));
   };
 
-  render() {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      animationDuration,
-      // infinite,
-    } = this.state;
+  // we can connect these two methods
+  const handleFiniteChange = () => {
+    setCarouselElements(state => (
+      {
+        ...state,
+        infinite: !state.infinite,
+      }
+    ));
+  };
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1 data-cy="title">
+        Carousel with
+        {images.length}
+      </h1>
 
+      <div className="container">
         <Carousel
           images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
-          // animationDuration={1000}
+          animationDuration={animationDuration}
           // infinite={infinite}
         />
-        <div>
-          <label htmlFor="itemWidth">Item Width:</label>
-          <input
-            type="number"
-            value={itemWidth}
-            onChange={(event) => this.handleChange(event, 'itemWidth')}
-            id="itemWidth"
-          />
-        </div>
-        <div>
-          <label htmlFor="frameSize">Frame size:</label>
-          <input
-            type="number"
-            value={frameSize}
-            onChange={(event) => this.handleChange(event, 'frameSize')}
-            id="frameSize"
-          />
-        </div>
-        <div>
-          <label htmlFor="step">step:</label>
-          <input
-            type="number"
-            value={step}
-            onChange={(event) => this.handleChange(event, 'step')}
-            id="step"
-          />
-        </div>
-        <div>
-          <label htmlFor="animationDuration">Animation duration:</label>
-          <input
-            type="number"
-            value={animationDuration}
-            onChange={(event) => this.handleChange(event, 'animationDuration')}
-            id="animationDuration"
-          />
-        </div>
       </div>
-    );
-  }
-}
+
+      <div>
+        <label htmlFor="itemWidth">Item Width:</label>
+        <input
+          type="number"
+          value={itemWidth}
+          onChange={handleChange}
+          id="itemWidth"
+          min="0"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="frameSize">Frame size:</label>
+        <input
+          type="number"
+          value={frameSize}
+          onChange={handleChange}
+          id="frameSize"
+          min="0"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="step">step:</label>
+        <input
+          type="number"
+          value={step}
+          onChange={handleChange}
+          id="step"
+          min="0"
+        />
+      </div>
+
+      <form>
+        <label htmlFor="infinite">infinite:</label>
+        <input
+          type="checkbox"
+          name="infinite"
+          id="infinite"
+          onChange={handleFiniteChange}
+          checked={infinite === true}
+        />
+      </form>
+    </div>
+  );
+};
 
 export default App;
