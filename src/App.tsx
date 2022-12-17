@@ -45,20 +45,21 @@ const App: FC = () => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, id } = event.target;
 
+    if (id === 'infinite') {
+      setCarouselElements(state => (
+        {
+          ...state,
+          infinite: !state.infinite,
+        }
+      ));
+
+      return;
+    }
+
     setCarouselElements(state => (
       {
         ...state,
         [id]: +value,
-      }
-    ));
-  };
-
-  // we can connect these two methods
-  const handleFiniteChange = () => {
-    setCarouselElements(state => (
-      {
-        ...state,
-        infinite: !state.infinite,
       }
     ));
   };
@@ -131,7 +132,7 @@ const App: FC = () => {
           type="checkbox"
           name="infinite"
           id="infinite"
-          onChange={handleFiniteChange}
+          onChange={handleChange}
           checked={infinite === true}
         />
       </form>

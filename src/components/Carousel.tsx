@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import cn from 'classnames';
+
 import './Carousel.scss';
 
 interface Props {
@@ -74,9 +76,9 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         onClick={handlePrevClick}
-        className="Carousel__button Carousel__button--prev"
+        className="Carousel__arrow Carousel__arrow--prev"
       >
-        {'<'}
+        {'<='}
       </button>
       <div className="Carousel__list-wrapper" ref={wrapper}>
         <ul className="Carousel__list" ref={carouselList}>
@@ -99,9 +101,11 @@ const Carousel: React.FC<Props> = ({
         type="button"
         onClick={handleNextClick}
         data-cy="next"
-        className="Carousel__button Carousel__button--next"
+        className={cn(
+          'Carousel__arrow Carousel__arrow--next',
+        )}
       >
-        {'>'}
+        {'=>'}
       </button>
     </div>
   );
