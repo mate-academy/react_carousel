@@ -78,7 +78,7 @@ const App: FC = () => {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          // infinite={infinite}
+          infinite={infinite}
         />
       </div>
 

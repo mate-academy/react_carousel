@@ -9,7 +9,7 @@ interface Props {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -18,19 +18,24 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  // infinite,
+  infinite,
 }) => {
   let itemPosition = 0;
+  const maxItemPosition = images.length - frameSize;
 
   const carouselList = useRef<HTMLUListElement>(null);
   const wrapper = useRef<HTMLDivElement>(null);
 
   const handlePrevClick = () => {
+    if (infinite && itemPosition === 0) {
+      itemPosition = maxItemPosition + step;
+    }
+
     if (itemPosition > 0) {
       itemPosition -= step;
     }
 
-    if (itemPosition <= 0) {
+    if (itemPosition < 0) {
       itemPosition = 0;
     }
 
@@ -43,7 +48,9 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handleNextClick = () => {
-    const maxItemPosition = images.length - frameSize;
+    if (infinite && itemPosition === maxItemPosition) {
+      itemPosition = -step;
+    }
 
     if (itemPosition < maxItemPosition) {
       itemPosition += step;
