@@ -21,7 +21,7 @@ const Carousel: React.FC<Props> = ({
   let itemPosition = 0;
 
   const carouselList = useRef<HTMLUListElement>(null);
-  const carousel = useRef<HTMLDivElement>(null);
+  const wrapper = useRef<HTMLDivElement>(null);
 
   const handlePrevClick = () => {
     if (itemPosition > 0) {
@@ -60,8 +60,8 @@ const Carousel: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (carousel && carousel.current) {
-      carousel.current.style.width = `${itemWidth * frameSize}px`;
+    if (wrapper && wrapper.current) {
+      wrapper.current.style.width = `${itemWidth * frameSize}px`;
     }
 
     if (carouselList && carouselList.current) {
@@ -70,7 +70,7 @@ const Carousel: React.FC<Props> = ({
   }, [itemWidth, frameSize, animationDuration]);
 
   return (
-    <div className="Carousel" ref={carousel}>
+    <div className="Carousel">
       <button
         type="button"
         onClick={handlePrevClick}
@@ -78,21 +78,22 @@ const Carousel: React.FC<Props> = ({
       >
         {'<'}
       </button>
-
-      <ul className="Carousel__list" ref={carouselList}>
-        {
-          images.map((image, index) => (
-            <li key={image}>
-              <img
-                src={image}
-                alt={index.toString()}
-                width={itemWidth}
-                className="Carousel__image"
-              />
-            </li>
-          ))
-        }
-      </ul>
+      <div className="Carousel__list-wrapper" ref={wrapper}>
+        <ul className="Carousel__list" ref={carouselList}>
+          {
+            images.map((image, index) => (
+              <li key={image}>
+                <img
+                  src={image}
+                  alt={index.toString()}
+                  width={itemWidth}
+                  className="Carousel__image"
+                />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
 
       <button
         type="button"

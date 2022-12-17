@@ -1,12 +1,15 @@
 // style go here
 .Carousel {
-  width: 390px;
   position: relative;
-  overflow: hidden;
-
+  
+  &__list-wrapper {
+    width: 390px;
+    overflow: hidden;
+  }
   &__list {
     list-style: none;
     display: flex;
+    max-width: 100%;
     padding: 0;
   }
 

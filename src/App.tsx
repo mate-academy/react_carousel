@@ -114,6 +114,17 @@ const App: FC = () => {
         />
       </div>
 
+      <div>
+        <label htmlFor="animationDuration">animation duration:</label>
+        <input
+          type="number"
+          value={animationDuration}
+          onChange={handleChange}
+          id="animationDuration"
+          min="0"
+        />
+      </div>
+
       <form>
         <label htmlFor="infinite">infinite:</label>
         <input
