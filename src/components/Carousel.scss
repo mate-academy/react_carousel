@@ -1,1 +1,20 @@
-// style go here
+div#viewport {
+  margin: 10px 50px;
+  overflow: hidden;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  width: 9999px;
+  position: relative;
+}
+
+ul li {
+  display: inline-block;
+}
+
+.arrow {
+  margin-right: 50px;
+}
