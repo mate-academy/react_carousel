@@ -98,7 +98,7 @@ class Carousel extends React.Component<Props, State> {
       return 0;
     };
 
-    const determineTransform = (index: number) => { // selected: 9, index: 2
+    const determineTransform = (index: number) => {
       const widthScalar = itemWidth / 13;
 
       for (let i = 0; i < frameSize; i += 1) {
@@ -176,23 +176,39 @@ class Carousel extends React.Component<Props, State> {
           <ul
             className="Carousel__list"
             style={{
-              transform: `translateX(-${selected * itemWidth}px)`,
+              transform: `translateX(-${selected * (itemWidth)}px)`,
               transition: `transform ${animationDuration}s`,
             }}
           >
-            {images.map((img, i) => (
-              <li
-                key={(i + 1).toString()}
-                className="Carousel__item"
-              >
-                <img
-                  width={itemWidth}
-                  height={itemWidth}
-                  src={img}
-                  alt={(i + 1).toString()}
-                />
-              </li>
-            ))}
+            {images.map((img, i) => {
+              let translate;
+
+              if (i < selected) {
+                translate = -1;
+              } else if (i >= selected + frameSize) {
+                translate = 1;
+              } else {
+                translate = 0;
+              }
+
+              return (
+                <li
+                  key={(i + 1).toString()}
+                  style={{
+                    opacity: `${translate === 0 ? 1 : 0}`,
+                    transform: `translateX(${translate}px)`,
+                  }}
+                  className="Carousel__item"
+                >
+                  <img
+                    width={itemWidth}
+                    height={itemWidth}
+                    src={img}
+                    alt={(i + 1).toString()}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       );
@@ -228,49 +244,3 @@ class Carousel extends React.Component<Props, State> {
 }
 
 export default Carousel;
-
-/**
- * A function to determine where the incoming items should be directed from.
- * Let's see if it will be implemented.
-  setPositions(towards: boolean) {
-    const {
-      frameSize,
-      step,
-      images,
-    } = this.props;
-
-    const {
-      size,
-      selected,
-    } = this.state;
-
-    this.setState({
-      position: images.map((_el, i) => {
-        if (towards) {
-          if (i >= selected + frameSize) {
-            if (selected + frameSize + step > size) {
-              if (selected + frameSize + step - size > i) {
-                return true;
-              }
-            } else {
-              return true;
-            }
-          }
-        }
-
-        if (i < selected) {
-          if (selected - step < 0) {
-            if (selected - step + size < i) {
-              return true;
-            }
-          } else {
-            return true;
-          }
-        }
-
-        return false;
-      }),
-    });
-  }
-
- */

@@ -7,13 +7,11 @@ interface Props {
   itemWidth: number,
   animationDuration: number,
   infinite: boolean,
-  sS: {
-    step: React.Dispatch<React.SetStateAction<number>>,
-    frameSize: React.Dispatch<React.SetStateAction<number>>,
-    itemWidth: React.Dispatch<React.SetStateAction<number>>,
-    animationDuration: React.Dispatch<React.SetStateAction<number>>,
-    infinite: React.Dispatch<React.SetStateAction<boolean>>,
-  },
+  setStep: React.Dispatch<React.SetStateAction<number>>,
+  setFrameSize: React.Dispatch<React.SetStateAction<number>>,
+  setItemWidth: React.Dispatch<React.SetStateAction<number>>,
+  setAnimDuration: React.Dispatch<React.SetStateAction<number>>,
+  setInfinite: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const Options = (props: Props) => {
@@ -23,7 +21,11 @@ export const Options = (props: Props) => {
     itemWidth,
     animationDuration,
     infinite,
-    sS,
+    setStep,
+    setFrameSize,
+    setAnimDuration,
+    setItemWidth,
+    setInfinite,
   } = props;
 
   const inputs:{
@@ -38,40 +40,45 @@ export const Options = (props: Props) => {
       name: 'Step',
       id: 'step',
       value: step,
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => sS
-        .step(Number.parseInt(e.target.value, 10)),
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => setStep(
+        Number.parseInt(e.target.value, 10),
+      ),
     },
     {
       type: 'number',
       name: 'Frame size',
       id: 'frame',
       value: frameSize,
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => sS
-        .frameSize(Number.parseInt(e.target.value, 10)),
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => setFrameSize(
+        Number.parseInt(e.target.value, 10),
+      ),
     },
     {
       type: 'number',
       name: 'Item width',
       id: 'item',
       value: itemWidth,
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => sS
-        .itemWidth(Number.parseInt(e.target.value, 10)),
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => setItemWidth(
+        Number.parseInt(e.target.value, 10),
+      ),
     },
     {
       type: 'number',
       name: 'Animation duration',
       id: 'animation',
       value: animationDuration,
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => sS
-        .animationDuration(Number.parseInt(e.target.value, 10)),
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => setAnimDuration(
+        Number.parseInt(e.target.value, 10),
+      ),
     },
     {
       type: 'boolean',
       name: 'Infinite',
       id: 'inf',
       value: infinite,
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => sS
-        .infinite(Boolean(e.target.checked)),
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => setInfinite(
+        Boolean(e.target.checked),
+      ),
     },
   ];
 

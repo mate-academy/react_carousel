@@ -30,9 +30,14 @@
     overflow: hidden;
   }
 
-  &__item-inf {
-    position: absolute;
-    transform-origin: 0 0 -1000px;
+  &__item {
+    transition: opacity 0.3s,
+      transform 0.3s;
+
+    &-inf {
+      position: absolute;
+      transform-origin: 0 0 -1000px;
+    }
   }
 
   &__button {

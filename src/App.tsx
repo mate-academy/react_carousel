@@ -29,8 +29,7 @@ const App = () => {
           className="title"
           data-cy="title"
         >
-          {/* eslint-disable-next-line */}
-          Carousel with {images.length} images
+          {`Carousel with ${images.length} images`}
         </h1>
 
         <Carousel
@@ -49,13 +48,11 @@ const App = () => {
         itemWidth={itemWidth}
         animationDuration={animationDuration}
         infinite={infinite}
-        sS={{
-          step: setStep,
-          frameSize: setFrameSize,
-          itemWidth: setItemWidth,
-          animationDuration: setAnimationDuration,
-          infinite: setInfinite,
-        }}
+        setStep={setStep}
+        setFrameSize={setFrameSize}
+        setItemWidth={setItemWidth}
+        setAnimDuration={setAnimationDuration}
+        setInfinite={setInfinite}
       />
     </div>
   );

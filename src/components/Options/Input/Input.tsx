@@ -27,28 +27,28 @@ export const Input = ({ props }: Props) => {
     const val = parseInt(e.target.value, 10);
 
     if (name === 'Step') {
-      if (!val || (val >= 0 && val <= 5)) {
+      if (val >= 0 && val <= 5) {
         setError(false);
         handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Frame size') {
-      if (!val || (val >= 0 && val <= 5)) {
+      if (val >= 0 && val <= 5) {
         setError(false);
         handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Item width') {
-      if (!val || val >= 0) {
+      if (val >= 0) {
         setError(false);
         handleChange(e);
       } else {
         setError(true);
       }
     } else if (name === 'Animation duration') {
-      if (!val || val >= 0) {
+      if (val >= 0) {
         setError(false);
         handleChange(e);
       } else {
