@@ -8,7 +8,7 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
+  isInfinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false,
+    isInfinite: false,
   };
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class App extends React.Component<{}, State> {
     }
 
     buttons.forEach(button => button.addEventListener('click', () => {
-      this.setState({ infinite: true });
+      this.setState({ isInfinite: true });
     }));
   }
 
@@ -96,7 +96,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
+      isInfinite,
     } = this.state;
 
     return (
@@ -176,7 +176,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={infinite}
+          isInfinite={isInfinite}
         />
       </div>
     );

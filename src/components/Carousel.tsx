@@ -7,7 +7,7 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
+  isInfinite: boolean;
 };
 
 const gap = 10;
@@ -38,7 +38,7 @@ class Carousel extends React.Component<Props> {
   }
 
   showNext = () => {
-    if (this.props.infinite) {
+    if (this.props.isInfinite) {
       clearInterval(this.intervalId);
     }
 
@@ -58,7 +58,7 @@ class Carousel extends React.Component<Props> {
   };
 
   showPrevious = () => {
-    if (this.props.infinite) {
+    if (this.props.isInfinite) {
       clearInterval(this.intervalId);
     }
 
@@ -86,7 +86,7 @@ class Carousel extends React.Component<Props> {
     const nextButton = document.querySelector('.Carousel__button--next');
     const prevButton = document.querySelector('.Carousel__button--prev');
 
-    if (!this.props.infinite && Math.ceil(scrollLeft) === (scrollWidth
+    if (!this.props.isInfinite && Math.ceil(scrollLeft) === (scrollWidth
       - clientWidth)) {
       const carousel: HTMLUListElement | null
         = document.querySelector('.Carousel__list');

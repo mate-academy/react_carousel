@@ -9,11 +9,11 @@
   }
 
   &__inputs {
-    @include centering;
     justify-content: center;
     width: 100%;
     padding: 20px 0;
     color: gray;
+    @include centering;
     @include typography;
 
     &-wrap {
@@ -29,8 +29,8 @@
 
     &-input {
       color: gray;
-      @include typography;
       margin-right: 5px;
+      @include typography;
 
       &::placeholder {
         color: gray;
