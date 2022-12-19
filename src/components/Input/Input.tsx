@@ -7,7 +7,7 @@ type Props = {
   max: number,
   step: number,
   defaultValue: number,
-  onChange: (value: number) => void,
+  onChange: (value: HTMLInputElement) => void,
 };
 
 export const Input: React.FC<Props> = ({
@@ -30,8 +30,8 @@ export const Input: React.FC<Props> = ({
         max={max}
         className="Inputs__item"
         defaultValue={defaultValue}
-        onChange={(e) => {
-          onChange(+e.target.value);
+        onChange={(event) => {
+          onChange(event.target);
         }}
       />
     </>

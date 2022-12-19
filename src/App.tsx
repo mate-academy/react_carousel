@@ -33,23 +33,15 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  componentDidMount() {
-    const buttons: NodeListOf<HTMLButtonElement>
-      = document.querySelectorAll('.Carousel__button');
-
-    if (!buttons) {
+  setInfinite = (inputInfinite: HTMLButtonElement) => {
+    if (!inputInfinite) {
       return;
     }
 
-    buttons.forEach(button => button.addEventListener('click', () => {
-      this.setState({ infinite: true });
-    }));
-  }
+    this.setState({ infinite: true });
+  };
 
-  setStep = () => {
-    const inputStep: HTMLInputElement | null
-      = document.querySelector('#stepId');
-
+  setStep = (inputStep: HTMLInputElement) => {
     if (!inputStep) {
       return;
     }
@@ -57,10 +49,7 @@ class App extends React.Component<{}, State> {
     this.setState({ step: +inputStep.value });
   };
 
-  setWidth = () => {
-    const inputWidth: HTMLInputElement | null
-      = document.querySelector('#itemId');
-
+  setWidth = (inputWidth: HTMLInputElement) => {
     if (!inputWidth) {
       return;
     }
@@ -68,10 +57,7 @@ class App extends React.Component<{}, State> {
     this.setState({ itemWidth: +inputWidth.value });
   };
 
-  setFrameSize = () => {
-    const inputFrameSize: HTMLInputElement | null
-      = document.querySelector('#frameId');
-
+  setFrameSize = (inputFrameSize: HTMLInputElement) => {
     if (!inputFrameSize) {
       return;
     }
@@ -79,10 +65,7 @@ class App extends React.Component<{}, State> {
     this.setState({ frameSize: +inputFrameSize.value });
   };
 
-  setAnimationDuration = () => {
-    const inputAnimationDuration: HTMLInputElement | null
-      = document.querySelector('#durationId');
-
+  setAnimationDuration = (inputAnimationDuration: HTMLInputElement) => {
     if (!inputAnimationDuration) {
       return;
     }
@@ -115,7 +98,9 @@ class App extends React.Component<{}, State> {
             min={130}
             max={500}
             defaultValue={130}
-            onChange={this.setWidth}
+            onChange={(inputElement) => {
+              this.setWidth(inputElement);
+            }}
           />
 
           <Input
@@ -124,7 +109,9 @@ class App extends React.Component<{}, State> {
             min={1}
             max={10}
             defaultValue={3}
-            onChange={this.setStep}
+            onChange={(inputElement) => {
+              this.setStep(inputElement);
+            }}
           />
 
           <Input
@@ -133,7 +120,9 @@ class App extends React.Component<{}, State> {
             min={3}
             max={10}
             defaultValue={3}
-            onChange={this.setFrameSize}
+            onChange={(inputElement) => {
+              this.setFrameSize(inputElement);
+            }}
           />
 
           <Input
@@ -142,7 +131,9 @@ class App extends React.Component<{}, State> {
             min={1000}
             max={5000}
             defaultValue={1000}
-            onChange={this.setAnimationDuration}
+            onChange={(inputElement) => {
+              this.setAnimationDuration(inputElement);
+            }}
           />
 
         </div>
@@ -153,6 +144,9 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
+          onClick={(inputElement) => {
+            this.setInfinite(inputElement);
+          }}
         />
       </div>
     );

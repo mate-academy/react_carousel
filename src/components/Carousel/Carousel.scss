@@ -7,13 +7,17 @@
   column-gap: 20px;
   grid-template-areas: "prev list-img next";
 
+  &__container {
+    grid-area: list-img;
+    overflow: hidden;
+  }
+
   &__list {
     display: flex;
     list-style: none;
-    overflow: hidden;
     justify-content: space-between;
-    grid-area: list-img;
     padding: 0;
+    position: relative;
   }
 
   &__item {

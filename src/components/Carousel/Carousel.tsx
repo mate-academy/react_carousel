@@ -8,6 +8,7 @@ type Props = {
   itemWidth: number,
   animationDuration: number,
   infinite: boolean,
+  onClick: (value: HTMLButtonElement) => void,
 };
 
 type State = {
@@ -25,95 +26,58 @@ class Carousel extends Component<Props, State> {
 
   componentDidMount() {
     this.intervalId = window.setInterval(() => {
-      this.showNext();
+      this.show('next');
     }, this.props.animationDuration);
   }
 
-  componentDidUpdate(Prev: Props) {
-    if (Prev.animationDuration === this.props.animationDuration) {
-      return;
+  componentDidUpdate(props: Props) {
+    if (props.frameSize !== this.props.frameSize
+      && this.maxPosition() <= this.state.position) {
+      this.setState({
+        position: this.maxPosition(),
+      });
     }
 
-    clearInterval(this.intervalId);
-
-    this.intervalId = window.setInterval(() => {
-      this.showNext();
-    }, this.props.animationDuration);
+    if (this.maxPosition() === this.state.position) {
+      clearInterval(this.intervalId);
+    }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-  }
+  maxPosition = () => (
+    ((this.props.images.length - this.props.frameSize)
+     * (this.props.itemWidth + this.retreat)
+    ));
 
-  showNext = () => {
+  scrollValue = () => (
+    (this.props.itemWidth + this.retreat) * this.props.step
+  );
+
+  show = (direction: 'prev' | 'next') => {
     if (this.props.infinite) {
       clearInterval(this.intervalId);
     }
 
-    const carousel: HTMLUListElement | null
-      = document.querySelector('.Carousel__list');
+    const { position } = this.state;
 
-    if (!carousel) {
-      return;
-    }
-
-    const scrollValue = (this.props.itemWidth + this.retreat) * this.props.step;
-    const left = Math.ceil(carousel.scrollLeft);
-
-    carousel.scrollTo({
-      left: left + scrollValue,
-      behavior: 'smooth',
-    });
-
-    this.setState((state) => {
-      const maxPosition = -(
-        (this.props.images.length - this.props.frameSize) * this.props.itemWidth
-      );
-
-      if (state.position !== maxPosition) {
-        return {
-          position: Math.max(
-            maxPosition,
-            state.position - this.props.step * this.props.itemWidth,
+    if (direction === 'next' && this.state.position <= this.maxPosition()) {
+      this.setState({
+        position:
+          Math.min(
+            this.maxPosition(),
+            position + this.scrollValue(),
           ),
-        };
-      }
-
-      return { position: state.position };
-    });
-  };
-
-  showPrev = () => {
-    if (this.props.infinite) {
-      clearInterval(this.intervalId);
+      });
     }
 
-    const carousel: HTMLUListElement | null
-      = document.querySelector('.Carousel__list');
-
-    if (!carousel) {
-      return;
-    }
-
-    const scrollValue = (this.props.itemWidth + this.retreat) * this.props.step;
-
-    carousel.scrollTo({
-      left: Math.ceil(carousel.scrollLeft) - scrollValue,
-      behavior: 'smooth',
-    });
-
-    this.setState(state => {
-      if (state.position !== 0) {
-        return {
-          position: Math.min(
-            state.position + this.props.step * this.props.itemWidth,
+    if (direction === 'prev' && this.state.position !== 0) {
+      this.setState({
+        position:
+          Math.max(
             0,
+            position - this.scrollValue(),
           ),
-        };
-      }
-
-      return { position: state.position };
-    });
+      });
+    }
   };
 
   render() {
@@ -121,6 +85,8 @@ class Carousel extends Component<Props, State> {
       images,
       frameSize,
       itemWidth,
+      onClick,
+      animationDuration,
     } = this.props;
 
     const { position } = this.state;
@@ -130,28 +96,40 @@ class Carousel extends Component<Props, State> {
 
     return (
       <div className="Carousel">
-        <ul
-          className="Carousel__list"
-          style={{ width: `${containerCarouselWidh}px` }}
+        <div
+          className="Carousel__container"
+          style={{
+            width: `${containerCarouselWidh}px`,
+          }}
         >
-          {images.map((image) => (
-            <li className="Carousel__item" key={image}>
-              <img
-                className="Carousel__img"
-                src={image}
-                alt={image}
-                width={itemWidth}
-              />
-            </li>
-          ))}
-
-        </ul>
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${-position}px)`,
+              transition: `${animationDuration}ms`,
+            }}
+          >
+            {images.map((image) => (
+              <li className="Carousel__item" key={image}>
+                <img
+                  className="Carousel__img"
+                  src={image}
+                  alt={image}
+                  width={itemWidth}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <button
           type="button"
           name="prev"
           className="Carousel__button Carousel__button--prev"
-          onClick={this.showPrev}
+          onClick={(event) => {
+            this.show('prev');
+            onClick(event.currentTarget);
+          }}
           disabled={position === 0}
         >
           Prev
@@ -162,8 +140,11 @@ class Carousel extends Component<Props, State> {
           data-cy="next"
           name="next"
           className="Carousel__button Carousel__button--next"
-          onClick={this.showNext}
-          disabled={position === -(images.length - frameSize) * itemWidth}
+          onClick={(event) => {
+            this.show('next');
+            onClick(event.currentTarget);
+          }}
+          disabled={position === this.maxPosition()}
         >
           Next
         </button>
