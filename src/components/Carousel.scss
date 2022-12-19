@@ -1,1 +1,41 @@
 // style go here
+.Carousel {
+  &__list {
+    padding: 0;
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  &__button {
+    width: 30px;
+    height: 30px;
+
+    background-color: transparent;
+
+    border: solid #ffe599;
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 3px;
+
+    &--right {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+
+    &--left {
+      transform: rotate(135deg);
+      -webkit-transform: rotate(135deg);
+    }
+
+    &:disabled {
+      border-color: #eee;
+    }
+  }
+}
