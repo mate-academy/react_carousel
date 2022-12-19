@@ -1,1 +1,55 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+
+  &__input {
+    display: block;
+    padding: 5px;
+    margin-top: 5px;
+
+    color: darkgray;
+
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.06);
+    outline: none;
+
+    &:focus {
+      color: #505050;
+      border-color: #505050;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-top: 10px;
+
+    font-size: 17px;
+  }
+
+  &__button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    align-self: center;
+
+    font-weight: 600;
+    color: #3b2414;
+
+    background-color: #ffe599;
+
+    border: 1px solid #505050;
+    border-radius: 10px;
+    outline: none;
+  }
+}
