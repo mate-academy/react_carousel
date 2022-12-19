@@ -2,20 +2,37 @@
   width: 100vw;
   overflow: hidden;
 
+  &__title {
+    text-align: center;
+  }
+
   &__form {
     border: 1px solid #000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: max-content;
+    width: 40%;
     margin: 20px auto;
 
     background-color: rgb(218, 218, 218);
   }
 
   &__Input-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     &:not(:last-child) {
       margin-bottom: 10px;
     }
+  }
+
+  &__input-lable {
+    display: block;
+    font-size: 18px;
+  }
+
+  &__input {
+    width: 80%;
   }
 }

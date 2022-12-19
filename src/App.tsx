@@ -26,7 +26,7 @@ class App extends React.Component<{}, State> {
   };
 
   setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.target.value);
+    const curentValue = Number(event.currentTarget.value);
 
     let newValue;
 
@@ -49,7 +49,7 @@ class App extends React.Component<{}, State> {
   };
 
   setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.target.value);
+    const curentValue = Number(event.currentTarget.value);
 
     let newValue;
 
@@ -57,8 +57,8 @@ class App extends React.Component<{}, State> {
       case curentValue > 1300:
         newValue = 1300;
         break;
-      case curentValue < 130:
-        newValue = 130;
+      case curentValue < 0:
+        newValue = 0;
         break;
 
       default:
@@ -72,7 +72,7 @@ class App extends React.Component<{}, State> {
   };
 
   setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.target.value);
+    const curentValue = Number(event.currentTarget.value);
 
     let newValue;
 
@@ -95,7 +95,7 @@ class App extends React.Component<{}, State> {
   };
 
   setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.target.value);
+    const curentValue = Number(event.currentTarget.value);
 
     let newValue;
 
@@ -103,8 +103,8 @@ class App extends React.Component<{}, State> {
       case curentValue > 10000:
         newValue = 10000;
         break;
-      case curentValue < 500:
-        newValue = 500;
+      case curentValue < 0:
+        newValue = 0;
         break;
 
       default:
@@ -118,7 +118,7 @@ class App extends React.Component<{}, State> {
   };
 
   setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
+    const isChecked = event.currentTarget.checked;
 
     this.setState({
       infinite: isChecked,
@@ -138,7 +138,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App Page">
         {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 className="Page__title" data-cy="title">Carousel with {images.length} images</h1>
 
         <form
           action="#"

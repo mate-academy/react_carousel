@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './Carousel.scss';
+import './button.scss';
 import classNames from 'classnames';
 import { Carousel as Props } from '../types/Carousel';
 
@@ -145,14 +146,21 @@ export class Carousel extends Component<Props, State> {
         </div>
 
         <div className="button-container">
-          <button type="button" onClick={this.moveToPrev}>Prev</button>
+          <button
+            className="button button-prev"
+            type="button"
+            onClick={this.moveToPrev}
+          >
+            {/* Prev */}
+          </button>
 
           <button
+            className="button button-next"
             data-cy="next"
             type="button"
             onClick={this.moveToNext}
           >
-            Next
+            {/* Next */}
           </button>
         </div>
       </div>
