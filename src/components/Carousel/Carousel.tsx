@@ -10,31 +10,45 @@ type Props = {
   infinite: boolean,
 };
 
-const Carousel: React.FC<Props> = (props) => {
+export const Carousel: React.FC<Props> = (props) => {
   const [currentPositionImgList, setState] = useState(0);
   const {
     images,
-    step = 1,
-    frameSize = 3,
-    itemWidth = 130,
-    animationDuration = 1000,
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
     infinite,
   } = props;
 
   const showNexImg = () => {
     if (currentPositionImgList
-      > (images.length * itemWidth - frameSize * itemWidth) * -1) {
+      > (images.length * itemWidth - frameSize * itemWidth) * -1
+    ) {
+      if (currentPositionImgList - (itemWidth * step)
+      < (images.length * itemWidth - frameSize * itemWidth) * -1) {
+        setState((images.length * itemWidth - frameSize * itemWidth) * -1);
+
+        return;
+      }
+
       setState(state => state - (itemWidth * step));
     }
 
     if (infinite && currentPositionImgList
-      === (images.length * itemWidth - frameSize * itemWidth) * -1) {
+      <= (images.length * itemWidth - frameSize * itemWidth) * -1) {
       setState(0);
     }
   };
 
   const showPrevImg = () => {
     if (currentPositionImgList < 0) {
+      if (currentPositionImgList + (itemWidth * step) > 0) {
+        setState(0);
+
+        return;
+      }
+
       setState(state => state + (itemWidth * step));
     }
 
@@ -54,7 +68,11 @@ const Carousel: React.FC<Props> = (props) => {
       >
         {images.map(img => (
           <li key={images.indexOf(img)}>
-            <img src={`${img}`} alt="Smile head" />
+            <img
+              src={`${img}`}
+              alt="Smile head"
+              style={{ width: itemWidth }}
+            />
           </li>
         ))}
       </ul>
@@ -87,5 +105,3 @@ const Carousel: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-export default Carousel;
