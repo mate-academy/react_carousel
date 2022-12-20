@@ -63,12 +63,11 @@ export class Carousel extends Component<Props, State> {
               );
 
               return (
-                <li>
+                <li key={imageId}>
                   <img
                     className="Carousel__image"
                     src={image}
                     alt={imageId}
-                    key={imageId}
                     height={itemSize}
                     width={itemSize}
                   />

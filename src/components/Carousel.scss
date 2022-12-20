@@ -5,15 +5,13 @@
     position: relative;
 
     display: flex;
-    margin: 0;
-    padding: 0;
 
     list-style: none;
   }
 
   &__buttons-container {
-    width: 350px;
     display: flex;
+    width: 350px;
     justify-content: space-between;
   }
 

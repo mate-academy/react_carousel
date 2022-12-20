@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import './Reset.scss';
 import { Carousel } from './components/Carousel';
 
 interface State {
@@ -32,25 +33,25 @@ class App extends React.Component<{}, State> {
 
   handleChangeItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({
-      itemWidth: +event.target.value,
+      itemWidth: +event.currentTarget.value,
     })
   );
 
   handleChangeFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({
-      frameSize: +event.target.value,
+      frameSize: +event.currentTarget.value,
     })
   );
 
   handleChangeStepValue = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({
-      step: +event.target.value,
+      step: +event.currentTarget.value,
     })
   );
 
   handleChangeAnimDuration = (event: React.ChangeEvent<HTMLInputElement>) => (
     this.setState({
-      animationDuration: +event.target.value,
+      animationDuration: +event.currentTarget.value,
     })
   );
 
