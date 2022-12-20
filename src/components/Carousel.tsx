@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import cn from 'classnames';
 
 import './Carousel.scss';
@@ -20,62 +20,54 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  let itemPosition = 0;
-  const maxItemPosition = images.length - frameSize;
+  const [itemPosition, setItemPosition] = useState(0);
 
-  const carouselList = useRef<HTMLUListElement>(null);
+  const maxItemPosition = images.length - Math.max(frameSize, step);
+
   const wrapper = useRef<HTMLDivElement>(null);
 
-  const moveItems = () => {
-    if (carouselList && carouselList.current) {
-      carouselList.current.style.transform
-      = itemPosition >= maxItemPosition
-          ? `translateX(${(-maxItemPosition) * itemWidth}px)`
-          : `translateX(${-itemPosition * itemWidth}px)`;
-    }
-  };
+  const carouselList = useRef<HTMLUListElement>(null);
 
   const handlePrevClick = () => {
-    if (infinite && itemPosition === 0) {
-      itemPosition = maxItemPosition + step;
-    }
-
     if (itemPosition > 0) {
-      itemPosition -= step;
+      setItemPosition(position => position - step);
     }
 
-    if (itemPosition < 0) {
-      itemPosition = 0;
+    if (infinite && itemPosition === 0) {
+      setItemPosition(maxItemPosition);
     }
-
-    moveItems();
   };
 
   const handleNextClick = () => {
-    if (infinite && itemPosition === maxItemPosition) {
-      itemPosition = -step;
-    }
-
     if (itemPosition < maxItemPosition) {
-      itemPosition += step;
+      setItemPosition(position => position + step);
     }
 
-    if (itemPosition >= maxItemPosition) {
-      itemPosition = maxItemPosition;
+    if (infinite && itemPosition === maxItemPosition) {
+      setItemPosition(0);
     }
-
-    moveItems();
   };
 
   useEffect(() => {
+    if (itemPosition > maxItemPosition) {
+      setItemPosition(maxItemPosition);
+    }
+
+    if (itemPosition < 0) {
+      setItemPosition(0);
+    }
+
     if (wrapper && wrapper.current) {
       wrapper.current.style.width = `${itemWidth * frameSize}px`;
     }
 
     if (carouselList && carouselList.current) {
+      carouselList.current.style.transform
+      = `translateX(${(-itemPosition) * itemWidth}px)`;
+
       carouselList.current.style.transition = `${animationDuration.toString()}ms`;
     }
-  }, [itemWidth, frameSize, animationDuration]);
+  }, [itemPosition, frameSize, animationDuration, itemWidth]);
 
   return (
     <div className="Carousel">
