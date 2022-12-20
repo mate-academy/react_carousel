@@ -3,6 +3,8 @@ import './App.scss';
 import { Carousel } from './components/Carousel';
 import { Container } from './components/Container';
 import { Form } from './components/Form';
+import { Input } from './components/Input';
+import { CheckBox } from './components/CheckBox';
 
 export interface State {
   images: string[];
@@ -46,8 +48,7 @@ class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy='title'>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
         <Container>
           <Carousel
@@ -61,7 +62,15 @@ class App extends Component<{}, State> {
         </Container>
 
         <Form>
-          {/* eslint-disable-next-line */}
+          <Input label="Step" option={step} />
+
+          <Input label="Frame size" option={frameSize} />
+
+          <Input label="Item width" option={itemWidth} />
+
+          <Input label="Animation duration" option={animationDuration} />
+
+          <CheckBox />
         </Form>
       </div>
     );
