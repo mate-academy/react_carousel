@@ -77,7 +77,7 @@ const Carousel: React.FC<Props> = ({
         className={cn(
           'Carousel__arrow Carousel__arrow--prev',
           {
-            disabled: !infinite,
+            disabled: !infinite && itemPosition === 0,
           },
         )}
       >
@@ -106,6 +106,9 @@ const Carousel: React.FC<Props> = ({
         data-cy="next"
         className={cn(
           'Carousel__arrow Carousel__arrow--next',
+          {
+            disabled: !infinite && itemPosition === maxItemPosition,
+          },
         )}
       >
         {'=>'}
