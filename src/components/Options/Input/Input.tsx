@@ -26,77 +26,82 @@ export const Input = ({ props }: Props) => {
   ) => {
     const val = parseInt(e.target.value, 10);
 
-    if (name === 'Step') {
-      if (val >= 0 && val <= 5) {
-        setError(false);
+    switch (name) {
+      case 'Step':
+        if (val >= 0 && val <= 5) {
+          setError(false);
+          handleChange(e);
+        } else {
+          setError(true);
+        }
+
+        break;
+      case 'Frame size':
+        if (val >= 0 && val <= 5) {
+          setError(false);
+          handleChange(e);
+        } else {
+          setError(true);
+        }
+
+        break;
+      case 'Item width':
+        if (val >= 0) {
+          setError(false);
+          handleChange(e);
+        } else {
+          setError(true);
+        }
+
+        break;
+      case 'Animation duration':
+        if (val >= 0) {
+          setError(false);
+          handleChange(e);
+        } else {
+          setError(true);
+        }
+
+        break;
+      default:
         handleChange(e);
-      } else {
-        setError(true);
-      }
-    } else if (name === 'Frame size') {
-      if (val >= 0 && val <= 5) {
-        setError(false);
-        handleChange(e);
-      } else {
-        setError(true);
-      }
-    } else if (name === 'Item width') {
-      if (val >= 0) {
-        setError(false);
-        handleChange(e);
-      } else {
-        setError(true);
-      }
-    } else if (name === 'Animation duration') {
-      if (val >= 0) {
-        setError(false);
-        handleChange(e);
-      } else {
-        setError(true);
-      }
-    } else {
-      handleChange(e);
     }
   };
 
-  if (type === 'number') {
-    return (
-      <label
-        htmlFor={`${id}Id`}
-        className={`Options__label${error ? ' Options__error' : ''}`}
-      >
-        {name}
-        :
-        <input
-          className="Options__input"
-          onChange={(e) => dimensionChecks(e)}
-          placeholder={value.toString()}
-          type={type}
-          name={name}
-          id={`${id}Id`}
-        />
-      </label>
-    );
-  }
+  const errorClass = error ? ' Options__error' : '';
+  const className = type === 'number'
+    ? `Options__label${errorClass}`
+    : 'Options__label';
 
-  if (type === 'boolean') {
-    return (
-      <label
-        htmlFor={`${id}Id`}
-        className="Options__label"
-      >
-        Infinite:
-        <input
-          className="Options__input"
-          onChange={(e) => dimensionChecks(e)}
-          checked={value as boolean}
-          type="checkbox"
-          name="inf"
-          id={`${id}Id`}
-        />
-      </label>
+  const input = type === 'number'
+    ? (
+      <input
+        className="Options__input"
+        onChange={(e) => dimensionChecks(e)}
+        placeholder={value.toString()}
+        type={type}
+        name={name}
+        id={`${id}Id`}
+      />
+    ) : (
+      <input
+        className="Options__input"
+        onChange={(e) => dimensionChecks(e)}
+        checked={value as boolean}
+        type="checkbox"
+        name="inf"
+        id={`${id}Id`}
+      />
     );
-  }
 
-  return <></>;
+  return (['boolean', 'number'].includes(type) && (
+    <label
+      htmlFor={`${id}Id`}
+      className={className}
+    >
+      {name}
+      :
+      {input}
+    </label>
+  )) || null;
 };
