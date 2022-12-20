@@ -1,0 +1,35 @@
+.Options {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    display: flex;
+    width: 20vw;
+    min-width: 300px;
+    justify-content: space-between;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    background-color: #dfd;
+
+    & + & {
+      margin-top: 7px;
+    }
+  }
+
+  &__input {
+    width: 70px;
+    border: none;
+    background-color: #eee;
+    text-align: center;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__error {
+    background-color: #d77;
+  }
+}
