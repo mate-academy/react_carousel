@@ -23,7 +23,7 @@
   }
 
   &__button {
-    opacity: 0.95;
+    opacity: 95;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
@@ -34,7 +34,7 @@
     transition: background-image $transition_speed;
 
     &[disabled] {
-      opacity: 0.5;
+      opacity: 50;
     }
 
     &--prev {
