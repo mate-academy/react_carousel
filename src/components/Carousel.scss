@@ -38,28 +38,28 @@
     }
 
     &--prev {
-      background-image: url(../arrows//Arrow__prev.svg);
+      background-image: url(../arrows//Arrow_prev.svg);
 
       &:not([disabled]):hover {
-        background-image: url(../arrows/Arrow__prev-hover.svg);
+        background-image: url(../arrows/Arrow_prev-hover.svg);
         cursor: pointer;
       }
 
       &:not([disabled]):active {
-        background-image: url(../arrows/Arrow__prev-active.svg);
+        background-image: url(../arrows/Arrow_prev-active.svg);
       }
     }
 
     &--next {
-      background-image: url(../arrows/Arrow__next.svg);
+      background-image: url(../arrows/Arrow_next.svg);
 
       &:not([disabled]):hover {
-        background-image: url(../arrows/Arrow__next-hover.svg);
+        background-image: url(../arrows/Arrow_next-hover.svg);
         cursor: pointer;
       }
 
       &:not([disabled]):active {
-        background-image: url(../arrows/Arrow__next-active.svg);
+        background-image: url(../arrows/Arrow_next-active.svg);
       }
     }
   }
