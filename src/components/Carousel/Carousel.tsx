@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import './Carousel.scss';
 
 import type { State as CarouselProps } from '../../App';
@@ -13,30 +13,40 @@ export const Carousel: FC<CarouselProps> = ({
   animationDuration,
   infinite,
 }) => {
+  const [transformSize, setTransformSize] = useState(0);
+
   const imageStyle = {
     width: `${itemWidth}px`,
   };
 
-  const listStyle = {
-    transition: `transform ${animationDuration}ms ease-out`,
+  const itemStyle = {
+    transform: `translateX(${transformSize}px)`,
+    transition: `transform ${animationDuration}s ease-in-out`,
+  };
 
+  const listStyle = {
+    width: `${(itemWidth * frameSize)}px`,
   };
 
   const handleNext = () => {
-    console.log('Next');
+    setTransformSize((prev) => prev - (itemWidth * step) - 10);
     console.log(frameSize);
     console.log(infinite);
   };
 
   const handlePrev = () => {
-    console.log(step);
+    setTransformSize((prev) => prev + (itemWidth * step));
   };
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list">
+      <ul className="Carousel__list" style={listStyle}>
         {images.map((image, idx) => (
-          <li className="Carousel__item" style={listStyle}>
+          <li
+            className="Carousel__item"
+            style={itemStyle}
+            key={image}
+          >
             <img
               src={image}
               alt={String(idx + 1)}
