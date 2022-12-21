@@ -1,1 +1,66 @@
-// style go here
+@import "../styles/utils/variables";
+
+.Carousel {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  &__list {
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+      0.3em 0.3em 1em rgba(0,0,0,0.3);
+    
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px 30px 20px;
+    border-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  &__container {
+    display: flex;
+  }
+
+  &__button {
+    opacity: 95%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: $generalColor;
+    width: 130px;
+    height: 80px;
+    border: none;
+    transition: background-image $transition_speed;
+
+    &[disabled] {
+      opacity: 50%;
+    }
+
+    &--prev {
+      background-image: url(../arrows/Arrow__prev.svg);
+
+      &:not([disabled]):hover {
+        background-image: url(../arrows/Arrow__prev-hover.svg);
+        cursor: pointer;
+      }
+
+      &:not([disabled]):active {
+        background-image: url(../arrows/Arrow__prev-active.svg);
+      }
+    }
+
+    &--next {
+      background-image: url(../arrows/Arrow__next.svg);
+
+      &:not([disabled]):hover {
+        background-image: url(../arrows/Arrow__next-hover.svg);
+        cursor: pointer;
+      }
+
+      &:not([disabled]):active {
+        background-image: url(../arrows/Arrow__next-active.svg);
+      }
+    }
+  }
+}
