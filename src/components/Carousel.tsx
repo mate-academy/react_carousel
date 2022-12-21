@@ -27,13 +27,7 @@ const Carousel: React.FC<Props> = ({
 
   const handleLeftArrow = () => {
     setOffset((currentOffset) => {
-      let newOffset = currentOffset + itemWidth * step;
-
-      if (infinite && newOffset === 0) {
-        newOffset = -(itemWidth * (images.length - 1));
-
-        return newOffset;
-      }
+      const newOffset = currentOffset + itemWidth * step;
 
       return Math.min(newOffset, 0);
     });
@@ -43,9 +37,9 @@ const Carousel: React.FC<Props> = ({
     setOffset((currentOffset) => {
       let newOffset = currentOffset - itemWidth * step;
 
-      const maxOffset = -(itemWidth * (images.length - 1));
+      const maxOffset = -(itemWidth * (images.length - step));
 
-      if (infinite && newOffset === maxOffset) {
+      if (infinite && newOffset === -(itemWidth * (images.length))) {
         newOffset = 0;
 
         return newOffset;
@@ -71,7 +65,7 @@ const Carousel: React.FC<Props> = ({
       <div id="viewport" style={div}>
         <ul className="Carousel__list">
           {images.map((image) => (
-            <li key={image}>
+            <li key={image} className="Carousel__item">
               <img src={image} width={itemWidth} style={imgs} alt="1" />
             </li>
           ))}

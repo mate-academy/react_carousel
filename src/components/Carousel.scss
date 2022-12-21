@@ -3,7 +3,7 @@ div#viewport {
   overflow: hidden;
 }
 
-ul {
+.Carousel__list {
   margin: 0;
   padding: 0;
   font-size: 0;
@@ -11,7 +11,7 @@ ul {
   position: relative;
 }
 
-ul li {
+.Carousel__item {
   display: inline-block;
 }
 

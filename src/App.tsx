@@ -32,6 +32,35 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  handle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    switch (name) {
+      case 'itemWidth':
+        this.setState({ [name]: +value });
+        break;
+
+      case 'frameSize':
+        this.setState({ [name]: +value });
+        break;
+
+      case 'step':
+        this.setState({ [name]: +value });
+        break;
+
+      case 'animationDuration':
+        this.setState({ [name]: +value });
+        break;
+
+      case 'infinite':
+        this.setState({ [name]: true });
+        break;
+
+      default:
+        break;
+    }
+  };
+
   render() {
     const {
       images, itemWidth, frameSize, step, animationDuration, infinite,
@@ -46,35 +75,31 @@ class App extends React.Component<{}, State> {
         <div className="content">
           <label htmlFor="itemWidth">Please enter ItemWidth: </label>
           <input
+            name="itemWidth"
             min={100}
             max={200}
-            step={10}
             type="text"
             id="itemWidth"
             value={itemWidth}
-            onChange={(event) => {
-              this.setState({ itemWidth: +event.target.value });
-            }}
+            onChange={this.handle}
           />
           <br />
           <label htmlFor="frameSize">Please enter FrameSize: </label>
           <input
+            name="frameSize"
             type="text"
             id="frameSize"
             value={frameSize}
-            onChange={(event) => {
-              this.setState({ frameSize: +event.target.value });
-            }}
+            onChange={this.handle}
           />
           <br />
           <label htmlFor="step">Please enter step: </label>
           <input
+            name="step"
             type="text"
             id="step"
             value={step}
-            onChange={(event) => {
-              this.setState({ step: +event.target.value });
-            }}
+            onChange={this.handle}
           />
           <br />
           <label htmlFor="animationDuration">
@@ -82,21 +107,19 @@ class App extends React.Component<{}, State> {
             {' '}
           </label>
           <input
+            name="animationDuration"
             type="text"
             id="animationDuration"
             value={animationDuration}
-            onChange={(event) => {
-              this.setState({ animationDuration: +event.target.value });
-            }}
+            onChange={this.handle}
           />
           <br />
           <label htmlFor="animationDuration">Infinite: </label>
           <input
+            name="infinite"
             type="checkbox"
             id="infinite"
-            onChange={() => {
-              this.setState({ infinite: true });
-            }}
+            onChange={this.handle}
           />
 
           <Carousel
