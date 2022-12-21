@@ -20,6 +20,7 @@ export const Carousel: FC<CarouselProps> = ({
   };
 
   const itemStyle = {
+    width: `${itemWidth}px`,
     transform: `translateX(${transformSize}px)`,
     transition: `transform ${animationDuration}s ease-in-out`,
   };
@@ -29,7 +30,7 @@ export const Carousel: FC<CarouselProps> = ({
   };
 
   const handleNext = () => {
-    setTransformSize((prev) => prev - (itemWidth * step) - 10);
+    setTransformSize((prev) => prev - (itemWidth * step));
     console.log(frameSize);
     console.log(infinite);
   };
