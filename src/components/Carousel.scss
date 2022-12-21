@@ -38,29 +38,28 @@
     }
 
     &--prev {
-      background-image: url(	https://julia2063.github.io/react_carousel/static/media/Arrow__prev.5642fb84.svg);
+      background-image: url(../arrows//Arrow__prev.svg);
 
       &:not([disabled]):hover {
-        background-image: url(https://julia2063.github.io/react_carousel/static/media/Arrow__prev-hover.e2682016.svg);
+        background-image: url(../arrows/Arrow__prev-hover.svg);
         cursor: pointer;
       }
 
       &:not([disabled]):active {
-        background-image: url(https://julia2063.github.io/react_carousel/static/media/Arrow__prev-active.b32884d0.svg);
+        background-image: url(../arrows/Arrow__prev-active.svg);
       }
     }
 
     &--next {
-      background-image: url(https://julia2063.github.io/react_carousel/static/media/Arrow__next.d541d85d.svg);
+      background-image: url(../arrows/Arrow__next.svg);
 
       &:not([disabled]):hover {
-        background-image: url(https://julia2063.github.io/react_carousel/static/media/Arrow__next-hover.3785edef.svg);
+        background-image: url(../arrows/Arrow__next-hover.svg);
         cursor: pointer;
       }
 
       &:not([disabled]):active {
-        background-image: url(https://julia2063.github.io/react_carousel/static/media/Arrow__next-active.81b424bc.svg
-        );
+        background-image: url(../arrows/Arrow__next-active.svg);
       }
     }
   }
