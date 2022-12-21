@@ -4,9 +4,13 @@ import './CheckBox.scss';
 
 export const CheckBox: FC = () => {
   return (
-    <input
-      type="checkbox"
-      className="CheckBox"
-    />
+    <label htmlFor="checkbox">
+      {'Infinite: '}
+      <input
+        type="checkbox"
+        className="CheckBox"
+        name="checkbox"
+      />
+    </label>
   );
 };

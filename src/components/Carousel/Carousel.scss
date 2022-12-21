@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  margin-top: 5rem;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  &__button {
+    display: block;
+
+    width: 3rem;
+    height: 3rem;
+    border: 0.025rem solid black;
+    border-radius: 50%;
+    background-color: beige;
+    cursor: pointer;
+    z-index: 1;
+  }
+}

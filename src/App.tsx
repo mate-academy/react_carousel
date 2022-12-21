@@ -48,7 +48,12 @@ class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+        <h1
+          data-cy="title"
+          className="App__title"
+        >
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Container>
           <Carousel

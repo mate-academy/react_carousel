@@ -18,15 +18,9 @@ export const Input: FC<Props> = ({ label, option }) => {
   };
 
   return (
-    <>
-      <label className="Input__label" htmlFor={label}>
-        {label}
-      </label>
-      <input
-        type="number"
-        value={value}
-        onChange={changeHandler}
-      />
-    </>
+    <label className="Input__label" htmlFor={label}>
+      {label}
+      <input type="text" value={value} onChange={changeHandler} />
+    </label>
   );
 };
