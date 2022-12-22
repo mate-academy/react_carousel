@@ -11,7 +11,12 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({
-  images, itemWidth, frameSize, step, animationDuration, infinite,
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
 }) => {
   const [offset, setOffset] = useState(0);
   const [isAbleToGoRight, setisAbleToGoRight] = useState(false);
@@ -41,13 +46,15 @@ const Carousel: React.FC<Props> = ({
 
       const maxOffset = -(itemWidth * (images.length - step));
 
-      if (infinite && newOffset === -(itemWidth * (images.length))) {
+      if (infinite && newOffset === -(itemWidth * images.length)) {
         newOffset = 0;
 
         return newOffset;
       }
 
-      setisAbleToGoRight(maxOffset >= newOffset);
+      if (!infinite) {
+        setisAbleToGoRight(maxOffset >= newOffset);
+      }
 
       return Math.max(newOffset, maxOffset);
     });
@@ -77,7 +84,6 @@ const Carousel: React.FC<Props> = ({
           ))}
         </ul>
       </div>
-
     </div>
   );
 };
