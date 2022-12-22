@@ -26,6 +26,32 @@ export class App extends React.Component<{}, State> {
     infinity: false,
   };
 
+  handlerEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = event.target;
+
+    switch (name) {
+      case 'itemWidth':
+        this.setState({ itemWidth: +value });
+        break;
+
+      case 'frameSize':
+        this.setState({ frameSize: +value });
+        break;
+
+      case 'step':
+        this.setState({ step: +value });
+        break;
+
+      case 'animationDuration':
+        this.setState({ animationDuration: +value });
+        break;
+
+      default:
+        this.setState({ infinity: checked });
+        break;
+    }
+  };
+
   render() {
     const {
       images,
@@ -38,8 +64,11 @@ export class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className='App__title' data-cy='title'>Carousel with {images.length} images</h1>
+        <h1 className="App__title" data-cy="title">
+          Carousel with
+          {images.length}
+          images
+        </h1>
         <form
           className="App__form"
           onSubmit={(event) => {
@@ -52,9 +81,7 @@ export class App extends React.Component<{}, State> {
               name="itemWidth"
               type="number"
               value={itemWidth}
-              onChange={(event) => {
-                this.setState({ itemWidth: +event.target.value });
-              }}
+              onChange={this.handlerEvent}
             />
           </label>
           <label>
@@ -62,10 +89,9 @@ export class App extends React.Component<{}, State> {
             <input
               name="frameSize"
               type="number"
+              min="1"
               value={frameSize}
-              onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
-              }}
+              onChange={this.handlerEvent}
             />
           </label>
           <label>
@@ -74,9 +100,7 @@ export class App extends React.Component<{}, State> {
               name="step"
               type="number"
               value={step}
-              onChange={(event) => {
-                this.setState({ step: +event.target.value });
-              }}
+              onChange={this.handlerEvent}
             />
           </label>
           <label>
@@ -85,9 +109,7 @@ export class App extends React.Component<{}, State> {
               name="animationDuration"
               type="number"
               value={animationDuration}
-              onChange={(event) => {
-                this.setState({ animationDuration: +event.target.value });
-              }}
+              onChange={this.handlerEvent}
             />
           </label>
           <label>
@@ -96,9 +118,7 @@ export class App extends React.Component<{}, State> {
               name="infinit"
               type="checkbox"
               checked={infinity}
-              onChange={(event) => {
-                this.setState({ infinity: event.target.checked });
-              }}
+              onChange={this.handlerEvent}
             />
           </label>
 

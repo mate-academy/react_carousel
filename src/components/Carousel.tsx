@@ -32,20 +32,18 @@ export class Carousel extends Component<Props, State> {
     });
     this.maxShift = currentMaxShift;
 
-    if (this.props.infinity) {
-      if (shiftNext > currentMaxShift && shift !== currentMaxShift) {
-        this.setState({
-          shift: currentMaxShift,
-        });
-      } else if (shift === currentMaxShift) {
-        this.setState({
-          shift: 0,
-        });
-      } else {
-        this.setState({
-          shift: shiftNext,
-        });
-      }
+    if (!this.props.infinity) {
+      return;
+    }
+
+    if (shiftNext > currentMaxShift && shift !== currentMaxShift) {
+      this.setState({ shift: currentMaxShift });
+    } else if (shift === currentMaxShift) {
+      this.setState({ shift: 0 });
+    } else {
+      this.setState({
+        shift: shiftNext,
+      });
     }
   };
 
@@ -62,20 +60,16 @@ export class Carousel extends Component<Props, State> {
       shift: shiftPrev > 0 ? shiftPrev : 0,
     });
 
-    if (this.props.infinity) {
-      if (shiftPrev > 0 && shift !== 0) {
-        this.setState({
-          shift: shiftPrev,
-        });
-      } else if (shift === 0) {
-        this.setState({
-          shift: currentMaxShift,
-        });
-      } else {
-        this.setState({
-          shift: 0,
-        });
-      }
+    if (!this.props.infinity) {
+      return;
+    }
+
+    if (shiftPrev > 0 && shift !== 0) {
+      this.setState({ shift: shiftPrev });
+    } else if (shift === 0) {
+      this.setState({ shift: currentMaxShift });
+    } else {
+      this.setState({ shift: 0 });
     }
   };
 
@@ -85,6 +79,7 @@ export class Carousel extends Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinity,
     } = this.props;
     const { shift } = this.state;
 
@@ -93,16 +88,20 @@ export class Carousel extends Component<Props, State> {
         <button
           type="button"
           className="Carousel__button Carousel__button--prev"
-          onClick={() => {
-            this.translatePrev();
-          }}
-          disabled={(shift === 0 && !this.props.infinity)
+          onClick={this.translatePrev}
+          disabled={(shift === 0 && !infinity)
             || frameSize === images.length}
         >
           {' '}
         </button>
         <ul className="Carousel__list" style={{ width: `${frameSize * itemWidth}px` }}>
-          <div className="Carousel__container" style={{ transform: `translateX(-${shift}px)`, transition: `transform ${animationDuration / 1000}s` }}>
+          <div
+            className="Carousel__container"
+            style={{
+              transform: `translateX(-${shift}px)`,
+              transition: `transform ${animationDuration / 1000}s`,
+            }}
+          >
             {images.map((image, index) => (
               <li key={image}>
                 <img
@@ -119,10 +118,8 @@ export class Carousel extends Component<Props, State> {
           type="button"
           className="Carousel__button Carousel__button--next"
           data-cy="next"
-          onClick={() => {
-            this.translateNext();
-          }}
-          disabled={(shift === this.maxShift && !this.props.infinity)
+          onClick={this.translateNext}
+          disabled={(shift === this.maxShift && !infinity)
             || frameSize === images.length}
         >
           {' '}
