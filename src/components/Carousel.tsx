@@ -75,7 +75,7 @@ const Carousel: React.FC<Props> = ({
       >
         Next
       </button>
-      <div id="viewport" style={div}>
+      <div id="viewport" style={div} className="viewport">
         <ul className="Carousel__list">
           {images.map((image) => (
             <li key={image} className="Carousel__item">
