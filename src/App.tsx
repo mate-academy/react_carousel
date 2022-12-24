@@ -5,6 +5,12 @@ import { CarouselState } from './types/CarouselState';
 
 type State = CarouselState;
 
+type Cases =
+  'itemWidth' |
+  'frameSize' |
+  'step' |
+  'animationDuration';
+
 export class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -31,19 +37,14 @@ export class App extends React.Component<{}, State> {
 
     switch (name) {
       case 'itemWidth':
-        this.setState({ itemWidth: +value });
-        break;
-
       case 'frameSize':
-        this.setState({ frameSize: +value });
-        break;
-
       case 'step':
-        this.setState({ step: +value });
-        break;
-
       case 'animationDuration':
-        this.setState({ animationDuration: +value });
+        this.setState({
+          [name]: name === 'frameSize'
+            ? 1
+            : +value,
+        } as { [K in Cases]: number; });
         break;
 
       default:
@@ -66,7 +67,9 @@ export class App extends React.Component<{}, State> {
       <div className="App">
         <h1 className="App__title" data-cy="title">
           Carousel with
+          {' '}
           {images.length}
+          {' '}
           images
         </h1>
         <form
@@ -89,7 +92,7 @@ export class App extends React.Component<{}, State> {
             <input
               name="frameSize"
               type="number"
-              min="1"
+              min={1}
               value={frameSize}
               onChange={this.handlerEvent}
             />

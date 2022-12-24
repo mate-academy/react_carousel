@@ -19,13 +19,17 @@ export class Carousel extends Component<Props, State> {
   maxShift = 1;
 
   translateNext = () => {
-    const { itemWidth, step } = this.props;
+    const {
+      itemWidth,
+      step,
+      frameSize,
+    } = this.props;
     const { shift } = this.state;
     const shiftNext = itemWidth * step + shift;
 
     const currentMaxShift = itemWidth * this.image.length
     - step * itemWidth
-    + ((step - this.props.frameSize) * itemWidth);
+    + ((step - frameSize) * itemWidth);
 
     this.setState({
       shift: shiftNext > currentMaxShift ? currentMaxShift : shiftNext,
@@ -48,13 +52,17 @@ export class Carousel extends Component<Props, State> {
   };
 
   translatePrev = () => {
-    const { itemWidth, step } = this.props;
+    const {
+      itemWidth,
+      step,
+      frameSize,
+    } = this.props;
     const { shift } = this.state;
     const shiftPrev = shift - itemWidth * step;
 
     const currentMaxShift = itemWidth * this.image.length
     - step * itemWidth
-    + ((step - this.props.frameSize) * itemWidth);
+    + ((step - frameSize) * itemWidth);
 
     this.setState({
       shift: shiftPrev > 0 ? shiftPrev : 0,
