@@ -1,1 +1,14 @@
-// style go here
+.App {
+  &__inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0;
+    margin-bottom: 40px;
+  }
+
+  &__item {
+    margin-right: 20px;
+  }
+}
