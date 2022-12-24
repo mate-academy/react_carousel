@@ -73,6 +73,8 @@ class App extends React.Component<{}, State> {
           <input
             className="input"
             name="frameSize"
+            min={1}
+            max={10}
             type="number"
             id="frameSize"
             value={frameSize}
@@ -83,6 +85,8 @@ class App extends React.Component<{}, State> {
           <input
             className="input"
             name="step"
+            min={1}
+            max={10}
             type="number"
             id="step"
             value={step}
