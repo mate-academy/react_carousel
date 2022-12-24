@@ -73,7 +73,7 @@ class App extends React.Component<{}, State> {
           <input
             className="input"
             name="frameSize"
-            type="text"
+            type="number"
             id="frameSize"
             value={frameSize}
             onChange={this.handle}
@@ -83,7 +83,7 @@ class App extends React.Component<{}, State> {
           <input
             className="input"
             name="step"
-            type="text"
+            type="number"
             id="step"
             value={step}
             onChange={this.handle}
@@ -96,7 +96,7 @@ class App extends React.Component<{}, State> {
           <input
             className="input"
             name="animationDuration"
-            type="text"
+            type="number"
             id="animationDuration"
             value={animationDuration}
             onChange={this.handle}
