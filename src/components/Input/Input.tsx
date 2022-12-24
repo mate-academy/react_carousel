@@ -1,26 +1,25 @@
-import { FC, ChangeEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+} from 'react';
 
 import './Input.scss';
 
 type Props = {
   label: string;
   option: number;
+  changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Input: FC<Props> = ({ label, option }) => {
-  const [value, setValue] = useState(option);
-  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === '' || Number.isNaN(+event.target.value)) {
-      setValue(0);
-    }
-
-    setValue(+event.target.value);
-  };
-
+export const Input: FC<Props> = ({ label, option, changeHandler }) => {
   return (
     <label className="Input__label" htmlFor={label}>
       {label}
-      <input type="text" value={value} onChange={changeHandler} />
+      <input
+        type="text"
+        value={option}
+        onChange={changeHandler}
+      />
     </label>
   );
 };
