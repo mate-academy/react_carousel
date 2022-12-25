@@ -122,6 +122,7 @@ class App extends React.Component<{}, State> {
             name="FrameSize"
             id="frameId"
             min="1"
+            max="8"
             defaultValue={3}
             className="App__item"
             onChange={this.setFrameSize}
@@ -141,7 +142,7 @@ class App extends React.Component<{}, State> {
             type="number"
             name="AnimationDuration"
             id="AnimationDuration"
-            defaultValue={1000}
+            defaultValue={3000}
             className="App__item"
             onChange={this.setAnimationDuration}
           />
