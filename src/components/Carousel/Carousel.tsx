@@ -7,9 +7,9 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
   transform: number;
   setTransform: (value: number | ((value: number) => number)) => void;
-  infinite: boolean;
 };
 
 export const Carousel: FC<Props> = ({
@@ -19,8 +19,8 @@ export const Carousel: FC<Props> = ({
   itemWidth,
   animationDuration,
   transform,
-  setTransform,
   infinite,
+  setTransform,
 }) => {
   const [stopTransition, setStopTransition] = useState(false);
 

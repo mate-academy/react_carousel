@@ -21,8 +21,28 @@ export const App: FC = () => {
   const [step, setStep] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1000);
-  const [transform, setTransform] = useState(0);
   const [infinite, setInfinite] = useState(false);
+  const [transform, setTransform] = useState(0);
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const newFrameSize = Number(formData.get('frameSize'));
+    const newStep = Number(formData.get('step'));
+    const newFItemWidth = Number(formData.get('itemWidth'));
+    const newAnimationDuration = Number(formData.get('animationDuration'));
+    const newInfinite = formData.get('infinite') === 'yes';
+
+    setFrameSize(newFrameSize);
+    setStep(newStep);
+    setItemWidth(newFItemWidth);
+    setAnimationDuration(newAnimationDuration);
+    setInfinite(newInfinite);
+
+    setTransform(0);
+  };
 
   return (
     <div className="App">
@@ -39,14 +59,9 @@ export const App: FC = () => {
         step={step}
         itemWidth={itemWidth}
         infinite={infinite}
-        onFrameSizeChange={setFrameSize}
-        maxFrameSize={images.length}
-        setTransform={setTransform}
-        onStepChange={setStep}
-        onItemWidthChange={setItemWidth}
-        onAnimationDurationChange={setAnimationDuration}
         animationDuration={animationDuration}
-        onInfiniteChange={setInfinite}
+        maxFrameSize={images.length}
+        onFormSubmit={handleFormSubmit}
       />
 
       <Carousel
@@ -55,8 +70,8 @@ export const App: FC = () => {
         step={step}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
-        transform={transform}
         infinite={infinite}
+        transform={transform}
         setTransform={setTransform}
       />
     </div>

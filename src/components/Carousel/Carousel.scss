@@ -13,7 +13,7 @@
   }
 
   &__list-item {
-    transition: transform 300ms linear;
+    transition: transform 500ms ease-out;
   }
 }
 
@@ -22,7 +22,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: transform 300ms linear;
+  transition: transform 500ms ease-out;
 
   &:hover {
     transform: scale(1.2);

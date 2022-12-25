@@ -8,12 +8,7 @@ type Props = {
   animationDuration: number;
   infinite: boolean;
   maxFrameSize: number
-  onFrameSizeChange: (value: number) => void;
-  onStepChange: (value: number) => void;
-  onItemWidthChange: (value: number) => void;
-  onAnimationDurationChange: (value: number) => void;
-  onInfiniteChange: (value: boolean) => void
-  setTransform: (value: number | ((value: number) => number)) => void;
+  onFormSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export const CarouselForm: FC<Props> = ({
@@ -23,35 +18,10 @@ export const CarouselForm: FC<Props> = ({
   animationDuration,
   infinite,
   maxFrameSize,
-  onFrameSizeChange,
-  onStepChange,
-  onItemWidthChange,
-  onAnimationDurationChange,
-  onInfiniteChange,
-  setTransform,
+  onFormSubmit,
 }) => {
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
-    const newFrameSize = Number(formData.get('frameSize'));
-    const newStep = Number(formData.get('step'));
-    const newFItemWidth = Number(formData.get('itemWidth'));
-    const newAnimationDuration = Number(formData.get('animationDuration'));
-    const newInfinite = formData.get('infinite') === 'yes';
-
-    onFrameSizeChange(newFrameSize);
-    onStepChange(newStep);
-    onItemWidthChange(newFItemWidth);
-    onAnimationDurationChange(newAnimationDuration);
-    onInfiniteChange(newInfinite);
-
-    setTransform(0);
-  };
-
   return (
-    <form className="form" onSubmit={handleFormSubmit}>
+    <form className="form" onSubmit={onFormSubmit}>
       <div className="form__item">
         <label htmlFor="itemId">
           Item width:
