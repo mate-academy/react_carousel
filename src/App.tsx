@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,88 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+  };
+
+  handleFormChange = (e:React.ChangeEvent) => {
+    const newVal = Number((e.target as HTMLInputElement).value);
+    const key = e.target.id;
+
+    switch (key) {
+      case 'step':
+        this.setState({ step: newVal });
+        break;
+      case 'itemWidth':
+        this.setState({ itemWidth: newVal });
+        break;
+      case 'frameSize':
+        this.setState({ frameSize: newVal });
+        break;
+      case 'animationDuration':
+        this.setState({ animationDuration: newVal });
+        break;
+      default:
+        this.setState({});
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images, step, itemWidth, frameSize, animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <form className="form">
+          <label>
+            Item Width
+            <input
+              type="number"
+              id="itemWidth"
+              defaultValue={this.state.itemWidth}
+              onChange={this.handleFormChange}
+            />
+          </label>
+          <label>
+            Frame Size
+            <input
+              type="number"
+              id="frameSize"
+              defaultValue={this.state.frameSize}
+              onChange={this.handleFormChange}
+            />
+          </label>
+          <label>
+            Step
+            <input
+              type="number"
+              id="step"
+              defaultValue={this.state.step}
+              onChange={this.handleFormChange}
+            />
+          </label>
+          <label>
+            Animation Duration
+            <input
+              type="number"
+              id="animationDuration"
+              defaultValue={this.state.animationDuration}
+              onChange={this.handleFormChange}
+            />
+          </label>
+        </form>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
