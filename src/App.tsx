@@ -33,7 +33,13 @@ export class App extends React.Component<{}, State> {
   };
 
   handlerEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = event.target;
+    const {
+      name,
+      value,
+      checked,
+      min,
+      max,
+    } = event.target;
 
     switch (name) {
       case 'itemWidth':
@@ -41,8 +47,8 @@ export class App extends React.Component<{}, State> {
       case 'step':
       case 'animationDuration':
         this.setState({
-          [name]: name === 'frameSize'
-            ? 1
+          [name]: +value <= +min || +value > +max
+            ? +min
             : +value,
         } as { [K in Cases]: number; });
         break;
@@ -83,6 +89,9 @@ export class App extends React.Component<{}, State> {
             <input
               name="itemWidth"
               type="number"
+              min="100"
+              max="300"
+              step="10"
               value={itemWidth}
               onChange={this.handlerEvent}
             />
@@ -92,8 +101,9 @@ export class App extends React.Component<{}, State> {
             <input
               name="frameSize"
               type="number"
-              min={1}
               value={frameSize}
+              min="1"
+              max="10"
               onChange={this.handlerEvent}
             />
           </label>
@@ -103,6 +113,8 @@ export class App extends React.Component<{}, State> {
               name="step"
               type="number"
               value={step}
+              min="1"
+              max="9"
               onChange={this.handlerEvent}
             />
           </label>
@@ -112,6 +124,9 @@ export class App extends React.Component<{}, State> {
               name="animationDuration"
               type="number"
               value={animationDuration}
+              min="0"
+              max="5000"
+              step="100"
               onChange={this.handlerEvent}
             />
           </label>
