@@ -14,6 +14,7 @@ export const Carousel: FC<CarouselProps> = ({
   infinite,
 }) => {
   const [transformSize, setTransformSize] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   const imageStyle = {
     width: `${itemWidth}px`,
@@ -30,20 +31,21 @@ export const Carousel: FC<CarouselProps> = ({
   };
 
   const handleNext = () => {
-    // let count = 0;
+    const length = Math.ceil(images.length / (frameSize * step));
 
-    if (infinite) {
-      setTransformSize((prev) => prev + itemWidth * step);
+    if (infinite
+      && counter === length) {
+      setTransformSize(0);
+      setCounter(0);
     } else {
       setTransformSize((prev) => prev + itemWidth * step);
+      setCounter((prev) => prev + 1);
     }
   };
 
   const handlePrev = () => {
-    // let count = 0;
-
-    if (infinite) {
-      setTransformSize((prev) => prev - itemWidth * step);
+    if (infinite && counter === 0) {
+      setTransformSize((frameSize * itemWidth * step) - itemWidth * step);
     } else {
       setTransformSize((prev) => prev - itemWidth * step);
     }
