@@ -1,1 +1,23 @@
-// style go here
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: pink;
+
+  & label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
