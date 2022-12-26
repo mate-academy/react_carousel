@@ -122,7 +122,7 @@ class App extends React.Component<{}, State> {
             name="FrameSize"
             id="frameId"
             min="1"
-            max="8"
+            max="6"
             defaultValue={3}
             className="App__item"
             onChange={this.setFrameSize}
