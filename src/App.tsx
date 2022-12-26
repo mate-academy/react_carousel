@@ -1,12 +1,17 @@
 import React from 'react';
-import './App.scss';
-import Carousel from './components/Carousel';
+import './styles/App.scss';
+import { Carousel } from './components/Carousel';
+import { CarouselState } from './types/CarouselState';
 
-interface State {
-  images: string[];
-}
+type State = CarouselState;
 
-class App extends React.Component<{}, State> {
+type Cases =
+  'itemWidth' |
+  'frameSize' |
+  'step' |
+  'animationDuration';
+
+export class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,20 +25,128 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinity: false,
+  };
+
+  handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      value,
+      checked,
+      min,
+      max,
+    } = event.target;
+
+    switch (name) {
+      case 'itemWidth':
+      case 'frameSize':
+      case 'step':
+      case 'animationDuration':
+        this.setState({
+          [name]: +value <= +min || +value > +max
+            ? +min
+            : +value,
+        } as { [K in Cases]: number; });
+        break;
+
+      default:
+        this.setState({ infinity: checked });
+        break;
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinity,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__title" data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
+        <form
+          className="App__form"
+          onSubmit={(event) => {
+            event.preventDefault();
+          }}
+        >
+          <label>
+            Item width:
+            <input
+              name="itemWidth"
+              type="number"
+              min="100"
+              max="300"
+              step="10"
+              value={itemWidth}
+              onChange={this.handleEvent}
+            />
+          </label>
+          <label>
+            Frame Size:
+            <input
+              name="frameSize"
+              type="number"
+              value={frameSize}
+              min="1"
+              max="10"
+              onChange={this.handleEvent}
+            />
+          </label>
+          <label>
+            Step:
+            <input
+              name="step"
+              type="number"
+              value={step}
+              min="1"
+              max="9"
+              onChange={this.handleEvent}
+            />
+          </label>
+          <label>
+            Animation duration:
+            <input
+              name="animationDuration"
+              type="number"
+              value={animationDuration}
+              min="0"
+              max="5000"
+              step="100"
+              onChange={this.handleEvent}
+            />
+          </label>
+          <label>
+            Infinity:
+            <input
+              name="infinit"
+              type="checkbox"
+              checked={infinity}
+              onChange={this.handleEvent}
+            />
+          </label>
 
-        <Carousel />
+        </form>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinity={infinity}
+        />
       </div>
     );
   }
 }
-
-export default App;
