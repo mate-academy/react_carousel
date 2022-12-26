@@ -33,6 +33,7 @@ export class Carousel extends Component<Props, State> {
     this.setState(state => {
       const result
         = state.transformPosition - step * itemSize - step * this.gap;
+
       const maxTransformPosition = -(itemSize * images.length
         + this.gap * (images.length - frameSize) - frameSize * itemSize);
 
@@ -99,10 +100,10 @@ export class Carousel extends Component<Props, State> {
 
     const { transformPosition } = this.state;
 
-    const gap = 0.1 * itemSize;
-    const carouselViewWidth = itemSize * frameSize + (frameSize - 1) * gap;
+    const carouselViewWidth = itemSize * frameSize + (frameSize - 1) * this.gap;
+
     const maxTransformPosition = -(itemSize * images.length
-      + gap * (images.length - frameSize) - frameSize * itemSize);
+      + this.gap * (images.length - frameSize) - frameSize * itemSize);
 
     return (
       <>
@@ -115,7 +116,7 @@ export class Carousel extends Component<Props, State> {
             style={{
               transform: `translateX(${transformPosition}px)`,
               transition: `${animationDuration}ms`,
-              gap: `${gap}px`,
+              gap: `${this.gap}px`,
             }}
           >
             {images.map(image => {

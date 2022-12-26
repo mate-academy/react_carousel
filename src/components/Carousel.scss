@@ -30,14 +30,14 @@
 
     &--prev::after {
       position: absolute;
-      content: 'Prev';
+      content: "Prev";
       top: 25%;
       left: 40%;
     }
 
     &--next::after {
       position: absolute;
-      content: 'Next';
+      content: "Next";
       top: 25%;
       left: 40%;
     }
