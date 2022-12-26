@@ -28,8 +28,8 @@ export class Carousel extends Component<Props, State> {
     const shiftNext = itemWidth * step + shift;
 
     const currentMaxShift = itemWidth * this.image.length
-    - step * itemWidth
-    + ((step - frameSize) * itemWidth);
+      - step * itemWidth
+      + ((step - frameSize) * itemWidth);
 
     this.setState({
       shift: shiftNext > currentMaxShift ? currentMaxShift : shiftNext,
@@ -40,15 +40,17 @@ export class Carousel extends Component<Props, State> {
       return;
     }
 
-    if (shiftNext > currentMaxShift && shift !== currentMaxShift) {
-      this.setState({ shift: currentMaxShift });
-    } else if (shift === currentMaxShift) {
-      this.setState({ shift: 0 });
-    } else {
-      this.setState({
-        shift: shiftNext,
-      });
-    }
+    this.setState((state) => {
+      if (shiftNext > currentMaxShift && state.shift !== currentMaxShift) {
+        return { shift: currentMaxShift };
+      }
+
+      if (state.shift === currentMaxShift) {
+        return { shift: 0 };
+      }
+
+      return { shift: shiftNext };
+    });
   };
 
   translatePrev = () => {
@@ -61,8 +63,8 @@ export class Carousel extends Component<Props, State> {
     const shiftPrev = shift - itemWidth * step;
 
     const currentMaxShift = itemWidth * this.image.length
-    - step * itemWidth
-    + ((step - frameSize) * itemWidth);
+      - step * itemWidth
+      + ((step - frameSize) * itemWidth);
 
     this.setState({
       shift: shiftPrev > 0 ? shiftPrev : 0,
@@ -72,13 +74,17 @@ export class Carousel extends Component<Props, State> {
       return;
     }
 
-    if (shiftPrev > 0 && shift !== 0) {
-      this.setState({ shift: shiftPrev });
-    } else if (shift === 0) {
-      this.setState({ shift: currentMaxShift });
-    } else {
-      this.setState({ shift: 0 });
-    }
+    this.setState((state) => {
+      if (shiftPrev > 0 && state.shift !== 0) {
+        return { shift: shiftPrev };
+      }
+
+      if (state.shift === 0) {
+        return { shift: currentMaxShift };
+      }
+
+      return { shift: 0 };
+    });
   };
 
   render() {

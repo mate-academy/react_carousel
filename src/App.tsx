@@ -32,7 +32,7 @@ export class App extends React.Component<{}, State> {
     infinity: false,
   };
 
-  handlerEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       name,
       value,
@@ -72,11 +72,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 className="App__title" data-cy="title">
-          Carousel with
-          {' '}
-          {images.length}
-          {' '}
-          images
+          {`Carousel with ${images.length} images`}
         </h1>
         <form
           className="App__form"
@@ -93,7 +89,7 @@ export class App extends React.Component<{}, State> {
               max="300"
               step="10"
               value={itemWidth}
-              onChange={this.handlerEvent}
+              onChange={this.handleEvent}
             />
           </label>
           <label>
@@ -104,7 +100,7 @@ export class App extends React.Component<{}, State> {
               value={frameSize}
               min="1"
               max="10"
-              onChange={this.handlerEvent}
+              onChange={this.handleEvent}
             />
           </label>
           <label>
@@ -115,7 +111,7 @@ export class App extends React.Component<{}, State> {
               value={step}
               min="1"
               max="9"
-              onChange={this.handlerEvent}
+              onChange={this.handleEvent}
             />
           </label>
           <label>
@@ -127,7 +123,7 @@ export class App extends React.Component<{}, State> {
               min="0"
               max="5000"
               step="100"
-              onChange={this.handlerEvent}
+              onChange={this.handleEvent}
             />
           </label>
           <label>
@@ -136,7 +132,7 @@ export class App extends React.Component<{}, State> {
               name="infinit"
               type="checkbox"
               checked={infinity}
-              onChange={this.handlerEvent}
+              onChange={this.handleEvent}
             />
           </label>
 
