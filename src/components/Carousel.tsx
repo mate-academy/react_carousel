@@ -20,6 +20,7 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [offset, setOffset] = useState(0);
   const [isAbleToGoRight, setisAbleToGoRight] = useState(false);
+  const [isAbleToGoLeft, setisAbleToGoLeft] = useState(false);
 
   const div = {
     width: frameSize * itemWidth,
@@ -31,16 +32,21 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handleLeftArrow = () => {
+    setisAbleToGoRight(false);
+
     setOffset((currentOffset) => {
-      const newOffset = currentOffset + itemWidth * step;
+      const newOffsets = currentOffset + itemWidth * step;
 
-      setisAbleToGoRight(false);
+      if (!infinite) {
+        setisAbleToGoLeft(newOffsets === 0);
+      }
 
-      return Math.min(newOffset, 0);
+      return Math.min(newOffsets, 0);
     });
   };
 
   const handleRightArrow = () => {
+    setisAbleToGoLeft(false);
     setOffset((currentOffset) => {
       let newOffset = currentOffset - itemWidth * step;
 
@@ -62,7 +68,12 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel" id="Carousel">
-      <button type="button" className="arrow" onClick={handleLeftArrow}>
+      <button
+        type="button"
+        className="arrow"
+        onClick={handleLeftArrow}
+        disabled={isAbleToGoLeft}
+      >
         Prev
       </button>
 
