@@ -3,11 +3,23 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  itemWidth: number,
+  frameSize: number,
+  step: number,
+  animationDuration: number,
+  infinite: boolean,
+  gap: number,
+  images: string[],
 }
 
 class App extends React.Component<{}, State> {
   state = {
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+    gap: 10,
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,15 +34,101 @@ class App extends React.Component<{}, State> {
     ],
   };
 
+  handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    stateName: string,
+  ) => {
+    const stateProperty = {
+      [stateName]: +event.target.value,
+    } as unknown as Pick<State, keyof State>;
+
+    this.setState(stateProperty);
+  };
+
+  handleInfinite = () => {
+    const infiniteStatus = this.state.infinite;
+
+    this.setState({ infinite: !infiniteStatus });
+  };
+
   render() {
-    const { images } = this.state;
+    const {
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+      gap,
+      images,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          gap={gap}
+        />
+
+        <form method="get" className="form">
+          Width:
+          <input
+            className="input"
+            type="number"
+            value={itemWidth}
+            name="itemWidth"
+            min="100"
+            max="200"
+            onChange={(event) => this.handleChange(event, 'itemWidth')}
+          />
+
+          Frame Size:
+          <input
+            className="input frameSizeInput"
+            type="number"
+            value={frameSize}
+            name="frameSize"
+            onChange={(event) => this.handleChange(event, 'frameSize')}
+            min="1"
+            max={images.length}
+          />
+
+          Step:
+          <input
+            className="input stepInput"
+            type="number"
+            value={step}
+            name="frameSize"
+            onChange={(event) => this.handleChange(event, 'step')}
+            min="1"
+            max={images.length}
+          />
+
+          Aimation:
+          <input
+            className="input"
+            type="number"
+            value={animationDuration}
+            name="animationDuration"
+            onChange={(event) => this.handleChange(event, 'animationDuration')}
+            min="0"
+          />
+
+          Infinite:
+          <input
+            className="input"
+            type="checkbox"
+            name="infinite"
+            onChange={this.handleInfinite}
+          />
+        </form>
       </div>
     );
   }
