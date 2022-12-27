@@ -142,29 +142,25 @@ class Carousel extends React.Component<Props, State> {
       },
     };
 
-    const emojies = (
-      <ul className="Carousel__list" style={style.shift}>
-        {images.map(
-          imageSource => (
-            <li
-              key={imageSource.slice(-5, -4)}
-              className="list-Emojie"
-            >
-              <img
-                src={imageSource}
-                alt={`emojie${imageSource.slice(-5, -4)}`}
-                style={style.widthImg}
-              />
-            </li>
-          ),
-        )}
-      </ul>
-    );
-
     return (
       <div className="Carousel">
         <div className="Carousel__container" style={style.width}>
-          {emojies}
+          <ul className="Carousel__list" style={style.shift}>
+            {images.map(
+              imageSource => (
+                <li
+                  key={imageSource.slice(-5, -4)}
+                  className="list-Emojie"
+                >
+                  <img
+                    src={imageSource}
+                    alt={`emojie${imageSource.slice(-5, -4)}`}
+                    style={style.widthImg}
+                  />
+                </li>
+              ),
+            )}
+          </ul>
         </div>
         <div className="Buttons__scroll">
           <button

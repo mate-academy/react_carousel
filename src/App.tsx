@@ -62,62 +62,6 @@ class App extends React.Component<{}, State> {
       images,
     } = this.state;
 
-    const widthInput = (
-      <input
-        className="input"
-        type="number"
-        value={itemWidth}
-        name="itemWidth"
-        min="100"
-        max="200"
-        onChange={(event) => this.handleChange(event, 'itemWidth')}
-      />
-    );
-
-    const frameSizeInput = (
-      <input
-        className="input frameSizeInput"
-        type="number"
-        value={frameSize}
-        name="frameSize"
-        onChange={(event) => this.handleChange(event, 'frameSize')}
-        min="1"
-        max={images.length}
-      />
-    );
-
-    const stepInput = (
-      <input
-        className="input stepInput"
-        type="number"
-        value={step}
-        name="frameSize"
-        onChange={(event) => this.handleChange(event, 'step')}
-        min="1"
-        max={images.length}
-      />
-    );
-
-    const animationInput = (
-      <input
-        className="input"
-        type="number"
-        value={animationDuration}
-        name="animationDuration"
-        onChange={(event) => this.handleChange(event, 'animationDuration')}
-        min="0"
-      />
-    );
-
-    const infiniteInput = (
-      <input
-        className="input"
-        type="checkbox"
-        name="infinite"
-        onChange={this.handleInfinite}
-      />
-    );
-
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
@@ -134,20 +78,56 @@ class App extends React.Component<{}, State> {
         />
 
         <form method="get" className="form">
-          {'Width: '}
-          {widthInput}
+          Width:
+          <input
+            className="input"
+            type="number"
+            value={itemWidth}
+            name="itemWidth"
+            min="100"
+            max="200"
+            onChange={(event) => this.handleChange(event, 'itemWidth')}
+          />
 
-          {'Frame Size: '}
-          {frameSizeInput}
+          Frame Size:
+          <input
+            className="input frameSizeInput"
+            type="number"
+            value={frameSize}
+            name="frameSize"
+            onChange={(event) => this.handleChange(event, 'frameSize')}
+            min="1"
+            max={images.length}
+          />
 
-          {'Step: '}
-          {stepInput}
+          Step:
+          <input
+            className="input stepInput"
+            type="number"
+            value={step}
+            name="frameSize"
+            onChange={(event) => this.handleChange(event, 'step')}
+            min="1"
+            max={images.length}
+          />
 
-          {'Animation Duration: '}
-          {animationInput}
+          Aimation:
+          <input
+            className="input"
+            type="number"
+            value={animationDuration}
+            name="animationDuration"
+            onChange={(event) => this.handleChange(event, 'animationDuration')}
+            min="0"
+          />
 
-          {'Infinite: '}
-          {infiniteInput}
+          Infinite:
+          <input
+            className="input"
+            type="checkbox"
+            name="infinite"
+            onChange={this.handleInfinite}
+          />
         </form>
       </div>
     );
