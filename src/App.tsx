@@ -89,13 +89,12 @@ class App extends React.Component<{}, State> {
             max={10}
             type="number"
             id="step"
-            value={step}
+            value={step > 10 ? 10 : step}
             onChange={this.handle}
           />
           <br />
           <label htmlFor="animationDuration">
-            Please enter animationDuration:
-            {' '}
+            {'Please enter animationDuration: '}
           </label>
           <input
             className="input"
