@@ -1,1 +1,65 @@
-// style go here
+.Carousel__container {
+  margin: 20px auto;
+  overflow: hidden;
+  background: linear-gradient(to top, rgba(#cffffe, 0.3), 
+  rgba(#f9f7d9, 0.3), rgba(#fce2ce, 0.3), rgba(#ffc1f3, 0.3));
+  border: 8px solid;
+  border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23cffffe' /%3E%3Cstop offset='25%25' stop-color='%23f9f7d9' /%3E%3Cstop offset='50%25' stop-color='%23fce2ce' /%3E%3Cstop offset='100%25' stop-color='%23ffc1f3' /%3E%3C/linearGradient%3E %3Cpath d='M1.5 1.5 l97 0l0 97l-97 0 l0 -97' stroke-linecap='square' stroke='url(%23g)' stroke-width='3'/%3E %3C/svg%3E") 1;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Buttons__scroll {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  box-sizing: border-box;
+  align-items: center;
+  background-image: linear-gradient(135deg, #f34079 40%, #fc894d);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-family: "Codec cold", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 54px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: 1;
+  max-width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 3px;
+  text-decoration: none;
+  text-transform: uppercase;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  background-color: #ccc;
+  background-image: none;
+  color: #666;
+}
+
+button:hover span {
+  transform: scale(0.9);
+  opacity: 0.75;
+}
+
+button:disabled:hover span {
+  transform: scale(1);
+}
