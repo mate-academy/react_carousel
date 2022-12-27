@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -20,7 +20,7 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [offset, setOffset] = useState(0);
   const [isAbleToGoRight, setisAbleToGoRight] = useState(false);
-  const [isAbleToGoLeft, setisAbleToGoLeft] = useState(false);
+  const [isAbleToGoLeft, setisAbleToGoLeft] = useState(true);
 
   const div = {
     width: frameSize * itemWidth,
@@ -38,12 +38,20 @@ const Carousel: React.FC<Props> = ({
       const newOffsets = currentOffset + itemWidth * step;
 
       if (!infinite) {
-        setisAbleToGoLeft(newOffsets === 0);
+        setisAbleToGoLeft(newOffsets >= 0);
       }
 
       return Math.min(newOffsets, 0);
     });
   };
+
+  useMemo(() => {
+    if (step >= 10) {
+      setisAbleToGoRight(true);
+    } else {
+      setisAbleToGoRight(false);
+    }
+  }, [step]);
 
   const handleRightArrow = () => {
     setisAbleToGoLeft(false);
