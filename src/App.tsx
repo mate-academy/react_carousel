@@ -47,9 +47,10 @@ class App extends React.Component<{}, State> {
         </h1>
 
         <form className="App__controls">
-          <label className="App__controlsField">
+          <label className="App__controlsField" htmlFor="itemId">
             <span className="App_controlsLabel">Images Size:</span>
             <input
+              id="itemId"
               onChange={(e) => this.setParams(e)}
               className="App__controlsInput"
               type="number"
@@ -59,9 +60,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="App__controlsField">
+          <label className="App__controlsField" htmlFor="frameId">
             <span className="App_controlsLabel">Frame Size:</span>
             <input
+              id="frameId"
               onChange={(e) => this.setParams(e)}
               className="App__controlsInput"
               type="number"
@@ -73,9 +75,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="App__controlsField">
+          <label className="App__controlsField" htmlFor="stepId">
             <span className="App_controlsLabel">Step:</span>
             <input
+              id="stepId"
               onChange={(e) => this.setParams(e)}
               className="App__controlsInput"
               type="number"
