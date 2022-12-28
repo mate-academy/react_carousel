@@ -57,8 +57,7 @@ const Carousel: React.FC<Props> = ({
     setisAbleToGoLeft(false);
     setOffset((currentOffset) => {
       let newOffset = currentOffset - itemWidth * step;
-
-      const maxOffset = -(itemWidth * (images.length - step));
+      const maxOffset = -(itemWidth * (images.length - frameSize));
 
       if (infinite && newOffset === -(itemWidth * images.length)) {
         newOffset = 0;
