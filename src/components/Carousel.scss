@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  position: relative;
+  width: 260px;
+  overflow: hidden;
+  margin-bottom: 30px;
+
+  &__list {
+    display: flex;
+    list-style: none;
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: inherit;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    backdrop-filter: contrast(40%);
+  }
+}
+
+.prev-btn {
+  left: 0;
+}
+
+.next-btn {
+  right: 0;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
