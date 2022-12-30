@@ -28,93 +28,69 @@ class App extends React.Component<{}, State> {
   setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     const curentValue = Number(event.currentTarget.value);
 
-    let newValue;
-
     switch (true) {
       case curentValue > 10:
-        newValue = 10;
+        this.setState({ step: 10 });
         break;
       case curentValue < 0:
-        newValue = 0;
+        this.setState({ step: 0 });
         break;
 
       default:
-        newValue = curentValue;
+        this.setState({ step: curentValue });
         break;
     }
-
-    this.setState({
-      step: newValue,
-    });
   };
 
   setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     const curentValue = Number(event.currentTarget.value);
 
-    let newValue;
-
     switch (true) {
       case curentValue > 1300:
-        newValue = 1300;
+        this.setState({ itemWidth: 1300 });
         break;
       case curentValue < 0:
-        newValue = 0;
+        this.setState({ itemWidth: 0 });
         break;
 
       default:
-        newValue = curentValue;
+        this.setState({ itemWidth: curentValue });
         break;
     }
-
-    this.setState({
-      itemWidth: newValue,
-    });
   };
 
   setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     const curentValue = Number(event.currentTarget.value);
 
-    let newValue;
-
     switch (true) {
       case curentValue > 10:
-        newValue = 10;
+        this.setState({ frameSize: 10 });
         break;
-      case curentValue < 1:
-        newValue = 1;
+      case curentValue < 0:
+        this.setState({ frameSize: 0 });
         break;
 
       default:
-        newValue = curentValue;
+        this.setState({ frameSize: curentValue });
         break;
     }
-
-    this.setState({
-      frameSize: newValue,
-    });
   };
 
   setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
     const curentValue = Number(event.currentTarget.value);
 
-    let newValue;
-
     switch (true) {
       case curentValue > 10000:
-        newValue = 10000;
+        this.setState({ animationDuration: 10000 });
         break;
       case curentValue < 0:
-        newValue = 0;
+        this.setState({ animationDuration: 0 });
         break;
 
       default:
-        newValue = curentValue;
+        this.setState({ animationDuration: curentValue });
         break;
     }
-
-    this.setState({
-      animationDuration: newValue,
-    });
   };
 
   setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,7 +130,7 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="stepId"
               type="number"
-              defaultValue={step}
+              value={step}
               onChange={(event) => this.setStep(event)}
               min="1"
               max="10"
@@ -170,7 +146,7 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="frameId"
               type="number"
-              defaultValue={frameSize}
+              value={frameSize}
               onChange={(event) => this.setFrameSize(event)}
               min="1"
               max="10"
@@ -186,7 +162,7 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="itemId"
               type="number"
-              defaultValue={itemWidth}
+              value={itemWidth}
               onChange={(event) => this.setItemWidth(event)}
               min="130"
               max="1300"
@@ -202,7 +178,7 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="Animation"
               type="number"
-              defaultValue={animationDuration}
+              value={animationDuration}
               onChange={(event) => this.setAnimationDuration(event)}
               min="500"
               max="10000"

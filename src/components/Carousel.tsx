@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './Carousel.scss';
 import './button.scss';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import { Carousel as Props } from '../types/Carousel';
 
 type State = {
@@ -15,37 +15,37 @@ export class Carousel extends Component<Props, State> {
 
   gap = 10;
 
-  calculateWraperClasses = ({ frameSize, itemWidth }: Props) => {
-    const containerSize = frameSize * itemWidth + this.gap * (frameSize - 1);
+  // calculateWraperClasses = ({ frameSize, itemWidth }: Props) => {
+  //   const containerSize = frameSize * itemWidth + this.gap * (frameSize - 1);
 
-    const classes = [
-      'Carousel__list-wrapper',
-      `size-${containerSize}`,
-    ];
+  //   const classes = [
+  //     'Carousel__list-wrapper',
+  //     `size-${containerSize}`,
+  //   ];
 
-    return classNames(...classes);
-  };
+  //   return classNames(...classes);
+  // };
 
-  calculateListClasses = ({ animationDuration }: Props) => {
-    const { translateX } = this.state;
+  // calculateListClasses = ({ animationDuration }: Props) => {
+  //   const { translateX } = this.state;
 
-    const classes = [
-      'Carousel__list',
-      `move-to-${translateX}`,
-      `Animation-duration-${animationDuration}`,
-    ];
+  //   const classes = [
+  //     'Carousel__list',
+  //     `move-to-${translateX}`,
+  //     `Animation-duration-${animationDuration}`,
+  //   ];
 
-    return classNames(...classes);
-  };
+  //   return classNames(...classes);
+  // };
 
-  calculateItemClasses = ({ itemWidth }: Props) => {
-    const classes = [
-      'Carousel__list-item',
-      `item-size-${itemWidth}`,
-    ];
+  // calculateItemClasses = ({ itemWidth }: Props) => {
+  //   const classes = [
+  //     'Carousel__list-item',
+  //     `item-size-${itemWidth}`,
+  //   ];
 
-    return classNames(...classes);
-  };
+  //   return classNames(...classes);
+  // };
 
   moveToNext = () => {
     const {
@@ -121,17 +121,38 @@ export class Carousel extends Component<Props, State> {
     const {
       images,
       itemWidth,
+      frameSize,
+      animationDuration,
     } = this.props;
+
+    const { translateX } = this.state;
+
+    const containerSize = frameSize * itemWidth + this.gap * (frameSize - 1);
 
     return (
       <div className="Carousel">
-        <div className={this.calculateWraperClasses(this.props)}>
-          <ul className={this.calculateListClasses(this.props)}>
+        <div
+          className="Carousel__list-wrapper"
+          style={{
+            width: containerSize,
+          }}
+        >
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${-translateX}px)`,
+              transition: `transform ${animationDuration}ms ease`,
+            }}
+          >
             {
               images.map((image, index) => (
                 <li
                   key={image}
-                  className={this.calculateItemClasses(this.props)}
+                  className="Carousel__list-item"
+                  style={{
+                    width: itemWidth,
+                    height: itemWidth,
+                  }}
                 >
                   <img
                     className="Carousel__item-img"
