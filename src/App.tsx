@@ -26,9 +26,21 @@ class App extends React.Component<{}, State> {
 
   setParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const { name, value } = e.currentTarget;
+    const { name } = e.currentTarget;
+    const value = Number(e.currentTarget.value);
+    const min = Number(e.currentTarget.min);
+    const max = Number(e.currentTarget.max);
 
-    this.setState({ [name]: Number(value) });
+    switch (true) {
+      case (value < min):
+        this.setState({ [name]: min });
+        break;
+      case (value > max):
+        this.setState({ [name]: max });
+        break;
+      default:
+        this.setState({ [name]: value });
+    }
   };
 
   render() {
@@ -55,7 +67,9 @@ class App extends React.Component<{}, State> {
               className="App__controlsInput"
               type="number"
               name="itemWidth"
-              defaultValue={itemWidth}
+              min={1}
+              max={500}
+              value={itemWidth}
               required
             />
           </label>
@@ -68,7 +82,7 @@ class App extends React.Component<{}, State> {
               className="App__controlsInput"
               type="number"
               name="frameSize"
-              defaultValue={frameSize}
+              value={frameSize}
               min={1}
               max={images.length}
               required
@@ -83,7 +97,7 @@ class App extends React.Component<{}, State> {
               className="App__controlsInput"
               type="number"
               name="step"
-              defaultValue={step}
+              value={step}
               min={1}
               max={images.length}
               required
@@ -97,7 +111,9 @@ class App extends React.Component<{}, State> {
               className="App__controlsInput"
               type="number"
               name="animationDuration"
-              defaultValue={animationDuration}
+              min={0}
+              max={100000}
+              value={animationDuration}
               required
             />
           </label>
