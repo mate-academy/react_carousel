@@ -15,38 +15,6 @@ export class Carousel extends Component<Props, State> {
 
   gap = 10;
 
-  // calculateWraperClasses = ({ frameSize, itemWidth }: Props) => {
-  //   const containerSize = frameSize * itemWidth + this.gap * (frameSize - 1);
-
-  //   const classes = [
-  //     'Carousel__list-wrapper',
-  //     `size-${containerSize}`,
-  //   ];
-
-  //   return classNames(...classes);
-  // };
-
-  // calculateListClasses = ({ animationDuration }: Props) => {
-  //   const { translateX } = this.state;
-
-  //   const classes = [
-  //     'Carousel__list',
-  //     `move-to-${translateX}`,
-  //     `Animation-duration-${animationDuration}`,
-  //   ];
-
-  //   return classNames(...classes);
-  // };
-
-  // calculateItemClasses = ({ itemWidth }: Props) => {
-  //   const classes = [
-  //     'Carousel__list-item',
-  //     `item-size-${itemWidth}`,
-  //   ];
-
-  //   return classNames(...classes);
-  // };
-
   moveToNext = () => {
     const {
       images,

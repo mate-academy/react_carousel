@@ -21,28 +21,3 @@
     height: 100%;
   }
 }
-
-@for $i from 0 through 20000 {
-  .move-to-#{$i} {
-    transform: translateX(-#{$i}px);
-  }
-}
-
-@for $i from 0 through 30000 {
-  .size-#{$i} {
-    width: #{$i}px;
-  }
-}
-
-@for $i from 0 through 1300 {
-  .item-size-#{$i} {
-    width: #{$i}px;
-    height: #{$i}px;
-  }
-}
-
-@for $i from 0 through 10000 {
-  .Animation-duration-#{$i} {
-    transition: transform #{$i}ms ease;
-  }
-}
