@@ -1,1 +1,44 @@
-// style go here
+$size: 50px;
+
+.Carousel {
+  &__container {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  &__button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__button {
+    display: block;
+    margin-top: 20px;
+    width: $size;
+    height: $size;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgb(218, 105, 64);
+    color: white;
+    &:hover {
+      background-color: rgb(213, 57, 0);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+    &:disabled {
+      background-color: rgb(255, 160, 125);
+    }
+  }
+}
