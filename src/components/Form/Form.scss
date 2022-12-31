@@ -1,0 +1,10 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__input {
+    margin-left: 10px;
+    font-family: inherit;
+  }
+}
