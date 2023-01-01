@@ -56,6 +56,7 @@ export const Form:React.FC<Props> = ({
         className="Form__input"
         type="number"
         name="step"
+        id="stepId"
         value={step}
         min="1"
         max={images.length - frameSize}
