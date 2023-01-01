@@ -3,11 +3,11 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  step: number;
-  frameSize:number;
-  itemWidth:number;
-  animationDuration:number;
-  infinite:boolean;
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
 };
 
 type State = {
@@ -19,7 +19,7 @@ export class Carousel extends React.Component<Props, State> {
     transform: 0,
   };
 
-  handlePrevClick = () => {
+  handleButtons = (direction: 'prev' | 'next') => {
     const {
       images,
       step,
@@ -28,36 +28,34 @@ export class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    const hiddenImagesSize = (images.length - frameSize) * itemWidth;
+    const sizeOfHiddenRegion = (images.length - frameSize) * itemWidth;
 
-    this.setState((state) => ({
-      transform: Math.min(state.transform + itemWidth * step, 0),
-    }));
+    this.setState((state) => {
+      const newTransform = direction === 'prev'
+        ? Math.min(state.transform + (itemWidth * step), 0)
+        : Math.max(state.transform - (itemWidth * step), -sizeOfHiddenRegion);
 
-    if (this.state.transform === 0 && infinite) {
-      this.setState({ transform: -hiddenImagesSize });
-    }
+      if (newTransform === 0 && direction === 'prev' && infinite) {
+        return { transform: -sizeOfHiddenRegion };
+      }
+
+      if (newTransform === -sizeOfHiddenRegion
+            && direction === 'next'
+            && infinite
+      ) {
+        return { transform: 0 };
+      }
+
+      return { transform: newTransform };
+    });
   };
 
-  handleNextClick = () => {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      infinite,
-    } = this.props;
+  handlePrevButton = () => {
+    this.handleButtons('prev');
+  };
 
-    const hiddenImagesSize = (images.length - frameSize) * itemWidth;
-
-    this.setState((state) => ({
-      transform: Math.max(state.transform - (itemWidth * step),
-        -hiddenImagesSize),
-    }));
-
-    if (this.state.transform === -hiddenImagesSize && infinite) {
-      this.setState({ transform: 0 });
-    }
+  handleNextButton = () => {
+    this.handleButtons('next');
   };
 
   render() {
@@ -65,8 +63,8 @@ export class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       itemWidth,
-      infinite,
       animationDuration,
+      infinite,
     } = this.props;
 
     const { transform } = this.state;
@@ -87,7 +85,7 @@ export class Carousel extends React.Component<Props, State> {
             >
               <img
                 src={image}
-                alt={`emoji-${index + 1}`}
+                alt={`emjoji-${index + 1}`}
                 style={{ width: `${itemWidth}px` }}
               />
             </li>
@@ -96,9 +94,9 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="Carousel__buttons">
           <button
-            className="Carousel__button Carousel__button--prev"
             type="button"
-            onClick={this.handlePrevClick}
+            className="Carousel__button"
+            onClick={this.handlePrevButton}
             disabled={transform === 0 && !infinite}
           >
             &#8249;
@@ -106,13 +104,12 @@ export class Carousel extends React.Component<Props, State> {
 
           <button
             data-cy="next"
-            className="Carousel__button Carousel__button--next"
             type="button"
-            onClick={this.handleNextClick}
-            disabled={
-              transform === -(images.length - frameSize) * itemWidth
-              && !infinite
-            }
+            className="Carousel__button"
+            onClick={this.handleNextButton}
+            // calculated size is sizeOfHiddenRegion
+            disabled={transform === -(images.length - frameSize) * itemWidth
+              && !infinite}
           >
             &#8250;
           </button>

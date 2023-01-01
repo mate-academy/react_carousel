@@ -32,6 +32,7 @@ export const Form:React.FC<Props> = ({
         value={itemWidth}
         min="100"
         max="200"
+        step="5"
         onChange={handleChange}
       />
     </label>
@@ -79,7 +80,7 @@ export const Form:React.FC<Props> = ({
     <label>
       Infinite:
       <input
-        className="Form__input"
+        className="Form__input Form__input--checkbox"
         type="checkbox"
         name="infinite"
         checked={infinite}

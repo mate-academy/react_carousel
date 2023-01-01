@@ -26,7 +26,6 @@ export class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-
     step: 3,
     frameSize: 3,
     itemWidth: 130,
@@ -35,14 +34,14 @@ export class App extends React.Component<{}, State> {
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState((state) => ({
+    this.setState(state => ({
       ...state,
-      [event.target.name]: Number(event.target.value),
+      [event.target.name]: +(event.target.value),
     }));
   };
 
   handleInfinite = () => {
-    this.setState((state) => ({
+    this.setState(state => ({
       infinite: !state.infinite,
     }));
   };
@@ -59,8 +58,11 @@ export class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1
+          data-cy="title"
+        >
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Carousel
           images={images}
