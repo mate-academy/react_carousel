@@ -1,0 +1,59 @@
+$mateColor: #e25544;
+
+.Carousel {
+  position: relative;
+  padding: 10px 40px;
+
+  &__list {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &-item {
+      display: inline-block;
+    }
+  }
+}
+
+.button {
+  display: block;
+  position: absolute;
+  top: 60px;
+  padding: 0;
+
+  background: $mateColor;
+  border: none;
+  border-radius: 50%;
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover:not(.--disabled) {
+    background-color: #fff;
+    color: $mateColor;
+    cursor: pointer;
+  }
+}
+
+.--disabled {
+  color: $mateColor;
+}
+
+.prev {
+  left: 7px;
+}
+
+.next {
+  right: 7px;
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+}

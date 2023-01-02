@@ -1,0 +1,40 @@
+$secondaryColor: #485268;
+$mateColor: #e25544;
+
+.settings {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 300px;
+    padding: 5px;
+    white-space: nowrap;
+    border-radius: 8px;
+
+    background-color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+    color: $secondaryColor;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__field {
+    border: none;
+    outline: none;
+
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+}
