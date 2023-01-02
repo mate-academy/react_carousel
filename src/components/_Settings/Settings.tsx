@@ -71,13 +71,13 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
       style={{ width: `${itemWidth * frameSize}px` }}
     >
       <label
-        htmlFor="step"
+        htmlFor="stepId"
         className="settings__label"
       >
         Step:
         <input
           type="number"
-          id="step"
+          id="stepId"
           value={step}
           min={1}
           max={maxByLength}
@@ -87,13 +87,13 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
       </label>
 
       <label
-        htmlFor="frameSize"
+        htmlFor="frameId"
         className="settings__label"
       >
         Items in frame:
         <input
           type="number"
-          id="frameSize"
+          id="frameId"
           value={frameSize}
           min={1}
           max={maxByLength}
@@ -103,13 +103,13 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
       </label>
 
       <label
-        htmlFor="itemWidth"
+        htmlFor="itemId"
         className="settings__label"
       >
         Item size(px):
         <input
           type="number"
-          id="itemWidth"
+          id="itemId"
           value={itemWidth}
           min={100}
           max={maxPixels}
