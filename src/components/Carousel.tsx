@@ -19,6 +19,40 @@ export class Carousel extends React.Component<Props, State> {
     position: 0,
   };
 
+  handlerPreviousButton = (
+    endPosition:number,
+    shift:number,
+    infinite: boolean,
+  ) => {
+    let { position } = this.state;
+
+    if (position === 0 && infinite) {
+      position = endPosition;
+    } else {
+      position += shift;
+      position = Math.min(position, 0);
+    }
+
+    this.setState({ position });
+  };
+
+  handlerNextButton = (
+    endPosition:number,
+    shift:number,
+    infinite: boolean,
+  ) => {
+    let { position } = this.state;
+
+    if (position === endPosition && infinite) {
+      position = 0;
+    } else {
+      position -= shift;
+      position = Math.max(position, endPosition);
+    }
+
+    this.setState({ position });
+  };
+
   render() {
     const {
       images,
@@ -28,7 +62,7 @@ export class Carousel extends React.Component<Props, State> {
       animationDuration,
       infinite,
     } = this.props;
-    let { position } = this.state;
+    const { position } = this.state;
     const width = itemWidth * frameSize + 10 * (frameSize - 1);
     const endPosition = (-itemWidth - 10) * (images.length - frameSize);
     const shift = (itemWidth + 10) * step;
@@ -50,10 +84,8 @@ export class Carousel extends React.Component<Props, State> {
                 <img
                   src={image}
                   alt={nameImage[0]}
-                  style={{
-                    width: `${itemWidth}px`,
-                    height: `${itemWidth}px`,
-                  }}
+                  width={itemWidth}
+                  height={itemWidth}
                 />
               </li>
             );
@@ -64,14 +96,7 @@ export class Carousel extends React.Component<Props, State> {
           <button
             type="button"
             onClick={() => {
-              if (position === 0 && infinite) {
-                position = endPosition;
-              } else {
-                position += shift;
-                position = Math.min(position, 0);
-              }
-
-              this.setState({ position });
+              this.handlerPreviousButton(endPosition, shift, infinite);
             }}
             disabled={position === 0 && !infinite}
           >
@@ -81,14 +106,7 @@ export class Carousel extends React.Component<Props, State> {
             type="button"
             data-cy="next"
             onClick={() => {
-              if (position === endPosition && infinite) {
-                position = 0;
-              } else {
-                position -= shift;
-                position = Math.max(position, endPosition);
-              }
-
-              this.setState({ position });
+              this.handlerNextButton(endPosition, shift, infinite);
             }}
             disabled={position === endPosition && !infinite}
           >
