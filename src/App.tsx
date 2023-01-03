@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
@@ -32,55 +32,47 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleEvent = (id: string) => {
-    const element = document.querySelector(`#${id}`) as HTMLInputElement;
+  handleEvent = (event: ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
 
-    switch (id) {
+    switch (name) {
       case 'step':
-        if (+element.value >= 0 && +element.value <= 10) {
-          this.setState({
-            [id]: +element.value,
-          });
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
         }
 
         break;
 
       case 'frameSize':
-        if (+element.value >= 0 && +element.value <= 10) {
-          this.setState({
-            [id]: +element.value,
-          });
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
         }
 
         break;
 
       case 'itemWidth':
-        if (+element.value >= 0 && +element.value <= 400) {
-          this.setState({
-            [id]: +element.value,
-          });
+        if (+value >= 0 && +value <= 400) {
+          this.setState({ [name]: +value });
         }
 
         break;
 
       case 'animationDuration':
-        if (+element.value >= 0 && +element.value <= 10000) {
-          this.setState({
-            [id]: +element.value,
-          });
+        if (+value >= 0 && +value <= 10000) {
+          this.setState({ [name]: +value });
         }
 
         break;
 
       case 'infinite':
         this.setState(state => ({
-          [id]: !state.infinite,
+          [name]: !state.infinite,
         }));
 
         break;
 
       default:
-        throw new Error('Wrong id');
+        throw new Error('Wrong name');
     }
   };
 
@@ -100,57 +92,59 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form className="App__form">
-          <label className="App__field" htmlFor="step">Step</label>
-
-          <input
-            id="step"
-            className="App__input"
-            type="number"
-            onChange={() => (this.handleEvent('step'))}
-            value={step}
-          />
-
-          <label className="App__field" htmlFor="frameSize">Frame Size</label>
-
-          <input
-            id="frameSize"
-            className="App__input"
-            type="number"
-            onChange={() => (this.handleEvent('frameSize'))}
-            value={frameSize}
-          />
-
-          <label className="App__field" htmlFor="itemWidth">Item Width</label>
-
-          <input
-            id="itemWidth"
-            className="App__input"
-            type="number"
-            onChange={() => (this.handleEvent('itemWidth'))}
-            value={itemWidth}
-          />
-
-          <label
-            className="App__field"
-            htmlFor="animationDuration"
-          >
-            Animation Duration
+          <label className="App__field">
+            Step
+            <input
+              name="step"
+              className="App__input"
+              type="number"
+              onChange={this.handleEvent}
+              value={step}
+            />
           </label>
 
-          <input
-            id="animationDuration"
-            className="App__input"
-            type="number"
-            onChange={() => (this.handleEvent('animationDuration'))}
-            value={animationDuration}
-          />
+          <label className="App__field">
+            Frame Size
+            <input
+              name="frameSize"
+              className="App__input"
+              type="number"
+              onChange={this.handleEvent}
+              value={frameSize}
+            />
+          </label>
 
-          <label className="App__field" htmlFor="infinite">Infinite</label>
+          <label className="App__field">
+            Item Width
+            <input
+              name="itemWidth"
+              className="App__input"
+              type="number"
+              onChange={this.handleEvent}
+              value={itemWidth}
+            />
+          </label>
 
-          <input
-            type="checkbox"
-            onChange={() => (this.handleEvent('infinite'))}
-          />
+          <label className="App__field">
+            Animation Duration
+            <input
+              name="animationDuration"
+              className="App__input"
+              type="number"
+              onChange={this.handleEvent}
+              value={animationDuration}
+            />
+          </label>
+
+          <label className="App__field">
+            Infinite
+            <input
+              type="checkbox"
+              name="infinite"
+              onChange={this.handleEvent}
+            />
+          </label>
+
         </form>
 
         <Carousel
