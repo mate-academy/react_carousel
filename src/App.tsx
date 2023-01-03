@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {[key: string]: number | string[]}
+interface State {[key: string]: number | string[] | string}
 
 class App extends React.Component<{}, State> {
   state = {
@@ -24,14 +24,17 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  setParams = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { name } = e.currentTarget;
-    const value = Number(e.currentTarget.value);
-    const min = Number(e.currentTarget.min);
-    const max = Number(e.currentTarget.max);
+  setParams = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const { name } = event.currentTarget;
+    const value = Number(event.currentTarget.value);
+    const min = Number(event.currentTarget.min);
+    const max = Number(event.currentTarget.max);
 
     switch (true) {
+      case (value === 0):
+        this.setState({ [name]: '' });
+        break;
       case (value < min):
         this.setState({ [name]: min });
         break;
@@ -63,7 +66,7 @@ class App extends React.Component<{}, State> {
             <span className="App_controlsLabel">Images Size:</span>
             <input
               id="itemId"
-              onChange={(e) => this.setParams(e)}
+              onChange={this.setParams}
               className="App__controlsInput"
               type="number"
               name="itemWidth"
@@ -78,7 +81,7 @@ class App extends React.Component<{}, State> {
             <span className="App_controlsLabel">Frame Size:</span>
             <input
               id="frameId"
-              onChange={(e) => this.setParams(e)}
+              onChange={this.setParams}
               className="App__controlsInput"
               type="number"
               name="frameSize"
@@ -93,11 +96,11 @@ class App extends React.Component<{}, State> {
             <span className="App_controlsLabel">Step:</span>
             <input
               id="stepId"
-              onChange={(e) => this.setParams(e)}
+              onChange={this.setParams}
               className="App__controlsInput"
               type="number"
               name="step"
-              value={step}
+              value={step || ''}
               min={1}
               max={images.length}
               required
@@ -107,7 +110,7 @@ class App extends React.Component<{}, State> {
           <label className="App__controlsField">
             <span className="App_controlsLabel">Animation duration:</span>
             <input
-              onChange={(e) => this.setParams(e)}
+              onChange={this.setParams}
               className="App__controlsInput"
               type="number"
               name="animationDuration"

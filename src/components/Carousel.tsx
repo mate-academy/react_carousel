@@ -18,39 +18,65 @@ class Carousel extends Component<Props, State> {
     translateX: 0,
   };
 
-  render() {
+  gap = 10;
+
+  moveToPrev = () => {
+    const { gap } = this;
+    const { translateX } = this.state;
+
+    const { itemWidth, step } = this.props;
+
+    const scrollSize = step * itemWidth + step * gap;
+
+    this.setState(
+      (translateX + scrollSize) > 0
+        ? { translateX: 0 }
+        : { translateX: (translateX + scrollSize) },
+    );
+  };
+
+  moveToNext = () => {
+    const { gap } = this;
+
+    const { translateX } = this.state;
+
     const {
       images,
       itemWidth,
       frameSize,
       step,
+    } = this.props;
+
+    const scrollSize = step * itemWidth + step * gap;
+
+    const maxTranslateX = -(itemWidth * (images.length - frameSize)
+       + gap * (images.length - frameSize));
+
+    this.setState(
+      (translateX - scrollSize) < maxTranslateX
+        ? { translateX: maxTranslateX }
+        : { translateX: (translateX - scrollSize) },
+    );
+  };
+
+  render() {
+    const { gap } = this;
+
+    const {
+      images,
+      itemWidth,
+      frameSize,
       animationDuration,
     } = this.props;
 
     const { translateX } = this.state;
 
-    const gap = 10;
     const carouselWidth = itemWidth * frameSize + gap * (frameSize - 1);
 
-    const scrollSize = step * itemWidth + step * gap;
     const maxTranslateX = -(itemWidth * (images.length - frameSize)
        + gap * (images.length - frameSize));
 
-    const moveToNext = () => {
-      this.setState(
-        (translateX - scrollSize) < maxTranslateX
-          ? { translateX: maxTranslateX }
-          : { translateX: (translateX - scrollSize) },
-      );
-    };
-
-    const moveToPrev = () => {
-      this.setState(
-        (translateX + scrollSize) > 0
-          ? { translateX: 0 }
-          : { translateX: (translateX + scrollSize) },
-      );
-    };
+    const { moveToPrev, moveToNext } = this;
 
     return (
       <div className="Carousel">
@@ -67,7 +93,7 @@ class Carousel extends Component<Props, State> {
               <li key={image}>
                 <img
                   src={image}
-                  alt="img"
+                  alt={`Smile number ${image.substr(image.lastIndexOf('/') + 1, 1)}`}
                   width={itemWidth}
                 />
               </li>
