@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Carousel } from './components/Carousel';
-import { Settings } from './components/_Settings';
+import { Inputs } from './components/Inputs';
 
 import './App.scss';
 
@@ -56,7 +56,7 @@ export const App: FC<{}> = () => {
           setDistance={setDistance}
         />
 
-        <Settings
+        <Inputs
           props={props}
           hooks={stateHooks}
         />

@@ -1,4 +1,4 @@
-export interface SettingsType {
+export interface InputSet {
   images: string[]
   step: number
   frameSize: number
@@ -10,7 +10,7 @@ export interface SettingsType {
 
 export type Hook<T> = React.Dispatch<React.SetStateAction<T>>;
 
-export interface SettingHooks {
+export interface InputHooks {
   setStep: Hook<number>,
   setItemWidth: Hook<number>,
   setFrameSize: Hook<number>,

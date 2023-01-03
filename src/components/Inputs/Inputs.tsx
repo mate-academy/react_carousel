@@ -1,14 +1,14 @@
 import { ChangeEvent, FC } from 'react';
-import { SettingHooks, SettingsType } from '../../types';
+import { InputHooks, InputSet } from '../../types';
 
-import './Settings.scss';
+import './Inputs.scss';
 
 type Props = {
-  props: SettingsType
-  hooks: SettingHooks
+  props: InputSet
+  hooks: InputHooks
 };
 
-export const Settings: FC<Props> = ({ props, hooks }) => {
+export const Inputs: FC<Props> = ({ props, hooks }) => {
   const {
     setStep,
     setItemWidth,
@@ -43,16 +43,16 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
         setAnimationDuration(Math.min(valueAsNumber, maxMilliseconds));
         break;
 
-      case 'step':
+      case 'stepId':
         setStep(Math.min(valueAsNumber, maxByLength));
         break;
 
-      case 'frameSize':
+      case 'frameId':
         setFrameSize(Math.min(valueAsNumber, maxByLength));
         setDistance(Math.max(distance, -maxDistance + itemWidth));
         break;
 
-      case 'itemWidth':
+      case 'itemId':
         setItemWidth(Math.min(valueAsNumber, maxPixels));
         break;
 
@@ -67,12 +67,12 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
 
   return (
     <legend
-      className="settings"
+      className="inputs"
       style={{ width: `${itemWidth * frameSize}px` }}
     >
       <label
         htmlFor="stepId"
-        className="settings__label"
+        className="inputs__label"
       >
         Step:
         <input
@@ -81,14 +81,14 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
           value={step}
           min={1}
           max={maxByLength}
-          className="settings__field"
+          className="inputs__field"
           onChange={handleChange}
         />
       </label>
 
       <label
         htmlFor="frameId"
-        className="settings__label"
+        className="inputs__label"
       >
         Items in frame:
         <input
@@ -97,14 +97,14 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
           value={frameSize}
           min={1}
           max={maxByLength}
-          className="settings__field"
+          className="inputs__field"
           onChange={handleChange}
         />
       </label>
 
       <label
         htmlFor="itemId"
-        className="settings__label"
+        className="inputs__label"
       >
         Item size(px):
         <input
@@ -113,14 +113,14 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
           value={itemWidth}
           min={100}
           max={maxPixels}
-          className="settings__field"
+          className="inputs__field"
           onChange={handleChange}
         />
       </label>
 
       <label
         htmlFor="animationDuration"
-        className="settings__label"
+        className="inputs__label"
       >
         Animation duration(ms):
         <input
@@ -130,14 +130,14 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
           min={100}
           step={100}
           max={maxMilliseconds}
-          className="settings__field"
+          className="inputs__field"
           onChange={handleChange}
         />
       </label>
 
       <label
         htmlFor="infinite"
-        className="settings__label"
+        className="inputs__label"
       >
         Infinite rotation:
         <input
@@ -145,7 +145,7 @@ export const Settings: FC<Props> = ({ props, hooks }) => {
           id="infinite"
           checked={infinite}
           onChange={handleChange}
-          className="settings__field"
+          className="inputs__field"
         />
       </label>
     </legend>

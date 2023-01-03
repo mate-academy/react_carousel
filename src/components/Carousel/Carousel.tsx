@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import { FC, useState } from 'react';
 
-import { Hook, SettingsType } from '../../types';
+import { Hook, InputSet } from '../../types';
 import './Carousel.scss';
 
 type Props = {
-  props: SettingsType
+  props: InputSet
   setDistance: Hook<number>
 };
 
@@ -139,11 +139,10 @@ export const Carousel: FC<Props> = ({
 
             return (
               <li
-                className="Carousel__list-item"
+                className="Carousel__image"
                 key={id}
               >
                 <img
-                  className="Carousel__image"
                   src={image}
                   alt={id}
                   style={imgStyle}
