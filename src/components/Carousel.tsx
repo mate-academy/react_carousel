@@ -26,9 +26,16 @@ export class Carousel extends Component<Props, State> {
       itemWidth,
       frameSize,
       images,
+      infinite,
     } = this.props;
 
     const maxTransition = (images.length * itemWidth) - (frameSize * itemWidth);
+
+    if (infinite && this.state.start <= -maxTransition) {
+      this.setState({
+        start: (frameSize * itemWidth),
+      });
+    }
 
     this.setState(state => ({
       start: (state.start - (step * itemWidth)) < -maxTransition
@@ -41,7 +48,15 @@ export class Carousel extends Component<Props, State> {
     const {
       step,
       itemWidth,
+      images,
+      infinite,
     } = this.props;
+
+    if (infinite && this.state.start >= 0) {
+      this.setState({
+        start: -(images.length * itemWidth),
+      });
+    }
 
     this.setState(state => ({
       start: (state.start + (step * itemWidth)) > 0
@@ -73,10 +88,12 @@ export class Carousel extends Component<Props, State> {
           >
             {images.map(image => (
               <li
+                style={{ height: itemWidth }}
                 key={image}
                 className="Carousel__item"
               >
                 <img
+                  style={{ width: itemWidth }}
                   src={image}
                   alt={image.slice(image.lastIndexOf('/') + 1, -4)}
                 />

@@ -35,39 +35,52 @@ class App extends React.Component<{}, State> {
   handleEvent = (id: string) => {
     const element = document.querySelector(`#${id}`) as HTMLInputElement;
 
-    if (!element.value) {
-      this.setState(state => ({
-        step: state.step,
-      }));
-    } else {
-      switch (id) {
-        case 'step':
+    switch (id) {
+      case 'step':
+        if (+element.value >= 0 && +element.value <= 10) {
           this.setState({
-            step: +element.value,
+            [id]: +element.value,
           });
-          break;
+        }
 
-        case 'frameSize':
+        break;
+
+      case 'frameSize':
+        if (+element.value >= 0 && +element.value <= 10) {
           this.setState({
-            frameSize: +element.value,
+            [id]: +element.value,
           });
-          break;
+        }
 
-        case 'itemWidth':
+        break;
+
+      case 'itemWidth':
+        if (+element.value >= 0 && +element.value <= 400) {
           this.setState({
-            itemWidth: +element.value,
+            [id]: +element.value,
           });
-          break;
+        }
 
-        case 'animationDuration':
+        break;
+
+      case 'animationDuration':
+        if (+element.value >= 0 && +element.value <= 10000) {
           this.setState({
-            animationDuration: +element.value,
+            [id]: +element.value,
           });
-          break;
+        }
 
-        default:
-          throw new Error('Wrong id');
-      }
+        break;
+
+      case 'infinite':
+        this.setState(state => ({
+          [id]: !state.infinite,
+        }));
+
+        break;
+
+      default:
+        throw new Error('Wrong id');
     }
   };
 
@@ -93,9 +106,8 @@ class App extends React.Component<{}, State> {
             id="step"
             className="form__input"
             type="number"
-            min="0"
-            onBlur={() => (this.handleEvent('step'))}
-            placeholder={`${step}`}
+            onChange={() => (this.handleEvent('step'))}
+            value={`${step}`}
           />
 
           <label className="form__field" htmlFor="frameSize">Frame Size</label>
@@ -104,10 +116,8 @@ class App extends React.Component<{}, State> {
             id="frameSize"
             className="form__input"
             type="number"
-            min="0"
-            max="10"
-            onBlur={() => (this.handleEvent('frameSize'))}
-            placeholder={`${frameSize}`}
+            onChange={() => (this.handleEvent('frameSize'))}
+            value={`${frameSize}`}
           />
 
           <label className="form__field" htmlFor="itemWidth">Item Width</label>
@@ -116,10 +126,8 @@ class App extends React.Component<{}, State> {
             id="itemWidth"
             className="form__input"
             type="number"
-            min="130"
-            max="1300"
-            onBlur={() => (this.handleEvent('itemWidth'))}
-            placeholder={`${itemWidth}`}
+            onChange={() => (this.handleEvent('itemWidth'))}
+            value={`${itemWidth}`}
           />
 
           <label
@@ -133,10 +141,15 @@ class App extends React.Component<{}, State> {
             id="animationDuration"
             className="form__input"
             type="number"
-            min="0"
-            max="10000"
-            onBlur={() => (this.handleEvent('animationDuration'))}
-            placeholder={`${animationDuration}`}
+            onChange={() => (this.handleEvent('animationDuration'))}
+            value={`${animationDuration}`}
+          />
+
+          <label className="form__field" htmlFor="infinite">Infinite</label>
+
+          <input
+            type="checkbox"
+            onChange={() => (this.handleEvent('infinite'))}
           />
         </form>
 
