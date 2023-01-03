@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.form {
-  display: flex;
-  gap: 20px;
+  &__form {
+    display: flex;
+    gap: 20px;
+  }
 
   &__input {
     width: 50px;

@@ -99,39 +99,39 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <form className="form">
-          <label className="form__field" htmlFor="step">Step</label>
+        <form className="App__form">
+          <label className="App__field" htmlFor="step">Step</label>
 
           <input
             id="step"
-            className="form__input"
+            className="App__input"
             type="number"
             onChange={() => (this.handleEvent('step'))}
-            value={`${step}`}
+            value={step}
           />
 
-          <label className="form__field" htmlFor="frameSize">Frame Size</label>
+          <label className="App__field" htmlFor="frameSize">Frame Size</label>
 
           <input
             id="frameSize"
-            className="form__input"
+            className="App__input"
             type="number"
             onChange={() => (this.handleEvent('frameSize'))}
-            value={`${frameSize}`}
+            value={frameSize}
           />
 
-          <label className="form__field" htmlFor="itemWidth">Item Width</label>
+          <label className="App__field" htmlFor="itemWidth">Item Width</label>
 
           <input
             id="itemWidth"
-            className="form__input"
+            className="App__input"
             type="number"
             onChange={() => (this.handleEvent('itemWidth'))}
-            value={`${itemWidth}`}
+            value={itemWidth}
           />
 
           <label
-            className="form__field"
+            className="App__field"
             htmlFor="animationDuration"
           >
             Animation Duration
@@ -139,13 +139,13 @@ class App extends React.Component<{}, State> {
 
           <input
             id="animationDuration"
-            className="form__input"
+            className="App__input"
             type="number"
             onChange={() => (this.handleEvent('animationDuration'))}
-            value={`${animationDuration}`}
+            value={animationDuration}
           />
 
-          <label className="form__field" htmlFor="infinite">Infinite</label>
+          <label className="App__field" htmlFor="infinite">Infinite</label>
 
           <input
             type="checkbox"
