@@ -1,5 +1,7 @@
 import React from 'react';
+import { Input } from '../Input';
 import './Form.scss';
+import '../Input/Input.scss';
 
 type Props = {
   itemWidth: number;
@@ -23,67 +25,54 @@ export const Form:React.FC<Props> = ({
   handleInfinite,
 }) => (
   <form className="Form">
-    <label htmlFor="itemId">
-      Item width:
-      <input
-        className="Form__input"
-        id="itemId"
-        type="number"
-        name="itemWidth"
-        value={itemWidth}
-        min="100"
-        max="200"
-        step="5"
-        onChange={handleChange}
-      />
-    </label>
+    <Input
+      labelText="Item width:"
+      id="itemId"
+      name="itemWidth"
+      value={itemWidth}
+      min="100"
+      max="200"
+      step="5"
+      onChange={handleChange}
+    />
 
-    <label htmlFor="frameId">
-      Frame size:
-      <input
-        className="Form__input"
-        id="frameId"
-        type="number"
-        name="frameSize"
-        value={frameSize}
-        min="1"
-        max={images.length}
-        onChange={handleChange}
-      />
-    </label>
+    <Input
+      labelText="Frame size:"
+      id="frameId"
+      name="frameSize"
+      value={frameSize}
+      min="1"
+      max={`${images.length}`}
+      step="1"
+      onChange={handleChange}
+    />
 
-    <label htmlFor="stepId">
-      Step:
-      <input
-        className="Form__input"
-        id="stepId"
-        type="number"
-        name="step"
-        value={step}
-        min="1"
-        max={images.length - frameSize}
-        onChange={handleChange}
-      />
-    </label>
+    <Input
+      labelText="Step:"
+      id="stepId"
+      name="step"
+      value={step}
+      min="1"
+      max={`${images.length - frameSize}`}
+      step="1"
+      onChange={handleChange}
+    />
 
-    <label>
-      Animation duration:
-      <input
-        className="Form__input"
-        type="number"
-        name="animationDuration"
-        value={animationDuration}
-        min="100"
-        max="5000"
-        step="100"
-        onChange={handleChange}
-      />
-    </label>
+    <Input
+      labelText="Animation duration:"
+      id="animationId"
+      name="animationDuration"
+      value={animationDuration}
+      min="100"
+      max="5000"
+      step="100"
+      onChange={handleChange}
+    />
 
     <label>
       Infinite:
       <input
-        className="Form__input Form__input--checkbox"
+        className="Input Input--checkbox"
         type="checkbox"
         name="infinite"
         checked={infinite}

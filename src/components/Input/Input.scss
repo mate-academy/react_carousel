@@ -1,0 +1,11 @@
+Input {
+  margin-left: 10px;
+  font-family: inherit;
+  font-size: inherit;
+
+  &--checkbox {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(214, 209, 209);
+  }
+}
