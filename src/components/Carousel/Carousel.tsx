@@ -99,7 +99,7 @@ export class Carousel extends React.Component<Props, State> {
             onClick={this.handlePrevButton}
             disabled={transform === 0 && !infinite}
           >
-            &#8249;
+            {'<'}
           </button>
 
           <button
@@ -111,7 +111,7 @@ export class Carousel extends React.Component<Props, State> {
             disabled={transform === -(images.length - frameSize) * itemWidth
               && !infinite}
           >
-            &#8250;
+            {'>'}
           </button>
         </div>
       </div>
