@@ -1,12 +1,19 @@
 import { Component } from 'react';
 import './Carousel.scss';
 import './button.scss';
-// import classNames from 'classnames';
-import { Carousel as Props } from '../types/Carousel';
 
 type State = {
   translateX: number,
 };
+
+interface Props {
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
+}
 
 export class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
@@ -125,7 +132,7 @@ export class Carousel extends Component<Props, State> {
                   <img
                     className="Carousel__item-img"
                     src={image}
-                    alt={`${index + 1}`}
+                    alt={`emoji number ${index + 1}`}
                     width={itemWidth}
                   />
                 </li>

@@ -2,10 +2,14 @@ import React from 'react';
 import './App.scss';
 import './Page/Page.scss';
 import { Carousel } from './components/Carousel';
-import { Carousel as State } from './types/Carousel';
+// import { Carousel as State } from './types/Carousel';
+
+interface State {
+  [key: string]: number | string | boolean | string[],
+}
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -25,80 +29,35 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.currentTarget.value);
+  setNewParams = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      value,
+      name,
+      max,
+      min,
+      checked,
+    } = event.currentTarget;
+
+    if (name === 'infinite') {
+      this.setState({
+        infinite: checked,
+      });
+
+      return;
+    }
 
     switch (true) {
-      case curentValue > 10:
-        this.setState({ step: 10 });
+      case +value > +max:
+        this.setState({ [name]: 10 });
         break;
-      case curentValue < 0:
-        this.setState({ step: 0 });
+      case +value < +min:
+        this.setState({ [name]: 0 });
         break;
 
       default:
-        this.setState({ step: curentValue });
+        this.setState({ [name]: +value });
         break;
     }
-  };
-
-  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.currentTarget.value);
-
-    switch (true) {
-      case curentValue > 1300:
-        this.setState({ itemWidth: 1300 });
-        break;
-      case curentValue < 0:
-        this.setState({ itemWidth: 0 });
-        break;
-
-      default:
-        this.setState({ itemWidth: curentValue });
-        break;
-    }
-  };
-
-  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.currentTarget.value);
-
-    switch (true) {
-      case curentValue > 10:
-        this.setState({ frameSize: 10 });
-        break;
-      case curentValue < 0:
-        this.setState({ frameSize: 0 });
-        break;
-
-      default:
-        this.setState({ frameSize: curentValue });
-        break;
-    }
-  };
-
-  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const curentValue = Number(event.currentTarget.value);
-
-    switch (true) {
-      case curentValue > 10000:
-        this.setState({ animationDuration: 10000 });
-        break;
-      case curentValue < 0:
-        this.setState({ animationDuration: 0 });
-        break;
-
-      default:
-        this.setState({ animationDuration: curentValue });
-        break;
-    }
-  };
-
-  setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.currentTarget.checked;
-
-    this.setState({
-      infinite: isChecked,
-    });
   };
 
   render() {
@@ -111,10 +70,12 @@ class App extends React.Component<{}, State> {
       infinite,
     } = this.state;
 
+    const imagesArr = images as string[];
+
     return (
       <div className="App Page">
         {/* eslint-disable-next-line */}
-        <h1 className="Page__title" data-cy="title">Carousel with {images.length} images</h1>
+        <h1 className="Page__title" data-cy="title">Carousel with {imagesArr.length} images</h1>
 
         <form
           action="#"
@@ -130,9 +91,10 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="stepId"
               type="number"
-              value={step}
-              onChange={(event) => this.setStep(event)}
-              min="1"
+              value={Number(step)}
+              onChange={this.setNewParams}
+              name="step"
+              min="0"
               max="10"
             />
           </div>
@@ -146,10 +108,11 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="frameId"
               type="number"
-              value={frameSize}
-              onChange={(event) => this.setFrameSize(event)}
-              min="1"
+              name="frameSize"
+              onChange={this.setNewParams}
+              min="0"
               max="10"
+              value={Number(frameSize)}
             />
           </div>
 
@@ -162,9 +125,10 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="itemId"
               type="number"
-              value={itemWidth}
-              onChange={(event) => this.setItemWidth(event)}
-              min="130"
+              value={Number(itemWidth)}
+              onChange={this.setNewParams}
+              name="itemWidth"
+              min="0"
               max="1300"
             />
           </div>
@@ -178,9 +142,10 @@ class App extends React.Component<{}, State> {
               className="Page__input"
               id="Animation"
               type="number"
-              value={animationDuration}
-              onChange={(event) => this.setAnimationDuration(event)}
-              min="500"
+              value={Number(animationDuration)}
+              name="animationDuration"
+              onChange={this.setNewParams}
+              min="0"
               max="10000"
             />
           </div>
@@ -192,18 +157,19 @@ class App extends React.Component<{}, State> {
             <input
               id="infinite"
               type="checkbox"
-              onChange={(event) => this.setInfinite(event)}
+              onChange={this.setNewParams}
+              name="infinite"
             />
           </div>
         </form>
 
         <Carousel
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
+          images={imagesArr}
+          step={Number(step)}
+          frameSize={Number(frameSize)}
+          itemWidth={Number(itemWidth)}
+          animationDuration={Number(animationDuration)}
+          infinite={Boolean(infinite)}
         />
       </div>
     );
