@@ -1,4 +1,4 @@
-export interface InputSet {
+export interface InputValues {
   images: string[]
   step: number
   frameSize: number
@@ -6,6 +6,19 @@ export interface InputSet {
   animationDuration: number
   infinite: boolean
   distance: number
+}
+
+export interface InputProps {
+  type: string
+  inputId: string
+  value?: number
+  min?: number
+  step?: number
+  max?: number
+  checked?: boolean
+  handleChange?: Hook<number>
+  handleCheck?: Hook<boolean>
+  info: string
 }
 
 export type Hook<T> = React.Dispatch<React.SetStateAction<T>>;

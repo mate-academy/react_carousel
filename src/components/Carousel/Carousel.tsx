@@ -1,16 +1,16 @@
 import cn from 'classnames';
 import { FC, useState } from 'react';
 
-import { Hook, InputSet } from '../../types';
+import { Hook, InputValues } from '../../types';
 import './Carousel.scss';
 
 type Props = {
-  props: InputSet
+  values: InputValues
   setDistance: Hook<number>
 };
 
 export const Carousel: FC<Props> = ({
-  props,
+  values,
   setDistance,
 }) => {
   const {
@@ -21,7 +21,7 @@ export const Carousel: FC<Props> = ({
     animationDuration,
     distance,
     infinite,
-  } = props;
+  } = values;
 
   const [direction, setDirection] = useState('prev');
   const [useTransition, setUseTransition] = useState(false);
@@ -36,7 +36,7 @@ export const Carousel: FC<Props> = ({
     ].slice(-infiniteImages.length);
 
     setImages(orderedImages);
-    setDistance(distance + itemWidth * step);
+    setDistance(current => current + itemWidth * step);
     setUseTransition(false);
   };
 
@@ -47,7 +47,7 @@ export const Carousel: FC<Props> = ({
     ].slice(0, infiniteImages.length);
 
     setImages(orderedImages);
-    setDistance(distance - itemWidth * step);
+    setDistance(current => current - itemWidth * step);
     setUseTransition(false);
   };
 
@@ -69,23 +69,19 @@ export const Carousel: FC<Props> = ({
   };
 
   const handleNext = () => {
-    const newDistance = distance - itemWidth * step;
-
     setDirection('next');
     setUseTransition(true);
-    setDistance(infinite
-      ? newDistance
-      : Math.max(newDistance, maxDistance));
+    setDistance(state => (infinite
+      ? state - itemWidth * step
+      : Math.max(state - itemWidth * step, maxDistance)));
   };
 
   const handlePrev = () => {
-    const newDistance = distance + itemWidth * step;
-
     setDirection('prev');
     setUseTransition(true);
-    setDistance(infinite
-      ? newDistance
-      : Math.min(newDistance, 0));
+    setDistance(state => (infinite
+      ? state + itemWidth * step
+      : Math.min(state + itemWidth * step, 0)));
   };
 
   const listStyle = () => {
@@ -115,7 +111,7 @@ export const Carousel: FC<Props> = ({
         type="button"
         onClick={handlePrev}
       >
-        &nbsp;&lt;&nbsp;
+        {'<'}
       </button>
 
       <div
@@ -161,7 +157,7 @@ export const Carousel: FC<Props> = ({
         data-cy="next"
         onClick={handleNext}
       >
-        &nbsp;&gt;&nbsp;
+        {'>'}
       </button>
     </div>
   );

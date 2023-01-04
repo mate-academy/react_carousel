@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Carousel } from './components/Carousel';
-import { Inputs } from './components/Inputs';
+import { InputSet } from './components/InputSet';
 
 import './App.scss';
 
@@ -25,7 +25,7 @@ export const App: FC<{}> = () => {
   const [infinite, setInfinite] = useState(false);
   const [distance, setDistance] = useState(0);
 
-  const props = {
+  const values = {
     images,
     step,
     itemWidth,
@@ -52,12 +52,12 @@ export const App: FC<{}> = () => {
         </h1>
 
         <Carousel
-          props={props}
+          values={values}
           setDistance={setDistance}
         />
 
-        <Inputs
-          props={props}
+        <InputSet
+          values={values}
           hooks={stateHooks}
         />
       </div>
