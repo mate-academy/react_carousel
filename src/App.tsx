@@ -36,7 +36,7 @@ export class App extends React.Component<{}, State> {
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(state => ({
       ...state,
-      [event.target.name]: +(event.target.value),
+      [event.target.name]: Number(event.target.value),
     }));
   };
 
