@@ -1,7 +1,8 @@
 .Carousel {
+  overflow: hidden;
+  
   &__list {
     display: flex;
-    overflow: hidden;
     list-style: none;
     padding: 0;
   }

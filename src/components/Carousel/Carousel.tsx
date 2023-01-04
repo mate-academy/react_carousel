@@ -15,7 +15,7 @@ type State = {
 };
 
 export class Carousel extends React.Component<Props, State> {
-  state = {
+  state: Readonly<State> = {
     transform: 0,
   };
 
@@ -69,19 +69,25 @@ export class Carousel extends React.Component<Props, State> {
 
     const { transform } = this.state;
 
+    const visibleCarouselWidth = itemWidth * frameSize;
+
+    const sizeOfHiddenRegion = (images.length - frameSize) * itemWidth;
+
     return (
-      <div className="Carousel">
+      <div
+        className="Carousel"
+        style={{ width: `${visibleCarouselWidth}px` }}
+      >
         <ul
           className="Carousel__list"
-          style={{ width: `${frameSize * itemWidth}px` }}
+          style={{
+            transform: `translateX(${transform}px)`,
+            transition: `${animationDuration}ms`,
+          }}
         >
           {images.map((image, index) => (
             <li
               key={image}
-              style={{
-                transform: `translateX(${transform}px)`,
-                transition: `${animationDuration}ms`,
-              }}
             >
               <img
                 src={image}
@@ -108,8 +114,7 @@ export class Carousel extends React.Component<Props, State> {
             type="button"
             className="Carousel__button"
             onClick={this.handleNextButton}
-            // calculated size is sizeOfHiddenRegion
-            disabled={transform === -(images.length - frameSize) * itemWidth
+            disabled={transform === -sizeOfHiddenRegion
               && !infinite}
           >
             {'>'}
