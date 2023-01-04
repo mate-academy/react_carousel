@@ -7,4 +7,10 @@
   margin: 30px 0;
   border-radius: 30px;
   box-shadow: 0 2px 10px 3px rgba(66, 68, 90, 1);
+
+  &--checkbox {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(214, 209, 209);
+  }
 }

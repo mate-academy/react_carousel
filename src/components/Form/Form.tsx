@@ -72,7 +72,7 @@ export const Form:React.FC<Props> = ({
     <label>
       Infinite:
       <input
-        className="Input Input--checkbox"
+        className="Form--checkbox"
         type="checkbox"
         name="infinite"
         checked={infinite}
