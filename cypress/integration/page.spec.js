@@ -9,7 +9,7 @@ describe('Page', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  
+
  it('should contain title of the page', () => {
     cy.getByDataCy('title')
      .should('contain', 'Carousel');
@@ -69,7 +69,7 @@ describe('Page', () => {
       .invoke('attr', 'width')
       .should('eq', '200');
   });
-    
+
   it('should change frame size', () => {
     cy.get('[for ="frameId"')
       .type('{selectall}2');

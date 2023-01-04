@@ -1,1 +1,32 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ol,
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
