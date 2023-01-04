@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -14,7 +14,7 @@ type State = {
   transform: number;
 };
 
-export class Carousel extends React.Component<Props, State> {
+export class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
     transform: 0,
   };
@@ -83,6 +83,7 @@ export class Carousel extends React.Component<Props, State> {
           style={{
             transform: `translateX(${transform}px)`,
             transition: `${animationDuration}ms`,
+            gap: '1px',
           }}
         >
           {images.map((image, index) => (
@@ -92,8 +93,8 @@ export class Carousel extends React.Component<Props, State> {
               <img
                 src={image}
                 alt={`emjoji-${index + 1}`}
-                style={{ width: `${itemWidth}px` }}
                 width={itemWidth}
+                height={itemWidth}
               />
             </li>
           ))}
