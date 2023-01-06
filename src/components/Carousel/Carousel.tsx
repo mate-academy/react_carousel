@@ -100,10 +100,7 @@ export const Carousel: FC<Props> = ({
   const isDisabledNext = distance === maxDistance && !infinite;
 
   return (
-    <div
-      className="Carousel"
-      style={{ width: `${itemWidth * frameSize}px` }}
-    >
+    <div className="Carousel">
       <button
         className={cn('button prev', {
           '--disabled': isDisabledPrev,
@@ -116,7 +113,10 @@ export const Carousel: FC<Props> = ({
 
       <div
         className="container"
-        style={{ height: `${itemWidth}px` }}
+        style={{
+          height: `${itemWidth}px`,
+          width: `${itemWidth * frameSize}px`,
+        }}
       >
         <ul
           className="Carousel__list"
