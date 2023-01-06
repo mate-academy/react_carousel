@@ -1,0 +1,31 @@
+$secondaryColor: #485268;
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 300px;
+  padding: 5px;
+  white-space: nowrap;
+  border-radius: 8px;
+
+  background-color: #fff;
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: $secondaryColor;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.input {
+  border: none;
+  outline: none;
+
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+}

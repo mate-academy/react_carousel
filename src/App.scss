@@ -1,1 +1,30 @@
-// style go here
+$mateColor: #e25544;
+
+.iframe {
+  margin: 0;
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 20px;
+  font-family: sans-serif;
+  color: #fff;
+}
+
+.App {
+  padding: 70px 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+
+  padding: 10px;
+  width: max-content;
+  border-radius: 15px;
+  background: $mateColor;
+}
