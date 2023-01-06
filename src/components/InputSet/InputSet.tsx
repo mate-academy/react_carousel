@@ -77,7 +77,7 @@ export const InputSet: FC<Props> = ({ values, hooks }) => {
       style={{ width: `${itemWidth * frameSize}px` }}
     >
       <Input
-        inputId="step"
+        inputId="stepId"
         type="number"
         value={step}
         min={1}
@@ -87,7 +87,7 @@ export const InputSet: FC<Props> = ({ values, hooks }) => {
       />
 
       <Input
-        inputId="frame"
+        inputId="frameId"
         type="number"
         value={frameSize}
         min={1}
@@ -97,7 +97,7 @@ export const InputSet: FC<Props> = ({ values, hooks }) => {
       />
 
       <Input
-        inputId="itemWidth"
+        inputId="itemId"
         type="number"
         value={itemWidth}
         min={100}

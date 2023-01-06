@@ -126,22 +126,18 @@ export const Carousel: FC<Props> = ({
           {(infinite
             ? infiniteImages
             : images).map(image => {
-            const id = image.match(/\d/g)?.join('');
-
-            const imgStyle = {
-              width: `${itemWidth}px`,
-              height: `${itemWidth}px`,
-            };
+            const id = (image.match(/\d/g) || []).join('');
 
             return (
               <li
                 className="Carousel__image"
-                key={id}
+                key={+id}
               >
                 <img
                   src={image}
                   alt={id}
-                  style={imgStyle}
+                  width={itemWidth}
+                  height={itemWidth}
                 />
               </li>
             );
