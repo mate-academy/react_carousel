@@ -1,0 +1,20 @@
+.SettingsPanel {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border: 1px solid black;
+  border-radius: 8px;
+
+  & label {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    & input {
+      width: 200px;
+    }
+  }
+}

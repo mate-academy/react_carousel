@@ -1,13 +1,27 @@
 import React from 'react';
-import './App.scss';
-import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+import './App.scss';
+
+import { Carousel } from './components/Carousel';
+import { SettingsPanel } from './components/SettingsPanel';
+
+import { Settings } from './types/Settings';
+
+const defaultSettings: Settings = {
+  step: 1,
+  itemWidth: 130,
+  animationDuration: 1000,
+  frameSize: 3,
+  infinite: false,
+};
+
+type State = {
+  images: string[],
+  settings: Settings,
+};
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,17 +34,44 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    settings: {
+      ...defaultSettings,
+    },
+  };
+
+  saveSettings = (
+    property: keyof Settings,
+    value: string,
+  ) => {
+    this.setState(state => ({
+      settings: {
+        ...state.settings,
+        [property]: property === 'infinite'
+          ? Boolean(value)
+          : Number(value),
+      },
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, settings } = this.state;
+    const imagesCount = images.length;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${imagesCount} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          settings={settings}
+        />
+
+        <SettingsPanel
+          save={this.saveSettings}
+          settings={settings}
+        />
       </div>
     );
   }
