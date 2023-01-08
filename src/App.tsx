@@ -61,8 +61,10 @@ class App extends Component<{}, State> {
       });
     }
 
+    const { name, value } = event.target;
+
     this.setState({
-      frameSize: Number(event.target.value),
+      [name]: Number(value),
     });
   };
 
