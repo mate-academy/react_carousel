@@ -1,1 +1,12 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+}
