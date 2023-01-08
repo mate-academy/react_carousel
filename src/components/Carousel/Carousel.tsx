@@ -18,6 +18,16 @@ export class Carousel extends Component<Props, State> {
     position: 0,
   };
 
+  componentDidUpdate() {
+    const { frameSize } = this.props.settings;
+    const imageCount = this.props.images.length;
+    const { position } = this.state;
+
+    if (position + frameSize > imageCount) {
+      this.moveImages('right');
+    }
+  }
+
   get maxPosition() {
     return this.props.images.length - this.props.settings.frameSize;
   }
