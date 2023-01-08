@@ -1,1 +1,18 @@
-//
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  margin: 5rem auto 0;
+
+  width: 25%;
+  height: 100%;
+  padding: 1rem;
+  border: 0.05rem solid black;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+
+  background-color: bisque;
+}

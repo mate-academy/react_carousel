@@ -1,12 +1,23 @@
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
 
 import './CheckBox.scss';
 
-export const CheckBox: FC = () => {
+type Props = {
+  infinite: boolean;
+  changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const CheckBox: FC<Props> = ({ infinite, changeHandler }) => {
   return (
-    <input
-      type="checkbox"
-      className="CheckBox"
-    />
+    <label htmlFor="checkbox">
+      {'Infinite: '}
+      <input
+        type="checkbox"
+        className="CheckBox"
+        name="checkbox"
+        checked={infinite}
+        onChange={changeHandler}
+      />
+    </label>
   );
 };

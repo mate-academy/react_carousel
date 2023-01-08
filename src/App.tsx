@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 import { Container } from './components/Container';
@@ -32,8 +32,78 @@ class App extends Component<{}, State> {
     step: 3,
     frameSize: 3,
     itemWidth: 130,
-    animationDuration: 1000,
+    animationDuration: 1,
     infinite: false,
+  };
+
+  stepChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === ''
+      || Number(event.target.value) < 1
+      || Number.isNaN(Number(event.target.value))) {
+      this.setState({
+        step: 1,
+      });
+    }
+
+    this.setState({
+      step: Number(event.target.value),
+    });
+  };
+
+  frameSizeChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (
+      event.target.value === ''
+      || Number(event.target.value) < 1
+      || Number.isNaN(Number(event.target.value))
+    ) {
+      this.setState({
+        frameSize: 1,
+      });
+    }
+
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: Number(value),
+    });
+  };
+
+  itemWidthHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (
+      event.target.value === ''
+      || Number(event.target.value) < 90
+      || Number.isNaN(Number(event.target.value))
+    ) {
+      this.setState({
+        itemWidth: 90,
+      });
+    }
+
+    this.setState({
+      itemWidth: Number(event.target.value),
+    });
+  };
+
+  animationDurationHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    if (
+      event.target.value === ''
+      || Number(event.target.value) < 1
+      || Number.isNaN(Number(event.target.value))
+    ) {
+      this.setState({
+        animationDuration: 1,
+      });
+    }
+
+    this.setState({
+      animationDuration: Number(event.target.value),
+    });
+  };
+
+  infiniteHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      infinite: event.target.checked,
+    });
   };
 
   render() {
@@ -48,7 +118,9 @@ class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+        <h1 data-cy="title" className="App__title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Container>
           <Carousel
@@ -62,15 +134,34 @@ class App extends Component<{}, State> {
         </Container>
 
         <Form>
-          <Input label="Step" option={step} />
+          <Input
+            label="Step"
+            option={step}
+            changeHandler={this.stepChangeHandler}
+          />
 
-          <Input label="Frame size" option={frameSize} />
+          <Input
+            label="Frame size"
+            option={frameSize}
+            changeHandler={this.frameSizeChangeHandler}
+          />
 
-          <Input label="Item width" option={itemWidth} />
+          <Input
+            label="Item width"
+            option={itemWidth}
+            changeHandler={this.itemWidthHandler}
+          />
 
-          <Input label="Animation duration" option={animationDuration} />
+          <Input
+            label="Animation duration"
+            option={animationDuration}
+            changeHandler={this.animationDurationHandler}
+          />
 
-          <CheckBox />
+          <CheckBox
+            infinite={infinite}
+            changeHandler={this.infiniteHandler}
+          />
         </Form>
       </div>
     );
