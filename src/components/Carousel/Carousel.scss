@@ -1,0 +1,38 @@
+.Carousel {
+  margin-top: 5rem;
+  overflow: hidden;
+
+  &__list {
+    position: relative;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  &__button {
+    display: block;
+
+    width: 3rem;
+    height: 3rem;
+    border: 0.05rem solid black;
+    border-radius: 50%;
+    background-color: bisque;
+    
+    cursor: pointer;
+    z-index: 1;
+  }
+}
