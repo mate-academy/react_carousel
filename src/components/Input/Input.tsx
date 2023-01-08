@@ -26,6 +26,7 @@ export const Input: FC<Props> = ({ label, option }) => {
         type="number"
         value={value}
         onChange={changeHandler}
+        name={label.toLowerCase()}
       />
     </>
   );
