@@ -15,6 +15,8 @@ export interface State {
   infinite: boolean;
 }
 
+type InputFields = Exclude<keyof State, 'images' | 'infinite'>;
+
 class App extends Component<{}, State> {
   state = {
     images: [
@@ -36,74 +38,22 @@ class App extends Component<{}, State> {
     infinite: false,
   };
 
-  stepChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === ''
-      || Number(event.target.value) < 1
-      || Number.isNaN(Number(event.target.value))) {
-      this.setState({
-        step: 1,
-      });
-    }
-
-    this.setState({
-      step: Number(event.target.value),
-    });
-  };
-
-  frameSizeChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.target.value === ''
-      || Number(event.target.value) < 1
-      || Number.isNaN(Number(event.target.value))
-    ) {
-      this.setState({
-        frameSize: 1,
-      });
-    }
-
+  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    this.setState({
-      [name]: Number(value),
-    });
-  };
-
-  itemWidthHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.target.value === ''
-      || Number(event.target.value) < 90
-      || Number.isNaN(Number(event.target.value))
-    ) {
-      this.setState({
-        itemWidth: 90,
-      });
+    if (!name) {
+      return;
     }
 
-    this.setState({
-      itemWidth: Number(event.target.value),
-    });
-  };
-
-  animationDurationHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (
-      event.target.value === ''
-      || Number(event.target.value) < 1
-      || Number.isNaN(Number(event.target.value))
-    ) {
-      this.setState({
-        animationDuration: 1,
-      });
+    if (name !== 'checkbox') {
+      this.setState({ [name]: Number(value) } as Pick<State, InputFields>);
     }
 
-    this.setState({
-      animationDuration: Number(event.target.value),
-    });
-  };
-
-  infiniteHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      infinite: event.target.checked,
-    });
+    if (name === 'checkbox') {
+      this.setState((prevState) => ({
+        infinite: !prevState.infinite,
+      }));
+    }
   };
 
   render() {
@@ -137,30 +87,30 @@ class App extends Component<{}, State> {
           <Input
             label="Step"
             option={step}
-            changeHandler={this.stepChangeHandler}
+            changeHandler={this.handleInputChange}
           />
 
           <Input
             label="Frame size"
             option={frameSize}
-            changeHandler={this.frameSizeChangeHandler}
+            changeHandler={this.handleInputChange}
           />
 
           <Input
             label="Item width"
             option={itemWidth}
-            changeHandler={this.itemWidthHandler}
+            changeHandler={this.handleInputChange}
           />
 
           <Input
             label="Animation duration"
             option={animationDuration}
-            changeHandler={this.animationDurationHandler}
+            changeHandler={this.handleInputChange}
           />
 
           <CheckBox
             infinite={infinite}
-            changeHandler={this.infiniteHandler}
+            changeHandler={this.handleInputChange}
           />
         </Form>
       </div>
