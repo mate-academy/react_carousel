@@ -61,9 +61,14 @@ class App extends React.Component<{}, State> {
               name="itemWidth"
               className="App__input"
               min="100"
+              max="300"
               defaultValue={ItemWidth}
               onChange={(event) => {
-                this.setState({ ItemWidth: +event.target.value });
+                this.setState({
+                  ItemWidth: +event.target.value > 300
+                    ? 300
+                    : +event.target.value,
+                });
               }}
             />
           </label>
@@ -76,6 +81,7 @@ class App extends React.Component<{}, State> {
               name="FrameSize"
               className="App__input"
               min="1"
+              max={images.length}
               defaultValue={FrameSize}
               onChange={(event) => {
                 this.setState({ FrameSize: +event.target.value });
@@ -91,6 +97,7 @@ class App extends React.Component<{}, State> {
               name="Step"
               className="App__input"
               min="1"
+              max={images.length / 2}
               defaultValue={Step}
               onChange={(event) => {
                 this.setState({ Step: +event.target.value });
@@ -105,6 +112,7 @@ class App extends React.Component<{}, State> {
               name="AnimationDuration"
               className="App__input"
               min="1"
+              max="5000"
               defaultValue={AnimationDuration}
               onChange={(event) => {
                 this.setState({ AnimationDuration: +event.target.value });

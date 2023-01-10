@@ -10,44 +10,50 @@ type Props = {
 };
 
 type State = {
-  transform: string;
+  transformX: number;
+  x: number;
+  gap: number;
+  first: boolean;
+  last: boolean;
 };
 
 class Carousel extends Component<Props, State > {
   state = {
-    transform: 'translateX(0px)',
+    transformX: 0,
+    x: 0,
+    gap: 10,
+    first: true,
+    last: false,
   };
 
-  x = 0;
-
-  gap = 10;
-
-  first = true;
-
-  last = false;
-
   handlePrevBtn = (step: number, itemWidth: number) => {
-    this.x += step * itemWidth + (step * this.gap);
-    this.last = false;
-    if (this.x >= 0) {
-      this.first = true;
-      this.x = 0;
+    this.setState((prev) => (
+      { x: prev.x + step * itemWidth + (step * prev.gap) }
+    ));
+    this.setState({ last: false });
+
+    if (this.state.x >= 0) {
+      this.setState({ first: true });
+      this.setState({ x: 0 });
     }
 
-    this.setState({ transform: `translateX(${this.x}px)` });
+    this.setState(prev => ({ transformX: prev.x }));
   };
 
   handleNextBtn = (step: number, itemWidth: number, length: number) => {
-    this.x -= step * itemWidth + (step * this.gap);
-    this.first = false;
-    const max = -((itemWidth + this.gap) * length);
+    this.setState((prev) => (
+      { x: prev.x - step * itemWidth + (step * prev.gap) }
+    ));
+    this.setState({ first: false });
 
-    if (this.x <= max) {
-      this.last = true;
-      this.x = max;
+    const max = -((itemWidth + this.state.gap) * length);
+
+    if (this.state.x <= max) {
+      this.setState({ last: true });
+      this.setState({ x: max });
     }
 
-    this.setState({ transform: `translateX(${this.x}px)` });
+    this.setState(prev => ({ transformX: prev.x }));
   };
 
   render() {
@@ -58,9 +64,14 @@ class Carousel extends Component<Props, State > {
       itemWidth,
       frameSize,
     } = this.props;
-    const { transform } = this.state;
+    const {
+      transformX,
+      gap,
+      first,
+      last,
+    } = this.state;
 
-    const width = frameSize * itemWidth + (this.gap * (frameSize - 1));
+    const width = frameSize * itemWidth + (gap * (frameSize - 1));
 
     return (
       <div
@@ -70,9 +81,9 @@ class Carousel extends Component<Props, State > {
         <ul
           className="Carousel__list"
           style={{
-            transform: `${transform}`,
+            transform: `translateX(${transformX}px)`,
             transition: `transform ${animationDuration}ms`,
-            gap: `${this.gap}px`,
+            gap: `${gap}px`,
           }}
         >
           {images.map((el, i) => (
@@ -90,7 +101,7 @@ class Carousel extends Component<Props, State > {
         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <button
           type="button"
-          className={`Carousel__btn prev-btn ${this.first && 'disabled'}`}
+          className={`Carousel__btn prev-btn ${first && 'disabled'}`}
           style={{
             background: 'url("./img/arrow-left.svg")0 0/ cover no-repeat',
           }}
@@ -103,7 +114,7 @@ class Carousel extends Component<Props, State > {
         <button
           type="button"
           data-cy="next"
-          className={`Carousel__btn next-btn ${this.last && 'disabled'}`}
+          className={`Carousel__btn next-btn ${last && 'disabled'}`}
           style={{
             background: 'url("./img/arrow-right.svg")0 0/ cover no-repeat',
           }}
