@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
-class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,20 +25,118 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  changeProp = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState((state) => ({
+      ...state,
+      [e.target.name]: Number(e.target.value),
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <form className="App__form">
+          <label className="App__label">
+            Item width:
+            <input
+              className="App__input"
+              type="number"
+              name="itemWidth"
+              id="itemId"
+              value={itemWidth}
+              min="50"
+              max="400"
+              onChange={this.changeProp}
+            />
+          </label>
+
+          <label className="App__label">
+            Frame Size:
+            <input
+              className="App__input"
+              id="frameId"
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              min="1"
+              max={images.length - 1}
+              onChange={this.changeProp}
+            />
+          </label>
+
+          <label className="App__label">
+            Step:
+            <input
+              className="App__input"
+              id="stepId"
+              type="number"
+              name="step"
+              value={step}
+              min="1"
+              max={frameSize}
+              onChange={this.changeProp}
+            />
+          </label>
+
+          <label className="App__label">
+            Animation duration:
+            <input
+              className="App__input"
+              id="animationId"
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              min="100"
+              max="5000"
+              step="100"
+              onChange={this.changeProp}
+            />
+          </label>
+
+          <label className="App__label">
+            Infinite:
+            <input
+              className="App__input"
+              type="checkbox"
+              checked={infinite}
+              onChange={() => (
+                this.setState((state) => ({
+                  infinite: !state.infinite,
+                }))
+              )}
+            />
+          </label>
+        </form>
+
       </div>
     );
   }
 }
-
-export default App;
