@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import './Carousel.scss';
-import './Button.scss';
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi';
 
 type Props = {
@@ -73,10 +72,10 @@ class Carousel extends Component<Props, State> {
         <button
           type="button"
           onClick={this.handlePrevBtn}
-          className="button__prev"
+          className="carousel__button--prev"
           disabled={currScroll === 0}
         >
-          <FiChevronsLeft className="button" />
+          <FiChevronsLeft className="carousel__button" />
         </button>
 
         <div className="carousel" style={{ width: itemWidth * frameSize }}>
@@ -106,12 +105,12 @@ class Carousel extends Component<Props, State> {
           data-cy="next"
           type="button"
           onClick={this.handleNextBtn}
-          className="button__next"
+          className="carousel__button--next"
           disabled={
             Math.abs(currScroll) + containerWidth === totalWidth
           }
         >
-          <FiChevronsRight className="button" />
+          <FiChevronsRight className="carousel__button" />
         </button>
       </div>
 

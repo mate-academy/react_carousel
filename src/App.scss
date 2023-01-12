@@ -10,9 +10,31 @@ iframe {
   justify-content: center;
   align-items: center;
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
 
   &__title {
-    font-weight: 400;
+    font-weight: 600;
+  }
+
+  &__fieldSet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    border: 2px solid #fff;
+
+  }
+
+  &__form {
+    max-width: 800px;
+    padding: 20px;
+    background-color: #55c5aa;
+    border-radius: 10px;
+  }
+
+  &__input {
+    margin-bottom: 8px;
+    
   }
 }
 

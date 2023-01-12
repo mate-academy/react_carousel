@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.scss';
-import './Form.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images?: string[];
+  images: string[];
   step: number;
   itemWidth: number;
   frameSize: number;
@@ -31,7 +30,7 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = event.currentTarget;
     const stateCopy = { ...this.state };
 
@@ -63,17 +62,21 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
 
-        <>
-          <form className="form">
+        <form className="App__form">
+          <fieldset className="App__fieldSet">
+            <legend>Options</legend>
             <label htmlFor="itemWidth">
               Image width:
               <input
                 type="number"
                 id="itemWidth"
                 name="itemWidth"
+                step={10}
+                min={100}
+                max={450}
                 value={itemWidth}
                 onChange={this.handleInput}
-                className="form__input"
+                className="App__input"
               />
             </label>
 
@@ -83,9 +86,11 @@ class App extends React.Component<{}, State> {
                 type="number"
                 id="frameSize"
                 name="frameSize"
+                min={1}
+                max={images.length}
                 value={frameSize}
                 onChange={this.handleInput}
-                className="form__input"
+                className="App__input"
               />
             </label>
 
@@ -95,9 +100,11 @@ class App extends React.Component<{}, State> {
                 type="number"
                 id="step"
                 name="step"
+                min={1}
+                max={frameSize}
                 value={step}
                 onChange={this.handleInput}
-                className="form__input"
+                className="App__input"
               />
             </label>
 
@@ -107,14 +114,17 @@ class App extends React.Component<{}, State> {
                 type="number"
                 id="animationDuration"
                 name="animationDuration"
+                min={1000}
+                max={5000}
                 value={animationDuration}
                 onChange={this.handleInput}
-                step="500"
-                className="form__input"
+                step="100"
+                className="App__input"
               />
             </label>
-          </form>
-        </>
+          </fieldset>
+
+        </form>
       </div>
     );
   }

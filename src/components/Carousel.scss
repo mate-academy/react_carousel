@@ -16,4 +16,18 @@
     list-style: none;
     padding: 0;
   }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #000;
+
+    &--prev,
+    &--next {
+      margin: 10px;
+      outline: none;
+    }
+  }
 }
