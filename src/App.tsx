@@ -65,10 +65,11 @@ class App extends React.Component<{}, State> {
 
         <>
           <form className="form">
-            <label>
+            <label htmlFor="itemWidth">
               Image width:
               <input
                 type="number"
+                id="itemWidth"
                 name="itemWidth"
                 value={itemWidth}
                 onChange={this.handleInput}
@@ -76,10 +77,11 @@ class App extends React.Component<{}, State> {
               />
             </label>
 
-            <label>
+            <label htmlFor="frameSize">
               Frame size:
               <input
                 type="number"
+                id="frameSize"
                 name="frameSize"
                 value={frameSize}
                 onChange={this.handleInput}
@@ -87,10 +89,11 @@ class App extends React.Component<{}, State> {
               />
             </label>
 
-            <label>
+            <label htmlFor="step">
               Step:
               <input
                 type="number"
+                id="step"
                 name="step"
                 value={step}
                 onChange={this.handleInput}
@@ -98,10 +101,11 @@ class App extends React.Component<{}, State> {
               />
             </label>
 
-            <label>
+            <label htmlFor="animationDuration">
               Animation duration:
               <input
                 type="number"
+                id="animationDuration"
                 name="animationDuration"
                 value={animationDuration}
                 onChange={this.handleInput}
