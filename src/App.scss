@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
 iframe {
   display: none;
 }
@@ -7,6 +9,11 @@ iframe {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Open Sans', sans-serif;
+
+  &__title {
+    font-weight: 400;
+  }
 }
 
 .wrapper {

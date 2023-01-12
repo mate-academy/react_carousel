@@ -9,7 +9,6 @@ interface State {
   itemWidth: number;
   frameSize: number;
   animationDuration: number;
-  infinite?: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -26,11 +25,10 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 2,
+    step: 3,
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false,
   };
 
   handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +53,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
@@ -68,7 +66,7 @@ class App extends React.Component<{}, State> {
         <>
           <form className="form">
             <label>
-              Item width:
+              Image width:
               <input
                 type="number"
                 name="itemWidth"

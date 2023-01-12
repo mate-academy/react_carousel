@@ -1,11 +1,15 @@
 .form {
-  max-width: 500px;
+  max-width: 600px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: baseline;
+  background-color: #55c5aa;
+  border-radius: 10px;
 
   &__input {
     margin-bottom: 8px;
-    width: 100%;
+    width: 90%;
   }
 }
