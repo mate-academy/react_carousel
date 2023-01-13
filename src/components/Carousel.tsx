@@ -19,43 +19,43 @@ class Carousel extends Component<Props, State> {
     currScroll: 0,
   };
 
-  totalImgWidth = this.props.images.length * this.props.itemWidth;
-
-  handleNextBtn = () => {
+  handleNext = () => {
     const {
       step, itemWidth, frameSize, images,
     } = this.props;
     const { currScroll } = this.state;
 
-    let scrollLen = 0;
-    const totalWidth = images.length * itemWidth;
+    const lenOfHiddenImgs = (
+      (images.length - frameSize) * itemWidth - Math.abs(currScroll)
+    );
     const scrollStep = step * itemWidth;
-    const spaceLeft = (
-      totalWidth - Math.abs(currScroll) - (itemWidth * frameSize)
-    );
 
-    scrollLen = spaceLeft > scrollStep ? (
-      currScroll - scrollStep
-    ) : (
-      currScroll - spaceLeft
-    );
-    this.setState({ currScroll: scrollLen });
+    this.setState(state => {
+      const stepLen = lenOfHiddenImgs > scrollStep
+        ? scrollStep
+        : lenOfHiddenImgs;
+
+      return {
+        currScroll: state.currScroll - stepLen,
+      };
+    });
   };
 
-  handlePrevBtn = () => {
+  handlePrev = () => {
     const { step, itemWidth } = this.props;
     const { currScroll } = this.state;
-    let scrollLen = 0;
+
     const scrollStep = step * itemWidth;
 
-    const spaceLeft = Math.abs(currScroll);
+    this.setState(state => {
+      const stepLen = Math.abs(currScroll) > scrollStep
+        ? scrollStep
+        : Math.abs(currScroll);
 
-    scrollLen = spaceLeft > scrollStep ? (
-      currScroll + scrollStep
-    ) : (
-      currScroll + spaceLeft
-    );
-    this.setState({ currScroll: scrollLen });
+      return {
+        currScroll: state.currScroll + stepLen,
+      };
+    });
   };
 
   render() {
@@ -71,7 +71,7 @@ class Carousel extends Component<Props, State> {
       <div className="wrapper">
         <button
           type="button"
-          onClick={this.handlePrevBtn}
+          onClick={this.handlePrev}
           className="carousel__button--prev"
           disabled={currScroll === 0}
         >
@@ -80,7 +80,7 @@ class Carousel extends Component<Props, State> {
 
         <div className="carousel" style={{ width: itemWidth * frameSize }}>
           <div
-            className="carousel__container "
+            className="carousel__container"
             style={{
               width: totalWidth,
               transform: `translateX(${currScroll}px)`,
@@ -104,7 +104,7 @@ class Carousel extends Component<Props, State> {
         <button
           data-cy="next"
           type="button"
-          onClick={this.handleNextBtn}
+          onClick={this.handleNext}
           className="carousel__button--next"
           disabled={
             Math.abs(currScroll) + containerWidth === totalWidth
@@ -113,7 +113,6 @@ class Carousel extends Component<Props, State> {
           <FiChevronsRight className="carousel__button" />
         </button>
       </div>
-
     );
   }
 }

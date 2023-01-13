@@ -1,0 +1,18 @@
+.form {
+  max-width: 800px;
+  padding: 20px;
+  background-color: #55c5aa;
+  border-radius: 10px;
+
+  &__fieldSet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    border: 2px solid #fff;
+  }
+
+  &__input {
+    margin-bottom: 8px;
+  }
+}

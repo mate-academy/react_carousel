@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Form } from './components/Form';
 
 interface State {
   images: string[];
@@ -30,13 +31,14 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.currentTarget;
-    const stateCopy = { ...this.state };
 
-    this.setState({
-      ...stateCopy,
-      [name]: +value,
+    this.setState(state => {
+      return {
+        ...state,
+        [name]: +value,
+      };
     });
   };
 
@@ -50,9 +52,9 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         {/* eslint-disable-next-line */}
-        <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
+        <h1 className="app__title" data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
@@ -62,69 +64,7 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
 
-        <form className="App__form">
-          <fieldset className="App__fieldSet">
-            <legend>Options</legend>
-            <label htmlFor="itemWidth">
-              Image width:
-              <input
-                type="number"
-                id="itemWidth"
-                name="itemWidth"
-                step={10}
-                min={100}
-                max={450}
-                value={itemWidth}
-                onChange={this.handleInput}
-                className="App__input"
-              />
-            </label>
-
-            <label htmlFor="frameSize">
-              Frame size:
-              <input
-                type="number"
-                id="frameSize"
-                name="frameSize"
-                min={1}
-                max={images.length}
-                value={frameSize}
-                onChange={this.handleInput}
-                className="App__input"
-              />
-            </label>
-
-            <label htmlFor="step">
-              Step:
-              <input
-                type="number"
-                id="step"
-                name="step"
-                min={1}
-                max={frameSize}
-                value={step}
-                onChange={this.handleInput}
-                className="App__input"
-              />
-            </label>
-
-            <label htmlFor="animationDuration">
-              Animation duration:
-              <input
-                type="number"
-                id="animationDuration"
-                name="animationDuration"
-                min={1000}
-                max={5000}
-                value={animationDuration}
-                onChange={this.handleInput}
-                step="100"
-                className="App__input"
-              />
-            </label>
-          </fieldset>
-
-        </form>
+        <Form handleInput={this.handleInput} />
       </div>
     );
   }

@@ -4,7 +4,7 @@ iframe {
   display: none;
 }
 
-.App {
+.app {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,27 +14,6 @@ iframe {
 
   &__title {
     font-weight: 600;
-  }
-
-  &__fieldSet {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: baseline;
-    border: 2px solid #fff;
-
-  }
-
-  &__form {
-    max-width: 800px;
-    padding: 20px;
-    background-color: #55c5aa;
-    border-radius: 10px;
-  }
-
-  &__input {
-    margin-bottom: 8px;
-    
   }
 }
 
