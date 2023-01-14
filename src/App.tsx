@@ -1,5 +1,6 @@
-import { Component } from 'react';
+import React from 'react';
 import './App.scss';
+
 import { Carousel } from './components/Carousel';
 
 interface State {
@@ -11,7 +12,7 @@ interface State {
   infinite: boolean,
 }
 
-export class App extends Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',

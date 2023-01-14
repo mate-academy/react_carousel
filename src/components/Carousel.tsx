@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -14,7 +14,7 @@ type State = {
   position: number,
 };
 
-export class Carousel extends Component<Props, State> {
+export class Carousel extends React.Component<Props, State> {
   state = {
     position: 0,
   };
