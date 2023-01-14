@@ -1,0 +1,20 @@
+.Button {
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  &--prev {
+    &::before {
+      content: '←';
+      margin-right: 5px;
+    }
+  }
+
+  &--next {
+    &::after {
+      content: '→';
+      margin-left: 5px;
+    }
+  }
+}
