@@ -1,1 +1,81 @@
-// style go here
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #4682b4, #4169e1);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: system-ui, Roboto, sans-serif;
+  font-size: 24px;
+  color: #afeeee;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 30px;
+
+    border: transparent;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #23d5ab, #23a6d5, #e73c7e, #ee7752,);
+  }
+
+  &__label {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 80px;
+    padding: 0 0 0 10px;
+    margin: 0;
+
+    font-size: 16px;
+    background-color: #afeeee;
+    border-color: transparent;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.5s linear;
+
+    &:focus {
+      background-color: #e0ffff;
+    }
+
+    &--animDurat {
+      margin-left: 50px;
+    }
+
+    &--infinite {
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

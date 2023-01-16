@@ -1,1 +1,50 @@
-// style go here
+.Carousel {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__container--list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__button {
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
+    background-color: transparent;
+    background-size: 80%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+  
+    &--prev {
+      background-image: url(../images/free-icon-arrow-left-5726932.png);
+    }
+  
+    &--next {
+      background-image: url(../images/free-icon-arrow-right-5726915.png);
+    }
+  
+    &:disabled {
+      background-image: url(../images/free-icon-banned.png);
+      height: 80px;
+      width: 80px;
+    }
+  }
+}
