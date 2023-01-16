@@ -31,8 +31,10 @@ export class Carousel extends React.Component<Props, State> {
 
     const { position } = this.state;
 
+    const moveLimit = -((images.length * itemWidth) - (itemWidth * frameSize));
+
     const moveNext = () => {
-      if (position === images.length - frameSize && infinite) {
+      if ((position === images.length - frameSize) && infinite) {
         this.setState({
           position: 0,
         });
@@ -58,7 +60,7 @@ export class Carousel extends React.Component<Props, State> {
     return (
       <div className="Carousel">
         <button
-          className="buttons__prev"
+          className="Carousel__button Carousel__button--prev"
           type="button"
           onClick={movePrev}
           disabled={position === 0 && !infinite}
@@ -74,7 +76,11 @@ export class Carousel extends React.Component<Props, State> {
           <ul
             className="Carousel__container--list"
             style={{
-              transform: `translateX(${-position * itemWidth}px)`,
+              transform: `translateX(${
+                (-position * itemWidth) >= moveLimit
+                  ? -position * itemWidth
+                  : moveLimit
+              }px)`,
               transition: `${animationDuration}ms`,
             }}
           >
@@ -98,7 +104,7 @@ export class Carousel extends React.Component<Props, State> {
         </div>
 
         <button
-          className="buttons__next"
+          className="Carousel__button Carousel__button--next"
           type="button"
           data-cy="next"
           onClick={moveNext}

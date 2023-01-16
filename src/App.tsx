@@ -33,24 +33,11 @@ export class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  setStep = (event:React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +event.target.value });
-  };
-
-  setFrameSize = (event:React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +event.target.value });
-  };
-
-  setItemWidth = (event:React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value });
-  };
-
-  setAnimationDuration = (event:React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +event.target.value });
-  };
-
-  setInfinite = (event:React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinite: event.target.checked });
+  handleSettings = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState((state) => ({
+      ...state,
+      [event.target.name]: +event.target.value,
+    }));
   };
 
   render() {
@@ -82,8 +69,9 @@ export class App extends React.Component<{}, State> {
             <input
               type="number"
               className="App__input"
+              name="step"
               defaultValue={step}
-              onChange={this.setStep}
+              onChange={this.handleSettings}
               min="1"
               max={images.length}
             />
@@ -97,10 +85,11 @@ export class App extends React.Component<{}, State> {
             <input
               type="number"
               className="App__input"
+              name="frameSize"
               defaultValue={frameSize}
               min="1"
               max={images.length}
-              onChange={this.setFrameSize}
+              onChange={this.handleSettings}
             />
           </label>
 
@@ -112,11 +101,11 @@ export class App extends React.Component<{}, State> {
             <input
               type="number"
               className="App__input App__input--itemWidth"
+              name="itemWidth"
               defaultValue={itemWidth}
               min="50"
               max="250"
-              onChange={this.setItemWidth}
-
+              onChange={this.handleSettings}
             />
           </label>
 
@@ -129,9 +118,9 @@ export class App extends React.Component<{}, State> {
               type="number"
               className="App__input App__input--animDurat"
               defaultValue={animationDuration}
+              name="animationDuration"
               min="0"
-              onChange={this.setAnimationDuration}
-
+              onChange={this.handleSettings}
             />
           </label>
 
@@ -143,7 +132,10 @@ export class App extends React.Component<{}, State> {
             <input
               type="checkbox"
               className="App__input App__input--infinite"
-              onChange={this.setInfinite}
+              name="infinite"
+              onChange={() => (
+                this.setState({ infinite: !infinite })
+              )}
             />
           </label>
         </form>
