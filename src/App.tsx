@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import Carousel from './components/Carousel/Carousel';
 import { Form } from './components/Form';
-
+import { Carousel } from './components/Carousel';
 import { CarouselProps } from './types/CarouselProps';
 import { HandleEvent } from './types/HandleEvent';
 
@@ -21,7 +20,7 @@ const images = [
 ];
 
 class App extends Component<{}, CarouselProps> {
-  state: Readonly<CarouselProps> = {
+  state = {
     step: '3',
     frameSize: '3',
     itemWidth: '130',
@@ -61,7 +60,7 @@ class App extends Component<{}, CarouselProps> {
     });
   };
 
-  onChangeInfinite = () => {
+  handleChangeInfinite = () => {
     this.setState((prevState) => ({
       infinite: !prevState.infinite,
     }));
@@ -73,6 +72,7 @@ class App extends Component<{}, CarouselProps> {
       infinite,
       itemWidth,
       frameSize,
+      // defaultNextRest,
       animationDuration,
     } = this.state;
 
@@ -85,11 +85,11 @@ class App extends Component<{}, CarouselProps> {
           itemWidth={itemWidth}
           frameSize={frameSize}
           animationDuration={animationDuration}
-          onChangeStep={this.handleChangeStep}
-          onChangeInfinite={this.onChangeInfinite}
-          onChangeItemWidth={this.handleChangeItemWidth}
-          onChangeFrameSize={this.handleChangeFrameSize}
-          onChangeAnimationDuration={this.handleChangeAnimationDuration}
+          handleChangeStep={this.handleChangeStep}
+          handleChangeInfinite={this.handleChangeInfinite}
+          handleChangeItemWidth={this.handleChangeItemWidth}
+          handleChangeFrameSize={this.handleChangeFrameSize}
+          handleChangeAnimationDuration={this.handleChangeAnimationDuration}
         />
         <Carousel
           step={step}
@@ -97,6 +97,7 @@ class App extends Component<{}, CarouselProps> {
           infinite={infinite}
           itemWidth={itemWidth}
           frameSize={frameSize}
+          // defaultNextRest={defaultNextRest}
           animationDuration={animationDuration}
         />
       </div>

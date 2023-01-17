@@ -1,9 +1,9 @@
 import { HandleEvent } from './HandleEvent';
 
 export type FormHandlers = {
-  onChangeStep: HandleEvent,
-  onChangeItemWidth: HandleEvent,
-  onChangeFrameSize: HandleEvent,
-  onChangeAnimationDuration: HandleEvent,
-  onChangeInfinite: () => void,
+  handleChangeStep: HandleEvent,
+  handleChangeItemWidth: HandleEvent,
+  handleChangeFrameSize: HandleEvent,
+  handleChangeAnimationDuration: HandleEvent,
+  handleChangeInfinite: () => void,
 };

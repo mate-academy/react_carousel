@@ -16,21 +16,43 @@ interface State {
   prevRest: number;
 }
 
-class Carousel extends Component<Props & CarouselProps, State> {
-  defaultNextRest = this.props.images.length
-  * Number(this.props.itemWidth)
-  - Number(this.props.frameSize)
-  * Number(this.props.itemWidth);
-
+export class Carousel extends Component<Props & CarouselProps, State> {
   state = {
     translate: 0,
     prevRest: 0,
-    nextRest: this.defaultNextRest,
+    nextRest: this.props.images.length
+    * Number(this.props.itemWidth)
+    - Number(this.props.frameSize)
+    * Number(this.props.itemWidth),
   };
+
+  componentDidUpdate(prevProps: Props & CarouselProps) {
+    const {
+      itemWidth,
+      frameSize,
+      step,
+      images,
+    } = this.props;
+
+    if (prevProps.itemWidth !== itemWidth
+        || prevProps.frameSize !== frameSize
+        || prevProps.step !== step) {
+      this.setState({
+        nextRest: images.length
+        * Number(itemWidth)
+        - Number(frameSize)
+        * Number(itemWidth),
+      });
+    }
+  }
 
   handleImg: HandleCLick = e => {
     const { cy: direction } = e.currentTarget.dataset;
-    const { itemWidth, step, infinite } = this.props;
+    const {
+      itemWidth,
+      step,
+      infinite,
+    } = this.props;
     const { nextRest, prevRest } = this.state;
     const shift = Number(itemWidth) * Number(step);
 
@@ -40,7 +62,10 @@ class Carousel extends Component<Props & CarouselProps, State> {
           this.setState({
             translate: 0,
             prevRest: 0,
-            nextRest: this.defaultNextRest,
+            nextRest: this.props.images.length
+            * Number(this.props.itemWidth)
+            - Number(this.props.frameSize)
+            * Number(this.props.itemWidth),
           });
 
           return;
@@ -66,8 +91,14 @@ class Carousel extends Component<Props & CarouselProps, State> {
       case 'prev':
         if (infinite && !prevRest) {
           this.setState({
-            translate: -this.defaultNextRest,
-            prevRest: this.defaultNextRest,
+            translate: -this.props.images.length
+            * Number(this.props.itemWidth)
+            - Number(this.props.frameSize)
+            * Number(this.props.itemWidth),
+            prevRest: this.props.images.length
+            * Number(this.props.itemWidth)
+            - Number(this.props.frameSize)
+            * Number(this.props.itemWidth),
             nextRest: 0,
           });
 
@@ -100,16 +131,17 @@ class Carousel extends Component<Props & CarouselProps, State> {
       images,
       itemWidth,
       frameSize,
+      infinite,
       animationDuration,
     } = this.props;
 
-    const { translate } = this.state;
-    const curouselWidth = Number(itemWidth) * Number(frameSize);
+    const { translate, prevRest, nextRest } = this.state;
+    const carouselWidth = Number(itemWidth) * Number(frameSize);
 
     return (
       <div
         className="Carousel"
-        style={{ width: `${curouselWidth}px` }}
+        style={{ width: `${carouselWidth}px` }}
       >
         <div className="Carousel__container">
           <CarouselList
@@ -124,16 +156,16 @@ class Carousel extends Component<Props & CarouselProps, State> {
           dataCy="prev"
           content="Prev"
           className="Carousel__button"
+          disabled={!infinite && !prevRest}
         />
         <Button
           onClick={this.handleImg}
           dataCy="next"
           content="Next"
           className="Carousel__button"
+          disabled={!nextRest && !infinite}
         />
       </div>
     );
   }
 }
-
-export default Carousel;

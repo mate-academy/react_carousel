@@ -7,11 +7,11 @@
     margin: 0;
   }
 
-  &[type=number] {
+  &[type="number"] {
     -moz-appearance: textfield;
   }
 
-  &[type='checkbox'] {
+  &[type="checkbox"] {
     cursor: pointer;
   }
 }

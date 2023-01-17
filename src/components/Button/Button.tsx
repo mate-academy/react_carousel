@@ -8,6 +8,7 @@ export class Button extends PureComponent<ButtonProps, {}> {
     const {
       dataCy,
       content,
+      disabled,
       className,
       onClick,
     } = this.props;
@@ -21,6 +22,7 @@ export class Button extends PureComponent<ButtonProps, {}> {
         data-cy={dataCy}
         className={btnClassName}
         onClick={onClick}
+        disabled={disabled}
       >
         {content}
       </button>

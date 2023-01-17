@@ -5,7 +5,8 @@ import { FormHandlers } from '../../types/FormHandlers';
 
 import './Form.scss';
 
-export class Form extends PureComponent<FormHandlers & CarouselProps, {}> {
+export class Form extends PureComponent<
+FormHandlers & Omit<CarouselProps, 'defaultNextRest'>, {}> {
   render() {
     const {
       step,
@@ -14,11 +15,11 @@ export class Form extends PureComponent<FormHandlers & CarouselProps, {}> {
       frameSize,
       animationDuration,
 
-      onChangeStep,
-      onChangeInfinite,
-      onChangeItemWidth,
-      onChangeFrameSize,
-      onChangeAnimationDuration,
+      handleChangeStep,
+      handleChangeInfinite,
+      handleChangeItemWidth,
+      handleChangeFrameSize,
+      handleChangeAnimationDuration,
     } = this.props;
 
     return (
@@ -26,35 +27,35 @@ export class Form extends PureComponent<FormHandlers & CarouselProps, {}> {
         <Field
           name="Item width"
           type="number"
-          onChange={onChangeItemWidth}
+          onChange={handleChangeItemWidth}
           className="Form__field"
           value={itemWidth}
         />
         <Field
           name="Frame size"
           type="number"
-          onChange={onChangeFrameSize}
+          onChange={handleChangeFrameSize}
           className="Form__field"
           value={frameSize}
         />
         <Field
           name="Step"
           type="number"
-          onChange={onChangeStep}
+          onChange={handleChangeStep}
           className="Form__field"
           value={step}
         />
         <Field
           name="Animation duration"
           type="number"
-          onChange={onChangeAnimationDuration}
+          onChange={handleChangeAnimationDuration}
           className="Form__field"
           value={animationDuration}
         />
         <Field
           name="Infinite"
           type="checkbox"
-          onChange={onChangeInfinite}
+          onChange={handleChangeInfinite}
           className="Form__field"
           checked={infinite}
         />
