@@ -1,1 +1,40 @@
-// style go here
+body {
+  margin: 0;
+  background-color: rgb(249, 239, 239);
+}
+
+.title,
+label {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100%;
+  padding-top: 10px;
+  margin: 20px auto;
+  text-align: center;
+  border: thick double rgb(215, 212, 208);
+  background-color: bisque;
+  border-radius: 10%;
+}
+
+label {
+  padding: 10px 15px;
+}
+
+input {
+  width: 50px;
+  height: 20px;
+  margin-left: 10px;
+}
