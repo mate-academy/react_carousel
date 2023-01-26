@@ -1,1 +1,16 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background: #666;
+
+  &__title {
+    color: rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+  }
+}
