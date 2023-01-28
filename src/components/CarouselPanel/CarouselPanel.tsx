@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import { NewOptions } from '../../types/newOptions';
 import { Options } from '../../types/options';
 import './CarouselPanel.scss';
@@ -8,9 +8,7 @@ type Props = {
   changeOptions: (value: NewOptions) => void,
 };
 
-export class CarouselPanel extends Component<Props, {}> {
-  state = {};
-
+export class CarouselPanel extends PureComponent<Props> {
   render() {
     const {
       step,
