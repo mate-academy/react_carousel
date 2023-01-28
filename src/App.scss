@@ -1,1 +1,16 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Form {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+
+  &__label {
+    display: flex;
+    gap: 5px;
+  }
+}
