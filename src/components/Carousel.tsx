@@ -3,11 +3,11 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  // step: number;
+  step: number;
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 };
 
 type State = {
@@ -19,9 +19,50 @@ export class Carousel extends React.Component<Props, State> {
     move: 0,
   };
 
-  next = () => {};
+  next = () => {
+    const {
+      step,
+      itemWidth,
+      frameSize,
+      images,
+      infinite,
+    } = this.props;
 
-  prev = () => {};
+    const maxMove = (images.length * itemWidth) - (frameSize * itemWidth);
+
+    if (infinite && this.state.move === -maxMove) {
+      this.setState({
+        move: (frameSize * itemWidth),
+      });
+    }
+
+    this.setState(prevState => ({
+      move: (prevState.move - (step * itemWidth)) <= -maxMove
+        ? -maxMove
+        : (prevState.move - (step * itemWidth)),
+    }));
+  };
+
+  prev = () => {
+    const {
+      step,
+      itemWidth,
+      images,
+      infinite,
+    } = this.props;
+
+    if (infinite && this.state.move >= 0) {
+      this.setState({
+        move: -(images.length * itemWidth),
+      });
+    }
+
+    this.setState(prevState => ({
+      move: (prevState.move + (step * itemWidth)) > 0
+        ? 0
+        : (prevState.move + (step * itemWidth)),
+    }));
+  };
 
   render() {
     const {
@@ -49,7 +90,6 @@ export class Carousel extends React.Component<Props, State> {
               <li
                 key={image}
                 className="Carousel__item"
-                style={{ height: itemWidth }}
               >
                 <img
                   src={image}

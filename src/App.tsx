@@ -32,7 +32,7 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handler = (event: ChangeEvent) => {
+  handler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
 
     switch (name) {
