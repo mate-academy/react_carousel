@@ -4,9 +4,9 @@
 
   &__list {
     display: flex;
+    justify-content: flex-start;
     list-style: none;
     padding: 0;
-    gap: 2px;
     margin-bottom: 30px;
   }
 
@@ -30,7 +30,8 @@
     transition: all 0.3s;
 
     &:disabled {
-      background-color: #0c1110;;
+      background-color: #0c1110;
+
       color: rgba(255, 255, 255, 0.46);
       pointer-events: none;
     }
