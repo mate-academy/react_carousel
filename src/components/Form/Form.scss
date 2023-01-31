@@ -1,0 +1,16 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px 1px rgba(66, 68, 90, 1);
+  background: rgba(250, 194, 120, 0.9);
+  font-size: 16px;
+
+  &--checkbox {
+    height: 20px;
+    width: 20px;
+  }
+}
