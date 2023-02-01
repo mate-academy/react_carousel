@@ -1,1 +1,57 @@
-// style go here
+
+* {
+  margin: 0;
+}
+
+body {
+  font-family: "Indie Flower", cursive;
+  color: blue;
+}
+
+.title {
+  margin-top: 20px;
+  font-size: 50px;
+  text-align: center ;
+}
+
+.App {
+  min-width: max-content;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 30px;
+
+  &-input {
+    width: 150px;
+    font-family: "Indie Flower", cursive;
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+    height: 30px;
+    border-color: blue;
+    border-radius: 12px;
+  }
+}
+
+label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.checkbox {
+  display: flex;
+  gap: 10px;
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+  font-size: 30px;
+  color: blue;
+
+  &-field {
+    height: 36px;
+    width: 36px;
+  }
+}

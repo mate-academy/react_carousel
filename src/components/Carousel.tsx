@@ -1,18 +1,115 @@
+/* eslint-disable max-len */
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Image {
+  id: number;
+  path: string;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  transform: number;
+};
 
-export default Carousel;
+type Prop = {
+  images: Image[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
+
+export class Carousel extends React.Component <Prop, State> {
+  state = {
+    transform: 0,
+  };
+
+  render() {
+    const { transform } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.props;
+    const windowForCarousel = itemWidth * frameSize;
+    const shiftValue = step * itemWidth;
+    const maxShiftValue = -(itemWidth * (images.length - frameSize));
+
+    const toPrev = () => {
+      if (!transform && infinite) {
+        return this.setState({ transform: maxShiftValue });
+      }
+
+      return (this.setState({
+        transform: transform + shiftValue > 0
+          ? 0
+          : transform + shiftValue,
+      }));
+    };
+
+    const toNext = () => {
+      if (transform === maxShiftValue && infinite) {
+        return this.setState({ transform: 0 });
+      }
+
+      return (this.setState({
+        transform: transform - shiftValue < maxShiftValue
+          ? maxShiftValue
+          : transform - shiftValue,
+      }));
+    };
+
+    return (
+      <div className="Carousel">
+        <div
+          className="Carousel__container"
+          style={{ width: `${windowForCarousel}px` }}
+        >
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `TranslateX(${transform}px)`,
+              transition: `transform ${animationDuration}ms linear`,
+            }}
+          >
+            {images.map((image) => {
+              return (
+                <li key={image.id} className="Carousel__list-item">
+                  <img
+                    src={image.path}
+                    alt={image.id.toString()}
+                    width={itemWidth}
+                    height={itemWidth}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="button-container">
+          <button
+            type="button"
+            className="button-scrollen prev"
+            onClick={toPrev}
+            disabled={!transform ? transform === 0 : false}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            className="button-scrollen next"
+            data-cy="next"
+            onClick={toNext}
+            disabled={!infinite ? transform === maxShiftValue : false}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
