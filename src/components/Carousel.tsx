@@ -40,15 +40,15 @@ export class Carousel extends React.Component <Prop, State> {
     const maxShiftValue = -(itemWidth * (images.length - frameSize));
 
     const toPrev = () => {
-      if (transform === 0 && infinite) {
+      if (!transform && infinite) {
         return this.setState({ transform: maxShiftValue });
       }
 
-      return (this.setState(
-        (transform + shiftValue) > 0
-          ? { transform: 0 }
-          : { transform: transform + shiftValue },
-      ));
+      return (this.setState({
+        transform: transform + shiftValue > 0
+          ? 0
+          : transform + shiftValue,
+      }));
     };
 
     const toNext = () => {
@@ -56,11 +56,11 @@ export class Carousel extends React.Component <Prop, State> {
         return this.setState({ transform: 0 });
       }
 
-      return (this.setState(
-        (transform - shiftValue) < maxShiftValue
-          ? { transform: maxShiftValue }
-          : { transform: transform - shiftValue },
-      ));
+      return (this.setState({
+        transform: transform - shiftValue < maxShiftValue
+          ? maxShiftValue
+          : transform - shiftValue,
+      }));
     };
 
     return (
@@ -95,6 +95,7 @@ export class Carousel extends React.Component <Prop, State> {
             type="button"
             className="button-scrollen prev"
             onClick={toPrev}
+            disabled={!transform ? transform === 0 : false}
           >
             Prev
           </button>

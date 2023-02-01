@@ -36,6 +36,10 @@
   &:hover {
     transform: scale(120%);
   }
+
+  &:disabled {
+    background-color: gray;
+  }
 }
 
 .button-container {
