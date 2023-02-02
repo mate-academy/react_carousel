@@ -1,17 +1,6 @@
 .Field {
-  width: max-content;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  &[type="number"] {
-    -moz-appearance: textfield;
-  }
-
   &[type="checkbox"] {
+    width: max-content;
     cursor: pointer;
   }
 }

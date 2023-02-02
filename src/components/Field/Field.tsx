@@ -6,6 +6,8 @@ import './Field.scss';
 export class Field extends PureComponent<FieldTypes, {}> {
   render() {
     const {
+      min,
+      max,
       name,
       type,
       value,
@@ -17,6 +19,8 @@ export class Field extends PureComponent<FieldTypes, {}> {
     const renderInput = type === 'number'
       ? (
         <input
+          min={min}
+          max={max}
           id={name}
           type={type}
           onChange={onChange}

@@ -25,13 +25,17 @@ FormHandlers & Omit<CarouselProps, 'defaultNextRest'>, {}> {
     return (
       <form className="Form">
         <Field
-          name="Item width"
+          min="80"
+          max="300"
           type="number"
+          name="Item width"
+          value={itemWidth}
           onChange={handleChangeItemWidth}
           className="Form__field"
-          value={itemWidth}
         />
         <Field
+          min="1"
+          max="10"
           name="Frame size"
           type="number"
           onChange={handleChangeFrameSize}
@@ -39,6 +43,8 @@ FormHandlers & Omit<CarouselProps, 'defaultNextRest'>, {}> {
           value={frameSize}
         />
         <Field
+          min="1"
+          max="10"
           name="Step"
           type="number"
           onChange={handleChangeStep}
@@ -46,6 +52,8 @@ FormHandlers & Omit<CarouselProps, 'defaultNextRest'>, {}> {
           value={step}
         />
         <Field
+          min="100"
+          max="2000"
           name="Animation duration"
           type="number"
           onChange={handleChangeAnimationDuration}
