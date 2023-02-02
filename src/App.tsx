@@ -99,8 +99,6 @@ class App extends React.Component<{}, State> {
       images, itemWidth, frameSize, duration, step, animationDuration, infinite,
     } = this.state;
 
-    const maxFrameSize = images.length / 2;
-
     return (
       <div className="App">
 
@@ -137,7 +135,6 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               type="number"
               value={frameSize}
-              max={maxFrameSize}
               min={1}
               onChange={this.handleChange}
             />
@@ -149,7 +146,6 @@ class App extends React.Component<{}, State> {
               id="step"
               type="number"
               value={step}
-              max={frameSize}
               min={1}
               onChange={this.handleChange}
             />
