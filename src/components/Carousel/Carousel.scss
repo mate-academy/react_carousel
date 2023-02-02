@@ -1,10 +1,14 @@
 
 .Carousel {
+  margin-bottom: 30px;
+
   &__list {
     display: flex;
     overflow: hidden;
     list-style: none;
     padding: 0;
+    margin-bottom: 30px;
+    gap: 1px;
   }
 
   &__buttons {

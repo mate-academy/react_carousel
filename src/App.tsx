@@ -3,7 +3,7 @@ import './App.scss';
 import { Carousel } from './components/Carousel/Carousel';
 import { Form } from './components/Form/Form';
 
-interface State {
+export interface State {
   images: string[];
   step: number;
   frameSize: number;
@@ -85,4 +85,3 @@ export class App extends React.Component<{}, State> {
     );
   }
 }
-

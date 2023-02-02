@@ -23,22 +23,25 @@ export const Form:React.FC<Props> = ({
   handleInfinite,
 }) => (
   <form className="Form">
-    <label>
+    <label htmlFor="itemId">
       Item width:
       <input
+        id="itemId"
         className="Form__input"
         type="number"
         name="itemWidth"
         value={itemWidth}
         min="100"
         max="200"
+        step="5"
         onChange={handleChange}
       />
     </label>
 
-    <label>
+    <label htmlFor="frameId">
       Frame size:
       <input
+        id="frameId"
         className="Form__input"
         type="number"
         name="frameSize"
@@ -49,9 +52,10 @@ export const Form:React.FC<Props> = ({
       />
     </label>
 
-    <label>
+    <label htmlFor="stepId">
       Step:
       <input
+        id="stepId"
         className="Form__input"
         type="number"
         name="step"
@@ -62,9 +66,10 @@ export const Form:React.FC<Props> = ({
       />
     </label>
 
-    <label>
+    <label htmlFor="animationId">
       Animation duration:
       <input
+        id="animationId"
         className="Form__input"
         type="number"
         name="animationDuration"
