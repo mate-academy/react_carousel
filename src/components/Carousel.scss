@@ -1,1 +1,22 @@
 // style go here
+.Carousel {
+
+  &__container {
+    border: 1px solid #000;
+    padding: 5px;
+    background-color: rgb(151, 136, 136);
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    &li {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
