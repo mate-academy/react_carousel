@@ -43,15 +43,19 @@ export class Carousel extends Component<Props & CarouselProps, State> {
         - Number(frameSize)
         * Number(itemWidth),
       });
+
+      this.setState({ translate: 0, prevRest: 0 });
     }
   }
 
   handleImg: HandleCLick = e => {
     const { cy: direction } = e.currentTarget.dataset;
     const {
-      itemWidth,
       step,
+      images,
       infinite,
+      frameSize,
+      itemWidth,
     } = this.props;
     const { nextRest, prevRest } = this.state;
     const shift = Number(itemWidth) * Number(step);
@@ -62,28 +66,30 @@ export class Carousel extends Component<Props & CarouselProps, State> {
           this.setState({
             translate: 0,
             prevRest: 0,
-            nextRest: this.props.images.length
-            * Number(this.props.itemWidth)
-            - Number(this.props.frameSize)
-            * Number(this.props.itemWidth),
+            nextRest: images.length
+            * Number(itemWidth)
+            - Number(frameSize)
+            * Number(itemWidth),
           });
 
           return;
         }
 
         this.setState((prevState: State) => {
-          if (shift > prevState.nextRest) {
+          const { translate, prevRest: prev, nextRest: next } = prevState;
+
+          if (shift > nextRest) {
             return {
-              translate: prevState.translate - prevState.nextRest,
-              nextRest: prevState.nextRest - prevState.nextRest,
-              prevRest: prevState.prevRest + prevState.nextRest,
+              translate: translate - next,
+              nextRest: next - next,
+              prevRest: prev + next,
             };
           }
 
           return {
-            translate: prevState.translate - shift,
-            nextRest: prevState.nextRest - shift,
-            prevRest: prevState.prevRest + shift,
+            translate: translate - shift,
+            nextRest: next - shift,
+            prevRest: prev + shift,
           };
         });
         break;
@@ -91,14 +97,14 @@ export class Carousel extends Component<Props & CarouselProps, State> {
       case 'prev':
         if (infinite && !prevRest) {
           this.setState({
-            translate: -this.props.images.length
-            * Number(this.props.itemWidth)
-            - Number(this.props.frameSize)
-            * Number(this.props.itemWidth),
-            prevRest: this.props.images.length
-            * Number(this.props.itemWidth)
-            - Number(this.props.frameSize)
-            * Number(this.props.itemWidth),
+            translate: -(images.length
+            * Number(itemWidth)
+            - Number(frameSize)
+            * Number(itemWidth)),
+            prevRest: images.length
+            * Number(itemWidth)
+            - Number(frameSize)
+            * Number(itemWidth),
             nextRest: 0,
           });
 
@@ -129,9 +135,9 @@ export class Carousel extends Component<Props & CarouselProps, State> {
   render() {
     const {
       images,
+      infinite,
       itemWidth,
       frameSize,
-      infinite,
       animationDuration,
     } = this.props;
 

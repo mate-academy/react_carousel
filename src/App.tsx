@@ -72,7 +72,6 @@ class App extends Component<{}, CarouselProps> {
       infinite,
       itemWidth,
       frameSize,
-      // defaultNextRest,
       animationDuration,
     } = this.state;
 
@@ -97,7 +96,6 @@ class App extends Component<{}, CarouselProps> {
           infinite={infinite}
           itemWidth={itemWidth}
           frameSize={frameSize}
-          // defaultNextRest={defaultNextRest}
           animationDuration={animationDuration}
         />
       </div>
