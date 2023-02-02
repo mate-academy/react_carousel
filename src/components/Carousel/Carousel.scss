@@ -1,0 +1,46 @@
+
+.Carousel {
+  &__list {
+    display: flex;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    width: 100px;
+    height: 50px;
+
+    text-decoration: none;
+    font-size: 35px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #c45800;
+    color: antiquewhite;
+    border: none;
+
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: #6ea801;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #7d858387;
+      color: rgba(255, 255, 255, 0.46);
+    }
+
+    &:active {
+      transform: scale(1.1);
+      background-color: #977b00;
+    }
+  }
+}
