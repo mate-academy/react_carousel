@@ -9,7 +9,7 @@ type Props = {
   animationDuration: number;
   images: string[];
   infinite: boolean;
-  handleInfinite: () => void;
+  toogleInfinite: () => void;
 };
 
 export const Form:React.FC<Props> = ({
@@ -20,7 +20,7 @@ export const Form:React.FC<Props> = ({
   animationDuration,
   images,
   infinite,
-  handleInfinite,
+  toogleInfinite,
 }) => (
   <form className="Form">
     <label htmlFor="itemId">
@@ -88,7 +88,7 @@ export const Form:React.FC<Props> = ({
         type="checkbox"
         name="infinite"
         checked={infinite}
-        onChange={handleInfinite}
+        onChange={toogleInfinite}
       />
     </label>
   </form>

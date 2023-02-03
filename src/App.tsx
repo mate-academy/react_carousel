@@ -40,7 +40,7 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  handleInfinite = () => {
+  toogleInfinite = () => {
     this.setState((state) => ({
       infinite: !state.infinite,
     }));
@@ -79,7 +79,7 @@ export class App extends React.Component<{}, State> {
           images={images}
           infinite={infinite}
           handleChange={this.handleChange}
-          handleInfinite={this.handleInfinite}
+          toogleInfinite={this.toogleInfinite}
         />
       </div>
     );

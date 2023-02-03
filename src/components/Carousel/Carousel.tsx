@@ -19,50 +19,10 @@ export class Carousel extends React.Component<Props, State> {
     transform: 0,
   };
 
-  handlePrevClick = () => {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      infinite,
-    } = this.props;
-
-    const hiddenImagesSize = (images.length - frameSize) * itemWidth;
-
-    this.setState((state) => ({
-      transform: Math.min(state.transform + itemWidth * step, 0),
-    }));
-
-    if (this.state.transform === 0 && infinite) {
-      this.setState({ transform: -hiddenImagesSize });
-    }
-  };
-
-  handleNextClick = () => {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      infinite,
-    } = this.props;
-
-    const hiddenImagesSize = (images.length - frameSize) * itemWidth;
-
-    this.setState((state) => ({
-      transform: Math.max(state.transform - (itemWidth * step),
-        -hiddenImagesSize),
-    }));
-
-    if (this.state.transform === -hiddenImagesSize && infinite) {
-      this.setState({ transform: 0 });
-    }
-  };
-
   render() {
     const {
       images,
+      step,
       frameSize,
       itemWidth,
       infinite,
@@ -70,6 +30,29 @@ export class Carousel extends React.Component<Props, State> {
     } = this.props;
 
     const { transform } = this.state;
+
+    const hiddenImagesSize = (images.length - frameSize) * itemWidth;
+
+    const handlePrevClick = () => {
+      this.setState((state) => ({
+        transform: Math.min(state.transform + itemWidth * step, 0),
+      }));
+
+      if (this.state.transform === 0 && infinite) {
+        this.setState({ transform: -hiddenImagesSize });
+      }
+    };
+
+    const handleNextClick = () => {
+      this.setState((state) => ({
+        transform: Math.max(state.transform - (itemWidth * step),
+          -hiddenImagesSize),
+      }));
+
+      if (this.state.transform === -hiddenImagesSize && infinite) {
+        this.setState({ transform: 0 });
+      }
+    };
 
     return (
       <div className="Carousel">
@@ -99,7 +82,7 @@ export class Carousel extends React.Component<Props, State> {
           <button
             className="Carousel__button"
             type="button"
-            onClick={this.handlePrevClick}
+            onClick={handlePrevClick}
             disabled={transform === 0 && !infinite}
             data-cy="Next"
           >
@@ -110,9 +93,9 @@ export class Carousel extends React.Component<Props, State> {
             data-cy="next"
             className="Carousel__button"
             type="button"
-            onClick={this.handleNextClick}
+            onClick={handleNextClick}
             disabled={
-              transform === -(images.length - frameSize) * itemWidth
+              transform === -hiddenImagesSize
               && !infinite
             }
           >
