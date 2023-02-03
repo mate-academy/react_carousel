@@ -8,8 +8,8 @@ type Props = {
   duration: number;
   step: number;
   animationDuration: number;
-  onNext: (step: number) => void;
-  onPrev: (step: number) => void;
+  handleNext: (step: number) => void;
+  handlePrev: (step: number) => void;
 
 };
 const Carousel: React.FC<Props> = ({
@@ -19,8 +19,8 @@ const Carousel: React.FC<Props> = ({
   duration,
   step,
   animationDuration,
-  onNext,
-  onPrev,
+  handleNext,
+  handlePrev,
 }) => {
   const containerWidth = itemWidth * frameSize;
   const carouselWidth = itemWidth * images.length;
@@ -52,13 +52,13 @@ const Carousel: React.FC<Props> = ({
       </div>
       <button
         type="button"
-        onClick={() => onPrev(step)}
+        onClick={() => handlePrev(step)}
       >
         Prev
       </button>
       <button
         type="button"
-        onClick={() => onNext(step)}
+        onClick={() => handleNext(step)}
         data-cy="next"
       >
         Next

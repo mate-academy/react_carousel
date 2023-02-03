@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  onNext = (step: number) => {
+  handleNext = (step: number) => {
     const {
       images, itemWidth, frameSize, duration, infinite,
     } = this.state;
@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  onPrev = (step: number) => {
+  handlePrev = (step: number) => {
     const {
       images, itemWidth, frameSize, duration, infinite,
     } = this.state;
@@ -113,8 +113,8 @@ class App extends React.Component<{}, State> {
           duration={duration}
           step={step}
           animationDuration={animationDuration}
-          onNext={this.onNext}
-          onPrev={this.onPrev}
+          handleNext={this.handleNext}
+          handlePrev={this.handlePrev}
         />
 
         <div className="Abilities">
