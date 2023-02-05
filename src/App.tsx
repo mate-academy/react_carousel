@@ -36,7 +36,11 @@ class App extends React.Component<{}, State> {
 
   handleNext = (step: number) => {
     const {
-      images, itemWidth, frameSize, duration, infinite,
+      images,
+      itemWidth,
+      frameSize,
+      duration,
+      infinite,
     } = this.state;
     const stepFrame = step * itemWidth;
     const lastFrame = frameSize * itemWidth - images.length * itemWidth;
@@ -60,7 +64,11 @@ class App extends React.Component<{}, State> {
 
   handlePrev = (step: number) => {
     const {
-      images, itemWidth, frameSize, duration, infinite,
+      images,
+      itemWidth,
+      frameSize,
+      duration,
+      infinite,
     } = this.state;
     const stepFrame = step * itemWidth;
     const lastFrame = frameSize * itemWidth - images.length * itemWidth;
@@ -84,7 +92,10 @@ class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value, type, checked,
+      name,
+      value,
+      type,
+      checked,
     } = event.currentTarget;
 
     this.setState(prevState => ({
@@ -96,7 +107,13 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      images, itemWidth, frameSize, duration, step, animationDuration, infinite,
+      images,
+      itemWidth,
+      frameSize,
+      duration,
+      step,
+      animationDuration,
+      infinite,
     } = this.state;
 
     return (

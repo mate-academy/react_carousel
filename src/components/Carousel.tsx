@@ -10,8 +10,8 @@ type Props = {
   animationDuration: number;
   handleNext: (step: number) => void;
   handlePrev: (step: number) => void;
-
 };
+
 const Carousel: React.FC<Props> = ({
   images,
   itemWidth,
