@@ -6,16 +6,15 @@ import { Carousel } from './components/Carousel';
 
 export const App = () => {
   const [images] = useState(imagesFromApi);
-  const [step, SetStep] = useState(3);
-  const [frameSize, SetFrameSize] = useState(3);
-  const [itemWidth, SetItemWidth] = useState(130);
-  const [animation, SetAnimation] = useState(1000);
-  const [infinite, SetInfinite] = useState(false);
+  const [step, setStep] = useState(3);
+  const [frameSize, setFrameSize] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [animation, setAnimation] = useState(1000);
+  const [isInfinite, setIstInfinite] = useState(false);
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
-      <h1>Carousel with {images.length} images</h1>
+      <h1>{`Carousel with ${images.length} images`}</h1>
 
       <form method="get" className="App__form">
         <label htmlFor="step" className="App__item">
@@ -27,7 +26,7 @@ export const App = () => {
             value={step}
             id="step"
             className="form__item"
-            onChange={(event) => SetStep(+event.target.value)}
+            onChange={(event) => setStep(+event.target.value)}
           />
         </label>
 
@@ -40,7 +39,7 @@ export const App = () => {
             id="frameSize"
             className="form__item"
             value={frameSize}
-            onChange={(event) => SetFrameSize(+event.target.value)}
+            onChange={(event) => setFrameSize(+event.target.value)}
           />
         </label>
 
@@ -53,7 +52,7 @@ export const App = () => {
             id="itemWidth"
             className="form__item"
             value={itemWidth}
-            onChange={(event) => SetItemWidth(+event.target.value)}
+            onChange={(event) => setItemWidth(+event.target.value)}
           />
         </label>
 
@@ -67,7 +66,7 @@ export const App = () => {
             id="animationDuration"
             className="form__item"
             value={animation}
-            onChange={(event) => SetAnimation(+event.target.value)}
+            onChange={(event) => setAnimation(+event.target.value)}
           />
         </label>
 
@@ -76,8 +75,8 @@ export const App = () => {
           <input
             type="checkbox"
             id="infinite"
-            checked={infinite}
-            onChange={(event) => SetInfinite(event.target.checked)}
+            checked={isInfinite}
+            onChange={(event) => setIstInfinite(event.target.checked)}
           />
         </label>
       </form>
@@ -88,7 +87,7 @@ export const App = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animation}
-        infinite={infinite}
+        infinite={isInfinite}
       />
     </div>
   );
