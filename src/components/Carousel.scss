@@ -1,1 +1,24 @@
-// style go here
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.button {
+  padding: 10px;
+  border: 2px solid blue;
+  background-color: yellow;
+  font-size: 24px;
+
+  &:hover {
+    padding: 15px;
+  }
+}
