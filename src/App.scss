@@ -1,1 +1,18 @@
-// style go here
+.App {
+    display: flex;
+    flex-direction: column;
+    margin:  0 auto;
+    width: fit-content;
+}
+
+.Managment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 900px;
+
+    & input {
+        width: 33%;
+        margin: 10px;
+    }
+}
