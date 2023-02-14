@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
+type StyleObject = {
+  width: number,
+  translate: number,
+  transition: string
+};
+
 type Props = {
   listimage: string[]
   itemWidth: number,
@@ -48,20 +54,24 @@ const Carousel: React.FC<Props> = ({
   useEffect(() => {
     if (styleObject.translate > 0 && infinite) {
       setTimeout(() => {
-        setStyleObject({
-          ...styleObject,
-          translate: (listimage.length - 1) * -itemWidth,
-          transition: '',
+        setStyleObject((prev: StyleObject) => {
+          return {
+            ...prev,
+            translate: (listimage.length - 1) * -itemWidth,
+            transition: '',
+          };
         });
       }, 0);
     }
 
     if (styleObject.translate <= -(listimage.length * itemWidth) && infinite) {
       setTimeout(() => {
-        setStyleObject({
-          ...styleObject,
-          translate: itemWidth * -1,
-          transition: '',
+        setStyleObject((prev: StyleObject) => {
+          return {
+            ...prev,
+            translate: itemWidth * -1,
+            transition: '',
+          };
         });
       }, 0);
     }
@@ -72,37 +82,45 @@ const Carousel: React.FC<Props> = ({
       || (styleObject.translate !== -(listimage.length * itemWidth)
       && styleObject.transition === '')) {
       setTimeout(() => {
-        setStyleObject({
-          ...styleObject,
-          transition: `all ${animationDuration / 1000}s ease`,
+        setStyleObject((prev:StyleObject) => {
+          return {
+            ...prev,
+            transition: `all ${animationDuration / 1000}s ease`,
+          };
         });
       }, animationDuration / 10);
     }
   }, [styleObject, infinite, animationDuration]);
 
-  const changeTranslate = (prev: boolean) => {
+  const changeTranslate = (back: boolean) => {
     if (infinite) {
-      const infiniteSteps = prev
+      const infiniteSteps = back
         ? styleObject.translate + (step * itemWidth)
         : styleObject.translate - (step * itemWidth);
 
-      setStyleObject({
-        ...styleObject,
-        translate: infiniteSteps,
+      setStyleObject((prev:StyleObject) => {
+        return {
+          ...prev,
+          translate: infiniteSteps,
+        };
       });
     } else if (!infinite) {
-      if (countStep && prev) {
-        setStyleObject({
-          ...styleObject,
-          translate: styleObject.translate + (step * itemWidth),
+      if (countStep && back) {
+        setStyleObject((prev:StyleObject) => {
+          return {
+            ...prev,
+            translate: styleObject.translate + (step * itemWidth),
+          };
         });
         setCountStep(countStep - 1);
       }
 
-      if (countStep < Math.floor(copyListImages.length / step) && !prev) {
-        setStyleObject({
-          ...styleObject,
-          translate: styleObject.translate - (step * itemWidth),
+      if (countStep < Math.floor(copyListImages.length / step) && !back) {
+        setStyleObject((prev:StyleObject) => {
+          return {
+            ...prev,
+            translate: styleObject.translate - (step * itemWidth),
+          };
         });
         setCountStep(countStep + 1);
       }

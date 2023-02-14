@@ -62,7 +62,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="itemId">
             <span>width elements</span>
             <input
-              type="text"
+              type="number"
               name="ItemWidth"
               id="itemId"
               value={this.state.itemWidth}
@@ -74,7 +74,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="frameId">
             <span>Frame Size</span>
             <input
-              type="text"
+              type="number"
               name="FrameSize"
               id="frameId"
               value={this.state.FrameSize}
@@ -86,7 +86,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="stepId">
             <span>Step</span>
             <input
-              type="text"
+              type="number"
               name="step"
               id="stepId"
               value={this.state.step}
@@ -108,7 +108,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="animationDuration">
             <span>Animation Duration</span>
             <input
-              type="text"
+              type="number"
               name="animationDuration"
               id="animationDuration"
               value={this.state.animationDuration}
