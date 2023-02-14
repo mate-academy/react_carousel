@@ -4,21 +4,20 @@ import './Carousel.scss';
 type Props = {
   listimage: string[]
   itemWidth: number,
-  frameSize: number,
+  FrameSize: number,
   step: number,
   infinite: boolean,
   animationDuration: number,
 };
 
 const Carousel: React.FC<Props> = ({
-  listimage, itemWidth, frameSize, step, infinite, animationDuration,
+  listimage, itemWidth, FrameSize, step, infinite, animationDuration,
 }) => {
-  const [countStep, setCountStep] = useState<number>(0);
-  const [copyListImages, setCopyListImages]
-    = useState<string[]>([]);
+  const [countStep, setCountStep] = useState(0);
+  const [copyListImages, setCopyListImages] = useState<string[]>([]);
   const [styleObject, setStyleObject] = useState(
     {
-      width: frameSize * itemWidth,
+      width: FrameSize * itemWidth,
       translate: itemWidth * -2,
       transition: `all ${animationDuration / 1000}s ease`,
     },
@@ -37,24 +36,14 @@ const Carousel: React.FC<Props> = ({
   }, [infinite]);
 
   useEffect(() => {
-    if (infinite) {
-      setStyleObject({
-        ...styleObject,
-        width: frameSize * itemWidth,
-        translate: itemWidth * -step,
-        transition: `all ${animationDuration / 1000}s ease`,
-      });
-    } else {
-      setStyleObject({
-        ...styleObject,
-        width: frameSize * itemWidth,
-        translate: 0,
-        transition: `all ${animationDuration / 1000}s ease`,
-      });
-    }
-
+    setStyleObject({
+      ...styleObject,
+      width: FrameSize * itemWidth,
+      translate: infinite ? itemWidth * -step : 0,
+      transition: `all ${animationDuration / 1000}s ease`,
+    });
     setCountStep(0);
-  }, [itemWidth, frameSize, step, infinite, animationDuration]);
+  }, [itemWidth, FrameSize, step, infinite, animationDuration]);
 
   useEffect(() => {
     if (styleObject.translate > 0 && infinite) {
@@ -129,7 +118,7 @@ const Carousel: React.FC<Props> = ({
         {copyListImages
           .map((el: string, index: number) => (
             <li key={`${index + 1}`}>
-              <img src={el} alt={`${index}`} style={{ width: `${itemWidth}px` }} />
+              <img src={el} alt={`${index}`} width={`${itemWidth}`} style={{ width: `${itemWidth}px` }} />
             </li>
           ))}
       </ul>
@@ -139,6 +128,7 @@ const Carousel: React.FC<Props> = ({
         onClick={() => {
           changeTranslate(true);
         }}
+        data-cy="prev"
       >
         Prev
       </button>
@@ -147,6 +137,7 @@ const Carousel: React.FC<Props> = ({
         onClick={() => {
           changeTranslate(false);
         }}
+        data-cy="next"
       >
         Next
       </button>

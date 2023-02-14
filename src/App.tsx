@@ -28,7 +28,7 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     FrameSize: 3,
     step: 3,
-    infinite: true,
+    infinite: false,
     animationDuration: 300,
   };
 
@@ -40,7 +40,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>
+        <h1 data-cy="title">
           Carousel with
           {' '}
           {images.length}
@@ -52,43 +52,43 @@ class App extends React.Component<{}, State> {
         <Carousel
           listimage={images}
           itemWidth={itemWidth}
-          frameSize={FrameSize}
+          FrameSize={FrameSize}
           step={step}
           infinite={infinite}
           animationDuration={animationDuration}
         />
 
         <div className="Managment">
-          <label htmlFor="ItemWidth">
+          <label htmlFor="itemId">
             <span>width elements</span>
             <input
               type="text"
               name="ItemWidth"
-              id="ItemWidth"
+              id="itemId"
               value={this.state.itemWidth}
               onChange={
                 (event) => this.setState({ itemWidth: +event.target.value })
               }
             />
           </label>
-          <label htmlFor="FrameSize">
+          <label htmlFor="frameId">
             <span>Frame Size</span>
             <input
               type="text"
               name="FrameSize"
-              id="FrameSize"
+              id="frameId"
               value={this.state.FrameSize}
               onChange={
                 (event) => this.setState({ FrameSize: +event.target.value })
               }
             />
           </label>
-          <label htmlFor="step">
+          <label htmlFor="stepId">
             <span>Step</span>
             <input
               type="text"
               name="step"
-              id="step"
+              id="stepId"
               value={this.state.step}
               onChange={
                 (event) => this.setState({ step: +event.target.value })

@@ -1,11 +1,11 @@
 .Carousel {
-    max-width: 1300px;
-    overflow: hidden;
-    margin-top: 100px;
+  max-width: 1300px;
+  overflow: hidden;
+  margin-top: 100px;
 
-    &__list {
-        display: flex;
-        list-style: none;
-        padding: 0;
-    }
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
 }
