@@ -4,7 +4,7 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  itemWidth: number,
+  ItemWidth: number,
   FrameSize: number,
   step: number
   infinite: boolean,
@@ -25,7 +25,7 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    itemWidth: 130,
+    ItemWidth: 130,
     FrameSize: 3,
     step: 3,
     infinite: false,
@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      images, itemWidth, FrameSize, step, infinite, animationDuration,
+      images, ItemWidth, FrameSize, step, infinite, animationDuration,
     } = this.state;
 
     return (
@@ -51,7 +51,7 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           listimage={images}
-          itemWidth={itemWidth}
+          ItemWidth={ItemWidth}
           FrameSize={FrameSize}
           step={step}
           infinite={infinite}
@@ -65,9 +65,9 @@ class App extends React.Component<{}, State> {
               type="number"
               name="ItemWidth"
               id="itemId"
-              value={this.state.itemWidth}
+              value={this.state.ItemWidth}
               onChange={
-                (event) => this.setState({ itemWidth: +event.target.value })
+                (event) => this.setState({ ItemWidth: +event.target.value })
               }
             />
           </label>

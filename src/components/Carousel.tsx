@@ -9,7 +9,7 @@ type StyleObject = {
 
 type Props = {
   listimage: string[]
-  itemWidth: number,
+  ItemWidth: number,
   FrameSize: number,
   step: number,
   infinite: boolean,
@@ -17,14 +17,14 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({
-  listimage, itemWidth, FrameSize, step, infinite, animationDuration,
+  listimage, ItemWidth, FrameSize, step, infinite, animationDuration,
 }) => {
   const [countStep, setCountStep] = useState(0);
   const [copyListImages, setCopyListImages] = useState<string[]>([]);
   const [styleObject, setStyleObject] = useState(
     {
-      width: FrameSize * itemWidth,
-      translate: itemWidth * -2,
+      width: FrameSize * ItemWidth,
+      translate: ItemWidth * -2,
       transition: `all ${animationDuration / 1000}s ease`,
     },
   );
@@ -44,12 +44,12 @@ const Carousel: React.FC<Props> = ({
   useEffect(() => {
     setStyleObject({
       ...styleObject,
-      width: FrameSize * itemWidth,
-      translate: infinite ? itemWidth * -step : 0,
+      width: FrameSize * ItemWidth,
+      translate: infinite ? ItemWidth * -step : 0,
       transition: `all ${animationDuration / 1000}s ease`,
     });
     setCountStep(0);
-  }, [itemWidth, FrameSize, step, infinite, animationDuration]);
+  }, [ItemWidth, FrameSize, step, infinite, animationDuration]);
 
   useEffect(() => {
     if (styleObject.translate > 0 && infinite) {
@@ -57,19 +57,19 @@ const Carousel: React.FC<Props> = ({
         setStyleObject((prev: StyleObject) => {
           return {
             ...prev,
-            translate: (listimage.length - 1) * -itemWidth,
+            translate: (listimage.length - 1) * -ItemWidth,
             transition: '',
           };
         });
       }, 0);
     }
 
-    if (styleObject.translate <= -(listimage.length * itemWidth) && infinite) {
+    if (styleObject.translate <= -(listimage.length * ItemWidth) && infinite) {
       setTimeout(() => {
         setStyleObject((prev: StyleObject) => {
           return {
             ...prev,
-            translate: itemWidth * -1,
+            translate: ItemWidth * -1,
             transition: '',
           };
         });
@@ -79,7 +79,7 @@ const Carousel: React.FC<Props> = ({
     if (
       (styleObject.translate !== 0
       && styleObject.transition === '')
-      || (styleObject.translate !== -(listimage.length * itemWidth)
+      || (styleObject.translate !== -(listimage.length * ItemWidth)
       && styleObject.transition === '')) {
       setTimeout(() => {
         setStyleObject((prev:StyleObject) => {
@@ -95,8 +95,8 @@ const Carousel: React.FC<Props> = ({
   const changeTranslate = (back: boolean) => {
     if (infinite) {
       const infiniteSteps = back
-        ? styleObject.translate + (step * itemWidth)
-        : styleObject.translate - (step * itemWidth);
+        ? styleObject.translate + (step * ItemWidth)
+        : styleObject.translate - (step * ItemWidth);
 
       setStyleObject((prev:StyleObject) => {
         return {
@@ -109,7 +109,7 @@ const Carousel: React.FC<Props> = ({
         setStyleObject((prev:StyleObject) => {
           return {
             ...prev,
-            translate: styleObject.translate + (step * itemWidth),
+            translate: styleObject.translate + (step * ItemWidth),
           };
         });
         setCountStep(countStep - 1);
@@ -119,7 +119,7 @@ const Carousel: React.FC<Props> = ({
         setStyleObject((prev:StyleObject) => {
           return {
             ...prev,
-            translate: styleObject.translate - (step * itemWidth),
+            translate: styleObject.translate - (step * ItemWidth),
           };
         });
         setCountStep(countStep + 1);
@@ -136,7 +136,7 @@ const Carousel: React.FC<Props> = ({
         {copyListImages
           .map((el: string, index: number) => (
             <li key={`${index + 1}`}>
-              <img src={el} alt={`${index}`} width={`${itemWidth}`} style={{ width: `${itemWidth}px` }} />
+              <img src={el} alt={`${index}`} width={`${ItemWidth}`} style={{ width: `${ItemWidth}px` }} />
             </li>
           ))}
       </ul>
