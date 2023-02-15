@@ -1,18 +1,118 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinity: boolean,
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  currentItemIndex: number,
+};
+
+class Carousel extends Component<Props, State> {
+  state = {
+    currentItemIndex: 0,
+  };
+
+  handleNavButton = (step: number) => {
+    const lastItemIndex = this.props.images.length - 1;
+    let overflowIndexItem = 0;
+
+    let currentItemIndex: number = this.state.currentItemIndex + step;
+
+    if (step < 0) {
+      overflowIndexItem = this.props.infinity ? lastItemIndex : 0;
+      currentItemIndex = currentItemIndex < 0
+        ? overflowIndexItem
+        : currentItemIndex;
+    } else {
+      overflowIndexItem = this.props.infinity ? 0 : lastItemIndex;
+      currentItemIndex = currentItemIndex > lastItemIndex
+        ? overflowIndexItem
+        : currentItemIndex;
+    }
+
+    this.setState(() => ({
+      currentItemIndex,
+    }));
+  };
+
+  render() {
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.props;
+
+    const { currentItemIndex } = this.state;
+
+    return (
+      <div className="Carousel">
+        <ul
+          className="Carousel__list"
+          style={{
+            width: frameSize * itemWidth,
+            transition: `${animationDuration}ms`,
+            borderRadius: `${itemWidth}px`,
+            border: '6px solid grey',
+          }}
+        >
+          {
+            images.map((img) => {
+              return (
+                <li
+                  className="Carousel__item"
+                  key={img}
+                  style={{
+                    transform: `translateX(${-currentItemIndex * itemWidth}px)`,
+                    transition: `${animationDuration}ms`,
+                  }}
+                >
+                  <img
+                    style={{
+                      display: 'block',
+                      width: `${itemWidth}px`,
+                    }}
+                    src={img}
+                    alt={img}
+                  />
+                </li>
+              );
+            })
+          }
+        </ul>
+        <div>
+          <button
+            disabled={currentItemIndex <= 1 && !this.props.infinity}
+            type="button"
+            onClick={() => {
+              this.handleNavButton(-step);
+            }}
+          >
+            Prev item
+          </button>
+          <button
+            disabled={
+              currentItemIndex >= images.length - 1 && !this.props.infinity
+            }
+            type="button"
+            onClick={() => {
+              this.handleNavButton(step);
+            }}
+          >
+            Next item
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
