@@ -59,18 +59,20 @@ class App extends React.Component<{}, State> {
             onBlur={(e) => this.setState({ frameSize: +e.target.value })}
           />
         </label>
-        <label htmlFor="itemWidth">
+        <label htmlFor="itemId">
           Item Width:
           <input
+            id="itemId"
             type="number"
             min="50"
             max="1000"
             onBlur={(e) => this.setState({ itemWidth: +e.target.value })}
           />
         </label>
-        <label htmlFor="animationDuration">
+        <label htmlFor="durationId">
           Animation Duration:
           <input
+            id="durationId"
             type="number"
             min="100"
             max="5000"
