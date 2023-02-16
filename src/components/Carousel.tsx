@@ -95,6 +95,7 @@ class Carousel extends React.Component<Props, State> {
                 style={{
                   width: `${itemWidth}px`,
                   height: `${itemWidth}px`,
+                  visibility: 'visible',
                 }}
               />
             </li>
