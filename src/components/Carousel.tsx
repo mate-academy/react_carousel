@@ -88,12 +88,15 @@ class Carousel extends React.Component<Props, State> {
           {images.map((image, index) => (
             <li
               key={image}
-              style={{
-                width: `${itemWidth}px`,
-                height: `${itemWidth}px`,
-              }}
             >
-              <img src={image} alt={`${index}`} />
+              <img
+                src={image}
+                alt={`${index}`}
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                }}
+              />
             </li>
           ))}
         </ul>
