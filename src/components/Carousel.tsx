@@ -74,20 +74,26 @@ class Carousel extends React.Component<Props, State> {
     return (
       <div
         className="Carousel"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-        }}
+        // style={{
+        //   width: `${frameSize * itemWidth}px`,
+        // }}
       >
         <ul
           className="Carousel__list"
           style={{
-            transform: `translate(-${this.state.position}px)`,
-            transition: `transform ${animationDuration}ms ease`,
+            width: `${frameSize * itemWidth}px`,
+            overflow: 'hidden',
+            // transform: `translate(-${this.state.position}px)`,
+            // transition: `transform ${animationDuration}ms ease`,
           }}
         >
           {images.map((image, index) => (
             <li
               key={image}
+              style={{
+                transform: `translate(-${this.state.position}px)`,
+                transition: `transform ${animationDuration}ms ease`,
+              }}
             >
               <img
                 src={image}
