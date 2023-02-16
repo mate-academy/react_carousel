@@ -57,10 +57,10 @@ class App extends React.Component<{}, State> {
             onBlur={(e) => this.setState({ frameSize: +e.target.value })}
           />
         </label>
-        <label htmlFor="itemId">
+        <label htmlFor="widthId">
           Item Width:
           <input
-            id="itemId"
+            id="widthId"
             type="number"
             min="130"
             max="500"
