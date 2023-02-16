@@ -92,9 +92,9 @@ class Carousel extends React.Component<Props, State> {
               <img
                 src={image}
                 alt={`${index}`}
+                width={`${itemWidth}px`}
+                height={`${itemWidth}px`}
                 style={{
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth}px`,
                   visibility: 'visible',
                 }}
               />
