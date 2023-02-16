@@ -1,1 +1,21 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    width: 1300px;
+    display: flex;
+    flex-direction: row;
+
+    & li {
+      list-style: none;
+
+      & img {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+}
