@@ -39,18 +39,20 @@ class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
-        <label htmlFor="step">
+        <label htmlFor="stepId">
           Step:
           <input
+            id="stepId"
             type="number"
             min="1"
             max="5"
             onBlur={(e) => this.setState({ step: +e.target.value })}
           />
         </label>
-        <label htmlFor="frameSize">
+        <label htmlFor="frameId">
           Frame Size:
           <input
+            id="frameId"
             type="number"
             min="1"
             max="5"
