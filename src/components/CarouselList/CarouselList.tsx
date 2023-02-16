@@ -30,7 +30,7 @@ export const CarouselList = () => {
           <img
             src={image}
             alt={`${i + 1}`}
-            width={`${itemWidth}px`}
+            width={`${itemWidth}`}
           />
         </li>
       ))}

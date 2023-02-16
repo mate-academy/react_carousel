@@ -61,9 +61,13 @@ export const FormParams = () => {
     <form className="formParams">
       <fieldset className="formParams__field">
         <legend> Configuration </legend>
-        <label className="formParams__item">
+        <label
+          className="formParams__item"
+          htmlFor="stepId"
+        >
           Step:
           <input
+            id="stepId"
             className="formParams__input"
             type="number"
             name={InputName.STEP}
@@ -71,9 +75,13 @@ export const FormParams = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="formParams__item">
+        <label
+          className="formParams__item"
+          htmlFor="frameId"
+        >
           Frame Size:
           <input
+            id="frameId"
             className="formParams__input"
             type="number"
             name={InputName.FRAME}
@@ -81,9 +89,13 @@ export const FormParams = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="formParams__item">
+        <label
+          className="formParams__item"
+          htmlFor="itemId"
+        >
           Item Size:
           <input
+            id="itemId"
             className="formParams__input"
             type="number"
             step="10"
@@ -93,9 +105,13 @@ export const FormParams = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="formParams__item">
+        <label
+          className="formParams__item"
+          htmlFor="animationId"
+        >
           Animation Duration:
           <input
+            id="animationId"
             className="formParams__input"
             type="number"
             step="100"
@@ -105,9 +121,13 @@ export const FormParams = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="formParams__item">
+        <label
+          className="formParams__item"
+          htmlFor="infiniteId"
+        >
           Infinite:
           <input
+            id="infiniteId"
             className="formParams__input"
             type="checkbox"
             name={InputName.INFINITE}
