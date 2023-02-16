@@ -76,10 +76,7 @@ class Carousel extends Component<Props, State> {
                   }}
                 >
                   <img
-                    style={{
-                      display: 'block',
-                      width: `${itemWidth}px`,
-                    }}
+                    width={itemWidth}
                     src={img}
                     alt={img}
                   />
@@ -99,6 +96,7 @@ class Carousel extends Component<Props, State> {
             Prev item
           </button>
           <button
+            data-cy="next"
             disabled={
               currentItemIndex >= images.length - 1 && !this.props.infinity
             }

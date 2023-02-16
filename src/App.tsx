@@ -45,12 +45,15 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-        <label htmlFor="itemWidth" className="App__label">
+        <h1 data-cy="title">
+          {'Carousel with '}
+          {images.length}
+          {' images'}
+        </h1>
+        <label htmlFor="itemId" className="App__label">
           Item Width:
           <input
-            id="itemWidth"
+            id="itemId"
             type="number"
             value={itemWidth}
             min={130}
@@ -63,10 +66,10 @@ class App extends React.Component<{}, State> {
             }}
           />
         </label>
-        <label htmlFor="frameSize" className="App__label">
+        <label htmlFor="frameId" className="App__label">
           Frame Size:
           <input
-            id="frameSize"
+            id="frameId"
             type="number"
             value={frameSize}
             min={1}
@@ -79,10 +82,10 @@ class App extends React.Component<{}, State> {
             }}
           />
         </label>
-        <label htmlFor="step" className="App__label">
+        <label htmlFor="stepId" className="App__label">
           Step:
           <input
-            id="step"
+            id="stepId"
             type="number"
             value={step}
             min={1}
