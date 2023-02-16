@@ -45,7 +45,7 @@ class App extends React.Component<{}, State> {
             id="stepId"
             type="number"
             min="3"
-            onBlur={(e) => this.setState({ step: +e.target.value })}
+            onChange={(e) => this.setState({ step: +e.target.value })}
           />
         </label>
         <label htmlFor="frameId">
@@ -54,7 +54,7 @@ class App extends React.Component<{}, State> {
             id="frameId"
             type="number"
             min="3"
-            onBlur={(e) => this.setState({ frameSize: +e.target.value })}
+            onChange={(e) => this.setState({ frameSize: +e.target.value })}
           />
         </label>
         <label htmlFor="itemId">
@@ -62,7 +62,7 @@ class App extends React.Component<{}, State> {
           <input
             id="itemId"
             type="number"
-            onBlur={(e) => this.setState({ itemWidth: +e.target.value })}
+            onChange={(e) => this.setState({ itemWidth: +e.target.value })}
           />
         </label>
         <label htmlFor="durationId">
@@ -72,7 +72,7 @@ class App extends React.Component<{}, State> {
             type="number"
             min="100"
             max="5000"
-            onBlur={(e) => this
+            onChange={(e) => this
               .setState({ animationDuration: +e.target.value })}
           />
         </label>
