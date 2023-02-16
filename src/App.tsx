@@ -32,6 +32,28 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  componentDidMount() {
+    this.setState({
+      images: [
+        './img/1.png',
+        './img/2.png',
+        './img/3.png',
+        './img/4.png',
+        './img/5.png',
+        './img/6.png',
+        './img/7.png',
+        './img/8.png',
+        './img/9.png',
+        './img/10.png',
+      ],
+      step: 3,
+      frameSize: 3,
+      itemWidth: 130,
+      animationDuration: 1000,
+      infinite: false,
+    });
+  }
+
   render() {
     const { images } = this.state;
 
@@ -45,6 +67,7 @@ class App extends React.Component<{}, State> {
             id="stepId"
             type="number"
             min="3"
+            value={this.state.step}
             onChange={(e) => this.setState({ step: +e.target.value })}
           />
         </label>
@@ -54,6 +77,8 @@ class App extends React.Component<{}, State> {
             id="frameId"
             type="number"
             min="3"
+            max="10"
+            value={this.state.frameSize}
             onChange={(e) => this.setState({ frameSize: +e.target.value })}
           />
         </label>
@@ -62,6 +87,9 @@ class App extends React.Component<{}, State> {
           <input
             id="itemId"
             type="number"
+            min="100"
+            max="500"
+            value={this.state.itemWidth}
             onChange={(e) => this.setState({ itemWidth: +e.target.value })}
           />
         </label>
@@ -72,6 +100,7 @@ class App extends React.Component<{}, State> {
             type="number"
             min="100"
             max="5000"
+            value={this.state.animationDuration}
             onChange={(e) => this
               .setState({ animationDuration: +e.target.value })}
           />
@@ -80,7 +109,6 @@ class App extends React.Component<{}, State> {
           Infinite:
           <input
             type="checkbox"
-            // onChange={(e) => console.log(e.target.checked)}
             onChange={(e:React.ChangeEvent<HTMLInputElement>) => this
               .setState({ infinite: e.target.checked })}
           />
