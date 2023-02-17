@@ -1,0 +1,14 @@
+.Container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Input {
+  box-sizing: border-box;
+  width: 156px;
+  height: 32px;
+  border-color: #fff;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+}

@@ -1,1 +1,16 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 18px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: #fff;
+  line-height: 22px;
+
+  &__title {
+    color: #000;
+  }
+}

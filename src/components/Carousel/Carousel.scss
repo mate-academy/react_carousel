@@ -1,0 +1,36 @@
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__button {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+
+    background-color: #0b09ab;
+    font-family: inherit;
+    font-size: inherit;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+
+    transition: all 0.3s;
+
+    &:disabled {
+      opacity: 80%;
+      pointer-events: none;
+    }
+  }
+}
