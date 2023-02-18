@@ -1,1 +1,57 @@
-// style go here
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+.Carousel {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+
+  &__container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__list {
+    width: 1300px;
+    display: flex;
+  }
+
+  &__navigation {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 100px);
+  }
+
+  &__button {
+    width: 40px;
+    height: 40px;
+    background-color: #ffb111;
+    color: white;
+    font-size: 22px;
+    line-height: 16px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f90;
+    }
+
+    &:disabled {
+      background-color: #807870;
+      color: #a99d91;
+      cursor: default;
+    }
+  }
+}

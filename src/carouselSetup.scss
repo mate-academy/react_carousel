@@ -1,0 +1,44 @@
+.carouselSetup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: 600px) {
+    display: grid;
+    grid-template-columns: repeat(2,200px);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #807870;
+      font-size: 20px;
+      font-weight: 400;
+      color: #d5c7ba;
+      border: none;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 0 3px hsla(29, 24%, 78%, 0.1);
+      }
+    }
+
+    label {
+      font-size: 20px;
+      color: #a99d91;
+    }
+
+    &--checkbox {
+      flex-direction: row;
+
+      input:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
