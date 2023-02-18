@@ -15,7 +15,7 @@ export const CarouselList = () => {
   }, []);
 
   const positionStyle = useMemo(() => ({
-    width: `${frameSize * itemWidth}px`,
+    width: `${frameSize * itemWidth - 1}px`,
     transform: `translate(${shift * itemWidth}px)`,
     transition: `all ${animationDuration}ms ease 0s`,
   }), [frameSize, itemWidth, shift, animationDuration]);
