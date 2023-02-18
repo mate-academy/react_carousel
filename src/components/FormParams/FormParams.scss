@@ -1,0 +1,42 @@
+$mainColorRed: #fa3a3a;
+
+.form-params {
+  width: 300px;
+  padding: 30px 0;
+  
+  &__field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700 ;
+    border-radius: 10px;
+    color: $mainColorRed;
+    background-color: #fad082;
+  }
+
+  &__item {
+    margin: 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    color: #64625f;
+  }
+
+  &__input {
+    display: block;
+    width: 70px;
+    margin: auto;
+    padding: 0 5px;
+    border: 1px solid $mainColorRed;
+    border-radius: 4px;
+    background-color: #f1e4dd;
+    transition: transform 0.5s;
+    
+    &:focus {
+      transform: scale(1.2);
+      outline: none;
+    }
+  }
+}
