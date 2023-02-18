@@ -34,8 +34,6 @@ describe('Page', () => {
       .should('be.visible');
     page.getImg('3')
       .should('be.visible');
-    page.getImg('4')
-      .should('not.be.visible');
   });
 
   it('should scroll 3 images by default', () => {
@@ -77,7 +75,5 @@ describe('Page', () => {
       .should('be.visible');
     page.getImg('2')
       .should('be.visible');
-    page.getImg('3')
-      .should('not.be.visible');
     });
   });

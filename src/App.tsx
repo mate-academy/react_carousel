@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import './App.scss';
 import { useAppSelector } from './app/hooks';
 import { Carousel } from './components/Carousel';
+
+import './App.scss';
 
 import { FormParams } from './components/FormParams';
 

@@ -13,15 +13,15 @@ export const Buttons = () => {
     infinite,
   } = useAppSelector(state => state.form);
   const dispatch = useAppDispatch();
-  const [isNext, setIsNext] = useState(false);
-  const [isPrev, setIsPrev] = useState(false);
+  const [isNextDisabled, IsNextDisabled] = useState(false);
+  const [isPrevDisabled, setIsPrevDisabled] = useState(false);
 
   const prevShift = shift + step;
   const nextShift = shift - step;
 
   useEffect(() => {
-    setIsNext(false);
-    setIsPrev(false);
+    IsNextDisabled(false);
+    setIsPrevDisabled(false);
   }, [step, frameSize, infinite]);
 
   const handleButtonClick = (translate: number) => {
@@ -31,8 +31,8 @@ export const Buttons = () => {
     const isLastItem = infinite && shift === maxShift && translate < maxShift;
 
     if (translate < minShift || translate > maxShift) {
-      setIsNext(false);
-      setIsPrev(false);
+      IsNextDisabled(false);
+      setIsPrevDisabled(false);
     }
 
     if (isFirstItem) {
@@ -51,7 +51,7 @@ export const Buttons = () => {
       dispatch(setShift(minShift));
 
       if (!infinite) {
-        setIsPrev(true);
+        setIsPrevDisabled(true);
       }
 
       return;
@@ -61,7 +61,7 @@ export const Buttons = () => {
       dispatch(setShift(maxShift));
 
       if (!infinite) {
-        setIsNext(true);
+        IsNextDisabled(true);
       }
 
       return;
@@ -74,7 +74,7 @@ export const Buttons = () => {
     <div className="carousel__button">
       <button
         type="button"
-        disabled={isPrev}
+        disabled={isPrevDisabled}
         onClick={() => handleButtonClick(prevShift)}
       >
         Prev
@@ -82,7 +82,7 @@ export const Buttons = () => {
       <button
         data-cy="next"
         type="button"
-        disabled={isNext}
+        disabled={isNextDisabled}
         onClick={() => handleButtonClick(nextShift)}
       >
         Next

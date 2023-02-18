@@ -1,3 +1,6 @@
+$backgroundColor: #f89156;
+$hoverTextColor: #444341;
+
 button {
   padding: 5px 10px;
   color: #fff;
@@ -8,13 +11,13 @@ button {
   transition: background-color, color 0.5s ease;
 
   &:hover {
-    color: #444341;
-    background-color: #f89156;
+    color: $hoverTextColor;
+    background-color: $backgroundColor;
   }
 
   &:disabled {
     opacity: 0.6;
-    color: #444341;
-    background-color: #f89156;
+    color: $hoverTextColor;
+    background-color: $backgroundColor;
   }
 }

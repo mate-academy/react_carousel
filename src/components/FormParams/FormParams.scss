@@ -1,6 +1,8 @@
-.formParams {
+$mainColorRed: #fa3a3a;
+
+.form-params {
   width: 300px;
-  margin: 30px 0;
+  padding: 30px 0;
   
   &__field {
     display: flex;
@@ -10,7 +12,7 @@
     font-size: 20px;
     font-weight: 700 ;
     border-radius: 10px;
-    color: #fa3a3a;
+    color: $mainColorRed;
     background-color: #fad082;
   }
 
@@ -27,7 +29,7 @@
     width: 70px;
     margin: auto;
     padding: 0 5px;
-    border: 1px solid #fa3a3a;
+    border: 1px solid $mainColorRed;
     border-radius: 4px;
     background-color: #f1e4dd;
     transition: transform 0.5s;

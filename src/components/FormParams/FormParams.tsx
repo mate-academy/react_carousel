@@ -51,24 +51,30 @@ export const FormParams = () => {
         return;
       }
 
-      default: {
+      case InputName.INFINITE: {
         dispatch(setInfinite());
+
+        return;
+      }
+
+      default: {
+        throw new Error('Not supported input type');
       }
     }
   };
 
   return (
-    <form className="formParams">
-      <fieldset className="formParams__field">
+    <form className="form-params">
+      <fieldset className="form-params__field">
         <legend> Configuration </legend>
         <label
-          className="formParams__item"
+          className="form-params__item"
           htmlFor="stepId"
         >
           Step:
           <input
             id="stepId"
-            className="formParams__input"
+            className="form-params__input"
             type="number"
             name={InputName.STEP}
             value={step}
@@ -76,13 +82,13 @@ export const FormParams = () => {
           />
         </label>
         <label
-          className="formParams__item"
+          className="form-params__item"
           htmlFor="frameId"
         >
           Frame Size:
           <input
             id="frameId"
-            className="formParams__input"
+            className="form-params__input"
             type="number"
             name={InputName.FRAME}
             value={frameSize}
@@ -90,13 +96,13 @@ export const FormParams = () => {
           />
         </label>
         <label
-          className="formParams__item"
+          className="form-params__item"
           htmlFor="itemId"
         >
           Item Size:
           <input
             id="itemId"
-            className="formParams__input"
+            className="form-params__input"
             type="number"
             step="10"
             min="10"
@@ -106,13 +112,13 @@ export const FormParams = () => {
           />
         </label>
         <label
-          className="formParams__item"
+          className="form-params__item"
           htmlFor="animationId"
         >
           Animation Duration:
           <input
             id="animationId"
-            className="formParams__input"
+            className="form-params__input"
             type="number"
             step="100"
             min="100"
@@ -122,13 +128,13 @@ export const FormParams = () => {
           />
         </label>
         <label
-          className="formParams__item"
+          className="form-params__item"
           htmlFor="infiniteId"
         >
           Infinite:
           <input
             id="infiniteId"
-            className="formParams__input"
+            className="form-params__input"
             type="checkbox"
             name={InputName.INFINITE}
             checked={infinite}
