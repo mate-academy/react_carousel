@@ -3,6 +3,7 @@ import './Carousel.scss';
 
 type State = {
   position: number,
+  currentStartImg: number,
 };
 
 type Props = {
@@ -14,12 +15,24 @@ type Props = {
   infinite: boolean,
 };
 
+enum ControlButton {
+  Prev,
+  Next,
+}
+
 class Carousel extends React.Component<Props, State> {
   state = {
     position: 0,
+    currentStartImg: 0,
   };
 
-  moveSlider = (buttonName: string) => {
+  static getDerivedStateFromProps(props:Props, state:State) {
+    return {
+      position: state.currentStartImg * props.itemWidth,
+    };
+  }
+
+  moveSlider = (buttonName: ControlButton) => {
     const {
       images,
       step,
@@ -27,6 +40,7 @@ class Carousel extends React.Component<Props, State> {
       itemWidth,
       infinite,
     } = this.props;
+
     const imagesLength = itemWidth * images.length;
     const lastSlidePosition = imagesLength - (frameSize * itemWidth);
     const lastSlideWidth = (images.length % frameSize) * itemWidth;
@@ -35,31 +49,52 @@ class Carousel extends React.Component<Props, State> {
       const prevPosition = prevState.position;
       const slideWidth = step * itemWidth;
 
-      if (buttonName === 'Next') {
+      if (buttonName === ControlButton.Next) {
         if (prevPosition === lastSlidePosition && infinite) {
-          return ({ position: 0 });
+          return ({
+            position: 0,
+            currentStartImg: 0,
+          });
         }
 
         if (prevPosition + slideWidth > lastSlidePosition) {
-          return ({ position: lastSlidePosition });
+          return ({
+            position: lastSlidePosition,
+            currentStartImg: images.length - step,
+          });
         }
 
-        return ({ position: prevPosition + slideWidth });
+        return ({
+          position: prevPosition + slideWidth,
+          currentStartImg: prevState.currentStartImg + step,
+        });
       }
 
-      if (buttonName === 'Prev') {
+      if (buttonName === ControlButton.Prev) {
         if (prevPosition === 0 && infinite) {
-          return ({ position: lastSlidePosition });
+          return ({
+            position: lastSlidePosition,
+            currentStartImg: images.length - step,
+          });
         }
 
         if (prevPosition === lastSlideWidth || prevPosition < slideWidth) {
-          return ({ position: 0 });
+          return ({
+            position: 0,
+            currentStartImg: 0,
+          });
         }
 
-        return ({ position: prevPosition - slideWidth });
+        return ({
+          position: prevPosition - slideWidth,
+          currentStartImg: prevState.currentStartImg - step,
+        });
       }
 
-      return ({ position: 0 });
+      return ({
+        position: 0,
+        currentStartImg: prevState.currentStartImg + step,
+      });
     });
   };
 
@@ -87,9 +122,7 @@ class Carousel extends React.Component<Props, State> {
           }}
         >
           {images.map((image, index) => (
-            <li
-              key={image}
-            >
+            <li key={image}>
               <img
                 src={image}
                 alt={`${index}`}
@@ -99,24 +132,27 @@ class Carousel extends React.Component<Props, State> {
             </li>
           ))}
         </ul>
-
-        <button
-          type="button"
-          onClick={(event) => {
-            this.moveSlider(event.currentTarget.innerText);
-          }}
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          data-cy="next"
-          onClick={(event) => {
-            this.moveSlider(event.currentTarget.innerText);
-          }}
-        >
-          Next
-        </button>
+        <div className="buttons">
+          <button
+            className="buttons__button buttons__button--right"
+            type="button"
+            onClick={() => {
+              this.moveSlider(ControlButton.Prev);
+            }}
+          >
+            {' '}
+          </button>
+          <button
+            className="buttons__button buttons__button--left"
+            type="button"
+            data-cy="next"
+            onClick={() => {
+              this.moveSlider(ControlButton.Next);
+            }}
+          >
+            {' '}
+          </button>
+        </div>
       </div>
     );
   }
