@@ -243,7 +243,7 @@ class Carousel extends React.Component<Props, State> {
             />
           </div>
           <div className="Carousel__animationDuration">
-            <label htmlFor="frame_size">
+            <label htmlFor="animationDuration">
               {'Animation duration: '}
               <input
                 type="number"
@@ -268,6 +268,7 @@ class Carousel extends React.Component<Props, State> {
 
             <input
               type="range"
+              id="animationDuration"
               min={0}
               step={500}
               max={2000}
