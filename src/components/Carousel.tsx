@@ -15,11 +15,6 @@ type Props = {
   infinite: boolean,
 };
 
-enum ControlButton {
-  Prev,
-  Next,
-}
-
 class Carousel extends React.Component<Props, State> {
   state = {
     position: 0,
@@ -32,68 +27,70 @@ class Carousel extends React.Component<Props, State> {
     };
   }
 
-  moveSlider = (buttonName: ControlButton) => {
+  moveSliderRigth = () => {
     const {
       images,
       step,
       frameSize,
-      itemWidth,
       infinite,
     } = this.props;
 
-    const imagesLength = itemWidth * images.length;
-    const lastSlidePosition = imagesLength - (frameSize * itemWidth);
-    const lastSlideWidth = (images.length % frameSize) * itemWidth;
+    const imagesLength = images.length;
+    const lastSlidePosition = imagesLength - frameSize;
 
     this.setState((prevState) => {
-      const prevPosition = prevState.position;
-      const slideWidth = step * itemWidth;
+      const prevCurrentStartImg = prevState.currentStartImg;
+      const slideWidth = step;
 
-      if (buttonName === ControlButton.Next) {
-        if (prevPosition === lastSlidePosition && infinite) {
-          return ({
-            position: 0,
-            currentStartImg: 0,
-          });
-        }
-
-        if (prevPosition + slideWidth > lastSlidePosition) {
-          return ({
-            position: lastSlidePosition,
-            currentStartImg: images.length - step,
-          });
-        }
-
+      if (prevCurrentStartImg === lastSlidePosition && infinite) {
         return ({
-          position: prevPosition + slideWidth,
-          currentStartImg: prevState.currentStartImg + step,
+          currentStartImg: 0,
         });
       }
 
-      if (buttonName === ControlButton.Prev) {
-        if (prevPosition === 0 && infinite) {
-          return ({
-            position: lastSlidePosition,
-            currentStartImg: images.length - step,
-          });
-        }
-
-        if (prevPosition === lastSlideWidth || prevPosition < slideWidth) {
-          return ({
-            position: 0,
-            currentStartImg: 0,
-          });
-        }
-
+      if (prevCurrentStartImg + slideWidth > lastSlidePosition) {
         return ({
-          position: prevPosition - slideWidth,
-          currentStartImg: prevState.currentStartImg - step,
+          currentStartImg: lastSlidePosition,
         });
       }
 
       return ({
-        position: 0,
-        currentStartImg: prevState.currentStartImg + step,
+        currentStartImg: prevCurrentStartImg + step,
+      });
+    });
+  };
+
+  moveSliderLeft = () => {
+    const {
+      images,
+      step,
+      frameSize,
+      infinite,
+    } = this.props;
+
+    const imagesLength = images.length;
+    const lastSlidePosition = imagesLength - frameSize;
+    const lastSlideWidth = imagesLength % frameSize;
+
+    this.setState((prevState) => {
+      const prevCurrentStartImg = prevState.currentStartImg;
+      const slideWidth = step;
+
+      if (prevCurrentStartImg === 0 && infinite) {
+        return ({
+          currentStartImg: lastSlidePosition,
+        });
+      }
+
+      if (prevCurrentStartImg === lastSlideWidth
+        || prevCurrentStartImg < slideWidth) {
+        return ({
+          currentStartImg: 0,
+        });
+      }
+
+      return ({
+        currentStartImg: prevCurrentStartImg - step,
       });
     });
   };
@@ -137,7 +134,7 @@ class Carousel extends React.Component<Props, State> {
             className="buttons__button buttons__button--right"
             type="button"
             onClick={() => {
-              this.moveSlider(ControlButton.Prev);
+              this.moveSliderLeft();
             }}
           >
             {' '}
@@ -147,7 +144,7 @@ class Carousel extends React.Component<Props, State> {
             type="button"
             data-cy="next"
             onClick={() => {
-              this.moveSlider(ControlButton.Next);
+              this.moveSliderRigth();
             }}
           >
             {' '}
