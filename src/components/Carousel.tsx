@@ -1,100 +1,87 @@
 import React from 'react';
 import './Carousel.scss';
+import { RenderImages } from './renderImages';
+import { Props } from '../types/Props';
 
-type Props = {
-  images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite: boolean;
-};
-
-interface State {
-  images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite: boolean;
+interface State extends Props{
   moveAfterPunch: number;
 }
 
 class Carousel extends React.Component<Props, State> {
   state = {
-    images: this.props.images,
-    step: this.props.step,
-    frameSize: this.props.frameSize,
-    itemWidth: this.props.itemWidth,
-    animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
+    ...this.props,
     moveAfterPunch: 0,
   };
 
-  renderImages = (images: string[]) => images.map((image, index) => {
-    return (
-      <li key={`${index + 1}`}>
-        <img
-          src={image}
-          alt={`${index + 1}`}
-          style={{
-            width: `${this.state.itemWidth}px`,
-          }}
-        />
-      </li>
-    );
-  });
-
-  buttonSlider = (event: React.MouseEvent<HTMLButtonElement>) => {
+  buttonPrev = () => {
     const {
       images, moveAfterPunch, itemWidth, frameSize, step, infinite,
     } = this.state;
 
     const firstPlace = 0;
     const lastPlace = images.length * itemWidth - frameSize * itemWidth;
-    const absMoveAfterPunch = Math.abs(moveAfterPunch);
-    const prevResolve = absMoveAfterPunch > frameSize * itemWidth
-      && step <= images.length - frameSize;
-    const nextResolve = absMoveAfterPunch < (lastPlace - frameSize * itemWidth)
+    const prevResolve = Math.abs(moveAfterPunch) > frameSize * itemWidth
       && step <= images.length - frameSize;
 
-    switch (event.currentTarget.value) {
-      case 'Prev':
-        if (prevResolve) {
-          this.setState({
-            moveAfterPunch: moveAfterPunch + step * itemWidth,
-          });
-        } else if (moveAfterPunch < firstPlace) {
-          this.setState({
-            moveAfterPunch: firstPlace,
-          });
-        } else if (infinite) {
-          this.setState({
-            moveAfterPunch: -(lastPlace),
-          });
-        }
-
-        break;
-      case 'Next':
-        if (nextResolve) {
-          this.setState({
-            moveAfterPunch: moveAfterPunch - step * itemWidth,
-          });
-        } else if (absMoveAfterPunch < lastPlace) {
-          this.setState({
-            moveAfterPunch: -(lastPlace),
-          });
-        } else if (infinite) {
-          this.setState({
-            moveAfterPunch: firstPlace,
-          });
-        }
-
-        break;
-
-      default:
-        break;
+    if (prevResolve) {
+      this.setState({
+        moveAfterPunch: moveAfterPunch + step * itemWidth,
+      });
+    } else if (moveAfterPunch < firstPlace) {
+      this.setState({
+        moveAfterPunch: firstPlace,
+      });
+    } else if (infinite) {
+      this.setState({
+        moveAfterPunch: -(lastPlace),
+      });
     }
+  };
+
+  buttonNext = () => {
+    const {
+      images, moveAfterPunch, itemWidth, frameSize, step, infinite,
+    } = this.state;
+    const firstPlace = 0;
+    const lastPlace = images.length * itemWidth - frameSize * itemWidth;
+    const nextResolve = Math.abs(moveAfterPunch)
+    < (lastPlace - frameSize * itemWidth) && step <= images.length - frameSize;
+
+    if (nextResolve) {
+      this.setState({
+        moveAfterPunch: moveAfterPunch - step * itemWidth,
+      });
+    } else if (Math.abs(moveAfterPunch) < lastPlace) {
+      this.setState({
+        moveAfterPunch: -(lastPlace),
+      });
+    } else if (infinite) {
+      this.setState({
+        moveAfterPunch: firstPlace,
+      });
+    }
+  };
+
+  eventClick = (elem: any, mark: string) => {
+    if (mark === 'step') {
+      this.setState({ step: +elem.currentTarget.value });
+    } else if (mark === 'itemWidth') {
+      this.setState({ itemWidth: +elem.currentTarget.value });
+    } else if (mark === 'frameSize') {
+      this.setState({ frameSize: +elem.currentTarget.value });
+    } else if (mark === 'animationDuration') {
+      this.setState({ animationDuration: +elem.currentTarget.value });
+    }
+  };
+
+  eventFocus = (elem: any, mark: number) => {
+    // eslint-disable-next-line no-param-reassign
+    elem.currentTarget.value = mark;
+  };
+
+  eventBlur = (elem: any) => {
+    // eslint-disable-next-line no-param-reassign
+    elem.currentTarget.value = '';
   };
 
   render(): React.ReactNode {
@@ -122,7 +109,7 @@ class Carousel extends React.Component<Props, State> {
               transitionDuration: `${animationDuration}ms`,
             }}
           >
-            {this.renderImages(images)}
+            <RenderImages images={images} pass={this.state} />
           </ul>
         </section>
         <section className="container_two">
@@ -132,7 +119,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Prev"
               value="Prev"
-              onClick={this.buttonSlider}
+              onClick={this.buttonPrev}
             >
               Prev
             </button>
@@ -141,7 +128,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Next"
               value="Next"
-              onClick={this.buttonSlider}
+              onClick={this.buttonNext}
             >
               Next
             </button>
@@ -155,16 +142,13 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={images.length}
                 placeholder={`${step}`}
-                onClick={(elem) => this
-                  .setState({ step: +elem.currentTarget.value })}
-                onFocus={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = `${step}`;
+                onClick={(event => {
+                  this.eventClick(event, 'step');
+                })}
+                onFocus={(event) => {
+                  this.eventFocus(event, step);
                 }}
-                onBlur={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = '';
-                }}
+                onBlur={this.eventBlur}
               />
             </label>
 
@@ -173,9 +157,9 @@ class Carousel extends React.Component<Props, State> {
               id="step"
               min={1}
               max={images.length}
-              onClick={(elem) => {
-                this.setState({ step: +elem.currentTarget.value });
-              }}
+              onClick={(event => {
+                this.eventClick(event, 'step');
+              })}
               defaultValue={step}
             />
           </div>
@@ -189,16 +173,13 @@ class Carousel extends React.Component<Props, State> {
                 step={5}
                 max={370}
                 placeholder={`${itemWidth}`}
-                onClick={(elem) => this
-                  .setState({ itemWidth: +elem.currentTarget.value })}
-                onFocus={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = `${itemWidth}`;
+                onClick={(event => {
+                  this.eventClick(event, 'itemWidth');
+                })}
+                onFocus={(event) => {
+                  this.eventFocus(event, itemWidth);
                 }}
-                onBlur={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = '';
-                }}
+                onBlur={this.eventBlur}
               />
             </label>
             <input
@@ -207,8 +188,9 @@ class Carousel extends React.Component<Props, State> {
               min={130}
               step={5}
               max={370}
-              onClick={(elem) => this
-                .setState({ itemWidth: +elem.currentTarget.value })}
+              onClick={(event => {
+                this.eventClick(event, 'itemWidth');
+              })}
               defaultValue={itemWidth}
             />
           </div>
@@ -221,16 +203,13 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={itemWidth * images.length}
                 placeholder={`${frameSize}`}
-                onClick={(elem) => this
-                  .setState({ frameSize: +elem.currentTarget.value })}
-                onFocus={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = `${frameSize}`;
+                onClick={(event => {
+                  this.eventClick(event, 'frameSize');
+                })}
+                onFocus={(event) => {
+                  this.eventFocus(event, frameSize);
                 }}
-                onBlur={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = '';
-                }}
+                onBlur={this.eventBlur}
               />
             </label>
 
@@ -239,8 +218,9 @@ class Carousel extends React.Component<Props, State> {
               id="frame_size"
               min={1}
               max={images.length}
-              onClick={(elem) => this
-                .setState({ frameSize: +elem.currentTarget.value })}
+              onClick={(event => {
+                this.eventClick(event, 'frameSize');
+              })}
               defaultValue={frameSize}
             />
           </div>
@@ -254,17 +234,13 @@ class Carousel extends React.Component<Props, State> {
                 step={200}
                 max={2000}
                 placeholder={`${animationDuration}`}
-                onClick={(elem) => this.setState({
-                  animationDuration: +elem.currentTarget.value,
+                onClick={(event => {
+                  this.eventClick(event, 'animationDuration');
                 })}
-                onFocus={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = `${animationDuration}`;
+                onFocus={(event) => {
+                  this.eventFocus(event, animationDuration);
                 }}
-                onBlur={(elem) => {
-                  // eslint-disable-next-line no-param-reassign
-                  elem.currentTarget.value = '';
-                }}
+                onBlur={this.eventBlur}
               />
             </label>
 
@@ -274,8 +250,9 @@ class Carousel extends React.Component<Props, State> {
               min={0}
               step={500}
               max={2000}
-              onClick={(elem) => this
-                .setState({ animationDuration: +elem.currentTarget.value })}
+              onClick={(event => {
+                this.eventClick(event, 'animationDuration');
+              })}
               defaultValue={animationDuration}
             />
           </div>
