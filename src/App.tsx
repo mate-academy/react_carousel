@@ -12,20 +12,22 @@ interface State {
   infinite: boolean,
 }
 
+const imagesArray = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
+
 class App extends React.Component<{}, State> {
   state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+    images: imagesArray,
     step: 3,
     frameSize: 3,
     itemWidth: 130,
@@ -33,7 +35,7 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const { itemWidth } = this.state;
 
     if (window.matchMedia('(max-width: 600px)').matches) {

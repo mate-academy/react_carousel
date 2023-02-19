@@ -1,11 +1,14 @@
-body {
+@import "src/variables";
+
+* {
   margin: 0;
+  padding: 0;
 }
 
 h1 {
   font-size: 48px;
   font-weight: 600;
-  color: #ffb111;
+  color: $primary-bright;
   text-align: center;
 }
 
@@ -13,7 +16,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #605549;
+  background-color: $primary-dark;
   padding-top: 50px;
   height: 100vh;
   font-family: "Josefin Sans", sans-serif;

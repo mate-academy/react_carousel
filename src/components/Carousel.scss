@@ -1,7 +1,4 @@
-ul {
-  margin: 0;
-  padding: 0;
-}
+@import "src/variables";
 
 ul li {
   list-style: none;
@@ -35,7 +32,7 @@ ul li {
   &__button {
     width: 40px;
     height: 40px;
-    background-color: #ffb111;
+    background-color: $primary-bright;
     color: white;
     font-size: 22px;
     line-height: 16px;
@@ -45,12 +42,12 @@ ul li {
     cursor: pointer;
 
     &:hover {
-      background-color: #f90;
+      background-color: $second-bright;
     }
 
     &:disabled {
-      background-color: #807870;
-      color: #a99d91;
+      background-color: $second-light;
+      color: $primary-light;
       cursor: default;
     }
   }

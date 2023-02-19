@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .carouselSetup {
   display: flex;
   flex-direction: column;
@@ -16,10 +18,10 @@
     input {
       padding: 10px;
       border-radius: 8px;
-      background-color: #807870;
+      background-color: $second-light;
       font-size: 20px;
       font-weight: 400;
-      color: #d5c7ba;
+      color: $input-text-light;
       border: none;
       outline: none;
 
@@ -30,7 +32,7 @@
 
     label {
       font-size: 20px;
-      color: #a99d91;
+      color: $primary-light;
     }
 
     &--checkbox {
