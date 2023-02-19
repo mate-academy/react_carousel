@@ -20,25 +20,29 @@ class Carousel extends Component<Props, State> {
   };
 
   handleNavButton = (step: number) => {
-    const lastItemIndex = this.props.images.length - 1;
-    let overflowIndexItem = 0;
-
-    let currentItemIndex: number = this.state.currentItemIndex + step;
+    const lastVisibleItemIndex
+      = this.props.images.length - this.props.frameSize;
+    const firstVisibleItemIndex = 0;
+    let nextItemIndex = this.state.currentItemIndex + step;
 
     if (step < 0) {
-      overflowIndexItem = this.props.infinity ? lastItemIndex : 0;
-      currentItemIndex = currentItemIndex < 0
-        ? overflowIndexItem
-        : currentItemIndex;
-    } else {
-      overflowIndexItem = this.props.infinity ? 0 : lastItemIndex;
-      currentItemIndex = currentItemIndex > lastItemIndex
-        ? overflowIndexItem
-        : currentItemIndex;
+      if (this.state.currentItemIndex === firstVisibleItemIndex) {
+        nextItemIndex = lastVisibleItemIndex;
+      } else if (nextItemIndex < firstVisibleItemIndex) {
+        nextItemIndex = firstVisibleItemIndex;
+      }
+    }
+
+    if (step > 0) {
+      if (this.state.currentItemIndex === lastVisibleItemIndex) {
+        nextItemIndex = firstVisibleItemIndex;
+      } else if (nextItemIndex > lastVisibleItemIndex) {
+        nextItemIndex = lastVisibleItemIndex;
+      }
     }
 
     this.setState(() => ({
-      currentItemIndex,
+      currentItemIndex: nextItemIndex,
     }));
   };
 
@@ -49,45 +53,52 @@ class Carousel extends Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinity,
     } = this.props;
 
     const { currentItemIndex } = this.state;
 
     return (
-      <div className="Carousel">
-        <ul
-          className="Carousel__list"
-          style={{
-            width: frameSize * itemWidth,
-            transition: `${animationDuration}ms`,
-            borderRadius: `${itemWidth}px`,
-            border: '6px solid grey',
-          }}
-        >
-          {
-            images.map((img) => {
-              return (
-                <li
-                  className="Carousel__item"
-                  key={img}
-                  style={{
-                    transform: `translateX(${-currentItemIndex * itemWidth}px)`,
-                    transition: `${animationDuration}ms`,
-                  }}
-                >
-                  <img
-                    width={itemWidth}
-                    src={img}
-                    alt={img}
-                  />
-                </li>
-              );
-            })
-          }
-        </ul>
+      <div
+        className="Carousel"
+        style={{
+          width: `${frameSize * itemWidth}px`,
+          transition: `${animationDuration}ms`,
+        }}
+      >
+        <div>
+          <ul
+            className="Carousel__list"
+            style={{
+              borderRadius: `${itemWidth}px`,
+              border: '6px solid grey',
+            }}
+          >
+            {
+              images.map((img) => {
+                return (
+                  <li
+                    className="Carousel__item"
+                    key={img}
+                    style={{
+                      transform: `translateX(${-currentItemIndex * itemWidth}px)`,
+                      transition: `${animationDuration}ms`,
+                    }}
+                  >
+                    <img
+                      width={itemWidth}
+                      src={img}
+                      alt={img}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
         <div>
           <button
-            disabled={currentItemIndex <= 1 && !this.props.infinity}
+            disabled={currentItemIndex <= 0 && !this.props.infinity}
             type="button"
             onClick={() => {
               this.handleNavButton(-step);
@@ -98,7 +109,7 @@ class Carousel extends Component<Props, State> {
           <button
             data-cy="next"
             disabled={
-              currentItemIndex >= images.length - 1 && !this.props.infinity
+              currentItemIndex >= images.length - frameSize && !infinity
             }
             type="button"
             onClick={() => {
