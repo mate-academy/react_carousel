@@ -1,36 +1,16 @@
 // style go here
-%manipulationItems {
-  display: flex;
-  flex-direction: column;
-  font-size: 24px;
-  & > label {
-    width: max-content;
-  }
-}
-
-.container_one {
-  overflow: hidden;
-  justify-self: center;
-}
-
-.container_two {
-  display: grid;
-  gap: 10px;
-  max-width: 60vw;
-  justify-self: center;
-}
+@import '../utils/extends';
+@import './containerOne.scss';
+@import './containerTwo.scss';
+@import './inputBlock.scss';
 
 .Carousel {
   display: grid;
   gap: 15px;
-
+  
   &__list {
     display: flex;
     transition-property: all;
-
-    li {
-      list-style-type: none;
-    }
   }
 
   &__move {
@@ -82,13 +62,3 @@
   }
 }
 
-.inputBlock {
-  width: max-content;
-  font-size: 24px;
-  border: none;
-  outline: none;
-
-  &::-webkit-input-placeholder {
-    color: black;
-  }
-}
