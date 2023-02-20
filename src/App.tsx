@@ -13,7 +13,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state: Readonly<State> = {
+  state = {
     images: [
       './img/1.png',
       './img/2.png',

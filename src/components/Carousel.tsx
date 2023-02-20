@@ -32,7 +32,7 @@ export class Carousel extends React.Component<Props, State> {
 
     this.setState(state => {
       const result
-        = state.transformPosition - itemSize * step - this.gap * step;
+        = state.transformPosition - itemSize * step - this.gap * step - 1;
 
       const maxTransformPosition
         = -(itemSize * images.length
@@ -105,6 +105,8 @@ export class Carousel extends React.Component<Props, State> {
 
     const { transformPosition } = this.state;
 
+    const containerWidth = `${(itemSize * frameSize) + ((frameSize - 1) * this.gap)}px`;
+
     const maxTransformPosition
       = itemSize * images.length - this.gap * step - itemSize * step;
 
@@ -112,7 +114,9 @@ export class Carousel extends React.Component<Props, State> {
       <div className="Carousel">
         <div
           className="Carousel__images-container"
-          style={{ width: `${itemSize * frameSize + (frameSize - 1) * this.gap}px` }}
+          style={{
+            width: `${containerWidth}`,
+          }}
         >
           <ul
             className="Carousel__list"
