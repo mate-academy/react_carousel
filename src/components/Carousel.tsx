@@ -75,7 +75,7 @@ class Carousel extends Component<Props, State> {
             }}
           >
             {
-              images.map((img) => {
+              images.map((img, index) => {
                 return (
                   <li
                     className="Carousel__item"
@@ -88,7 +88,7 @@ class Carousel extends Component<Props, State> {
                     <img
                       width={itemWidth}
                       src={img}
-                      alt={img}
+                      alt={`emoji-${index + 1}`}
                     />
                   </li>
                 );

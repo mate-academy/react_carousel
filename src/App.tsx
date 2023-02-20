@@ -46,9 +46,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 data-cy="title">
-          {'Carousel with '}
-          {images.length}
-          {' images'}
+          {`Carousel with ${images.length} images`}
         </h1>
         <label htmlFor="itemId" className="App__label">
           Item Width:
@@ -119,9 +117,9 @@ class App extends React.Component<{}, State> {
           <input
             id="infinity"
             type="checkbox"
-            onChange={(e) => {
+            onChange={(event) => {
               this.setState({
-                infinity: e.target.checked,
+                infinity: event.target.checked,
               });
             }}
           />
