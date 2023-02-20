@@ -1,14 +1,15 @@
 .Carousel {
-  position: relative;
   margin-bottom: 20px;
-  border: 1px solid #bbb;
-  padding: 10px 50px;
-  border-radius: 10px;
-  background-color: #eee;
 
   &__images-container {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
     overflow: hidden;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #eee;
+    border: 1px solid #bbb;
   }
 
   &__list {
@@ -20,11 +21,14 @@
     display: block;
   }
 
+  &__navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
   &__button {
     box-sizing: border-box;
-    position: absolute;
-    margin: 0;
-    padding: 0;
     width: 40px;
     height: 40px;
     border: 1px solid #bbb;
@@ -55,3 +59,4 @@
     }
   }
 }
+

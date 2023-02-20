@@ -33,6 +33,13 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState(state => ({
+      ...state,
+      [event.target.name]: +event.target.value,
+    }));
+  };
+
   render() {
     const {
       images,
@@ -67,16 +74,13 @@ class App extends React.Component<{}, State> {
 
             <input
               className="App__input"
+              name="itemSize"
               type="number"
               id="itemId"
               defaultValue={itemSize}
               min={0}
               max={1000}
-              onChange={(event) => {
-                this.setState({
-                  itemSize: +event.currentTarget.value,
-                });
-              }}
+              onChange={this.inputHandler}
             />
           </label>
 
@@ -87,14 +91,11 @@ class App extends React.Component<{}, State> {
               className="App__input"
               id="frameId"
               type="number"
+              name="frameSize"
               defaultValue={3}
               min={1}
               max={10}
-              onChange={(event) => {
-                this.setState({
-                  frameSize: +event.currentTarget.value,
-                });
-              }}
+              onChange={this.inputHandler}
             />
           </label>
 
@@ -105,14 +106,11 @@ class App extends React.Component<{}, State> {
               className="App__input"
               id="stepId"
               type="number"
+              name="step"
               defaultValue={3}
               min={0}
               max={9}
-              onChange={(event) => {
-                this.setState({
-                  step: +event.currentTarget.value,
-                });
-              }}
+              onChange={this.inputHandler}
             />
           </label>
 
@@ -122,14 +120,11 @@ class App extends React.Component<{}, State> {
             <input
               className="App__input"
               type="number"
+              name="animationDuration"
               defaultValue={1000}
               min={0}
               max={10000}
-              onChange={(event) => {
-                this.setState({
-                  animationDuration: +event.currentTarget.value,
-                });
-              }}
+              onChange={this.inputHandler}
             />
           </label>
 

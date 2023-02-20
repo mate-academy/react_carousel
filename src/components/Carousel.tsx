@@ -15,7 +15,7 @@ type State = {
 };
 
 export class Carousel extends React.Component<Props, State> {
-  state: Readonly<State> = {
+  state = {
     transformPosition: 0,
   };
 
@@ -110,22 +110,6 @@ export class Carousel extends React.Component<Props, State> {
 
     return (
       <div className="Carousel">
-        <button
-          type="button"
-          onClick={this.prevButtonHandler}
-          className="Carousel__button Carousel__button-prev"
-          style={{
-            top: `${itemSize / 2 - 10}px`,
-          }}
-          disabled={
-            infinite
-              ? false
-              : transformPosition >= 0
-          }
-        >
-          ⇦
-        </button>
-
         <div
           className="Carousel__images-container"
           style={{ width: `${itemSize * frameSize + (frameSize - 1) * this.gap}px` }}
@@ -155,23 +139,41 @@ export class Carousel extends React.Component<Props, State> {
           </ul>
         </div>
 
-        <button
-          className="Carousel__button Carousel__button-next"
-          type="button"
-          data-cy="next"
-          onClick={this.nextButtonHandler}
-          style={{
-            top: `${itemSize / 2 - 10}px`,
+        <div className="Carousel__navigation-buttons">
+          <button
+            type="button"
+            onClick={this.prevButtonHandler}
+            className="Carousel__button Carousel__button-prev"
+            style={{
+              top: `${itemSize / 2 - 10}px`,
+            }}
+            disabled={
+              infinite
+                ? false
+                : transformPosition >= 0
+            }
+          >
+            ⇦
+          </button>
 
-          }}
-          disabled={
-            infinite
-              ? false
-              : -maxTransformPosition >= transformPosition
-          }
-        >
-          ⇨
-        </button>
+          <button
+            className="Carousel__button Carousel__button-next"
+            type="button"
+            data-cy="next"
+            onClick={this.nextButtonHandler}
+            style={{
+              top: `${itemSize / 2 - 10}px`,
+
+            }}
+            disabled={
+              infinite
+                ? false
+                : -maxTransformPosition >= transformPosition
+            }
+          >
+            ⇨
+          </button>
+        </div>
       </div>
     );
   }
