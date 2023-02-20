@@ -1,8 +1,8 @@
 // style go here
-@import '../utils/extends';
-@import './containerOne.scss';
-@import './containerTwo.scss';
-@import './inputBlock.scss';
+@import "../utils/extends";
+@import "./containerOne.scss";
+@import "./containerTwo.scss";
+@import "./inputBlock.scss";
 
 .Carousel {
   display: grid;
@@ -61,4 +61,3 @@
     cursor: not-allowed;
   }
 }
-
