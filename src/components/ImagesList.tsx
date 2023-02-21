@@ -7,7 +7,7 @@ export const ImagesList: React.FC <{
   <>
     {
       images.map((image) => (
-        <ImagesInfo image={image} pass={pass} />
+        <ImagesInfo image={image} pass={pass} key={image} />
       ))
     }
   </>

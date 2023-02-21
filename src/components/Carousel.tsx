@@ -69,23 +69,23 @@ class Carousel extends React.Component<Props, State> {
     }
   };
 
-  handleEventClick = (elem: React.MouseEvent<HTMLInputElement,
-  MouseEvent>, mark: keyof InputHandler) => {
+  handleEventClick = (event: React.ChangeEvent<HTMLInputElement>,
+    mark: keyof InputHandler) => {
     switch (mark) {
       case 'step':
-        this.setState({ step: +elem.currentTarget.value });
+        this.setState({ step: +event.currentTarget.value });
         break;
 
       case 'itemWidth':
-        this.setState({ itemWidth: +elem.currentTarget.value });
+        this.setState({ itemWidth: +event.currentTarget.value });
         break;
 
       case 'frameSize':
-        this.setState({ frameSize: +elem.currentTarget.value });
+        this.setState({ frameSize: +event.currentTarget.value });
         break;
 
       case 'animationDuration':
-        this.setState({ animationDuration: +elem.currentTarget.value });
+        this.setState({ animationDuration: +event.currentTarget.value });
         break;
 
       default:
@@ -99,9 +99,9 @@ class Carousel extends React.Component<Props, State> {
     event.currentTarget.value = mark.toString();
   };
 
-  eventBlur = (elem: React.FocusEvent<HTMLInputElement, Element>) => {
+  eventBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
     // eslint-disable-next-line no-param-reassign
-    elem.currentTarget.value = '';
+    event.currentTarget.value = '';
   };
 
   render(): React.ReactNode {
@@ -139,7 +139,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Prev"
               value="Prev"
-              onClick={this.buttonPrev}
+              onChange={this.buttonPrev}
             >
               Prev
             </button>
@@ -148,7 +148,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Next"
               value="Next"
-              onClick={this.buttonNext}
+              onChange={this.buttonNext}
             >
               Next
             </button>
@@ -162,7 +162,7 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={images.length}
                 placeholder={`${step}`}
-                onClick={(event => {
+                onChange={(event => {
                   this.handleEventClick(event, 'step');
                 })}
                 onFocus={(event) => {
@@ -177,7 +177,7 @@ class Carousel extends React.Component<Props, State> {
               id="step"
               min={1}
               max={images.length}
-              onClick={(event => {
+              onChange={(event => {
                 this.handleEventClick(event, 'step');
               })}
               defaultValue={step}
@@ -193,7 +193,7 @@ class Carousel extends React.Component<Props, State> {
                 step={5}
                 max={370}
                 placeholder={`${itemWidth}`}
-                onClick={(event => {
+                onChange={(event => {
                   this.handleEventClick(event, 'itemWidth');
                 })}
                 onFocus={(event) => {
@@ -208,7 +208,7 @@ class Carousel extends React.Component<Props, State> {
               min={130}
               step={5}
               max={370}
-              onClick={(event => {
+              onChange={(event => {
                 this.handleEventClick(event, 'itemWidth');
               })}
               defaultValue={itemWidth}
@@ -223,7 +223,7 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={itemWidth * images.length}
                 placeholder={`${frameSize}`}
-                onClick={(event => {
+                onChange={(event => {
                   this.handleEventClick(event, 'frameSize');
                 })}
                 onFocus={(event) => {
@@ -238,7 +238,7 @@ class Carousel extends React.Component<Props, State> {
               id="frame_size"
               min={1}
               max={images.length}
-              onClick={(event => {
+              onChange={(event => {
                 this.handleEventClick(event, 'frameSize');
               })}
               defaultValue={frameSize}
@@ -254,7 +254,7 @@ class Carousel extends React.Component<Props, State> {
                 step={200}
                 max={2000}
                 placeholder={`${animationDuration}`}
-                onClick={(event => {
+                onChange={(event => {
                   this.handleEventClick(event, 'animationDuration');
                 })}
                 onFocus={(event) => {
@@ -270,7 +270,7 @@ class Carousel extends React.Component<Props, State> {
               min={0}
               step={500}
               max={2000}
-              onClick={(event => {
+              onChange={(event => {
                 this.handleEventClick(event, 'animationDuration');
               })}
               defaultValue={animationDuration}
@@ -281,7 +281,7 @@ class Carousel extends React.Component<Props, State> {
             <input
               type="checkbox"
               id="infinite"
-              onClick={(elem) => this
+              onChange={(elem) => this
                 .setState({ infinite: elem.currentTarget.checked })}
             />
           </div>

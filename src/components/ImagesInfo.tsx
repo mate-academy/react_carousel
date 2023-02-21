@@ -1,9 +1,10 @@
 export const ImagesInfo: React.FC <{
   image: string;
   pass: { itemWidth: number };
-}> = ({ image, pass }) => (
+  key: React.Key;
+}> = ({ image, pass, key }) => (
   <>
-    <li key={`${image}`}>
+    <li key={key}>
       <img
         src={image}
         alt={`${image}`}
