@@ -8,10 +8,10 @@ interface State extends Props{
 }
 
 type InputHandler = {
-  'step': 'step',
-  'itemWidth': 'itemWidth',
-  'frameSize': 'frameSize',
-  'animationDuration': 'animationDuration',
+  step: 'step',
+  itemWidth: 'itemWidth',
+  frameSize: 'frameSize',
+  animationDuration: 'animationDuration',
 };
 
 class Carousel extends React.Component<Props, State> {
@@ -139,7 +139,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Prev"
               value="Prev"
-              onChange={this.buttonPrev}
+              onClick={this.buttonPrev}
             >
               Prev
             </button>
@@ -148,7 +148,7 @@ class Carousel extends React.Component<Props, State> {
               className="ButtonElement"
               data-cy="Next"
               value="Next"
-              onChange={this.buttonNext}
+              onClick={this.buttonNext}
             >
               Next
             </button>
@@ -281,7 +281,7 @@ class Carousel extends React.Component<Props, State> {
             <input
               type="checkbox"
               id="infinite"
-              onChange={(elem) => this
+              onClick={(elem) => this
                 .setState({ infinite: elem.currentTarget.checked })}
             />
           </div>
