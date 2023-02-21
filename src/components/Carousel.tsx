@@ -22,7 +22,12 @@ class Carousel extends React.Component<Props, State> {
 
   buttonPrev = () => {
     const {
-      images, moveAfterPunch, itemWidth, frameSize, step, infinite,
+      images,
+      moveAfterPunch,
+      itemWidth = 0,
+      frameSize = 0,
+      step = 0,
+      infinite,
     } = this.state;
 
     const firstPlace = 0;
@@ -47,7 +52,12 @@ class Carousel extends React.Component<Props, State> {
 
   buttonNext = () => {
     const {
-      images, moveAfterPunch, itemWidth, frameSize, step, infinite,
+      images,
+      moveAfterPunch,
+      itemWidth = 0,
+      frameSize = 0,
+      step = 0,
+      infinite,
     } = this.state;
     const firstPlace = 0;
     const lastPlace = images.length * itemWidth - frameSize * itemWidth;
@@ -94,14 +104,15 @@ class Carousel extends React.Component<Props, State> {
   };
 
   eventFocus = (event: React.FocusEvent<HTMLInputElement, Element>,
-    mark: number) => {
-    // eslint-disable-next-line no-param-reassign
-    event.currentTarget.value = mark.toString();
+    mark: number | undefined) => {
+    if (mark) {
+      // eslint-disable-next-line no-param-reassign
+      event.currentTarget.value = mark.toString();
+    }
   };
 
-  eventBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
-    // eslint-disable-next-line no-param-reassign
-    event.currentTarget.value = '';
+  eventBlur = () => {
+    this.setState({ step: undefined });
   };
 
   render(): React.ReactNode {
@@ -162,6 +173,7 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={images.length}
                 placeholder={`${step}`}
+                value={step}
                 onChange={(event => {
                   this.handleEventClick(event, 'step');
                 })}
@@ -193,6 +205,7 @@ class Carousel extends React.Component<Props, State> {
                 step={5}
                 max={370}
                 placeholder={`${itemWidth}`}
+                value={itemWidth}
                 onChange={(event => {
                   this.handleEventClick(event, 'itemWidth');
                 })}
@@ -223,6 +236,7 @@ class Carousel extends React.Component<Props, State> {
                 min={1}
                 max={itemWidth * images.length}
                 placeholder={`${frameSize}`}
+                value={frameSize}
                 onChange={(event => {
                   this.handleEventClick(event, 'frameSize');
                 })}
@@ -254,6 +268,7 @@ class Carousel extends React.Component<Props, State> {
                 step={200}
                 max={2000}
                 placeholder={`${animationDuration}`}
+                value={animationDuration}
                 onChange={(event => {
                   this.handleEventClick(event, 'animationDuration');
                 })}
