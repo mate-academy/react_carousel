@@ -21,7 +21,7 @@ export class Carousel extends React.Component<Props, State> {
 
   gap = 10;
 
-  nextButtonHandler = () => {
+  buttonsHandler = (direction: 'next' | 'prev') => {
     const {
       images,
       itemSize,
@@ -30,67 +30,61 @@ export class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    this.setState(state => {
-      const result
-        = state.transformPosition - itemSize * step - this.gap * step - 1;
+    if (direction === 'prev') {
+      this.setState(state => {
+        const result
+          = state.transformPosition + itemSize * step + this.gap * step;
 
-      const maxTransformPosition
-        = -(itemSize * images.length
-          + this.gap * (images.length - frameSize)
-          - itemSize * frameSize);
+        const maxTransformPosition
+          = itemSize * images.length
+            + this.gap * (images.length - frameSize)
+            - itemSize * frameSize;
 
-      if (state.transformPosition === maxTransformPosition && infinite) {
+        if (state.transformPosition === 0 && infinite) {
+          return ({
+            transformPosition: -maxTransformPosition,
+          });
+        }
+
+        if (result > 0) {
+          return ({
+            transformPosition: 0,
+          });
+        }
+
         return ({
-          transformPosition: 0,
+          transformPosition: result,
         });
-      }
-
-      if (result < maxTransformPosition) {
-        return ({
-          transformPosition: maxTransformPosition,
-        });
-      }
-
-      return ({
-        transformPosition: result,
       });
-    });
-  };
+    }
 
-  prevButtonHandler = () => {
-    const {
-      images,
-      itemSize,
-      step,
-      frameSize,
-      infinite,
-    } = this.props;
+    if (direction === 'next') {
+      this.setState(state => {
+        const result
+          = state.transformPosition - itemSize * step - this.gap * step;
 
-    this.setState(state => {
-      const result
-        = state.transformPosition + itemSize * step + this.gap * step;
+        const maxTransformPosition
+          = -(itemSize * images.length
+            + this.gap * (images.length - frameSize)
+            - itemSize * frameSize);
 
-      const maxTransformPosition
-        = itemSize * images.length
-          + this.gap * (images.length - frameSize)
-          - itemSize * frameSize;
+        if (state.transformPosition === maxTransformPosition && infinite) {
+          return ({
+            transformPosition: 0,
+          });
+        }
 
-      if (state.transformPosition === 0 && infinite) {
+        if (result < maxTransformPosition) {
+          return ({
+            transformPosition: maxTransformPosition,
+          });
+        }
+
         return ({
-          transformPosition: -maxTransformPosition,
+          transformPosition: result,
         });
-      }
-
-      if (result > 0) {
-        return ({
-          transformPosition: 0,
-        });
-      }
-
-      return ({
-        transformPosition: result,
       });
-    });
+    }
   };
 
   render() {
@@ -146,7 +140,7 @@ export class Carousel extends React.Component<Props, State> {
         <div className="Carousel__navigation-buttons">
           <button
             type="button"
-            onClick={this.prevButtonHandler}
+            onClick={() => this.buttonsHandler('prev')}
             className="Carousel__button Carousel__button-prev"
             style={{
               top: `${itemSize / 2 - 10}px`,
@@ -164,7 +158,7 @@ export class Carousel extends React.Component<Props, State> {
             className="Carousel__button Carousel__button-next"
             type="button"
             data-cy="next"
-            onClick={this.nextButtonHandler}
+            onClick={() => this.buttonsHandler('next')}
             style={{
               top: `${itemSize / 2 - 10}px`,
 
