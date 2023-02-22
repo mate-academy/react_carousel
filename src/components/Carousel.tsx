@@ -79,6 +79,7 @@ class Carousel extends Component<Props, State> {
         <button
           className="button button__prev"
           type="button"
+          data-cy="prev"
           onClick={prevSlide}
           disabled={!infinity && isDisPrevSlide}
         >
@@ -87,6 +88,7 @@ class Carousel extends Component<Props, State> {
         <button
           className="button button__next"
           type="button"
+          data-cy="next"
           onClick={nextSlide}
           disabled={!infinity && isDisNextSlide}
         >
