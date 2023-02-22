@@ -62,9 +62,11 @@ export class Carousel extends Component<Props, State> {
   render() {
     const {
       images,
+      step,
       itemWidth,
       frameSize,
       animationDuration,
+      infinite,
     } = this.props;
     const { currentSlide } = this.state;
 
@@ -86,11 +88,21 @@ export class Carousel extends Component<Props, State> {
             </li>
           ))}
         </ul>
-        <button type="button" onClick={this.handlePrevClick}>
+        <button
+          type="button"
+          className="Carousel__button"
+          disabled={!infinite && currentSlide === 0}
+          onClick={this.handlePrevClick}
+        >
           Prev
         </button>
         <button
           type="button"
+          className="Carousel__button"
+          disabled={
+            !infinite
+            && currentSlide >= images.length - (step + frameSize) + 1
+          }
           onClick={this.handleNextClick}
           data-cy="next"
         >
