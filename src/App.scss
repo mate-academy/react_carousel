@@ -1,1 +1,52 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+html {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.Panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+    display: flex;
+    align-items: center;
+    
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__input {
+    width: 80px;
+    margin-left: 10px;
+
+    &[type="checkbox"] {
+      width: auto;
+    }
+  }
+}
