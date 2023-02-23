@@ -26,7 +26,7 @@ class Carousel extends React.Component<Props, State> {
     imagesAmount: this.props.images.length,
     imageWidth: this.props.itemWidth,
     movedDistance: 0,
-    gap: 5,
+    gap: 0,
     step: this.props.step,
     frameSize: this.props.frameSize,
     animationDuration: this.props.animationDuration,
