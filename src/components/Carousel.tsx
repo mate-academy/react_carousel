@@ -32,7 +32,7 @@ class Carousel extends React.Component<Props, State> {
 
     const firstPlace = 0;
     const lastPlace = images.length * itemWidth - frameSize * itemWidth;
-    const prevResolve = Math.abs(moveAfterPunch) > frameSize * itemWidth
+    const prevResolve = Math.abs(moveAfterPunch) > itemWidth
       && step <= images.length - frameSize;
 
     if (prevResolve) {
@@ -62,7 +62,7 @@ class Carousel extends React.Component<Props, State> {
     const firstPlace = 0;
     const lastPlace = images.length * itemWidth - frameSize * itemWidth;
     const nextResolve = Math.abs(moveAfterPunch)
-    < (lastPlace - frameSize * itemWidth) && step <= images.length - frameSize;
+    < (lastPlace - itemWidth) && step <= images.length - frameSize;
 
     if (nextResolve) {
       this.setState({
