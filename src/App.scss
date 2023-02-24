@@ -3,12 +3,13 @@
   width: 80%;
 
   &__settings {
-    padding: 10px;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     align-items: baseline;
     gap: 20px;
+
+    padding: 10px;
     margin-top: 10px;
   }
 
