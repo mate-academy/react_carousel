@@ -41,37 +41,30 @@ class Carousel extends React.Component<Props, State> {
       gap,
       step,
       infinite,
+      frameSize,
     } = this.state;
 
     if (infinite === true) {
       this.setState({ movedDistance: 0 });
     }
 
-    if (movedDistance < ((imagesAmount - step) * (itemWidth + gap))) {
-      const newMovedDistance = movedDistance
-        + (itemWidth + gap) * step;
-      const leftWidth = ((imagesAmount) * (itemWidth + gap))
-      - newMovedDistance;
+    const totalWidth = imagesAmount * itemWidth;
 
-      switch (leftWidth) {
-        case (itemWidth + gap):
-          this.setState(
-            { movedDistance: movedDistance + itemWidth + gap },
-          );
-          break;
-        case ((itemWidth + gap) * (step - 1)):
-          this.setState(
-            {
-              movedDistance: movedDistance + (itemWidth + gap) * (step - 1),
-            },
-          );
-          break;
-        default:
-          this.setState(
-            {
-              movedDistance: movedDistance + (itemWidth + gap) * step,
-            },
-          );
+    if ((movedDistance + frameSize * itemWidth)
+      < (imagesAmount * itemWidth)) {
+      const leftWidth = (totalWidth - (movedDistance
+        + (frameSize * itemWidth)));
+
+      if ((leftWidth <= itemWidth * step + gap)) {
+        this.setState(
+          { movedDistance: movedDistance + leftWidth },
+        );
+      } else {
+        this.setState(
+          {
+            movedDistance: movedDistance + (itemWidth + gap) * step,
+          },
+        );
       }
     }
   };
@@ -84,37 +77,22 @@ class Carousel extends React.Component<Props, State> {
       gap,
       step,
       infinite,
+      frameSize,
     } = this.state;
 
+    const totalWidth = imagesAmount * itemWidth;
+    const leftWidth = (totalWidth - (frameSize * itemWidth));
+
     if (infinite === true) {
+      this.setState({ movedDistance: leftWidth });
+    } else if (movedDistance >= ((itemWidth + gap) * step)) {
       this.setState({
-        movedDistance: (imagesAmount - step)
-        * (itemWidth + gap),
+        movedDistance: movedDistance - (itemWidth + gap) * step,
       });
-    }
-
-    if (movedDistance >= (itemWidth + gap)) {
-      const newMovedDistance = movedDistance
-      + (itemWidth + gap) * step;
-      const leftWidth = newMovedDistance - ((itemWidth + gap)
-      * step);
-
-      switch (leftWidth) {
-        case itemWidth + gap:
-          this.setState({ movedDistance: movedDistance - itemWidth - gap });
-          break;
-        case ((itemWidth + gap) * (step - 1)):
-          this.setState(
-            {
-              movedDistance: movedDistance - (itemWidth + gap) * (step - 1),
-            },
-          );
-          break;
-        default:
-          this.setState({
-            movedDistance: movedDistance - (itemWidth + gap) * step,
-          });
-      }
+    } else {
+      this.setState({
+        movedDistance: movedDistance - movedDistance,
+      });
     }
   };
 
@@ -174,7 +152,7 @@ class Carousel extends React.Component<Props, State> {
 
           <button
             data-cy="next"
-            disabled={movedDistance >= ((imagesAmount - 3)
+            disabled={movedDistance >= ((imagesAmount - frameSize)
               * (itemWidth + gap)) && infinite === false}
             className="Carousel__button Carousel__button--next"
             type="button"
@@ -219,8 +197,8 @@ class Carousel extends React.Component<Props, State> {
               className="Carousel__form__input"
               type="number"
               value={itemWidth}
-              min="50"
-              max="150"
+              min="110"
+              max="200"
               step="10"
               onChange={(e) => {
                 this.setState({ itemWidth: +e.target.value });
@@ -244,7 +222,7 @@ class Carousel extends React.Component<Props, State> {
           <label className="Carousel__form__label">
             {'Infinite: '}
             <input
-              className="Carousel__form__input"
+              className="Carousel__form__input Carousel__form__input--checkbox"
               type="checkbox"
               onClick={() => {
                 if (infinite === false) {

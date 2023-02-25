@@ -45,24 +45,37 @@
   }
 
   &__form {
+    position: absolute;
     background-color: rgba(255, 174, 0, 0.59);
-    padding: 20px;
+    padding: 25px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    left: 20px;
-    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     width: max-content;
     margin: 50px auto 0;
 
     &__label {
+      font-size: 16px;
       margin-bottom: 5px;
       font-weight: bold;
     }
 
     &__input {
+      height: 30px;
+      font-size: 16px;
       border: none;
       border-radius: 2px;
+
+      &--checkbox {
+        width: 25px;
+        vertical-align: middle;
+
+        &:checked {
+          accent-color: green;
+        }
+      }
     }
   }
 }
