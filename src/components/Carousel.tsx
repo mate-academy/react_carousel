@@ -103,18 +103,6 @@ class Carousel extends React.Component<Props, State> {
     }
   };
 
-  eventFocus = (event: React.FocusEvent<HTMLInputElement, Element>,
-    mark: number | undefined) => {
-    if (mark) {
-      // eslint-disable-next-line no-param-reassign
-      event.currentTarget.value = mark.toString();
-    }
-  };
-
-  eventBlur = () => {
-    this.setState({ step: undefined });
-  };
-
   render(): React.ReactNode {
     const {
       step,
@@ -177,10 +165,6 @@ class Carousel extends React.Component<Props, State> {
                 onChange={(event => {
                   this.handleEventClick(event, 'step');
                 })}
-                onFocus={(event) => {
-                  this.eventFocus(event, step);
-                }}
-                onBlur={this.eventBlur}
               />
             </label>
 
@@ -209,10 +193,6 @@ class Carousel extends React.Component<Props, State> {
                 onChange={(event => {
                   this.handleEventClick(event, 'itemWidth');
                 })}
-                onFocus={(event) => {
-                  this.eventFocus(event, itemWidth);
-                }}
-                onBlur={this.eventBlur}
               />
             </label>
             <input
@@ -240,10 +220,6 @@ class Carousel extends React.Component<Props, State> {
                 onChange={(event => {
                   this.handleEventClick(event, 'frameSize');
                 })}
-                onFocus={(event) => {
-                  this.eventFocus(event, frameSize);
-                }}
-                onBlur={this.eventBlur}
               />
             </label>
 
@@ -272,10 +248,6 @@ class Carousel extends React.Component<Props, State> {
                 onChange={(event => {
                   this.handleEventClick(event, 'animationDuration');
                 })}
-                onFocus={(event) => {
-                  this.eventFocus(event, animationDuration);
-                }}
-                onBlur={this.eventBlur}
               />
             </label>
 
