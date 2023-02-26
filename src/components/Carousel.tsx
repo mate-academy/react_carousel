@@ -26,7 +26,7 @@ class Carousel extends React.Component<Props, State> {
     imagesAmount: this.props.images.length,
     itemWidth: this.props.itemWidth,
     movedDistance: 0,
-    gap: 0,
+    gap: 5,
     step: this.props.step,
     frameSize: this.props.frameSize,
     animationDuration: this.props.animationDuration,
@@ -48,14 +48,14 @@ class Carousel extends React.Component<Props, State> {
       this.setState({ movedDistance: 0 });
     }
 
-    const totalWidth = imagesAmount * itemWidth;
+    const totalWidth = imagesAmount * (itemWidth + gap);
 
-    if ((movedDistance + frameSize * itemWidth)
-      < (imagesAmount * itemWidth)) {
+    if ((movedDistance + frameSize * (itemWidth + gap))
+      < (imagesAmount * (itemWidth + gap))) {
       const leftWidth = (totalWidth - (movedDistance
-        + (frameSize * itemWidth)));
+        + (frameSize * (itemWidth + gap))));
 
-      if ((leftWidth <= itemWidth * step + gap)) {
+      if ((leftWidth <= (itemWidth + gap) * step)) {
         this.setState(
           { movedDistance: movedDistance + leftWidth },
         );
@@ -80,12 +80,7 @@ class Carousel extends React.Component<Props, State> {
       frameSize,
     } = this.state;
 
-    const totalWidth = imagesAmount * itemWidth;
-    const leftWidth = (totalWidth - (frameSize * itemWidth));
-
-    if (infinite === true) {
-      this.setState({ movedDistance: leftWidth });
-    } else if (movedDistance >= ((itemWidth + gap) * step)) {
+    if (movedDistance >= ((itemWidth + gap) * step)) {
       this.setState({
         movedDistance: movedDistance - (itemWidth + gap) * step,
       });
@@ -93,6 +88,13 @@ class Carousel extends React.Component<Props, State> {
       this.setState({
         movedDistance: movedDistance - movedDistance,
       });
+    }
+
+    const totalWidth = imagesAmount * (itemWidth + gap);
+    const leftWidth = (totalWidth - (frameSize * (itemWidth + gap)));
+
+    if ((infinite === true) && movedDistance === 0) {
+      this.setState({ movedDistance: leftWidth });
     }
   };
 
