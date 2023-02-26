@@ -26,7 +26,7 @@ class Carousel extends React.Component<Props, State> {
     imagesAmount: this.props.images.length,
     itemWidth: this.props.itemWidth,
     movedDistance: 0,
-    gap: 5,
+    gap: 0,
     step: this.props.step,
     frameSize: this.props.frameSize,
     animationDuration: this.props.animationDuration,
@@ -199,7 +199,7 @@ class Carousel extends React.Component<Props, State> {
               className="Carousel__form__input"
               type="number"
               value={itemWidth}
-              min="110"
+              min="50"
               max="200"
               step="10"
               onChange={(e) => {
