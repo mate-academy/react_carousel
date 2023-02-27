@@ -1,3 +1,5 @@
+@import "../utilities/variables.scss";
+
 .Carousel {
   overflow: hidden;
   margin: 0 auto;
@@ -18,7 +20,7 @@
   }
 
   &__button {
-    background-color: rgba(255, 174, 0, 0.59);
+    background-color: $mainColor;
     border: none;
     padding: 12px;
     border-radius: 5px;
@@ -46,7 +48,7 @@
 
   &__form {
     position: absolute;
-    background-color: rgba(255, 174, 0, 0.59);
+    background-color: $mainColor;
     padding: 25px;
     border-radius: 5px;
     display: flex;

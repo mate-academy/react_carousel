@@ -44,7 +44,7 @@ class Carousel extends React.Component<Props, State> {
       frameSize,
     } = this.state;
 
-    if (infinite === true) {
+    if (infinite) {
       this.setState({ movedDistance: 0 });
     }
 
@@ -93,7 +93,7 @@ class Carousel extends React.Component<Props, State> {
     const totalWidth = imagesAmount * (itemWidth + gap);
     const leftWidth = (totalWidth - (frameSize * (itemWidth + gap)));
 
-    if ((infinite === true) && movedDistance === 0) {
+    if (infinite && movedDistance === 0) {
       this.setState({ movedDistance: leftWidth });
     }
   };
@@ -110,6 +110,9 @@ class Carousel extends React.Component<Props, State> {
       animationDuration,
       infinite,
     } = this.state;
+
+    const lastFrameSizeWidth = ((imagesAmount - frameSize)
+      * (itemWidth + gap));
 
     const listStyle = {
       transform: `translateX(${-movedDistance}px`,
@@ -154,8 +157,8 @@ class Carousel extends React.Component<Props, State> {
 
           <button
             data-cy="next"
-            disabled={movedDistance >= ((imagesAmount - frameSize)
-              * (itemWidth + gap)) && infinite === false}
+            disabled={movedDistance >= lastFrameSizeWidth
+              && infinite === false}
             className="Carousel__button Carousel__button--next"
             type="button"
             onClick={this.handleImagesNext}
@@ -226,12 +229,9 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input Carousel__form__input--checkbox"
               type="checkbox"
-              onClick={() => {
-                if (infinite === false) {
-                  this.setState({ infinite: true });
-                } else {
-                  this.setState({ infinite: false });
-                }
+              checked={infinite}
+              onChange={() => {
+                this.setState({ infinite: !infinite });
               }}
             />
           </label>
