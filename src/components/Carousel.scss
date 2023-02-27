@@ -1,1 +1,73 @@
-// style go here
+.Carousel {
+  width: 1300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    width: 260px;
+    padding-left: 0;
+  }
+
+  &_window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+       
+    overflow: hidden;
+  }
+
+  &_controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+  }
+
+  &_options {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 20px 20px 0;
+    border-radius: 5px;
+
+    background-color: #8593f0;
+  }
+
+  &_input {
+    width: 50%;
+    height: 35px;
+    padding-left: 15px;
+    font-size: 25px;
+    border-radius: 5px;
+    border: none;
+
+    background-color: #fac4c4;
+    outline: none;
+  }
+
+  &_label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+  }
+
+  &_btn {
+    padding: 20px;
+    cursor: pointer;
+    transition: 1000ms;
+    border: 1px solid rgb(64, 23, 244);
+    
+    &:hover {
+      background-color: #8593f0;
+      border: 1px solid whitesmoke;
+    }
+  }
+
+}

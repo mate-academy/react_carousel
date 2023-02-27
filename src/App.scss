@@ -1,1 +1,10 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
