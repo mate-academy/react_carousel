@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, ChangeEvent } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -21,7 +21,7 @@ type State = {
   infinite: boolean,
 };
 
-class Carousel extends React.Component<Props, State> {
+class Carousel extends Component<Props, State> {
   state = {
     imagesAmount: this.props.images.length,
     itemWidth: this.props.itemWidth,
@@ -49,20 +49,21 @@ class Carousel extends React.Component<Props, State> {
     }
 
     const totalWidth = imagesAmount * (itemWidth + gap);
+    const frameWidth = frameSize * (itemWidth + gap);
+    const movementWidth = (itemWidth + gap) * step;
 
-    if ((movedDistance + frameSize * (itemWidth + gap))
-      < (imagesAmount * (itemWidth + gap))) {
+    if ((movedDistance + frameWidth) < totalWidth) {
       const leftWidth = (totalWidth - (movedDistance
-        + (frameSize * (itemWidth + gap))));
+        + frameWidth));
 
-      if ((leftWidth <= (itemWidth + gap) * step)) {
+      if (leftWidth <= movementWidth) {
         this.setState(
           { movedDistance: movedDistance + leftWidth },
         );
       } else {
         this.setState(
           {
-            movedDistance: movedDistance + (itemWidth + gap) * step,
+            movedDistance: movedDistance + movementWidth,
           },
         );
       }
@@ -80,9 +81,13 @@ class Carousel extends React.Component<Props, State> {
       frameSize,
     } = this.state;
 
+    const totalWidth = imagesAmount * (itemWidth + gap);
+    const frameWidth = frameSize * (itemWidth + gap);
+    const movementWidth = (itemWidth + gap) * step;
+
     if (movedDistance >= ((itemWidth + gap) * step)) {
       this.setState({
-        movedDistance: movedDistance - (itemWidth + gap) * step,
+        movedDistance: movedDistance - movementWidth,
       });
     } else {
       this.setState({
@@ -90,11 +95,35 @@ class Carousel extends React.Component<Props, State> {
       });
     }
 
-    const totalWidth = imagesAmount * (itemWidth + gap);
-    const leftWidth = (totalWidth - (frameSize * (itemWidth + gap)));
+    const leftWidth = (totalWidth - frameWidth);
 
     if (infinite && movedDistance === 0) {
       this.setState({ movedDistance: leftWidth });
+    }
+  };
+
+  changeValueHandler = (ev: ChangeEvent<HTMLInputElement>) => {
+    const { infinite } = this.state;
+    const { target } = ev;
+    const { name, value } = target;
+
+    switch (name) {
+      case 'step':
+        this.setState({ step: +value });
+        break;
+      case 'frameSize':
+        this.setState({ frameSize: +value });
+        break;
+      case 'imageSize':
+        this.setState({ frameSize: +value });
+        break;
+      case 'moutionSpeed':
+        this.setState({ frameSize: +value });
+        break;
+      case 'infinite':
+        this.setState({ infinite: !infinite });
+        break;
+      default:
     }
   };
 
@@ -137,7 +166,7 @@ class Carousel extends React.Component<Props, State> {
               >
                 <img
                   src={image}
-                  alt={`${index + 1}`}
+                  alt={`img ${index + 1}`}
                   width={`${itemWidth}`}
                 />
               </li>
@@ -147,7 +176,7 @@ class Carousel extends React.Component<Props, State> {
 
         <div className="Carousel__buttons">
           <button
-            disabled={movedDistance === 0 && infinite === false}
+            disabled={!movedDistance && !infinite}
             className="Carousel__button Carousel__button--prev"
             type="button"
             onClick={this.handleImagesPrev}
@@ -157,8 +186,7 @@ class Carousel extends React.Component<Props, State> {
 
           <button
             data-cy="next"
-            disabled={movedDistance >= lastFrameSizeWidth
-              && infinite === false}
+            disabled={movedDistance >= lastFrameSizeWidth && !infinite}
             className="Carousel__button Carousel__button--next"
             type="button"
             onClick={this.handleImagesNext}
@@ -173,13 +201,12 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input"
               type="number"
+              name="step"
               value={step}
               min="1"
               max="5"
               step="1"
-              onChange={(e) => {
-                this.setState({ step: +e.target.value });
-              }}
+              onChange={this.changeValueHandler}
             />
           </label>
           <label className="Carousel__form__label">
@@ -187,13 +214,12 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input"
               type="number"
+              name="frameSize"
               value={frameSize}
               min="2"
               max="5"
               step="1"
-              onChange={(e) => {
-                this.setState({ frameSize: +e.target.value });
-              }}
+              onChange={this.changeValueHandler}
             />
           </label>
           <label className="Carousel__form__label">
@@ -201,13 +227,12 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input"
               type="number"
+              name="imageSize"
               value={itemWidth}
               min="50"
               max="200"
               step="10"
-              onChange={(e) => {
-                this.setState({ itemWidth: +e.target.value });
-              }}
+              onChange={this.changeValueHandler}
             />
           </label>
           <label className="Carousel__form__label">
@@ -215,13 +240,12 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input"
               type="number"
+              name="moutionSpeed"
               value={animationDuration}
               min="300"
               max="3000"
               step="100"
-              onChange={(e) => {
-                this.setState({ animationDuration: +e.target.value });
-              }}
+              onChange={this.changeValueHandler}
             />
           </label>
           <label className="Carousel__form__label">
@@ -229,10 +253,9 @@ class Carousel extends React.Component<Props, State> {
             <input
               className="Carousel__form__input Carousel__form__input--checkbox"
               type="checkbox"
+              name="infinite"
               checked={infinite}
-              onChange={() => {
-                this.setState({ infinite: !infinite });
-              }}
+              onChange={this.changeValueHandler}
             />
           </label>
 
