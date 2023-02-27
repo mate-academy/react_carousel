@@ -1,0 +1,54 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__button {
+    margin: 10px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    display: inline;
+    border: 0;
+    font-weight: 700;
+    box-shadow: 0 0 14px -7px #f09819;
+    background-image: linear-gradient(
+      45deg, #ff512f 0%, #f09819 51%, #ff512f 100%);
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-position: right center;
+    }
+
+    &:disabled {
+      box-shadow: 0 0 14px -7px #f9d9ac;
+      background-image: linear-gradient(
+        45deg, #fba 0%, #fee4c0 51%, #fba 100%);
+      cursor: auto;
+
+      &:hover {
+        background-position: initial;
+      }
+    }
+  }
+}
