@@ -1,1 +1,13 @@
-// style go here
+.Carousel {
+  text-align: center;
+  overflow: hidden;
+  margin: auto;
+  margin-bottom: 20px;
+
+  &__list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+  }
+}

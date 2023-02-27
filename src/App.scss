@@ -1,1 +1,18 @@
-// style go here
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  width: 320px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid black;
+
+  input {
+    margin-right: 10px;
+  }
+}
