@@ -94,10 +94,11 @@ class App extends React.Component<{}, State> {
         />
 
         <div className="form">
-          <label htmlFor="ItemWidth">
+          <label htmlFor="itemId">
             <input
               type="number"
-              id="ItemWidth"
+              min={0}
+              id="itemId"
               defaultValue={itemWidth}
               onChange={(event) => (
                 this.handlePropsCarousel(
@@ -109,11 +110,12 @@ class App extends React.Component<{}, State> {
             <span>slide width in px</span>
           </label>
 
-          <label htmlFor="FrameSize">
+          <label htmlFor="frameId">
             <input
               defaultValue={frameSize}
               type="number"
-              id="FrameSize"
+              min={1}
+              id="frameId"
               onChange={(event) => (
                 this.handlePropsCarousel(
                   'frameSize',
@@ -124,11 +126,12 @@ class App extends React.Component<{}, State> {
             <span>slide frame Size</span>
           </label>
 
-          <label htmlFor="step">
+          <label htmlFor="stepId">
             <input
               defaultValue={step}
               type="number"
-              id="step"
+              min={1}
+              id="stepId"
               onChange={(event) => (
                 this.handlePropsCarousel(
                   'step',
@@ -139,11 +142,12 @@ class App extends React.Component<{}, State> {
             <span>slide step</span>
           </label>
 
-          <label htmlFor="animationDuration">
+          <label htmlFor="animationId">
             <input
               defaultValue={animationDuration}
               type="number"
-              id="animationDuration"
+              min={0}
+              id="animationId"
               onChange={(event) => (
                 this.handlePropsCarousel(
                   'animationDuration',

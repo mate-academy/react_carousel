@@ -3,6 +3,7 @@ import './Carousel.scss';
 
 type State = {
   offset: number,
+  itemShift: number,
 };
 
 type Props = {
@@ -17,7 +18,36 @@ type Props = {
 export class Carousel extends React.Component<Props, State> {
   state: Readonly<State> = {
     offset: 0,
+    itemShift: 0,
   };
+
+  componentDidUpdate(prevProps: Props) {
+    const {
+      itemWidth,
+      frameSize,
+      images,
+    } = this.props;
+    const { offset, itemShift } = this.state;
+
+    if (offset > 0) {
+      if (itemWidth !== prevProps.itemWidth) {
+        this.setState({
+          offset: itemWidth * itemShift,
+        });
+      }
+    }
+
+    if (frameSize > prevProps.frameSize) {
+      this.handleScroll(
+        0,
+        itemWidth,
+        'next',
+        images.length,
+        frameSize,
+        false,
+      );
+    }
+  }
 
   handleScroll = (
     step: number,
@@ -28,10 +58,10 @@ export class Carousel extends React.Component<Props, State> {
     infinite: boolean,
   ) => {
     const prevOffset = this.state.offset;
+    const prevSteps = this.state.itemShift;
     const scroll = step * itemWidth;
     const frameWidth = frameSize * itemWidth;
     const maxWidthSlides = imagesLength * itemWidth;
-
     const lastSlides = maxWidthSlides - frameWidth;
     let newOffset = (direction === 'next'
       ? (
@@ -39,6 +69,21 @@ export class Carousel extends React.Component<Props, State> {
       ) : (
         prevOffset - scroll
       ));
+    // sarting
+    let countSteps = (direction === 'next'
+      ? (
+        prevSteps + step
+      ) : (
+        prevSteps - step
+      ));
+
+    if (countSteps < 0) {
+      countSteps = 0;
+    }
+
+    if (countSteps > imagesLength - frameSize) {
+      countSteps = imagesLength - frameSize;
+    }
 
     if (infinite) {
       if (newOffset >= maxWidthSlides) {
@@ -60,11 +105,12 @@ export class Carousel extends React.Component<Props, State> {
 
     this.setState({
       offset: newOffset,
+      itemShift: countSteps,
     });
   };
 
   render() {
-    const { offset } = this.state;
+    const { offset, itemShift } = this.state;
     const {
       images,
       itemWidth,
@@ -101,37 +147,47 @@ export class Carousel extends React.Component<Props, State> {
           ))}
         </ul>
 
-        <button
-          type="button"
-          onClick={() => {
-            this.handleScroll(
-              step,
-              itemWidth,
-              'prev',
-              images.length,
-              frameSize,
-              infinite,
-            );
-          }}
-        >
-          Prev
-        </button>
-        <button
-          data-cy="next"
-          type="button"
-          onClick={() => {
-            this.handleScroll(
-              step,
-              itemWidth,
-              'next',
-              images.length,
-              frameSize,
-              infinite,
-            );
-          }}
-        >
-          Next
-        </button>
+        <div className="containerBtn">
+          <button
+            type="button"
+            className="button prev"
+            onClick={() => {
+              this.handleScroll(
+                step,
+                itemWidth,
+                'prev',
+                images.length,
+                frameSize,
+                infinite,
+              );
+            }}
+            disabled={
+              itemShift === 0 && true
+            }
+          >
+            ⇚
+          </button>
+          <button
+            data-cy="next"
+            type="button"
+            className="button next"
+            onClick={() => {
+              this.handleScroll(
+                step,
+                itemWidth,
+                'next',
+                images.length,
+                frameSize,
+                infinite,
+              );
+            }}
+            disabled={
+              (itemShift === images.length - frameSize) && true
+            }
+          >
+            ⇛
+          </button>
+        </div>
       </div>
     );
   }
