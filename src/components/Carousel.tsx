@@ -115,10 +115,10 @@ class Carousel extends Component<Props, State> {
         this.setState({ frameSize: +value });
         break;
       case 'imageSize':
-        this.setState({ frameSize: +value });
+        this.setState({ itemWidth: +value });
         break;
       case 'moutionSpeed':
-        this.setState({ frameSize: +value });
+        this.setState({ animationDuration: +value });
         break;
       case 'infinite':
         this.setState({ infinite: !infinite });
