@@ -1,1 +1,13 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
+.App {
+  font-family: "Roboto Slab", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 56px;
+    margin-bottom: 50px;
+  }
+}
