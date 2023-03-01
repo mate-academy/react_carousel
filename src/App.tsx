@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import './App.scss';
 import './components/Form.scss';
@@ -34,20 +35,15 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  setStep = (newValue: string) => {
-    this.setState({ step: +newValue });
-  };
+  handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { name, value } = e.target;
 
-  setFrameSize = (newValue: string) => {
-    this.setState({ frameSize: +newValue });
-  };
-
-  setItemWidth = (newValue: string) => {
-    this.setState({ itemWidth: +newValue });
-  };
-
-  setAnimationDuration = (newValue: string) => {
-    this.setState({ animationDuration: +newValue });
+    this.setState(state => ({
+      ...state,
+      [name]: value,
+    }));
   };
 
   setInfinite = () => {
@@ -90,25 +86,25 @@ class App extends React.Component<{}, State> {
             name="step"
             label="Step"
             value={step}
-            onChange={this.setStep}
+            onChange={this.handleChange}
           />
           <FormField
             name="frameSize"
             label="Frame Size"
             value={frameSize}
-            onChange={this.setFrameSize}
+            onChange={this.handleChange}
           />
           <FormField
             name="itemWidth"
             label="Item Width"
             value={itemWidth}
-            onChange={this.setItemWidth}
+            onChange={this.handleChange}
           />
           <FormField
             name="animationDuration"
             label="Animation Duration"
             value={animationDuration}
-            onChange={this.setAnimationDuration}
+            onChange={this.handleChange}
           />
           <label className="Form__field-checbox-text">
             Infinite:

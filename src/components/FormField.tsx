@@ -7,14 +7,14 @@ type Props = {
   name: string,
   value: number,
   label?: string,
-  onChange?: (newValue: string) => void,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
 };
 
 export const FormField: React.FC<Props> = ({
   name,
   value,
   label,
-  onChange = () => {},
+  onChange,
 }) => {
   const [id] = useState(`${name} - ${getRandomId}`);
 
@@ -26,11 +26,12 @@ export const FormField: React.FC<Props> = ({
 
       <div className="control">
         <input
+          name={name}
           className="Form__field-text"
           id={id}
           type="number"
           value={value}
-          onChange={event => onChange(event.target.value)}
+          onChange={onChange}
         />
       </div>
     </div>
