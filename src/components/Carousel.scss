@@ -38,6 +38,7 @@ img {
   background-color: #0495768d;
   border-radius: 50%;
   transition: all 0.3s;
+  cursor: pointer;
   &.prev:hover,
   &.next:hover {
     background-color: #60c20f8d;
@@ -55,5 +56,6 @@ img {
     background-color: #6363638d;
     border: 1px solid #696969c6;
     color: #d4d4d4;
+    cursor: default;
   }
 }

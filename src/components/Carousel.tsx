@@ -21,6 +21,10 @@ export class Carousel extends React.Component<Props, State> {
     itemShift: 0,
   };
 
+  endOfSlides = false;
+
+  startOfSlides = true;
+
   componentDidUpdate(prevProps: Props) {
     const {
       itemWidth,
@@ -57,19 +61,22 @@ export class Carousel extends React.Component<Props, State> {
     frameSize: number,
     infinite: boolean,
   ) => {
-    const prevOffset = this.state.offset;
-    const prevSteps = this.state.itemShift;
+    const {
+      offset: prevOffset,
+      itemShift: prevSteps,
+    } = this.state;
     const scroll = step * itemWidth;
     const frameWidth = frameSize * itemWidth;
     const maxWidthSlides = imagesLength * itemWidth;
     const lastSlides = maxWidthSlides - frameWidth;
+
     let newOffset = (direction === 'next'
       ? (
         prevOffset + scroll
       ) : (
         prevOffset - scroll
       ));
-    // sarting
+
     let countSteps = (direction === 'next'
       ? (
         prevSteps + step
@@ -85,15 +92,33 @@ export class Carousel extends React.Component<Props, State> {
       countSteps = imagesLength - frameSize;
     }
 
+    // infinite start
+
     if (infinite) {
-      if (newOffset >= maxWidthSlides) {
+      if (newOffset > lastSlides && this.endOfSlides) {
         newOffset = 0;
+        this.endOfSlides = false;
+        this.startOfSlides = true;
       }
 
-      if (newOffset < 0) {
+      if (newOffset >= lastSlides && !this.endOfSlides) {
         newOffset = lastSlides;
+        this.endOfSlides = true;
       }
-    } else {
+
+      if (newOffset < 0 && this.startOfSlides) {
+        newOffset = lastSlides;
+        this.startOfSlides = false;
+        this.endOfSlides = true;
+      }
+
+      if (newOffset <= 0 && !this.startOfSlides) {
+        newOffset = 0;
+        this.startOfSlides = true;
+      }
+    }
+
+    if (!infinite) {
       if (newOffset >= lastSlides) {
         newOffset = lastSlides;
       }
@@ -140,7 +165,7 @@ export class Carousel extends React.Component<Props, State> {
             <li key={image}>
               <img
                 src={image}
-                alt={(index + 1).toString()}
+                alt={`slide ${index + 1}`}
                 width={itemWidth}
               />
             </li>
@@ -162,7 +187,11 @@ export class Carousel extends React.Component<Props, State> {
               );
             }}
             disabled={
-              itemShift === 0 && true
+              (
+                infinite
+                  ? false
+                  : itemShift === 0
+              )
             }
           >
             ⇚
@@ -182,7 +211,11 @@ export class Carousel extends React.Component<Props, State> {
               );
             }}
             disabled={
-              (itemShift === images.length - frameSize) && true
+              (
+                infinite
+                  ? false
+                  : (itemShift === images.length - frameSize)
+              )
             }
           >
             ⇛

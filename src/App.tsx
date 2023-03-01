@@ -11,13 +11,6 @@ interface State {
   infinite: boolean;
 }
 
-type PropCarousel = (
-  'itemWidth'
-  | 'frameSize'
-  | 'step'
-  | 'animationDuration'
-);
-
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -39,34 +32,20 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handlePropsCarousel = (property: PropCarousel, value: number) => {
-    switch (property) {
-      case 'itemWidth':
-        this.setState({
-          itemWidth: value,
-        });
-        break;
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState(state => (
+      {
+        ...state,
+        [event.target.name]: +event.target.value,
+      }));
+  };
 
-      case 'animationDuration':
-        this.setState({
-          animationDuration: value,
-        });
-        break;
-
-      case 'frameSize':
-        this.setState({
-          frameSize: value,
-        });
-        break;
-
-      case 'step':
-        this.setState({
-          step: value,
-        });
-        break;
-      default:
-        break;
-    }
+  handleChangeInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState(state => (
+      {
+        ...state,
+        [event.target.name]: event.target.checked,
+      }));
   };
 
   render() {
@@ -99,12 +78,10 @@ class App extends React.Component<{}, State> {
               type="number"
               min={0}
               id="itemId"
-              defaultValue={itemWidth}
+              value={itemWidth}
+              name="itemWidth"
               onChange={(event) => (
-                this.handlePropsCarousel(
-                  'itemWidth',
-                  +event.target.value,
-                )
+                this.handleChange(event)
               )}
             />
             <span>slide width in px</span>
@@ -112,15 +89,13 @@ class App extends React.Component<{}, State> {
 
           <label htmlFor="frameId">
             <input
-              defaultValue={frameSize}
+              value={frameSize}
               type="number"
               min={1}
               id="frameId"
+              name="frameSize"
               onChange={(event) => (
-                this.handlePropsCarousel(
-                  'frameSize',
-                  +event.target.value,
-                )
+                this.handleChange(event)
               )}
             />
             <span>slide frame Size</span>
@@ -128,15 +103,13 @@ class App extends React.Component<{}, State> {
 
           <label htmlFor="stepId">
             <input
-              defaultValue={step}
+              value={step}
               type="number"
               min={1}
               id="stepId"
+              name="step"
               onChange={(event) => (
-                this.handlePropsCarousel(
-                  'step',
-                  +event.target.value,
-                )
+                this.handleChange(event)
               )}
             />
             <span>slide step</span>
@@ -144,18 +117,29 @@ class App extends React.Component<{}, State> {
 
           <label htmlFor="animationId">
             <input
-              defaultValue={animationDuration}
+              value={animationDuration}
+              name="animationDuration"
               type="number"
               min={0}
               id="animationId"
               onChange={(event) => (
-                this.handlePropsCarousel(
-                  'animationDuration',
-                  +event.target.value,
-                )
+                this.handleChange(event)
               )}
             />
             <span>slide animation time</span>
+          </label>
+
+          <label htmlFor="infinite">
+            <input
+              type="checkbox"
+              name="infinite"
+              defaultChecked={false}
+              id="infinite"
+              onChange={(event) => (
+                this.handleChangeInfinite(event)
+              )}
+            />
+            <span>infinite slides</span>
           </label>
 
         </div>
