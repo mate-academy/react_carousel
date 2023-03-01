@@ -1,1 +1,49 @@
-// style go here
+.container {
+  width: 260px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+  }
+
+  &__button {
+    width: 55px;
+    height: 60px;
+    border: none;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    &--prev {
+      background-image: url("../images/Polygon\ 3.png");
+      margin-right: 25px;
+
+      &-disabled {
+        background-image: url("../images/Polygon\ 1.png");
+        margin-right: 25px;
+      }
+    }
+
+    &--next {
+      background-image: url("../images/Polygon\ 3.png");
+      transform: rotate(180deg);
+
+      &-disabled {
+        background-image: url("../images/Polygon\ 1.png");
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
