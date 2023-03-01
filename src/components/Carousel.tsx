@@ -30,6 +30,7 @@ export class Carousel extends React.Component<Props, State> {
       itemWidth,
       frameSize,
       images,
+      infinite,
     } = this.props;
     const { offset, itemShift } = this.state;
 
@@ -50,6 +51,13 @@ export class Carousel extends React.Component<Props, State> {
         frameSize,
         false,
       );
+    }
+
+    if (infinite !== prevProps.infinite) {
+      this.setState({
+        offset: 0,
+        itemShift: 0,
+      });
     }
   }
 
@@ -121,10 +129,12 @@ export class Carousel extends React.Component<Props, State> {
     if (!infinite) {
       if (newOffset >= lastSlides) {
         newOffset = lastSlides;
+        this.startOfSlides = true;
       }
 
       if (newOffset < 0) {
         newOffset = 0;
+        this.endOfSlides = false;
       }
     }
 
