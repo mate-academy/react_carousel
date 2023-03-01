@@ -1,1 +1,33 @@
-// style go here
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  width: 320px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+  border: 2px solid #c27a0c;
+  border-radius: 10px;
+
+  label {
+    font-size: 20px;
+    display: flex;
+    padding-bottom: 10px;
+    align-items: center;
+  }
+  label:last-child {
+    padding-bottom: 0;
+  }
+
+  input {
+    border-radius: 14px;
+    text-align: center;
+    width: 80px;
+    font-size: inherit;
+    border: 2px solid #c27a0c;
+    margin-right: 40px;
+  }
+}

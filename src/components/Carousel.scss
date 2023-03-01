@@ -1,1 +1,61 @@
-// style go here
+.Carousel {
+  text-align: center;
+  overflow: hidden;
+  margin: auto;
+  margin-bottom: 20px;
+
+  &__list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+  }
+}
+
+img {
+  display: block;
+}
+
+.containerBtn {
+  display: flex;
+  justify-content: space-between;
+  max-width: 390px;
+  align-items: center;
+  margin: auto;
+}
+
+.button {
+  position: relative;
+  padding: 4px;
+  border: 1px solid transparent;
+  color: #242424;
+  font-size: 22px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #0495768d;
+  border-radius: 50%;
+  transition: all 0.3s;
+  cursor: pointer;
+  &.prev:hover,
+  &.next:hover {
+    background-color: #60c20f8d;
+    border: 1px solid #60c20f8d;
+    color: aliceblue;
+  }
+  &.prev:active,
+  &.next:active {
+    background-color: #12eb1d8d;
+    border: 1px solid #68d212c6;
+    color: #242424;
+  }
+  &.prev:disabled,
+  &.next:disabled {
+    background-color: #6363638d;
+    border: 1px solid #696969c6;
+    color: #d4d4d4;
+    cursor: default;
+  }
+}
