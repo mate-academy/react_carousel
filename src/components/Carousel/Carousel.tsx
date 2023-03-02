@@ -69,6 +69,23 @@ class Carousel extends Component<Props, State> {
     }
   };
 
+  // limit = (
+  //   prop: State,
+  //   target: HTMLInputElement,
+  //   min: number,
+  //   max: number,
+  // ) => {
+  //   const { value } = target;
+
+  //   if (+value < min) {
+  //     this.setState({ [prop]: min });
+  //   } else if (+value > max) {
+  //     this.setState({ [prop]: max });
+  //   } else {
+  //     this.setState({ [prop]: +value });
+  //   }
+  // };
+
   render() {
     const { frameSize, itemWidth, coordX, animationDuration } = this.state;
     const { images } = this.props;
@@ -122,11 +139,14 @@ class Carousel extends Component<Props, State> {
         <br />
 
         <input
+          min={100}
+          max={300}
+          defaultValue={130}
           type="number"
           placeholder="Width of item"
           className="Carousel__input"
           onChange={(e) => {
-            this.setState({ itemWidth: +e.target.value });
+            // this.limit('itemWidth', e.target, 100, 300);
           }}
         />
 
