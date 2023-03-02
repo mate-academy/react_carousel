@@ -12,6 +12,7 @@ type Props = {
 };
 
 type State = {
+  isFinite: boolean
   itemWidth: number,
   frameSize: number,
   step: number,
@@ -21,6 +22,7 @@ type State = {
 
 class Carousel extends Component<Props, State> {
   state: State = {
+    isFinite: this.props.isFiniteCarousel,
     itemWidth: this.props.itemWidth,
     frameSize: this.props.frameSize,
     step: this.props.step,
@@ -28,16 +30,16 @@ class Carousel extends Component<Props, State> {
     coordX: 0,
   };
 
-  swipe = (direction: string) => {
-    const { isFiniteCarousel, images } = this.props;
-    const { coordX, itemWidth, frameSize, step } = this.state;
+  swipe = (direction: 'prev' | 'next') => {
+    const { images } = this.props;
+    const { coordX, itemWidth, frameSize, step, isFinite } = this.state;
     const frameWidth = images.length * itemWidth;
     const limit = frameWidth - frameSize * itemWidth;
     const oneStepWidth = step * itemWidth;
 
     switch (direction) {
       case 'next':
-        if (coordX === limit && isFiniteCarousel) {
+        if (coordX === limit && isFinite) {
           this.setState({ coordX: 0 });
         } else if (coordX + oneStepWidth >= limit) {
           this.setState({ coordX: limit });
@@ -50,7 +52,7 @@ class Carousel extends Component<Props, State> {
         break;
 
       case 'prev':
-        if (coordX === 0 && isFiniteCarousel) {
+        if (coordX === 0 && isFinite) {
           this.setState({ coordX: limit });
         } else if (coordX < oneStepWidth) {
           this.setState({ coordX: 0 });
@@ -89,7 +91,7 @@ class Carousel extends Component<Props, State> {
                 <img
                   src={image}
                   alt="1"
-                  style={{ width: `${itemWidth}px` }}
+                  style={{ width: itemWidth }}
                 />
               </li>
             ))}
@@ -154,6 +156,18 @@ class Carousel extends Component<Props, State> {
             this.setState({ animationDuration: +e.target.value });
           }}
         />
+
+        <label htmlFor="">
+          Do you wanna make me infinite?
+          <input
+            type="checkbox"
+            placeholder="Animation duration"
+            className="Carousel__input"
+            onChange={(e) => {
+              this.setState({ isFinite: e.target.checked });
+            }}
+          />
+        </label>
       </>
     );
   }
