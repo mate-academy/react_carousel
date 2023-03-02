@@ -157,7 +157,7 @@ class Carousel extends Component<Props, State> {
           }}
         />
 
-        <label htmlFor="">
+        <label>
           Do you wanna make me infinite?
           <input
             type="checkbox"
