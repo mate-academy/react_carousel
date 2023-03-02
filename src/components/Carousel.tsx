@@ -1,5 +1,6 @@
 import React from 'react';
 import './Carousel.scss';
+import { entryData } from './enrtyData';
 
 type Props = {
   images: string[];
@@ -16,15 +17,7 @@ type State = {
 };
 
 export class Carousel extends React.Component<Props, State> {
-  state = {
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    initPosition: 0,
-    disabledNext: false,
-    disabledPrev: false,
-  };
+  state = entryData;
 
   moveLeft = () => {
     const {
@@ -131,41 +124,42 @@ export class Carousel extends React.Component<Props, State> {
               type="button"
               onClick={this.moveLeft}
               disabled={disabledNext}
+              data-cy="next"
             >
               Next
             </button>
           </div>
         </div>
         <div className="Carousel_options">
-          <label htmlFor="input_width" className="Carousel_label">
+          <label htmlFor="itemId" className="Carousel_label">
             Item Width:
             <input
               className="Carousel_input"
               type="number"
-              id="input_width"
+              id="itemId"
               name="input_width"
               onChange={this.changeItemWidth}
               value={itemWidth}
               min={130}
             />
           </label>
-          <label htmlFor="frame_size" className="Carousel_label">
+          <label htmlFor="frameId" className="Carousel_label">
             Frame Size:
             <input
               className="Carousel_input"
               type="number"
-              id="frame_size"
+              id="frameId"
               onChange={this.changeFrameSize}
               value={frameSize}
               min={1}
             />
           </label>
-          <label htmlFor="input_size" className="Carousel_label">
+          <label htmlFor="stepId" className="Carousel_label">
             Step:
             <input
               className="Carousel_input"
               type="number"
-              id="input_step"
+              id="stepId"
               onChange={this.changeStep}
               value={step}
               min={1}
