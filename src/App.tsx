@@ -32,57 +32,16 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleEvent = (event: ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement;
-    const valueNumber = +value;
+  handleEvent = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
     if (name === 'infinite') {
       this.setState(state => ({
         [name]: !state.infinite,
       }));
     } else {
-      this.setState({ [name]: valueNumber });
+      this.setState({ [name]: +value } as any);
     }
-
-    // switch (name) {
-    //   case 'step':
-    //     if (valueNumber >= 0 && valueNumber <= 10) {
-    //       this.setState({ [name]: valueNumber });
-    //     }
-
-    //     break;
-
-    //   case 'frameSize':
-    //     if (valueNumber >= 0 && valueNumber <= 10) {
-    //       this.setState({ [name]: valueNumber });
-    //     }
-
-    //     break;
-
-    //   case 'itemWidth':
-    //     if (valueNumber >= 0 && valueNumber <= 400) {
-    //       this.setState({ [name]: valueNumber });
-    //     }
-
-    //     break;
-
-    //   case 'animationDuration':
-    //     if (valueNumber >= 0 && valueNumber <= 10000) {
-    //       this.setState({ [name]: valueNumber });
-    //     }
-
-    //     break;
-
-    //   case 'infinite':
-    //     this.setState(state => ({
-    //       [name]: !state.infinite,
-    //     }));
-
-    //     break;
-
-    //   default:
-    //     throw new Error('Wrong name');
-    // }
   };
 
   render() {

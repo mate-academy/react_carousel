@@ -35,8 +35,8 @@ export class Carousel extends Component<Props, State> {
     if (infinite && this.state.start <= -maxTransition) {
       this.setState({
         start: (this.state.start) === -maxTransition
-          ? 0
-          : (frameSize * itemWidth),
+          ? (frameSize * itemWidth)
+          : 0,
       });
     }
 
@@ -56,7 +56,8 @@ export class Carousel extends Component<Props, State> {
       infinite,
     } = this.props;
 
-    const maxTransition = (images.length * itemWidth) - (frameSize * itemWidth);
+    const maxTransition = (images.length * itemWidth)
+      - (frameSize * itemWidth) + (step * itemWidth);
 
     if (infinite && this.state.start >= 0) {
       this.setState({
