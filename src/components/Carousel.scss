@@ -2,8 +2,14 @@
   max-width: 1300px;
   overflow: hidden;
 
+  &__wrapper {
+    margin: auto;
+    overflow: hidden;
+  }
+
   &__list {
     display: flex;
+    margin: auto;
     list-style: none;
     padding: 0;
   }

@@ -1,12 +1,6 @@
-// import React from 'react';
+/* eslint-disable react/no-access-state-in-setstate */
 import './Carousel.scss';
 import { Component } from 'react';
-
-// type StyleObject = {
-//   width: number,
-//   translate: number,
-//   transition: string
-// };
 
 type Props = {
   images: string[];
@@ -40,7 +34,9 @@ export class Carousel extends Component<Props, State> {
 
     if (infinite && this.state.start <= -maxTransition) {
       this.setState({
-        start: (frameSize * itemWidth),
+        start: (this.state.start) === -maxTransition
+          ? 0
+          : (frameSize * itemWidth),
       });
     }
 
@@ -55,13 +51,18 @@ export class Carousel extends Component<Props, State> {
     const {
       step,
       itemWidth,
+      frameSize,
       images,
       infinite,
     } = this.props;
 
+    const maxTransition = (images.length * itemWidth) - (frameSize * itemWidth);
+
     if (infinite && this.state.start >= 0) {
       this.setState({
-        start: -(images.length * itemWidth),
+        start: (this.state.start) === 0
+          ? -maxTransition
+          : -(images.length * itemWidth),
       });
     }
 
