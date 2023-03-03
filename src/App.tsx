@@ -1,4 +1,3 @@
-// import React from 'react';
 import './App.scss';
 import React, { ChangeEvent } from 'react';
 import { Carousel } from './components/Carousel';
@@ -35,46 +34,55 @@ class App extends React.Component<{}, State> {
 
   handleEvent = (event: ChangeEvent) => {
     const { name, value } = event.target as HTMLInputElement;
+    const valueNumber = +value;
 
-    switch (name) {
-      case 'step':
-        if (+value >= 0 && +value <= 10) {
-          this.setState({ [name]: +value });
-        }
-
-        break;
-
-      case 'frameSize':
-        if (+value >= 0 && +value <= 10) {
-          this.setState({ [name]: +value });
-        }
-
-        break;
-
-      case 'itemWidth':
-        if (+value >= 0 && +value <= 400) {
-          this.setState({ [name]: +value });
-        }
-
-        break;
-
-      case 'animationDuration':
-        if (+value >= 0 && +value <= 10000) {
-          this.setState({ [name]: +value });
-        }
-
-        break;
-
-      case 'infinite':
-        this.setState(state => ({
-          [name]: !state.infinite,
-        }));
-
-        break;
-
-      default:
-        throw new Error('Wrong name');
+    if (name === 'infinite') {
+      this.setState(state => ({
+        [name]: !state.infinite,
+      }));
+    } else {
+      this.setState({ [name]: valueNumber });
     }
+
+    // switch (name) {
+    //   case 'step':
+    //     if (valueNumber >= 0 && valueNumber <= 10) {
+    //       this.setState({ [name]: valueNumber });
+    //     }
+
+    //     break;
+
+    //   case 'frameSize':
+    //     if (valueNumber >= 0 && valueNumber <= 10) {
+    //       this.setState({ [name]: valueNumber });
+    //     }
+
+    //     break;
+
+    //   case 'itemWidth':
+    //     if (valueNumber >= 0 && valueNumber <= 400) {
+    //       this.setState({ [name]: valueNumber });
+    //     }
+
+    //     break;
+
+    //   case 'animationDuration':
+    //     if (valueNumber >= 0 && valueNumber <= 10000) {
+    //       this.setState({ [name]: valueNumber });
+    //     }
+
+    //     break;
+
+    //   case 'infinite':
+    //     this.setState(state => ({
+    //       [name]: !state.infinite,
+    //     }));
+
+    //     break;
+
+    //   default:
+    //     throw new Error('Wrong name');
+    // }
   };
 
   render() {
@@ -109,6 +117,8 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={this.handleEvent}
               value={step}
+              min="1"
+              max="10"
             />
           </label>
 
@@ -120,6 +130,8 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={this.handleEvent}
               value={frameSize}
+              min="0"
+              max="10"
             />
           </label>
 
@@ -131,6 +143,8 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={this.handleEvent}
               value={itemWidth}
+              min="0"
+              max="400"
             />
           </label>
 
@@ -142,6 +156,8 @@ class App extends React.Component<{}, State> {
               type="number"
               onChange={this.handleEvent}
               value={animationDuration}
+              min="0"
+              max="10000"
             />
           </label>
 
