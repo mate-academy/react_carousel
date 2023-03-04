@@ -1,0 +1,32 @@
+.Carousel {
+  margin: 0 auto;
+  width: 260px;
+  overflow: hidden;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+
+  &__button--prev {
+    margin: 0 20px 30px 0;
+  }
+
+  &__button--next {
+    margin: 0 0 30px 20px;
+  }
+
+  &__label {
+    display: block;
+    width: 350px;
+    margin: 0 auto 10px;
+    text-align: left;
+  }
+
+  &__input {
+    float: right;
+    width: 50px;
+    
+  }
+}
