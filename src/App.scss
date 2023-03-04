@@ -1,1 +1,21 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Options {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  border-radius: 5px;
+  width: 80px;
+}

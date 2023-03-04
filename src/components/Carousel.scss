@@ -1,1 +1,49 @@
-// style go here
+.Carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    border-radius: 40px;
+    overflow: hidden;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    box-shadow: 0 10px 5px -8px black;
+    transition: all 1s;
+
+    &--left {
+      transition: all 1s;
+      box-shadow: -8px 0 5px -6px black;
+    }
+
+    &--right {
+      transition: all 1s;
+      box-shadow: 8px 0 5px -6px black;
+    }
+  }
+
+  &__image {
+    display: block;
+  }
+}
+
+.Button__container {
+  display: flex;
+  justify-content: space-between;
+  transition: all 1s;
+}
+
+.Button {
+  display: block;
+  border: 1px solid black;
+  border-radius: 5px;
+  transition: all 0.3s;
+
+  &:hover {
+    transition: all 0.5s;
+    background-color: yellow;
+  }
+}
