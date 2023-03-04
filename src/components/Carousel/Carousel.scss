@@ -17,8 +17,16 @@
     margin: 0 0 30px 20px;
   }
 
-  &__input {
+  &__label {
     display: block;
-    margin: 5px auto;
+    width: 350px;
+    margin: 0 auto 10px;
+    text-align: left;
+  }
+
+  &__input {
+    float: right;
+    width: 50px;
+    
   }
 }

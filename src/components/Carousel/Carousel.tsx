@@ -18,6 +18,8 @@ type State = {
   step: number,
   animationDuration: number,
   coordX: number,
+  isNextDisabled: boolean,
+  isPrevDisabled: boolean,
 };
 
 class Carousel extends Component<Props, State> {
@@ -27,6 +29,8 @@ class Carousel extends Component<Props, State> {
     frameSize: this.props.frameSize,
     step: this.props.step,
     animationDuration: this.props.animationDuration,
+    isNextDisabled: false,
+    isPrevDisabled: true,
     coordX: 0,
   };
 
@@ -41,11 +45,20 @@ class Carousel extends Component<Props, State> {
       case 'next':
         if (coordX === limit && isFinite) {
           this.setState({ coordX: 0 });
+        } else if (coordX + oneStepWidth >= limit && isFinite) {
+          this.setState({
+            coordX: limit,
+            isNextDisabled: false,
+          });
         } else if (coordX + oneStepWidth >= limit) {
-          this.setState({ coordX: limit });
+          this.setState({
+            coordX: limit,
+            isNextDisabled: true,
+          });
         } else {
           this.setState(state => ({
             coordX: state.coordX + state.step * state.itemWidth,
+            isPrevDisabled: false,
           }));
         }
 
@@ -54,11 +67,20 @@ class Carousel extends Component<Props, State> {
       case 'prev':
         if (coordX === 0 && isFinite) {
           this.setState({ coordX: limit });
-        } else if (coordX < oneStepWidth) {
-          this.setState({ coordX: 0 });
+        } else if (coordX <= oneStepWidth && isFinite) {
+          this.setState({
+            coordX: 0,
+            isPrevDisabled: false,
+          });
+        } else if (coordX <= oneStepWidth) {
+          this.setState({
+            coordX: 0,
+            isPrevDisabled: true,
+          });
         } else {
           this.setState(state => ({
             coordX: state.coordX - state.step * state.itemWidth,
+            isNextDisabled: false,
           }));
         }
 
@@ -69,25 +91,53 @@ class Carousel extends Component<Props, State> {
     }
   };
 
-  // limit = (
-  //   prop: State,
-  //   target: HTMLInputElement,
-  //   min: number,
-  //   max: number,
-  // ) => {
-  //   const { value } = target;
+  limit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = e;
+    const { min, max, name, value } = target;
 
-  //   if (+value < min) {
-  //     this.setState({ [prop]: min });
-  //   } else if (+value > max) {
-  //     this.setState({ [prop]: max });
-  //   } else {
-  //     this.setState({ [prop]: +value });
-  //   }
-  // };
+    if (+value < +min) {
+      this.setState(state => {
+        return {
+          ...state,
+          [name]: min,
+        };
+      });
+    } else if (+value > +max) {
+      this.setState(state => {
+        return {
+          ...state,
+          [name]: max,
+        };
+      });
+    } else {
+      this.setState(state => {
+        return {
+          ...state,
+          [name]: +value,
+        };
+      });
+    }
+  };
+
+  setInfinity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+
+    this.setState({
+      isFinite: isChecked,
+      isPrevDisabled: false,
+      isNextDisabled: false,
+    });
+  };
 
   render() {
-    const { frameSize, itemWidth, coordX, animationDuration } = this.state;
+    const {
+      frameSize,
+      itemWidth,
+      coordX,
+      animationDuration,
+      isNextDisabled,
+      isPrevDisabled,
+    } = this.state;
     const { images } = this.props;
 
     return (
@@ -118,6 +168,7 @@ class Carousel extends Component<Props, State> {
         <button
           type="button"
           className="Carousel__button--prev"
+          disabled={isPrevDisabled}
           onClick={() => {
             this.swipe('prev');
           }}
@@ -128,6 +179,7 @@ class Carousel extends Component<Props, State> {
         <button
           data-cy="Next"
           type="button"
+          disabled={isNextDisabled}
           className="Carousel__button--next"
           onClick={() => {
             this.swipe('next');
@@ -138,54 +190,64 @@ class Carousel extends Component<Props, State> {
 
         <br />
 
-        <input
-          min={100}
-          max={300}
-          defaultValue={130}
-          type="number"
-          placeholder="Width of item"
-          className="Carousel__input"
-          onChange={(e) => {
-            // this.limit('itemWidth', e.target, 100, 300);
-          }}
-        />
+        <label className="Carousel__label">
+          Width of item, px
+          <input
+            min={100}
+            max={300}
+            defaultValue={130}
+            type="number"
+            name="itemWidth"
+            className="Carousel__input"
+            onChange={this.limit}
+          />
+        </label>
 
-        <input
-          type="number"
-          placeholder="Frame size"
-          className="Carousel__input"
-          onChange={(e) => {
-            this.setState({ frameSize: +e.target.value });
-          }}
-        />
+        <label className="Carousel__label">
+          Size of frame, picture
+          <input
+            min={1}
+            max={images.length}
+            defaultValue={3}
+            type="number"
+            name="frameSize"
+            className="Carousel__input"
+            onChange={this.limit}
+          />
+        </label>
 
-        <input
-          type="text"
-          placeholder="Step"
-          className="Carousel__input"
-          onChange={(e) => {
-            this.setState({ step: +e.target.value });
-          }}
-        />
+        <label className="Carousel__label">
+          Step, picture
+          <input
+            min={1}
+            max={images.length}
+            defaultValue={3}
+            type="number"
+            name="step"
+            className="Carousel__input"
+            onChange={this.limit}
+          />
+        </label>
 
-        <input
-          type="text"
-          placeholder="Animation duration"
-          className="Carousel__input"
-          onChange={(e) => {
-            this.setState({ animationDuration: +e.target.value });
-          }}
-        />
+        <label className="Carousel__label">
+          Animation duration, ms
+          <input
+            min={100}
+            max={5000}
+            defaultValue={1000}
+            type="number"
+            name="animationDuration"
+            className="Carousel__input"
+            onChange={this.limit}
+          />
+        </label>
 
-        <label>
-          Do you wanna make me infinite?
+        <label className="Carousel__label">
+          Make the carousel infinite?
           <input
             type="checkbox"
-            placeholder="Animation duration"
             className="Carousel__input"
-            onChange={(e) => {
-              this.setState({ isFinite: e.target.checked });
-            }}
+            onChange={this.setInfinity}
           />
         </label>
       </>
