@@ -19,7 +19,7 @@ export class Carousel extends Component<Props, State> {
     currentItemIndex: 0,
   };
 
-  handleButton = (step: number) => {
+  handleButton = (step: number) => () => {
     const { images, frameSize } = this.props;
     const { currentItemIndex } = this.state;
     const lastItemIndex = images.length - frameSize;
@@ -102,9 +102,7 @@ export class Carousel extends Component<Props, State> {
           <button
             disabled={currentItemIndex <= 0 && !infinity}
             type="button"
-            onClick={() => {
-              this.handleButton(-step);
-            }}
+            onClick={this.handleButton(-step)}
           >
             Prev item
           </button>
@@ -115,9 +113,7 @@ export class Carousel extends Component<Props, State> {
               currentItemIndex >= images.length - frameSize && !infinity
             }
             type="button"
-            onClick={() => {
-              this.handleButton(step);
-            }}
+            onClick={this.handleButton(step)}
           >
             Next item
           </button>
