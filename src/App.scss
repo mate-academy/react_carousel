@@ -1,1 +1,22 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 50px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.App {
+  width: max-content;
+}
