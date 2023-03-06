@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  max-width: 1300px;
+  overflow: hidden;
+
+  &__wrapper {
+    margin: auto;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    margin: auto;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: block;
+    text-align: center;
+  }
+
+  &__button {
+    margin: auto;
+    display: inline;
+    width: 80px;
+    height: 30px;
+    border: 1px solid black;
+    background-color: white;
+  }
+}
