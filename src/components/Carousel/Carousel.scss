@@ -1,0 +1,36 @@
+.Carousel__list {
+  display: flex;
+  list-style: none;
+}
+
+.Carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  position: relative;
+  z-index: 0;
+}
+
+.Carousel__arrow {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+}
+
+.Carousel__arrow:disabled {
+  cursor: default;
+}
+
+.Carousel__arrow--left {
+  left: 0;
+}
+
+.Carousel__arrow--right {
+  right: 0;
+}
+
+button {
+  cursor: pointer;
+}
