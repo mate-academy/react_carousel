@@ -4,11 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  withOfItem: number;
+  itemWidth: number;
   frameSize: number;
-  rollingStep: number;
-  animation: number;
-  infiniteRolling: boolean;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -26,21 +26,30 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
 
-    withOfItem: 130,
+    itemWidth: 130,
     frameSize: 3,
-    rollingStep: 3,
-    animation: 1000,
-    infiniteRolling: false,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+
+    this.setState(state => ({
+      ...state,
+      [id]: value,
+    }));
   };
 
   render() {
     const {
       images,
-      withOfItem,
+      itemWidth,
       frameSize,
-      rollingStep,
-      animation,
-      infiniteRolling,
+      step,
+      animationDuration,
+      infinite,
     } = this.state;
 
     return (
@@ -52,11 +61,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               className="input"
-              value={withOfItem}
+              value={itemWidth}
               id="itemWidth"
-              onChange={(event) => {
-                this.setState({ withOfItem: +event.target.value });
-              }}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -65,13 +72,11 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               min={0}
-              max={10}
+              max={images.length}
               className="input"
               value={frameSize}
               id="frameSize"
-              onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
-              }}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -80,13 +85,11 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               min={0}
-              max={10}
+              max={images.length}
               className="input"
-              value={rollingStep}
+              value={step}
               id="step"
-              onChange={(event) => {
-                this.setState({ rollingStep: +event.target.value });
-              }}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -95,34 +98,33 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               className="input"
-              value={animation}
+              value={animationDuration}
               id="animationDuration"
-              onChange={(event) => {
-                this.setState({ animation: +event.target.value });
-              }}
+              onChange={this.handleChange}
             />
           </label>
 
-          <label className="label" htmlFor="infinity">
+          <label className="label" htmlFor="infinite">
             Infinite:
             <input
               type="checkbox"
               className="input"
               id="infinite"
-              checked={infiniteRolling}
+              checked={infinite}
               onChange={() => {
-                this.setState({ infiniteRolling: !infiniteRolling });
+                this.setState({ infinite: !infinite });
               }}
             />
           </label>
         </form>
+
         <Carousel
           images={images}
-          step={rollingStep}
+          step={step}
           frameSize={frameSize}
-          itemWidth={withOfItem}
-          animationDuration={animation}
-          infinite={infiniteRolling}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );

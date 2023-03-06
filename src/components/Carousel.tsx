@@ -21,6 +21,41 @@ class Carousel extends React.Component<Props, State> {
     scroll: 0,
   };
 
+  handleButton = (step: number) => () => {
+    let {
+      images,
+      itemWidth,
+      frameSize,
+      infinite,
+    } = this.props;
+    let { scroll } = this.state;
+    const scrollLength = itemWidth * (images.length - frameSize);
+    let scrollCount = itemWidth * step;
+    let nextScroll = scroll + scrollCount;
+
+    if (step < 0) {
+      if (nextScroll < 0) {
+        nextScroll = 0;
+      }
+
+      if (scroll === 0 && infinite) {
+        nextScroll = scrollLength;
+      }
+    }
+
+    if (step > 0) {
+      if (nextScroll > scrollLength) {
+        nextScroll = scrollLength;
+      }
+
+      if (scroll === scrollLength && infinite) {
+        nextScroll = 0;
+      }
+    }
+
+    this.setState({ scroll: nextScroll });
+  };
+
   render() {
     let {
       images,
@@ -32,29 +67,20 @@ class Carousel extends React.Component<Props, State> {
     } = this.props;
 
     let { scroll } = this.state;
-    const scrollLength = (itemWidth / 2) * (images.length - frameSize);
-
-    if (frameSize > images.length) {
-      frameSize = images.length;
-    }
-
-    if (step > images.length) {
-      step = images.length;
-    }
-
-    if (scroll > scrollLength) {
-      scroll = scrollLength;
-    }
-
-    if (scroll < 0) {
-      scroll = 0;
-    }
+    const endScroll = scroll === itemWidth * (images.length - frameSize)
+    && !infinite;
+    const startScroll = scroll === 0 && !infinite;
 
     const styleForItem = {
-      width: itemWidth,
-      transform: `translateX(-${scroll}px)`,
+      transform: `translate(-${scroll}px)`,
       transition: `all ${animationDuration}ms`,
     };
+
+    const styleForImage = {
+      width: `${itemWidth}px`,
+      transition: `all ${animationDuration}ms`,
+    };
+
     const widthForView = {
       width: itemWidth * frameSize,
     };
@@ -66,8 +92,8 @@ class Carousel extends React.Component<Props, State> {
           className={classNames(
             'Carousel__list',
             {
-              'Carousel__list--left': scroll === 0 && !infinite,
-              'Carousel__list--right': scroll === scrollLength && !infinite,
+              'Carousel__list--left': startScroll,
+              'Carousel__list--right': endScroll,
             },
           )}
         >
@@ -78,7 +104,7 @@ class Carousel extends React.Component<Props, State> {
               className="Carousel__item"
             >
               <img
-                style={styleForItem}
+                style={styleForImage}
                 className="Carousel__image"
                 src={image}
                 alt={`smille№${index + 1}`}
@@ -91,38 +117,18 @@ class Carousel extends React.Component<Props, State> {
           <button
             data-cy="prev"
             type="button"
-            disabled={scroll === 0 && infinite === false}
+            disabled={startScroll}
             className="Button"
-            onClick={() => {
-              if (scroll === 0) {
-                this.setState({ scroll: scrollLength });
-
-                return;
-              }
-
-              this.setState((state) => ({
-                scroll: state.scroll - ((itemWidth * step) / 2),
-              }));
-            }}
+            onClick={this.handleButton(-step)}
           >
             Prev
           </button>
           <button
             data-cy="next"
             type="button"
-            disabled={scroll === scrollLength && infinite === false}
+            disabled={endScroll}
             className="Button"
-            onClick={() => {
-              if (scroll === scrollLength) {
-                this.setState({ scroll: 0 });
-
-                return;
-              }
-
-              this.setState((state) => ({
-                scroll: state.scroll + ((itemWidth * step) / 2),
-              }));
-            }}
+            onClick={this.handleButton(step)}
           >
             Next
           </button>
