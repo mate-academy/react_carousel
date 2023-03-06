@@ -11,64 +11,62 @@ type Props = {
 };
 
 type State = {
-  currentPos: number;
+  currentIndex: number;
 };
 
 export class Carousel extends Component<Props, State> {
   state = {
-    currentPos: 0,
+    currentIndex: 0,
   };
 
-  images = this.props.images;
-
-  imagesAmount = this.images.length;
+  maxIndex = this.props.images.length - this.props.frameSize;
 
   moveRight = () => {
     const {
       step,
-      itemWidth,
-      frameSize,
       infinite,
     } = this.props;
-    const max = -(itemWidth * (this.imagesAmount - frameSize));
-    const stepWidth = step * itemWidth;
-    const isEnouphPlace = max < this.state.currentPos - stepWidth;
+
+    const nextStep = this.state.currentIndex + step;
+    const isEnouphPlace = this.maxIndex >= (nextStep);
+
+    if (infinite && this.state.currentIndex === this.maxIndex) {
+      this.setState({ currentIndex: 0 });
+
+      return;
+    }
 
     if (isEnouphPlace) {
-      this.setState(prevState => (
-        { currentPos: prevState.currentPos - stepWidth }
-      ));
-    } else {
-      this.setState({ currentPos: max });
+      this.setState({ currentIndex: nextStep });
+
+      return;
     }
 
-    if (infinite && this.state.currentPos === max) {
-      this.setState({ currentPos: 0 });
-    }
+    this.setState({ currentIndex: this.maxIndex });
   };
 
   moveLeft = () => {
     const {
       step,
-      itemWidth,
-      frameSize,
       infinite,
     } = this.props;
-    const max = -(itemWidth * (this.imagesAmount - frameSize));
-    const stepWidth = step * itemWidth;
-    const isEnouphPlace = this.state.currentPos + stepWidth <= 0;
+
+    const nextStep = this.state.currentIndex - step;
+    const isEnouphPlace = (nextStep) >= 0;
+
+    if (infinite && this.state.currentIndex === 0) {
+      this.setState({ currentIndex: this.maxIndex });
+
+      return;
+    }
 
     if (isEnouphPlace) {
-      this.setState(prevState => (
-        { currentPos: prevState.currentPos + stepWidth }
-      ));
-    } else {
-      this.setState({ currentPos: 0 });
+      this.setState({ currentIndex: nextStep });
+
+      return;
     }
 
-    if (infinite && this.state.currentPos === 0) {
-      this.setState({ currentPos: max });
-    }
+    this.setState({ currentIndex: 0 });
   };
 
   render() {
@@ -76,48 +74,49 @@ export class Carousel extends Component<Props, State> {
       itemWidth,
       frameSize,
       animationDuration,
+      infinite,
     } = this.props;
 
     return (
-      <div
-        className="Carousel"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-        }}
-      >
-        <ul
-          className="Carousel__list"
+      <>
+        <div
+          className="Carousel"
           style={{
-            transform: `translateX(${this.state.currentPos}px)`,
-            transition: `transform ${animationDuration}ms`,
+            width: `${frameSize * itemWidth}px`,
+            transition: `${animationDuration}ms`,
           }}
         >
-          {
-            this.props.images.map((image) => {
-              const imageId = parseInt(image.slice(6), 10);
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${-this.state.currentIndex * itemWidth}px)`,
+              transition: `transform ${animationDuration}ms`,
+            }}
+          >
+            {
+              this.props.images.map((image) => {
+                const imageId = parseInt(image.slice(6), 10);
 
-              return (
-                <li
-                  key={imageId}
-                >
-                  <img
-                    src={image}
-                    alt={`${imageId}`}
-                    style={{
-                      width: `${itemWidth}px`,
-                    }}
-                  />
-                </li>
-              );
-            })
-          }
-        </ul>
+                return (
+                  <li key={imageId}>
+                    <img
+                      src={image}
+                      alt={`${imageId}`}
+                      width={itemWidth}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
 
         <div className="Carousel__buttons">
           <button
             className="Carousel__button"
             type="button"
             onClick={this.moveLeft}
+            disabled={this.state.currentIndex === 0 && !infinite}
           >
             Prev
           </button>
@@ -127,11 +126,12 @@ export class Carousel extends Component<Props, State> {
             type="button"
             data-cy="next"
             onClick={this.moveRight}
+            disabled={this.state.currentIndex === this.maxIndex && !infinite}
           >
             Next
           </button>
         </div>
-      </div>
+      </>
     );
   }
 }

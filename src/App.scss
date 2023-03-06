@@ -6,6 +6,10 @@ body {
   margin: 50px;
 }
 
+p {
+  margin: 0;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -19,4 +23,26 @@ label {
 
 .App {
   width: max-content;
+  margin: 0 auto;
+  border: 3px solid black;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: bisque;
+  font-size: 18px;
+}
+
+.settings {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
+
+  &__input {
+    width: 80px;
+  }
+
+  & label {
+    display: flex;
+    justify-content: space-between;
+  }
 }

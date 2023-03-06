@@ -1,23 +1,27 @@
 .Carousel {
-  // width: 390px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  background-color: antiquewhite;
+  border-radius: 20px;
 
   &__list {
-    position: relative;
-    // transition: transform 1000ms;
     display: flex;
     flex-wrap: nowrap;
+
   }
 
   &__buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
     padding: 20px;
   }
 
   &__button {
-    cursor: pointer;
+    &:not(:disabled) {
+      cursor: pointer;
+    }
   }
 }

@@ -59,68 +59,83 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
           infinite={infinite}
         />
-        <label htmlFor="itemId">
-          {'Items width: '}
-          <input
-            id="itemId"
-            type="number"
-            defaultValue={itemWidth}
-            onChange={(event) => {
-              this.setState({ itemWidth: Number(event.target.value) });
-            }}
-          />
-        </label>
 
-        <label htmlFor="frameId">
-          {'Amount of images in frame: '}
-          <input
-            id="frameId"
-            type="number"
-            min={1}
-            max={5}
-            defaultValue={frameSize}
-            onChange={(event) => {
-              this.setState({ frameSize: Number(event.target.value) });
-            }}
-          />
-        </label>
+        <div className="settings">
+          <label htmlFor="itemId">
+            <p>Items width: </p>
 
-        <label htmlFor="stepId">
-          {'Step size: '}
-          <input
-            id="stepId"
-            type="number"
-            min={1}
-            max={5}
-            defaultValue={step}
-            onChange={(event) => {
-              this.setState({ step: Number(event.target.value) });
-            }}
-          />
-        </label>
+            <input
+              className="settings__input"
+              id="itemId"
+              type="number"
+              defaultValue={itemWidth}
+              onChange={(event) => {
+                this.setState({ itemWidth: Number(event.target.value) });
+              }}
+            />
+          </label>
 
-        <label htmlFor="animationId">
-          {'Set animation duration in ms: '}
-          <input
-            id="animationId"
-            type="number"
-            step="100"
-            defaultValue={animationDuration}
-            onChange={(event) => {
-              this.setState({ animationDuration: Number(event.target.value) });
-            }}
-          />
-        </label>
+          <label htmlFor="frameId">
+            <p>Amount of images in frame: </p>
 
-        <label htmlFor="infiniteId">
-          {'Infinite: '}
-          <input
-            id="infiniteId"
-            type="checkbox"
-            defaultChecked={infinite}
-            onChange={this.toggleInfinite}
-          />
-        </label>
+            <input
+              className="settings__input"
+              id="frameId"
+              type="number"
+              min={1}
+              max={5}
+              defaultValue={frameSize}
+              onChange={(event) => {
+                this.setState({ frameSize: Number(event.target.value) });
+              }}
+            />
+          </label>
+
+          <label htmlFor="stepId">
+            <p>Step size: </p>
+
+            <input
+              className="settings__input"
+              id="stepId"
+              type="number"
+              min={1}
+              max={5}
+              defaultValue={step}
+              onChange={(event) => {
+                this.setState({ step: Number(event.target.value) });
+              }}
+            />
+          </label>
+
+          <label htmlFor="animationId">
+            <p>Set animation duration in ms: </p>
+
+            <input
+              className="settings__input"
+              id="animationId"
+              type="number"
+              step="100"
+              defaultValue={animationDuration}
+              onChange={(event) => {
+                this.setState(
+                  { animationDuration: Number(event.target.value) },
+                );
+              }}
+            />
+          </label>
+
+          <label htmlFor="infiniteId">
+            <p>Infinite: </p>
+
+            <input
+              className="settings__checkbox"
+              id="infiniteId"
+              type="checkbox"
+              defaultChecked={infinite}
+              onChange={this.toggleInfinite}
+            />
+          </label>
+        </div>
       </div>
     );
   }
