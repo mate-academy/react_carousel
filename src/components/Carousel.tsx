@@ -9,7 +9,7 @@ type Props = {
   frameSize: number
   itemWidth: number
   animationDuration: number
-  infinite: boolean
+  infinite: boolean;
 };
 
 type State = {
@@ -68,7 +68,7 @@ class Carousel extends React.Component<Props, State> {
 
     let { scroll } = this.state;
     const endScroll = scroll === itemWidth * (images.length - frameSize)
-    && !infinite;
+      && !infinite;
     const startScroll = scroll === 0 && !infinite;
 
     const styleForItem = {

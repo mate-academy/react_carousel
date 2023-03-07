@@ -1,3 +1,8 @@
+$bottom_shadow: 0 10px 5px -8px black;
+$start_shadow: -8px 0 5px -6px black;
+$end_shadow: 8px 0 5px -6px black;
+$btn_hover: rgb(165,200,188);
+
 .Carousel {
   width: 100%;
   display: flex;
@@ -12,17 +17,17 @@
     display: flex;
     flex-direction: row;
     padding: 0;
-    box-shadow: 0 10px 5px -8px black;
+    box-shadow: $bottom_shadow;
     transition: all 1s;
 
     &--left {
       transition: all 1s;
-      box-shadow: -8px 0 5px -6px black;
+      box-shadow: $start_shadow;
     }
 
     &--right {
       transition: all 1s;
-      box-shadow: 8px 0 5px -6px black;
+      box-shadow: $end_shadow;
     }
   }
 
@@ -39,12 +44,11 @@
 
 .Button {
   display: block;
-  border: 1px solid black;
   border-radius: 5px;
   transition: all 0.3s;
 
   &:hover {
     transition: all 0.5s;
-    background-color: yellow;
+    background-color: $btn_hover;
   }
 }

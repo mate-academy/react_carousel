@@ -42,6 +42,12 @@ class App extends React.Component<{}, State> {
     }));
   };
 
+  changeInfinite = () => {
+    this.setState(prevState => (
+      { infinite: !prevState.infinite }
+    ));
+  };
+
   render() {
     const {
       images,
@@ -111,9 +117,7 @@ class App extends React.Component<{}, State> {
               className="input"
               id="infinite"
               checked={infinite}
-              onChange={() => {
-                this.setState({ infinite: !infinite });
-              }}
+              onChange={this.changeInfinite}
             />
           </label>
         </form>
