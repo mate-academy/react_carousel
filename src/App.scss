@@ -1,1 +1,17 @@
-// style go here
+.App {
+  &__Form {
+    margin: 20px auto;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    
+
+    &-input {
+      display: inline-flex;
+      width: 100%;
+      gap: 10px;
+    }
+  }
+}
