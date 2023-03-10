@@ -1,12 +1,15 @@
 import { FC } from 'react';
 import { Input } from './Input';
+import { FormType } from '../Types';
 
-type Props = {
-  imagesLength: number,
-  changeState: (name: string | undefined, value: number, a: boolean) => void,
-};
-
-export const Form: FC<Props> = ({ imagesLength, changeState }) => (
+export const Form: FC<FormType> = ({
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  imagesLength,
+  changeState,
+}) => (
   <form>
     <h2>Custom settings</h2>
 
@@ -14,6 +17,7 @@ export const Form: FC<Props> = ({ imagesLength, changeState }) => (
       type="number"
       step="20"
       min="50"
+      value={`${itemWidth}`}
       dataName="itemWidth"
       changeState={changeState}
     >
@@ -23,6 +27,8 @@ export const Form: FC<Props> = ({ imagesLength, changeState }) => (
     <Input
       type="number"
       max={`${imagesLength}`}
+      min="1"
+      value={`${frameSize}`}
       dataName="frameSize"
       changeState={changeState}
     >
@@ -32,6 +38,8 @@ export const Form: FC<Props> = ({ imagesLength, changeState }) => (
     <Input
       type="number"
       max={`${imagesLength}`}
+      value={`${step}`}
+      min="1"
       dataName="step"
       changeState={changeState}
     >
@@ -42,6 +50,7 @@ export const Form: FC<Props> = ({ imagesLength, changeState }) => (
       type="number"
       min="1000"
       step="200"
+      value={`${animationDuration}`}
       dataName="animationDuration"
       changeState={changeState}
     >

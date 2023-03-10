@@ -1,15 +1,7 @@
 import { FC } from 'react';
+import { InputType } from '../Types';
 
-type Props = {
-  type: string,
-  step?: string,
-  min?: string,
-  max?: string,
-  dataName: string,
-  changeState: (name: string | undefined, value: number, a: boolean) => void,
-};
-
-export const Input: FC<Props> = ({
+export const Input: FC<InputType> = ({
   changeState,
   type,
   step,
@@ -17,6 +9,7 @@ export const Input: FC<Props> = ({
   max,
   dataName,
   children,
+  value,
 }) => (
   <label>
     {`${children}: `}
@@ -26,6 +19,7 @@ export const Input: FC<Props> = ({
       max={max}
       min={min}
       data-name={dataName}
+      value={value}
       onChange={({ target }) => {
         const { dataset, valueAsNumber, checked } = target;
 
@@ -34,9 +28,3 @@ export const Input: FC<Props> = ({
     />
   </label>
 );
-
-Input.defaultProps = {
-  step: '',
-  min: '',
-  max: '',
-};

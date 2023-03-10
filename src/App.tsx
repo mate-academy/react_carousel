@@ -54,7 +54,13 @@ class App extends Component<{}, State> {
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
@@ -66,6 +72,10 @@ class App extends Component<{}, State> {
         <Carousel {...this.state} />
 
         <Form
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
           imagesLength={images.length}
           changeState={this.changeState}
         />

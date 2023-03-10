@@ -16,3 +16,18 @@ export type ChangeStateType = (
 export type StateCarousel = {
   moveImage: number,
 };
+
+export type FormType = Omit<State, 'infinite' | 'images'> & {
+  changeState: ChangeStateType,
+  imagesLength: number,
+}
+
+export type InputType = {
+  type: string,
+  dataName: string,
+  changeState: ChangeStateType,
+  step?: string,
+  min?: string,
+  max?: string,
+  value?: string,
+}
