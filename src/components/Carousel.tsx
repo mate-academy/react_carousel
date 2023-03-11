@@ -14,6 +14,11 @@ type State = {
   currentIndex: number;
 };
 
+enum MoveDirection {
+  LEFT,
+  RIGHT,
+}
+
 export class Carousel extends Component<Props, State> {
   state = {
     currentIndex: 0,
@@ -21,17 +26,30 @@ export class Carousel extends Component<Props, State> {
 
   maxIndex = this.props.images.length - this.props.frameSize;
 
-  moveRight = () => {
+  move = (direction: MoveDirection) => {
     const {
       step,
       infinite,
     } = this.props;
 
-    const nextStep = this.state.currentIndex + step;
-    const isEnouphPlace = this.maxIndex >= (nextStep);
+    const nextStep = direction === MoveDirection.LEFT
+      ? this.state.currentIndex - step
+      : this.state.currentIndex + step;
 
-    if (infinite && this.state.currentIndex === this.maxIndex) {
-      this.setState({ currentIndex: 0 });
+    const isEnouphPlace = direction === MoveDirection.LEFT
+      ? (nextStep) >= 0
+      : this.maxIndex >= (nextStep);
+
+    const isInfiniteNeeded = infinite && direction === MoveDirection.LEFT
+      ? this.state.currentIndex === 0
+      : this.state.currentIndex === this.maxIndex;
+
+    if (isInfiniteNeeded) {
+      this.setState({
+        currentIndex: direction === MoveDirection.LEFT
+          ? this.maxIndex
+          : 0,
+      });
 
       return;
     }
@@ -42,31 +60,11 @@ export class Carousel extends Component<Props, State> {
       return;
     }
 
-    this.setState({ currentIndex: this.maxIndex });
-  };
-
-  moveLeft = () => {
-    const {
-      step,
-      infinite,
-    } = this.props;
-
-    const nextStep = this.state.currentIndex - step;
-    const isEnouphPlace = (nextStep) >= 0;
-
-    if (infinite && this.state.currentIndex === 0) {
-      this.setState({ currentIndex: this.maxIndex });
-
-      return;
-    }
-
-    if (isEnouphPlace) {
-      this.setState({ currentIndex: nextStep });
-
-      return;
-    }
-
-    this.setState({ currentIndex: 0 });
+    this.setState({
+      currentIndex: direction === MoveDirection.LEFT
+        ? 0
+        : this.maxIndex,
+    });
   };
 
   render() {
@@ -115,7 +113,7 @@ export class Carousel extends Component<Props, State> {
           <button
             className="Carousel__button"
             type="button"
-            onClick={this.moveLeft}
+            onClick={() => this.move(MoveDirection.LEFT)}
             disabled={this.state.currentIndex === 0 && !infinite}
           >
             Prev
@@ -125,7 +123,7 @@ export class Carousel extends Component<Props, State> {
             className="Carousel__button Carousel__button--next"
             type="button"
             data-cy="next"
-            onClick={this.moveRight}
+            onClick={() => this.move(MoveDirection.RIGHT)}
             disabled={this.state.currentIndex === this.maxIndex && !infinite}
           >
             Next
