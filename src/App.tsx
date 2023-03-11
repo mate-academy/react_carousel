@@ -32,6 +32,35 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  handleChange
+  = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+      max,
+      min,
+    } = event.target;
+
+    this.setState((prevState: State) => {
+      let finalValue = value;
+
+      if (+value > +max) {
+        finalValue = max;
+      }
+
+      if (+value < +min) {
+        finalValue = min;
+      }
+
+      return {
+        ...prevState,
+        [name]: type === 'checkbox' ? checked : +finalValue,
+      };
+    });
+  };
+
   render() {
     const {
       images,
@@ -45,7 +74,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1
-          style={{ textAlign: 'center' }}
+          className="App__title"
         >
           {`Carousel with ${images.length} images`}
         </h1>
@@ -62,63 +91,57 @@ class App extends React.Component<{}, State> {
         <form
           action="post"
           className="App__Form"
-          style={{ width: '390px' }}
         >
           <label className="App__Form-input">
             Item Width
             <input
               type="number"
+              name="itemWidth"
+              min={130}
+              max={500}
               value={itemWidth}
-              onChange={(event) => {
-                this.setState({
-                  itemWidth: +(event.currentTarget.value),
-                });
-              }}
+              onChange={this.handleChange}
             />
           </label>
           <label className="App__Form-input">
             Frame Size
             <input
               type="number"
+              name="frameSize"
               value={frameSize}
-              onChange={(event) => {
-                this.setState({
-                  frameSize: +(event.currentTarget.value),
-                });
-              }}
+              min={1}
+              max={images.length}
+              onChange={this.handleChange}
             />
           </label>
           <label className="App__Form-input">
             Step
             <input
               type="number"
+              name="step"
               value={step}
-              onChange={(event) => {
-                this.setState({
-                  step: +(event.currentTarget.value),
-                });
-              }}
+              min={1}
+              max={10}
+              onChange={this.handleChange}
             />
           </label>
           <label className="App__Form-input">
             Animation Duration
             <input
               type="number"
+              name="animationDuration"
               value={animationDuration}
-              onChange={(event) => {
-                this.setState({
-                  animationDuration: +(event.currentTarget.value),
-                });
-              }}
+              min={1000}
+              onChange={this.handleChange}
             />
           </label>
           <label className="App__Form-input">
             Infinite
             <input
               type="checkbox"
-              onChange={() => {
-                this.setState({ infinite: !infinite });
-              }}
+              name="infinite"
+              checked={infinite}
+              onChange={this.handleChange}
             />
           </label>
         </form>

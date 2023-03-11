@@ -1,5 +1,9 @@
 .App {
+  &__title {
+    text-align: center;
+  }
   &__Form {
+    width: 390px;
     margin: 20px auto;
 
     display: flex;

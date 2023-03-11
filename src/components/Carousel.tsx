@@ -15,7 +15,10 @@ interface State {
   move: number
 }
 
-type Action = 'Prev' | 'Next';
+enum Action{
+  previous = 'Prev',
+  next = 'Next',
+}
 
 export class Carousel extends React.Component<Props, State> {
   state = {
@@ -111,7 +114,7 @@ export class Carousel extends React.Component<Props, State> {
             >
               <img
                 src={img}
-                alt={`${id + 1}`}
+                alt={`smile#${id + 1}`}
                 style={{
                   width: '100%',
                   height: '100%',
