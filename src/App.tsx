@@ -11,29 +11,55 @@ interface State {
   infinite: boolean;
 }
 
+const initialState = {
+  images: [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ],
+  frameSize: 3,
+  step: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    frameSize: 3,
-    step: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    infinite: false,
+  state = initialState;
+
+  handleItemsWidth = (value: number) => {
+    if (value >= 100) {
+      this.setState({ itemWidth: value });
+    }
   };
 
-  toggleInfinite = () => {
-    this.setState((prevState) => ({ infinite: !prevState.infinite }));
+  handleFrameSize = (value: number) => {
+    if (value >= 1) {
+      this.setState({ frameSize: value });
+    }
+  };
+
+  handleStepSize = (value: number) => {
+    if (value >= 1) {
+      this.setState({ step: value });
+    }
+  };
+
+  handleAnimationDuration = (value: number) => {
+    if (value >= 0) {
+      this.setState({ animationDuration: value });
+    }
+  };
+
+  toggleInfinite = (isChecked: boolean) => {
+    this.setState({ infinite: isChecked });
   };
 
   render() {
@@ -69,8 +95,10 @@ class App extends React.Component<{}, State> {
               id="itemId"
               type="number"
               defaultValue={itemWidth}
+              min="100"
+              max="300"
               onChange={(event) => {
-                this.setState({ itemWidth: Number(event.target.value) });
+                this.handleItemsWidth(+event.target.value);
               }}
             />
           </label>
@@ -82,11 +110,11 @@ class App extends React.Component<{}, State> {
               className="settings__input"
               id="frameId"
               type="number"
-              min={1}
-              max={5}
+              min="1"
+              max="5"
               defaultValue={frameSize}
               onChange={(event) => {
-                this.setState({ frameSize: Number(event.target.value) });
+                this.handleFrameSize(+event.target.value);
               }}
             />
           </label>
@@ -102,7 +130,7 @@ class App extends React.Component<{}, State> {
               max={5}
               defaultValue={step}
               onChange={(event) => {
-                this.setState({ step: Number(event.target.value) });
+                this.handleStepSize(+event.target.value);
               }}
             />
           </label>
@@ -115,11 +143,10 @@ class App extends React.Component<{}, State> {
               id="animationId"
               type="number"
               step="100"
+              min={0}
               defaultValue={animationDuration}
               onChange={(event) => {
-                this.setState(
-                  { animationDuration: Number(event.target.value) },
-                );
+                this.handleAnimationDuration(+event.target.value);
               }}
             />
           </label>
@@ -131,8 +158,8 @@ class App extends React.Component<{}, State> {
               className="settings__checkbox"
               id="infiniteId"
               type="checkbox"
-              defaultChecked={infinite}
-              onChange={this.toggleInfinite}
+              checked={infinite}
+              onChange={(event) => this.toggleInfinite(event.target.checked)}
             />
           </label>
         </div>
