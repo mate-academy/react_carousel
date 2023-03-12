@@ -75,6 +75,7 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1
           className="App__title"
+          data-cy="title"
         >
           {`Carousel with ${images.length} images`}
         </h1>

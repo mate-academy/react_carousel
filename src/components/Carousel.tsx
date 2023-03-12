@@ -110,18 +110,11 @@ export class Carousel extends React.Component<Props, State> {
               style={{
                 minWidth: itemWidth,
                 height: itemWidth,
+                backgroundImage: `url(${img})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
               }}
-            >
-              <img
-                src={img}
-                alt={`smile#${id + 1}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </li>
+            />
           ))}
         </ul>
 
@@ -140,6 +133,7 @@ export class Carousel extends React.Component<Props, State> {
             Prev
           </button>
           <button
+            data-cy="Next"
             className={classNames(
               'Carousel__buttons-right',
               {
