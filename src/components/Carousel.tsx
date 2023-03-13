@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import classNames from 'classnames';
 import './Carousel.scss';
 
 type Props = {
@@ -69,6 +70,14 @@ class Carousel extends Component<Props, State> {
     });
   };
 
+  inVisibleArea = (index: number) => {
+    const { currentFrame } = this.state;
+    const { frameSize } = this.props;
+
+    return index >= currentFrame
+      && index < currentFrame + frameSize;
+  };
+
   render() {
     const {
       images,
@@ -95,7 +104,12 @@ class Carousel extends Component<Props, State> {
           {images.map((imageUrl, index) => (
             <li className="Carousel__item">
               <img
-                className="Carousel__img"
+                className={
+                  classNames('Carousel__img',
+                    {
+                      'Carousel__img--visible': this.inVisibleArea(index),
+                    })
+                }
                 src={imageUrl}
                 alt={`${index + 1}`}
                 width={itemWidth}

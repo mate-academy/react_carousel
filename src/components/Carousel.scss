@@ -15,6 +15,17 @@
     list-style: none;
   }
 
+  &__img {
+    visibility: hidden;
+    transition-property: "visibility";
+    transition-delay: 1000ms;
+
+    &--visible {
+      visibility: visible;
+      transition-delay: 0ms;
+    }
+  }
+
   &__buttons {
     display: flex;
     justify-content: center;

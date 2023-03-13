@@ -88,9 +88,10 @@ class App extends React.Component<{}, State> {
         />
 
         <form className="App__form">
-          <label className="App__label">
+          <label htmlFor="itemId" className="App__label">
             {'Item width: '}
             <input
+              id="itemId"
               type="numner"
               min={10}
               name="itemWidth"
@@ -99,9 +100,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="App__label">
+          <label htmlFor="frameId" className="App__label">
             {'Frame size: '}
             <input
+              id="frameId"
               type="numner"
               min={1}
               max={10}
@@ -111,9 +113,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label className="App__label">
+          <label htmlFor="stepId" className="App__label">
             {'Step: '}
             <input
+              id="stepId"
               type="numner"
               min={1}
               max={9}
