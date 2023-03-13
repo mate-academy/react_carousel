@@ -32,7 +32,7 @@ class Carousel extends Component<Props, State> {
     const { currentFrame } = this.state;
     let nextFrame = currentFrame + step;
 
-    if (nextFrame === count && infinite) {
+    if (currentFrame + frameSize === count && infinite) {
       nextFrame = 0;
     }
 
