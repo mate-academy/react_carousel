@@ -1,1 +1,42 @@
-// style go here
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(45deg, greenyellow, dodgerblue);
+  color: rgb(70, 65, 65);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 20px;
+
+  & h1 {
+    text-align: center;
+  }
+
+  &__form {
+    margin: 50px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: end;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+
+  & input {
+    margin-left: 10px;
+    font-family: inherit;
+    font-size: inherit;
+    color: rgb(70, 65, 65);
+    width: 80px;
+  }
+
+  & label:not(:last-child) {
+    padding-bottom: 15px;
+  }
+}
