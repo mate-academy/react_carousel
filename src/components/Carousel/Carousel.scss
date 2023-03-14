@@ -10,38 +10,8 @@
   transform: translate(0, 0);
 }
 
-.carousel-inner {
-  width: 1300px;
-}
-
 .buttons {
-  margin-top: 10px;
-}
-
-.buttons button {
-  margin-right: 10px;
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background-color: transparent;
-  color: gray;
-  cursor: pointer;
-}
-
-.buttons button:last-child {
-  margin-right: 0;
-}
-
-.buttons button.disabled {
-  color: lightgray;
-  cursor: default;
-}
-
-.buttons button:first-child:before {
-  content: "";
-}
-
-.buttons button:last-child:before {
-  content: "";
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
 }

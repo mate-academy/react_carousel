@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import { Component } from 'react';
 import './Carousel.scss';
-import { CarouselItem } from '../CarouselItem/CarouselItem';
 
 interface State {
   currentSlide: number;
@@ -23,19 +22,56 @@ export class Carousel extends Component<Props, State> {
 
   handlePrev = () => {
     const { currentSlide } = this.state;
-    const { step } = this.props;
 
-    if (currentSlide - step >= 0) {
-      this.setState({ currentSlide: currentSlide - step });
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      infinite,
+    } = this.props;
+
+    if (currentSlide < 0) {
+      if (currentSlide + (itemWidth * step) > 0) {
+        this.setState({ currentSlide: 0 });
+
+        return;
+      }
+
+      this.setState({ currentSlide: currentSlide + (itemWidth * step) });
+    }
+
+    if (infinite && currentSlide === 0) {
+      this.setState({
+        currentSlide:
+        (images.length * itemWidth - frameSize * itemWidth) * -1,
+      });
     }
   };
 
   handleNext = () => {
     const { currentSlide } = this.state;
-    const { images, step } = this.props;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+    } = this.props;
 
-    if (currentSlide + step < images.length) {
-      this.setState({ currentSlide: currentSlide + step });
+    if (currentSlide
+      > (images.length * itemWidth - frameSize * itemWidth) * -1
+    ) {
+      if (currentSlide - (itemWidth * step)
+      < (images.length * itemWidth - frameSize * itemWidth) * -1) {
+        this.setState({
+          currentSlide:
+          (images.length * itemWidth - frameSize * itemWidth) * -1,
+        });
+
+        return;
+      }
+
+      this.setState({ currentSlide: currentSlide - (itemWidth * step) });
     }
   };
 
@@ -53,22 +89,23 @@ export class Carousel extends Component<Props, State> {
 
     return (
       <div className="carousel" style={{ width: frameSize * itemWidth }}>
-        <div className="carousel-inner">
-          <ul
-            className="Carousel__list"
-            style={{
-              transform: `translate(${step * itemWidth}px, 0)`,
-              transition: `all ${animationDuration}ms ease`,
-            }}
-          >
-            {images.map((image) => (
-              <CarouselItem
-                key={images.indexOf(image)}
-                imageSrc={image}
+        <ul
+          className="carousel__list"
+          style={{
+            transform: `translate(${step * itemWidth}px, 0)`,
+            transition: `all ${animationDuration}ms ease`,
+          }}
+        >
+          {images.map(img => (
+            <li key={images.indexOf(img)}>
+              <img
+                src={`${img}`}
+                alt="Emojy"
+                style={{ width: itemWidth }}
               />
-            ))}
-          </ul>
-        </div>
+            </li>
+          ))}
+        </ul>
 
         <div className="buttons">
           <button
@@ -81,6 +118,7 @@ export class Carousel extends Component<Props, State> {
             &lt;
           </button>
           <button
+            data-cy="next"
             onClick={this.handleNext}
             type="button"
             disabled={
