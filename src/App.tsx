@@ -52,7 +52,7 @@ export class App extends Component<{}, State> {
         />
 
         <form className="form">
-          <label htmlFor="itemWidth" className="form__label">
+          <label htmlFor="itemId" className="form__label">
             Item width
             <br />
             <input
@@ -65,7 +65,7 @@ export class App extends Component<{}, State> {
               }}
             />
           </label>
-          <label htmlFor="frameSize" className="form__label">
+          <label htmlFor="frameId" className="form__label">
             Frame size
             <br />
             <input
@@ -78,7 +78,7 @@ export class App extends Component<{}, State> {
               }}
             />
           </label>
-          <label htmlFor="step" className="form__label">
+          <label htmlFor="stepId" className="form__label">
             Step
             <br />
             <input

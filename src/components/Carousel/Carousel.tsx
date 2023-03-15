@@ -29,23 +29,28 @@ export class Carousel extends Component<Props, State> {
       frameSize,
       itemWidth,
       infinite,
+      animationDuration,
     } = this.props;
 
+    const maxSlide = images.length * itemWidth - frameSize * itemWidth;
+
     if (currentSlide < 0) {
-      if (currentSlide + (itemWidth * step) > 0) {
+      if (currentSlide + itemWidth * step > 0) {
         this.setState({ currentSlide: 0 });
-
-        return;
+      } else {
+        this.setState({ currentSlide: currentSlide + itemWidth * step });
       }
-
-      this.setState({ currentSlide: currentSlide + (itemWidth * step) });
+    } else if (infinite && currentSlide === 0) {
+      this.setState({ currentSlide: -maxSlide });
+    } else {
+      this.setState({ currentSlide: currentSlide - itemWidth * step });
     }
 
-    if (infinite && currentSlide === 0) {
-      this.setState({
-        currentSlide:
-        (images.length * itemWidth - frameSize * itemWidth) * -1,
-      });
+    const list = document.querySelector('.carousel__list') as HTMLElement;
+
+    if (list) {
+      list.style.transition = `transform ${animationDuration}ms ease-in-out`;
+      list.style.transform = `translateX(${this.state.currentSlide}px)`;
     }
   };
 
@@ -56,29 +61,34 @@ export class Carousel extends Component<Props, State> {
       step,
       frameSize,
       itemWidth,
+      animationDuration,
+      infinite,
     } = this.props;
 
-    if (currentSlide
-      > (images.length * itemWidth - frameSize * itemWidth) * -1
-    ) {
-      if (currentSlide - (itemWidth * step)
-      < (images.length * itemWidth - frameSize * itemWidth) * -1) {
-        this.setState({
-          currentSlide:
-          (images.length * itemWidth - frameSize * itemWidth) * -1,
-        });
+    const maxSlide = images.length * itemWidth - frameSize * itemWidth;
 
-        return;
+    if (currentSlide > -maxSlide) {
+      if (currentSlide - itemWidth * step < -maxSlide) {
+        this.setState({ currentSlide: 0 });
+      } else {
+        this.setState({ currentSlide: currentSlide - itemWidth * step });
       }
+    } else if (infinite && currentSlide === -maxSlide) {
+      this.setState({ currentSlide: 0 });
+    }
 
-      this.setState({ currentSlide: currentSlide - (itemWidth * step) });
+    // Add sliding animation to the carousel list
+    const list = document.querySelector('.carousel__list') as HTMLElement;
+
+    if (list) {
+      list.style.transition = `transform ${animationDuration}ms ease-in-out`;
+      list.style.transform = `translateX(${this.state.currentSlide}px)`;
     }
   };
 
   render() {
     const {
       images,
-      step,
       frameSize,
       itemWidth,
       animationDuration,
@@ -92,8 +102,9 @@ export class Carousel extends Component<Props, State> {
         <ul
           className="carousel__list"
           style={{
-            transform: `translate(${step * itemWidth}px, 0)`,
-            transition: `all ${animationDuration}ms ease`,
+            transform: `translateX(${currentSlide}px)`,
+            transition: `all ${animationDuration}ms ease-in-out`,
+            width: `${itemWidth * images.length}px`,
           }}
         >
           {images.map(img => (
