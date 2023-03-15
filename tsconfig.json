@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "target": "ES2016"
+  },
   "extends": "@mate-academy/students-ts-config",
   "include": [
     "src"
