@@ -1,4 +1,5 @@
 import React from 'react';
+import './Field.scss';
 
 type Props = {
   step: number,
