@@ -1,1 +1,33 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Field {
+  margin-top: 20px;
+  width: 360px;
+  border: 5px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: first baseline;
+  }
+  &__label {
+    margin-top: 10px;
+    display: block;
+  }
+
+  &__input {
+    width: 50%;
+    margin-left: 20px;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    padding: 5px;
+  }
+}
