@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { Component } from 'react';
+import React, { createRef } from 'react';
 import './Carousel.scss';
 
 interface State {
@@ -15,7 +15,9 @@ interface Props {
   infinite: boolean,
 }
 
-export class Carousel extends Component<Props, State> {
+export class Carousel extends React.Component<Props, State> {
+  private listRef = createRef<HTMLUListElement>(); // create ref for carousel__list
+
   state = {
     currentSlide: 0,
   };
@@ -46,7 +48,7 @@ export class Carousel extends Component<Props, State> {
       this.setState({ currentSlide: currentSlide - itemWidth * step });
     }
 
-    const list = document.querySelector('.carousel__list') as HTMLElement;
+    const list = this.listRef.current;
 
     if (list) {
       list.style.transition = `transform ${animationDuration}ms ease-in-out`;
@@ -69,7 +71,7 @@ export class Carousel extends Component<Props, State> {
 
     if (currentSlide > -maxSlide) {
       if (currentSlide - itemWidth * step < -maxSlide) {
-        this.setState({ currentSlide: 0 });
+        this.setState({ currentSlide: -maxSlide });
       } else {
         this.setState({ currentSlide: currentSlide - itemWidth * step });
       }
@@ -78,7 +80,7 @@ export class Carousel extends Component<Props, State> {
     }
 
     // Add sliding animation to the carousel list
-    const list = document.querySelector('.carousel__list') as HTMLElement;
+    const list = this.listRef.current;
 
     if (list) {
       list.style.transition = `transform ${animationDuration}ms ease-in-out`;
@@ -97,9 +99,18 @@ export class Carousel extends Component<Props, State> {
 
     const { currentSlide } = this.state;
 
+    const isAtBoundaryNext = infinite
+      ? false
+      : currentSlide === (
+        images.length * itemWidth - frameSize * itemWidth
+      ) * -1;
+
+    const isAtBoundaryLast = infinite ? false : currentSlide === 0;
+
     return (
       <div className="carousel" style={{ width: frameSize * itemWidth }}>
         <ul
+          ref={this.listRef}
           className="carousel__list"
           style={{
             transform: `translateX(${currentSlide}px)`,
@@ -122,9 +133,7 @@ export class Carousel extends Component<Props, State> {
           <button
             type="button"
             onClick={this.handlePrev}
-            disabled={
-              infinite ? false : currentSlide === 0
-            }
+            disabled={isAtBoundaryLast}
           >
             &lt;
           </button>
@@ -132,13 +141,7 @@ export class Carousel extends Component<Props, State> {
             data-cy="next"
             onClick={this.handleNext}
             type="button"
-            disabled={
-              infinite
-                ? false
-                : currentSlide === (
-                  images.length * itemWidth - frameSize * itemWidth
-                ) * -1
-            }
+            disabled={isAtBoundaryNext}
           >
             &gt;
           </button>
