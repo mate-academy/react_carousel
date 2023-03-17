@@ -1,1 +1,31 @@
-// style go here
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+.generator {
+  width: 400px;
+  margin: 30px auto;
+}
+
+.generator-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.generator-field__name {
+  font-size: 18px;
+  width: 160px;
+}
