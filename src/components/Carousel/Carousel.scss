@@ -1,0 +1,17 @@
+.carousel {
+  overflow: hidden;
+}
+
+.carousel__list {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  width: 1300px;
+  // transform: translate(0, 0);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
