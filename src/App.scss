@@ -1,1 +1,21 @@
-// style go here
+body {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.App {
+  text-align: center;
+
+  &__carousel {
+    width: max-content;
+    margin: 0 auto;
+  }
+}
