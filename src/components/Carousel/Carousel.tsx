@@ -42,7 +42,7 @@ export class Carousel extends React.Component<Props, State> {
       } else {
         this.setState({ currentSlide: currentSlide + itemWidth * step });
       }
-    } else if (infinite && currentSlide === 0) {
+    } else if (infinite && !currentSlide) {
       this.setState({ currentSlide: -maxSlide });
     } else {
       this.setState({ currentSlide: currentSlide - itemWidth * step });
@@ -105,7 +105,7 @@ export class Carousel extends React.Component<Props, State> {
         images.length * itemWidth - frameSize * itemWidth
       ) * -1;
 
-    const isAtBoundaryLast = infinite ? false : currentSlide === 0;
+    const isAtBoundaryLast = infinite ? false : !currentSlide;
 
     return (
       <div className="carousel" style={{ width: frameSize * itemWidth }}>
