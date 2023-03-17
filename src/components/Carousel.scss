@@ -1,5 +1,3 @@
-$carousel-image-size: 130px;
-
 .Carousel {
   width: 390px;
   overflow: hidden;
@@ -13,8 +11,8 @@ $carousel-image-size: 130px;
 
   &__item {
     display: block;
-    width: $carousel-image-size;
-    height: $carousel-image-size;
+    width: var(--carousel-image-size);
+    height: var(--carousel-image-size);
 
     list-style: none;
   }

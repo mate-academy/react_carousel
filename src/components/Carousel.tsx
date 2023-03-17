@@ -28,7 +28,6 @@ class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    const list = document.querySelector('ul') as HTMLUListElement;
     const { currentTarget } = e;
     let { position } = this.state;
     const isEnd = -itemWidth * (images.length - frameSize);
@@ -52,8 +51,6 @@ class Carousel extends React.Component<Props, State> {
     }
 
     this.setState({ position });
-
-    list.style.transform = `translate(${position}px)`;
   };
 
   render() {
@@ -77,6 +74,7 @@ class Carousel extends React.Component<Props, State> {
           className="Carousel__list"
           style={{
             transition: `${animationDuration}ms`,
+            transform: `translateX(${position}px)`,
           }}
         >
           {images.map(img => {

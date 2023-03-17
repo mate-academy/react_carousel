@@ -40,13 +40,14 @@ class App extends React.Component<{}, State> {
 
     const data: FormData = new FormData(form);
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [inputName, value] of data) {
+    [...data.entries()].forEach(item => {
+      const [inputName, value] = item;
+
       this.setState((prevState) => ({
         ...prevState,
         [inputName]: value,
       }));
-    }
+    });
   };
 
   render() {
@@ -61,7 +62,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 className="title" data-cy="title">
           {`Carousel with ${images.length} images`}
         </h1>
