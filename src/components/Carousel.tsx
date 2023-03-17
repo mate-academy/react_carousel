@@ -2,16 +2,16 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 type State = {
-  position: number,
+  position: number;
 };
 
 export class Carousel extends Component<Props, State> {
@@ -89,17 +89,15 @@ export class Carousel extends Component<Props, State> {
     return (
       <div
         className="Carousel"
-        style={{ width: itemWidth * frameSize,
-                 overflow: "hidden",
-              }}
+        style={{ width: itemWidth * frameSize, overflow: 'hidden' }}
       >
         <ul
           className="Carousel__list"
           style={{
             transition: `${animationDuration}ms`,
             transform: `translateX(-${position}px)`,
-            display: "flex",
-            listStyle: "none",
+            display: 'flex',
+            listStyle: 'none',
           }}
         >
           {images.map((image, index) => (
@@ -108,7 +106,9 @@ export class Carousel extends Component<Props, State> {
                 width={itemWidth}
                 height={itemWidth}
                 src={image}
-                alt={String(index + 1)}
+                alt={
+                  String(index + 1)
+                }
               />
             </li>
           ))}
@@ -118,7 +118,7 @@ export class Carousel extends Component<Props, State> {
           className="Carousel__arrow Carousel__arrow--left"
           type="button"
           onClick={this.prev}
-          disabled={!infinite && position === 0}
+          disabled={!infinite && !position}
         >
           Prev
         </button>
