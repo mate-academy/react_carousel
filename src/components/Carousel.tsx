@@ -7,19 +7,16 @@ type Props = {
   step: number;
   frameSize: number;
   itemWidth: number;
+  animationDuration: number;
 };
 
 type State = {
   ribbonAbsoluteOffset: number;
-  isPreviousButtonDisable: boolean;
-  isNextButtonDisable: boolean;
 };
 
 export class Carousel extends React.Component<Props, State> {
   state: Readonly<State> = {
     ribbonAbsoluteOffset: 0,
-    isPreviousButtonDisable: false,
-    isNextButtonDisable: false,
   };
 
   private readonly leftOffsetLimit = 0;
@@ -56,16 +53,7 @@ export class Carousel extends React.Component<Props, State> {
           ? ribbonOffsetComparer
           : requestedOffset;
 
-        const isPreviousButtonDisable
-        = this.leftOffsetLimit === ribbonAbsoluteOffset;
-        const isNextButtonDisable
-        = this.rightOffsetLimit === ribbonAbsoluteOffset;
-
-        return {
-          ribbonAbsoluteOffset,
-          isPreviousButtonDisable,
-          isNextButtonDisable,
-        };
+        return { ribbonAbsoluteOffset };
       })
     );
   };
@@ -75,7 +63,15 @@ export class Carousel extends React.Component<Props, State> {
       images,
       frameSize,
       itemWidth,
+      animationDuration,
     } = this.props;
+
+    const { ribbonAbsoluteOffset } = this.state;
+
+    const isPreviousButtonDisable
+      = this.leftOffsetLimit === ribbonAbsoluteOffset;
+    const isNextButtonDisable
+      = this.rightOffsetLimit === ribbonAbsoluteOffset;
 
     return (
       <div className="Carousel">
@@ -85,7 +81,10 @@ export class Carousel extends React.Component<Props, State> {
         >
           <ul
             className="Carousel__ribbon"
-            style={{ translate: `${this.state.ribbonAbsoluteOffset}px` }}
+            style={{
+              transform: `translateX(${ribbonAbsoluteOffset}px)`,
+              transitionDuration: `${animationDuration}ms`,
+            }}
           >
             {images.map((image, i) => (
               <li key={image}>
@@ -105,8 +104,7 @@ export class Carousel extends React.Component<Props, State> {
             className={classNames(
               'Carousel__button',
               {
-                'Carousel__button--disabled':
-                  this.state.isPreviousButtonDisable,
+                'Carousel__button--disabled': isPreviousButtonDisable,
               },
             )}
             onClick={this.handleClick(false)}
@@ -118,7 +116,7 @@ export class Carousel extends React.Component<Props, State> {
             className={classNames(
               'Carousel__button',
               {
-                'Carousel__button--disabled': this.state.isNextButtonDisable,
+                'Carousel__button--disabled': isNextButtonDisable,
               },
             )}
             onClick={this.handleClick(true)}

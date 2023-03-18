@@ -10,7 +10,8 @@
     display: flex;
 
     transform: translateX(0);
-    transition: transform 0.3s ease;
+    transition-property: transform;
+    transition-timing-function: ease;
   }
 
   &__image {
