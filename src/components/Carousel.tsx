@@ -23,8 +23,7 @@ export class Carousel extends React.Component<Props, State> {
   private readonly leftOffsetLimit = 0;
 
   private readonly rightOffsetLimit = (-1)
-    * (this.props.images.length - this.props.frameSize)
-    * this.props.itemWidth;
+    * (this.props.images.length - this.props.frameSize);
 
   handleClick = (isNextButton: boolean) => {
     const ribbonOffsetDirection = isNextButton ? -1 : 1;
@@ -36,7 +35,6 @@ export class Carousel extends React.Component<Props, State> {
       this.setState((state) => {
         const {
           step,
-          itemWidth,
           infinite,
         } = this.props;
 
@@ -57,7 +55,7 @@ export class Carousel extends React.Component<Props, State> {
         }
 
         const requestedOffset = state.ribbonAbsoluteOffset
-          + step * itemWidth * ribbonOffsetDirection;
+          + step * ribbonOffsetDirection;
 
         const requestedOffsetNormalized
           = ribbonOffsetDirection * requestedOffset;
@@ -101,7 +99,7 @@ export class Carousel extends React.Component<Props, State> {
           <ul
             className="Carousel__ribbon"
             style={{
-              transform: `translateX(${ribbonAbsoluteOffset}px)`,
+              transform: `translateX(${ribbonAbsoluteOffset * itemWidth}px)`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
