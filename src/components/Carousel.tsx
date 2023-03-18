@@ -12,25 +12,25 @@ type Props = {
 };
 
 type State = {
-  ribbonAbsoluteOffset: number;
+  offset: number;
 };
 
 export class Carousel extends React.Component<Props, State> {
   state: Readonly<State> = {
-    ribbonAbsoluteOffset: 0,
+    offset: 0,
   };
 
-  private readonly leftOffsetLimit = 0;
+  private readonly leftLimit = 0;
 
-  private readonly rightOffsetLimit
+  private readonly rightLimit
   = (this.props.images.length - this.props.frameSize);
 
   private get isLeftLimitReached() {
-    return this.state.ribbonAbsoluteOffset === this.leftOffsetLimit;
+    return this.state.offset === this.leftLimit;
   }
 
   private get isRightLimitReached() {
-    return this.state.ribbonAbsoluteOffset === this.rightOffsetLimit;
+    return this.state.offset === this.rightLimit;
   }
 
   handleNextClick = () => (
@@ -41,22 +41,22 @@ export class Carousel extends React.Component<Props, State> {
       } = this.props;
 
       const {
-        leftOffsetLimit,
-        rightOffsetLimit,
+        leftLimit,
+        rightLimit,
         isRightLimitReached,
       } = this;
 
       if (infinite && isRightLimitReached) {
-        return { ribbonAbsoluteOffset: leftOffsetLimit };
+        return { offset: leftLimit };
       }
 
-      const requestedOffset = state.ribbonAbsoluteOffset + step;
+      const requestedOffset = state.offset + step;
 
-      const ribbonAbsoluteOffset = (requestedOffset > rightOffsetLimit)
-        ? rightOffsetLimit
+      const offset = (requestedOffset > rightLimit)
+        ? rightLimit
         : requestedOffset;
 
-      return { ribbonAbsoluteOffset };
+      return { offset };
     })
   );
 
@@ -68,120 +68,24 @@ export class Carousel extends React.Component<Props, State> {
       } = this.props;
 
       const {
-        leftOffsetLimit,
-        rightOffsetLimit,
+        leftLimit,
+        rightLimit,
         isLeftLimitReached,
       } = this;
 
       if (infinite && isLeftLimitReached) {
-        return { ribbonAbsoluteOffset: rightOffsetLimit };
+        return { offset: rightLimit };
       }
 
-      const requestedOffset = state.ribbonAbsoluteOffset - step;
+      const requestedOffset = state.offset - step;
 
-      const ribbonAbsoluteOffset = (requestedOffset < leftOffsetLimit)
-        ? leftOffsetLimit
+      const offset = (requestedOffset < leftLimit)
+        ? leftLimit
         : requestedOffset;
 
-      return { ribbonAbsoluteOffset };
+      return { offset };
     })
   );
-
-  handleClick = (isNextButton: boolean) => {
-    const ribbonOffsetDirection = isNextButton ? -1 : 1;
-    const ribbonOffsetComparer = isNextButton
-      ? this.rightOffsetLimit
-      : this.leftOffsetLimit;
-
-    return () => (
-      this.setState((state) => {
-        const {
-          step,
-          infinite,
-        } = this.props;
-
-        if (
-          infinite
-          && this.isLeftLimitReached
-          && !isNextButton
-        ) {
-          return { ribbonAbsoluteOffset: this.rightOffsetLimit };
-        }
-
-        if (
-          infinite
-          && this.isRightLimitReached
-          && isNextButton
-        ) {
-          return { ribbonAbsoluteOffset: this.leftOffsetLimit };
-        }
-
-        const requestedOffset = state.ribbonAbsoluteOffset
-          + step * ribbonOffsetDirection;
-
-        const requestedOffsetNormalized
-          = ribbonOffsetDirection * requestedOffset;
-        const ribbonOffsetComparerNormalized
-          = ribbonOffsetDirection * ribbonOffsetComparer;
-
-        const ribbonAbsoluteOffset = (
-          requestedOffsetNormalized
-          > ribbonOffsetComparerNormalized
-        )
-          ? ribbonOffsetComparer
-          : requestedOffset;
-
-        return { ribbonAbsoluteOffset };
-      })
-    );
-  };
-
-  handleCopium = (isNextButton: boolean) => {
-    return () => (
-      this.setState((state) => {
-        const requestedOffset = isNextButton
-          ? state.ribbonAbsoluteOffset + this.props.step
-          : state.ribbonAbsoluteOffset - this.props.step;
-
-        return this.copium(isNextButton, requestedOffset);
-      })
-    );
-  };
-
-  copium(isNextButton: boolean, requestedOffset: number) {
-    const {
-      infinite,
-    } = this.props;
-
-    const {
-      leftOffsetLimit,
-      rightOffsetLimit,
-      isLeftLimitReached,
-      isRightLimitReached,
-    } = this;
-
-    if (isNextButton) {
-      if (infinite && isRightLimitReached) {
-        return { ribbonAbsoluteOffset: leftOffsetLimit };
-      }
-
-      const ribbonAbsoluteOffset = (requestedOffset > rightOffsetLimit)
-        ? rightOffsetLimit
-        : requestedOffset;
-
-      return { ribbonAbsoluteOffset };
-    }
-
-    if (infinite && isLeftLimitReached) {
-      return { ribbonAbsoluteOffset: rightOffsetLimit };
-    }
-
-    const ribbonAbsoluteOffset = (requestedOffset < leftOffsetLimit)
-      ? leftOffsetLimit
-      : requestedOffset;
-
-    return { ribbonAbsoluteOffset };
-  }
 
   render() {
     const {
@@ -192,7 +96,7 @@ export class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    const { ribbonAbsoluteOffset } = this.state;
+    const { offset } = this.state;
 
     const isPreviousButtonDisable = this.isLeftLimitReached && !infinite;
     const isNextButtonDisable = this.isRightLimitReached && !infinite;
@@ -206,7 +110,7 @@ export class Carousel extends React.Component<Props, State> {
           <ul
             className="Carousel__ribbon"
             style={{
-              transform: `translateX(${(-1) * ribbonAbsoluteOffset * itemWidth}px)`,
+              transform: `translateX(${(-1) * offset * itemWidth}px)`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
@@ -231,7 +135,7 @@ export class Carousel extends React.Component<Props, State> {
                 'Carousel__button--disabled': isPreviousButtonDisable,
               },
             )}
-            onClick={this.handleCopium(false)}
+            onClick={this.handlePreviousClick}
           >
             &#8592;
           </button>
@@ -243,7 +147,7 @@ export class Carousel extends React.Component<Props, State> {
                 'Carousel__button--disabled': isNextButtonDisable,
               },
             )}
-            onClick={this.handleCopium(true)}
+            onClick={this.handleNextClick}
           >
             &#8594;
           </button>
