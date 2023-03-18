@@ -121,9 +121,7 @@ class App extends React.Component<{}, State> {
                 type="checkbox"
                 checked={infinite}
                 onChange={(event) => {
-                  this.setState(
-                    { infinite: event.currentTarget.checked },
-                  );
+                  this.setState({ infinite: event.currentTarget.checked });
                 }}
               />
             </label>
