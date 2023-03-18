@@ -83,7 +83,7 @@ class Carousel extends React.Component<Props, State> {
     return (
       <div
         className="Carousel"
-        style={{ width: `${imageSize * frameSize}px` }}
+        style={{ width: `${imageSize * frameSize + 5}px` }}
       >
         <div className="Carousel__container">
           <ul
