@@ -8,6 +8,7 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
 };
 
 type State = {
@@ -36,7 +37,24 @@ export class Carousel extends React.Component<Props, State> {
         const {
           step,
           itemWidth,
+          infinite,
         } = this.props;
+
+        if (
+          infinite
+          && state.ribbonAbsoluteOffset === this.leftOffsetLimit
+          && !isNextButton
+        ) {
+          return { ribbonAbsoluteOffset: this.rightOffsetLimit };
+        }
+
+        if (
+          infinite
+          && state.ribbonAbsoluteOffset === this.rightOffsetLimit
+          && isNextButton
+        ) {
+          return { ribbonAbsoluteOffset: this.leftOffsetLimit };
+        }
 
         const requestedOffset = state.ribbonAbsoluteOffset
           + step * itemWidth * ribbonOffsetDirection;
@@ -64,6 +82,7 @@ export class Carousel extends React.Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinite,
     } = this.props;
 
     const { ribbonAbsoluteOffset } = this.state;
@@ -104,7 +123,8 @@ export class Carousel extends React.Component<Props, State> {
             className={classNames(
               'Carousel__button',
               {
-                'Carousel__button--disabled': isPreviousButtonDisable,
+                'Carousel__button--disabled':
+                  isPreviousButtonDisable && !infinite,
               },
             )}
             onClick={this.handleClick(false)}
@@ -116,7 +136,8 @@ export class Carousel extends React.Component<Props, State> {
             className={classNames(
               'Carousel__button',
               {
-                'Carousel__button--disabled': isNextButtonDisable,
+                'Carousel__button--disabled':
+                  isNextButtonDisable && !infinite,
               },
             )}
             onClick={this.handleClick(true)}
