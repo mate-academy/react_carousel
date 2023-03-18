@@ -41,13 +41,7 @@ class Carousel extends React.Component<Props, State> {
         return;
       }
 
-      if (position >= 0) {
-        this.setState({ translateValue: 0 });
-
-        return;
-      }
-
-      this.setState({ translateValue: position });
+      this.setState({ translateValue: position >= 0 ? 0 : position });
     }
 
     if (event.currentTarget.name === 'Next') {
@@ -59,13 +53,11 @@ class Carousel extends React.Component<Props, State> {
         return;
       }
 
-      if (position <= maxSlide) {
-        this.setState({ translateValue: maxSlide });
-
-        return;
-      }
-
-      this.setState({ translateValue: position });
+      this.setState({
+        translateValue: position <= maxSlide
+          ? maxSlide
+          : position,
+      });
     }
   };
 

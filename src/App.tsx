@@ -76,11 +76,9 @@ class App extends React.Component<{}, State> {
                 type="number"
                 value={framesize}
                 max={images.length}
-                onChange={
-                  (event) => {
-                    this.setState({ framesize: +event.currentTarget.value });
-                  }
-                }
+                onChange={(event) => {
+                  this.setState({ framesize: +event.currentTarget.value });
+                }}
               />
             </label>
           </div>
@@ -92,11 +90,9 @@ class App extends React.Component<{}, State> {
                 className="Form__input"
                 type="number"
                 value={step}
-                onChange={
-                  (e) => {
-                    this.setState({ step: +e.currentTarget.value });
-                  }
-                }
+                onChange={(event) => {
+                  this.setState({ step: +event.currentTarget.value });
+                }}
               />
             </label>
           </div>
@@ -108,13 +104,11 @@ class App extends React.Component<{}, State> {
                 className="Form__input"
                 type="number"
                 value={animationDuration}
-                onChange={
-                  (e) => {
-                    this.setState(
-                      { animationDuration: +e.currentTarget.value },
-                    );
-                  }
-                }
+                onChange={(event) => {
+                  this.setState(
+                    { animationDuration: +event.currentTarget.value },
+                  );
+                }}
               />
             </label>
           </div>
@@ -126,13 +120,11 @@ class App extends React.Component<{}, State> {
                 className="Form__input"
                 type="checkbox"
                 checked={infinite}
-                onChange={
-                  (e) => {
-                    this.setState(
-                      { infinite: e.currentTarget.checked },
-                    );
-                  }
-                }
+                onChange={(event) => {
+                  this.setState(
+                    { infinite: event.currentTarget.checked },
+                  );
+                }}
               />
             </label>
           </div>
