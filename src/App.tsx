@@ -59,11 +59,9 @@ class App extends React.Component<{}, State> {
                 className="Form__input"
                 type="number"
                 value={itemWidth}
-                onChange={
-                  (e) => {
-                    this.setState({ itemWidth: +e.currentTarget.value });
-                  }
-                }
+                onChange={(event) => {
+                  this.setState({ itemWidth: +event.currentTarget.value });
+                }}
               />
             </label>
           </div>
