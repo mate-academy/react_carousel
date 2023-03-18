@@ -46,7 +46,7 @@
       transition: none;
     }
 
-    &:not(.button--disabled):hover {
+    &:not(&--disabled):hover {
       background-color: #777;
       color: white;
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
@@ -31,7 +31,7 @@ class App extends React.Component<{}, State> {
         <h1>Carousel with {images.length} images</h1>
 
         <div className="App__carousel">
-          <Carousel />
+          <Carousel images={images} step={2} frameSize={3} itemWidth={130} />
         </div>
       </div>
     );
