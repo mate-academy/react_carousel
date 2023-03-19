@@ -37,11 +37,6 @@ class App extends React.Component<{}, State> {
       images, step, frameSize, itemWidth, animationDuration, infinite,
     } = this.state;
 
-    console.log('frameSize', frameSize);
-    console.log('step', step);
-    console.log('itemWidth', itemWidth);
-    console.log('----------------------------------------');
-
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
