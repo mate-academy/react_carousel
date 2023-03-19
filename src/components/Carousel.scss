@@ -1,1 +1,59 @@
 // style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__wrapper {
+    width: 390px;
+    // overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    // justify-content: space-between;
+    list-style: none;
+    width: 1300px;
+  }
+}
+
+.button {
+  position: relative;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-color: rgb(243, 237, 237);
+  transition: 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.button:hover {
+  box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0,34);
+}
+
+.button div {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-top: 4px solid #202020;
+  border-left: 4px solid #202020;
+  transform: rotate(45deg);
+  left: 17px;
+  top: 19px;
+}
+
+.right {
+  transform: rotate(90deg);
+  margin: 0 0 0 15px;
+}
+
+.left {
+  transform: rotate(-90deg);
+  margin: 0 15px 0 0;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
