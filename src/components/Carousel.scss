@@ -1,1 +1,35 @@
-// style go here
+.Carousel {
+  width: 390px;
+  overflow: hidden;
+  position: relative;
+
+  &__list {
+    display: flex;
+    width: 1300px;
+    padding: 0;
+  }
+
+  &__item {
+    display: block;
+    width: var(--carousel-image-size);
+    height: var(--carousel-image-size);
+
+    list-style: none;
+  }
+}
+
+.button {
+  position: absolute;
+
+  &__wrapper {
+    height: 25px;
+  }
+}
+
+.next {
+  right: 0;
+}
+
+.prev {
+  left: 0;
+}
