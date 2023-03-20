@@ -20,6 +20,10 @@
 
 .button {
   position: absolute;
+
+  &__wrapper {
+    height: 25px;
+  }
 }
 
 .next {

@@ -19,7 +19,7 @@ class Carousel extends React.Component<Props, State> {
     position: 0, // position of our scroll bar
   };
 
-  switchPosition = (e: React.MouseEvent<HTMLButtonElement>) => {
+  switchPosition = (direction: string) => {
     const {
       images,
       itemWidth,
@@ -28,29 +28,29 @@ class Carousel extends React.Component<Props, State> {
       infinite,
     } = this.props;
 
-    const { currentTarget } = e;
-    let { position } = this.state;
+    const { position } = this.state;
+    let pos = position;
     const isEnd = -itemWidth * (images.length - frameSize);
 
-    if (currentTarget.textContent === 'Next') {
-      position -= itemWidth * step;
-      position = Math.max(position, isEnd);
+    if (direction === 'next') {
+      pos -= itemWidth * step;
+      pos = Math.max(pos, isEnd);
 
       if (infinite && this.state.position === isEnd) {
-        position = 0;
+        pos = 0;
       }
     }
 
-    if (currentTarget.innerText === 'Prev') {
-      position += itemWidth * step;
-      position = Math.min(position, 0);
+    if (direction === 'prev') {
+      pos += itemWidth * step;
+      pos = Math.min(pos, 0);
 
       if (infinite && this.state.position === 0) {
-        position = isEnd;
+        pos = isEnd;
       }
     }
 
-    this.setState({ position });
+    this.setState({ position: pos });
   };
 
   render() {
@@ -75,6 +75,7 @@ class Carousel extends React.Component<Props, State> {
           style={{
             transition: `${animationDuration}ms`,
             transform: `translateX(${position}px)`,
+            width: `${itemWidth * images.length}px`,
           }}
         >
           {images.map(img => {
@@ -96,11 +97,11 @@ class Carousel extends React.Component<Props, State> {
           })}
         </ul>
 
-        <div style={{ width: '100%', height: '25px' }}>
+        <div className="button__wrapper">
           <button
             className="button prev"
             type="button"
-            onClick={this.switchPosition}
+            onClick={() => this.switchPosition('prev')}
             disabled={position === 0 && !infinite}
           >
             Prev
@@ -109,7 +110,7 @@ class Carousel extends React.Component<Props, State> {
           <button
             className="button next"
             type="button"
-            onClick={this.switchPosition}
+            onClick={() => this.switchPosition('next')}
             data-cy="next"
             disabled={position === isEnd && !infinite}
           >

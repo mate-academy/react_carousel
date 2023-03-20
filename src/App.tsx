@@ -35,14 +35,12 @@ class App extends React.Component<{}, State> {
   };
 
   getSettingsFromForm = () => {
-    const form: HTMLFormElement = document
+    const form = document
       .querySelector('#form') as HTMLFormElement;
 
-    const data: FormData = new FormData(form);
+    const data = new FormData(form);
 
-    [...data.entries()].forEach(item => {
-      const [inputName, value] = item;
-
+    [...data.entries()].forEach(([inputName, value]) => {
       this.setState((prevState) => ({
         ...prevState,
         [inputName]: value,
