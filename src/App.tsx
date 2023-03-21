@@ -3,7 +3,12 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images: string[],
+  framesize: number,
+  itemWidth: number,
+  step: number,
+  animationDuration: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,119 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    framesize: 3,
+    itemWidth: 130,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      framesize,
+      itemWidth,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <div className="app">
+        <h1 className="app__title" data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <form
+          className="app__form form"
+          action="#"
+          method="get"
+        >
+          <div className="form__field">
+            <label className="form__label">
+              ItemWidth:
+              <input
+                className="form__input"
+                type="number"
+                value={itemWidth}
+                onChange={(event) => {
+                  this.setState({ itemWidth: +event.currentTarget.value });
+                }}
+              />
+            </label>
+          </div>
+
+          <div className="form__field">
+            <label className="form__label">
+              FrameSize:
+              <input
+                className="form__input"
+                type="number"
+                value={framesize}
+                max={images.length}
+                min="1"
+                onChange={(event) => {
+                  this.setState({ framesize: +event.currentTarget.value });
+                }}
+              />
+            </label>
+          </div>
+
+          <div className="form__field">
+            <label className="form__label">
+              Step:
+              <input
+                className="form__input"
+                type="number"
+                value={step}
+                min="1"
+                onChange={(event) => {
+                  this.setState({ step: +event.currentTarget.value });
+                }}
+              />
+            </label>
+          </div>
+
+          <div className="form__field">
+            <label className="form__label">
+              AnimationDuration:
+              <input
+                className="form__input"
+                type="number"
+                min="0"
+                value={animationDuration}
+                onChange={(event) => {
+                  this.setState(
+                    { animationDuration: +event.currentTarget.value },
+                  );
+                }}
+              />
+            </label>
+          </div>
+
+          <div className="form__field">
+            <label className="form__label">
+              Infinite:
+              <input
+                className="form__input"
+                type="checkbox"
+                checked={infinite}
+                onChange={(event) => {
+                  this.setState({ infinite: event.currentTarget.checked });
+                }}
+              />
+            </label>
+          </div>
+        </form>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={framesize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
