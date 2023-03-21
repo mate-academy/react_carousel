@@ -71,15 +71,16 @@ class Carousel extends React.Component<Props, State> {
     const { translateValue } = this.state;
 
     return (
-      <div className="Carousel">
+      <div className="carousel">
         <div
-          className="Carousel__container"
+          className="carousel__container"
           style={{
             width: `${itemWidth * frameSize}px`,
+            height: `${itemWidth + 22}px`,
           }}
         >
           <ul
-            className="Carousel__list"
+            className="carousel__list"
             style={{
               transform: `translateX(${translateValue}px)`,
               transitionDuration: `${animationDuration}ms`,
@@ -89,12 +90,14 @@ class Carousel extends React.Component<Props, State> {
               return (
                 <li
                   key={image}
-                  className="Carousel__item"
+                  className="carousel__item"
                 >
                   <img
                     src={image}
                     alt={index.toString()}
-                    className="Carousel__smile"
+                    style={{
+                      width: `${itemWidth}px`,
+                    }}
                   />
                 </li>
               );
@@ -102,10 +105,10 @@ class Carousel extends React.Component<Props, State> {
           </ul>
         </div>
 
-        <div className="Carousel__buttons">
+        <div className="carousel__buttons">
           <button
             type="button"
-            className="Carousel__button Carousel__button-prev"
+            className="carousel__button"
             name="Previous"
             onClick={this.handlerButton}
           >
@@ -115,7 +118,7 @@ class Carousel extends React.Component<Props, State> {
 
           <button
             type="button"
-            className="Carousel__button Carousel__button-next"
+            className="carousel__button"
             name="Next"
             onClick={this.handlerButton}
             data-cy="Next"

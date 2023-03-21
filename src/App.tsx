@@ -43,20 +43,21 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
+      <div className="app">
+        <h1 className="app__title" data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <form
-          className="App__form Form"
+          className="app__form form"
           action="#"
           method="get"
         >
-          <div className="Form__field">
-            <label className="Form__label">
+          <div className="form__field">
+            <label className="form__label">
               ItemWidth:
               <input
-                className="Form__input"
+                className="form__input"
                 type="number"
                 value={itemWidth}
                 onChange={(event) => {
@@ -66,14 +67,15 @@ class App extends React.Component<{}, State> {
             </label>
           </div>
 
-          <div className="Form__field">
-            <label className="Form__label">
+          <div className="form__field">
+            <label className="form__label">
               FrameSize:
               <input
-                className="Form__input"
+                className="form__input"
                 type="number"
                 value={framesize}
                 max={images.length}
+                min="1"
                 onChange={(event) => {
                   this.setState({ framesize: +event.currentTarget.value });
                 }}
@@ -81,13 +83,14 @@ class App extends React.Component<{}, State> {
             </label>
           </div>
 
-          <div className="Form__field">
-            <label className="Form__label">
+          <div className="form__field">
+            <label className="form__label">
               Step:
               <input
-                className="Form__input"
+                className="form__input"
                 type="number"
                 value={step}
+                min="1"
                 onChange={(event) => {
                   this.setState({ step: +event.currentTarget.value });
                 }}
@@ -95,12 +98,13 @@ class App extends React.Component<{}, State> {
             </label>
           </div>
 
-          <div className="Form__field">
-            <label className="Form__label">
+          <div className="form__field">
+            <label className="form__label">
               AnimationDuration:
               <input
-                className="Form__input"
+                className="form__input"
                 type="number"
+                min="0"
                 value={animationDuration}
                 onChange={(event) => {
                   this.setState(
@@ -111,11 +115,11 @@ class App extends React.Component<{}, State> {
             </label>
           </div>
 
-          <div className="Form__field">
-            <label className="Form__label">
+          <div className="form__field">
+            <label className="form__label">
               Infinite:
               <input
-                className="Form__input"
+                className="form__input"
                 type="checkbox"
                 checked={infinite}
                 onChange={(event) => {
