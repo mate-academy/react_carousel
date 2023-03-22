@@ -11,55 +11,59 @@ interface State {
   infinite: boolean,
 }
 
+const defaultState: State = {
+  images: [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ],
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 class App extends React.Component<{}, State> {
-  state: Readonly<State> = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    infinite: false,
+  state: Readonly<State> = defaultState;
+
+  handleStepChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(changeEvent.target.value);
+
+    this.setState({ step: value });
   };
 
-  handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleItemWidthChange =
+  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(changeEvent.target.value);
-    const name: keyof State = changeEvent.target.name as keyof State;
 
-    /*
-      * I know that this implementation is strange but if I do it simpler the linter starts to whine and gives this comlicated error that I don't know how to fix
-      * Argument of type '{ [x: string]: number; }' is not assignable to parameter of type 'State | ((prevState: Readonly<State>, props: Readonly<{}>) => State | Pick<State, keyof State> | null) | Pick<...> | null'.
-      * Type '{ [x: string]: number; }' is missing the following properties from type 'Pick<State, keyof State>': images, step, frameSize, itemWidth, and 2 more.
-    */
+    this.setState({ itemWidth: value });
+  };
 
-    switch (name) {
-      case 'step':
-        this.setState({ [name]: value });
-        break;
-      case 'itemWidth':
-        this.setState({ [name]: value });
-        break;
-      case 'frameSize':
-        this.setState({ [name]: value });
-        break;
-      case 'animationDuration':
-        this.setState({ [name]: value });
-        break;
-      case 'infinite':
-        this.setState({ [name]: changeEvent.target.checked });
-        break;
-      default:
-    }
+  handleFrameSizeChange =
+  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(changeEvent.target.value);
+
+    this.setState({ frameSize: value });
+  };
+
+  handleAnimationDurationChange =
+  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(changeEvent.target.value);
+
+    this.setState({ animationDuration: value });
+  };
+
+  handleInfiniteChange =
+  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: changeEvent.target.checked });
   };
 
   render() {
@@ -92,11 +96,11 @@ class App extends React.Component<{}, State> {
             {'Item width: '}
             <input
               id="itemId"
-              type="numner"
+              type="number"
               min={10}
               name="itemWidth"
               value={itemWidth}
-              onChange={this.handleChange}
+              onChange={this.handleItemWidthChange}
             />
           </label>
 
@@ -104,12 +108,12 @@ class App extends React.Component<{}, State> {
             {'Frame size: '}
             <input
               id="frameId"
-              type="numner"
+              type="number"
               min={1}
               max={10}
               name="frameSize"
               value={frameSize}
-              onChange={this.handleChange}
+              onChange={this.handleFrameSizeChange}
             />
           </label>
 
@@ -117,23 +121,23 @@ class App extends React.Component<{}, State> {
             {'Step: '}
             <input
               id="stepId"
-              type="numner"
+              type="number"
               min={1}
               max={9}
               name="step"
               value={step}
-              onChange={this.handleChange}
+              onChange={this.handleStepChange}
             />
           </label>
 
           <label className="App__label">
             {'Animation duration: '}
             <input
-              type="numner"
+              type="number"
               min={0}
               name="animationDuration"
               value={animationDuration}
-              onChange={this.handleChange}
+              onChange={this.handleAnimationDurationChange}
             />
           </label>
 
@@ -143,7 +147,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               name="infinite"
               checked={infinite}
-              onChange={this.handleChange}
+              onChange={this.handleInfiniteChange}
             />
           </label>
         </form>

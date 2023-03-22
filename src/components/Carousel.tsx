@@ -12,17 +12,23 @@ type Props = {
 };
 
 type State = {
-  currentFrame: number;
+  currentFrame: number,
+  inTransition: boolean,
+  hasNext: boolean,
+  hasPreviouus: boolean,
 };
 
 class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
     currentFrame: 0,
+    inTransition: false,
+    hasNext: true,
+    hasPreviouus: false,
   };
 
   intervalId = 0;
 
-  nextStep = () => {
+  handleNext = () => {
     const {
       step,
       frameSize,
@@ -30,23 +36,42 @@ class Carousel extends Component<Props, State> {
       images,
     } = this.props;
     const count = images.length;
-    const { currentFrame } = this.state;
-    let nextFrame = currentFrame + step;
+    const { currentFrame, hasPreviouus } = this.state;
 
-    if (currentFrame + frameSize === count && infinite) {
-      nextFrame = 0;
+    const getNextFrame = (current: number) => {
+      let next = current + step;
+
+      if (current + frameSize === count && infinite) {
+        next = 0;
+      }
+
+      if (count - next < frameSize) {
+        next = count - frameSize;
+      }
+
+      return next;
+    };
+
+    const nextFrame = getNextFrame(currentFrame);
+
+    const hasNextFrame = getNextFrame(nextFrame) !== nextFrame;
+
+    if (!hasNextFrame) {
+      this.setState({
+        hasNext: false,
+      });
     }
 
-    if (count - nextFrame < frameSize) {
-      nextFrame = count - frameSize;
+    if (!hasPreviouus) {
+      this.setState({
+        hasPreviouus: true,
+      });
     }
 
-    this.setState({
-      currentFrame: nextFrame,
-    });
+    this.setCurrentFrame(nextFrame);
   };
 
-  previousStep = () => {
+  handlePrevious = () => {
     const {
       step,
       infinite,
@@ -54,20 +79,51 @@ class Carousel extends Component<Props, State> {
       images,
     } = this.props;
     const count = images.length;
-    const { currentFrame } = this.state;
-    let nextFrame = currentFrame - step;
+    const { currentFrame, hasNext } = this.state;
 
-    if (currentFrame === 0 && infinite) {
-      nextFrame = count - frameSize;
+    const getPreviousFrame = (current: number) => {
+      let previous = current - step;
+
+      if (current === 0 && infinite) {
+        previous = count - frameSize;
+      }
+
+      if (previous < 0) {
+        previous = 0;
+      }
+
+      return previous;
+    };
+
+    const previousFrame = getPreviousFrame(currentFrame);
+    const hasPreviousFrame = previousFrame !== getPreviousFrame(previousFrame);
+
+    if (!hasPreviousFrame) {
+      this.setState({
+        hasPreviouus: false,
+      });
     }
 
-    if (nextFrame < 0) {
-      nextFrame = 0;
+    if (!hasNext) {
+      this.setState({
+        hasNext: true,
+      });
     }
 
+    this.setCurrentFrame(previousFrame);
+  };
+
+  setCurrentFrame = (nextFrame: number) => {
     this.setState({
+      inTransition: true,
       currentFrame: nextFrame,
     });
+
+    setTimeout(() => {
+      this.setState({
+        inTransition: false,
+      });
+    }, this.props.animationDuration);
   };
 
   inVisibleArea = (index: number) => {
@@ -85,7 +141,12 @@ class Carousel extends Component<Props, State> {
       itemWidth,
       animationDuration,
     } = this.props;
-    const { currentFrame } = this.state;
+    const {
+      currentFrame,
+      inTransition,
+      hasNext,
+      hasPreviouus,
+    } = this.state;
 
     return (
       <div
@@ -117,19 +178,23 @@ class Carousel extends Component<Props, State> {
             </li>
           ))}
         </ul>
+
         <div className="Carousel__buttons">
           <button
             type="button"
-            onClick={this.previousStep}
+            onClick={this.handlePrevious}
             className="Carousel__button"
+            disabled={inTransition || !hasPreviouus}
           >
             {'<<'}
           </button>
+
           <button
             type="button"
-            onClick={this.nextStep}
+            onClick={this.handleNext}
             data-cy="next"
             className="Carousel__button"
+            disabled={inTransition || !hasNext}
           >
             {'>>'}
           </button>
