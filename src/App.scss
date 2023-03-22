@@ -4,18 +4,4 @@
   justify-content: center;
   text-align: center;
   gap: 15px;
-
-  &__form {
-    margin: 0 auto;
-  }
-
-  &__label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  &__input {
-    width: 70px;
-  }
 }

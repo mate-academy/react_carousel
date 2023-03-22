@@ -1,4 +1,5 @@
 import React from 'react';
+import './Form.scss';
 
 export const INITIAL_ITEM_WIDTH = 130;
 
@@ -28,11 +29,11 @@ export const Form: React.FC<Props> = ({
   imagesLength,
 }) => {
   return (
-    <div className="App__form">
-      <label className="App__label">
+    <div className="Form">
+      <label className="Form__label">
         Image size:
         <input
-          className="App__input"
+          className="Form__input"
           type="number"
           step="10"
           min={INITIAL_ITEM_WIDTH}
@@ -41,10 +42,10 @@ export const Form: React.FC<Props> = ({
         />
       </label>
 
-      <label className="App__label">
+      <label className="Form__label">
         Step:
         <input
-          className="App__input"
+          className="Form__input"
           type="number"
           min="1"
           max="5"
@@ -53,10 +54,10 @@ export const Form: React.FC<Props> = ({
         />
       </label>
 
-      <label className="App__label">
+      <label className="Form__label">
         How many images are seen:
         <input
-          className="App__input"
+          className="Form__input"
           type="number"
           min="1"
           max={imagesLength}
@@ -65,10 +66,10 @@ export const Form: React.FC<Props> = ({
         />
       </label>
 
-      <label className="App__label">
+      <label className="Form__label">
         Duration of animation:
         <input
-          className="App__input"
+          className="Form__input"
           type="number"
           min="0"
           max="10000"
@@ -78,10 +79,10 @@ export const Form: React.FC<Props> = ({
         />
       </label>
 
-      <label className="App__label">
+      <label className="Form__label">
         Infinite:
         <input
-          className="App__input"
+          className="Form__input"
           type="checkbox"
           onChange={onInfiniteChange}
         />
