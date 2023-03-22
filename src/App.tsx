@@ -34,35 +34,41 @@ const defaultState: State = {
 class App extends React.Component<{}, State> {
   state: Readonly<State> = defaultState;
 
-  handleStepChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleStepChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = Number(changeEvent.target.value);
 
     this.setState({ step: value });
   };
 
-  handleItemWidthChange =
-  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleItemWidthChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = Number(changeEvent.target.value);
 
     this.setState({ itemWidth: value });
   };
 
-  handleFrameSizeChange =
-  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleFrameSizeChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = Number(changeEvent.target.value);
 
     this.setState({ frameSize: value });
   };
 
-  handleAnimationDurationChange =
-  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleAnimationDurationChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const value = Number(changeEvent.target.value);
 
     this.setState({ animationDuration: value });
   };
 
-  handleInfiniteChange =
-  (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  handleInfiniteChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     this.setState({ infinite: changeEvent.target.checked });
   };
 
@@ -97,7 +103,7 @@ class App extends React.Component<{}, State> {
             <input
               id="itemId"
               type="number"
-              min={10}
+              min={0}
               name="itemWidth"
               value={itemWidth}
               onChange={this.handleItemWidthChange}
@@ -110,7 +116,7 @@ class App extends React.Component<{}, State> {
               id="frameId"
               type="number"
               min={1}
-              max={10}
+              max={images.length}
               name="frameSize"
               value={frameSize}
               onChange={this.handleFrameSizeChange}
@@ -123,7 +129,7 @@ class App extends React.Component<{}, State> {
               id="stepId"
               type="number"
               min={1}
-              max={9}
+              max={images.length - 1}
               name="step"
               value={step}
               onChange={this.handleStepChange}

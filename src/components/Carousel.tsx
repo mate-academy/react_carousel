@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import classNames from 'classnames';
 import './Carousel.scss';
+import { getNextFrame, getPreviousFrame } from '../helpers';
 
 type Props = {
   images: string[];
@@ -15,7 +16,7 @@ type State = {
   currentFrame: number,
   inTransition: boolean,
   hasNext: boolean,
-  hasPreviouus: boolean,
+  hasPrevious: boolean,
 };
 
 class Carousel extends Component<Props, State> {
@@ -23,7 +24,7 @@ class Carousel extends Component<Props, State> {
     currentFrame: 0,
     inTransition: false,
     hasNext: true,
-    hasPreviouus: false,
+    hasPrevious: false,
   };
 
   intervalId = 0;
@@ -36,25 +37,23 @@ class Carousel extends Component<Props, State> {
       images,
     } = this.props;
     const count = images.length;
-    const { currentFrame, hasPreviouus } = this.state;
+    const { currentFrame, hasPrevious: hasPreviouus } = this.state;
 
-    const getNextFrame = (current: number) => {
-      let next = current + step;
+    const nextFrame = getNextFrame(
+      currentFrame,
+      count,
+      frameSize,
+      step,
+      infinite,
+    );
 
-      if (current + frameSize === count && infinite) {
-        next = 0;
-      }
-
-      if (count - next < frameSize) {
-        next = count - frameSize;
-      }
-
-      return next;
-    };
-
-    const nextFrame = getNextFrame(currentFrame);
-
-    const hasNextFrame = getNextFrame(nextFrame) !== nextFrame;
+    const hasNextFrame = getNextFrame(
+      nextFrame,
+      count,
+      frameSize,
+      step,
+      infinite,
+    ) !== nextFrame;
 
     if (!hasNextFrame) {
       this.setState({
@@ -64,7 +63,7 @@ class Carousel extends Component<Props, State> {
 
     if (!hasPreviouus) {
       this.setState({
-        hasPreviouus: true,
+        hasPrevious: true,
       });
     }
 
@@ -81,26 +80,25 @@ class Carousel extends Component<Props, State> {
     const count = images.length;
     const { currentFrame, hasNext } = this.state;
 
-    const getPreviousFrame = (current: number) => {
-      let previous = current - step;
+    const previousFrame = getPreviousFrame(
+      currentFrame,
+      count,
+      frameSize,
+      step,
+      infinite,
+    );
 
-      if (current === 0 && infinite) {
-        previous = count - frameSize;
-      }
-
-      if (previous < 0) {
-        previous = 0;
-      }
-
-      return previous;
-    };
-
-    const previousFrame = getPreviousFrame(currentFrame);
-    const hasPreviousFrame = previousFrame !== getPreviousFrame(previousFrame);
+    const hasPreviousFrame = getPreviousFrame(
+      previousFrame,
+      count,
+      frameSize,
+      step,
+      infinite,
+    ) !== previousFrame;
 
     if (!hasPreviousFrame) {
       this.setState({
-        hasPreviouus: false,
+        hasPrevious: false,
       });
     }
 
@@ -145,7 +143,7 @@ class Carousel extends Component<Props, State> {
       currentFrame,
       inTransition,
       hasNext,
-      hasPreviouus,
+      hasPrevious: hasPreviouus,
     } = this.state;
 
     return (
