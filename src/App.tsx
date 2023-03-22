@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Form, INITIAL_ITEM_WIDTH } from './components/Form';
 
 interface State {
   images: string[];
@@ -11,48 +12,62 @@ interface State {
   infinite: boolean,
 }
 
+const initialImages: string[] = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
+
+const initialState: State = {
+  images: [...initialImages],
+  itemWidth: 130,
+  step: 3,
+  frameSize: 3,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    itemWidth: 130,
-    step: 3,
-    frameSize: 3,
-    animationDuration: 1000,
-    infinite: false,
+  readonly state = {
+    ...initialState,
   };
 
   changeItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value >= 130) {
-      this.setState({ itemWidth: +event.target.value });
+    const width = +event.target.value;
+
+    if (+width >= INITIAL_ITEM_WIDTH) {
+      this.setState({ itemWidth: width });
     }
   };
 
   changeStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
-      this.setState({ step: +event.target.value });
+    const step = +event.target.value;
+
+    if (step > 0) {
+      this.setState({ step });
     }
   };
 
   changeFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
-      this.setState({ frameSize: +event.target.value });
+    const size = +event.target.value;
+
+    if (size > 0) {
+      this.setState({ frameSize: size });
     }
   };
 
   changeAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
-      this.setState({ animationDuration: +event.target.value });
+    const duration = +event.target.value;
+
+    if (duration > 0) {
+      this.setState({ animationDuration: duration });
     }
   };
 
@@ -85,65 +100,18 @@ class App extends React.Component<{}, State> {
           infinite={infinite}
         />
 
-        <div className="App__form">
-          <label className="App__label">
-            Image size:
-            <input
-              className="App__input"
-              type="number"
-              step="10"
-              min="130"
-              value={itemWidth}
-              onChange={this.changeItemWidth}
-            />
-          </label>
-
-          <label className="App__label">
-            Step:
-            <input
-              className="App__input"
-              type="number"
-              min="1"
-              max="5"
-              value={step}
-              onChange={this.changeStep}
-            />
-          </label>
-
-          <label className="App__label">
-            How many images are seen:
-            <input
-              className="App__input"
-              type="number"
-              min="1"
-              max={images.length}
-              value={frameSize}
-              onChange={this.changeFrameSize}
-            />
-          </label>
-
-          <label className="App__label">
-            Duration of animation:
-            <input
-              className="App__input"
-              type="number"
-              min="0"
-              max="10000"
-              step="100"
-              value={animationDuration}
-              onChange={this.changeAnimationDuration}
-            />
-          </label>
-
-          <label className="App__label">
-            Infinite:
-            <input
-              className="App__input"
-              type="checkbox"
-              onChange={this.changeInfinite}
-            />
-          </label>
-        </div>
+        <Form
+          itemWidth={itemWidth}
+          onChangeWidth={this.changeItemWidth}
+          step={step}
+          onStepChange={this.changeStep}
+          frameSize={frameSize}
+          onFrameChange={this.changeFrameSize}
+          animationDuration={animationDuration}
+          onDurationChange={this.changeAnimationDuration}
+          onInfiniteChange={this.changeInfinite}
+          imagesLength={images.length}
+        />
       </div>
     );
   }

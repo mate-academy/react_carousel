@@ -22,31 +22,44 @@ const Carousel: React.FC<Props> = ({
 
   const handleNextClick = () => {
     setCurrentIndex(state => {
-      if (state === images.length - frameSize) {
+      const lastItemPosition = images.length - frameSize;
+      const nexItemPosition = state + step;
+
+      if (state === lastItemPosition) {
         return 0;
       }
 
-      if (state + step > images.length - frameSize) {
-        return images.length - frameSize;
+      if (nexItemPosition > lastItemPosition) {
+        return lastItemPosition;
       }
 
-      return state + step;
+      return nexItemPosition;
     });
   };
 
   const handlePrevClick = () => {
     setCurrentIndex(state => {
+      const lastItemPosition = images.length - frameSize;
+      const prevItemPosition = state - step;
+
       if (state === 0) {
-        return images.length - frameSize;
+        return lastItemPosition;
       }
 
-      if (state - step < 0) {
+      if (prevItemPosition < 0) {
         return 0;
       }
 
-      return state - step;
+      return prevItemPosition;
     });
   };
+
+  const isLeftArrowEnabled = currentIndex > 0 || infinite;
+  const isRightArrowEnabled = currentIndex < images.length - frameSize
+  || infinite;
+
+  const frameWidth = frameSize * itemWidth;
+  const itemTransform = currentIndex * itemWidth;
 
   return (
     <div className="Carousel">
@@ -54,7 +67,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__button"
         type="button"
         onClick={handlePrevClick}
-        disabled={currentIndex === 0 && !infinite}
+        disabled={!isLeftArrowEnabled}
       >
         {'<'}
       </button>
@@ -62,7 +75,7 @@ const Carousel: React.FC<Props> = ({
       <div
         className="Carousel__list-container"
         style={{
-          width: `${frameSize * itemWidth}px`,
+          width: `${frameWidth}px`,
         }}
       >
         <ul className="Carousel__list">
@@ -72,7 +85,7 @@ const Carousel: React.FC<Props> = ({
               key={img}
               style={{
                 transition: `${animationDuration}ms`,
-                transform: `translate(-${currentIndex * itemWidth}px)`,
+                transform: `translate(-${itemTransform}px)`,
               }}
             >
               <img
@@ -94,7 +107,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__button"
         type="button"
         onClick={handleNextClick}
-        disabled={currentIndex === images.length - step && !infinite}
+        disabled={!isRightArrowEnabled}
       >
         {'>'}
       </button>
