@@ -27,7 +27,11 @@ class Carousel extends Component<Props, State> {
     hasPrevious: false,
   };
 
-  intervalId = 0;
+  timeoutId = 0;
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
+  }
 
   handleNext = () => {
     const {
@@ -37,7 +41,7 @@ class Carousel extends Component<Props, State> {
       images,
     } = this.props;
     const count = images.length;
-    const { currentFrame, hasPrevious: hasPreviouus } = this.state;
+    const { currentFrame, hasPrevious } = this.state;
 
     const nextFrame = getNextFrame(
       currentFrame,
@@ -61,7 +65,7 @@ class Carousel extends Component<Props, State> {
       });
     }
 
-    if (!hasPreviouus) {
+    if (!hasPrevious) {
       this.setState({
         hasPrevious: true,
       });
@@ -117,7 +121,7 @@ class Carousel extends Component<Props, State> {
       currentFrame: nextFrame,
     });
 
-    setTimeout(() => {
+    this.timeoutId = window.setTimeout(() => {
       this.setState({
         inTransition: false,
       });
@@ -143,7 +147,7 @@ class Carousel extends Component<Props, State> {
       currentFrame,
       inTransition,
       hasNext,
-      hasPrevious: hasPreviouus,
+      hasPrevious,
     } = this.state;
 
     return (
@@ -182,7 +186,7 @@ class Carousel extends Component<Props, State> {
             type="button"
             onClick={this.handlePrevious}
             className="Carousel__button"
-            disabled={inTransition || !hasPreviouus}
+            disabled={inTransition || !hasPrevious}
           >
             {'<<'}
           </button>

@@ -32,7 +32,7 @@ const defaultState: State = {
 };
 
 class App extends React.Component<{}, State> {
-  state: Readonly<State> = defaultState;
+  state: Readonly<State> = { ...defaultState };
 
   handleStepChange = (
     changeEvent: React.ChangeEvent<HTMLInputElement>,
@@ -103,7 +103,7 @@ class App extends React.Component<{}, State> {
             <input
               id="itemId"
               type="number"
-              min={0}
+              min={1}
               name="itemWidth"
               value={itemWidth}
               onChange={this.handleItemWidthChange}

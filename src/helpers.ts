@@ -24,7 +24,7 @@ export function getPreviousFrame(
   frameSize: number,
   step: number,
   infinite: boolean,
-) {
+): number {
   let previous = current - step;
 
   if (current === 0 && infinite) {
