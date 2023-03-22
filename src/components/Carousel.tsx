@@ -22,8 +22,9 @@ export class Carousel extends React.Component<Props, State> {
 
   private readonly leftLimit = 0;
 
-  private readonly rightLimit
-  = (this.props.images.length - this.props.frameSize);
+  private get rightLimit() {
+    return this.props.images.length - this.props.frameSize;
+  }
 
   private get isLeftLimitReached() {
     return this.state.offset === this.leftLimit;
@@ -31,6 +32,16 @@ export class Carousel extends React.Component<Props, State> {
 
   private get isRightLimitReached() {
     return this.state.offset === this.rightLimit;
+  }
+
+  static getDerivedStateFromProps(props: Props, state: State) {
+    const rightLimit = props.images.length - props.frameSize;
+
+    if (state.offset > rightLimit) {
+      return { offset: rightLimit };
+    }
+
+    return null;
   }
 
   handleNextClick = () => (
@@ -108,15 +119,16 @@ export class Carousel extends React.Component<Props, State> {
           style={{ width: `${frameSize * itemWidth}px` }}
         >
           <ul
-            className="Carousel__ribbon"
+            className="Carousel__list"
             style={{
               transform: `translateX(${(-1) * offset * itemWidth}px)`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
             {images.map((image, i) => (
-              <li key={image}>
+              <li className="Carousel__item" key={image}>
                 <img
+                  width={`${itemWidth}`}
                   className="Carousel__image"
                   src={image}
                   alt={`${i}`}
@@ -141,6 +153,7 @@ export class Carousel extends React.Component<Props, State> {
           </button>
           <button
             type="button"
+            data-cy="next"
             className={classNames(
               'Carousel__button',
               {

@@ -4,9 +4,10 @@
     width: 130px;
     margin: 0 auto;
     background-color: palegreen;
+    overflow: hidden;
   }
 
-  &__ribbon {
+  &__list {
     display: flex;
 
     transform: translateX(0);
@@ -14,9 +15,8 @@
     transition-timing-function: ease;
   }
 
-  &__image {
-    // width: 100px;
-    // height: 100px;
+  &__item {
+    display: flex;
   }
 
   &__controls {
