@@ -8,7 +8,6 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +28,15 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    // infinite: false,
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState(current => ({
+      ...current,
+      [name]: +value,
+    }));
   };
 
   render() {
@@ -39,13 +46,58 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      // infinite,
     } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+        <form>
+          <label htmlFor="stepInputId">
+            Step:
+          </label>
+          <input
+            id="stepInputId"
+            type="text"
+            name="step"
+            value={this.state.step}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="frameSizeInputId">
+            Frame size:
+          </label>
+          <input
+            id="frameSizeInputId"
+            type="text"
+            name="frameSize"
+            value={this.state.frameSize}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="itemWidthInputId">
+            Input width:
+          </label>
+          <input
+            id="itemWidthInputId"
+            type="text"
+            name="itemWidth"
+            value={this.state.itemWidth}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="animationDurationInputId">
+            Animation duration:
+          </label>
+          <input
+            id="animationDurationInputId"
+            type="text"
+            name="animationDuration"
+            value={this.state.animationDuration}
+            onChange={this.handleChange}
+          />
+        </form>
 
         <Carousel
           images={images}
@@ -53,7 +105,6 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          // infinite={infinite}
         />
       </div>
     );

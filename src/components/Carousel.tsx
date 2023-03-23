@@ -8,7 +8,6 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
 };
 
 type State = {
@@ -21,19 +20,20 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   slideRight = () => {
-    if ((this.props.itemWidth * this.props.images.length) + (
-      this.state.translateX) <= 0) {
+    const { itemWidth, images, frameSize } = this.props;
+    const { translateX } = this.state;
+    const imagesWithoutFrame = images.length - frameSize;
+    const ourStep = this.props.step * itemWidth;
+
+    if (itemWidth * imagesWithoutFrame + translateX === 0) {
       return;
     }
 
-    if ((this.props.itemWidth * this.props.images.length + (
-      this.state.translateX))
-      < (this.props.itemWidth * this.props.step)) {
+    if (itemWidth * imagesWithoutFrame + translateX < ourStep) {
       this.setState((state) => (
         {
           translateX: state.translateX - (
-            this.props.itemWidth * this.props.images.length + (
-              state.translateX)),
+            itemWidth * imagesWithoutFrame + translateX),
         }
       ));
 
@@ -42,25 +42,24 @@ export class Carousel extends React.Component<Props, State> {
 
     this.setState((state) => (
       {
-        translateX: state.translateX - (this.props.itemWidth * this.props.step),
+        translateX: state.translateX - ourStep,
       }
     ));
   };
 
   slideLeft = () => {
-    if ((this.props.itemWidth * this.props.images.length) === 1300) {
+    const { itemWidth } = this.props;
+    const { translateX } = this.state;
+    const ourStep = this.props.step * itemWidth;
+
+    if (translateX === 0) {
       return;
     }
 
-    if ((this.props.itemWidth * this.props.images.length + (
-      this.props.step * this.props.itemWidth)) > (
-      this.props.itemWidth * this.props.images.length)) {
+    if (translateX + ourStep > 0) {
       this.setState((state) => (
         {
-          translateX: state.translateX + ((
-            this.props.itemWidth * this.props.images.length
-          ) - this.props.itemWidth * this.props.images.length
-          ),
+          translateX: state.translateX - translateX,
         }
       ));
 
@@ -69,7 +68,7 @@ export class Carousel extends React.Component<Props, State> {
 
     this.setState((state) => (
       {
-        translateX: state.translateX + (this.props.itemWidth * this.props.step),
+        translateX: state.translateX + ourStep,
       }
     ));
   };
@@ -81,8 +80,8 @@ export class Carousel extends React.Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      // infinite,
     } = this.props;
+    const imagesWithoutFrame = images.length - frameSize;
 
     return (
       <div className="Carousel">
@@ -91,7 +90,7 @@ export class Carousel extends React.Component<Props, State> {
           className={classNames(
             'button left',
             {
-              disabled: (itemWidth * images.length) === 1300,
+              disabled: translateX === 0,
             },
           )}
           onClick={this.slideLeft}
@@ -106,11 +105,12 @@ export class Carousel extends React.Component<Props, State> {
           </ul>
         </div>
         <button
+          data-cy="next"
           type="button"
           className={classNames(
             'button right',
             {
-              disabled: (itemWidth * images.length) === 0,
+              disabled: (itemWidth * imagesWithoutFrame + translateX) === 0,
             },
           )}
           onClick={this.slideRight}

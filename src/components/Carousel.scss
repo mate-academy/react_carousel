@@ -1,18 +1,17 @@
-// style go here
 .Carousel {
   display: flex;
   align-items: center;
 
   &__wrapper {
     width: 390px;
-    // overflow: hidden;
+    overflow: hidden;
   }
 
   &__list {
     padding: 0;
     margin: 0;
     display: flex;
-    // justify-content: space-between;
+    justify-content: space-between;
     list-style: none;
     width: 1300px;
   }
@@ -29,7 +28,7 @@
 }
 
 .button:hover {
-  box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0,34);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .button div {
