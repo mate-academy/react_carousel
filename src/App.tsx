@@ -25,10 +25,7 @@ const App = () => {
   return (
     <div className="App">
       <h1 data-cy="title">
-        Carousel with
-        {images.length}
-        {' '}
-        images
+      Carousel with {images.length} images
       </h1>
 
       <form className="App__form">
