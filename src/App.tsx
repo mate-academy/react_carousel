@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
+import { Settings } from './components/Settings';
 
 interface State {
   images: string[];
@@ -11,7 +12,7 @@ interface State {
   infinite: boolean;
 }
 
-const initialState = {
+const initialState: State = {
   images: [
     './img/1.png',
     './img/2.png',
@@ -32,29 +33,37 @@ const initialState = {
 };
 
 class App extends React.Component<{}, State> {
-  state = initialState;
+  readonly state = { ...initialState };
 
-  handleItemsWidth = (value: number) => {
-    if (value >= 100) {
-      this.setState({ itemWidth: value });
+  handleChangeWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    if (+value >= 100) {
+      this.setState({ itemWidth: +value });
     }
   };
 
-  handleFrameSize = (value: number) => {
-    if (value >= 1) {
-      this.setState({ frameSize: value });
+  handleChangeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    if (+value >= 1 && +value <= 5) {
+      this.setState({ frameSize: +value });
     }
   };
 
-  handleStepSize = (value: number) => {
-    if (value >= 1) {
-      this.setState({ step: value });
+  handleChangeStepSize = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    if (+value >= 1) {
+      this.setState({ step: +value });
     }
   };
 
-  handleAnimationDuration = (value: number) => {
-    if (value >= 0) {
-      this.setState({ animationDuration: value });
+  handleChangeDuration = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    if (+value >= 0) {
+      this.setState({ animationDuration: +value });
     }
   };
 
@@ -74,8 +83,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy='title'>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <Carousel
           images={images}
@@ -86,83 +96,18 @@ class App extends React.Component<{}, State> {
           infinite={infinite}
         />
 
-        <div className="settings">
-          <label htmlFor="itemId">
-            <p>Items width: </p>
-
-            <input
-              className="settings__input"
-              id="itemId"
-              type="number"
-              defaultValue={itemWidth}
-              min="100"
-              max="300"
-              onChange={(event) => {
-                this.handleItemsWidth(+event.target.value);
-              }}
-            />
-          </label>
-
-          <label htmlFor="frameId">
-            <p>Amount of images in frame: </p>
-
-            <input
-              className="settings__input"
-              id="frameId"
-              type="number"
-              min="1"
-              max="5"
-              defaultValue={frameSize}
-              onChange={(event) => {
-                this.handleFrameSize(+event.target.value);
-              }}
-            />
-          </label>
-
-          <label htmlFor="stepId">
-            <p>Step size: </p>
-
-            <input
-              className="settings__input"
-              id="stepId"
-              type="number"
-              min={1}
-              max={5}
-              defaultValue={step}
-              onChange={(event) => {
-                this.handleStepSize(+event.target.value);
-              }}
-            />
-          </label>
-
-          <label htmlFor="animationId">
-            <p>Set animation duration in ms: </p>
-
-            <input
-              className="settings__input"
-              id="animationId"
-              type="number"
-              step="100"
-              min={0}
-              defaultValue={animationDuration}
-              onChange={(event) => {
-                this.handleAnimationDuration(+event.target.value);
-              }}
-            />
-          </label>
-
-          <label htmlFor="infiniteId">
-            <p>Infinite: </p>
-
-            <input
-              className="settings__checkbox"
-              id="infiniteId"
-              type="checkbox"
-              checked={infinite}
-              onChange={(event) => this.toggleInfinite(event.target.checked)}
-            />
-          </label>
-        </div>
+        <Settings
+          duration={animationDuration}
+          frameSize={frameSize}
+          infinite={infinite}
+          step={step}
+          itemWidth={itemWidth}
+          onDurationChange={this.handleChangeDuration}
+          onFrameSizeChange={this.handleChangeFrameSize}
+          onInfiniteToggle={this.toggleInfinite}
+          onStepSizeChange={this.handleChangeStepSize}
+          onWidthChange={this.handleChangeWidth}
+        />
       </div>
     );
   }

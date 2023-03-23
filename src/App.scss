@@ -1,25 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 50px;
-}
-
-p {
-  margin: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-label {
-  display: block;
-  margin-bottom: 20px;
-}
+@import "normalize";
 
 .App {
   width: max-content;
@@ -30,21 +9,6 @@ label {
   border-radius: 20px;
   background-color: bisque;
   font-size: 18px;
-}
-
-.settings {
-  width: 300px;
-  margin: 0 auto;
-  margin-top: 30px;
-
-  &__input {
-    width: 80px;
-  }
-
-  & label {
-    display: flex;
-    justify-content: space-between;
-  }
 }
 
 iframe {

@@ -15,11 +15,11 @@ type State = {
 };
 
 export class Carousel extends Component<Props, State> {
-  state = {
+  readonly state = {
     currentIndex: 0,
   };
 
-  maxIndex = this.props.images.length - this.props.frameSize;
+  maxIndex = this.props.images.length - this.props.step;
 
   moveRight = () => {
     const {
@@ -27,10 +27,14 @@ export class Carousel extends Component<Props, State> {
       infinite,
     } = this.props;
 
-    const nextStep = this.state.currentIndex + step;
+    const {
+      currentIndex,
+    } = this.state;
+
+    const nextStep = currentIndex + step;
     const isEnouphPlace = this.maxIndex >= (nextStep);
 
-    if (infinite && this.state.currentIndex === this.maxIndex) {
+    if (infinite && currentIndex === this.maxIndex) {
       this.setState({ currentIndex: 0 });
 
       return;
@@ -75,38 +79,51 @@ export class Carousel extends Component<Props, State> {
       frameSize,
       animationDuration,
       infinite,
+      images,
+      step,
     } = this.props;
+
+    const { currentIndex } = this.state;
+
+    const getCurrentPosition = () => {
+      const positionIndex = frameSize >= step && currentIndex > step
+        ? -currentIndex + frameSize - step
+        : -currentIndex;
+
+      return positionIndex * itemWidth;
+    };
+
+    const isPrevButtonEnabled = currentIndex !== 0 || infinite;
+    const isNextButtonEnabled = currentIndex !== this.maxIndex || infinite;
+    const frameWidth = frameSize * itemWidth;
+    const itemPosition = getCurrentPosition();
 
     return (
       <div
         className="Carousel"
         style={{
-          width: `${frameSize * itemWidth}px`,
+          width: `${frameWidth}px`,
           transition: `${animationDuration}ms`,
         }}
       >
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${-this.state.currentIndex * itemWidth}px)`,
+            transform: `translateX(${itemPosition}px)`,
             transition: `transform ${animationDuration}ms`,
           }}
         >
-          {
-            this.props.images.map((image) => {
-              const imageId = parseInt(image.slice(6), 10);
-
-              return (
-                <li key={imageId}>
-                  <img
-                    src={image}
-                    alt={`${imageId}`}
-                    width={itemWidth}
-                  />
-                </li>
-              );
-            })
-          }
+          {images.map((image, index) => {
+            return (
+              <li key={image}>
+                <img
+                  src={image}
+                  alt={`${index + 1}`}
+                  width={itemWidth}
+                />
+              </li>
+            );
+          })}
         </ul>
 
         <div className="Carousel__buttons">
@@ -114,7 +131,7 @@ export class Carousel extends Component<Props, State> {
             className="Carousel__button"
             type="button"
             onClick={this.moveLeft}
-            disabled={this.state.currentIndex === 0 && !infinite}
+            disabled={!isPrevButtonEnabled}
           >
             Prev
           </button>
@@ -124,7 +141,7 @@ export class Carousel extends Component<Props, State> {
             type="button"
             data-cy="next"
             onClick={this.moveRight}
-            disabled={this.state.currentIndex === this.maxIndex && !infinite}
+            disabled={!isNextButtonEnabled}
           >
             Next
           </button>
