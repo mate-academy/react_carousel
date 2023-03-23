@@ -47,11 +47,11 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App" data-cy="title">
-        {/* eslint-disable-next-line */}
         <div className="App__content">
           <h1>
             {`Carousel with ${images.length} images`}
           </h1>
+
           <div className="App__carousel">
             <Carousel
               images={images}
@@ -62,6 +62,7 @@ class App extends React.Component<{}, State> {
               infinite={isInfinite}
             />
           </div>
+
           <form className="form">
             <label htmlFor="itemId" className="form__field">
               ItemWidth
@@ -70,7 +71,7 @@ class App extends React.Component<{}, State> {
                 className="form__input"
                 id="itemId"
                 value={itemWidth}
-                min={0}
+                min={1}
                 max={800}
                 onChange={this.handleItemWidthChange}
               />
@@ -83,7 +84,7 @@ class App extends React.Component<{}, State> {
                 className="form__input"
                 id="frameId"
                 value={frameSize}
-                min={0}
+                min={1}
                 max={images.length}
                 onChange={this.handleFrameSizeChange}
               />
@@ -96,7 +97,7 @@ class App extends React.Component<{}, State> {
                 className="form__input"
                 id="stepId"
                 value={step}
-                min={0}
+                min={1}
                 max={images.length}
                 onChange={this.handleStepChange}
               />
@@ -109,7 +110,7 @@ class App extends React.Component<{}, State> {
                 className="form__input"
                 id="DurationId"
                 value={animationDuration}
-                min={0}
+                min={50}
                 onChange={this.handleDurationChange}
               />
             </label>

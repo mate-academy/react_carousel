@@ -109,6 +109,9 @@ export class Carousel extends React.Component<Props, State> {
 
     const { offset } = this.state;
 
+    const absoluteFrameSize = frameSize * itemWidth;
+    const absoluteCarouselOffset = (-1) * offset * itemWidth;
+
     const isPreviousButtonDisable = this.isLeftLimitReached && !infinite;
     const isNextButtonDisable = this.isRightLimitReached && !infinite;
 
@@ -116,12 +119,12 @@ export class Carousel extends React.Component<Props, State> {
       <div className="Carousel">
         <div
           className="Carousel__frame"
-          style={{ width: `${frameSize * itemWidth}px` }}
+          style={{ width: `${absoluteFrameSize}px` }}
         >
           <ul
             className="Carousel__list"
             style={{
-              transform: `translateX(${(-1) * offset * itemWidth}px)`,
+              transform: `translateX(${absoluteCarouselOffset}px)`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
@@ -151,6 +154,7 @@ export class Carousel extends React.Component<Props, State> {
           >
             &#8592;
           </button>
+
           <button
             type="button"
             data-cy="next"
