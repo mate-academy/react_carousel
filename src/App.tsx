@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import { DEFAULT_CAROUSEL_STATE } from './constants/constants';
 import { Carousel } from './components/Carousel';
 
 interface State {
@@ -12,25 +13,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    isInfinite: false,
-  };
+  state = DEFAULT_CAROUSEL_STATE;
 
   handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ itemWidth: Number(event.target.value) });
