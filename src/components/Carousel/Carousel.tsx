@@ -1,13 +1,13 @@
 import { Component } from 'react';
 import './Carousel.scss';
-import { createId } from '../../utils/uuid-creator';
+import { Button } from '../Button';
 
 type CarouselProps = {
   images: string[],
-  step: string,
-  frameSize: string,
-  itemWidth: string,
-  animationDuration: string,
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
   infinite: boolean,
 };
 
@@ -20,41 +20,41 @@ export class Carousel extends Component<CarouselProps, State> {
     index: 0,
   };
 
-  componentDidUpdate(prevProps: CarouselProps) {
-    if (prevProps.itemWidth !== this.props.itemWidth
-      && this.state.index !== 0) {
-      this.setState({ index: 0 });
-    }
-  }
+  handleButtonClick = (step: number) => {
+    const {
+      images,
+      frameSize,
+    } = this.props;
+    const { index } = this.state;
+    const lastIndex = images.length - frameSize;
+    const firstIndex = 0;
+    let nextIndex = index + step;
 
-  handleButtonClick = (direction: number) => {
-    this.setState((prevState) => {
-      const newIndex = prevState.index
-        + (direction
-          * parseInt(this.props.step, 10)
-          * parseInt(this.props.itemWidth, 10));
-
-      if (newIndex > 0
-        || -newIndex
-        >= (this.props.images.length
-          * parseInt(this.props.itemWidth, 10))) {
-        if (this.props.infinite && direction === -1) {
-          return {
-            index: 0,
-          };
-        }
-
-        return null;
+    if (step < 0) {
+      if (index === firstIndex) {
+        nextIndex = lastIndex;
+      } else if (nextIndex < firstIndex) {
+        nextIndex = firstIndex;
       }
+    }
 
-      return {
-        index: newIndex,
-      };
-    });
+    if (step > 0) {
+      if (index === lastIndex) {
+        nextIndex = firstIndex;
+      } else if (nextIndex > lastIndex) {
+        nextIndex = lastIndex;
+      }
+    }
+
+    this.setState(() => ({
+      index: nextIndex,
+    }));
   };
 
   render() {
     const {
+      step,
+      infinite,
       images,
       frameSize,
       itemWidth,
@@ -65,27 +65,30 @@ export class Carousel extends Component<CarouselProps, State> {
 
     const { handleButtonClick } = this;
 
+    const containerWidth = `${frameSize * itemWidth}px`;
+    const itemTransform = `translateX(${-index * itemWidth}px)`;
+    const disablePrevButton = index <= 0 && !infinite;
+    const disableNextButton = index >= images.length - frameSize && !infinite;
+
     return (
       <div className="carousel">
         <div
           className="carousel__container"
-          style={{
-            width: `${parseInt(frameSize, 10)
-            * parseInt(itemWidth, 10)}px`,
-          }}
+          style={{ width: `${containerWidth}` }}
         >
           <ul
             className="carousel__list"
-            style={{
-              transform: `translateX(${index}px)`,
-              transition: `${animationDuration}ms`,
-            }}
+            style={{ transition: `${animationDuration}ms` }}
           >
             {images.map((image) => (
               <li
                 className="carousel__item"
-                key={createId()}
-                style={{ width: `${itemWidth}px` }}
+                key={image}
+                style={{
+                  width: `${itemWidth}px`,
+                  transform: `${itemTransform}`,
+                  transition: `${animationDuration}ms`,
+                }}
               >
                 <img
                   src={image}
@@ -98,22 +101,18 @@ export class Carousel extends Component<CarouselProps, State> {
         </div>
 
         <div className="carousel__button-wrapper">
-          <button
-            className="carousel__button"
-            type="button"
-            onClick={() => handleButtonClick(1)}
-          >
-            Prev
-          </button>
+          <Button
+            disabled={disablePrevButton}
+            onClick={() => handleButtonClick(-step)}
+            title="Prev"
+          />
 
-          <button
-            className="carousel__button"
+          <Button
+            disabled={disableNextButton}
             data-cy="next"
-            type="button"
-            onClick={() => handleButtonClick(-1)}
-          >
-            Next
-          </button>
+            onClick={() => handleButtonClick(step)}
+            title="Next"
+          />
         </div>
       </div>
     );
