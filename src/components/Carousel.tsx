@@ -1,18 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type CarouselProps = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+}) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const listSize = images.length * itemWidth;
+  const animationString = `translate ${animationDuration}ms ease-in-out`;
+  const carouselWidth = frameSize * itemWidth;
+  const amountOfSlides = images.length;
+  let correctStep: number;
+
+  const handleNextButton = () => {
+    const isSlideLast = currentSlide + step === amountOfSlides;
+    const lastSlideAfterStep = (currentSlide + 1) + (frameSize - 1) + step;
+
+    if (isSlideLast && infinite) {
+      setCurrentSlide(0);
+    }
+
+    if (lastSlideAfterStep > amountOfSlides) {
+      const slidesOverload = lastSlideAfterStep - amountOfSlides;
+
+      correctStep = step - slidesOverload;
+
+      setCurrentSlide(current => current + correctStep);
+
+      return;
+    }
+
+    setCurrentSlide((current) => current + step);
+  };
+
+  const handlePrevButton = () => {
+    const isSlideFirst = currentSlide === 0;
+    const firstSlideAfterStep = currentSlide - step;
+
+    if (isSlideFirst && infinite) {
+      setCurrentSlide(amountOfSlides - step);
+
+      return;
+    }
+
+    if (firstSlideAfterStep < 0) {
+      const slidesOverload = -firstSlideAfterStep - 0;
+
+      correctStep = step - slidesOverload;
+
+      setCurrentSlide(current => current - correctStep);
+
+      return;
+    }
+
+    setCurrentSlide((current) => current - step);
+  };
+
+  return (
+    <div style={{ width: carouselWidth }} className="Carousel">
+      <ul
+        style={{
+          width: listSize,
+          translate: currentSlide * -itemWidth,
+          transition: animationString,
+        }}
+        className="Carousel__list"
+      >
+        {images.map((image, i) => (
+          <li key={image}>
+            <img width={itemWidth} src={image} alt={`${i}`} />
+          </li>
+        ))}
+      </ul>
+      <div className="buttons">
+        <button type="button" onClick={handlePrevButton}>
+          Prev
+        </button>
+        <button
+          data-cy="next"
+          type="button"
+          onClick={handleNextButton}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;

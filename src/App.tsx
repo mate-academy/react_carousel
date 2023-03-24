@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { CarouselForm } from './components/CarouselForm/CarouselForm';
 
 interface State {
   images: string[];
+  itemWidth: number,
+  frameSize: number,
+  step: number,
+  animationDuration: number,
+  isInfinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +26,69 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    isInfinite: false,
+  };
+
+  handleItemWidthChange = (newItemWidth: number) => {
+    this.setState({ itemWidth: newItemWidth });
+  };
+
+  handleFrameSizeChange = (newFrameSize: number) => {
+    this.setState({ frameSize: newFrameSize });
+  };
+
+  handleDurationChange = (newDuration: number) => {
+    this.setState({ animationDuration: newDuration });
+  };
+
+  handleStepChange = (newStep: number) => {
+    this.setState({ step: newStep });
+  };
+
+  handleIsInfiniteChange = (newIsInfinite: boolean) => {
+    this.setState({ isInfinite: newIsInfinite });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      isInfinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <CarouselForm
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          duration={animationDuration}
+          isInfinite={isInfinite}
+          onItemWidthChange={this.handleItemWidthChange}
+          onframeSizeChange={this.handleFrameSizeChange}
+          onDurationChange={this.handleDurationChange}
+          onIsInfiniteChange={this.handleIsInfiniteChange}
+          onStepChange={this.handleStepChange}
+        />
 
-        <Carousel />
+        {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={isInfinite}
+        />
       </div>
     );
   }
