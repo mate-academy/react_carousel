@@ -1,7 +1,7 @@
 import { ChangeEvent, Component } from 'react';
 import './App.scss';
 import { Carousel } from '../Carousel';
-import { SettingsContainer } from '../SettingsContainer';
+import { CarouselSettings } from '../CarouselSettings';
 
 interface State {
   images: string[];
@@ -52,11 +52,9 @@ class App extends Component<{}, State> {
   };
 
   handleInfiniteChange = () => {
-    this.setState(prevState => {
-      return {
-        infinite: !prevState.infinite,
-      };
-    });
+    this.setState(prevState => ({
+      infinite: !prevState.infinite,
+    }));
   };
 
   render() {
@@ -92,7 +90,7 @@ class App extends Component<{}, State> {
           step={step}
         />
 
-        <SettingsContainer
+        <CarouselSettings
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}

@@ -1,13 +1,10 @@
 import { ButtonHTMLAttributes, PureComponent } from 'react';
 import './Button.scss';
 
-type Attributes = Omit<
-ButtonHTMLAttributes<HTMLButtonElement>,
-'className' | 'type'
->;
+type Attributes = ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends Attributes{
-  title: string
+  title: string;
 }
 
 export class Button extends PureComponent<Props> {

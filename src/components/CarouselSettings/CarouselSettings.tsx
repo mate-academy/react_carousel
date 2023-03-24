@@ -1,5 +1,5 @@
 import { ChangeEvent, PureComponent } from 'react';
-import './SettingsContainer.scss';
+import './CarouselSettings.scss';
 
 interface Props {
   step: number;
@@ -14,7 +14,7 @@ interface Props {
   handleInfiniteChange: () => void
 }
 
-export class SettingsContainer extends PureComponent<Props> {
+export class CarouselSettings extends PureComponent<Props> {
   render() {
     const {
       step,
