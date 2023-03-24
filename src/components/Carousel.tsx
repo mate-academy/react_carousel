@@ -65,10 +65,10 @@ export class Carousel extends Component<Props, State> {
         style={{ width: itemWidth * frameSize }}
       >
         <div
-          className="Container"
+          className="Carousel__container"
           style={{
             border: '2px solid grey',
-            borderRadius: '70px',
+            borderRadius: '80px',
           }}
         >
           <ul

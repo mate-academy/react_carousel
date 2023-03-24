@@ -54,8 +54,9 @@ class App extends React.Component<{}, State> {
       this.setState({ step: +event.target.value });
     };
 
-    // eslint-disable-next-line max-len
-    const changeAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeAnimationDuration = (
+      event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
       this.setState({ animationDuration: +event.target.value });
     };
 
@@ -71,14 +72,14 @@ class App extends React.Component<{}, State> {
         </h1>
         <div className="App__inputs">
           <label
-            htmlFor="itemWidthInput"
+            htmlFor="itemId"
             className="App__label"
           >
             Item width
             <input
               className="App__input"
               type="number"
-              id="itemWidthInput"
+              id="itemId"
               value={itemWidth}
               min={100}
               max={230}
@@ -88,14 +89,14 @@ class App extends React.Component<{}, State> {
           </label>
 
           <label
-            htmlFor="frameSizeInput"
+            htmlFor="frameId"
             className="App__label"
           >
             Frame size
             <input
               className="App__input"
               type="number"
-              id="frameSizeInput"
+              id="frameId"
               value={frameSize}
               min={1}
               max={10}
@@ -104,14 +105,14 @@ class App extends React.Component<{}, State> {
           </label>
 
           <label
-            htmlFor="stepInput"
+            htmlFor="stepId"
             className="App__label"
           >
             Step
             <input
               className="App__input"
               type="number"
-              id="stepInput"
+              id="stepId"
               value={step}
               min={1}
               max={9}

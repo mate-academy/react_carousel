@@ -1,15 +1,17 @@
 
 .Carousel {
   margin: 0 auto;
-  overflow: hidden;
   width: 1300px;
+
+  &__container {
+    overflow: hidden;
+  }
 
   &__list {
     display: flex;
     flex-direction: row;
     list-style: none;
     padding-left: 0;
-
   }
 
   &__buttons {
@@ -42,7 +44,6 @@
       &:disabled {
         border-right: 30px solid rgb(172, 172, 172);
       }
-
     }
 
     &-right {
@@ -61,4 +62,3 @@
     }
   }
 }
-
