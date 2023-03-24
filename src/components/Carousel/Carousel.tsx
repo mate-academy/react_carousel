@@ -14,6 +14,19 @@ type State = {
   currentIndex: number;
 };
 
+const getCurrentPosition = (
+  frameSize: number,
+  step: number,
+  currentIndex: number,
+  itemWidth: number,
+) => {
+  const positionIndex = frameSize >= step && currentIndex > step
+    ? -currentIndex + frameSize - step
+    : -currentIndex;
+
+  return positionIndex * itemWidth;
+};
+
 export class Carousel extends Component<Props, State> {
   readonly state = {
     currentIndex: 0,
@@ -85,18 +98,15 @@ export class Carousel extends Component<Props, State> {
 
     const { currentIndex } = this.state;
 
-    const getCurrentPosition = () => {
-      const positionIndex = frameSize >= step && currentIndex > step
-        ? -currentIndex + frameSize - step
-        : -currentIndex;
-
-      return positionIndex * itemWidth;
-    };
-
     const isPrevButtonEnabled = currentIndex !== 0 || infinite;
     const isNextButtonEnabled = currentIndex !== this.maxIndex || infinite;
     const frameWidth = frameSize * itemWidth;
-    const itemPosition = getCurrentPosition();
+    const itemPosition = getCurrentPosition(
+      frameSize,
+      step,
+      currentIndex,
+      itemWidth,
+    );
 
     return (
       <div
