@@ -23,10 +23,11 @@ const Carousel: React.FC<CarouselProps> = ({
   const animationString = `translate ${animationDuration}ms ease-in-out`;
   const carouselWidth = frameSize * itemWidth;
   const amountOfSlides = images.length;
+  const isSlideLast = currentSlide + frameSize === amountOfSlides;
+  const isSlideFirst = currentSlide === 0;
   let correctStep: number;
 
   const handleNextButton = () => {
-    const isSlideLast = currentSlide + step === amountOfSlides;
     const lastSlideAfterStep = (currentSlide + 1) + (frameSize - 1) + step;
 
     if (isSlideLast && infinite) {
@@ -47,11 +48,10 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   const handlePrevButton = () => {
-    const isSlideFirst = currentSlide === 0;
     const firstSlideAfterStep = currentSlide - step;
 
     if (isSlideFirst && infinite) {
-      setCurrentSlide(amountOfSlides - step);
+      setCurrentSlide(amountOfSlides - frameSize);
 
       return;
     }
@@ -86,13 +86,18 @@ const Carousel: React.FC<CarouselProps> = ({
         ))}
       </ul>
       <div className="buttons">
-        <button type="button" onClick={handlePrevButton}>
+        <button
+          type="button"
+          onClick={handlePrevButton}
+          disabled={isSlideFirst && !infinite}
+        >
           Prev
         </button>
         <button
           data-cy="next"
           type="button"
           onClick={handleNextButton}
+          disabled={isSlideLast && !infinite}
         >
           Next
         </button>
