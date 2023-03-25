@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+
+.buttons {
+  position: absolute;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &__btn {
+    padding: 15px;
+  }
+}
