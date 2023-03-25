@@ -87,6 +87,7 @@ const Carousel: React.FC<CarouselProps> = ({
       </ul>
       <div className="buttons">
         <button
+          className="buttons__btn"
           type="button"
           onClick={handlePrevButton}
           disabled={isSlideFirst && !infinite}
@@ -94,6 +95,7 @@ const Carousel: React.FC<CarouselProps> = ({
           Prev
         </button>
         <button
+          className="buttons__btn"
           data-cy="next"
           type="button"
           onClick={handleNextButton}

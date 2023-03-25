@@ -1,0 +1,22 @@
+.carousel-form {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 15px;
+    font-size: 20px;
+
+    &--infinite {
+      justify-content: center;
+      gap: 20px;
+    }
+  }
+}
+
+

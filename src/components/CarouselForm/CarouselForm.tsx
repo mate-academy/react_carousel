@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import './CarouselFrom.scss';
 
 type CarouselFormProps = {
   itemWidth: number,
@@ -46,58 +47,74 @@ export const CarouselForm: React.FC<CarouselFormProps> = ({
   };
 
   return (
-    <>
-      <label>
-        Item width:
+    <div className="carousel-form">
+      <div className="carousel-form__item">
+        <label htmlFor="itemWidth">Item width:</label>
         <input
+          id="itemWidth"
           type="range"
           value={itemWidth}
           min="60"
           max="300"
           onChange={handleItemWidthChange}
         />
-      </label>
-      <label>
-        Frame size:
+      </div>
+
+      <div className="carousel-form__item">
+        <label htmlFor="frameSize">
+          Frame size:
+        </label>
         <input
+          id="frameSize"
           value={frameSize}
           type="range"
           min="1"
           max="9"
           onChange={handleFrameSizeChange}
         />
-      </label>
-      <label>
-        Step:
+      </div>
+
+      <div className="carousel-form__item">
+        <label htmlFor="step">
+          Step:
+        </label>
         <input
+          id="step"
           value={step}
           type="range"
           min="1"
           max="9"
           onChange={handleStepChange}
         />
-      </label>
-      <label>
-        AnimationDuration:
+      </div>
+
+      <div className="carousel-form__item">
+        <label htmlFor="duration">
+          AnimationDuration:
+        </label>
         <input
+          id="duration"
           value={duration}
           type="range"
           min="500"
           max="3000"
           onChange={handleDurationChange}
         />
-      </label>
-      <label>
-        Infinite:
+      </div>
+
+      <div className="carousel-form__item carousel-form__item--infinite ">
+        <label htmlFor="infinite">
+          Infinite:
+        </label>
         <input
+          id="infinite"
           checked={isInfinite}
           type="checkbox"
           min="500"
           max="3000"
           onChange={handleIsInfiniteChange}
         />
-      </label>
-
-    </>
+      </div>
+    </div>
   );
 };
