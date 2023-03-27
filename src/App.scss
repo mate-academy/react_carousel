@@ -1,1 +1,32 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 10vmax 0 0;
+  height: 100vh;
+  background-color: #90d3a1;
+
+  &__title {
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  &__form {
+    width: 300px;
+  }
+
+  &__input {
+    width: 150px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+}
