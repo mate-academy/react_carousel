@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
 
 type Props = {
   images: string[];
@@ -67,14 +66,11 @@ export const Carousel: React.FC<Props> = ({
           {images.map((image: string, index: number) => {
             const isVisible = index >= position && index < position + frameSize;
 
-            const itemClass = classNames('Carousel__item',
-              { 'Carousel__item--visible': isVisible });
-
             return (
               <li
                 key={image}
-                // className="Carousel__item"
-                className={itemClass}
+                className={`Carousel__item ${isVisible ? 'Carousel__item--visible' : ''}`}
+                style={{ transition: `visibility ${animationDuration}ms` }}
               >
                 <img
                   src={image}
