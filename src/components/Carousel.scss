@@ -1,1 +1,46 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__block {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+    transform: translate(0);
+    transition: transform 1s;
+  }
+
+  &__img {
+    width: 130px;
+  }
+
+  &__prev-button,
+  &__next-button {
+    all: unset;
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-top: 4px solid #000;
+    border-left: 4px solid #000;
+    transform: rotate(-45deg);
+
+    &:disabled {
+      border-top: 4px solid #c6bdbd;
+      border-left: 4px solid #c6bdbd;
+    }
+  }
+
+  .Carousel__next-button {
+    transform: rotate(135deg);
+  }
+}
