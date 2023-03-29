@@ -47,37 +47,13 @@ class App extends React.Component<{}, State> {
       const currentState = event.currentTarget.id;
       const stateValue = +event.currentTarget.value;
 
-      switch (currentState) {
-        case 'itemWidth':
-          this.setState({ itemWidth: +stateValue });
-          break;
-        case 'frameSize':
-          this.setState({ frameSize: +stateValue });
-          break;
-        case 'step':
-          this.setState({ step: +stateValue });
-          break;
-        case 'animationDuration':
-          this.setState({ animationDuration: +stateValue });
-          break;
-        case 'infinite':
-          this.setState((prevState) => ({
-            infinite: !prevState.infinite,
-          }));
-          break;
-        default:
-          this.setState({ animationDuration: +stateValue });
-      }
+      this.setState(current => ({ ...current, [currentState]: +stateValue }));
     };
 
     return (
       <div className="App">
         <h1 data-cy="title">
-          Carousel with
-          &nbsp;
-          {images.length}
-          &nbsp;
-          images
+          {`Carousel with ${images.length} images`}
         </h1>
 
         <form className="App__form">

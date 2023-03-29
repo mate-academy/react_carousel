@@ -34,9 +34,7 @@ class Carousel extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      location,
-    } = this.state;
+    const { location } = this.state;
 
     const {
       images,
@@ -64,7 +62,7 @@ class Carousel extends React.Component<Props, State> {
 
     const length = images.length - frameSize;
 
-    const enable = () => {
+    const handleEnable = () => {
       if (this.loc !== 0) {
         this.setState({ bckDisabled: false });
       }
@@ -74,7 +72,7 @@ class Carousel extends React.Component<Props, State> {
       }
     };
 
-    const edge = (start: number, end: number) => {
+    const effect = (start: number, end: number) => {
       if (!infinite) {
         switch (start) {
           case 0:
@@ -95,14 +93,14 @@ class Carousel extends React.Component<Props, State> {
       this.loc += step;
 
       if (this.loc >= length) {
-        this.loc = edge(0, length);
+        this.loc = effect(0, length);
       }
 
       if (location === length && infinite) {
         this.loc = 0;
       }
 
-      enable();
+      handleEnable();
 
       this.setState({ location: this.loc });
     };
@@ -111,14 +109,14 @@ class Carousel extends React.Component<Props, State> {
       this.loc -= step;
 
       if (this.loc <= 0) {
-        this.loc = edge(length, 0);
+        this.loc = effect(length, 0);
       }
 
       if (location === 0 && infinite) {
         this.loc = length;
       }
 
-      enable();
+      handleEnable();
 
       this.setState({ location: this.loc });
     };
