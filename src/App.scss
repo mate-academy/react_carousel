@@ -1,1 +1,79 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  transition-duration: 1s;
+}
+
+.App {
+  text-align: center;
+  background-color: #8ecae6;
+  height: 100vh;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__btn {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__label {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #023047;
+    background-color: transparent;
+    width: 200px;
+    height: 60px;
+    padding: 0 15px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid #023047;
+    border-radius: 10px;
+  }
+
+  &__label > input {
+    background-color: transparent;
+    width: 60px;
+    height: 30px;
+    line-height: 1.65;
+    float: left;
+    display: block;
+    padding: 0;
+    padding-left: 5px;
+    margin: 0;
+    border: 1px solid #023047;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    margin: 0;
+    opacity: 0.7;
+    scale: 1.4;
+  }
+  
+  &__label:last-child {
+    width: 150px;
+  }
+
+  &__label:nth-child(3) {
+    width: 150px;
+  }
+
+  &__label > input:focus {
+    outline: none;
+  }
+
+  &__title {
+    color: 023047;
+  }
+}
