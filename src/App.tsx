@@ -58,12 +58,12 @@ class App extends Component<{}, State> {
 
         <div className="App__btn">
           <label
-            htmlFor="itemWidthId"
+            htmlFor="itemId"
             className="App__label"
           >
             Item Width:
             <input
-              name="itemWidthId"
+              name="itemId"
               type="number"
               value={itemWidth}
               min={130}
@@ -78,12 +78,12 @@ class App extends Component<{}, State> {
           </label>
 
           <label
-            htmlFor="frameSizeId"
+            htmlFor="frameId"
             className="App__label"
           >
             Frame Size:
             <input
-              name="frameSizeId"
+              name="frameId"
               type="number"
               value={frameSize}
               min={1}
