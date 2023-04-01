@@ -7,9 +7,10 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [imageSize] = useState(130);
-  const [visibleImages] = useState(3);
-  const [step] = useState(3);
+  const [imageSize, setImageSize] = useState(130);
+  const [visibleImages, setVisibleImages] = useState(3);
+  const [step, setStep] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
 
   const containerWidth = (currentIndex + visibleImages) * imageSize;
 
@@ -63,6 +64,37 @@ const Carousel: React.FC<Props> = ({ images }) => {
         >
           Next
         </button>
+      </div>
+
+      <div className="Input">
+        <span>ItemWidth</span>
+        <input
+          className="Input__field"
+          type="number"
+          value={imageSize}
+          onChange={(event) => setImageSize(+event.target.value)}
+        />
+        <span>FrameSize</span>
+        <input
+          className="Input__field"
+          type="number"
+          value={visibleImages}
+          onChange={(event) => setVisibleImages(+event.target.value)}
+        />
+        <span>Step</span>
+        <input
+          className="Input__field"
+          type="number"
+          value={step}
+          onChange={(event) => setStep(+event.target.value)}
+        />
+        <span>AnimationDuration</span>
+        <input
+          className="Input__field"
+          type="number"
+          value={animationDuration}
+          onChange={(event) => setAnimationDuration(+event.target.value)}
+        />
       </div>
     </>
   );
