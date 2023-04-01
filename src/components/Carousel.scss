@@ -1,1 +1,17 @@
-// style go here
+.Container {
+  overflow: hidden;
+  transition: all 500ms;
+}
+
+.Carousel {
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+
+    &--item {
+      width: 130px;
+      height: 130px;
+    }
+  }
+}
