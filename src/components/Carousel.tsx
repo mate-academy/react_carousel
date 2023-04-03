@@ -15,15 +15,14 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const containerWidth = (currentIndex + visibleImages) * imageSize;
 
   const handleNextClick = () => {
-    const nextIndex = currentIndex + step;
+    const imagesLeft = images.length - currentIndex - visibleImages;
+    const nextIndex = currentIndex + Math.min(step, imagesLeft);
 
-    if (nextIndex < images.length) {
-      setCurrentIndex(nextIndex);
-    }
+    setCurrentIndex(nextIndex);
   };
 
   const handlePrevClick = () => {
-    const prevIndex = currentIndex - step;
+    const prevIndex = currentIndex - Math.min(step, currentIndex);
 
     if (prevIndex >= 0) {
       setCurrentIndex(prevIndex);
@@ -32,32 +31,51 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
   const translateValue = `translateX(-${currentIndex * imageSize}px)`;
 
+  // STYLES >>>
+  const containerStyles = {
+    width: `${containerWidth}px`,
+    transform: translateValue,
+    transition: `all ${animationDuration}ms`,
+  };
+
+  const imageStyles = {
+    height: `${imageSize}px`,
+    width: `${imageSize}px`,
+  };
+  // <<< STYLES
+
   return (
     <>
       <div className="Carousel">
         <div
           className="Container"
-          style={{ width: `${containerWidth}px`, transform: translateValue }}
+          style={containerStyles}
         >
           <ul className="Carousel__list">
             {images.map((img, index) => (
               <li
                 key={img}
                 className="Carousel__list--item"
-                style={{ width: `${imageSize}` }}
               >
-                <img src={img} alt={`${index + 1}`} />
+                <img
+                  src={img}
+                  alt={`${index + 1}`}
+                  className="image"
+                  style={imageStyles}
+                />
               </li>
             ))}
           </ul>
         </div>
         <button
+          className="button"
           type="button"
           onClick={handlePrevClick}
         >
           Prev
         </button>
         <button
+          className="button"
           type="button"
           onClick={handleNextClick}
           data-cy="next"

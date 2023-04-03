@@ -1,6 +1,5 @@
 .Container {
   overflow: hidden;
-  transition: all 500ms;
 }
 
 .Carousel {
@@ -9,10 +8,10 @@
     padding: 0;
     list-style: none;
 
-    &--item {
-      width: 130px;
-      height: 130px;
-    }
+    // &--item {
+    //   width: 300px;
+    //   height: 300px;
+    // }
   }
 }
 
@@ -24,3 +23,11 @@
     width: 300px;
   }
 }
+
+/*
+
+itemwidth - debounce
+
+framesize & step  - cant be negative error
+
+*/
