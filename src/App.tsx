@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-// import 'bulma/css/bulma.min.css';
 
 const images = [
   './img/1.png',
