@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.scss';
+import './styles/App.scss';
 import Carousel from './components/Carousel';
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1 className="App__title">Carousel with {images.length} images</h1>
+      <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
 
       <Carousel images={images} />
     </div>
