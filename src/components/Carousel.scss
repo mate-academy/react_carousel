@@ -1,1 +1,75 @@
-// style go here
+.Carousel {
+  position: absolute;
+  top: 160px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__list {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    overflow: hidden;
+    border: 2px solid black;
+    border-radius: 8px;
+    transition: width 0.3s;
+  }
+}
+
+.buttons {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+
+  &__button {
+    padding: 5px 30px;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 27px;
+    color: #fff;
+
+    background-color: rgba(43, 43, 227, 0.719);
+    border: none;
+    border-radius: 40px;
+
+    transition: background-color 0.3s linear;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(44, 44, 229);
+    }
+
+    &:disabled {
+      background-color: grey;
+    }
+  }
+}
+
+.form {
+  position: absolute;
+  bottom: 70px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 10px;
+    line-height: 30px;
+  }
+
+  input {
+    font-size: 14px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+}

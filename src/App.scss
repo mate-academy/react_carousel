@@ -1,1 +1,19 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #d1da9a;
+
+  h1 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+}
