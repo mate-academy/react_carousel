@@ -1,1 +1,35 @@
-// style go here
+ul, li {
+  list-style: none;
+  padding: 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  background: #3b526c;
+  color: #d3dde4;
+}
+.settings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 420px;
+  margin: 0 auto;
+}
+
+.inputWrapper {
+  display: grid;
+  margin-top: 10px;
+  align-self: center;
+  justify-self: center;
+  gap: 5px;
+  grid-template-rows: repeat(2, 1fr);
+  width: 200px;
+}
+
+.checkbox {
+  display: flex;
+}
