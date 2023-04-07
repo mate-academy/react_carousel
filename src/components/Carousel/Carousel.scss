@@ -1,0 +1,24 @@
+// style go here
+.Carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  overflow: hidden;
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+
+  }
+  &__btn{
+    position: absolute;
+    height: max-content;
+    &--prev{
+      left: 0;
+    }
+    &--next{
+      right: 0;
+    }
+  }
+}
