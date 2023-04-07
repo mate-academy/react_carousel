@@ -7,7 +7,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
+  infinite: boolean,
 };
 type State = {
   carouselWidth: number,
@@ -30,17 +30,25 @@ class Carousel extends React.Component<Props, State> {
 
   setActiveIndex = (move: -1 | 1) => {
     const { length } = this.props.images;
-    const { frameSize, step } = this.props;
+    const { frameSize, step, infinite } = this.props;
 
     this.setState((state) => {
-      let newIndex = state.activeIndex + step * move;
-
-      if (newIndex > length - frameSize) {
-        newIndex = length - frameSize;
+      if (infinite && state.activeIndex === length - frameSize && move === 1) {
+        return { activeIndex: 0 };
       }
 
+      if (infinite && state.activeIndex === 0 && move === -1) {
+        return { activeIndex: length - frameSize };
+      }
+
+      const newIndex = state.activeIndex + step * move;
+
       if (newIndex < 0) {
-        newIndex = 0;
+        return { activeIndex: 0 };
+      }
+
+      if (newIndex > length - frameSize) {
+        return { activeIndex: length - frameSize };
       }
 
       return { activeIndex: newIndex };
@@ -60,6 +68,8 @@ class Carousel extends React.Component<Props, State> {
       images,
       animationDuration,
       itemWidth,
+      infinite,
+      step,
     } = this.props;
     const {
       carouselWidth,
@@ -72,39 +82,43 @@ class Carousel extends React.Component<Props, State> {
         style={{ width: carouselWidth }}
       >
         <ul
-          style={{ width: `${itemWidth}px`, transform: `translateX(${-100 * activeIndex}%`, transition: `transform ease ${animationDuration}ms` }}
+          style={{ transform: `translateX(${-itemWidth * activeIndex}px`, transition: `transform ease ${animationDuration}ms` }}
           className="Carousel__list"
         >
 
           {images.map((image, idx) => (
-            <li key={image}>
+            <li
+              key={image}
+              className="Carousel__item"
+            >
               <img
                 src={image}
-                alt={idx.toString()}
-                className="Carousel__item"
+                alt={`${idx + 1}`}
                 width={itemWidth}
               />
             </li>
           ))}
         </ul>
 
-        <button
-          type="button"
-          onClick={() => {
-            this.handlePrev();
-          }}
-          className="Carousel__btn Carousel__btn--prev"
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          data-cy="next"
-          onClick={this.handleNext}
-          className="Carousel__btn Carousel__btn--next"
-        >
-          Next
-        </button>
+        <div className="Carousel__control-btn">
+          <button
+            type="button"
+            onClick={() => {
+              this.handlePrev();
+            }}
+            className="Carousel__btn Carousel__btn--prev"
+            aria-label="prev"
+            disabled={!infinite && activeIndex === 0}
+          />
+          <button
+            type="button"
+            data-cy="next"
+            onClick={this.handleNext}
+            className="Carousel__btn Carousel__btn--next"
+            aria-label="next"
+            disabled={!infinite && activeIndex === images.length - step}
+          />
+        </div>
       </div>
     );
   }

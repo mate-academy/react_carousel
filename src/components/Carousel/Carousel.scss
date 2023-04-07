@@ -1,24 +1,43 @@
 // style go here
 .Carousel {
   position: relative;
-  display: flex;
-  align-items: center;
   margin: 0 auto;
   overflow: hidden;
   &__list {
     display: flex;
+    width: 100%;
+    height: 180px;
     padding: 0;
     list-style: none;
 
   }
-  &__btn{
+  &__control-btn {
     position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+  }
+  &__btn {
     height: max-content;
-    &--prev{
-      left: 0;
+    background-color: transparent;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid transparent;
+
+    &--prev {
+      border-left: 30px solid transparent;
+      border-right: 20px solid #7fab3b;
+      &:disabled {
+        border-right-color: #c0c7b6;
+      }
     }
-    &--next{
-      right: 0;
+    &--next {
+      border-right: 30px solid transparent;
+      border-left: 20px solid #7fab3b;
+      &:disabled {
+        border-left-color: #c0c7b6;
+      }
     }
   }
 }

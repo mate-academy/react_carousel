@@ -69,15 +69,16 @@ class App extends React.Component<{}, State> {
       itemWidth,
       frameSize,
       animationDuration,
+      infinite,
     } = configurationFields;
 
     return (
       <div className="App">
-        <h1 data-cy="title">
+        <h1 data-cy="title" className="App__title">
           {`Carousel with ${images.length} images`}
         </h1>
         <form action="#" className="configurationForm">
-          <label htmlFor="itemId">
+          <label htmlFor="itemId" className="configurationForm__field">
             Item Width:
             <input
               type="number"
@@ -87,7 +88,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChange}
             />
           </label>
-          <label htmlFor="frameId">
+          <label htmlFor="frameId" className="configurationForm__field">
             Frame Size:
             <input
               type="number"
@@ -98,7 +99,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChange}
             />
           </label>
-          <label htmlFor="StepId">
+          <label htmlFor="stepId" className="configurationForm__field">
             Step:
             <input
               type="number"
@@ -109,7 +110,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChange}
             />
           </label>
-          <label htmlFor="duration">
+          <label htmlFor="duration" className="configurationForm__field">
             Animation duration:
             <input
               type="number"
@@ -117,6 +118,16 @@ class App extends React.Component<{}, State> {
               id="duration"
               defaultValue={animationDuration}
               onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="infinity" className="configurationForm__field">
+            Infinity:
+            <input
+              type="checkbox"
+              name="infinity"
+              id="infinity"
+              checked={infinite}
+              onChange={this.handleChangeCheckbox}
             />
           </label>
         </form>
