@@ -1,10 +1,26 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
 
 interface State {
   images: string[];
+  configurationFields: ConfigurationFields;
 }
+interface ConfigurationFields {
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+}
+
+const startValues = {
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,17 +36,94 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    configurationFields: startValues,
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    this.setState((state) => ({
+      configurationFields: {
+        ...state.configurationFields,
+        [name]: value,
+      },
+    }));
+  };
+
+  handleChangeCheckbox = () => {
+    this.setState((prevState) => ({
+      configurationFields: {
+        ...prevState.configurationFields,
+        infinite: !prevState.configurationFields.infinite,
+      },
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      configurationFields,
+    } = this.state;
+    const {
+      step,
+      itemWidth,
+      frameSize,
+      animationDuration,
+    } = configurationFields;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
+        <form action="#" className="configurationForm">
+          <label htmlFor="itemId">
+            Item Width:
+            <input
+              type="number"
+              name="itemWidth"
+              id="itemId"
+              defaultValue={itemWidth}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="frameId">
+            Frame Size:
+            <input
+              type="number"
+              name="frameSize"
+              id="FrameId"
+              max={images.length}
+              defaultValue={frameSize}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="StepId">
+            Step:
+            <input
+              type="number"
+              name="step"
+              id="stepId"
+              max={frameSize}
+              defaultValue={step}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="duration">
+            Animation duration:
+            <input
+              type="number"
+              name="animationDuration"
+              id="duration"
+              defaultValue={animationDuration}
+              onChange={this.handleChange}
+            />
+          </label>
+        </form>
+        <Carousel
+          images={images}
+          {...configurationFields}
+        />
       </div>
     );
   }
