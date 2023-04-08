@@ -84,6 +84,8 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               id="itemId"
+              min="100"
+              max="300"
               defaultValue={itemWidth}
               onChange={this.handleChange}
             />
@@ -94,6 +96,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               id="FrameId"
+              min="1"
               max={images.length}
               defaultValue={frameSize}
               onChange={this.handleChange}
@@ -105,7 +108,8 @@ class App extends React.Component<{}, State> {
               type="number"
               name="step"
               id="stepId"
-              max={frameSize}
+              min="1"
+              max={images.length}
               defaultValue={step}
               onChange={this.handleChange}
             />

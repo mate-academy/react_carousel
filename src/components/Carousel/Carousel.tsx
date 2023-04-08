@@ -69,7 +69,7 @@ class Carousel extends React.Component<Props, State> {
       animationDuration,
       itemWidth,
       infinite,
-      step,
+      frameSize,
     } = this.props;
     const {
       carouselWidth,
@@ -116,7 +116,7 @@ class Carousel extends React.Component<Props, State> {
             onClick={this.handleNext}
             className="Carousel__btn Carousel__btn--next"
             aria-label="next"
-            disabled={!infinite && activeIndex === images.length - step}
+            disabled={!infinite && activeIndex >= images.length - frameSize}
           />
         </div>
       </div>
