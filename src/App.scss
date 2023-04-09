@@ -1,1 +1,14 @@
-// style go here
+body {
+  margin: 0;
+  background-color: rgb(228, 228, 206);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__title {
+    text-align: center;
+  }
+}
