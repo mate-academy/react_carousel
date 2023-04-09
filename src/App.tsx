@@ -62,13 +62,15 @@ class App extends React.Component<{}, State> {
     };
 
     const moveLeft = () => {
-      this.setState(() => {
-        if (scrollPosition + (itemWidth * step) > 0) {
-          return { scrollPosition: 0 };
-        }
+      if (scrollPosition < 0) {
+        this.setState(() => {
+          if (scrollPosition + (itemWidth * step) > 0) {
+            return { scrollPosition: 0 };
+          }
 
-        return { scrollPosition: scrollPosition + (itemWidth * step) };
-      });
+          return { scrollPosition: scrollPosition + (itemWidth * step) };
+        });
+      }
     };
 
     const changeItemWidth = (number: string) => {
