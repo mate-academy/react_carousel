@@ -1,3 +1,6 @@
+$col-white: #fff;
+$col-grey: #80808080;
+
 * {
   padding: 0;
   margin: 0;
@@ -29,7 +32,7 @@ button {
   &__images {
     overflow: hidden;
     border: 1px solid black;
-    background-color: #fff;
+    background-color: $col-white;
     margin: 0 30px;
   }
 
@@ -64,8 +67,8 @@ button {
     font-size: 20px;
     width: 75px;
     padding: 5px 0;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0);
+    color: $col-white;
+    background-color: #0000;
     text-align: right;
   }
 
@@ -86,18 +89,18 @@ button {
   width: 3vmin;
   height: 3vmin;
   background: transparent;
-  border-top: 1vmin solid white;
-  border-right: 1vmin solid white;
+  border-top: 1vmin solid $col-white;
+  border-right: 1vmin solid $col-white;
   box-shadow: 0 0 0 lightgray;
   transition: all 200ms ease;
   cursor: pointer;
   
   &:hover {
     border-color: orange;
-    box-shadow: 0.5vmin -0.5vmin 0 white;
+    box-shadow: 0.5vmin -0.5vmin 0 $col-white;
   }
   
-  &:before { // for better hit area
+  &:before {
     content: "";
     position: absolute;
     top: 50%;
@@ -108,9 +111,9 @@ button {
   }
 
   &:disabled {
-    border-color: rgba(128, 128, 128, 0.5);
+    border-color: $col-grey;
     &:hover {
-      border-color: rgba(128, 128, 128, 0.5);
+      border-color: $col-grey;
       box-shadow: none;
       cursor: default;
     }
