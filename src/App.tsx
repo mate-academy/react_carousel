@@ -40,6 +40,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       scrollPosition,
+      animationDuration,
     } = this.state;
 
     const moveRight = () => {
@@ -127,7 +128,7 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 50 && number <= 500;
           }}
-          placeholder="50 - 500"
+          placeholder={`50 - 500 | Now ${itemWidth}`}
           text="Enter item width"
         />
 
@@ -136,7 +137,7 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1 && number <= images.length;
           }}
-          placeholder={`1 - ${images.length}`}
+          placeholder={`1 - ${images.length} | Now ${frameSize}`}
           text="Enter frame size"
         />
 
@@ -145,7 +146,7 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1 && number <= images.length;
           }}
-          placeholder={`1 - ${images.length}`}
+          placeholder={`1 - ${images.length} | Now ${step}`}
           text="Enter step"
         />
 
@@ -154,7 +155,7 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1000 && number <= 3000;
           }}
-          placeholder="1000 - 3000"
+          placeholder={`1000 - 3000 | Now ${animationDuration}`}
           text="Enter duaration"
         />
       </div>
