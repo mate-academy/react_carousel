@@ -88,13 +88,10 @@ class Carousel extends React.Component<Props, State> {
       return;
     }
 
-    const imgList = document
-      .querySelector('.Carousel__list') as HTMLElement;
     const difference = this.state.frameSize - prevState.frameSize;
 
     this.position += difference * this.state.itemWidth;
     this.count += difference;
-    imgList.style.transform = `translateX(${this.position}px)`;
   };
 
   render() {
