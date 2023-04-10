@@ -81,6 +81,9 @@ export class Carousel extends React.Component<Props, State> {
     const stepSize = step * itemWidth;
     const isLastCheck = position - (step * itemWidth) <= maxPosition;
 
+    // eslint-disable-next-line no-console
+    console.log(position, stepSize);
+
     return (
       <div
         className="Carousel"

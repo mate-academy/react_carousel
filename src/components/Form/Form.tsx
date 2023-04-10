@@ -40,8 +40,14 @@ export const Form: React.FC<Props> = (props) => {
                 type="number"
                 name={id}
                 id={id}
+                min={1}
                 defaultValue={defaultValue}
                 onChange={(event) => {
+                  if (Number(event.currentTarget.value) <= 0) {
+                    // eslint-disable-next-line no-param-reassign
+                    event.currentTarget.value = String(1);
+                  }
+
                   updateInputValues(
                     Number(event.currentTarget.value),
                     event.currentTarget.name,
