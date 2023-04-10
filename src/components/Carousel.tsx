@@ -37,55 +37,47 @@ class Carousel extends React.Component<Props, State> {
 
   count = this.state.frameSize;
 
-  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const target = event.currentTarget as HTMLButtonElement;
-    const imgList = document
-      .querySelector('.Carousel__list') as HTMLElement;
-    const prevButton = document
-      .querySelector('.Carousel__prevButton') as HTMLButtonElement;
-    const nextButton = document
-      .querySelector('.Carousel__nextButton') as HTMLButtonElement;
-    const imgAmount = this.props.images.length;
+  prevButtonClick = () => {
+    const {
+      step,
+      frameSize,
+      itemWidth,
+    } = this.state;
+
+    this.count -= step;
+    this.setState({ nextButtonDisable: false });
+
+    if (this.count <= frameSize) {
+      this.count = frameSize;
+      this.position = 0;
+      this.setState({ prevButtonDisable: true });
+    } else {
+      this.position += step * itemWidth;
+    }
+  };
+
+  nextButtonClick = () => {
     const {
       step,
       frameSize,
       itemWidth,
       infinite,
     } = this.state;
+    const imgAmount = this.props.images.length;
 
-    if (target === prevButton) {
-      this.count -= step;
-      this.setState({ nextButtonDisable: false });
-
-      if (this.count <= frameSize) {
-        this.count = frameSize;
+    this.count += step;
+    this.setState({ prevButtonDisable: false });
+    if (this.count >= imgAmount) {
+      if (infinite) {
+        this.count -= imgAmount;
         this.position = 0;
-        this.setState({ prevButtonDisable: true });
       } else {
-        this.position += step * itemWidth;
+        this.count = imgAmount;
+        this.position = -(imgAmount - frameSize) * itemWidth;
+        this.setState({ nextButtonDisable: true });
       }
-
-      imgList.style.transform = `translateX(${this.position}px)`;
-    }
-
-    if (target === nextButton) {
-      this.count += step;
-      this.setState({ prevButtonDisable: false });
-      if (this.count >= imgAmount) {
-        if (infinite) {
-          this.count -= imgAmount;
-          this.position = 0;
-        } else {
-          this.count = imgAmount;
-          this.position = -(imgAmount - frameSize) * itemWidth;
-          this.setState({ nextButtonDisable: true });
-        }
-      } else {
-        this.position -= step * itemWidth;
-      }
-
-      window.console.info(this.count);
-      imgList.style.transform = `translateX(${this.position}px)`;
+    } else {
+      this.position -= step * itemWidth;
     }
   };
 
@@ -130,7 +122,7 @@ class Carousel extends React.Component<Props, State> {
           <button
             type="button"
             className="Carousel__prevButton button"
-            onClick={this.handleClick}
+            onClick={this.prevButtonClick}
             disabled={prevButtonDisable}
           />
 
@@ -145,6 +137,7 @@ class Carousel extends React.Component<Props, State> {
             <ul
               className="Carousel__list"
               style={{
+                transform: `translateX(${this.position}px)`,
                 transition: `transform ${animationDuration}ms`,
               }}
             >
@@ -171,7 +164,7 @@ class Carousel extends React.Component<Props, State> {
           <button
             type="button"
             className="Carousel__nextButton button"
-            onClick={this.handleClick}
+            onClick={this.nextButtonClick}
             disabled={nextButtonDisable}
             data-cy="next"
           />
