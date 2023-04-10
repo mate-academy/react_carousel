@@ -1,1 +1,121 @@
-// style go here
+$col-white: #fff;
+$col-grey: #80808080;
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0 auto;
+  position: relative;
+
+  &__images-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__images {
+    overflow: hidden;
+    border: 1px solid black;
+    background-color: $col-white;
+    margin: 0 30px;
+  }
+
+  &__list {
+    width: max-content;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__prevButton,
+  &__nextButton {
+    width: 100px;
+  }
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    margin: 250px auto 0;
+  }
+
+  &__label {
+    width: 500px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+  }
+
+  &__input {
+    font-size: 20px;
+    width: 75px;
+    padding: 5px 0;
+    color: $col-white;
+    background-color: #0000;
+    text-align: right;
+  }
+
+  &__prevButton {
+    left: 0;
+    transform: translate3d(0,-50%,0) rotate(-135deg);
+  }
+
+  &__nextButton {
+    right: 0;
+    transform: translate3d(0,-50%,0) rotate(45deg);
+  }
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  width: 3vmin;
+  height: 3vmin;
+  background: transparent;
+  border-top: 1vmin solid $col-white;
+  border-right: 1vmin solid $col-white;
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: orange;
+    box-shadow: 0.5vmin -0.5vmin 0 $col-white;
+  }
+  
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%,-60%) rotate(45deg);
+    width: 200%;
+    height: 200%;
+  }
+
+  &:disabled {
+    border-color: $col-grey;
+    &:hover {
+      border-color: $col-grey;
+      box-shadow: none;
+      cursor: default;
+    }
+  }
+}

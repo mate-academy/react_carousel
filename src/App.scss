@@ -1,1 +1,15 @@
-// style go here
+html {
+  background-color: #000;
+  background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+}
+
+.App {
+  color: #fff;
+  height: 100vh;
+
+  &__title {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 56px;
+  }
+}
