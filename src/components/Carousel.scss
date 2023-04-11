@@ -1,1 +1,35 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & :nth-child(3) {
+    order: 2;
+  }
+
+  &__list {
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    border: 4px solid yellowgreen;
+    border-radius: 10px;
+    order: 1;
+  }
+
+  &__button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: yellowgreen;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
