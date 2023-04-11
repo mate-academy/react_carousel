@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './Form.scss';
 
 type State = {
@@ -31,19 +31,30 @@ class Form extends React.Component<Props, State> {
       isError,
     } = this.state;
 
+    const submitHandler = (event: React.SyntheticEvent) => {
+      event.preventDefault();
+
+      if (range(+value)) {
+        changeNumber(value);
+        this.setState({ value: '' });
+      } else {
+        this.setState({ isError: true });
+      }
+    };
+
+    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      this.setState(
+        {
+          value: event.target.value,
+          isError: false,
+        },
+      );
+    };
+
     return (
       <form
         className="Form"
-        onSubmit={(event) => {
-          event.preventDefault();
-
-          if (range(+value)) {
-            changeNumber(value);
-            this.setState({ value: '' });
-          } else {
-            this.setState({ isError: true });
-          }
-        }}
+        onSubmit={submitHandler}
       >
 
         <input
@@ -51,14 +62,7 @@ class Form extends React.Component<Props, State> {
           type="number"
           placeholder={placeholder}
           value={value.trim()}
-          onChange={event => {
-            this.setState(
-              {
-                value: event.target.value,
-                isError: false,
-              },
-            );
-          }}
+          onChange={changeHandler}
         />
         <button
           className="Form__button"

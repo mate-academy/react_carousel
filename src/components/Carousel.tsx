@@ -32,7 +32,7 @@ const Carousel: React.FC<Props> = ({
         {images.map((image, index) => (
           <li key={image}>
             <img
-              src={`${image}`}
+              src={image}
               alt={`${index}`}
               style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
             />
