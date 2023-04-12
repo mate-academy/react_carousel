@@ -1,0 +1,93 @@
+.Carousel {
+  width: 650px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &__list {
+    overflow: hidden;
+  }
+
+  &__container {
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  &__items {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+  }
+}
+
+.button {
+  width: 24px;
+  height: auto;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 100%;
+  text-align: center;
+
+  border-radius: 50%;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: grey;
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(1.15);
+    background-color: grey;
+  }
+
+  &:disabled {
+    visibility: hidden;
+    // background-color: transparent;
+    // color: rgb(170, 170, 170);
+    // pointer-events: none;
+  }
+
+  &-next {
+    padding-left: 2px;
+  }
+
+  &-prev {
+    padding-right: 2px;
+  }
+}
+
+.inputs {
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    &-radio {
+      label {
+        cursor: pointer;
+      }
+    }
+
+    input {
+      cursor: pointer;
+    }
+  }
+
+  &__labels {
+    margin-bottom: 8px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+}

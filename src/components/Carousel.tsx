@@ -6,11 +6,38 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({ images }) => {
-  const [value, setValue] = useState('false');
+  const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [step, setSteps] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(300);
+  const [infiniteRotation, setInfiniteRotation] = useState('false');
+
+  const handleAnimChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAnimationDuration(Number(event.target.value));
+  };
+
+  const handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSteps(Number(event.target.value));
+  };
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setInfiniteRotation(event.target.value);
   };
+
+  const containerWidth = frameSize * itemWidth;
+
+  // STYLES region
+  const imagesContainerStyles = {
+    width: `${containerWidth}px`,
+    height: `${itemWidth}px`,
+    transition: `all ${animationDuration}ms`,
+  };
+
+  const imageStyles = {
+    height: `${itemWidth}px`,
+    width: `${itemWidth}px`,
+  };
+  // end STYLES region
 
   return (
     <div className="Carousel">
@@ -18,14 +45,22 @@ const Carousel: React.FC<Props> = ({ images }) => {
         <button
           type="button"
           className="button button-prev"
+          disabled
         >
           {'<'}
         </button>
-        <div className="Carousel__list">
+        <div
+          className="Carousel__list"
+          style={imagesContainerStyles}
+        >
           <ul className="Carousel__items">
             {images.map(image => (
               <li key={image}>
-                <img src={image} alt="1" />
+                <img
+                  src={image}
+                  alt="1"
+                  style={imageStyles}
+                />
               </li>
             ))}
           </ul>
@@ -39,43 +74,63 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </button>
       </div>
       <div className="inputs inputs__container">
-        <label htmlFor="itemWidth">
+        <label
+          htmlFor="itemWidth"
+          className="inputs__labels"
+        >
           Item width (px):
           <input
-            type="number"
+            type="range"
             id="itemWidth"
             min="100"
-            max="200"
+            max="160"
+            value={itemWidth}
+            onChange={(event) => setItemWidth(Number(event.target.value))}
           />
         </label>
 
-        <label htmlFor="frameSize">
+        <label
+          htmlFor="frameSize"
+          className="inputs__labels"
+        >
           Items in frame:
           <input
-            type="number"
+            type="range"
             id="frameSize"
             min="1"
             max="5"
+            value={frameSize}
+            onChange={(event) => setFrameSize(Number(event.target.value))}
           />
         </label>
 
-        <label htmlFor="stepId">
+        <label
+          htmlFor="stepId"
+          className="inputs__labels"
+        >
           Step:
           <input
-            type="number"
+            type="range"
             id="stepId"
             min="1"
             max="5"
+            value={step}
+            onChange={handleStepChange}
           />
         </label>
 
-        <label htmlFor="animationDuration">
+        <label
+          htmlFor="animationDuration"
+          className="inputs__labels"
+        >
           Animation Duration (ms):
           <input
-            type="number"
+            type="range"
             id="animationDuration"
             min="100"
             max="1000"
+            value={animationDuration}
+            onChange={handleAnimChange}
           />
         </label>
         <div className="inputs__container-radio">
@@ -86,7 +141,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
               name="infiniteRotation"
               id="infiniteRotationTrue"
               value="true"
-              checked={value === 'true'}
+              checked={infiniteRotation === 'true'}
               onChange={handleRadioChange}
             />
             Yes
@@ -97,7 +152,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
               name="infiniteRotation"
               id="infiniteRotationFalse"
               value="false"
-              checked={value === 'false'}
+              checked={infiniteRotation === 'false'}
               onChange={handleRadioChange}
             />
             No

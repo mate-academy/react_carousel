@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import './styles/App.scss';
 import Carousel from './components/Carousel';
 
-const App = () => {
+const App: FC<{}> = () => {
   const [images] = useState([
     './img/1.png',
     './img/2.png',
