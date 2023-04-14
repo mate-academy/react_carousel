@@ -114,11 +114,11 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
-          images={this.state.images}
-          itemWidth={this.state.itemWidth}
-          frameSize={this.state.frameSize}
-          scrollPosition={this.state.scrollPosition}
-          animationDuration={this.state.animationDuration}
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          scrollPosition={scrollPosition}
+          animationDuration={animationDuration}
           moveLeft={moveLeft}
           moveRight={moveRight}
         />
@@ -128,8 +128,8 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 50 && number <= 500;
           }}
-          placeholder={`50 - 500 | Now ${itemWidth}`}
-          text="Enter item width"
+          text="Enter item width 50 - 500"
+          value={String(itemWidth)}
         />
 
         <Form
@@ -137,8 +137,8 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1 && number <= images.length;
           }}
-          placeholder={`1 - ${images.length} | Now ${frameSize}`}
-          text="Enter frame size"
+          text={`Enter frame size 1 - ${images.length}`}
+          value={String(frameSize)}
         />
 
         <Form
@@ -146,8 +146,8 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1 && number <= images.length;
           }}
-          placeholder={`1 - ${images.length} | Now ${step}`}
-          text="Enter step"
+          text={`Enter step 1 - ${images.length}`}
+          value={String(step)}
         />
 
         <Form
@@ -155,8 +155,8 @@ class App extends React.Component<{}, State> {
           range={(number: number) => {
             return number >= 1000 && number <= 3000;
           }}
-          placeholder={`1000 - 3000 | Now ${animationDuration}`}
-          text="Enter duaration"
+          text="Enter duaration 1000 - 3000"
+          value={String(animationDuration)}
         />
       </div>
     );

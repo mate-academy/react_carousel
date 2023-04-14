@@ -9,13 +9,13 @@ type State = {
 type Props = {
   changeNumber(number: string): void,
   range:(number: number) => boolean,
-  placeholder: string,
   text: string,
+  value: string;
 };
 
 class Form extends React.Component<Props, State> {
   state = {
-    value: '',
+    value: this.props.value,
     isError: false,
   };
 
@@ -23,7 +23,6 @@ class Form extends React.Component<Props, State> {
     const {
       changeNumber,
       range,
-      placeholder,
       text,
     } = this.props;
     const {
@@ -31,21 +30,22 @@ class Form extends React.Component<Props, State> {
       isError,
     } = this.state;
 
-    const submitHandler = (event: React.SyntheticEvent) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
       event.preventDefault();
 
       if (range(+value)) {
         changeNumber(value);
-        this.setState({ value: '' });
       } else {
         this.setState({ isError: true });
       }
     };
 
-    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+      const a = event.target.value;
+
       this.setState(
         {
-          value: event.target.value,
+          value: a.replace(/\D/g, ''),
           isError: false,
         },
       );
@@ -54,15 +54,14 @@ class Form extends React.Component<Props, State> {
     return (
       <form
         className="Form"
-        onSubmit={submitHandler}
+        onSubmit={handleSubmit}
       >
 
         <input
           className="Form__input"
-          type="number"
-          placeholder={placeholder}
-          value={value.trim()}
-          onChange={changeHandler}
+          type="text"
+          value={value}
+          onInput={handleInput}
         />
         <button
           className="Form__button"
