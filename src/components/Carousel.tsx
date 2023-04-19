@@ -33,13 +33,21 @@ const Carousel: React.FC<Props> = ({ images }) => {
   };
 
   const handleTransitionLeft = () => {
-    setPosition(prevPosition => prevPosition + (step * itemWidth));
+    setPosition((prevPosition) => {
+      const newPosition = prevPosition + step * itemWidth;
+
+      return Math.min(0, newPosition);
+    });
   };
 
   const maxPosition = images.length * itemWidth - itemNumber * itemWidth;
 
   const handleTransitionRight = () => {
-    setPosition(prevPosition => prevPosition - (step * itemWidth));
+    setPosition((prevPosition) => {
+      const newPosition = prevPosition - step * itemWidth;
+
+      return Math.abs(newPosition) > maxPosition ? -maxPosition : newPosition;
+    });
   };
 
   // STYLES region
@@ -55,8 +63,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
   };
   // end STYLES region
 
-  const isLastImageDisplayed = Math.abs(position) >= Number(maxPosition)
-    + itemWidth;
+  const isLastImageDisplayed = Math.abs(position) === Number(maxPosition);
 
   const isFirstImageDisplayed = position === 0;
 
@@ -106,6 +113,8 @@ const Carousel: React.FC<Props> = ({ images }) => {
           className="inputs__labels"
         >
           Item width (px):
+          <span />
+          {itemWidth}
           <input
             type="range"
             id="itemWidth"
@@ -118,13 +127,13 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </label>
 
         <label
-          htmlFor="frameSize"
+          htmlFor="itemNumber"
           className="inputs__labels"
         >
           Items in frame:
           <input
             type="range"
-            id="frameSize"
+            id="itemNumber"
             min="1"
             max="5"
             value={itemNumber}
