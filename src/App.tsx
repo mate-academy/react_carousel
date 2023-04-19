@@ -32,12 +32,6 @@ class App extends React.Component<{}, State> {
     infinite: true,
   };
 
-  setUsersData = (value: number, stateItem: string) => {
-    this.setState({
-      [stateItem]: value,
-    } as unknown as Pick<State, keyof State>);
-  };
-
   render() {
     const {
       images,
@@ -61,10 +55,12 @@ class App extends React.Component<{}, State> {
             type="number"
             className="ItemWidth"
             placeholder="Enter the width of the image"
-            onKeyDown={(event) => {
-              this.setUsersData(
-                +event.currentTarget.value, 'itemWidth',
-              );
+            onChange={(event) => {
+              if (+event.currentTarget.value > 0) {
+                this.setState({
+                  itemWidth: +event.currentTarget.value,
+                });
+              }
             }}
           />
 
@@ -72,10 +68,12 @@ class App extends React.Component<{}, State> {
             type="number"
             className="FrameSize"
             placeholder="Enter the number of the visible image"
-            onKeyDown={(event) => {
-              this.setUsersData(
-                +event.currentTarget.value, 'frameSize',
-              );
+            onChange={(event) => {
+              if (+event.currentTarget.value > 0) {
+                this.setState({
+                  frameSize: +event.currentTarget.value,
+                });
+              }
             }}
           />
 
@@ -83,10 +81,12 @@ class App extends React.Component<{}, State> {
             type="number"
             className="Step"
             placeholder="Enter the number of images scrolled per click"
-            onKeyDown={(event) => {
-              this.setUsersData(
-                +event.currentTarget.value, 'step',
-              );
+            onChange={(event) => {
+              if (+event.currentTarget.value > 0) {
+                this.setState({
+                  step: +event.currentTarget.value,
+                });
+              }
             }}
           />
 
@@ -95,10 +95,12 @@ class App extends React.Component<{}, State> {
             className="AnimationDuration"
             placeholder="Enter the time in ms to
             show the new portion of images"
-            onKeyDown={(event) => {
-              this.setUsersData(
-                +event.currentTarget.value, 'animationDuration',
-              );
+            onChange={(event) => {
+              if (+event.currentTarget.value > 0) {
+                this.setState({
+                  animationDuration: +event.currentTarget.value,
+                });
+              }
             }}
           />
         </form>
