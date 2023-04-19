@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: true,
+    infinite: false,
   };
 
   render() {

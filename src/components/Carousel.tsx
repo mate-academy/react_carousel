@@ -14,6 +14,7 @@ type State = {
   transform: number,
   isMaxLeft: boolean,
   isMaxRight: boolean,
+  offset: number,
 };
 
 export class Carousel extends React.Component<Props, State> {
@@ -21,7 +22,19 @@ export class Carousel extends React.Component<Props, State> {
     transform: 0,
     isMaxRight: false,
     isMaxLeft: !this.props.infinite,
+    offset: 0,
   };
+
+  componentDidUpdate(prevProps: Readonly<Props>) {
+    if (this.props.itemWidth !== prevProps.itemWidth) {
+      const difference = (prevProps.itemWidth - this.props.itemWidth)
+       * this.state.offset;
+
+      this.setState(state => ({
+        transform: state.transform + difference,
+      }));
+    }
+  }
 
   showPrev = () => {
     const {
@@ -43,13 +56,17 @@ export class Carousel extends React.Component<Props, State> {
         return {
           transform: -maxOffset,
           isMaxLeft: false,
-        };
+          offset: -maxOffset
+           / this.props.itemWidth,
+        } as Pick<State, keyof State>;
       }
 
       if (offset >= maxOffset) {
         return {
           transform: maxOffset,
           isMaxLeft: true,
+          offset: maxOffset
+            / this.props.itemWidth,
         };
       }
 
@@ -57,6 +74,8 @@ export class Carousel extends React.Component<Props, State> {
         transform: offset,
         isMaxLeft: false,
         isMaxRight: false,
+        offset: (offset * Math.sign(offset))
+         / this.props.itemWidth,
       } as Pick<State, keyof State>;
     }));
   };
@@ -81,6 +100,7 @@ export class Carousel extends React.Component<Props, State> {
         return {
           transform: 0,
           isMaxRight: false,
+          offset: 0,
         } as Pick<State, keyof State>;
       }
 
@@ -88,6 +108,8 @@ export class Carousel extends React.Component<Props, State> {
         return {
           transform: (-maxOffset),
           isMaxRight: true,
+          offset: maxOffset
+           / this.props.itemWidth,
         } as Pick<State, keyof State>;
       }
 
@@ -95,6 +117,8 @@ export class Carousel extends React.Component<Props, State> {
         transform: offset,
         isMaxRight: false,
         isMaxLeft: false,
+        offset: (offset * Math.sign(offset))
+         / this.props.itemWidth,
       };
     }));
   };
