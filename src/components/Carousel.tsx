@@ -102,7 +102,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
           data-cy="next"
           onClick={handleTransitionRight}
           disabled={isLastImageDisplayed}
-        // }
         >
           {'>'}
         </button>
@@ -112,25 +111,40 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="itemWidth"
           className="inputs__labels"
         >
-          Item width (px):
-          <span />
-          {itemWidth}
+          <div className="input__labels-title">
+            Item width (px):
+          </div>
+
+          <div className="input__labels-min">
+            {100}
+          </div>
+
           <input
             type="range"
             id="itemWidth"
-            step="10"
             min="100"
             max="160"
             value={itemWidth}
             onChange={(event) => setItemWidth(Number(event.target.value))}
           />
+
+          <div className="input__labels-max">
+            {160}
+          </div>
         </label>
 
         <label
           htmlFor="itemNumber"
           className="inputs__labels"
         >
-          Items in frame:
+          <div className="input__labels-title">
+            Items in frame:
+          </div>
+
+          <div className="input__labels-min">
+            {1}
+          </div>
+
           <input
             type="range"
             id="itemNumber"
@@ -139,28 +153,50 @@ const Carousel: React.FC<Props> = ({ images }) => {
             value={itemNumber}
             onChange={(event) => setItemNumber(Number(event.target.value))}
           />
+
+          <div className="input__labels-max">
+            {5}
+          </div>
         </label>
 
         <label
           htmlFor="stepId"
           className="inputs__labels"
         >
-          Step:
+          <div className="input__labels-title">
+            Step:
+          </div>
+
+          <div className="input__labels-min">
+            {1}
+          </div>
+
           <input
             type="range"
             id="stepId"
             min="1"
-            max="5"
+            max={itemNumber}
             value={step}
             onChange={handleStepChange}
           />
+
+          <div className="input__labels-max">
+            {itemNumber}
+          </div>
         </label>
 
         <label
           htmlFor="animationDuration"
           className="inputs__labels"
         >
-          Animation Duration (ms):
+          <div className="input__labels-title">
+            Animation Duration (ms):
+          </div>
+
+          <div className="input__labels-min">
+            0.1s
+          </div>
+
           <input
             type="range"
             id="animationDuration"
@@ -169,9 +205,18 @@ const Carousel: React.FC<Props> = ({ images }) => {
             value={animationDuration}
             onChange={handleAnimChange}
           />
+
+          <div className="input__labels-max">
+            1s
+          </div>
         </label>
+
         <div className="inputs__container-radio">
-          Infinite rotation:
+
+          <div className="input__labels-title">
+            Infinite rotation:
+          </div>
+
           <label htmlFor="infiniteRotationTrue">
             <input
               type="radio"
@@ -183,6 +228,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
             />
             Yes
           </label>
+
           <label htmlFor="infiniteRotationFalse">
             <input
               type="radio"

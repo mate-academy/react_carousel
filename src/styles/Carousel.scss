@@ -53,9 +53,6 @@
 
   &:disabled {
     visibility: hidden;
-    // background-color: transparent;
-    // color: rgb(170, 170, 170);
-    // pointer-events: none;
   }
 
   &-next {
@@ -73,6 +70,9 @@
     flex-direction: column;
 
     &-radio {
+      display: grid;
+      grid-template-columns: 4fr 1fr 2fr;
+
       label {
         cursor: pointer;
       }
@@ -84,10 +84,30 @@
   }
 
   &__labels {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 3fr 1fr 4fr 1fr;
+    align-items: center;
+    gap: 8px;
 
-    display: flex;
-    justify-content: space-between;
+    &-min {
+      text-align: right;
+    }
+
+    & > * {
+      display: flex;
+    }
+
+    & > *:nth-child(1) {
+      justify-content: left;
+    }
+
+    & > *:nth-child(2),
+    & > *:nth-child(3),
+    & > *:nth-child(4) {
+      justify-content: center;
+    }
+
   }
 
 }
