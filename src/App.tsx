@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  emojiWidth: number;
+  frameSize: number;
+  step: number;
+  animationDur: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,6 +25,83 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    emojiWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDur: 1000,
+    infinite: false,
+  };
+
+  onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (event.target.name === 'emojiWidth') {
+      if (+event.target.value > 0) {
+        this.setState({
+          emojiWidth: +event.target.value,
+        });
+
+        return;
+      }
+
+      this.setState({
+        frameSize: 130,
+      });
+    }
+
+    if (event.target.name === 'frameSize') {
+      if (+event.target.value > 0 && +event.target.value <= 10) {
+        this.setState({
+          frameSize: +event.target.value,
+        });
+
+        return;
+      }
+
+      this.setState({
+        frameSize: 3,
+      });
+    }
+
+    if (event.target.name === 'step') {
+      if (+event.target.value > 0) {
+        this.setState({
+          step: +event.target.value,
+        });
+
+        return;
+      }
+
+      this.setState({
+        step: 3,
+      });
+    }
+
+    if (event.target.name === 'animationDur') {
+      if (+event.target.value > 300) {
+        this.setState({
+          animationDur: +event.target.value,
+        });
+
+        return;
+      }
+
+      this.setState({
+        animationDur: 300,
+      });
+    }
+
+    if (event.target.name === 'infinite') {
+      if (event.target.checked) {
+        this.setState({
+          infinite: true,
+        });
+
+        return;
+      }
+
+      this.setState({
+        infinite: false,
+      });
+    }
   };
 
   render() {
@@ -28,9 +110,65 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy='title'>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={this.state.images}
+          emojiWidth={this.state.emojiWidth}
+          frameSize={this.state.frameSize}
+          step={this.state.step}
+          animationDur={this.state.animationDur}
+          infinite={this.state.infinite}
+        />
+
+        <div style={{
+          width: '390px',
+          margin: '10px auto 0',
+        }}
+        >
+          <div style={{
+            display: 'flex',
+            width: '195px',
+            margin: '0 auto',
+            flexDirection: 'column',
+          }}
+          >
+            <input
+              type="number"
+              placeholder="130"
+              name="emojiWidth"
+              onBlur={this.onBlur}
+            />
+            <input
+              type="number"
+              placeholder="3"
+              name="frameSize"
+              onBlur={this.onBlur}
+            />
+            <input
+              type="number"
+              placeholder="3"
+              name="step"
+              onBlur={this.onBlur}
+            />
+            <input
+              type="number"
+              placeholder="1000"
+              name="animationDur"
+              onBlur={this.onBlur}
+            />
+            <div>
+              <input
+                type="checkbox"
+                placeholder="1000"
+                name="infinite"
+                id="infinite"
+                onBlur={this.onBlur}
+              />
+              <label htmlFor="infinite">Infinite</label>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
