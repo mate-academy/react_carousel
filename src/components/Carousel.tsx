@@ -1,139 +1,114 @@
 import './Carousel.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 import { Component } from 'react';
 
 interface Props {
   images: string[];
-}
-
-interface State {
   smileWidth: number;
-  amountOfSmiles: number;
+  frameSize: number;
   step: number;
   speedOfAnimation: number;
   infinite: boolean;
 }
 
+interface State {
+  currentSmileIndex: number;
+}
+
 class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
-    smileWidth: 130,
-    amountOfSmiles: 2,
-    step: 3,
-    speedOfAnimation: 1000,
-    infinite: false,
+    currentSmileIndex: 0,
   };
 
-  updateState = <K extends keyof State>(key: K, value: number | boolean) => {
-    this.setState({ [key]: value } as Pick<State, K>);
-  };
+  handleClick = (step: number) => () => {
+    const { images, frameSize } = this.props;
+    const { currentSmileIndex } = this.state;
+    const lastSmileIndex = images.length - frameSize;
+    const firstSmileIndex = 0;
+    let nextSmileIndex = currentSmileIndex + step;
 
-  renderInputField = (
-    label: string,
-    name: string,
-    value: number | boolean,
-    min?: number,
-    max?: number,
-  ) => {
-    const determineInputType = (choice: string) => {
-      return typeof value === 'number' ? choice : 'checkbox';
-    };
+    if (step > 0) {
+      if (currentSmileIndex === lastSmileIndex) {
+        nextSmileIndex = firstSmileIndex;
+      } else if (nextSmileIndex > lastSmileIndex) {
+        nextSmileIndex = lastSmileIndex;
+      }
+    }
 
-    return (
-      <label htmlFor={name} className="control-panel__label">
-        {label}
-        <input
-          type={determineInputType('number')}
-          name={name}
-          value={value.toString()}
-          min={min}
-          max={max}
-          onChange={(e) => {
-            const parsedValue = typeof value === 'number'
-              ? +e.target.value
-              : e.target.checked;
+    if (step < 0) {
+      if (currentSmileIndex === firstSmileIndex) {
+        nextSmileIndex = lastSmileIndex;
+      } else if (nextSmileIndex < firstSmileIndex) {
+        nextSmileIndex = firstSmileIndex;
+      }
+    }
 
-            this.updateState(name as keyof State, parsedValue);
-          }}
-          className={`control-panel__${determineInputType('input')}`}
-        />
-      </label>
-    );
+    this.setState({ currentSmileIndex: nextSmileIndex });
   };
 
   render() {
     const {
-      smileWidth, amountOfSmiles, step, speedOfAnimation, infinite,
-    } = this.state;
-    const { images } = this.props;
-
-    const settings = {
+      smileWidth,
+      frameSize,
+      speedOfAnimation,
       infinite,
-      speed: speedOfAnimation,
-      slidesToShow: amountOfSmiles,
-      slidesToScroll: step,
+      step,
+      images,
+    } = this.props;
+
+    const { currentSmileIndex } = this.state;
+
+    const frameStyles = {
+      width: `${frameSize * smileWidth}px`,
+      transition: `${speedOfAnimation}ms`,
+    };
+
+    const smileStyles = {
+      transform: `translateX(${-currentSmileIndex * smileWidth}px)`,
+      transition: `${speedOfAnimation}ms`,
     };
 
     return (
       <div className="carousel">
-        <ul
-          className="carousel__frame"
-          style={{
-            width: amountOfSmiles * smileWidth,
-          }}
-        >
-          <Slider {...settings}>
-            {images.map(image => {
+        <div className="carousel__frame" style={frameStyles}>
+          <ul className="carousel__list">
+            {images.map((image, index) => {
               return (
-                <li key={image} className="img">
+                <li
+                  key={image}
+                  style={smileStyles}
+                >
                   <img
                     src={image}
-                    style={{ width: `${smileWidth}px` }}
-                    alt="smile"
+                    width={`${smileWidth}px`}
+                    alt={`smile ${index + 1}`}
                   />
                 </li>
               );
             })}
-          </Slider>
-        </ul>
+          </ul>
+        </div>
 
-        <div className="control-panel">
-          {this.renderInputField(
-            'Item width',
-            'smileWidth',
-            smileWidth,
-            130,
-          )}
+        <div className="buttons">
+          <button
+            type="button"
+            onClick={this.handleClick(-step)}
+            disabled={currentSmileIndex <= 0 && !infinite}
+            className="buttons__button"
+          >
+            Prev
+          </button>
 
-          {this.renderInputField(
-            'Frame size',
-            'amountOfSmiles',
-            amountOfSmiles,
-            1,
-            10,
-          )}
-
-          {this.renderInputField(
-            'Step',
-            'step',
-            step,
-            1,
-            10,
-          )}
-
-          {this.renderInputField(
-            'Speed of an animation',
-            'speedOfAnimation',
-            speedOfAnimation,
-            1,
-          )}
-
-          {this.renderInputField(
-            'Infinite',
-            'infinite',
-            infinite,
-          )}
+          <button
+            type="button"
+            onClick={this.handleClick(step)}
+            disabled={
+              (currentSmileIndex >= images.length - frameSize) && !infinite
+            }
+            className="buttons__button"
+            data-cy="next"
+          >
+            Next
+          </button>
         </div>
       </div>
     );

@@ -1,1 +1,49 @@
-// style go here
+@import './components/Carousel.scss';
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $primary-color;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+img {
+  &__hidden {
+    display: none;
+  }
+}
+
+.control-panel {
+  display: flex;
+  gap: 100px;
+
+  &__label {
+    font-size: 20px;
+    color: #fff;
+    margin-left: 20px;
+    text-align: center;
+  }
+
+  &__input {
+    display: block;
+    margin-top: 10px;
+    height: 25px;
+  }
+
+  &__checkbox {
+    margin-left: 10px;
+  }
+}
