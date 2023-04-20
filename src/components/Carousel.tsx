@@ -24,6 +24,8 @@ export class Carousel extends React.Component<Props, State> {
 
   stepSize = this.props.emojiWidth * this.props.step;
 
+  defaultEmojiWidth = 130;
+
   componentDidUpdate(): void {
     this.maxPosition = (this.props.emojiWidth * this.props.images.length)
     - (this.props.emojiWidth * this.props.frameSize);
@@ -63,7 +65,8 @@ export class Carousel extends React.Component<Props, State> {
       }));
     }
 
-    if (this.state.currentPosition < 390) {
+    if (this.state.currentPosition
+        < (this.props.emojiWidth * this.props.frameSize)) {
       this.setState({
         currentPosition: 0,
       });
@@ -78,47 +81,45 @@ export class Carousel extends React.Component<Props, State> {
 
   render() {
     return (
-      <>
-        <div
-          className="Carousel"
+      <div
+        className="Carousel"
+        style={{
+          width: `${this.props.emojiWidth * this.props.frameSize}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
           style={{
-            width: `${this.props.emojiWidth * this.props.frameSize}px`,
+            transform: `translateX(-${this.state.currentPosition}px)`,
+            transition: `transform ${this.props.animationDur}ms`,
+            width: `${this.props.emojiWidth * this.props.images.length}px`,
           }}
         >
-          <ul
-            className="Carousel__list"
-            style={{
-              transform: `translateX(-${this.state.currentPosition}px)`,
-              transition: `transform ${this.props.animationDur}ms`,
-              width: `${this.props.emojiWidth * this.props.images.length}px`,
-            }}
-          >
-            {this.props.images.map((image: string, index: number) => (
-              <li key={`${index + 1}`}>
-                <img
-                  src={image}
-                  alt={`${index + 1}`}
-                  style={{
-                    width: `${this.props.emojiWidth}px`,
-                    height: `${this.props.emojiWidth}px`,
-                  }}
-                />
-              </li>
-            ))}
-          </ul>
+          {this.props.images.map((image: string, index: number) => (
+            <li key={`${index + 1}`}>
+              <img
+                src={image}
+                alt={`${index + 1}`}
+                style={{
+                  width: `${this.props.emojiWidth}px`,
+                  height: `${this.props.emojiWidth}px`,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
 
-          <div className="buttonsContainer">
-            <button type="button" onClick={this.handleMoveLeft}>Prev</button>
-            <button
-              type="button"
-              onClick={this.handleMoveRight}
-              data-cy="next"
-            >
-              Next
-            </button>
-          </div>
+        <div className="buttonsContainer">
+          <button type="button" onClick={this.handleMoveLeft}>Prev</button>
+          <button
+            type="button"
+            onClick={this.handleMoveRight}
+            data-cy="next"
+          >
+            Next
+          </button>
         </div>
-      </>
+      </div>
     );
   }
 }

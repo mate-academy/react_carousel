@@ -11,6 +11,14 @@ interface State {
   infinite: boolean;
 }
 
+enum Inputs {
+  emojiWidth = 'emojiWidth',
+  frameSize = 'frameSize',
+  step = 'step',
+  animationDur = 'animationDur',
+  infinite = 'infinite',
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -32,8 +40,10 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  minDuration = 300;
+
   onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (event.target.name === 'emojiWidth') {
+    if (event.target.name === Inputs.emojiWidth) {
       if (+event.target.value > 0) {
         this.setState({
           emojiWidth: +event.target.value,
@@ -43,12 +53,13 @@ class App extends React.Component<{}, State> {
       }
 
       this.setState({
-        frameSize: 130,
+        emojiWidth: 130,
       });
     }
 
-    if (event.target.name === 'frameSize') {
-      if (+event.target.value > 0 && +event.target.value <= 10) {
+    if (event.target.name === Inputs.frameSize) {
+      if (+event.target.value > 0
+        && +event.target.value <= this.state.images.length) {
         this.setState({
           frameSize: +event.target.value,
         });
@@ -61,7 +72,7 @@ class App extends React.Component<{}, State> {
       });
     }
 
-    if (event.target.name === 'step') {
+    if (event.target.name === Inputs.step) {
       if (+event.target.value > 0) {
         this.setState({
           step: +event.target.value,
@@ -75,8 +86,8 @@ class App extends React.Component<{}, State> {
       });
     }
 
-    if (event.target.name === 'animationDur') {
-      if (+event.target.value > 300) {
+    if (event.target.name === Inputs.animationDur) {
+      if (+event.target.value > this.minDuration) {
         this.setState({
           animationDur: +event.target.value,
         });
@@ -85,11 +96,11 @@ class App extends React.Component<{}, State> {
       }
 
       this.setState({
-        animationDur: 300,
+        animationDur: this.minDuration,
       });
     }
 
-    if (event.target.name === 'infinite') {
+    if (event.target.name === Inputs.infinite) {
       if (event.target.checked) {
         this.setState({
           infinite: true,
@@ -121,18 +132,8 @@ class App extends React.Component<{}, State> {
           infinite={this.state.infinite}
         />
 
-        <div style={{
-          width: '390px',
-          margin: '10px auto 0',
-        }}
-        >
-          <div style={{
-            display: 'flex',
-            width: '195px',
-            margin: '0 auto',
-            flexDirection: 'column',
-          }}
-          >
+        <div className="inputs">
+          <div className="inputsWrapper">
             <input
               type="number"
               placeholder="130"
