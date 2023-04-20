@@ -25,8 +25,8 @@ class Carousel extends Component<Props, State> {
       step,
       frameSize,
       itemWidth,
-      animationDuration = 1000,
-      infinite = false,
+      animationDuration,
+      infinite,
     } = this.props;
 
     const { position } = this.state;
@@ -75,7 +75,7 @@ class Carousel extends Component<Props, State> {
               );
             }
 
-            if (position === 0 && infinite) {
+            if (position === 0 && !infinite) {
               this.setState(
                 { position: maxPosition },
               );
@@ -99,7 +99,7 @@ class Carousel extends Component<Props, State> {
               );
             }
 
-            if (position === maxPosition && infinite) {
+            if (position === maxPosition && !infinite) {
               this.setState(
                 { position: 0 },
               );
