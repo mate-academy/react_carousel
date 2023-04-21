@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import '../styles/Carousel.scss';
@@ -7,13 +8,28 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({ images }) => {
-  const [itemWidth, setItemWidth] = useState(130);
-  const [itemNumber, setItemNumber] = useState(3);
-  const [step, setSteps] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(300);
-  const [infiniteRotation, setInfiniteRotation] = useState(false);
-  const [position, setPosition] = useState(0);
-  const [containerWidth, setContainerWidth] = useState(itemNumber * itemWidth);
+  const [toolTipValue, setToolTipValue] = useState<number>(1);
+  const [itemWidth, setItemWidth] = useState<number>(130);
+  const [itemNumber, setItemNumber] = useState<number>(3);
+  const [step, setSteps] = useState<number>(3);
+  const [animationDuration, setAnimationDuration] = useState<number>(300);
+  const [infiniteRotation, setInfiniteRotation] = useState<boolean>(false);
+  const [position, setPosition] = useState<number>(0);
+  const [containerWidth, setContainerWidth] = useState<number>(itemNumber * itemWidth);
+
+  useEffect(() => {
+    const toolTip = document.querySelector('.toolTip');
+
+    if (toolTip) {
+      const slider = document.querySelector('#itemWidth') as HTMLInputElement;
+      const value = Number(slider.value);
+      const toolPosition = ((value - Number(slider.min)) / (Number(slider.max) - Number(slider.min))) * (Number(slider.clientWidth) - Number(toolTip.clientWidth));
+
+      (toolTip as HTMLElement).style.left = `${toolPosition}px`;
+
+      (toolTip as HTMLElement).style.top = `-${toolTip.clientHeight}px`;
+    }
+  }, [toolTipValue]);
 
   useEffect(() => {
     setContainerWidth(itemNumber * itemWidth);
@@ -111,6 +127,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="itemWidth"
           className="inputs__labels"
         >
+
           <div className="input__labels-title">
             Item width (px):
           </div>
@@ -119,14 +136,26 @@ const Carousel: React.FC<Props> = ({ images }) => {
             {100}
           </div>
 
-          <input
-            type="range"
-            id="itemWidth"
-            min="100"
-            max="160"
-            value={itemWidth}
-            onChange={(event) => setItemWidth(Number(event.target.value))}
-          />
+          <div className="input__labels-slider">
+            <input
+              type="range"
+              id="itemWidth"
+              min="100"
+              max="160"
+              value={itemWidth}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const radius = event.target.value;
+                const newValue = parseInt(radius, 10);
+
+                setItemWidth(Number(event.target.value));
+
+                setToolTipValue(newValue);
+              }}
+            />
+            <div className="toolTip">
+              {itemWidth}
+            </div>
+          </div>
 
           <div className="input__labels-max">
             {160}
@@ -144,16 +173,27 @@ const Carousel: React.FC<Props> = ({ images }) => {
           <div className="input__labels-min">
             {1}
           </div>
+          <div className="input__labels-slider">
 
-          <input
-            type="range"
-            id="itemNumber"
-            min="1"
-            max="5"
-            value={itemNumber}
-            onChange={(event) => setItemNumber(Number(event.target.value))}
-          />
+            <input
+              type="range"
+              id="itemNumber"
+              min="1"
+              max="5"
+              value={itemNumber}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const radius = event.target.value;
+                const newValue = parseInt(radius, 10);
 
+                setItemNumber(Number(event.target.value));
+
+                setToolTipValue(newValue);
+              }}
+            />
+            <div className="toolTip">
+              {itemNumber}
+            </div>
+          </div>
           <div className="input__labels-max">
             {5}
           </div>
