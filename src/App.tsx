@@ -134,38 +134,62 @@ class App extends React.Component<{}, State> {
 
         <div className="inputs">
           <div className="inputsWrapper">
-            <input
-              type="number"
-              placeholder="130"
-              name="emojiWidth"
-              onBlur={this.onBlur}
-            />
-            <input
-              type="number"
-              placeholder="3"
-              name="frameSize"
-              onBlur={this.onBlur}
-            />
-            <input
-              type="number"
-              placeholder="3"
-              name="step"
-              onBlur={this.onBlur}
-            />
-            <input
-              type="number"
-              placeholder="1000"
-              name="animationDur"
-              onBlur={this.onBlur}
-            />
-            <div>
+            <div className="inputWrap">
+              <label htmlFor="emojiWidth">Emoji width: </label>
+
+              <input
+                type="number"
+                placeholder="130"
+                name="emojiWidth"
+                min={50}
+                max={300}
+                onBlur={this.onBlur}
+                id="emojiWidth"
+              />
+            </div>
+            <div className="inputWrap">
+              <label htmlFor="frameSize">Frame size: </label>
+
+              <input
+                type="number"
+                placeholder="3"
+                name="frameSize"
+                min={1}
+                onBlur={this.onBlur}
+                id="frameSize"
+              />
+            </div>
+            <div className="inputWrap">
+              <label htmlFor="step">Step: </label>
+
+              <input
+                type="number"
+                placeholder="3"
+                name="step"
+                min={1}
+                onBlur={this.onBlur}
+                id="step"
+              />
+            </div>
+            <div className="inputWrap">
+              <label htmlFor="animationDur">Animation duration: </label>
+
+              <input
+                type="number"
+                placeholder="1000"
+                name="animationDur"
+                onBlur={this.onBlur}
+                id="animationDur"
+              />
+            </div>
+            <div className="inputWrap">
               <input
                 type="checkbox"
-                placeholder="1000"
                 name="infinite"
                 id="infinite"
                 onBlur={this.onBlur}
               />
+
               <label htmlFor="infinite">Infinite</label>
             </div>
           </div>

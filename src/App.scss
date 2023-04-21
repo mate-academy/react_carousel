@@ -1,7 +1,7 @@
 // style go here
 .inputs {
   width: 390px;
-  margin: 10px auto 0
+  margin: 10px auto 0;
 }
 
 .inputsWrapper {
@@ -9,4 +9,10 @@
   width: 195px;
   margin: 0 auto;
   flex-direction: column;
+}
+
+.inputWrap {
+  display: flex;
+  margin-bottom: 5px;
+  gap: 5px;
 }
