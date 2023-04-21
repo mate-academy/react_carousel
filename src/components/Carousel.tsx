@@ -33,6 +33,42 @@ class Carousel extends Component<Props, State> {
     const maxPosition = -itemWidth * (images.length - frameSize);
     const widthStep = step * itemWidth;
 
+    const setNextPosition = () => {
+      if (position - widthStep <= maxPosition) {
+        this.setState(
+          { position: maxPosition },
+        );
+      } else {
+        this.setState(
+          { position: position - widthStep },
+        );
+      }
+
+      if (position === maxPosition && !infinite) {
+        this.setState(
+          { position: 0 },
+        );
+      }
+    };
+
+    const setPrevPosition = () => {
+      if (position + widthStep > 0) {
+        this.setState(
+          { position: 0 },
+        );
+      } else {
+        this.setState(
+          { position: position + widthStep },
+        );
+      }
+
+      if (position === 0 && !infinite) {
+        this.setState(
+          { position: maxPosition },
+        );
+      }
+    };
+
     return (
       <div className="Carousel">
         <div
@@ -64,23 +100,7 @@ class Carousel extends Component<Props, State> {
 
         <button
           type="button"
-          onClick={() => {
-            if (position + widthStep > 0) {
-              this.setState(
-                { position: 0 },
-              );
-            } else {
-              this.setState(
-                { position: position + widthStep },
-              );
-            }
-
-            if (position === 0 && !infinite) {
-              this.setState(
-                { position: maxPosition },
-              );
-            }
-          }}
+          onClick={setPrevPosition}
         >
           Prev
         </button>
@@ -88,23 +108,7 @@ class Carousel extends Component<Props, State> {
         <button
           type="button"
           data-cy="next"
-          onClick={() => {
-            if (position - widthStep <= maxPosition) {
-              this.setState(
-                { position: maxPosition },
-              );
-            } else {
-              this.setState(
-                { position: position - widthStep },
-              );
-            }
-
-            if (position === maxPosition && !infinite) {
-              this.setState(
-                { position: 0 },
-              );
-            }
-          }}
+          onClick={setNextPosition}
         >
           Next
         </button>

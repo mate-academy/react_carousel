@@ -38,6 +38,12 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  removeNegatives = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  };
+
   render() {
     const {
       step,
@@ -67,57 +73,72 @@ class App extends React.Component<{}, State> {
           action="#"
           className="form"
         >
-          <div>
+          <label className="form-labels">
+            <div>Step</div>
+
             <input
               type="number"
               name="step"
-              placeholder="Step"
+              defaultValue={step}
               className="form-item"
+              onKeyDown={this.removeNegatives}
               onChange={(event) => (
                 this.stateUpdate(event.target.name, event.target.value)
               )}
             />
-          </div>
+          </label>
 
-          <div>
+          <label className="form-labels">
+            <div>Frame size</div>
+
             <input
               type="number"
               name="frameSize"
-              placeholder="Frame size"
+              defaultValue={frameSize}
               className="form-item"
+              onKeyDown={this.removeNegatives}
               onChange={(event) => (
                 this.stateUpdate(event.target.name, event.target.value)
               )}
             />
-          </div>
+          </label>
 
-          <div>
+          <label className="form-labels">
+            <div>Item width</div>
+
             <input
               type="number"
               name="itemWidth"
-              placeholder="Item width"
+              defaultValue={itemWidth}
               className="form-item"
+              onKeyDown={this.removeNegatives}
               onChange={(event) => (
                 this.stateUpdate(event.target.name, event.target.value)
               )}
             />
-          </div>
+          </label>
 
-          <div>
+          <label className="form-labels">
+            <div>Animation duration</div>
+
             <input
               type="number"
               name="animationDuration"
-              placeholder="Animation duration"
+              defaultValue={animationDuration}
               className="form-item"
+              onKeyDown={this.removeNegatives}
               onChange={(event) => (
                 this.stateUpdate(event.target.name, event.target.value)
               )}
             />
-          </div>
+          </label>
 
-          <div>
+          <label className="form-labels">
+            <div>Infinite animation</div>
+
             <select
               name="infinite"
+              defaultValue="false"
               placeholder="Infinite"
               className="form-item"
               onChange={(event) => (
@@ -127,7 +148,7 @@ class App extends React.Component<{}, State> {
               <option value="true"> true </option>
               <option value="false"> false </option>
             </select>
-          </div>
+          </label>
         </form>
       </>
     );

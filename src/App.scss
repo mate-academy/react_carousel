@@ -7,6 +7,15 @@
   border-radius: 20px;
   border: 1px solid black;
   height: 30px;
-  margin-top: 20px;
+  margin-top: 5px;
   padding-left: 20px;
+}
+
+.form-labels {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
