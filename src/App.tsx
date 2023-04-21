@@ -7,7 +7,7 @@ interface State {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean
+  infinite: string
 }
 
 const images = [
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false,
+    infinite: 'false',
   };
 
   stateUpdate = (name: string, value: number | string) => {
@@ -56,8 +56,7 @@ class App extends React.Component<{}, State> {
     return (
       <>
         <div className="App">
-          {/* eslint-disable-next-line */}
-          <h1 data-cy="title">Carousel with {images.length} images</h1>
+          <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
           <Carousel
             images={images}
@@ -80,6 +79,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="step"
               defaultValue={step}
+              min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
               onChange={(event) => (
@@ -95,6 +95,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               defaultValue={frameSize}
+              min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
               onChange={(event) => (
@@ -110,6 +111,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               defaultValue={itemWidth}
+              min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
               onChange={(event) => (
@@ -125,6 +127,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="animationDuration"
               defaultValue={animationDuration}
+              min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
               onChange={(event) => (
@@ -139,7 +142,6 @@ class App extends React.Component<{}, State> {
             <select
               name="infinite"
               defaultValue="false"
-              placeholder="Infinite"
               className="form-item"
               onChange={(event) => (
                 this.stateUpdate(event.target.name, event.target.value)

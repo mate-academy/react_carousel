@@ -7,7 +7,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number
-  infinite: boolean,
+  infinite: string,
 };
 
 type State = {
@@ -44,7 +44,7 @@ class Carousel extends Component<Props, State> {
         );
       }
 
-      if (position === maxPosition && !infinite) {
+      if (position === maxPosition && infinite === 'true') {
         this.setState(
           { position: 0 },
         );
@@ -62,7 +62,7 @@ class Carousel extends Component<Props, State> {
         );
       }
 
-      if (position === 0 && !infinite) {
+      if (position === 0 && infinite === 'true') {
         this.setState(
           { position: maxPosition },
         );
@@ -88,11 +88,14 @@ class Carousel extends Component<Props, State> {
               <li
                 className="item"
                 key={img}
-                style={{
-                  width: itemWidth,
-                }}
               >
-                <img src={img} alt="" />
+                <img
+                  src={img}
+                  alt=""
+                  style={{
+                    width: `${itemWidth}px`,
+                  }}
+                />
               </li>
             ))}
           </ul>
