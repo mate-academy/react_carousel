@@ -36,6 +36,12 @@ const Carousel: React.FC<Props> = ({ images }) => {
     setPosition(0);
   }, [itemNumber, itemWidth]);
 
+  useEffect(() => {
+    if (infiniteRotation) {
+      setPosition(0);
+    }
+  }, [infiniteRotation]);
+
   const handleAnimChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnimationDuration(Number(event.target.value));
   };
@@ -52,17 +58,36 @@ const Carousel: React.FC<Props> = ({ images }) => {
     setPosition((prevPosition) => {
       const newPosition = prevPosition + step * itemWidth;
 
+      if (infiniteRotation && newPosition > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        return -maxPosition;
+      }
+
       return Math.min(0, newPosition);
     });
   };
 
-  const maxPosition = images.length * itemWidth - itemNumber * itemWidth;
+  let maxPosition = images.length * itemWidth - itemNumber * itemWidth;
 
   const handleTransitionRight = () => {
     setPosition((prevPosition) => {
       const newPosition = prevPosition - step * itemWidth;
 
-      return Math.abs(newPosition) > maxPosition ? -maxPosition : newPosition;
+      if (infiniteRotation) {
+        if (newPosition < -maxPosition) {
+          maxPosition = 0;
+
+          return maxPosition;
+        }
+
+        if (newPosition > 0) {
+          return -maxPosition;
+        }
+
+        return newPosition;
+      }
+
+      return Math.max(-maxPosition, newPosition);
     });
   };
 
@@ -90,7 +115,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           type="button"
           className="button button-prev"
           onClick={handleTransitionLeft}
-          disabled={isFirstImageDisplayed}
+          disabled={infiniteRotation ? false : isFirstImageDisplayed}
         >
           {'<'}
         </button>
@@ -117,7 +142,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           className="button button-next"
           data-cy="next"
           onClick={handleTransitionRight}
-          disabled={isLastImageDisplayed}
+          disabled={infiniteRotation ? false : isLastImageDisplayed}
         >
           {'>'}
         </button>
