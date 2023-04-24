@@ -34,6 +34,12 @@ const Carousel: React.FC<Props> = ({ images }) => {
   }, [toolTipValue]);
 
   useEffect(() => {
+    if (itemNumber < step) {
+      setSteps(itemNumber);
+    }
+  }, [itemNumber, step]);
+
+  useEffect(() => {
     setFrameWidth(itemNumber * itemWidth);
     setPosition(0);
   }, [itemNumber, itemWidth]);
@@ -156,7 +162,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           className="inputs__labels"
         >
 
-          <div className="input__labels-title">
+          <div className="inputs__labels-title">
             Item width (px):
           </div>
 
@@ -189,7 +195,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="itemNumber"
           className="inputs__labels"
         >
-          <div className="input__labels-title">
+          <div className="inputs__labels-title">
             Items in frame:
           </div>
 
@@ -221,8 +227,11 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="stepId"
           className="inputs__labels"
         >
-          <div className="input__labels-title">
+          <div className="inputs__labels-title">
             Step:
+            <div className="inputs__labels-warning">
+              (step cannot be bigger than items in frame)
+            </div>
           </div>
 
           <div className="input__labels-min">
@@ -254,7 +263,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="animationDuration"
           className="inputs__labels"
         >
-          <div className="input__labels-title">
+          <div className="inputs__labels-title">
             Animation Duration (ms):
           </div>
 
@@ -286,7 +295,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
         <div className="inputs__container-radio">
 
-          <div className="input__labels-title">
+          <div className="inputs__labels-title">
             Infinite rotation:
           </div>
 

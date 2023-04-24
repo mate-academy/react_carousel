@@ -92,6 +92,19 @@
     align-items: center;
     gap: 8px;
 
+    &-title {
+      display: flex;
+      flex-direction: column;
+
+      font-weight: 800;
+    }
+
+    &-warning {
+      font-size: 12px;
+      color: #f00;
+      font-weight: 400;
+    }
+
     & > * {
       display: flex;
       width: 100%;

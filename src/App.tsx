@@ -18,8 +18,14 @@ const App: FC<{}> = () => {
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
-      <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
+      <h1
+        className="App__title"
+        data-cy="title"
+      >
+        Carousel with
+        {images.length}
+        images
+      </h1>
 
       <Carousel images={images} />
     </div>
