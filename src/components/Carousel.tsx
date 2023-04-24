@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import '../styles/Carousel.scss';
 
@@ -15,22 +13,28 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const [animationDuration, setAnimationDuration] = useState<number>(300);
   const [infiniteRotation, setInfiniteRotation] = useState<boolean>(false);
   const [position, setPosition] = useState<number>(0);
-  const [containerWidth, setContainerWidth] = useState<number>(itemNumber * itemWidth);
+  const [frameWidth, setFrameWidth] = useState<number>(itemNumber * itemWidth);
 
   useEffect(() => {
-    const toolTip = document.querySelector('.toolTip');
+    const toolTips = document.querySelectorAll('.toolTip');
 
-    if (toolTip) {
-      const slider = document.querySelector('#itemWidth') as HTMLInputElement;
-      const value = Number(slider.value);
-      const toolPosition = ((value - Number(slider.min)) / (Number(slider.max) - Number(slider.min))) * (Number(slider.clientWidth) - Number(toolTip.clientWidth));
+    if (toolTips) {
+      const sliders = document.querySelectorAll('.slider');
 
-      (toolTip as HTMLElement).style.left = `${toolPosition}px`;
+      sliders.forEach((slider, index) => {
+        const value = Number(slider.getAttribute('value'));
+        const toolPosition = ((value - Number(slider.getAttribute('min')))
+          / (Number(slider.getAttribute('max'))
+            - Number(slider.getAttribute('min'))))
+          * (Number(slider.clientWidth) - Number(toolTips[index].clientWidth));
+
+        (toolTips[index] as HTMLElement).style.left = `${toolPosition}px`;
+      });
     }
   }, [toolTipValue]);
 
   useEffect(() => {
-    setContainerWidth(itemNumber * itemWidth);
+    setFrameWidth(itemNumber * itemWidth);
     setPosition(0);
   }, [itemNumber, itemWidth]);
 
@@ -40,21 +44,13 @@ const Carousel: React.FC<Props> = ({ images }) => {
     }
   }, [infiniteRotation]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>,
+    setter: React.Dispatch<React.SetStateAction<number>>) => {
     const radius = event.target.value;
     const newValue = parseInt(radius, 10);
 
-    setItemWidth(Number(event.target.value));
-
+    setter(newValue);
     setToolTipValue(newValue);
-  };
-
-  const handleAnimChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAnimationDuration(Number(event.target.value));
-  };
-
-  const handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSteps(Number(event.target.value));
   };
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +95,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
   // STYLES region
   const imagesContainerStyles = {
-    width: `${containerWidth}px`,
+    width: `${frameWidth}px`,
     height: `${itemWidth}px`,
     transform: `translateX(${position}px)`,
     transition: `all ${animationDuration}ms`,
@@ -132,17 +128,18 @@ const Carousel: React.FC<Props> = ({ images }) => {
             className="Carousel__items"
             style={imagesContainerStyles}
           >
-            {images.map(image => (
+            {images.map((image, index) => (
               <li key={image}>
                 <img
                   src={image}
-                  alt="1"
+                  alt={`Emojy ${index + 1}`}
                   style={imageStyles}
                 />
               </li>
             ))}
           </ul>
         </div>
+
         <button
           type="button"
           className="button button-next"
@@ -175,8 +172,9 @@ const Carousel: React.FC<Props> = ({ images }) => {
               min="100"
               max="160"
               value={itemWidth}
-              onChange={handleChange}
+              onChange={(event) => handleInputChange(event, setItemWidth)}
             />
+
             <div className="toolTip">
               {itemWidth}
             </div>
@@ -207,15 +205,9 @@ const Carousel: React.FC<Props> = ({ images }) => {
               min="1"
               max="5"
               value={itemNumber}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const radius = event.target.value;
-                const newValue = parseInt(radius, 10);
-
-                setItemNumber(Number(event.target.value));
-
-                setToolTipValue(newValue);
-              }}
+              onChange={(event) => handleInputChange(event, setItemNumber)}
             />
+
             <div className="toolTip">
               {itemNumber}
             </div>
@@ -245,8 +237,9 @@ const Carousel: React.FC<Props> = ({ images }) => {
               min="1"
               max={itemNumber}
               value={step}
-              onChange={handleStepChange}
+              onChange={(event) => handleInputChange(event, setSteps)}
             />
+
             <div className="toolTip">
               {step}
             </div>
@@ -277,12 +270,15 @@ const Carousel: React.FC<Props> = ({ images }) => {
               min="100"
               max="1000"
               value={animationDuration}
-              onChange={handleAnimChange}
+              onChange={(event) => {
+                handleInputChange(event, setAnimationDuration);
+              }}
             />
             <div className="toolTip">
               {`${(animationDuration / 1000).toFixed(1)}s`}
             </div>
           </div>
+
           <div className="input__labels-max">
             1s
           </div>
@@ -300,7 +296,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
               name="infiniteRotation"
               id="infiniteRotationTrue"
               value="true"
-              checked={infiniteRotation === true}
+              checked={infiniteRotation}
               onChange={handleRadioChange}
             />
             Yes
@@ -312,7 +308,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
               name="infiniteRotation"
               id="infiniteRotationFalse"
               value="false"
-              checked={infiniteRotation === false}
+              checked={!infiniteRotation}
               onChange={handleRadioChange}
             />
             No
