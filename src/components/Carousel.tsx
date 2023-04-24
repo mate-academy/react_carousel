@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Carousel.scss';
+import { Input } from './Input/Input';
 
 type Props = {
   images: string[];
@@ -171,16 +172,14 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <input
-              className="slider"
+            <Input
               type="range"
               id="itemWidth"
               min="100"
               max="160"
               value={itemWidth}
-              onChange={(event) => handleInputChange(event, setItemWidth)}
+              handleChange={(event) => handleInputChange(event, setItemWidth)}
             />
-
             <div className="toolTip">
               {itemWidth}
             </div>
@@ -204,16 +203,14 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <input
-              className="slider"
+            <Input
               type="range"
               id="itemNumber"
               min="1"
               max="5"
               value={itemNumber}
-              onChange={(event) => handleInputChange(event, setItemNumber)}
+              handleChange={(event) => handleInputChange(event, setItemNumber)}
             />
-
             <div className="toolTip">
               {itemNumber}
             </div>
@@ -239,16 +236,14 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <input
-              className="slider"
+            <Input
               type="range"
               id="stepId"
               min="1"
               max={itemNumber}
               value={step}
-              onChange={(event) => handleInputChange(event, setSteps)}
+              handleChange={(event) => handleInputChange(event, setSteps)}
             />
-
             <div className="toolTip">
               {step}
             </div>
@@ -272,17 +267,17 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <input
-              className="slider"
+            <Input
               type="range"
               id="animationDuration"
               min="100"
               max="1000"
               value={animationDuration}
-              onChange={(event) => {
+              handleChange={(event) => {
                 handleInputChange(event, setAnimationDuration);
               }}
             />
+
             <div className="toolTip">
               {`${(animationDuration / 1000).toFixed(1)}s`}
             </div>
@@ -299,28 +294,27 @@ const Carousel: React.FC<Props> = ({ images }) => {
             Infinite rotation:
           </div>
 
-          <label htmlFor="infiniteRotationTrue">
+          <label htmlFor="infiniteRotation">
             <input
               type="radio"
-              name="infiniteRotation"
-              id="infiniteRotationTrue"
+              id="infiniteRotation"
+              name="rotation"
               value="true"
               checked={infiniteRotation}
               onChange={handleRadioChange}
             />
-            Yes
+            <span>Yes</span>
           </label>
-
-          <label htmlFor="infiniteRotationFalse">
+          <label htmlFor="finiteRotation">
             <input
               type="radio"
-              name="infiniteRotation"
-              id="infiniteRotationFalse"
+              id="finiteRotation"
+              name="rotation"
               value="false"
               checked={!infiniteRotation}
               onChange={handleRadioChange}
             />
-            No
+            <span>No</span>
           </label>
         </div>
 
