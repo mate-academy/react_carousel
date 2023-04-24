@@ -26,8 +26,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
       const toolPosition = ((value - Number(slider.min)) / (Number(slider.max) - Number(slider.min))) * (Number(slider.clientWidth) - Number(toolTip.clientWidth));
 
       (toolTip as HTMLElement).style.left = `${toolPosition}px`;
-
-      (toolTip as HTMLElement).style.top = `-${toolTip.clientHeight}px`;
     }
   }, [toolTipValue]);
 
@@ -42,6 +40,15 @@ const Carousel: React.FC<Props> = ({ images }) => {
     }
   }, [infiniteRotation]);
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const radius = event.target.value;
+    const newValue = parseInt(radius, 10);
+
+    setItemWidth(Number(event.target.value));
+
+    setToolTipValue(newValue);
+  };
+
   const handleAnimChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnimationDuration(Number(event.target.value));
   };
@@ -54,20 +61,19 @@ const Carousel: React.FC<Props> = ({ images }) => {
     setInfiniteRotation(JSON.parse(event.target.value));
   };
 
+  let maxPosition = images.length * itemWidth - itemNumber * itemWidth;
+
   const handleTransitionLeft = () => {
     setPosition((prevPosition) => {
       const newPosition = prevPosition + step * itemWidth;
 
       if (infiniteRotation && newPosition > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         return -maxPosition;
       }
 
       return Math.min(0, newPosition);
     });
   };
-
-  let maxPosition = images.length * itemWidth - itemNumber * itemWidth;
 
   const handleTransitionRight = () => {
     setPosition((prevPosition) => {
@@ -163,19 +169,13 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
           <div className="input__labels-slider">
             <input
+              className="slider"
               type="range"
               id="itemWidth"
               min="100"
               max="160"
               value={itemWidth}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const radius = event.target.value;
-                const newValue = parseInt(radius, 10);
-
-                setItemWidth(Number(event.target.value));
-
-                setToolTipValue(newValue);
-              }}
+              onChange={handleChange}
             />
             <div className="toolTip">
               {itemWidth}
@@ -198,9 +198,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
           <div className="input__labels-min">
             {1}
           </div>
-          <div className="input__labels-slider">
 
+          <div className="input__labels-slider">
             <input
+              className="slider"
               type="range"
               id="itemNumber"
               min="1"
@@ -236,14 +237,20 @@ const Carousel: React.FC<Props> = ({ images }) => {
             {1}
           </div>
 
-          <input
-            type="range"
-            id="stepId"
-            min="1"
-            max={itemNumber}
-            value={step}
-            onChange={handleStepChange}
-          />
+          <div className="input__labels-slider">
+            <input
+              className="slider"
+              type="range"
+              id="stepId"
+              min="1"
+              max={itemNumber}
+              value={step}
+              onChange={handleStepChange}
+            />
+            <div className="toolTip">
+              {step}
+            </div>
+          </div>
 
           <div className="input__labels-max">
             {itemNumber}
@@ -262,15 +269,20 @@ const Carousel: React.FC<Props> = ({ images }) => {
             0.1s
           </div>
 
-          <input
-            type="range"
-            id="animationDuration"
-            min="100"
-            max="1000"
-            value={animationDuration}
-            onChange={handleAnimChange}
-          />
-
+          <div className="input__labels-slider">
+            <input
+              className="slider"
+              type="range"
+              id="animationDuration"
+              min="100"
+              max="1000"
+              value={animationDuration}
+              onChange={handleAnimChange}
+            />
+            <div className="toolTip">
+              {`${(animationDuration / 1000).toFixed(1)}s`}
+            </div>
+          </div>
           <div className="input__labels-max">
             1s
           </div>
