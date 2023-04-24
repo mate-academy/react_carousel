@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Carousel.scss';
-import { Input } from './Input/Input';
+import { InputRange } from './InputRange/InputRange';
+import InputRadio from './InputRadio/InputRadio';
 
 type Props = {
   images: string[];
@@ -61,7 +62,9 @@ const Carousel: React.FC<Props> = ({ images }) => {
   };
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInfiniteRotation(JSON.parse(event.target.value));
+    const newValue = event.target.value === 'true';
+
+    setInfiniteRotation(newValue);
   };
 
   let maxPosition = images.length * itemWidth - itemNumber * itemWidth;
@@ -172,7 +175,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <Input
+            <InputRange
               type="range"
               id="itemWidth"
               min="100"
@@ -203,7 +206,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <Input
+            <InputRange
               type="range"
               id="itemNumber"
               min="1"
@@ -236,7 +239,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <Input
+            <InputRange
               type="range"
               id="stepId"
               min="1"
@@ -267,7 +270,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           </div>
 
           <div className="input__labels-slider">
-            <Input
+            <InputRange
               type="range"
               id="animationDuration"
               min="100"
@@ -294,7 +297,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
             Infinite rotation:
           </div>
 
-          <label htmlFor="infiniteRotation">
+          {/* <label htmlFor="infiniteRotation">
             <input
               type="radio"
               id="infiniteRotation"
@@ -315,7 +318,23 @@ const Carousel: React.FC<Props> = ({ images }) => {
               onChange={handleRadioChange}
             />
             <span>No</span>
-          </label>
+          </label> */}
+          <InputRadio
+            id="infiniteRotation"
+            name="infiniteRotation"
+            value="true"
+            checked={infiniteRotation}
+            onChange={handleRadioChange}
+            labelText="Yes"
+          />
+          <InputRadio
+            id="finiteRotation"
+            name="finiteRotation"
+            value="false"
+            checked={!infiniteRotation}
+            onChange={handleRadioChange}
+            labelText="No"
+          />
         </div>
 
       </div>
