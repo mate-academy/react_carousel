@@ -71,7 +71,7 @@
 
     &-radio {
       display: grid;
-      grid-template-columns: 4fr 1fr 1fr 2fr;
+      grid-template-columns: 5fr 1fr 1fr 2fr;
 
       label {
         cursor: pointer;
@@ -80,7 +80,7 @@
     }
 
     input {
-      cursor: grab;
+      cursor: pointer;
       width: 100%;
     }
   }
@@ -133,6 +133,14 @@
 
   }
 
+}
+
+.slider::-webkit-slider-thumb {
+  cursor: grab;
+}
+
+.slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
 }
 
 .toolTip {
