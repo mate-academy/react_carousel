@@ -38,7 +38,7 @@ $gray: #808080;
     font-size: 32px;
     cursor: pointer;
     border: 2px solid $gray;
-    transition: 0.3s;
+    transition: scale 300ms;
 
     &:active {
       transform: scale(1.1);

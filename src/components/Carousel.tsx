@@ -23,7 +23,10 @@ export class Carousel extends Component<Props, State> {
     const { position } = this.state;
 
     const {
-      step, infinite, frameSize, images,
+      step,
+      infinite,
+      frameSize,
+      images,
     } = this.props;
 
     const maxPosition = -(images.length - frameSize);
@@ -83,9 +86,9 @@ export class Carousel extends Component<Props, State> {
         }}
       >
         <ul className="Carousel__list">
-          {images.map(image => (
+          {images.map((image) => (
             <li
-              key={images.indexOf(image)}
+              key={image}
               style={{
                 transform: `translateX(${position * itemWidth}px)`,
                 transition: `${animationDuration}ms`,
