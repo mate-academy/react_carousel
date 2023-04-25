@@ -1,5 +1,19 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
 .App {
-  &__title {
-    text-align: center;
-  }
+  width: 1300px;
+  margin: 10px auto;
+}
+
+iframe {
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+  color: rgba(0, 0, 0, 10);
 }

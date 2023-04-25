@@ -1,265 +1,228 @@
-import { Component, ChangeEvent } from 'react';
+import React from 'react';
 import './Carousel.scss';
 
 type Props = {
   images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
 };
 
 type State = {
-  imagesAmount: number,
-  itemWidth : number,
-  movedDistance: number,
-  gap: number,
-  frameSize: number,
-  step: number,
-  animationDuration: number,
-  infinite: boolean,
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  currentItemIndex: number;
+  infinite: boolean;
 };
 
-class Carousel extends Component<Props, State> {
-  state = {
-    imagesAmount: this.props.images.length,
-    itemWidth: this.props.itemWidth,
-    movedDistance: 0,
-    gap: 0,
-    step: this.props.step,
-    frameSize: this.props.frameSize,
-    animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
+class Carousel extends React.Component<Props, State> {
+  state: State = {
+    step: 0,
+    frameSize: 0,
+    itemWidth: 130,
+    animationDuration: 1000,
+    currentItemIndex: 0,
+    infinite: false,
   };
 
   handleImagesNext = () => {
     const {
-      imagesAmount,
-      itemWidth,
-      movedDistance,
-      gap,
       step,
-      infinite,
       frameSize,
+      infinite,
+      currentItemIndex: position,
     } = this.state;
 
+    let newPosition = position - step;
+
     if (infinite) {
-      this.setState({ movedDistance: 0 });
-    }
-
-    const totalWidth = imagesAmount * (itemWidth + gap);
-    const frameWidth = frameSize * (itemWidth + gap);
-    const movementWidth = (itemWidth + gap) * step;
-
-    if ((movedDistance + frameWidth) < totalWidth) {
-      const leftWidth = (totalWidth - (movedDistance
-        + frameWidth));
-
-      if (leftWidth <= movementWidth) {
-        this.setState(
-          { movedDistance: movedDistance + leftWidth },
-        );
-      } else {
-        this.setState(
-          {
-            movedDistance: movedDistance + movementWidth,
-          },
-        );
+      if (newPosition <= -this.props.images.length) {
+        newPosition = 0;
       }
+    } else if (newPosition <= -this.props.images.length + frameSize) {
+      newPosition = -this.props.images.length + frameSize;
     }
+
+    this.setState({ currentItemIndex: newPosition });
   };
 
   handleImagesPrev = () => {
     const {
-      imagesAmount,
-      itemWidth,
-      movedDistance,
-      gap,
       step,
+      currentItemIndex: position,
       infinite,
-      frameSize,
     } = this.state;
 
-    const totalWidth = imagesAmount * (itemWidth + gap);
-    const frameWidth = frameSize * (itemWidth + gap);
-    const movementWidth = (itemWidth + gap) * step;
+    let newPosition = position + step;
 
-    if (movedDistance >= ((itemWidth + gap) * step)) {
-      this.setState({
-        movedDistance: movedDistance - movementWidth,
-      });
-    } else {
-      this.setState({
-        movedDistance: movedDistance - movedDistance,
-      });
+    if (infinite) {
+      if (newPosition > 0) {
+        newPosition = -this.props.images.length + this.state.frameSize;
+      }
+    } else if (newPosition > 0) {
+      newPosition = 0;
+    } else if (newPosition > this.props.images.length - this.state.frameSize) {
+      newPosition = this.props.images.length - this.state.frameSize;
     }
 
-    const leftWidth = (totalWidth - frameWidth);
-
-    if (infinite && movedDistance === 0) {
-      this.setState({ movedDistance: leftWidth });
-    }
+    this.setState({ currentItemIndex: newPosition });
   };
 
-  changeValueHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    const { infinite } = this.state;
-    const { target } = ev;
-    const { name, value } = target;
+  changeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +e.target.value });
+  };
 
-    switch (name) {
-      case 'step':
-        this.setState({ step: +value });
-        break;
-      case 'frameSize':
-        this.setState({ frameSize: +value });
-        break;
-      case 'imageSize':
-        this.setState({ itemWidth: +value });
-        break;
-      case 'moutionSpeed':
-        this.setState({ animationDuration: +value });
-        break;
-      case 'infinite':
-        this.setState({ infinite: !infinite });
-        break;
-      default:
-    }
+  changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +e.target.value });
+  };
+
+  changeItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +e.target.value });
+  };
+
+  changeAnimationDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ animationDuration: +e.target.value });
+  };
+
+  changeInfinite = () => {
+    this.setState((prevState) => ({ infinite: !prevState.infinite }));
   };
 
   render() {
     const { images } = this.props;
+
     const {
-      imagesAmount,
-      itemWidth,
-      movedDistance,
-      gap,
       step,
       frameSize,
+      itemWidth,
       animationDuration,
       infinite,
+      currentItemIndex: position,
     } = this.state;
 
-    const lastFrameSizeWidth = ((imagesAmount - frameSize)
-      * (itemWidth + gap));
-
-    const listStyle = {
-      transform: `translateX(${-movedDistance}px`,
-      transition: `${animationDuration}ms`,
-    };
-
     return (
-      <div
-        className="Carousel"
-        style={{ width: `${itemWidth * frameSize}px` }}
-      >
-        <ul
-          className="Carousel__list"
-          style={listStyle}
+      <div className="Carousel">
+        <div
+          className="Carousel_wrapper"
+          style={{
+            width: `${frameSize * itemWidth}px`,
+          }}
         >
-          {images.map((image, index) => {
-            return (
-              <li
-                className="Carousel__item"
-                key={image}
-                style={{ marginRight: `${gap}px` }}
-              >
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(${position}px)`,
+              marginLeft: `${position * itemWidth}px`,
+              transition: `${animationDuration}ms`,
+              width: `${frameSize * itemWidth}px`,
+            }}
+          >
+            {images.map((image) => (
+              <li key="image" className="Carousel__item">
                 <img
                   src={image}
-                  alt={`img ${index + 1}`}
-                  width={`${itemWidth}`}
+                  alt="Smile"
+                  width={itemWidth}
                 />
               </li>
-            );
-          })}
-        </ul>
-
-        <div className="Carousel__buttons">
-          <button
-            disabled={!movedDistance && !infinite}
-            className="Carousel__button Carousel__button--prev"
-            type="button"
-            onClick={this.handleImagesPrev}
-          >
-            Prev
-          </button>
-
-          <button
-            data-cy="next"
-            disabled={movedDistance >= lastFrameSizeWidth && !infinite}
-            className="Carousel__button Carousel__button--next"
-            type="button"
-            onClick={this.handleImagesNext}
-          >
-            Next
-          </button>
+            ))}
+          </ul>
         </div>
 
-        <form className="Carousel__form">
-          <label className="Carousel__form__label">
-            {'Moving step: '}
+        <button
+          type="button"
+          className="button"
+          onClick={() => {
+            this.handleImagesPrev();
+          }}
+        >
+          Prev
+        </button>
+
+        <button
+          type="button"
+          className="button"
+          onClick={() => {
+            this.handleImagesNext();
+          }}
+        >
+          Next
+        </button>
+
+        <div className="labels">
+          <label
+            htmlFor="stepId"
+            className="label"
+          >
+            Step:
             <input
-              className="Carousel__form__input"
               type="number"
-              name="step"
+              id="stepId"
+              className="input"
+              min={1}
+              max={10}
               value={step}
-              min="1"
-              max="5"
-              step="1"
-              onChange={this.changeValueHandler}
+              onChange={this.changeStep}
             />
           </label>
-          <label className="Carousel__form__label">
-            {'Frame size: '}
+          <label
+            htmlFor="frameId"
+            className="label"
+          >
+            Frame size:
             <input
-              className="Carousel__form__input"
               type="number"
-              name="frameSize"
+              id="frameId"
+              className="input"
+              min={1}
+              max={10}
               value={frameSize}
-              min="2"
-              max="5"
-              step="1"
-              onChange={this.changeValueHandler}
-            />
-          </label>
-          <label className="Carousel__form__label">
-            {'Image size: '}
-            <input
-              className="Carousel__form__input"
-              type="number"
-              name="imageSize"
-              value={itemWidth}
-              min="50"
-              max="200"
-              step="10"
-              onChange={this.changeValueHandler}
-            />
-          </label>
-          <label className="Carousel__form__label">
-            {'Motion speed: '}
-            <input
-              className="Carousel__form__input"
-              type="number"
-              name="moutionSpeed"
-              value={animationDuration}
-              min="300"
-              max="3000"
-              step="100"
-              onChange={this.changeValueHandler}
-            />
-          </label>
-          <label className="Carousel__form__label">
-            {'Infinite: '}
-            <input
-              className="Carousel__form__input Carousel__form__input--checkbox"
-              type="checkbox"
-              name="infinite"
-              checked={infinite}
-              onChange={this.changeValueHandler}
+              onChange={this.changeFrameSize}
             />
           </label>
 
-        </form>
+          <label
+            htmlFor="itemId"
+            className="label"
+          >
+            Item width:
+            <input
+              type="number"
+              id="itemId"
+              className="input"
+              max={390}
+              value={itemWidth}
+              onChange={this.changeItemWidth}
+            />
+          </label>
+
+          <label
+            htmlFor="animId"
+            className="label"
+          >
+            Animation Duration:
+            <input
+              type="number"
+              id="animId"
+              className="input"
+              value={animationDuration}
+              onChange={this.changeAnimationDuration}
+            />
+          </label>
+
+          <label
+            htmlFor="itemId"
+            className="label"
+          >
+            Infinite:
+            <input
+              type="checkbox"
+              id="itemId"
+              className="input"
+              checked={infinite}
+              onChange={this.changeInfinite}
+            />
+          </label>
+        </div>
       </div>
     );
   }

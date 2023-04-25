@@ -1,83 +1,58 @@
-@import "../variables.scss";
-
 .Carousel {
-  overflow: hidden;
-  margin: 0 auto;
+  text-align: center;
+
+  &_wrapper {
+    overflow: hidden;
+    border: 3px solid rgba(255, 174, 0, 0.59);
+    border-radius: 15px;
+    margin: 20px auto;
+  }
 
   &__list {
     display: flex;
-    padding: 0;
+    list-style: none;
+  }
+}
+
+.button {
+  width: 50px;
+  height: 30px;
+  margin-right: 30px;
+  background-color: rgba(255, 174, 0, 0.59);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: rgb(255, 174, 0);
+    font-weight: bold;
   }
 
-  &__item {
-    list-style-type: none;
-  }
-
-  &__buttons {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-  }
-
-  &__button {
-    background-color: $mainColor;
-    border: none;
-    padding: 12px;
-    border-radius: 5px;
-    transition: background-color 0.3s, font-weight 0.3s;
-
-    &:hover {
-      background-color: rgb(255, 174, 0);
-      font-weight: bold;
-    }
-
-    &--prev {
-      &::before {
-        content: "\25c4";
-        padding-right: 5px;
-      }
-    }
-
-    &--next {
-      &::after {
-        content: "\25ba";
-        padding-left: 0.5em;
-      }
+  &--prev {
+    &::before {
+      content: "\25c4";
+      padding-right: 5px;
     }
   }
+}
 
-  &__form {
-    position: absolute;
-    background-color: $mainColor;
-    padding: 25px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    margin: 50px auto 0;
+.labels {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgba(255, 174, 0, 0.59);
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 10px;
+}
 
-    &__label {
-      font-size: $fontSize;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
+.label {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
-    &__input {
-      height: 30px;
-      font-size: $fontSize;
-      border: none;
-      border-radius: 2px;
-
-      &--checkbox {
-        width: 25px;
-        vertical-align: middle;
-
-        &:checked {
-          accent-color: green;
-        }
-      }
-    }
-  }
+.input {
+  width: 50px;
+  border: 1px solid rgba(255, 174, 0, 0.59);
+  margin-left: 20px;
 }
