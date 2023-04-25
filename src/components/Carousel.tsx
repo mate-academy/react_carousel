@@ -28,15 +28,9 @@ export class Carousel extends Component<Props, State> {
 
     const maxPosition = -(images.length - frameSize);
 
-    if (position - step > maxPosition) {
-      this.setState({
-        position: position - step,
-      });
-    } else {
-      this.setState({
-        position: maxPosition,
-      });
-    }
+    this.setState({
+      position: position - step > maxPosition ? position - step : maxPosition,
+    });
 
     if (position === maxPosition && infinite) {
       this.setState({
@@ -54,15 +48,9 @@ export class Carousel extends Component<Props, State> {
 
     const minPosition = (images.length - frameSize);
 
-    if (position + step < 0) {
-      this.setState({
-        position: position + step,
-      });
-    } else {
-      this.setState({
-        position: 0,
-      });
-    }
+    this.setState({
+      position: position + step < 0 ? position + step : 0,
+    });
 
     if (position === 0 && infinite) {
       this.setState({

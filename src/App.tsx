@@ -73,9 +73,7 @@ class App extends React.Component<{}, State> {
               step={1}
               max={images.length}
               value={step}
-              onChange={(event) => {
-                this.changeValue(event);
-              }}
+              onChange={this.changeValue}
             />
           </label>
           <label htmlFor="frameId">
@@ -88,9 +86,7 @@ class App extends React.Component<{}, State> {
               step={1}
               max={images.length}
               value={frameSize}
-              onChange={(event) => {
-                this.changeValue(event);
-              }}
+              onChange={this.changeValue}
             />
           </label>
           <label htmlFor="itemId">
@@ -103,9 +99,7 @@ class App extends React.Component<{}, State> {
               step={10}
               max={300}
               value={itemWidth}
-              onChange={(event) => {
-                this.changeValue(event);
-              }}
+              onChange={this.changeValue}
             />
           </label>
           <label htmlFor="animationId">
@@ -118,9 +112,7 @@ class App extends React.Component<{}, State> {
               step={100}
               max={5000}
               value={animationDuration}
-              onChange={(event) => {
-                this.changeValue(event);
-              }}
+              onChange={this.changeValue}
             />
           </label>
           <label htmlFor="infinite">
