@@ -64,7 +64,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
       <div
         className="Carousel__wrapper"
         style={{
-          // minWidth: `${itemWidth}px`,
           width: `${frameSize * itemWidth}px`,
         }}
       >
