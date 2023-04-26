@@ -1,1 +1,15 @@
-// style go here
+.App {
+  max-width: 1300px;
+}
+
+.Carousel {
+  &__image {
+    width: 130px;
+    height: 130px;
+  }
+
+  &__list {
+    width: 390px;
+    overflow: hidden;
+  }
+}
