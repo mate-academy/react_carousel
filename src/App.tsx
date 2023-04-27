@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
-import Background from './images/bgd.png';
 
 interface State {
   images: string[];
   itemWidth: number;
-  step: number,
-  frameSize: number,
-  animationDuration: number,
-  infinity: boolean,
+  step: number;
+  frameSize: number;
+  animationDuration: number;
+  infinity: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -45,13 +44,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div
-        className="App"
-        style={{
-          backgroundImage: `url(${Background})`,
-          backgroundRepeat: 'no-repeat',
-        }}
+        className="App gradient"
       >
-        <h1 data-cy="title">
+        <h1 data-cy="title" className="title">
           {`Carousel with ${images.length} images`}
         </h1>
 

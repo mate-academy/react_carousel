@@ -1,4 +1,6 @@
+@import "/src/App.scss";
 $ease: cubic-bezier(0.2, 1, 0.3, 1);
+$button-color: #ff4136;
 
 svg {
   width: 100px;
@@ -13,7 +15,7 @@ svg {
 
   &:hover path {
     transition: all 1s $ease;
-    fill: #ff4136;
+    fill: $button-color;
   }
 
   &:hover .arrow {
@@ -47,7 +49,7 @@ svg {
     overflow: hidden;
     padding: 20px 0;
     margin: 20px auto;
-    border: 3px solid aliceblue;
+    border: 3px solid $white-color;
     border-radius: 10px;
   }
 
@@ -68,13 +70,11 @@ svg {
   }
 
   &__buttons {
-    text-align: center;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     color: rgb(0, 41, 128);
-    background-color: rgb(251, 251, 251);
+    background-color: $white-color;
     width: 30px;
     height: 30px;
     font-size: 20px;
@@ -89,7 +89,7 @@ svg {
     }
 
     &:disabled {
-      background-color: #ff4136;
+      background-color: $button-color;
     }
   }
 }
