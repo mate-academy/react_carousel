@@ -32,23 +32,33 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleStepChange = (value: number) => {
+  handleStepChange = (event: any) => {
+    const value = Number(event.target.value);
+
     this.setState({ step: value });
   };
 
-  handleFrameSizeChange = (value: number) => {
+  handleFrameSizeChange = (event: any) => {
+    const value = Number(event.target.value);
+
     this.setState({ frameSize: value });
   };
 
-  handleItemWidthChange = (value: number) => {
+  handleItemWidthChange = (event: any) => {
+    const value = Number(event.target.value);
+
     this.setState({ itemWidth: value });
   };
 
-  handleAnimationDurationChange = (value: number) => {
+  handleAnimationDurationChange = (event: any) => {
+    const value = Number(event.target.value);
+
     this.setState({ animationDuration: value });
   };
 
-  handleInfiniteChange = (value: boolean) => {
+  handleInfiniteChange = (event: any) => {
+    const value = Boolean(event.target.value);
+
     this.setState({ infinite: value });
   };
 
@@ -85,9 +95,7 @@ class App extends React.Component<{}, State> {
             name="stepId"
             id="stepId"
             value={step}
-            onChange={(event) => (
-              this.handleStepChange(Number(event.target.value))
-            )}
+            onChange={this.handleStepChange}
           />
           <label htmlFor="frameId">
             Frame Size:
@@ -97,9 +105,7 @@ class App extends React.Component<{}, State> {
             name="frameId"
             id="frameId"
             value={frameSize}
-            onChange={(event) => (
-              this.handleFrameSizeChange(Number(event.target.value))
-            )}
+            onChange={this.handleFrameSizeChange}
           />
           <label htmlFor="itemId">
             Item Width:
@@ -109,9 +115,7 @@ class App extends React.Component<{}, State> {
             name="itemId"
             id="itemId"
             value={itemWidth}
-            onChange={(event) => (
-              this.handleItemWidthChange(Number(event.target.value))
-            )}
+            onChange={this.handleItemWidthChange}
           />
           <label htmlFor="animationDuration">
             Animation Duration:
@@ -121,9 +125,7 @@ class App extends React.Component<{}, State> {
             name="animationDuration"
             id="animationDuration"
             value={animationDuration}
-            onChange={(event) => (
-              this.handleAnimationDurationChange(Number(event.target.value))
-            )}
+            onChange={this.handleAnimationDurationChange}
           />
           <label htmlFor="infinite">
             Infinite:
@@ -132,9 +134,7 @@ class App extends React.Component<{}, State> {
             type="checkbox"
             name="infinite"
             id="infinite"
-            onChange={() => (
-              this.handleInfiniteChange(!infinite)
-            )}
+            onChange={this.handleInfiniteChange}
           />
         </form>
       </div>
