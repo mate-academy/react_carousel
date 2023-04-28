@@ -21,12 +21,18 @@ ul {
 
   &__item {
     display: flex;
+    justify-content: space-between;
     list-style: none;
+    min-width: 130px;
+    max-width: 500px;
+    max-height: 500px;
+    flex-shrink: 0;
   }
 
   &__img {
     min-width: 130px;
     min-height: 130px;
+
   }
 
   &__button-wrapper {

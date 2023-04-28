@@ -36,7 +36,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
     setIsLeftButtonDisabled(false);
     setScrollSize(current => {
       if ((current + step * itemWidth)
-      > (widthOfContainer - frameSize * itemWidth)) {
+      >= (widthOfContainer - frameSize * itemWidth)) {
         setIsRightButtonDisabled(true);
 
         return widthOfContainer - frameSize * itemWidth;
@@ -49,7 +49,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const handleScrollLeft = () => {
     setIsRightButtonDisabled(false);
     setScrollSize(current => {
-      if ((current - step * itemWidth) < 0) {
+      if ((current - step * itemWidth) <= 0) {
         setIsLeftButtonDisabled(true);
 
         return 0;
@@ -80,7 +80,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
               key={image}
               className="Carousel__item"
               style={{
-                flex: `0 0 ${itemWidth}px`,
+                width: `${itemWidth}px`,
                 height: `${itemWidth}px`,
               }}
             >
