@@ -1,34 +1,34 @@
 import React from 'react';
 import './Carousel.scss';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 type Props = {
   arrOfCarousel: string[],
   frameSize: number,
   itemWidth: number,
+  animationDuration: string,
 };
 
 export const Carousel: React.FC<Props>
-  = ({ arrOfCarousel = [], frameSize = 390, itemWidth = 130 }) => (
+  = ({
+    arrOfCarousel = [],
+    frameSize = 390,
+    itemWidth = 130,
+    animationDuration,
+  }) => (
     <div className="Carousel__list" style={{ width: `${frameSize}px` }}>
-      <TransitionGroup>
+      <ul className="Carousel__list">
         {arrOfCarousel.map((image) => (
-          <CSSTransition
-            key={image}
-            timeout={400}
-            classNames="example"
-          >
-
+          <li key={image} className="transition-effect">
             <img
               src={image}
               alt="1"
               className="Carousel__image"
-              style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
+              style={{ width: `${itemWidth}px`, height: `${itemWidth}px`, animationDuration: `${animationDuration}s` }}
               key={image}
             />
-          </CSSTransition>
-
+          </li>
         ))}
-      </TransitionGroup>
+      </ul>
+
     </div>
   );

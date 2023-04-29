@@ -10,7 +10,9 @@ interface State {
   frameSize: number;
   itemWidth: number,
   title: number,
-  infinite: boolean;
+  infinite: boolean,
+  step: number,
+  animationDuration: string,
 }
 
 class App extends React.Component<Props, State> {
@@ -30,31 +32,31 @@ class App extends React.Component<Props, State> {
 
     currentIndex: 0,
 
-    title: 0,
+    title: 3,
 
     frameSize: 390,
 
     itemWidth: 130,
 
+    step: 3,
+
     infinite: false,
+
+    animationDuration: '1',
   };
 
   timerID = 0;
 
   componentDidMount(): void {
     this.setState((state) => ({
-      currentIndex: state.frameSize / state.itemWidth,
-    }));
-
-    this.setState((state) => ({
-      title: state.frameSize / state.itemWidth,
+      currentIndex: Math.floor(state.frameSize / state.itemWidth),
     }));
 
     this.timerID = window.setInterval(() => {
       this.setState((state) => ({
         infinite: !state.infinite,
       }));
-    }, 10000);
+    }, 100000);
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
@@ -68,7 +70,7 @@ class App extends React.Component<Props, State> {
       && this.state.infinite !== prevState.infinite
       && this.state.currentIndex >= this.state.images.length) {
       this.setState((state) => ({
-        currentIndex: state.frameSize / state.itemWidth,
+        currentIndex: state.title,
       }));
     }
 
@@ -80,10 +82,10 @@ class App extends React.Component<Props, State> {
   }
 
   buttonPrev = () => {
-    if (this.state.currentIndex > this.state.frameSize / this.state.itemWidth) {
+    if (this.state.currentIndex
+      > Math.floor(this.state.frameSize / this.state.itemWidth)) {
       this.setState((state) => ({
-        currentIndex: state.currentIndex
-        - (state.frameSize / state.itemWidth),
+        currentIndex: state.currentIndex - state.title,
       }));
     }
   };
@@ -91,19 +93,68 @@ class App extends React.Component<Props, State> {
   buttonNext = () => {
     if (this.state.currentIndex < 10) {
       this.setState((state) => ({
-        currentIndex: state.currentIndex + (state.frameSize / state.itemWidth),
+        currentIndex: state.currentIndex + state.title,
       }));
     }
   };
 
+  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      frameSize: +event.target.value,
+    });
+
+    this.setState((state) => ({
+      title: Math.floor(state.frameSize / state.itemWidth),
+    }));
+  };
+
+  setItemSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      itemWidth: +event.target.value,
+    });
+
+    if (this.state.step === 0) {
+      this.setState((state) => ({
+        title: Math.floor(state.frameSize / state.itemWidth),
+      }));
+    }
+  };
+
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      title: +event.target.value,
+    });
+  };
+
+  setAnimationTime = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: event.target.value,
+    });
+  };
+
   render() {
-    let modifiedArr = this.state.images.slice(
-      this.state.currentIndex - (this.state.frameSize / this.state.itemWidth),
+    const copy = this.state.images;
+
+    let modifiedArr = copy.slice(
+      this.state.currentIndex
+      - this.state.title,
       this.state.currentIndex,
     );
 
-    if (modifiedArr.length !== this.state.frameSize / this.state.itemWidth) {
-      modifiedArr = this.state.images.slice(7, 10);
+    if (modifiedArr.length
+       !== this.state.title
+       && this.state.currentIndex > 5) {
+      modifiedArr = copy.slice(
+        10 - this.state.title,
+      );
+    }
+
+    if (modifiedArr.length
+        !== this.state.title
+        && this.state.currentIndex < 5) {
+      modifiedArr = copy.slice(
+        0, 0 + this.state.title,
+      );
     }
 
     return (
@@ -114,6 +165,7 @@ class App extends React.Component<Props, State> {
           arrOfCarousel={modifiedArr}
           frameSize={this.state.frameSize}
           itemWidth={this.state.itemWidth}
+          animationDuration={this.state.animationDuration}
         />
 
         <div className="Input">
@@ -132,7 +184,7 @@ class App extends React.Component<Props, State> {
             </button>
             <button
               type="button"
-              className="Carousel__button"
+              className="Carousel__button Carousel__button1"
               onClick={() => {
                 this.buttonNext();
               }}
@@ -143,14 +195,35 @@ class App extends React.Component<Props, State> {
 
             </button>
           </div>
+          {this.state.currentIndex}
 
-          <input type="text" className="Input__fields" />
+          <input
+            type="text"
+            placeholder="Framesize"
+            className="Input__fields"
+            onChange={this.setFrameSize}
+          />
 
-          <input type="text" className="Input__fields" />
+          <input
+            type="text"
+            placeholder="Itemsize"
+            className="Input__fields"
+            onChange={this.setItemSize}
+          />
 
-          <input type="text" className="Input__fields" />
+          <input
+            type="text"
+            placeholder="Stepsize"
+            className="Input__fields"
+            onChange={this.setStep}
+          />
 
-          <input type="text" className="Input__fields" />
+          <input
+            type="text"
+            placeholder="AnimationDuration"
+            className="Input__fields"
+            onChange={this.setAnimationTime}
+          />
         </div>
       </div>
     );

@@ -40,7 +40,10 @@
   flex-direction: column;
 
   &__fields {
-    width: 300px;
+    margin-top: 25px;
+    width: 370px;
     height: 30px;
+    transition: 0.5s;
+
   }
 }
