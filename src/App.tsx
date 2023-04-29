@@ -49,11 +49,7 @@ class App extends React.Component<{}, State> {
           className="App__title"
           data-cy="title"
         >
-          Carousel with
-          {' '}
-          {images.length}
-          {' '}
-          images
+          {`Carousel with ${images.length} images `}
         </h1>
 
         <Carousel
@@ -74,8 +70,7 @@ class App extends React.Component<{}, State> {
               max={9}
               onChange={(e) => this.setState({ step: +e.currentTarget.value })}
             />
-            Slide Step
-            {' '}
+            {'Slide Step '}
             <span className="form__input-value">{step}</span>
           </label>
 
@@ -91,8 +86,7 @@ class App extends React.Component<{}, State> {
                 itemWidth: +e.currentTarget.value,
               })}
             />
-            Image Width
-            {' '}
+            {'Image Width '}
             <span className="form__input-value">{itemWidth}</span>
           </label>
 
@@ -107,8 +101,7 @@ class App extends React.Component<{}, State> {
                 animationDuration: +e.currentTarget.value,
               })}
             />
-            animationDuration
-            {' '}
+            {'Animation Duration '}
             <span className="form__input-value">{animationDuration}</span>
           </label>
 
@@ -124,8 +117,7 @@ class App extends React.Component<{}, State> {
                 frameSize: +e.currentTarget.value,
               })}
             />
-            Frame Size
-            {' '}
+            {'Frame Size '}
             <span className="form__input-value">{ frameSize * itemWidth}</span>
           </label>
 
