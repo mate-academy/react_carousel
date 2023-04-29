@@ -1,18 +1,111 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[]
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export class Carousel extends Component<Props> {
+  state = {
+    images: this.props.images,
+  };
 
-export default Carousel;
+  timer = 0;
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    const { infinite, step, animationDuration } = this.props;
+
+    if (infinite !== prevProps.infinite && infinite) {
+      this.timer
+      = window.setInterval(() => {
+          this.f(step, 'right');
+        }, animationDuration);
+    }
+
+    if (prevProps.animationDuration !== animationDuration
+      || prevProps.step !== animationDuration) {
+      clearInterval(this.timer);
+      this.timer
+      = window.setInterval(() => {
+          this.f(step, 'right');
+        }, animationDuration);
+    }
+
+    if (!infinite) {
+      clearInterval(this.timer);
+    }
+  }
+
+  f(step: number, direction = 'right'): void {
+    const { images } = this.state;
+
+    let firstPart:string[] = [];
+    let secondPart:string[] = [];
+
+    if (direction === 'right') {
+      firstPart = images.slice(step);
+      secondPart = images.slice(0, step);
+    }
+
+    if (direction === 'left') {
+      firstPart = images.slice(-step);
+      secondPart = images.slice(0, -step);
+    }
+
+    this.setState({
+      images: [...firstPart, ...secondPart],
+    });
+  }
+
+  render() {
+    const {
+      frameSize,
+      step,
+      itemWidth,
+      infinite,
+    } = this.props;
+
+    return (
+      <div className="Carousel">
+        <button
+          type="button"
+          data-cy="prev"
+          className="button"
+          disabled={infinite}
+          onClick={() => this.f(step, 'left')}
+        >
+          Prev
+        </button>
+        <ul
+          className="Carousel__list"
+          style={{ width: `${frameSize * itemWidth}px` }}
+        >
+          {this.state.images.map((image: string, index : number) => (
+            <li key={image}>
+              <img
+                className="Carousel__item"
+                src={image}
+                alt={String(index + 1)}
+                style={{ width: itemWidth }}
+              />
+            </li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          className="button"
+          data-cy="next"
+          disabled={infinite}
+          onClick={() => this.f(step, 'right')}
+        >
+          Next
+        </button>
+      </div>
+    );
+  }
+}

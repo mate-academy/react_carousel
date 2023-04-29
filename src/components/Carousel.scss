@@ -1,1 +1,35 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  &__list {
+    display: flex;
+    width: 390px;
+    padding: 0;
+    overflow: hidden;
+    background-color: gray;
+    border-radius: 20px;
+    list-style-type: none;
+  }
+
+  &__item {
+    width: 130px;
+    position: relative;
+    right: 0;
+  }
+}
+
+.button {
+  display: block;
+  height: 40px;
+  width: 80px;
+  background-color: yellowgreen;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 0.8;
+    color: white;
+  }
+}
