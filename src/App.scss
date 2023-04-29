@@ -34,3 +34,13 @@
     margin-right: 40px;
   }
 }
+
+.Input {
+  display: flex;
+  flex-direction: column;
+
+  &__fields {
+    width: 300px;
+    height: 30px;
+  }
+}

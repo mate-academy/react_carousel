@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 type Props = {};
 
@@ -109,37 +109,49 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {this.state.title} images</h1>
+        <h1 data-cy="title">Carousel with {this.state.title} images</h1>
         <Carousel
           arrOfCarousel={modifiedArr}
           frameSize={this.state.frameSize}
           itemWidth={this.state.itemWidth}
         />
 
-        <button
-          type="button"
-          className="Carousel__button Carousel__button1"
-          onClick={() => {
-            this.buttonPrev();
-          }}
-          disabled={this.state.currentIndex
+        <div className="Input">
+          <div>
+            <button
+              type="button"
+              className="Carousel__button Carousel__button1"
+              onClick={() => {
+                this.buttonPrev();
+              }}
+              disabled={this.state.currentIndex
             <= this.state.frameSize / this.state.itemWidth}
-        >
-          Prev
+            >
+              Prev
 
-        </button>
-        <button
-          type="button"
-          className="Carousel__button"
-          onClick={() => {
-            this.buttonNext();
-          }}
-          disabled={this.state.currentIndex >= 10}
-        >
-          Next
+            </button>
+            <button
+              type="button"
+              className="Carousel__button"
+              onClick={() => {
+                this.buttonNext();
+              }}
+              disabled={this.state.currentIndex >= 10}
+              data-cy="Next"
+            >
+              Next
 
-        </button>
-        {this.state.currentIndex}
+            </button>
+          </div>
+
+          <input type="text" className="Input__fields" />
+
+          <input type="text" className="Input__fields" />
+
+          <input type="text" className="Input__fields" />
+
+          <input type="text" className="Input__fields" />
+        </div>
       </div>
     );
   }

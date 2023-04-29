@@ -1,5 +1,6 @@
 import React from 'react';
 import './Carousel.scss';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 type Props = {
   arrOfCarousel: string[],
@@ -7,21 +8,27 @@ type Props = {
   itemWidth: number,
 };
 
-const Carousel: React.FC<Props>
+export const Carousel: React.FC<Props>
   = ({ arrOfCarousel = [], frameSize = 390, itemWidth = 130 }) => (
-    <ul className="Carousel__list" style={{ width: `${frameSize}px` }}>
-      {arrOfCarousel.map((image) => (
-        <li key={image}>
-          <img
-            src={image}
-            alt="1"
-            className="Carousel__image"
-            style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
+    <div className="Carousel__list" style={{ width: `${frameSize}px` }}>
+      <TransitionGroup>
+        {arrOfCarousel.map((image) => (
+          <CSSTransition
             key={image}
-          />
-        </li>
-      ))}
-    </ul>
-  );
+            timeout={400}
+            classNames="example"
+          >
 
-export default Carousel;
+            <img
+              src={image}
+              alt="1"
+              className="Carousel__image"
+              style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
+              key={image}
+            />
+          </CSSTransition>
+
+        ))}
+      </TransitionGroup>
+    </div>
+  );
