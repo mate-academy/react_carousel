@@ -1,16 +1,11 @@
 /* eslint-disable */
 import React from 'react';
 
+import { CarouselType } from '../types/Carousel';
+
 import './Carousel.scss';
 
-interface CarouselProps {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
-}
+type CarouselProps = CarouselType;
 
 interface CarouselState {
   transition: number;
@@ -38,12 +33,12 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
   };
 
   calculateTransition = (actualTransition: number, operation: '-' | '+') => {
-    const { step = 3, infinite = false, images } = this.props;
-    const maxTransition = calculateMaxTransition(images.length, step);
+    const { step, infinite, images, frameSize } = this.props;
+    const maxTransition = calculateMaxTransition(images.length, frameSize);
     let result: number;
 
     if (operation === '-') {
-      result = actualTransition - 100;
+      result = actualTransition - step / frameSize * 100;
 
       if (actualTransition === 0 && infinite) {
         result = maxTransition;
@@ -51,7 +46,7 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
         result = 0;
       }
     } else {
-      result = actualTransition + 100;
+      result = actualTransition + step / frameSize * 100;
 
       if (actualTransition === maxTransition && infinite) {
         result = 0;
@@ -64,7 +59,7 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
   };
 
   isBlocked = (button: 'prev' | 'next') => {
-    const { images, frameSize = 3, infinite = false } = this.props;
+    const { images, frameSize, infinite} = this.props;
     const { transition } = this.state;
 
     const isEdge = button === 'next'
@@ -79,51 +74,52 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
   render() {
     const {
       images,
-      frameSize = 3,
-      animationDuration = 1000,
-      itemWidth = 130,
+      frameSize,
+      animationDuration,
+      itemWidth,
     } = this.props;
 
     const { transition } = this.state;
 
     return (
-      <div
-        className="Carousel"
-        style={{ width: frameSize * (itemWidth + 25) }}
-      >
-        <ul
-          className="Carousel__list"
-          style={{
-            transform: `translateX(-${transition}%)`,
-            transition: `all ${animationDuration}ms`,
-          }}
-        >
-          {images.map((image, i) => {
-            return (
-              <li key={image}>
-                <img style={{ width: itemWidth }} src={image} alt={`${i}`} />
-              </li>
-            );
-          })}
-        </ul>
+      <div className="Carousel">
+        <div className="Carousel__wrapper" style={{ width: frameSize * itemWidth }}>
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translateX(-${transition}%)`,
+              transition: `all ${animationDuration}ms`,
+            }}
+          >
+            {images.map((image, i) => {
+              return (
+                <li key={image}>
+                  <img style={{ width: itemWidth }} src={image} alt={`${i}`} />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-        <button
-          type="button"
-          onClick={this.prevButtonHandler}
-          disabled={this.isBlocked('prev')}
-          className="Carousel__button"
-        >
-          &larr;
-        </button>
-        <button
-          type="button"
-          onClick={this.nextButtonHandler}
-          data-cy="next"
-          disabled={this.isBlocked('next')}
-          className="Carousel__button Carousel__button--next"
-        >
-          &rarr;
-        </button>
+        <div className="Carousel__buttons">
+          <button
+            type="button"
+            onClick={this.prevButtonHandler}
+            disabled={this.isBlocked('prev')}
+            className="Carousel__button"
+          >
+            &larr;
+          </button>
+          <button
+            type="button"
+            onClick={this.nextButtonHandler}
+            data-cy="next"
+            disabled={this.isBlocked('next')}
+            className="Carousel__button Carousel__button--next"
+          >
+            &rarr;
+          </button>
+        </div>
       </div>
     );
   }
