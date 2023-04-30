@@ -1,14 +1,20 @@
 
 .Carousel__image {
-  animation: myAnimation;
-  animation-duration: 1s;
+  // animation: myAnimation;
+  // animation-duration: 1s;
+  // animation-iteration-count: 1;
+  animation: myAnimation 1s ease-in;
 }
 
 @keyframes myAnimation {
   from {
-    margin-left: 100%;
+    opacity: 0;
   }
   to {
-    margin-left: 0%;
+    opacity: 100%;
   }
+}
+
+.Carousel__li-item {
+  list-style-type: none;
 }

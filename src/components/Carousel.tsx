@@ -18,7 +18,7 @@ export const Carousel: React.FC<Props>
     <div className="Carousel__list" style={{ width: `${frameSize}px` }}>
       <ul className="Carousel__list">
         {arrOfCarousel.map((image) => (
-          <li key={image} className="transition-effect">
+          <li key={image} className="Carousel__li-item">
             <img
               src={image}
               alt="1"
