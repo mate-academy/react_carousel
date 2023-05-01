@@ -12,14 +12,11 @@ type Props = {
 
 type State = {
   shift: number,
-  images: string[],
-
 };
 
 export class Carousel extends Component<Props, State> {
   state = {
     shift: 0,
-    images: this.props.images,
   };
 
   setShift = (step: number) => {
@@ -49,6 +46,7 @@ export class Carousel extends Component<Props, State> {
       itemWidth,
       animationDuration,
       step,
+      images,
     } = this.props;
 
     return (
@@ -65,7 +63,7 @@ export class Carousel extends Component<Props, State> {
           className="Carousel__list"
           style={{ width: `${frameSize * itemWidth}px` }}
         >
-          {this.state.images.map((image: string, index : number) => (
+          {images.map((image: string, index : number) => (
             <li key={image}>
               <img
                 className="Carousel__item"
