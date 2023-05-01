@@ -14,7 +14,8 @@ export const Image: React.FC<Props> = ({
     <li>
       <img
         src={image}
-        alt={`${index}`}
+        alt={`${index + 1}`}
+        width={imageSize}
         style={{ width: `${imageSize}px` }}
       />
     </li>

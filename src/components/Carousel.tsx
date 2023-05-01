@@ -123,25 +123,25 @@ const Carousel: FC<Props> = ({ images }) => {
 
       <div className="Carousel__control">
         <div className="Carousel__labels">
-          <label className="Carousel__input" htmlFor="ItemWidth">
+          <label className="Carousel__label" htmlFor="itemId">
             Width
           </label>
-          <label className="Carousel__input" htmlFor="FrameSize">
+          <label className="Carousel__label" htmlFor="frameId">
             Frame size
           </label>
 
-          <label className="Carousel__input" htmlFor="Step">
+          <label className="Carousel__label" htmlFor="stepId">
             Step
           </label>
 
-          <label className="Carousel__input" htmlFor="AnimationDuration">
+          <label className="Carousel__label" htmlFor="animationDuration">
             Animation duration
           </label>
         </div>
         <div className="Carousel__inputs">
           <Input
-            name="width"
-            id="ItemWidth"
+            name="ItemWidth"
+            id="itemId"
             min={50}
             step={10}
             max={260}
@@ -149,8 +149,8 @@ const Carousel: FC<Props> = ({ images }) => {
             onChange={handleWidth}
           />
           <Input
-            name="frame-size"
-            id="FrameSize"
+            name="frameSize"
+            id="frameId"
             min={imageSize}
             step={imageSize}
             max={5 * imageSize}
@@ -160,7 +160,7 @@ const Carousel: FC<Props> = ({ images }) => {
 
           <Input
             name="step"
-            id="Step"
+            id="stepId"
             value={carouselStep}
             min={1}
             max={5}
@@ -169,8 +169,8 @@ const Carousel: FC<Props> = ({ images }) => {
           />
 
           <Input
-            name="animation-duration"
-            id="AnimationDuration"
+            name="animationDuration"
+            id="animationDuration"
             min={100}
             max={3000}
             step={100}

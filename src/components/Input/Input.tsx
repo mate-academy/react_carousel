@@ -21,7 +21,8 @@ export const Input: React.FC<Props> = ({
 }) => {
   return (
     <input
-      type="range"
+      type="number"
+      className="Carousel__input"
       name={name}
       id={id}
       min={min}
