@@ -78,6 +78,7 @@ class App extends React.Component<{}, State> {
             <input
               id="itemId"
               type="range"
+              name="itemWidth"
               min={50}
               max={390}
               step={2}
@@ -96,6 +97,7 @@ class App extends React.Component<{}, State> {
               min={500}
               max={5000}
               step={1000}
+              name="animationDuration"
               value={animationDuration}
               onChange={(e) => this.setState({
                 animationDuration: +e.currentTarget.value,
@@ -110,15 +112,16 @@ class App extends React.Component<{}, State> {
               id="frameId"
               type="range"
               value={frameSize}
+              name="frameSize"
               min={1}
-              max={images.length + 1}
+              max={images.length}
               step={1}
               onChange={(e) => this.setState({
                 frameSize: +e.currentTarget.value,
               })}
             />
             {'Frame Size '}
-            <span className="form__input-value">{ frameSize * itemWidth}</span>
+            <span className="form__input-value">{ frameSize }</span>
           </label>
 
           <label

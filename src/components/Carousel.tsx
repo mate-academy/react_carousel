@@ -2,7 +2,7 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[]
+  images: string[];
   step: number;
   frameSize: number;
   itemWidth: number;
@@ -10,64 +10,45 @@ type Props = {
   infinite: boolean;
 };
 
-export class Carousel extends Component<Props> {
+type State = {
+  shift: number,
+  images: string[],
+
+};
+
+export class Carousel extends Component<Props, State> {
   state = {
+    shift: 0,
     images: this.props.images,
   };
 
-  timer = 0;
+  setShift = (step: number) => {
+    const { frameSize, images, infinite } = this.props;
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
-    const { infinite, step, animationDuration } = this.props;
+    this.setState((state: Readonly<State>) => {
+      if (state.shift + step >= images.length - frameSize) {
+        return ({
+          shift: (state.shift === images.length - frameSize)
+          && infinite ? 0 : images.length - frameSize,
+        });
+      }
 
-    if (infinite !== prevProps.infinite && infinite) {
-      this.timer
-      = window.setInterval(() => {
-          this.f(step, 'right');
-        }, animationDuration);
-    }
+      if (state.shift + step <= 0) {
+        return ({
+          shift: state.shift === 0 && infinite ? images.length - frameSize : 0,
+        });
+      }
 
-    if (prevProps.animationDuration !== animationDuration
-      || prevProps.step !== animationDuration) {
-      clearInterval(this.timer);
-      this.timer
-      = window.setInterval(() => {
-          this.f(step, 'right');
-        }, animationDuration);
-    }
-
-    if (!infinite) {
-      clearInterval(this.timer);
-    }
-  }
-
-  f(step: number, direction = 'right'): void {
-    const { images } = this.state;
-
-    let firstPart:string[] = [];
-    let secondPart:string[] = [];
-
-    if (direction === 'right') {
-      firstPart = images.slice(step);
-      secondPart = images.slice(0, step);
-    }
-
-    if (direction === 'left') {
-      firstPart = images.slice(-step);
-      secondPart = images.slice(0, -step);
-    }
-
-    this.setState({
-      images: [...firstPart, ...secondPart],
+      return ({ shift: state.shift + step });
     });
-  }
+  };
 
   render() {
     const {
       frameSize,
-      step,
       itemWidth,
-      infinite,
+      animationDuration,
+      step,
     } = this.props;
 
     return (
@@ -76,8 +57,7 @@ export class Carousel extends Component<Props> {
           type="button"
           data-cy="prev"
           className="button"
-          disabled={infinite}
-          onClick={() => this.f(step, 'left')}
+          onClick={() => this.setShift(-step)}
         >
           Prev
         </button>
@@ -91,7 +71,13 @@ export class Carousel extends Component<Props> {
                 className="Carousel__item"
                 src={image}
                 alt={String(index + 1)}
-                style={{ width: itemWidth }}
+                style={
+                  {
+                    width: itemWidth,
+                    right: `${this.state.shift * itemWidth}px`,
+                    transitionDuration: `${animationDuration}ms`,
+                  }
+                }
               />
             </li>
           ))}
@@ -100,8 +86,7 @@ export class Carousel extends Component<Props> {
           type="button"
           className="button"
           data-cy="next"
-          disabled={infinite}
-          onClick={() => this.f(step, 'right')}
+          onClick={() => this.setShift(step)}
         >
           Next
         </button>
