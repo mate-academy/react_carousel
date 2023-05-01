@@ -28,8 +28,8 @@ export class Carousel extends Component<Props, State> {
     this.setState((state: Readonly<State>) => {
       if (state.shift + step >= images.length - frameSize) {
         return ({
-          shift: (state.shift === images.length - frameSize)
-          && infinite ? 0 : images.length - frameSize,
+          shift: (state.shift === images.length - frameSize) && infinite
+            ? 0 : images.length - frameSize,
         });
       }
 
