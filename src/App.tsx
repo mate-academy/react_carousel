@@ -63,41 +63,36 @@ class App extends React.Component<Props, State> {
   };
 
   setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      frameSize: +event.target.value,
-    });
-
-    this.setState((state) => ({
-      step: Math.floor(state.frameSize / state.itemWidth),
-    }));
+    if (+event.target.value > 0) {
+      this.setState({
+        frameSize: +event.target.value,
+      });
+    }
   };
 
   setItemSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      itemWidth: +event.target.value,
-    });
-
-    if (this.state.step === 0) {
-      this.setState((state) => ({
-        step: Math.floor(state.frameSize / state.itemWidth),
-      }));
+    if (+event.target.value > 0) {
+      this.setState({
+        itemWidth: +event.target.value,
+      });
     }
   };
 
   setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      step: +event.target.value,
-    });
-
-    this.setState({
-      currentIndex: +event.target.value,
-    });
+    if (+event.target.value > 0) {
+      this.setState({
+        step: +event.target.value,
+        currentIndex: +event.target.value,
+      });
+    }
   };
 
   setAnimationTime = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      animationDuration: event.target.value,
-    });
+    if (+event.target.value > 0) {
+      this.setState({
+        animationDuration: event.target.value,
+      });
+    }
   };
 
   render() {
@@ -141,6 +136,8 @@ class App extends React.Component<Props, State> {
                 this.buttonNext();
               }}
               data-cy="Next"
+              disabled={this.state.currentIndex
+                >= 10}
             >
               Next
 
@@ -162,7 +159,7 @@ class App extends React.Component<Props, State> {
 
           <input
             type="number"
-            placeholder={`${this.state.step.toString()}px`}
+            placeholder={`${this.state.step.toString()}bit`}
             className="Input__fields"
             onChange={this.setStep}
           />

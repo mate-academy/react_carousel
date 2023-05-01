@@ -15,8 +15,8 @@ export const Carousel: React.FC<Props>
     itemWidth = 130,
     animationDuration,
   }) => (
-    <div className="Carousel__list" style={{ width: `${frameSize}px` }}>
-      <ul className="Carousel__list">
+    <div className="Carousel__div">
+      <ul className="Carousel__list" style={{ width: `${frameSize}px` }}>
         {arrOfCarousel.map((image) => (
           <li key={image} className="Carousel__li-item">
             <img

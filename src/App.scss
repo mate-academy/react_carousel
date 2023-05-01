@@ -1,9 +1,23 @@
 .App {
   max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Carousel {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &__list {
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
