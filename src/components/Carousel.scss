@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  background-color: lightcoral;
+  &__container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 30px auto;
+    border: 1px solid #FFFFFF;
+    border-radius: 30px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: max-content;
+    border: 1px solid #FFFFFF;
+    margin: auto;
+    padding: 30px;
+    border-radius: 30px;
+  }
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
