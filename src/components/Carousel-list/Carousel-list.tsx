@@ -25,12 +25,16 @@ export const CarouselList: React.FC<Props> = ({
       }}
     >
       {images.map((image, index) => {
+        const visible = (index + 1) * imageSize > -transformImage
+          && (index + 1) * imageSize <= -transformImage + frameSize * imageSize;
+
         return (
           <Image
             key={image}
             image={image}
             index={index}
             imageSize={imageSize}
+            isVisible={visible}
           />
         );
       })}

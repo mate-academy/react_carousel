@@ -4,11 +4,13 @@ interface Props {
   image: string;
   index: number;
   imageSize: number;
+  isVisible: boolean
 }
 export const Image: React.FC<Props> = ({
   image,
   index,
   imageSize,
+  isVisible,
 
 }) => {
   return (
@@ -19,6 +21,8 @@ export const Image: React.FC<Props> = ({
         width={imageSize}
         style={{
           width: `${imageSize}px`,
+          visibility: isVisible ? 'visible' : 'hidden',
+          transition: 'visibility 2s',
         }}
       />
     </li>

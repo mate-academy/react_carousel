@@ -17,7 +17,7 @@ export const Button: React.FC<Props> = ({
       type="button"
       data-cy={data}
       className="btn btn-light"
-      onClick={handleButton}
+      onClick={() => window.setTimeout(handleButton, 500)}
       disabled={isDisabled}
     >
       {type}
