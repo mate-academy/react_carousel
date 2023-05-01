@@ -8,7 +8,6 @@ interface Props {
   animationDuration: number;
   imageSize: number;
 }
-
 export const CarouselList: React.FC<Props> = ({
   images,
   transformImage,
@@ -21,18 +20,20 @@ export const CarouselList: React.FC<Props> = ({
       className="Carousel__list"
       style={{
         transform: `translateX(${transformImage}px)`,
-        width: `${frameSize}px`,
+        width: `${frameSize * imageSize}px`,
         transition: `transform ${animationDuration}ms`,
       }}
     >
-      {images.map((image, index) => (
-        <Image
-          key={image}
-          image={image}
-          index={index}
-          imageSize={imageSize}
-        />
-      ))}
+      {images.map((image, index) => {
+        return (
+          <Image
+            key={image}
+            image={image}
+            index={index}
+            imageSize={imageSize}
+          />
+        );
+      })}
     </ul>
   );
 };
