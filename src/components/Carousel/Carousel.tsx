@@ -13,9 +13,8 @@ type Props = {
   sliderWidth: SliderWidth,
   transform: Transform,
   transition: Transition,
-  onPageIncrement: TranslateCallback,
-  onPageDecrement: TranslateCallback,
-  // onTransitionEnd: TranslateCallback,
+  onSlideForward: TranslateCallback,
+  onSlideBackward: TranslateCallback,
   isDecDisabled: boolean,
   isIncDisabled: boolean,
   isAnimationDisabled: boolean,
@@ -27,9 +26,8 @@ export const Carousel: React.FC<Props> = ({
   sliderWidth,
   transform,
   transition,
-  onPageIncrement,
-  onPageDecrement,
-  // onTransitionEnd,
+  onSlideForward,
+  onSlideBackward,
   isDecDisabled,
   isIncDisabled,
   isAnimationDisabled,
@@ -40,7 +38,7 @@ export const Carousel: React.FC<Props> = ({
         className="Carousel__arrowbutton"
         type="button"
         disabled={isDecDisabled}
-        onClick={onPageDecrement}
+        onClick={onSlideBackward}
       >
         &#10096;
       </button>
@@ -54,7 +52,6 @@ export const Carousel: React.FC<Props> = ({
           style={!isAnimationDisabled
             ? { ...transform, ...transition }
             : transform}
-          // onTransitionEnd={onTransitionEnd}
         >
           {images.map((imageSrc, index) => (
             <CarouselItem
@@ -70,7 +67,7 @@ export const Carousel: React.FC<Props> = ({
       <button
         className="Carousel__arrowbutton"
         type="button"
-        onClick={onPageIncrement}
+        onClick={onSlideForward}
         disabled={isIncDisabled}
         data-cy="next"
       >

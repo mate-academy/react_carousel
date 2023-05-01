@@ -18,7 +18,7 @@ const images = [
 
 type PrepareSlider = (
   itemWidth: number,
-  infinite: boolean
+  infinite: boolean,
 ) => [string[], number];
 
 const prepareSlider: PrepareSlider = (
@@ -29,11 +29,7 @@ const prepareSlider: PrepareSlider = (
     return [images, 0];
   }
 
-  const preparedImages = [
-    ...images,
-    ...images,
-    ...images,
-  ];
+  const preparedImages = images.concat(images, images);
 
   const initialTranslate = images.length * itemWidth;
 
@@ -43,14 +39,6 @@ const prepareSlider: PrepareSlider = (
   ];
 };
 
-const setInitButtonsStance = (infinite: boolean) => {
-  if (infinite) {
-    return [false, false];
-  }
-
-  return [true, false];
-};
-
 export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
@@ -58,24 +46,25 @@ export const App: React.FC = () => {
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
   const [isAnimationDisabled, setIsAnimationDisabled] = useState(false);
+  const [isDecDisabled, setIsDecDisabled] = useState(true);
+  const [isIncDisabled, setIsIncDisabled] = useState(false);
 
   let [preparedImages, initialTranslate] = prepareSlider(
     itemWidth,
     infinite,
   );
 
-  const [initDecDis, initIncDis] = setInitButtonsStance(infinite);
-
-  const [isDecDisabled, setIsDecDisabled] = useState(initDecDis);
-  const [isIncDisabled, setIsIncDisabled] = useState(initIncDis);
   const [translate, setTranslate] = useState(initialTranslate);
 
   const sliderWidth = {
     width: itemWidth * frameSize,
   };
-
-  const transform = { transform: `translateX(-${translate}px)` };
-  const transition = { transition: `transform ${animationDuration}ms` };
+  const transform = {
+    transform: `translateX(-${translate}px)`,
+  };
+  const transition = {
+    transition: `transform ${animationDuration}ms`,
+  };
 
   const handleTextInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -113,6 +102,14 @@ export const App: React.FC = () => {
     }
   };
 
+  const enableAnimation = () => {
+    setIsAnimationDisabled(false);
+  };
+
+  const disableAnimation = () => {
+    setIsAnimationDisabled(true);
+  };
+
   const handleInfiniteChange = () => {
     setInfinite(currentValue => {
       const newValue = !currentValue;
@@ -122,23 +119,43 @@ export const App: React.FC = () => {
         newValue,
       );
 
+      setIsAnimationDisabled(true);
       setTranslate(initialTranslate);
+
+      if (newValue) {
+        setIsDecDisabled(false);
+        setIsIncDisabled(false);
+      } else {
+        setIsDecDisabled(true);
+        setIsIncDisabled(false);
+      }
 
       return newValue;
     });
   };
 
-  const slideToMiddle = () => {
+  const slideBackToMiddle = () => {
     const maxTranslate = images.length * 2 * itemWidth;
 
     if (translate >= maxTranslate) {
-      setIsAnimationDisabled(currentValue => !currentValue);
+      disableAnimation();
       setTranslate(currentValue => currentValue - images.length * itemWidth);
+    }
+  };
+
+  const slideForwToMiddle = () => {
+    const maxTranslate = images.length * itemWidth;
+
+    if (translate <= maxTranslate) {
+      disableAnimation();
+      setTranslate(currentValue => currentValue + images.length * itemWidth);
     }
   };
 
   const slideForward = () => {
     if (!infinite) {
+      enableAnimation();
+
       const maxTranslate = (images.length - frameSize) * itemWidth;
       let nextStep = translate + itemWidth * step;
 
@@ -156,29 +173,44 @@ export const App: React.FC = () => {
       return;
     }
 
-    const nextStep = translate + itemWidth * step;
+    slideBackToMiddle();
 
-    if (isAnimationDisabled) {
-      setIsAnimationDisabled(currentValue => !currentValue);
-    }
-
-    setTranslate(() => nextStep);
-    slideToMiddle();
+    setTimeout(() => {
+      enableAnimation();
+      setTranslate(currentValue => currentValue + itemWidth * step);
+    }, 0);
   };
 
   const slideBackward = () => {
-    setTranslate(currentValue => {
-      let newValue = currentValue - itemWidth * step;
+    if (!infinite) {
+      enableAnimation();
 
-      if (newValue <= 0) {
-        newValue = 0;
-        setIsDecDisabled(true);
+      setTranslate(currentValue => {
+        let newValue = currentValue - itemWidth * step;
+
+        if (newValue <= 0) {
+          newValue = 0;
+          setIsDecDisabled(true);
+        }
+
+        return newValue;
+      });
+
+      const maxTranslate = (images.length - frameSize) * itemWidth;
+
+      if (translate < maxTranslate) {
+        setIsIncDisabled(false);
       }
 
-      return newValue;
-    });
+      return;
+    }
 
-    setIsIncDisabled(false);
+    slideForwToMiddle();
+
+    setTimeout(() => {
+      enableAnimation();
+      setTranslate(currentValue => currentValue - itemWidth * step);
+    }, 0);
   };
 
   return (
@@ -203,9 +235,8 @@ export const App: React.FC = () => {
         sliderWidth={sliderWidth}
         transform={transform}
         transition={transition}
-        onPageIncrement={slideForward}
-        onPageDecrement={slideBackward}
-        // onTransitionEnd={slideToMiddle}
+        onSlideForward={slideForward}
+        onSlideBackward={slideBackward}
         isDecDisabled={isDecDisabled}
         isIncDisabled={isIncDisabled}
         isAnimationDisabled={isAnimationDisabled}
