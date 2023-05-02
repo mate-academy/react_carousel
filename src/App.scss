@@ -1,1 +1,10 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff0ec;
+}
+
+h1 {
+  color: #c94a00;
+}
