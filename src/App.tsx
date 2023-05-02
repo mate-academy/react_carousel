@@ -58,6 +58,8 @@ export const App: React.FC = () => {
 
   const [translate, setTranslate] = useState(initialTranslate);
 
+  const maxTranslate = (images.length - frameSize) * itemWidth;
+
   const sliderWidth = {
     width: itemWidth * frameSize,
   };
@@ -141,28 +143,27 @@ export const App: React.FC = () => {
   };
 
   const slideBackToMiddle = () => {
-    const maxTranslate = images.length * 2 * itemWidth;
+    const maxInfTranslate = images.length * 2 * itemWidth;
 
-    if (translate >= maxTranslate) {
+    if (translate >= maxInfTranslate) {
       disableAnimation();
       setTranslate(currentValue => currentValue - images.length * itemWidth);
     }
   };
 
   const slideForwToMiddle = () => {
-    const maxTranslate = images.length * itemWidth;
+    const minInfTranslate = images.length * itemWidth;
 
-    if (translate <= maxTranslate) {
+    if (translate <= minInfTranslate) {
       disableAnimation();
       setTranslate(currentValue => currentValue + images.length * itemWidth);
     }
   };
 
-  const slideForward = () => {
+  const slideForward = async () => {
     if (!infinite) {
       enableAnimation();
 
-      const maxTranslate = (images.length - frameSize) * itemWidth;
       let nextStep = translate + itemWidth * step;
 
       if (nextStep >= maxTranslate) {
@@ -172,7 +173,7 @@ export const App: React.FC = () => {
 
       setTranslate(nextStep);
 
-      if (translate > 0) {
+      if (nextStep > 0) {
         setIsDecDisabled(false);
       }
 
@@ -194,20 +195,16 @@ export const App: React.FC = () => {
     if (!infinite) {
       enableAnimation();
 
-      setTranslate(currentValue => {
-        let newValue = currentValue - itemWidth * step;
+      let nextStep = translate - itemWidth * step;
 
-        if (newValue <= 0) {
-          newValue = 0;
-          setIsDecDisabled(true);
-        }
+      if (nextStep <= 0) {
+        nextStep = 0;
+        setIsDecDisabled(true);
+      }
 
-        return newValue;
-      });
+      setTranslate(nextStep);
 
-      const maxTranslate = (images.length - frameSize) * itemWidth;
-
-      if (translate < maxTranslate) {
+      if (nextStep < maxTranslate) {
         setIsIncDisabled(false);
       }
 
