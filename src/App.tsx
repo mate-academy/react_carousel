@@ -11,6 +11,9 @@ interface State {
   itemWidth: number,
   step: number,
   animationDuration: string,
+  wrongFrameSize: boolean,
+  wrongItemSize: boolean,
+  wrongStep: boolean,
 }
 
 class App extends React.Component<Props, State> {
@@ -37,7 +40,19 @@ class App extends React.Component<Props, State> {
     step: 3,
 
     animationDuration: '1',
+
+    wrongFrameSize: false,
+
+    wrongItemSize: false,
+
+    wrongStep: false,
   };
+
+  componentDidMount(): void {
+    if (this.state.itemWidth * this.state.step > this.state.frameSize) {
+      throw new Error('please Enter valid frame size or item width');
+    }
+  }
 
   buttonPrev = () => {
     if (this.state.currentIndex
@@ -63,32 +78,47 @@ class App extends React.Component<Props, State> {
   };
 
   setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
+    if (+event.target.value >= 100 && +event.target.value <= 800) {
       this.setState({
         frameSize: +event.target.value,
+        wrongFrameSize: false,
+      });
+    } else {
+      this.setState({
+        wrongFrameSize: true,
       });
     }
   };
 
   setItemSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
+    if (+event.target.value >= 20 && +event.target.value <= 150) {
       this.setState({
         itemWidth: +event.target.value,
+        wrongItemSize: false,
+      });
+    } else {
+      this.setState({
+        wrongItemSize: true,
       });
     }
   };
 
   setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
+    if (+event.target.value >= 1 && +event.target.value <= 5) {
       this.setState({
         step: +event.target.value,
         currentIndex: +event.target.value,
+        wrongStep: false,
+      });
+    } else {
+      this.setState({
+        wrongStep: true,
       });
     }
   };
 
   setAnimationTime = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > 0) {
+    if (+event.target.value >= 10) {
       this.setState({
         animationDuration: event.target.value,
       });
@@ -97,17 +127,23 @@ class App extends React.Component<Props, State> {
 
   render() {
     const copy = this.state.images;
+    let modifiedArr = copy;
 
-    const modifiedArr = copy.slice(
-      this.state.currentIndex
-      - this.state.step,
-      this.state.currentIndex,
-    );
+    if (this.state.frameSize / this.state.itemWidth >= this.state.step) {
+      modifiedArr = copy.slice(
+        this.state.currentIndex
+        - this.state.step,
+        this.state.currentIndex,
+      );
+    } else {
+      modifiedArr = [];
+    }
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {this.state.step} images</h1>
+
         <Carousel
           arrOfCarousel={modifiedArr}
           frameSize={this.state.frameSize}
@@ -143,6 +179,7 @@ class App extends React.Component<Props, State> {
 
             </button>
           </div>
+
           <input
             type="number"
             placeholder={`${this.state.frameSize.toString()}px`}
@@ -150,19 +187,35 @@ class App extends React.Component<Props, State> {
             onChange={this.setFrameSize}
           />
 
+          <span>
+            {this.state.wrongFrameSize && 'Please Enter valid value'}
+          </span>
+
           <input
             type="number"
             placeholder={`${this.state.itemWidth.toString()}px`}
             className="Input__fields"
             onChange={this.setItemSize}
+            min="20"
+            max="150"
           />
+
+          <span>
+            {this.state.wrongItemSize && 'Please Enter valid value'}
+          </span>
 
           <input
             type="number"
             placeholder={`${this.state.step.toString()}bit`}
             className="Input__fields"
             onChange={this.setStep}
+            min="1"
+            max="5"
           />
+
+          <span>
+            {this.state.wrongStep && 'Please Enter valid value'}
+          </span>
 
           <input
             type="number"
