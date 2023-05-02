@@ -93,6 +93,12 @@ export const App: React.FC = () => {
 
         if (numberedValue >= images.length) {
           setIsIncDisabled(true);
+
+          break;
+        }
+
+        if (isIncDisabled) {
+          setIsIncDisabled(false);
         }
 
         break;
