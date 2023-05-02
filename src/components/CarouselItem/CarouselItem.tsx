@@ -1,3 +1,5 @@
+import './CarouselItem.scss';
+
 type Props = {
   imageSrc: string;
   index: number;
@@ -9,7 +11,7 @@ export const CarouselItem: React.FC<Props> = ({
   index,
   width,
 }) => (
-  <li className="Carousel__item">
+  <li className="list-item">
     <img
       src={imageSrc}
       alt={`${index + 1}`}

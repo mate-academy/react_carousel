@@ -17,10 +17,6 @@
   padding: 0;
 }
 
-.Carousel__item {
-  list-style: none;
-}
-
 .Carousel__arrowbutton {
   border: none;
   padding: 12px;
@@ -36,8 +32,4 @@
 .Carousel__arrowbutton:disabled {
   color: #bbb;
   background-color: #fff;
-}
-
-.flex-left {
-  justify-self: left;
 }

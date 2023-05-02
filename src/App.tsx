@@ -39,6 +39,8 @@ const prepareSlider: PrepareSlider = (
   ];
 };
 
+const minSlideWIdth = 65;
+
 export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
@@ -71,13 +73,17 @@ export const App: React.FC = () => {
 
     const numberedValue = Number(value);
 
-    if (Number.isNaN(numberedValue)) {
-      return;
-    }
-
     switch (name) {
       case 'item width':
-        setItemWidth(numberedValue);
+        setItemWidth(currentValue => {
+          let newValue = currentValue;
+
+          if (numberedValue < minSlideWIdth) {
+            newValue = minSlideWIdth;
+          }
+
+          return newValue;
+        });
         break;
 
       case 'frame size':
@@ -173,6 +179,9 @@ export const App: React.FC = () => {
       return;
     }
 
+    // here the slider must go back without animation for 10 elements before continuing scrolling forward
+    // the problem is React merges both actions if I call the functions consecutively
+    // the only my desision for now is to call the second part in setTimeout. And it's bad
     slideBackToMiddle();
 
     setTimeout(() => {
@@ -205,6 +214,9 @@ export const App: React.FC = () => {
       return;
     }
 
+    // here the slider must go forward without animation for 10 elements before continuing scrolling backwards
+    // the problem is React merges both actions if I call the functions consecutively
+    // the only my desision for now is to call the second part in setTimeout. And it's bad
     slideForwToMiddle();
 
     setTimeout(() => {
