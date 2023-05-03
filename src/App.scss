@@ -1,10 +1,22 @@
 .App {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: #fff0ec;
-}
+  justify-content: center;
+  height: 100vh;
+  background: #ecbfbf;
 
-h1 {
-  color: #c94a00;
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 30px;
+    font-style: italic;
+    color: #000000;
+    border-radius: 20px;
+  }
 }
