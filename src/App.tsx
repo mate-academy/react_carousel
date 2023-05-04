@@ -68,7 +68,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
@@ -79,56 +79,72 @@ class App extends React.Component<{}, State> {
           infinite={infinite}
         />
         <div className="containerOfInputs">
-          <label className="containerOfInputs__label">
+          <label
+            htmlFor="stepId"
+            className="containerOfInputs__label"
+          >
             Step:
             {' '}
             <input
               onChange={this.hadleChangeSteps}
               type="number"
-              id="step"
+              id="stepId"
               value={step}
             />
           </label>
 
-          <label className="containerOfInputs__label">
+          <label
+            htmlFor="frameId"
+            className="containerOfInputs__label"
+          >
             FrameSize:
             {' '}
             <input
               onChange={this.handleChangeFrameSize}
               type="number"
-              id="frameSize"
+              id="frameId"
               value={frameSize}
             />
           </label>
 
-          <label className="containerOfInputs__label">
+          <label
+            htmlFor="itemId"
+            className="containerOfInputs__label"
+          >
             Item Width:
             {' '}
             <input
               onChange={this.handleChangeItemWidth}
               type="number"
-              id="itemWidth"
+              id="itemId"
               value={itemWidth}
             />
           </label>
 
-          <label className="containerOfInputs__label">
+          <label
+            htmlFor="animationId"
+            className="containerOfInputs__label"
+          >
             Animation Duration(seconds):
             {' '}
             <input
               onChange={this.handleChangeAnimationDuration}
               type="number"
-              id="animationDuration"
+              id="animationId"
               value={animationDuration / 1000}
             />
           </label>
 
-          <label className="containerOfInputs__label">
+          <label
+            htmlFor="infiniteId"
+            className="containerOfInputs__label"
+          >
             Animation Infinite:
             {' '}
             <input
               onChange={this.handleChangeInfinite}
               type="checkbox"
+              id="infiniteId"
             />
 
           </label>

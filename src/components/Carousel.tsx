@@ -99,6 +99,7 @@ class Carousel extends React.Component<CarouselProps, State> {
           className="Carousel__button"
           type="button"
           onClick={this.hadleButtonNext}
+          data-cy="next"
         >
           Next
 
