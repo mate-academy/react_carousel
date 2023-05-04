@@ -6,7 +6,7 @@ import {
 import './Carousel.scss';
 import { Button } from './Button';
 import { Input } from './Input';
-import { CarouselList } from './Carousel-list';
+import { CarouselList } from './CarouselList';
 
 interface Props {
   images: string[];
@@ -69,7 +69,7 @@ const Carousel: FC<Props> = ({ images }) => {
       const restOfImage = imagesCount - lastImage;
 
       setTransformImage(transformImage + -(imageSize * restOfImage));
-      setLastImage(10);
+      setLastImage(imagesCount);
       setDisabledNextButton(true);
     }
   };
@@ -103,15 +103,15 @@ const Carousel: FC<Props> = ({ images }) => {
       </div>
       <div className="Carousel__buttons">
         <Button
-          type="Prev"
-          data="prev"
-          handleButton={handlePrevButton}
+          buttonText="Prev"
+          dataTestAttribute="prev"
+          onClick={handlePrevButton}
           isDisabled={disabledPrevButton}
         />
         <Button
-          type="Next"
-          data="next"
-          handleButton={handleNextButton}
+          buttonText="Next"
+          dataTestAttribute="next"
+          onClick={handleNextButton}
           isDisabled={disabledNextButton}
         />
       </div>

@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Comme:wght@600&display=swap");
-
+@import 'vars';
 .Carousel {
-  background-color: lightcoral;
+  background-color: $c-bg-lightcoral;
   &__container {
     display: flex;
     justify-content: center;
     overflow: hidden;
     margin: 30px auto;
-    border: 1px solid #fff;
+    border: 1px solid $c-main-white;
     border-radius: 30px;
     max-width: 1300px;
   }
@@ -33,7 +33,7 @@
     justify-content: center;
     gap: 30px;
     width: max-content;
-    border: 1px solid #fff;
+    border: 1px solid $c-main-white;
     margin: auto;
     padding: 30px;
     border-radius: 30px;
@@ -59,7 +59,7 @@
     border: none;
     width: 100px;
     font-size: 14px;
-    outline-color: tomato;
+    outline-color: $c-outline-tomato;
     padding-left: 10px;
     &::placeholder {
       font-family: "Comme", sans-serif;

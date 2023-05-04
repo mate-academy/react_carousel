@@ -29,7 +29,7 @@ export const Input: React.FC<Props> = ({
       step={step}
       max={max}
       value={value}
-      onChange={event => onChange(+event.target.value)}
+      onChange={event => onChange(Number(event.target.value))}
     />
   );
 };

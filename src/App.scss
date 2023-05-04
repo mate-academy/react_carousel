@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Comme:wght@600&display=swap");
+@font-face {
+  font-family: "Comme";
+  src: url('./fonts/Comme-SemiBold.ttf');
+  font-weight: 600;
+}
 
 html {
   background-color: lightcoral;

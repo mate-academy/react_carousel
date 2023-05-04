@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image } from '../Image';
 
 interface Props {
   images: string[];
@@ -24,20 +23,18 @@ export const CarouselList: React.FC<Props> = ({
         transition: `transform ${animationDuration}ms`,
       }}
     >
-      {images.map((image, index) => {
-        const visible = (index + 1) * imageSize > -transformImage
-          && (index + 1) * imageSize <= -transformImage + frameSize * imageSize;
-
-        return (
-          <Image
-            key={image}
-            image={image}
-            index={index}
-            imageSize={imageSize}
-            isVisible={visible}
+      {images.map((image, index) => (
+        <li
+          className="Carousel__item"
+          key={image}
+        >
+          <img
+            src={image}
+            alt={`icon-${index + 1}`}
+            width={imageSize}
           />
-        );
-      })}
+        </li>
+      ))}
     </ul>
   );
 };

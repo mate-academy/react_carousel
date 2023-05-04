@@ -1,26 +1,30 @@
 import React from 'react';
 
 interface Props {
-  type: string;
-  data: string;
-  handleButton: () => void;
+  buttonText: string;
+  dataTestAttribute: string;
+  onClick: () => void;
   isDisabled: boolean;
 }
 export const Button: React.FC<Props> = ({
-  type,
-  data,
-  handleButton,
+  buttonText,
+  dataTestAttribute,
+  onClick,
   isDisabled,
 }) => {
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
     <button
       type="button"
-      data-cy={data}
+      data-cy={dataTestAttribute}
       className="btn btn-light"
-      onClick={() => window.setTimeout(handleButton, 500)}
+      onClick={handleClick}
       disabled={isDisabled}
     >
-      {type}
+      {buttonText}
     </button>
   );
 };
