@@ -29,8 +29,8 @@ class Carousel extends React.Component<CarouselProps, State> {
     const max = (images.length * itemWidth) - (itemWidth * frameSize);
 
     if (position - itemWidth * step >= 0) {
-      this.setState(prevState => (
-        { position: prevState.position - itemWidth * step }));
+      this.setState(state => (
+        { position: state.position - itemWidth * step }));
     } else if (infinite && !position) {
       this.setState({ position: max });
     } else {

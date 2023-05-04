@@ -84,7 +84,6 @@ class App extends React.Component<{}, State> {
             className="containerOfInputs__label"
           >
             Step:
-            {' '}
             <input
               onChange={this.hadleChangeSteps}
               type="number"
@@ -98,7 +97,6 @@ class App extends React.Component<{}, State> {
             className="containerOfInputs__label"
           >
             FrameSize:
-            {' '}
             <input
               onChange={this.handleChangeFrameSize}
               type="number"
@@ -112,7 +110,6 @@ class App extends React.Component<{}, State> {
             className="containerOfInputs__label"
           >
             Item Width:
-            {' '}
             <input
               onChange={this.handleChangeItemWidth}
               type="number"
@@ -126,7 +123,6 @@ class App extends React.Component<{}, State> {
             className="containerOfInputs__label"
           >
             Animation Duration(seconds):
-            {' '}
             <input
               onChange={this.handleChangeAnimationDuration}
               type="number"
@@ -140,7 +136,6 @@ class App extends React.Component<{}, State> {
             className="containerOfInputs__label"
           >
             Animation Infinite:
-            {' '}
             <input
               onChange={this.handleChangeInfinite}
               type="checkbox"
