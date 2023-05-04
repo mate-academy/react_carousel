@@ -53,21 +53,23 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      <button
-        onClick={prev}
-        type="button"
-        className="btn"
-      >
-        Prev
-      </button>
+      <div className="Carousel__wrapper">
+        <button
+          onClick={prev}
+          type="button"
+          className="Carousel__btn"
+        >
+          Prev
+        </button>
 
-      <button
-        onClick={next}
-        type="button"
-        className="btn"
-      >
-        Next
-      </button>
+        <button
+          onClick={next}
+          type="button"
+          className="Carousel__btn"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
