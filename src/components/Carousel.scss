@@ -1,5 +1,5 @@
 .Carousel {
-  width: 1300px;
+  width: 400px;
 
   &__list {
     display: flex;
@@ -12,5 +12,7 @@
     margin: 10px;
     padding: 5px 10px;
     border: 2px solid teal;
+    color: teal;
+    font-size: 20px;
   }
 }
