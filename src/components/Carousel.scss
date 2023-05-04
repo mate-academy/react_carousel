@@ -1,1 +1,68 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Comme:wght@600&display=swap");
+@import 'vars';
+.Carousel {
+  background-color: $c-bg-lightcoral;
+  &__container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 30px auto;
+    border: 1px solid $c-main-white;
+    border-radius: 30px;
+    max-width: 1300px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: max-content;
+    border: 1px solid $c-main-white;
+    margin: auto;
+    padding: 30px;
+    border-radius: 30px;
+  }
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    color: #fff;
+    justify-content: space-between;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__input {
+    border-radius: 30px;
+    border: none;
+    width: 100px;
+    font-size: 14px;
+    outline-color: $c-outline-tomato;
+    padding-left: 10px;
+    &::placeholder {
+      font-family: "Comme", sans-serif;
+    }
+  }
+}

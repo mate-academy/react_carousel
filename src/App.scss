@@ -1,1 +1,20 @@
-// style go here
+@font-face {
+  font-family: "Comme";
+  src: url('./fonts/Comme-SemiBold.ttf');
+  font-weight: 600;
+}
+
+html {
+  background-color: lightcoral;
+}
+
+.App {
+  background-color: lightcoral;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Comme", sans-serif;
+
+  &__title {
+    color: #fff;
+  }
+}
