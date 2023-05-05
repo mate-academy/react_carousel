@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import React, { createRef } from 'react';
 import './Carousel.scss';
 
@@ -57,7 +56,6 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   handleNext = () => {
-    const { currentSlide } = this.state;
     const {
       images,
       step,
@@ -69,17 +67,20 @@ export class Carousel extends React.Component<Props, State> {
 
     const maxSlide = images.length * itemWidth - frameSize * itemWidth;
 
-    if (currentSlide > -maxSlide) {
-      if (currentSlide - itemWidth * step < -maxSlide) {
-        this.setState({ currentSlide: -maxSlide });
-      } else {
-        this.setState({ currentSlide: currentSlide - itemWidth * step });
-      }
-    } else if (infinite && currentSlide === -maxSlide) {
-      this.setState({ currentSlide: 0 });
-    }
+    this.setState(prevState => {
+      const prevCurrentSlide = prevState.currentSlide;
 
-    // Add sliding animation to the carousel list
+      if (prevCurrentSlide > -maxSlide) {
+        if (prevCurrentSlide - itemWidth * step < -maxSlide) {
+          this.setState({ currentSlide: -maxSlide });
+        } else {
+          this.setState({ currentSlide: prevCurrentSlide - itemWidth * step });
+        }
+      } else if (infinite && prevCurrentSlide === -maxSlide) {
+        this.setState({ currentSlide: 0 });
+      }
+    });
+
     const list = this.listRef.current;
 
     if (list) {
@@ -119,9 +120,9 @@ export class Carousel extends React.Component<Props, State> {
           }}
         >
           {images.map(img => (
-            <li key={images.indexOf(img)}>
+            <li key={img}>
               <img
-                src={`${img}`}
+                src={img}
                 alt="Emojy"
                 style={{ width: itemWidth }}
               />
