@@ -1,11 +1,16 @@
 /* eslint-disable */
 import React from 'react';
 
-import { CarouselType } from '../types/Carousel';
-
 import './Carousel.scss';
 
-type CarouselProps = CarouselType;
+export interface CarouselProps {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
 interface CarouselState {
   transition: number;
@@ -22,38 +27,33 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
 
   nextButtonHandler = () => {
     this.setState((prevState) => ({
-      transition: this.calculateTransition(prevState.transition, '+'),
+      transition: this.calculateTransition(prevState.transition, 1),
     }));
   };
 
   prevButtonHandler = () => {
     this.setState((prevState) => ({
-      transition: this.calculateTransition(prevState.transition, '-'),
+      transition: this.calculateTransition(prevState.transition, -1),
     }));
   };
 
-  calculateTransition = (actualTransition: number, operation: '-' | '+') => {
+  calculateTransition = (actualTransition: number, operator: 1 | -1) => {
     const { step, infinite, images, frameSize } = this.props;
     const maxTransition = calculateMaxTransition(images.length, frameSize);
-    let result: number;
 
-    if (operation === '-') {
-      result = actualTransition - step / frameSize * 100;
-
-      if (actualTransition === 0 && infinite) {
-        result = maxTransition;
-      } else if (result < 0) {
-        result = 0;
-      }
-    } else {
-      result = actualTransition + step / frameSize * 100;
-
-      if (actualTransition === maxTransition && infinite) {
-        result = 0;
-      } else if (result > maxTransition) {
-        result = maxTransition;
-      }
+    if (infinite && actualTransition === 0) {
+      return maxTransition;
     }
+
+    if (infinite && actualTransition === maxTransition) {
+      return 0;
+    }
+
+    const delta = (step / frameSize) * 100 * operator;
+
+    let result = actualTransition + delta;
+    result = Math.min(result, maxTransition);
+    result = Math.max(result, 0);
 
     return result;
   };
@@ -62,13 +62,13 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
     const { images, frameSize, infinite} = this.props;
     const { transition } = this.state;
 
-    const isEdge = button === 'next'
+    if (infinite) {
+      return false;
+    }
+
+    return button === 'next'
       ? transition === calculateMaxTransition(images.length, frameSize)
       : transition === 0;
-
-    return !infinite && isEdge
-      ? true
-      : undefined;
   };
 
   render() {
