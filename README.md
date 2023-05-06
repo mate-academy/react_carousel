@@ -1,43 +1,35 @@
-# React Carousel
+<h1>React Carousel (10 emotikons)</h1>
 
-> [React + Typescript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
+<h2>Demo link:</h2>
+<p>https://frontend112.github.io/react_carousel/</p>
 
-1. implement a carousel described [here](https://github.com/mate-academy/dom_carousel) as a React component
-    ```jsx harmony
-    <Carousel images={['url1', 'url2']} />
-    ```
-2. add an ability to customize `itemWidth` with default value of `130px`
-3. add `frameSize` - number of images displayed at the same time with the default of `3`
-4. add `step` (default 3) - number of images scrolled per click
-5. add `animationDuration` (default `1000`) - time in ms to show the new portion of images
-6. (*) add an `infinite` prop (`false` by default) - to do the carousel cyclic
-    ```jsx harmony
-    <Carousel
-      images={['url1', 'url2']}
-      step={3}
-      frameSize={3}
-      itemWidth={130}
-      animationDuration={1000}
-      infinite={false}
-    />
-    ```
-    
-## REQUIREMENTS:
+<h2>aplication contains following functionality</h2>
+<ul>
+  <li>scroll emotikons</li>
+  <li>change width of image emotikon</li>
+  <li>how many images visible</li>
+  <li>how large is step (if step reaches outsite of images.length, then stop it on last element)</li>
+  <li>animation time</li>
+  <li>is scroll back to first if reaches last emotikon</li>
+  <li>arrow is disabled if there is no more emotikons in range</li>
+</ul>
 
-1. The title of the page should contain "Carousel"
-2. The page should continue the input fieds for:
-   - `ItemWidth`
-   - `FrameSize`
-   - `Step`
-   - `AnimationDuration`
-3. Add data-cy attributes:
-   - `title` inside h1 tag
-   - `next` to the `"Next" button`
+<h2>App.tsx</h2>
+<ul>
+  <li>State CarouselEments contains all above data</li>
+  <li>handleChange method exectues when user change one of above parameter</li>
+</ul>
 
-
-## Instructions
-
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_carousel/) and add it to the PR description.
+<h2>Carousel.tsx</h2>
+<ul>
+  <li>itemPosition - recent emotikon position, default is 0</li>
+  <li>HandlePrevClick, HandleNextCLick - detecting recent position, if needs to be updated after click it sets new position to itemPosition </li>
+  <li>
+    in useEffect we check weather user changed parameter or click one of the arrow, in that case we need to handle cases when
+    - itemPosition might be less than 0
+    - itemPostion greater than images.length 
+    - change width of image - wrapper.current
+    - change postion of element with carouselList.current (when user clicks arrow)
+    - change animationDuration on carouselList.current
+  </li>
+</ul>
