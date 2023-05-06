@@ -57,13 +57,13 @@ const Carousel: React.FC<Props> = ({
       setItemPosition(0);
     }
 
-    if (wrapper && wrapper.current) {
+    if (wrapper.current) {
       wrapper.current.style.width = `${itemWidth * frameSize}px`;
     }
 
-    if (carouselList && carouselList.current) {
+    if (carouselList.current) {
       carouselList.current.style.transform
-      = `translateX(${(-itemPosition) * itemWidth}px)`;
+        = `translateX(${(-itemPosition) * itemWidth}px)`;
 
       carouselList.current.style.transition = `${animationDuration.toString()}ms`;
     }
