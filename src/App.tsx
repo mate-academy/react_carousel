@@ -1,15 +1,13 @@
 import React from 'react';
 
-import { Carousel } from './components/Carousel';
-import { Input } from './components/Input';
-
-import { CarouselType } from './types/Carousel';
+import { Carousel, CarouselProps } from './components/Carousel';
+import { LabeledInput } from './components/LabeledInput';
 
 import './App.scss';
 
-type State = CarouselType;
+type AppState = CarouselProps;
 
-class App extends React.Component<{}, State> {
+class App extends React.Component<{}, AppState> {
   state = {
     images: [
       './img/1.png',
@@ -30,10 +28,14 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  onChange = (name: string, value: number | boolean) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const data = e.target.type === 'number'
+      ? +e.target.value
+      : e.target.checked;
+
     this.setState(state => ({
       ...state,
-      [name]: value,
+      [e.target.name]: data,
     }));
   };
 
@@ -58,45 +60,45 @@ class App extends React.Component<{}, State> {
         />
 
         <div className="App__inputs">
-          <Input
+          <LabeledInput
             name="itemWidth"
             min={100}
             max={200}
             label="Item width"
             value={itemWidth}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
 
-          <Input
+          <LabeledInput
             name="frameSize"
             min={1}
             label="Frame Size"
             value={frameSize}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
 
-          <Input
+          <LabeledInput
             name="step"
             min={1}
             label="Step"
             value={step}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
 
-          <Input
+          <LabeledInput
             name="animationDuration"
             label="Animation duration"
             value={animationDuration}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
 
-          <Input
+          <LabeledInput
             type="checkbox"
             name="infinite"
             label="Infinite"
             value={`${infinite}`}
             checked={infinite}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
         </div>
       </div>
