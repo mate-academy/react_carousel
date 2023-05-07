@@ -1,1 +1,40 @@
 // style go here
+.Carousel {
+  position: relative;
+  
+  &__list-wrapper {
+    width: 390px;
+    overflow: hidden;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    max-width: 100%;
+    padding: 0;
+    transform: translateX(0);
+  }
+
+  &__arrow {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    font-size: 2rem;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: red;
+
+    &--prev {
+      left: -50px;
+    }
+
+    &--next {
+      right: -50px;
+    }
+  }
+}
+
+.disabled {
+  color: grey;
+}
