@@ -25,7 +25,7 @@
   <li>itemPosition - recent emotikon position, default is 0</li>
   <li>HandlePrevClick, HandleNextCLick - detecting recent position, if needs to be updated after click it sets new position to itemPosition </li>
   <li>
-    in useEffect we check weather user changed parameter or click one of the arrow, in that case we need to handle cases when
+    in useEffect we check wheter user changed parameter or click one of the arrow, in that case we need to handle cases when
     - itemPosition might be less than 0
     - itemPostion greater than images.length 
     - change width of image - wrapper.current
