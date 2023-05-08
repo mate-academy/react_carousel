@@ -1,1 +1,34 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgb(82, 82, 82);
+  padding: 30px 50px;
+  color: rgb(0, 0, 0);
+
+  &__labels {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__input {
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(220, 220, 70);
+  }
+}
