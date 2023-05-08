@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -32,31 +32,31 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleStepChange = (event: any) => {
+  handleStepChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
 
     this.setState({ step: value });
   };
 
-  handleFrameSizeChange = (event: any) => {
+  handleFrameSizeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
 
     this.setState({ frameSize: value });
   };
 
-  handleItemWidthChange = (event: any) => {
+  handleItemWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
 
     this.setState({ itemWidth: value });
   };
 
-  handleAnimationDurationChange = (event: any) => {
+  handleAnimationDurationChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
 
     this.setState({ animationDuration: value });
   };
 
-  handleInfiniteChange = (event: any) => {
+  handleInfiniteChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Boolean(event.target.value);
 
     this.setState({ infinite: value });
