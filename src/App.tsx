@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel/Carousel';
 
@@ -30,6 +30,26 @@ class App extends Component<{}, State> {
     frameSize: 3,
     animationDuration: 1000,
     infinity: false,
+  };
+
+  setWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value });
+  };
+
+  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +event.target.value });
+  };
+
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +event.target.value });
+  };
+
+  setAnimation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ animationDuration: +event.target.value });
+  };
+
+  setInfinity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinity: event.target.checked });
   };
 
   render() {
@@ -68,11 +88,7 @@ class App extends Component<{}, State> {
             min={130}
             max={260}
             step={10}
-            onChange={(event) => {
-              this.setState({
-                itemWidth: +event.target.value,
-              });
-            }}
+            onChange={this.setWidth}
           />
         </label>
 
@@ -88,11 +104,7 @@ class App extends Component<{}, State> {
             min={1}
             max={images.length}
             step={1}
-            onChange={(event) => {
-              this.setState({
-                frameSize: +event.target.value,
-              });
-            }}
+            onChange={this.setFrameSize}
           />
         </label>
 
@@ -108,11 +120,7 @@ class App extends Component<{}, State> {
             min={1}
             max={images.length}
             step={1}
-            onChange={(event) => {
-              this.setState({
-                step: +event.target.value,
-              });
-            }}
+            onChange={this.setStep}
           />
         </label>
 
@@ -128,11 +136,7 @@ class App extends Component<{}, State> {
             min={500}
             max={5000}
             step={500}
-            onChange={(event) => {
-              this.setState({
-                animationDuration: +event.target.value,
-              });
-            }}
+            onChange={this.setAnimation}
           />
         </label>
 
@@ -144,11 +148,7 @@ class App extends Component<{}, State> {
           <input
             id="infinity"
             type="checkbox"
-            onChange={(event) => {
-              this.setState({
-                infinity: event.target.checked,
-              });
-            }}
+            onChange={this.setInfinity}
           />
         </label>
       </div>

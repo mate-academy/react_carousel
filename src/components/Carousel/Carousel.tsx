@@ -26,11 +26,19 @@ export class Carousel extends Component<Props, State> {
     const firstItemIndex = 0;
     let nextItemIndex = currentItemIndex + step;
 
+    if (step > 0) {
+      if (currentItemIndex === lastItemIndex) {
+        nextItemIndex = firstItemIndex;
+      } else if (nextItemIndex > lastItemIndex) {
+        nextItemIndex = lastItemIndex;
+      }
+    }
+
     if (step < 0) {
       if (currentItemIndex === firstItemIndex) {
         nextItemIndex = lastItemIndex;
-      } else if (nextItemIndex > lastItemIndex) {
-        nextItemIndex = lastItemIndex;
+      } else if (nextItemIndex < firstItemIndex) {
+        nextItemIndex = firstItemIndex;
       }
     }
 
