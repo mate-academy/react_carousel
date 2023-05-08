@@ -50,7 +50,7 @@ class App extends React.Component<{}> {
         <h1 className='App__title title'>Carousel with {images.length} images</h1>
         <div
           className="carusel-wrapper"
-          style={{ width: `${itemWidth * frameSize}px` }}
+          style={{ width: `${itemWidth * 3}px` }}
         >
           <Carousel
             images={images}
