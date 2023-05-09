@@ -24,13 +24,13 @@ class App extends React.Component<{}> {
     infinite: false,
   };
 
-  handleChange = (e: any) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       name, value, type, checked,
     } = e.target;
 
     this.setState({
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : Number(value),
     });
   };
 
@@ -46,11 +46,17 @@ class App extends React.Component<{}> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 className='App__title title'>Carousel with {images.length} images</h1>
+
+        <h1 className="App__title title">
+          Carousel with
+          {' '}
+          {images.length}
+          {' '}
+          images
+        </h1>
         <div
           className="carusel-wrapper"
-          style={{ width: `${itemWidth * 3}px` }}
+          style={{ width: `${itemWidth * frameSize}px` }}
         >
           <Carousel
             images={images}
@@ -69,6 +75,8 @@ class App extends React.Component<{}> {
               className="footer__input"
               name="step"
               type="number"
+              min="1"
+              max="5"
               value={this.state.step}
               onChange={this.handleChange}
             />
@@ -80,6 +88,8 @@ class App extends React.Component<{}> {
               className="footer__input"
               name="frameSize"
               type="number"
+              min="2"
+              max="9"
               value={this.state.frameSize}
               onChange={this.handleChange}
             />
@@ -91,6 +101,9 @@ class App extends React.Component<{}> {
               className="footer__input"
               name="itemWidth"
               type="number"
+              min="100"
+              max="500"
+              step={10}
               value={this.state.itemWidth}
               onChange={this.handleChange}
             />
@@ -102,6 +115,9 @@ class App extends React.Component<{}> {
               className="footer__input"
               name="animationDuration"
               type="number"
+              min="1000"
+              max="5000"
+              step={500}
               value={this.state.animationDuration}
               onChange={this.handleChange}
             />
