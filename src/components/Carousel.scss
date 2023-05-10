@@ -1,1 +1,34 @@
-// style go here
+$card-width: 130px;
+
+.Carousel {
+  position: relative;
+  width: calc(#{$card-width} * 2);
+
+  margin: 0 auto;
+
+  // overflow: hidden;
+
+  &__list {
+    width: 1300px;
+
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    // transform: translateX(calc(-#{$card-width} * 2));
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    &--next {
+      right: 0;
+    }
+  }
+}

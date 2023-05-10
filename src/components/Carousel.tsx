@@ -1,18 +1,65 @@
-import React from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+class Carousel extends Component<Props, {}> {
+  scrollWidth = 0;
+
+  nextSlideHandler = () => {
+    const carouselList
+      = document.querySelector('.Carousel__list') as HTMLUListElement;
+
+    if (this.scrollWidth < this.props.itemWidth * 10) {
+      this.scrollWidth += this.props.itemWidth * 2;
+    }
+
+    carouselList.style.transform = `translate(-${this.scrollWidth}px, 0)`;
+  };
+
+  prevSlideHandler = () => {
+
+  };
+
+  render() {
+    const { images } = this.props;
+
+    return (
+      <div className="Carousel">
+        <ul className="Carousel__list">
+          {images.map((image, i) => (
+            <li key={image}>
+              <img src={image} alt={`${i + 1}`} />
+            </li>
+          ))}
+        </ul>
+
+        <button
+          type="button"
+          className="Carousel__button Carousel__button--prev"
+          onClick={this.prevSlideHandler}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          data-cy="next"
+          className="Carousel__button Carousel__button--next"
+          onClick={this.nextSlideHandler}
+        >
+          Next
+        </button>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
