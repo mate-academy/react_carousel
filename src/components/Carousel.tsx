@@ -72,15 +72,18 @@ class Carousel extends React.Component<CarouselProps, State> {
     };
 
     return (
-      <div className="Carousel" style={{ width: itemWidth * frameSize }}>
-        <ul className="Carousel__list">
+      <div className="Carousel">
+        <ul className="Carousel__list" style={{ width: itemWidth * frameSize }}>
           {images.map(image => {
             return (
-              <li key={image} className="Carousel__picture">
+              <li
+                key={image}
+              >
                 <img
                   src={image}
                   alt={image}
                   style={imageStyle}
+                  className="Carousel__picture"
                 />
               </li>
             );
