@@ -20,22 +20,44 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const next = () => setCurrentIndex(prev => (infinite
-    ? (prev + step) % images.length
-    : Math.min(prev + step, images.length - frameSize)));
+  const next = () => setCurrentIndex(prev => {
+    if (infinite) {
+      if (prev + step >= images.length) {
+        return 0;
+      }
 
-  const prev = () => setCurrentIndex(prevIndex => (infinite
-    ? (prevIndex - step + images.length) % images.length
-    : Math.max(prevIndex - step, 0)));
+      return Math.min(prev + step, images.length - frameSize);
+    }
+
+    return Math.min(prev + step, images.length - frameSize);
+  });
+
+  const prev = () => setCurrentIndex(prevIndex => {
+    if (infinite) {
+      if (prevIndex === 0) {
+        return images.length - frameSize;
+      }
+
+      return Math.max(prevIndex - step, 0);
+    }
+
+    return Math.max(prevIndex - step, 0);
+  });
+
+  // infinite
+  //   ? (prevIndex - step + images.length) % images.length
+  //   : Math.max(prevIndex - step, 0)
 
   return (
     <div className="Carousel">
       <ul className="Carousel__list">
         {images.map((img) => (
-          <li style={{
-            transform: `translateX(${-currentIndex * itemWidth}px)`,
-            transition: `${animationDuration}ms all ease`,
-          }}
+          <li
+            key={img}
+            style={{
+              transform: `translateX(${-currentIndex * itemWidth}px)`,
+              transition: `${animationDuration}ms all ease`,
+            }}
           >
             <img
               src={img}

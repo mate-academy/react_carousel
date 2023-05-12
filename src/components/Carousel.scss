@@ -1,3 +1,6 @@
+$btn_bg: #555;
+$btn_border: #fff;
+
 .Carousel {
   &__list {
     padding: 0;
@@ -12,8 +15,8 @@
   }
 
   &__btn {
-    background-color: white;
-    border: 2px solid #555;
+    background-color: $btn_border;
+    border: 2px solid $btn_bg;
     color: black;
     padding: 8px 22px;
     text-align: center;
@@ -26,8 +29,8 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #555;
-      color: white;
+      background-color: $btn_bg;
+      color: $btn_border;
     }
   }
 }
