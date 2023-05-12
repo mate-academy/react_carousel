@@ -22,7 +22,7 @@ const Carousel: React.FC<Props> = ({
 
   const next = () => setCurrentIndex(prev => {
     if (infinite) {
-      if (prev + step >= images.length) {
+      if (prev === (images.length - frameSize)) {
         return 0;
       }
 
@@ -43,10 +43,6 @@ const Carousel: React.FC<Props> = ({
 
     return Math.max(prevIndex - step, 0);
   });
-
-  // infinite
-  //   ? (prevIndex - step + images.length) % images.length
-  //   : Math.max(prevIndex - step, 0)
 
   return (
     <div className="Carousel">
