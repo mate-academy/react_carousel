@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { Component } from 'react';
 import './Carousel.scss';
 
@@ -127,17 +126,14 @@ class Carousel extends Component<Props, State> {
 
     const transform = `translate(-${scrollWidth}px, 0)`;
 
-    const nextIsDisabled = scrollWidth === this.getMaxScrollWidth();
-
-    const disabledPrev
-    = classNames({
-      'Carousel__button--disabled': scrollWidth === 0 && !infinite,
-    });
+    const disabledPrev = scrollWidth === 0 && !infinite
+      ? 'Carousel__button--disabled'
+      : '';
 
     const disabledNext
-    = classNames({
-      'Carousel__button--disabled': nextIsDisabled && !infinite,
-    });
+    = scrollWidth === this.getMaxScrollWidth() && !infinite
+      ? 'Carousel__button--disabled'
+      : '';
 
     return (
       <div
