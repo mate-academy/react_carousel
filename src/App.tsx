@@ -32,6 +32,16 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const property = e.target.name;
+    const value = +e.target.value;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [property]: value,
+    }));
+  };
+
   render() {
     const {
       images,
@@ -44,7 +54,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1
           className="title"
           data-cy="title"
@@ -60,6 +69,56 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
           infinite={infinite}
         />
+
+        <form action="" className="inputs">
+          <label htmlFor="itemId">
+            Item width:
+          </label>
+          <input
+            type="number"
+            name="itemWidth"
+            id="itemId"
+            value={itemWidth}
+            onChange={this.handleChange}
+            min="0"
+          />
+
+          <label htmlFor="frameId">
+            Frame size:
+          </label>
+          <input
+            type="number"
+            name="frameSize"
+            id="frameId"
+            value={frameSize}
+            onChange={this.handleChange}
+            min="0"
+          />
+
+          <label htmlFor="stepId">
+            Step:
+          </label>
+          <input
+            type="number"
+            name="step"
+            id="stepId"
+            value={step}
+            onChange={this.handleChange}
+            min="0"
+          />
+
+          <label htmlFor="animationDuration">
+            Animation duration:
+          </label>
+          <input
+            type="number"
+            name="animationDuration"
+            id="animationDuration"
+            value={animationDuration}
+            onChange={this.handleChange}
+            min="0"
+          />
+        </form>
       </div>
     );
   }

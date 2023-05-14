@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-prop-types */
+import classNames from 'classnames';
 import { Component } from 'react';
 import './Carousel.scss';
 
@@ -11,49 +11,171 @@ type Props = {
   infinite: boolean;
 };
 
-class Carousel extends Component<Props, {}> {
-  scrollWidth = 0;
+interface State {
+  scrollWidth: number;
+}
 
-  nextSlideHandler = () => {
-    const carouselList
-      = document.querySelector('.Carousel__list') as HTMLUListElement;
-
-    if (this.scrollWidth < this.props.itemWidth * 10) {
-      this.scrollWidth += this.props.itemWidth * 2;
-    }
-
-    carouselList.style.transform = `translate(-${this.scrollWidth}px, 0)`;
+class Carousel extends Component<Props, State> {
+  state = {
+    scrollWidth: 0,
   };
 
-  prevSlideHandler = () => {
+  gap = 10;
 
+  gapWidth = this.gap * (this.props.images.length - 1);
+
+  handleSlide = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const buttonType = e.currentTarget.innerHTML;
+
+    const {
+      itemWidth,
+      step,
+      infinite,
+    } = this.props;
+
+    const scrollStep = step * itemWidth + (step - 1) * this.gap;
+
+    const maxScrollWidth = this.getMaxScrollWidth();
+
+    if (buttonType === 'Next') {
+      this.nextSlideHandler(scrollStep, maxScrollWidth, infinite);
+    }
+
+    if (buttonType === 'Prev') {
+      this.prevSlideHandler(scrollStep, maxScrollWidth, infinite);
+    }
+  };
+
+  nextSlideHandler = (
+    scrollStep: number,
+    maxScrollWidth: number,
+    infinite: boolean,
+  ) => {
+    const { scrollWidth } = this.state;
+
+    if ((scrollWidth + scrollStep < maxScrollWidth)) {
+      this.setState((prevState) => ({
+        scrollWidth: prevState.scrollWidth + scrollStep + this.gap,
+      }));
+    } else {
+      if (infinite && scrollWidth === maxScrollWidth) {
+        this.setState({ scrollWidth: 0 });
+
+        return;
+      }
+
+      this.setState({ scrollWidth: maxScrollWidth });
+    }
+  };
+
+  prevSlideHandler = (
+    scrollStep: number,
+    maxScrollWidth: number,
+    infinite: boolean,
+  ) => {
+    const { scrollWidth } = this.state;
+
+    if (scrollWidth - scrollStep > 0) {
+      this.setState((prevState) => ({
+        scrollWidth: prevState.scrollWidth - scrollStep - this.gap,
+      }));
+    } else {
+      if (infinite && scrollWidth === 0) {
+        this.setState({ scrollWidth: maxScrollWidth });
+
+        return;
+      }
+
+      this.setState({ scrollWidth: 0 });
+    }
+  };
+
+  getMaxScrollWidth = () => {
+    const {
+      images,
+      itemWidth,
+      frameSize,
+    } = this.props;
+
+    const carouselWidth = images.length * itemWidth + this.gapWidth;
+
+    const frameWidth = itemWidth * frameSize + (frameSize - 1) * this.gap;
+
+    return carouselWidth - frameWidth;
   };
 
   render() {
-    const { images } = this.props;
+    const {
+      images,
+      itemWidth,
+      animationDuration,
+      infinite,
+      frameSize,
+    } = this.props;
+
+    const { scrollWidth } = this.state;
+
+    const carouselWidth = images.length * itemWidth + this.gapWidth;
+
+    const frameGap = frameSize - 1 < 0
+      ? 0
+      : (frameSize - 1) * this.gap;
+
+    const frameWidth = itemWidth * frameSize + frameGap;
+
+    const transition = `transform ${animationDuration / 1000}s ease`;
+
+    const transform = `translate(-${scrollWidth}px, 0)`;
+
+    const nextIsDisabled = scrollWidth === this.getMaxScrollWidth();
+
+    const disabledPrev
+    = classNames({
+      'Carousel__button--disabled': scrollWidth === 0 && !infinite,
+    });
+
+    const disabledNext
+    = classNames({
+      'Carousel__button--disabled': nextIsDisabled && !infinite,
+    });
 
     return (
-      <div className="Carousel">
-        <ul className="Carousel__list">
+      <div
+        className="Carousel"
+        style={{ width: frameWidth }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transition,
+            width: carouselWidth,
+            gap: this.gap,
+            transform,
+          }}
+        >
           {images.map((image, i) => (
             <li key={image}>
-              <img src={image} alt={`${i + 1}`} />
+              <img
+                src={image}
+                alt={`${i + 1}`}
+                width={itemWidth}
+              />
             </li>
           ))}
         </ul>
 
         <button
           type="button"
-          className="Carousel__button Carousel__button--prev"
-          onClick={this.prevSlideHandler}
+          className={`Carousel__button Carousel__button--prev ${disabledPrev}`}
+          onClick={this.handleSlide}
         >
           Prev
         </button>
         <button
           type="button"
           data-cy="next"
-          className="Carousel__button Carousel__button--next"
-          onClick={this.nextSlideHandler}
+          className={`Carousel__button Carousel__button--next ${disabledNext}`}
+          onClick={this.handleSlide}
         >
           Next
         </button>
