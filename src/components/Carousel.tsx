@@ -11,96 +11,82 @@ type Props = {
 };
 
 interface State {
-  scrollWidth: number;
+  gap: number;
+  imagesScrolled: number;
 }
 
 class Carousel extends Component<Props, State> {
   state = {
-    scrollWidth: 0,
+    gap: 10,
+    imagesScrolled: 0,
   };
-
-  gap = 10;
-
-  gapWidth = this.gap * (this.props.images.length - 1);
 
   handleSlide = (e: React.MouseEvent<HTMLButtonElement>) => {
     const buttonType = e.currentTarget.innerHTML;
 
+    const { imagesScrolled } = this.state;
     const {
-      itemWidth,
+      images,
       step,
+      frameSize,
       infinite,
     } = this.props;
 
-    const scrollStep = step * itemWidth + (step - 1) * this.gap;
-
-    const maxScrollWidth = this.getMaxScrollWidth();
-
     if (buttonType === 'Next') {
-      this.nextSlideHandler(scrollStep, maxScrollWidth, infinite);
+      this.nextSlideHandler(
+        images,
+        step,
+        frameSize,
+        infinite,
+        imagesScrolled,
+      );
     }
 
     if (buttonType === 'Prev') {
-      this.prevSlideHandler(scrollStep, maxScrollWidth, infinite);
+      this.prevSlideHandler(
+        images,
+        step,
+        frameSize,
+        infinite,
+        imagesScrolled,
+      );
     }
   };
 
   nextSlideHandler = (
-    scrollStep: number,
-    maxScrollWidth: number,
+    images: string[],
+    step: number,
+    frameSize: number,
     infinite: boolean,
+    imagesScrolled: number,
   ) => {
-    const { scrollWidth } = this.state;
-
-    if ((scrollWidth + scrollStep < maxScrollWidth)) {
-      this.setState((prevState) => ({
-        scrollWidth: prevState.scrollWidth + scrollStep + this.gap,
+    if (imagesScrolled + step < images.length - frameSize) {
+      this.setState(prevState => ({
+        imagesScrolled: prevState.imagesScrolled + step,
       }));
+    } else if (infinite && imagesScrolled === images.length - frameSize) {
+      this.setState({ imagesScrolled: 0 });
     } else {
-      if (infinite && scrollWidth === maxScrollWidth) {
-        this.setState({ scrollWidth: 0 });
-
-        return;
-      }
-
-      this.setState({ scrollWidth: maxScrollWidth });
+      this.setState({ imagesScrolled: images.length - frameSize });
     }
   };
 
   prevSlideHandler = (
-    scrollStep: number,
-    maxScrollWidth: number,
+    images: string[],
+    step: number,
+    frameSize: number,
     infinite: boolean,
+    imagesScrolled: number,
   ) => {
-    const { scrollWidth } = this.state;
-
-    if (scrollWidth - scrollStep > 0) {
-      this.setState((prevState) => ({
-        scrollWidth: prevState.scrollWidth - scrollStep - this.gap,
+    if (imagesScrolled - step > 0) {
+      this.setState(prevState => ({
+        imagesScrolled: prevState.imagesScrolled - step,
       }));
+    } else if (infinite && imagesScrolled === 0) {
+      this.setState({ imagesScrolled: images.length - frameSize });
     } else {
-      if (infinite && scrollWidth === 0) {
-        this.setState({ scrollWidth: maxScrollWidth });
-
-        return;
-      }
-
-      this.setState({ scrollWidth: 0 });
+      this.setState({ imagesScrolled: 0 });
     }
-  };
-
-  getMaxScrollWidth = () => {
-    const {
-      images,
-      itemWidth,
-      frameSize,
-    } = this.props;
-
-    const carouselWidth = images.length * itemWidth + this.gapWidth;
-
-    const frameWidth = itemWidth * frameSize + (frameSize - 1) * this.gap;
-
-    return carouselWidth - frameWidth;
   };
 
   render() {
@@ -112,26 +98,28 @@ class Carousel extends Component<Props, State> {
       frameSize,
     } = this.props;
 
-    const { scrollWidth } = this.state;
+    const { gap, imagesScrolled } = this.state;
 
-    const carouselWidth = images.length * itemWidth + this.gapWidth;
+    const carouselWidth = images.length * itemWidth + gap * (images.length - 1);
 
     const frameGap = frameSize - 1 < 0
       ? 0
-      : (frameSize - 1) * this.gap;
+      : (frameSize - 1) * gap;
 
     const frameWidth = itemWidth * frameSize + frameGap;
 
     const transition = `transform ${animationDuration / 1000}s ease`;
 
-    const transform = `translate(-${scrollWidth}px, 0)`;
+    const scrolledWidth = imagesScrolled * itemWidth + imagesScrolled * gap;
 
-    const disabledPrev = scrollWidth === 0 && !infinite
+    const transform = `translate(-${scrolledWidth}px, 0)`;
+
+    const disabledPrev = imagesScrolled === 0 && !infinite
       ? 'Carousel__button--disabled'
       : '';
 
     const disabledNext
-    = scrollWidth === this.getMaxScrollWidth() && !infinite
+    = imagesScrolled === images.length - frameSize && !infinite
       ? 'Carousel__button--disabled'
       : '';
 
@@ -145,7 +133,7 @@ class Carousel extends Component<Props, State> {
           style={{
             transition,
             width: carouselWidth,
-            gap: this.gap,
+            gap,
             transform,
           }}
         >
