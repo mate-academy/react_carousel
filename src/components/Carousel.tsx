@@ -65,12 +65,6 @@ class Carousel extends React.Component<CarouselProps, State> {
 
     const { position } = this.state;
 
-    const imageStyle = {
-      width: itemWidth,
-      transition: `transform ${animationDuration}ms`,
-      transform: `translateX(-${position}px)`,
-    };
-
     return (
       <div className="Carousel">
         <ul className="Carousel__list" style={{ width: itemWidth * frameSize }}>
@@ -78,11 +72,15 @@ class Carousel extends React.Component<CarouselProps, State> {
             return (
               <li
                 key={image}
+                style={{
+                  transition: `transform ${animationDuration}ms`,
+                  transform: `translateX(-${position}px)`,
+                }}
               >
                 <img
                   src={image}
                   alt={image}
-                  style={imageStyle}
+                  width={itemWidth}
                   className="Carousel__picture"
                 />
               </li>
