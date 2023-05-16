@@ -78,9 +78,16 @@ class Carousel extends React.Component<Props, State> {
         style={{
           transition: `transform ${animationDuration}ms`,
           transform: `translateX(${position}px)`,
+          width: `${itemWidth}px`,
+          height: `${itemWidth}px`,
         }}
       >
-        <img src={image} alt={String(index)} width={itemWidth} />
+        <img
+          src={image}
+          alt={String(index)}
+          width={itemWidth}
+          height={itemWidth}
+        />
       </li>
     ));
 
@@ -89,7 +96,7 @@ class Carousel extends React.Component<Props, State> {
         <ul
           className="Carousel__list"
           style={{
-            width: `${frameSize * itemWidth}px`,
+            width: `${frameSize * itemWidth - 1}px`,
           }}
         >
           {imageElements}
