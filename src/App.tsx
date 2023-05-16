@@ -89,6 +89,7 @@ class App extends React.Component<{}, State> {
               onChange={this.hadleChangeSteps}
               type="number"
               id="stepId"
+              name="step"
               value={step}
             />
           </label>
@@ -103,6 +104,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChangeFrameSize}
               type="number"
               id="frameId"
+              name="frame"
               value={frameSize}
             />
           </label>
@@ -117,6 +119,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChangeItemWidth}
               type="number"
               id="itemId"
+              name="item"
               value={itemWidth}
             />
           </label>
@@ -131,6 +134,7 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChangeAnimationDuration}
               type="number"
               id="animationId"
+              name="animation"
               value={animationDuration / 1000}
             />
           </label>
@@ -144,6 +148,7 @@ class App extends React.Component<{}, State> {
               className="containerOfInputs__input"
               onChange={this.handleChangeInfinite}
               type="checkbox"
+              name="infinite"
               id="infiniteId"
             />
 
