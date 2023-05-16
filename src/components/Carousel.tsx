@@ -11,13 +11,11 @@ type Props = {
 };
 
 interface State {
-  gap: number;
   imagesScrolled: number;
 }
 
 class Carousel extends Component<Props, State> {
   state = {
-    gap: 10,
     imagesScrolled: 0,
   };
 
@@ -98,7 +96,9 @@ class Carousel extends Component<Props, State> {
       frameSize,
     } = this.props;
 
-    const { gap, imagesScrolled } = this.state;
+    const { imagesScrolled } = this.state;
+
+    const gap = 10;
 
     const carouselWidth = images.length * itemWidth + gap * (images.length - 1);
 
