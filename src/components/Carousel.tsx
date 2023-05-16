@@ -64,10 +64,11 @@ class Carousel extends React.Component<CarouselProps, State> {
     } = this.props;
 
     const { position } = this.state;
+    const frame = itemWidth * frameSize;
 
     return (
       <div className="Carousel">
-        <ul className="Carousel__list" style={{ width: `${itemWidth * frameSize}` }}>
+        <ul className="Carousel__list" style={{ width: `${frame}` }}>
           {images.map(image => {
             return (
               <li
