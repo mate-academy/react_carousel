@@ -29,9 +29,9 @@
     &:hover {
       background-color: #0fb;
     }
-    
-    &:hover.deactivated {
-      background-color: #99b999;
-    }
+  }
+
+  &__button--deactivated:hover {
+    background-color: #99b999;
   }
 }

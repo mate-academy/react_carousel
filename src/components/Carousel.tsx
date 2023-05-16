@@ -46,6 +46,9 @@ export class Carousel extends React.Component<Props, State> {
 
     if (countMove < 0) {
       countMove = 0;
+      if (infinite) {
+        countMove = maxTransform;
+      }
     }
 
     this.setState({ position: countMove });
@@ -92,8 +95,8 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="buttons">
           <button
-            className={(!position && !infinite)
-              ? 'buttons__button deactivated'
+            className={(position && !infinite)
+              ? 'buttons__button buttons__button--deactivated'
               : 'buttons__button'}
             type="button"
             onClick={() => this.next(false)}
@@ -102,7 +105,7 @@ export class Carousel extends React.Component<Props, State> {
           </button>
           <button
             className={(position === maxTransf && !infinite)
-              ? 'buttons__button deactivated'
+              ? 'buttons__button buttons__button--deactivated'
               : 'buttons__button'}
             data-cy="next"
             type="button"

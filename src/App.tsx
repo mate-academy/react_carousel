@@ -91,7 +91,9 @@ class App extends React.Component<{}, State> {
             max={images.length}
           />
 
-          <label className="label" htmlFor="frameSizeName">FrameSize:</label>
+          <label className="label" htmlFor="frameSizeName">
+            Frame Size:
+          </label>
           <input
             type="number"
             id="size_id"
@@ -102,7 +104,9 @@ class App extends React.Component<{}, State> {
             max={images.length}
           />
 
-          <label className="label" htmlFor="itemWidthName">Width:</label>
+          <label className="label" htmlFor="itemWidthName">
+            Width:
+          </label>
           <input
             type="number"
             id="width_id"
@@ -112,7 +116,9 @@ class App extends React.Component<{}, State> {
             min="130"
           />
 
-          <label className="label" htmlFor="animationName">Animation:</label>
+          <label className="label" htmlFor="animationName">
+            Animation duration:
+          </label>
           <input
             type="number"
             id="animation_id"
@@ -122,6 +128,9 @@ class App extends React.Component<{}, State> {
             min="1000"
           />
 
+          <label className="label" htmlFor="infiniteName">
+            Endlessly
+          </label>
           <input
             type="checkbox"
             id="infinite_id"
