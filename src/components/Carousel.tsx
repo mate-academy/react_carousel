@@ -82,12 +82,12 @@ class Carousel extends React.Component<CarouselProps, State> {
             return (
               <li
                 key={image}
-                style={{ width: `${itemWidth}` }}
               >
                 <img
                   src={image}
                   alt={image}
-                  style={{ width: `${itemWidth}`, visibility: visibile ? 'visible' : 'hidden' }}
+                  style={{ visibility: visibile ? 'visible' : 'hidden' }}
+                  width={itemWidth}
                 />
               </li>
             );
