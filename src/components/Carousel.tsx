@@ -67,22 +67,27 @@ class Carousel extends React.Component<CarouselProps, State> {
     const frame = itemWidth * frameSize;
 
     return (
-      <div className="Carousel">
-        <ul className="Carousel__list" style={{ width: `${frame}` }}>
-          {images.map(image => {
+      <div className="Carousel" style={{ width: `${frame}`, overflow: 'hidden' }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            transition: `transform ${animationDuration}ms`,
+            transform: `translateX(-${position}px)`,
+          }}
+        >
+          {images.map((image, index) => {
+            const visibile = (index + 1) * itemWidth > position && (index + 1)
+              * itemWidth <= position + frameSize * itemWidth;
+
             return (
               <li
                 key={image}
-                style={{
-                  transition: `transform ${animationDuration}ms`,
-                  transform: `translateX(-${position}px)`,
-                  width: `${itemWidth}`,
-                }}
+
               >
                 <img
                   src={image}
                   alt={image}
-                  width={itemWidth}
+                  style={{ width: `${itemWidth}`, visibility: visibile ? 'visible' : 'hidden' }}
                 />
               </li>
             );
