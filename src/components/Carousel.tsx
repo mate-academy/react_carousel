@@ -67,12 +67,13 @@ class Carousel extends React.Component<CarouselProps, State> {
     const frame = itemWidth * frameSize;
 
     return (
-      <div className="Carousel" style={{ width: `${frame}`, overflow: 'hidden' }}>
+      <div className="Carousel" style={{ overflow: 'hidden' }}>
         <ul
-          className="Carousel__list"
+          className="Carousel__list "
           style={{
             transition: `transform ${animationDuration}ms`,
             transform: `translateX(-${position}px)`,
+            width: `${frame}`,
           }}
         >
           {images.map((image, index) => {
@@ -82,6 +83,7 @@ class Carousel extends React.Component<CarouselProps, State> {
             return (
               <li
                 key={image}
+                style={{ width: `${itemWidth}` }}
               >
                 <img
                   src={image}
