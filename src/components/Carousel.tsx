@@ -36,11 +36,14 @@ export class Carousel extends React.Component<Props, State> {
       : position - step * itemWidth;
 
     if (countMove >= maxTransform) {
-      countMove = maxTransform;
-      if (infinite) {
-        if (maxTransform !== 0) {
-          countMove = 0;
-        }
+      if ((infinite) && (step * itemWidth < maxTransform)) {
+        countMove = 0;
+      } else {
+        countMove = maxTransform;
+      }
+
+      if (!infinite) {
+        countMove = maxTransform;
       }
     }
 
@@ -95,7 +98,7 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="buttons">
           <button
-            className={(position && !infinite)
+            className={(position <= 0 && !infinite)
               ? 'buttons__button buttons__button--deactivated'
               : 'buttons__button'}
             type="button"

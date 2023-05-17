@@ -64,11 +64,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 data-cy="title">
-          {'Carousel with '}
-          {images.length}
-          {' images'}
-        </h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
         <Carousel
           images={images}
@@ -84,11 +80,11 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="step_id"
-            className="step__input"
+            className="input"
             defaultValue={step}
             onChange={this.stepSet}
             min="1"
-            max={images.length}
+            max={images.length - 4}
           />
 
           <label className="label" htmlFor="frameSizeName">
@@ -97,7 +93,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="size_id"
-            className="size__input"
+            className="input"
             defaultValue={frameSize}
             onChange={this.frameSizeSet}
             min="1"
@@ -110,7 +106,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="width_id"
-            className="width__input"
+            className="input"
             defaultValue={itemWidth}
             onChange={this.itemWidthSet}
             min="130"
@@ -122,7 +118,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="animation_id"
-            className="animation__input"
+            className="input"
             defaultValue={animationDuration}
             onChange={this.animationDurationSet}
             min="1000"
@@ -134,7 +130,7 @@ class App extends React.Component<{}, State> {
           <input
             type="checkbox"
             id="infinite_id"
-            className="infinite__input"
+            className="input"
             onChange={this.infiniteSet}
           />
         </form>
