@@ -82,7 +82,7 @@ class Carousel extends React.Component<CarouselProps, State> {
             return (
               <li
                 key={image}
-
+                style={{ width: `${itemWidth}` }}
               >
                 <img
                   src={image}
