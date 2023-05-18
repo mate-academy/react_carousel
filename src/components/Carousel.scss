@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    list-style: none;
+    padding: 20px 0;
+    border: 5px solid #bb0;
+    border-radius: 20px;
+  }
+}
+
+.buttons {
+  display: flex;
+  padding: 20px 0 40px;
+  gap: 20px;
+   
+  &__button {
+    background-color: #bb0;
+    padding: 10px 25px;
+    margin: 0 50px;
+    border-radius: 30px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: medium;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0fb;
+    }
+  }
+
+  &__button--deactivated:hover {
+    background-color: #99b999;
+    cursor: default;
+  }
+}

@@ -1,1 +1,27 @@
-// style go here
+.body {
+  margin: 40px;
+  background-color: #0fb;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  background-color: #0bbb;
+  font-family: "Courier New", Courier, monospace;
+  font-size: medium;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 20px 20px 50px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  align-items: center;
+
+  .label {
+    padding: 10px;
+  }
+
+  .input {
+    cursor: pointer;
+  }
+}

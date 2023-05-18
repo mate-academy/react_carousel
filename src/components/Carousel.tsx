@@ -1,18 +1,117 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean,
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  position: number;
+};
 
-export default Carousel;
+export class Carousel extends React.Component<Props, State> {
+  state = {
+    position: 0,
+  };
+
+  next = (move: boolean): void => {
+    const {
+      images,
+      step,
+      frameSize,
+      infinite,
+    } = this.props;
+    const { position } = this.state;
+
+    const maxTransform = (images.length - frameSize);
+
+    let countMove = move
+      ? position + step
+      : position - step;
+
+    if (countMove >= maxTransform) {
+      if (infinite) {
+        countMove = 0;
+      }
+
+      if (!infinite) {
+        countMove = maxTransform;
+      }
+    }
+
+    if (countMove < 0) {
+      countMove = 0;
+      if (infinite) {
+        countMove = maxTransform;
+      }
+    }
+
+    this.setState({ position: countMove });
+  };
+
+  render() {
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.props;
+
+    const { position } = this.state;
+
+    const maxTransf = (images.length - frameSize) * itemWidth;
+
+    return (
+      <>
+        <div
+          className="Carousel"
+          style={{ width: `${frameSize * itemWidth}px` }}
+        >
+          <ul className="Carousel__list">
+            {images.map((image, index) => (
+              <li key={image}>
+                <img
+                  src={image}
+                  style={{
+                    width: `${itemWidth}px`,
+                    transform: `translateX(${-position * itemWidth}px)`,
+                    transition: `${animationDuration}ms`,
+                  }}
+                  alt={index.toString()}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="buttons">
+          <button
+            className={(position <= 0 && !infinite)
+              ? 'buttons__button buttons__button--deactivated'
+              : 'buttons__button'}
+            type="button"
+            onClick={() => this.next(false)}
+          >
+            &#10232; Prev
+          </button>
+          <button
+            className={(position * itemWidth === maxTransf && !infinite)
+              ? 'buttons__button buttons__button--deactivated'
+              : 'buttons__button'}
+            data-cy="next"
+            type="button"
+            onClick={() => this.next(true)}
+          >
+            Next &#10233;
+          </button>
+        </div>
+      </>
+    );
+  }
+}
