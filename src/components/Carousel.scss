@@ -6,12 +6,13 @@
 
 .box {
   overflow: hidden;
-  // width: 420px;
-  margin-left: 200px;
+  margin-left: 100px;
 }
-// .move {
 
-//   animation-name: transform;
-//   animation-duration: 1s;
-//   transform: translateX(0px);
-// }
+ul {
+  padding: 0;
+}
+
+li {
+  all: unset;
+}
