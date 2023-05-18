@@ -32,26 +32,6 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  stepSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +event.currentTarget.value });
-  };
-
-  frameSizeSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +event.currentTarget.value });
-  };
-
-  itemWidthSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.currentTarget.value });
-  };
-
-  animationDurationSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +event.currentTarget.value });
-  };
-
-  infiniteSet = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinite: event.currentTarget.checked });
-  };
-
   render() {
     const {
       images,
@@ -81,8 +61,12 @@ class App extends React.Component<{}, State> {
             type="number"
             id="step_id"
             className="input"
-            defaultValue={step}
-            onChange={this.stepSet}
+            value={step}
+            onChange={(event) => {
+              this.setState({
+                step: +event.target.value,
+              });
+            }}
             min="1"
             max={images.length - 4}
           />
@@ -94,8 +78,12 @@ class App extends React.Component<{}, State> {
             type="number"
             id="size_id"
             className="input"
-            defaultValue={frameSize}
-            onChange={this.frameSizeSet}
+            value={frameSize}
+            onChange={(event) => {
+              this.setState({
+                frameSize: +event.target.value,
+              });
+            }}
             min="1"
             max={images.length}
           />
@@ -107,9 +95,15 @@ class App extends React.Component<{}, State> {
             type="number"
             id="width_id"
             className="input"
-            defaultValue={itemWidth}
-            onChange={this.itemWidthSet}
-            min="130"
+            value={itemWidth}
+            onChange={(event) => {
+              this.setState({
+                itemWidth: +event.target.value,
+              });
+            }}
+            min="50"
+            step="10"
+            max="450"
           />
 
           <label className="label" htmlFor="animationName">
@@ -119,8 +113,12 @@ class App extends React.Component<{}, State> {
             type="number"
             id="animation_id"
             className="input"
-            defaultValue={animationDuration}
-            onChange={this.animationDurationSet}
+            value={animationDuration}
+            onChange={(event) => {
+              this.setState({
+                animationDuration: +event.target.value,
+              });
+            }}
             min="1000"
           />
 
@@ -131,7 +129,11 @@ class App extends React.Component<{}, State> {
             type="checkbox"
             id="infinite_id"
             className="input"
-            onChange={this.infiniteSet}
+            onChange={(event) => {
+              this.setState({
+                infinite: event.target.checked,
+              });
+            }}
           />
         </form>
       </div>

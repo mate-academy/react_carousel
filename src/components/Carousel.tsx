@@ -24,22 +24,19 @@ export class Carousel extends React.Component<Props, State> {
       images,
       step,
       frameSize,
-      itemWidth,
       infinite,
     } = this.props;
     const { position } = this.state;
 
-    const maxTransform = (images.length - frameSize) * itemWidth;
+    const maxTransform = (images.length - frameSize);
 
     let countMove = move
-      ? position + step * itemWidth
-      : position - step * itemWidth;
+      ? position + step
+      : position - step;
 
     if (countMove >= maxTransform) {
-      if ((infinite) && (step * itemWidth < maxTransform)) {
+      if (infinite) {
         countMove = 0;
-      } else {
-        countMove = maxTransform;
       }
 
       if (!infinite) {
@@ -68,16 +65,13 @@ export class Carousel extends React.Component<Props, State> {
 
     const { position } = this.state;
 
-    const size = frameSize * itemWidth;
     const maxTransf = (images.length - frameSize) * itemWidth;
 
     return (
       <>
         <div
           className="Carousel"
-          style={{
-            width: `${size}px`,
-          }}
+          style={{ width: `${frameSize * itemWidth}px` }}
         >
           <ul className="Carousel__list">
             {images.map((image, index) => (
@@ -86,7 +80,7 @@ export class Carousel extends React.Component<Props, State> {
                   src={image}
                   style={{
                     width: `${itemWidth}px`,
-                    transform: `translateX(${-position}px)`,
+                    transform: `translateX(${-position * itemWidth}px)`,
                     transition: `${animationDuration}ms`,
                   }}
                   alt={index.toString()}
@@ -107,7 +101,7 @@ export class Carousel extends React.Component<Props, State> {
             &#10232; Prev
           </button>
           <button
-            className={(position === maxTransf && !infinite)
+            className={(position * itemWidth === maxTransf && !infinite)
               ? 'buttons__button buttons__button--deactivated'
               : 'buttons__button'}
             data-cy="next"
