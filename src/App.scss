@@ -1,1 +1,23 @@
 // style go here
+.inputs {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+}
+
+label {
+  padding-bottom: 10px;
+}
+
+p {
+  padding-left: 10px;
+  display: inline;
+}
+
+input {
+  width: 40px;
+}
+
+.main {
+  display: flex;
+}
