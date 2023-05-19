@@ -29,34 +29,35 @@ export class Carousel extends Component<Props, State> {
       images,
     } = this.props;
 
-  const maxPosition = -(images.length - frameSize);
+    const maxPosition = -(images.length - frameSize);
 
-  this.setState({
-    position: position - step > maxPosition ? position - step : maxPosition,
-  });
-  
-  if (position === maxPosition && infinite) {
     this.setState({
-      position: 0,
+      position: position - step > maxPosition ? position - step : maxPosition,
     });
+
+    if (position === maxPosition && infinite) {
+      this.setState({
+        position: 0,
+      });
+    }
   };
-}
+
   slideLeft = () => {
     const { position } = this.state;
-  
+
     const {
-      step, 
-      frameSize, 
-      images, 
+      step,
+      frameSize,
+      images,
       infinite,
     } = this.props;
-  
+
     const minPosition = (images.length - frameSize);
-  
+
     this.setState({
       position: position + step < 0 ? position + step : 0,
     });
-  
+
     if (position === 0 && infinite) {
       this.setState({
         position: -minPosition,
@@ -76,7 +77,7 @@ export class Carousel extends Component<Props, State> {
     const { position } = this.state;
 
     const maxPosition = -(images.length - frameSize);
-    const leftDisabled = position === 0 && !infinite;
+    const leftDisabled = !position && !infinite;
     const righttDisabled = position === maxPosition && !infinite;
 
     return (

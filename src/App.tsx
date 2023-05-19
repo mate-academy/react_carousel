@@ -17,7 +17,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false, 
+    infinite: false,
   };
 
   changeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ class App extends React.Component<{}, State> {
       ...state,
       [event.target.name]: +event.target.value,
     }));
-  }
+  };
 
   render() {
     const {
@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
       itemWidth,
       animationDuration,
       infinite,
-    } = this.state
+    } = this.state;
 
     return (
       <div className="App">
@@ -47,7 +47,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={infinite} 
+          infinite={infinite}
         />
 
         <form className="App__form">
