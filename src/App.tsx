@@ -68,28 +68,28 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
         <div className="inputsContainer">
-          <label htmlFor="itemWidthInput">
+          <label htmlFor="itemId">
             Item Width:
             <input
-              id="itemWidthInput"
+              id="itemId"
               type="number"
               value={itemWidth}
               onChange={this.handleChangeItemWidth}
             />
           </label>
-          <label htmlFor="frameSizeInput">
+          <label htmlFor="frameId">
             Frame Size:
             <input
-              id="frameSizeInput"
+              id="frameId"
               type="number"
               value={frameSize}
               onChange={this.handleChangeFrameSize}
             />
           </label>
-          <label htmlFor="stepInput">
+          <label htmlFor="stepId">
             Step:
             <input
-              id="stepInput"
+              id="stepId"
               type="number"
               value={step}
               onChange={this.handleChangeStep}

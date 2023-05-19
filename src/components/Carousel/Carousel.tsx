@@ -53,27 +53,39 @@ export class Carousel extends React.Component <CarouselProps, CarouselState> {
       animationDuration,
     } = this.props;
 
-    const currentPositionStyles = {
-      width: itemWidth,
-      transition: `transform ${animationDuration}ms`,
-      transform: `translateX(-${this.state.position}px)`,
-    };
-
     return (
-      <div className="Carousel" style={{ width: frameSize * itemWidth }}>
-        <ul className="Carousel__list">
-          {images.map((image: string) => {
-            return (
-              <li key={image} className="Carousel__list-item">
-                <img
-                  src={image}
-                  alt={image}
-                  style={currentPositionStyles}
-                />
-              </li>
-            );
-          })}
-        </ul>
+      <>
+        <div className="Carousel">
+          <ul
+            className="Carousel__list"
+            style={{ width: `${frameSize * itemWidth - 1}px` }}
+          >
+
+            {images.map((image: string) => {
+              return (
+                <li
+                  key={image}
+                  className="Carousel__list-item"
+                  style={{
+                    width: `${itemWidth}px`,
+                    height: `${itemWidth}px`,
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={image}
+                    width={itemWidth}
+                    height={itemWidth}
+                    style={{
+                      transition: `transform ${animationDuration}ms`,
+                      transform: `translateX(-${this.state.position}px)`,
+                    }}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
         <button type="button" onClick={this.handlePrev}>Prev</button>
         <button
@@ -84,7 +96,7 @@ export class Carousel extends React.Component <CarouselProps, CarouselState> {
           Next
 
         </button>
-      </div>
+      </>
     );
   }
 }

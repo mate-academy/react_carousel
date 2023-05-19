@@ -1,12 +1,8 @@
 .Carousel {
-  width: 390px;
-  overflow: hidden;
-
   &__list {
     display: flex;
     list-style-type: none;
-
     padding: 0;
-
+    overflow: hidden;
   }
 }
