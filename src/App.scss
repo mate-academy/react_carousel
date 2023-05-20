@@ -1,1 +1,22 @@
-// style go here
+.App {
+  text-align: center;
+  background-color: silver;
+}
+
+.field {
+  margin: 30px 0;
+  padding-bottom: 30px;
+  font-weight: 700;
+
+  &__label {
+    margin-right: 15px;
+  }
+
+  &__input {
+    width: 60px;
+  }
+
+  &__name {
+    margin-right: 10px;
+  }
+}
