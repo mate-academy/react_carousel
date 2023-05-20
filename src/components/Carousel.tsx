@@ -7,6 +7,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
+  infinite: boolean,
 };
 
 type State = {
@@ -53,6 +54,7 @@ class Carousel extends React.Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinite,
     } = this.props;
 
     const { currentIndex } = this.state;
@@ -87,6 +89,7 @@ class Carousel extends React.Component<Props, State> {
         <button
           className="button"
           type="button"
+          disabled={currentIndex <= 0 && !infinite}
           onClick={() => {
             this.handleClick(-step);
           }}
@@ -97,6 +100,8 @@ class Carousel extends React.Component<Props, State> {
           className="button"
           type="button"
           data-cy="next"
+          disabled={currentIndex >= images.length - frameSize
+            && !infinite}
           onClick={() => {
             this.handleClick(step);
           }}
