@@ -1,1 +1,13 @@
-// style go here
+* {
+    box-sizing: border-box;
+}
+
+.App {
+    text-align: center;
+    background-color: rgb(255, 204, 255);
+    padding: 10px 20px;
+
+    &__label {
+        margin: 0 20px;
+    }
+}
