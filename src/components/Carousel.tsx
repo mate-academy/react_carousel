@@ -72,7 +72,7 @@ class Carousel extends React.Component<Props, State> {
               className="Carousel__item"
               style={{
                 transform: `translateX(${-currentIndex * itemWidth}px)`,
-                animation: `${animationDuration}ms`,
+                transition: `${animationDuration}ms`,
               }}
             >
               <img
