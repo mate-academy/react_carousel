@@ -64,11 +64,13 @@ class Carousel extends React.Component<Props, State> {
         className="Carousel"
         style={{
           width: `${frameSize * itemWidth}px`,
+          animation: `${animationDuration}ms`,
         }}
       >
         <ul className="Carousel__list">
           {images.map((img, index) => (
             <li
+              key={img}
               className="Carousel__item"
               style={{
                 transform: `translateX(${-currentIndex * itemWidth}px)`,

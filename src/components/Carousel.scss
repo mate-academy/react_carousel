@@ -6,11 +6,9 @@
 .Carousel {
   margin: 0 auto;
   padding: 0;
-  text-align: center;
 
   &__list {
     display: flex;
-    align-items: center;
     margin-top: 60px;
     list-style: none;
     overflow: hidden;
@@ -18,8 +16,9 @@
   }
 
   &__item {
+    display: flex;
+    justify-content: center;
     text-decoration: none;
-    width: 130px;
   }
 }
 
