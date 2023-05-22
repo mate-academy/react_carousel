@@ -1,5 +1,4 @@
 import React from 'react';
-// import './Carousel.scss';
 
 interface State {
   gallery: string[],
@@ -59,7 +58,6 @@ class Gallery extends React.Component<Props, State> {
               >
                 <img
                   src={item}
-                  className="wrapper"
                   key={item.toString()}
                   alt={item.slice(6, 7)}
                   style={{ width: itemWidth }}

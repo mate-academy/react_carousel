@@ -1,3 +1,18 @@
+:root {
+  --from: 1px;
+  --to: 1px;
+}
+
+body {
+  background-image: linear-gradient(
+    to right,
+    #117bb9 10%,
+    #0948a0 45%,
+    #0948a0 55%,
+    #117bb9 90%
+  );
+}
+
 .App {
   display: flex;
   align-items: center;
@@ -5,5 +20,24 @@
 }
 
 h1 {
-  margin: 10px;
+  margin-top: 30px;
+  color: rgb(214, 228, 240);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(var(--from));
+  }
+  to {
+    transform: translateX(var(--to));
+  }
+}
+
+@keyframes nextScroll {
+  from {
+    transform: translateX(var(--from));
+  }
+  to {
+    transform: translateX(var(--to));
+  }
 }

@@ -18,7 +18,7 @@ interface Props {
   step: number;
 }
 
-class Battons extends React.Component<Props, State> {
+class Animation extends React.Component<Props, State> {
   state = {
     animationName: '',
     vector: -1,
@@ -193,4 +193,4 @@ class Battons extends React.Component<Props, State> {
   }
 }
 
-export default Battons;
+export default Animation;

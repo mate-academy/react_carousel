@@ -82,7 +82,7 @@ class Carousel extends React.Component<Props, State> {
         />
 
         <div className="Carousel__check">
-          <label htmlFor="infinite" className="Carousel__check--lable">
+          <label htmlFor="infinite" className="Carousel__check--label">
             Infinite steps
           </label>
           <input
@@ -94,7 +94,7 @@ class Carousel extends React.Component<Props, State> {
             onChange={this.infiniteHandler}
           />
 
-          <label htmlFor="autoInfinite" className="Carousel__check-lable">
+          <label htmlFor="autoInfinite" className="Carousel__check--label">
             Auto-infinite
           </label>
           <input
@@ -107,11 +107,16 @@ class Carousel extends React.Component<Props, State> {
           />
         </div>
         <div className="Carousel__setting">
-          <div className="Carousel__setting--lable">
-            <label htmlFor="step" className="lable">Step:</label>
-            <label htmlFor="itemWidth" className="lable">Withdrow:</label>
-            <label htmlFor="frameSize" className="lable">Fraim size:</label>
-            <label htmlFor="duration" className="lable"> Duration:</label>
+          <div className="Carousel__setting--label">
+            <label
+              htmlFor="step"
+              className={infiniteAuto ? 'disabled' : ''}
+            >
+              Step:
+            </label>
+            <label htmlFor="itemWidth">Image size:</label>
+            <label htmlFor="frameSize">Fraim size:</label>
+            <label htmlFor="duration"> Duration:</label>
           </div>
 
           <div className="Carousel__setting--slider">
