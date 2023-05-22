@@ -1,1 +1,23 @@
-// style go here
+$containerWidth: 1300px;
+
+.carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: $containerWidth;
+  }
+
+  &__item {
+    height: $containerWidth / 10;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}

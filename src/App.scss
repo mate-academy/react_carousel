@@ -1,1 +1,21 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__label {
+    margin: 10px;
+  }
+}
+
+.form :last-child {
+  align-self: flex-start;
+}
