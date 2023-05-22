@@ -15,7 +15,7 @@ interface Props {
 }
 
 export class Carousel extends React.Component<Props, State> {
-  private listRef = createRef<HTMLUListElement>(); // create ref for carousel__list
+  private listRef = createRef<HTMLUListElement>();
 
   state = {
     currentSlide: 0,
@@ -124,7 +124,7 @@ export class Carousel extends React.Component<Props, State> {
               <img
                 src={img}
                 alt="Emojy"
-                style={{ width: itemWidth }}
+                style={{ width: `${itemWidth}px` }}
               />
             </li>
           ))}

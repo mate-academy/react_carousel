@@ -32,15 +32,25 @@ export class App extends Component<{}, State> {
     infinite: false,
   };
 
+  handleChange = (name: string, value: string) => {
+    this.setState((state) => {
+      return { ...state, [name]: value };
+    });
+  };
+
   render() {
     const {
-      images, step, frameSize, itemWidth, animationDuration, infinite,
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
     } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
         <Carousel
           images={images}
@@ -58,11 +68,12 @@ export class App extends Component<{}, State> {
             <input
               type="number"
               id="itemWidth"
+              name="itemWidth"
               defaultValue={130}
               min={130}
-              onChange={(e) => {
-                this.setState({ itemWidth: +e.target.value });
-              }}
+              onChange={(e) => (
+                this.handleChange(e.target.name, e.target.value)
+              )}
             />
           </label>
           <label htmlFor="frameId" className="form__label">
@@ -71,11 +82,12 @@ export class App extends Component<{}, State> {
             <input
               type="number"
               id="frameSize"
+              name="frameSize"
               defaultValue={3}
               min={1}
-              onChange={(e) => {
-                this.setState({ frameSize: +e.target.value });
-              }}
+              onChange={(e) => (
+                this.handleChange(e.target.name, e.target.value)
+              )}
             />
           </label>
           <label htmlFor="stepId" className="form__label">
@@ -84,11 +96,12 @@ export class App extends Component<{}, State> {
             <input
               type="number"
               id="step"
+              name="step"
               defaultValue={3}
               min={1}
-              onChange={(e) => {
-                this.setState({ step: +e.target.value });
-              }}
+              onChange={(e) => (
+                this.handleChange(e.target.name, e.target.value)
+              )}
             />
           </label>
           <label htmlFor="animationDuration" className="form__label">
@@ -97,12 +110,13 @@ export class App extends Component<{}, State> {
             <input
               type="number"
               id="animationDuration"
+              name="animationDuration"
               defaultValue={1000}
               min={0}
               step="1000"
-              onChange={(e) => {
-                this.setState({ animationDuration: +e.target.value });
-              }}
+              onChange={(e) => (
+                this.handleChange(e.target.name, e.target.value)
+              )}
             />
           </label>
           <label htmlFor="infinite" className="form__label">
@@ -111,9 +125,10 @@ export class App extends Component<{}, State> {
             <input
               type="checkbox"
               id="infinite"
-              onClick={(e) => {
-                this.setState({ infinite: e.currentTarget.checked });
-              }}
+              name="infinite"
+              onChange={(e) => (
+                this.handleChange(e.target.name, e.target.value)
+              )}
             />
           </label>
         </form>
