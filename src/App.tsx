@@ -63,7 +63,6 @@ class App extends React.Component<{}, State> {
             itemWidth={itemWidth}
             animationDuration={animationDuration}
             infinite={infinite}
-            key={itemWidth}
           />
         </div>
 
