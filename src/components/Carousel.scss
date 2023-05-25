@@ -1,1 +1,10 @@
-// style go here
+.Carousel__list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.container {
+  overflow: hidden;
+  position: relative;
+}
