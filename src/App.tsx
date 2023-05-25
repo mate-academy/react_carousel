@@ -112,11 +112,9 @@ class App extends React.Component<{}, State> {
               min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
-              onChange={(event) => {
-                this.setState({
-                  itemWidth: +event.target.value,
-                });
-              }}
+              onChange={(event) => (
+                this.stateUpdate(event.target.name, event.target.value)
+              )}
             />
           </label>
 

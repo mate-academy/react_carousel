@@ -11,12 +11,12 @@ type Props = {
 };
 
 type State = {
-  pointer: number,
+  position: number,
 };
 
 class Carousel extends Component<Props, State> {
   state = {
-    pointer: 0,
+    position: 0,
   };
 
   render() {
@@ -29,44 +29,42 @@ class Carousel extends Component<Props, State> {
       infinite,
     } = this.props;
 
-    const { pointer } = this.state;
-    const maxPointer = images.length - step;
-    const minPointer = 0;
-
-    const position = -pointer * itemWidth;
+    const { position } = this.state;
+    const maxPosition = -itemWidth * (images.length - frameSize);
+    const widthStep = step * itemWidth;
 
     const setNextPosition = () => {
-      if (pointer + step > maxPointer) {
+      if (position - widthStep <= maxPosition) {
         this.setState(
-          { pointer: maxPointer },
+          { position: maxPosition },
         );
       } else {
         this.setState(
-          { pointer: pointer + step },
+          { position: position - widthStep },
         );
       }
 
-      if (pointer === maxPointer && infinite === 'true') {
+      if (position === maxPosition && infinite === 'true') {
         this.setState(
-          { pointer: minPointer },
+          { position: 0 },
         );
       }
     };
 
     const setPrevPosition = () => {
-      if (pointer - step < minPointer) {
+      if (position + widthStep > 0) {
         this.setState(
-          { pointer: minPointer },
+          { position: 0 },
         );
       } else {
         this.setState(
-          { pointer: pointer - step },
+          { position: position + widthStep },
         );
       }
 
-      if (pointer === 0 && infinite === 'true') {
+      if (position === 0 && infinite === 'true') {
         this.setState(
-          { pointer: maxPointer },
+          { position: maxPosition },
         );
       }
     };
