@@ -33,9 +33,7 @@ class App extends React.Component<{}, State> {
   };
 
   stateUpdate = (name: string, value: number | string) => {
-    this.setState((state) => {
-      return { ...state, [name]: value };
-    });
+    this.setState({ [name]: value } as Pick<State, keyof State>);
   };
 
   removeNegatives = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -65,6 +63,7 @@ class App extends React.Component<{}, State> {
             itemWidth={itemWidth}
             animationDuration={animationDuration}
             infinite={infinite}
+            key={itemWidth}
           />
         </div>
 
@@ -110,13 +109,15 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               name="itemWidth"
-              defaultValue={itemWidth}
+              value={itemWidth}
               min={0}
               className="form-item"
               onKeyDown={this.removeNegatives}
-              onChange={(event) => (
-                this.stateUpdate(event.target.name, event.target.value)
-              )}
+              onChange={(event) => {
+                this.setState({
+                  itemWidth: +event.target.value,
+                });
+              }}
             />
           </label>
 
