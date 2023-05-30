@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: space-between;
+
+    &--item {
+      width: 150px;
+      padding: 10px;
+      font-size: 36px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      background: rgb(87, 71, 233);
+      color: #2d3436;
+
+      &:hover {
+        cursor: pointer;
+        background: rgb(69, 56, 189);
+      }
+
+      &:disabled {
+        background: #b3b3b3;
+        color: white;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
