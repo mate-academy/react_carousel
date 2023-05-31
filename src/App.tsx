@@ -44,6 +44,88 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
+        <div className="App__labels">
+          <label
+            htmlFor="itemId"
+            className="App__label"
+          >
+            Item Width:
+            <input
+              id="itemId"
+              type="number"
+              value={itemWidth}
+              min={130}
+              max={260}
+              step={10}
+              onChange={(event) => {
+                this.setState({
+                  itemWidth: +event.target.value,
+                });
+              }}
+            />
+          </label>
+
+          <label
+            htmlFor="stepId"
+            className="App__label"
+          >
+            Step:
+            <input
+              id="stepId"
+              type="number"
+              value={step}
+              min={1}
+              max={10}
+              step={1}
+              onChange={(event) => {
+                this.setState({
+                  step: +event.target.value,
+                });
+              }}
+            />
+          </label>
+
+          <label
+            htmlFor="frameId"
+            className="App__label"
+          >
+            Frame Size:
+            <input
+              id="frameId"
+              type="number"
+              value={frameSize}
+              min={1}
+              max={10}
+              step={1}
+              onChange={(event) => {
+                this.setState({
+                  frameSize: +event.target.value,
+                });
+              }}
+            />
+          </label>
+
+          <label
+            htmlFor="durationId"
+            className="App__label"
+          >
+            Animation Duration:
+            <input
+              id="durationId"
+              type="number"
+              value={animationDuration}
+              min={0}
+              max={50000}
+              step={500}
+              onChange={(event) => {
+                this.setState({
+                  animationDuration: +event.target.value,
+                });
+              }}
+            />
+          </label>
+        </div>
+
         <Carousel
           images={images}
           step={step}
@@ -51,86 +133,6 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
         />
-
-        <label
-          htmlFor="itemId"
-          className="App__label"
-        >
-          Item Width:
-          <input
-            id="itemId"
-            type="number"
-            value={itemWidth}
-            min={130}
-            max={260}
-            step={10}
-            onChange={(event) => {
-              this.setState({
-                itemWidth: +event.target.value,
-              });
-            }}
-          />
-        </label>
-
-        <label
-          htmlFor="frameId"
-          className="App__label"
-        >
-          Frame Size:
-          <input
-            id="frameId"
-            type="number"
-            value={frameSize}
-            min={1}
-            max={10}
-            step={1}
-            onChange={(event) => {
-              this.setState({
-                frameSize: +event.target.value,
-              });
-            }}
-          />
-        </label>
-
-        <label
-          htmlFor="stepId"
-          className="App__label"
-        >
-          Step:
-          <input
-            id="stepId"
-            type="number"
-            value={step}
-            min={1}
-            max={10}
-            step={1}
-            onChange={(event) => {
-              this.setState({
-                step: +event.target.value,
-              });
-            }}
-          />
-        </label>
-
-        <label
-          htmlFor="durationId"
-          className="App__label"
-        >
-          Animation Duration:
-          <input
-            id="durationId"
-            type="number"
-            value={animationDuration}
-            min={0}
-            max={50000}
-            step={500}
-            onChange={(event) => {
-              this.setState({
-                animationDuration: +event.target.value,
-              });
-            }}
-          />
-        </label>
       </div>
     );
   }

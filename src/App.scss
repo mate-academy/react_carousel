@@ -1,1 +1,16 @@
-// style go here
+.App {
+  margin: 20px;
+
+  &__labels {
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+  }
+
+  &__label:nth-child(2n + 1) {
+    grid-row: 1 / 2;
+  }
+
+  &__label:nth-child(2n) {
+    grid-row: 3 / 4;
+  }
+}
