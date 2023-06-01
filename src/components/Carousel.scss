@@ -37,7 +37,8 @@ $color-black: #000;
   border: 3px solid $color-black;
   border-radius: 10%;
 
-  &:after, &:before {
+  &:after,
+  &:before {
     content: "";
     position: absolute;
     top: 50%;
