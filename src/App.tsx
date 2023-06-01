@@ -154,9 +154,7 @@ class App extends React.Component<{}, State> {
               className="App__form-infinite-input input"
               defaultValue="false"
               onChange={() => {
-                return infinite
-                  ? this.setState({ infinite: false })
-                  : this.setState({ infinite: true });
+                this.setState(prevInfinite => !prevInfinite)
               }}
             />
           </label>
