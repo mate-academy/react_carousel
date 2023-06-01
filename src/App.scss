@@ -1,1 +1,28 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    align-self: center;
+    width: max-content;
+    border: 2px solid black;
+    border-radius: 5px;
+
+    &-label {
+      margin: 10px;
+    }
+  }
+}
+
+.input {
+  display: block;
+  margin-top: 5px;
+}
