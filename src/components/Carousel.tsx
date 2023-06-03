@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Slider from 'react-slick';
 import './Carousel.scss';
 
 type Props = {
@@ -20,6 +21,13 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const maxScroll = (images.length - frameSize) * itemWidth;
   const [position, setPosition] = useState(0);
+  const settings = {
+    infinite,
+    speed: animationDuration,
+    slidesToShow: frameSize,
+    slidesToScroll: step,
+    arrows: false,
+  };
 
   const handlePrevClick = () => {
     const scrolled = position - (step * itemWidth);
@@ -81,6 +89,15 @@ const Carousel: React.FC<Props> = ({
           );
         })}
       </ul>
+
+      <Slider {...settings}>
+        {images.map((img, index) => (
+          <div className="Slider__item" key={img}>
+            <img src={img} alt={`slick ${index}`} className="Slider__img" width={itemWidth} />
+          </div>
+        ))}
+      </Slider>
+
       <div className="Carousel__button">
         <button
           type="button"

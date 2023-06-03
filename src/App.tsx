@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const App = () => {
   const [images] = useState([
     './img/1.png',
