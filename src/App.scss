@@ -6,6 +6,22 @@
 body {
   background-color: #d9f1ba;
   color: #fff;
+
+  & .slick-next:before {
+    padding: 20px 60px;
+    border-radius: 50px;
+    background: rgb(54, 54, 156);
+  }
+
+  & .slick-prev:before {
+    padding: 20px 60px;
+    border-radius: 50px;
+    background: rgb(54, 54, 156);
+  }
+
+  & .slick-prev {
+    transform: translate(-600%, -50%);
+  }
 }
 
 .App {
