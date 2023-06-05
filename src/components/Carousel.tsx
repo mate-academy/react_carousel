@@ -19,27 +19,35 @@ export class Carousel extends Component<Props, State> {
     itemIndex: 0,
   };
 
-  handleButton = (step: number) => () => {
+  handleSwipeNext = (step: number) => () => {
     const { images, frameSize } = this.props;
     const { itemIndex } = this.state;
     const firstInd = 0;
     const lastInd = images.length - frameSize;
     let nextInd = itemIndex + step;
 
-    if (step > 0) {
-      if (itemIndex === lastInd) {
-        nextInd = firstInd;
-      } else if (nextInd > lastInd) {
-        nextInd = lastInd;
-      }
+    if (itemIndex === lastInd) {
+      nextInd = firstInd;
+    } else if (nextInd > lastInd) {
+      nextInd = lastInd;
     }
 
-    if (step < 0) {
-      if (itemIndex === firstInd) {
-        nextInd = lastInd;
-      } else if (nextInd < firstInd) {
-        nextInd = firstInd;
-      }
+    this.setState(() => ({
+      itemIndex: nextInd,
+    }));
+  };
+
+  handleSwipePrev = (step: number) => () => {
+    const { images, frameSize } = this.props;
+    const { itemIndex } = this.state;
+    const firstInd = 0;
+    const lastInd = images.length - frameSize;
+    let nextInd = itemIndex + step;
+
+    if (itemIndex === firstInd) {
+      nextInd = lastInd;
+    } else if (nextInd < firstInd) {
+      nextInd = firstInd;
     }
 
     this.setState(() => ({
@@ -58,6 +66,8 @@ export class Carousel extends Component<Props, State> {
     } = this.props;
 
     const { itemIndex } = this.state;
+    const prevDisabled = (itemIndex <= 0) && !infinity;
+    const nextDisabled = (itemIndex >= images.length - frameSize) && !infinity;
 
     return (
       <div
@@ -94,8 +104,8 @@ export class Carousel extends Component<Props, State> {
           <button
             type="button"
             className="Carousel__btn"
-            disabled={itemIndex <= 0 && !infinity}
-            onClick={this.handleButton(-step)}
+            disabled={prevDisabled}
+            onClick={this.handleSwipePrev(-step)}
           >
             &#8678;
           </button>
@@ -103,8 +113,8 @@ export class Carousel extends Component<Props, State> {
             type="button"
             data-cy="next"
             className="Carousel__btn"
-            disabled={itemIndex >= images.length - frameSize && !infinity}
-            onClick={this.handleButton(step)}
+            disabled={nextDisabled}
+            onClick={this.handleSwipeNext(step)}
           >
             &#8680;
           </button>
