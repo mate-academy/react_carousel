@@ -1,1 +1,58 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.Carousel{
+  margin: 0 auto;
+  
+  &__list{
+    margin: 20px 0;
+    padding: 20px 0;
+    display: flex;
+    overflow: hidden;
+    border: 4px solid #000;
+    border-radius: 50px;
+    list-style-type: none;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+  }
+
+  & > div {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &__buttons {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 0 10px;
+    background-color: #a7ad80;
+    border: 2px solid black;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+      background-color: #f1fa41;
+      border: 1px solid #f1fa41;
+    }
+
+    &:disabled {
+      background-color: #c1e5c1;
+      border: none;
+      transform: scale(0.8);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
