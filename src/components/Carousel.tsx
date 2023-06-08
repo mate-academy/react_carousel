@@ -19,8 +19,8 @@ class Carousel extends Component<Props, State> {
     itemIndex: 0,
   };
 
-  handleNext = (step: number): void => {
-    const { images, frameSize } = this.props;
+  handleNext = () => {
+    const { images, frameSize, step } = this.props;
     const { itemIndex } = this.state;
     const firstInd = 0;
     const lastInd = images.length - frameSize;
@@ -32,17 +32,15 @@ class Carousel extends Component<Props, State> {
       nextInd = lastInd;
     }
 
-    this.setState(() => ({
-      itemIndex: nextInd,
-    }));
+    this.setState({ itemIndex: nextInd });
   };
 
-  handlePrev = (step: number): void => {
-    const { images, frameSize } = this.props;
+  handlePrev = () => {
+    const { images, frameSize, step } = this.props;
     const { itemIndex } = this.state;
     const firstInd = 0;
     const lastInd = images.length - frameSize;
-    let nextInd = itemIndex + step;
+    let nextInd = itemIndex - step;
 
     if (itemIndex === firstInd) {
       nextInd = lastInd;
@@ -50,15 +48,12 @@ class Carousel extends Component<Props, State> {
       nextInd = firstInd;
     }
 
-    this.setState(() => ({
-      itemIndex: nextInd,
-    }));
+    this.setState({ itemIndex: nextInd });
   };
 
   render() {
     const {
       images,
-      step,
       itemWidth,
       frameSize,
       animationDuration,
@@ -107,7 +102,7 @@ class Carousel extends Component<Props, State> {
             type="button"
             className="button__nav"
             disabled={prevDisabled}
-            onClick={() => this.handlePrev(-step)}
+            onClick={this.handlePrev}
           >
             Prev
           </button>
@@ -116,7 +111,7 @@ class Carousel extends Component<Props, State> {
             data-cy="next"
             className="button__nav"
             disabled={nextDisabled}
-            onClick={() => this.handleNext(step)}
+            onClick={this.handleNext}
           >
             Next
           </button>

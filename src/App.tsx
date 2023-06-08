@@ -32,24 +32,19 @@ class App extends React.Component<{}, State> {
     infinity: false,
   };
 
-  setWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value });
-  };
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      type,
+      value,
+      checked,
+    } = event.target;
+    const inputValue = type === 'checkbox' ? checked : +value;
 
-  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +event.target.value });
-  };
-
-  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +event.target.value });
-  };
-
-  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +event.target.value });
-  };
-
-  setInfinity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinity: event.target.checked });
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: inputValue,
+    }));
   };
 
   render() {
@@ -84,11 +79,12 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="itemId"
+            name="itemWidth"
             value={itemWidth}
             min={130}
             max={260}
             step={10}
-            onChange={this.setWidth}
+            onChange={this.handleChange}
           />
         </label>
         <label
@@ -99,11 +95,12 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="frameId"
+            name="frameSize"
             value={frameSize}
             min={1}
             max={images.length}
             step={1}
-            onChange={this.setFrameSize}
+            onChange={this.handleChange}
           />
         </label>
         <label
@@ -114,11 +111,12 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="stepId"
+            name="step"
             value={step}
             min={1}
             max={images.length}
             step={1}
-            onChange={this.setStep}
+            onChange={this.handleChange}
           />
         </label>
         <label
@@ -129,11 +127,12 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="animationId"
+            name="animationDuration"
             value={animationDuration}
             min={500}
             max={5000}
             step={500}
-            onChange={this.setAnimationDuration}
+            onChange={this.handleChange}
           />
         </label>
         <label
@@ -143,8 +142,9 @@ class App extends React.Component<{}, State> {
           Infinite:
           <input
             type="checkbox"
+            name="checkbox"
             id="infinityId"
-            onChange={this.setInfinity}
+            onChange={this.handleChange}
           />
         </label>
       </div>
