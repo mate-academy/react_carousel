@@ -26,11 +26,11 @@ class App extends React.Component<{}, State> {
     const { images } = this.state;
 
     return (
-      <div className="App">
+      <div className="App" data-cy="title">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel images={images} />
       </div>
     );
   }

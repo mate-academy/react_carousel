@@ -1,1 +1,26 @@
 // style go here
+
+.Carousel__list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: scroll;
+  list-style-type: none;
+  padding: 0;
+}
+
+.Form {
+  margin: 10px;
+
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  position: relative;
+  
+  button {
+    margin-top: 10px;
+  }
+}
