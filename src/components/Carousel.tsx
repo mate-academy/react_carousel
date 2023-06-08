@@ -6,7 +6,7 @@ type State = {
   frameSize: number;
   step: number;
   animationDuration:number;
-  infinite: boolean;
+  // infinite: boolean;
 };
 
 type Props = {
@@ -37,17 +37,35 @@ class Carousel extends Component<Props, State> {
           <form>
             <label>
               ItemWidth:
-              <input type="number" id="ItemWidth" name="ItemWidth" required />
+              <input
+                type="number"
+                id="ItemWidth"
+                min="1"
+                name="ItemWidth"
+                required
+              />
             </label>
 
             <label>
               FrameSize:
-              <input type="number" id="FrameSize" name="FrameSize" required />
+              <input
+                type="number"
+                id="FrameSize"
+                min="1"
+                name="FrameSize"
+                required
+              />
             </label>
 
             <label>
               Step:
-              <input type="number" id="Step" name="Step" required />
+              <input
+                type="number"
+                id="Step"
+                name="Step"
+                min="1"
+                required
+              />
             </label>
 
             <label>
@@ -56,6 +74,7 @@ class Carousel extends Component<Props, State> {
                 type="number"
                 id="Animation"
                 name="AnimationDuration"
+                min="100"
                 required
               />
             </label>
@@ -101,7 +120,10 @@ class Carousel extends Component<Props, State> {
         <div className="Carousel">
           <ul
             className="Carousel__list"
-            style={{ width: `${itemWidth * frameSize}px` }}
+            style={{
+              width: `${itemWidth * frameSize}px`,
+              transitionDuration: `${animationDuration}ms`,
+            }}
           >
             {images.map(pic => (
               <li
@@ -126,6 +148,7 @@ class Carousel extends Component<Props, State> {
                 list.scrollBy({
                   top: 0,
                   left: -itemWidth * step,
+                  behavior: 'smooth',
                 });
               }
             }}
@@ -142,6 +165,7 @@ class Carousel extends Component<Props, State> {
                 list.scrollBy({
                   top: 0,
                   left: itemWidth * step,
+                  behavior: 'smooth',
                 });
               }
             }}
