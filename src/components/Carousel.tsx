@@ -2,11 +2,11 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type State = {
-  itemWidth: number;
-  frameSize: number;
+  item: number;
+  frame: number;
   step: number;
   animationDuration:number;
-  // infinite: boolean;
+  infinite: boolean;
 };
 
 type Props = {
@@ -15,125 +15,73 @@ type Props = {
 
 class Carousel extends Component<Props, State> {
   state = {
-    itemWidth: 130,
-    frameSize: 3,
+    item: 130,
+    frame: 3,
     step: 3,
     animationDuration: 1000,
-    // infinite: false,
+    infinite: true,
   };
 
   render() {
     const { images } = this.props;
     const {
-      itemWidth,
+      item,
       step,
-      frameSize,
+      frame,
       animationDuration,
+      infinite,
     } = this.state;
 
     return (
-      <>
-        <div className="Form">
+      <div className="App">
+        <h1 data-cy="title">
+          {`Carousel with ${step} images`}
+        </h1>
+
+        <div className="Carousel__Form">
           <form>
-            <label>
-              ItemWidth:
-              <input
-                type="number"
-                id="ItemWidth"
-                min="1"
-                name="ItemWidth"
-                required
-              />
-            </label>
+            {Object.keys(this.state)
+              .filter(key => key !== 'infinite').map(key => (
+                <label htmlFor={`${key}Id`}>
+                  {key}
+                  :
+                  <input
+                    type="number"
+                    id={`${key}Id`}
+                    min="1"
+                    name={key}
+                    required
+                    onChange={(event) => {
+                      const { name, value } = event.target;
 
-            <label>
-              FrameSize:
-              <input
-                type="number"
-                id="FrameSize"
-                min="1"
-                name="FrameSize"
-                required
-              />
-            </label>
-
-            <label>
-              Step:
-              <input
-                type="number"
-                id="Step"
-                name="Step"
-                min="1"
-                required
-              />
-            </label>
-
-            <label>
-              Animation Duration:
-              <input
-                type="number"
-                id="Animation"
-                name="AnimationDuration"
-                min="100"
-                required
-              />
-            </label>
-
-            <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                e.persist();
-                const itemWidthEl
-                = document.getElementById('ItemWidth') as HTMLInputElement;
-                const frameSizeEl
-                = document.getElementById('FrameSize') as HTMLInputElement;
-                const stepEl
-                = document.getElementById('Step') as HTMLInputElement;
-                const animationDurationEl
-                = document.getElementById('Animation') as HTMLInputElement;
-
-                const itemWidthValue
-                = itemWidthEl ? +itemWidthEl.value : itemWidth;
-                const frameSizeValue
-                = frameSizeEl ? +frameSizeEl.value : frameSize;
-                const stepValue
-                = stepEl ? +stepEl.value : step;
-                const animationDurationValue
-                = animationDurationEl
-                  ? +animationDurationEl.value
-                  : animationDuration;
-
-                this.setState({
-                  itemWidth: itemWidthValue,
-                  frameSize: frameSizeValue,
-                  step: stepValue,
-                  animationDuration: animationDurationValue,
-                });
-              }}
-            >
-              Save
-            </button>
-
+                      this.setState((prevState) => ({
+                        ...prevState,
+                        [name]: (+value),
+                      }));
+                    }}
+                  />
+                </label>
+              ))}
           </form>
         </div>
         <div className="Carousel">
           <ul
             className="Carousel__list"
             style={{
-              width: `${itemWidth * frameSize}px`,
+              width: `${item * frame}px`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
-            {images.map(pic => (
+            {images.map(img => (
+
               <li
-                key={images.indexOf(pic)}
-                style={{ width: `${itemWidth}px` }}
+                key={img.slice(6, 7)}
+                style={{ width: `${item}px` }}
               >
                 <img
-                  src={pic}
-                  alt={images.indexOf(pic).toString()}
-                  width={`${itemWidth}`}
+                  src={img}
+                  alt={img.slice(6, 7)}
+                  width={`${item}`}
                 />
               </li>
             ))}
@@ -141,13 +89,14 @@ class Carousel extends Component<Props, State> {
 
           <button
             type="button"
+            disabled={!infinite}
             onClick={() => {
               const list = document.querySelector('.Carousel__list');
 
               if (list) {
                 list.scrollBy({
                   top: 0,
-                  left: -itemWidth * step,
+                  left: -item * step,
                   behavior: 'smooth',
                 });
               }
@@ -158,13 +107,14 @@ class Carousel extends Component<Props, State> {
           <button
             type="button"
             data-cy="next"
+            disabled={!infinite}
             onClick={() => {
               const list = document.querySelector('.Carousel__list');
 
               if (list) {
                 list.scrollBy({
                   top: 0,
-                  left: itemWidth * step,
+                  left: item * step,
                   behavior: 'smooth',
                 });
               }
@@ -173,7 +123,7 @@ class Carousel extends Component<Props, State> {
             Next
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }
