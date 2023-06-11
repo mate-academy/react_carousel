@@ -15,8 +15,8 @@ type Props = {
 
 class Carousel extends Component<Props, State> {
   state = {
-    item: 130,
-    frame: 3,
+    itemWidth: 130,
+    frameSize: 3,
     step: 3,
     animationDuration: 1000,
     infinite: true,
@@ -25,9 +25,9 @@ class Carousel extends Component<Props, State> {
   render() {
     const { images } = this.props;
     const {
-      item,
+      itemWidth,
       step,
-      frame,
+      frameSize,
       animationDuration,
       infinite,
     } = this.state;
@@ -68,7 +68,7 @@ class Carousel extends Component<Props, State> {
           <ul
             className="Carousel__list"
             style={{
-              width: `${item * frame}px`,
+              width: `${itemWidth * frameSize}px`,
               transitionDuration: `${animationDuration}ms`,
             }}
           >
@@ -76,12 +76,12 @@ class Carousel extends Component<Props, State> {
 
               <li
                 key={img.slice(6, 7)}
-                style={{ width: `${item}px` }}
+                style={{ width: `${itemWidth}px` }}
               >
                 <img
                   src={img}
                   alt={img.slice(6, 7)}
-                  width={`${item}`}
+                  width={`${itemWidth}`}
                 />
               </li>
             ))}
@@ -96,7 +96,7 @@ class Carousel extends Component<Props, State> {
               if (list) {
                 list.scrollBy({
                   top: 0,
-                  left: -item * step,
+                  left: -itemWidth * step,
                   behavior: 'smooth',
                 });
               }
@@ -114,7 +114,7 @@ class Carousel extends Component<Props, State> {
               if (list) {
                 list.scrollBy({
                   top: 0,
-                  left: item * step,
+                  left: itemWidth * step,
                   behavior: 'smooth',
                 });
               }
