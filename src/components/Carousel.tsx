@@ -22,6 +22,15 @@ class Carousel extends Component<Props, State> {
     infinite: true,
   };
 
+  updateInput = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: (+value),
+    }));
+  };
+
   render() {
     const { images } = this.props;
     const {
@@ -40,28 +49,51 @@ class Carousel extends Component<Props, State> {
 
         <div className="Carousel__Form">
           <form>
-            {Object.keys(this.state)
-              .filter(key => key !== 'infinite').map(key => (
-                <label htmlFor={`${key}Id`}>
-                  {key}
-                  :
-                  <input
-                    type="number"
-                    id={`${key}Id`}
-                    min="1"
-                    name={key}
-                    required
-                    onChange={(event) => {
-                      const { name, value } = event.target;
+            <label htmlFor="itemId">
+              ItemWidth:
+              <input
+                type="number"
+                id="itemId"
+                min="1"
+                name="itemWidth"
+                required
+                onChange={this.updateInput}
+              />
+            </label>
+            <label htmlFor="frameId">
+              frameSize
+              <input
+                type="number"
+                id="frameId"
+                min="1"
+                name="frameSize"
+                required
+                onChange={this.updateInput}
+              />
+            </label>
+            <label htmlFor="stepId">
+              step
+              <input
+                type="number"
+                id="stepId"
+                min="1"
+                name="step"
+                required
+                onChange={this.updateInput}
+              />
+            </label>
+            <label htmlFor="animationId">
+              animationDuration
+              <input
+                type="number"
+                id="animationId"
+                min="1"
+                name="animationDuration"
+                required
+                onChange={this.updateInput}
+              />
+            </label>
 
-                      this.setState((prevState) => ({
-                        ...prevState,
-                        [name]: (+value),
-                      }));
-                    }}
-                  />
-                </label>
-              ))}
           </form>
         </div>
         <div className="Carousel">
@@ -74,14 +106,11 @@ class Carousel extends Component<Props, State> {
           >
             {images.map(img => (
 
-              <li
-                key={img.slice(6, 7)}
-                style={{ width: `${itemWidth}px` }}
-              >
+              <li key={img}>
                 <img
                   src={img}
                   alt={img.slice(6, 7)}
-                  width={`${itemWidth}`}
+                  width={itemWidth}
                 />
               </li>
             ))}
