@@ -11,6 +11,7 @@ interface State {
   itemWidth: number;
   animationDuration: number;
   infinite: boolean,
+  autoplay: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -32,6 +33,7 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     animationDuration: 1000,
     infinite: false,
+    autoplay: false,
   };
 
   inputHandler = (e: { currentTarget: HTMLInputElement }) => {
@@ -54,6 +56,10 @@ class App extends React.Component<{}, State> {
         this.setState({ animationDuration: +value });
         break;
 
+      case 'autoplay':
+        this.setState({ autoplay: e.currentTarget.checked });
+        break;
+
       default:
         this.setState({ infinite: e.currentTarget.checked });
         break;
@@ -68,6 +74,7 @@ class App extends React.Component<{}, State> {
       itemWidth = 130,
       animationDuration = 1000,
       infinite = false,
+      autoplay = false,
     } = this.state;
 
     return (
@@ -77,10 +84,7 @@ class App extends React.Component<{}, State> {
           data-cy="title"
           className="title"
         >
-          Carousel with
-          {images.length}
-          {' '}
-          images
+          {`Carousel with ${images.length} images`}
         </h1>
 
         <Carousel
@@ -90,15 +94,15 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
-          onAutoplayChange={(autoplay) => {
-            this.setState({ infinite: autoplay });
+          autoplay={autoplay}
+          onAutoplayChange={(autoplayStatus) => {
+            this.setState({ autoplay: autoplayStatus });
           }}
         />
 
         <form action="#" className="form">
           <label className="label">
-            slide step
-            {` [${step}]`}
+            {`slide step [${step}] `}
             <input
               className="input"
               type="number"
@@ -111,8 +115,7 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label className="label">
-            frame size
-            {` [${frameSize}]`}
+            {`frame size [${frameSize}] `}
             <input
               className="input"
               type="number"
@@ -125,8 +128,7 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label className="label">
-            slide width
-            {` [${itemWidth}]`}
+            {`slide width [${itemWidth}] `}
             <input
               className="input"
               type="number"
@@ -140,8 +142,7 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label className="label">
-            animation(ms)
-            {` [${animationDuration}]`}
+            {`animation [${animationDuration}ms] `}
             <input
               className="input"
               type="number"
@@ -155,8 +156,19 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label className="label">
-            autoplay
-            {` [${this.state.infinite}]`}
+            {`autoplay [${this.state.autoplay}]`}
+            <input
+              className="checkbox"
+              type="checkbox"
+              name="autoplay"
+              id="autoplay"
+              checked={this.state.autoplay}
+              onChange={this.inputHandler}
+            />
+          </label>
+
+          <label className="label">
+            {`infinite [${this.state.infinite}]`}
             <input
               className="checkbox"
               type="checkbox"
