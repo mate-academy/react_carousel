@@ -2,8 +2,8 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type State = {
-  item: number;
-  frame: number;
+  itemWidth: number;
+  frameSize: number;
   step: number;
   animationDuration:number;
   infinite: boolean;
