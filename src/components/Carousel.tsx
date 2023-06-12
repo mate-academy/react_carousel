@@ -7,16 +7,22 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
+  infinite: boolean
 };
 
 type State = {
-  position: number,
+  position: number
 };
 
 export class Carousel extends React.Component<Props, State> {
   state = {
     position: 0,
+  };
+
+  getInfinitePosition = (hiddenWidth: number) => {
+    this.setState(prevState => (
+      { position: prevState.position + (hiddenWidth - prevState.position) }
+    ));
   };
 
   nextSliderHandler = () => {
@@ -32,13 +38,12 @@ export class Carousel extends React.Component<Props, State> {
 
     if (this.state.position + itemWidth * step < hiddenWidth) {
       this.setState(prevState => (
-        { position: prevState.position + itemWidth * step }));
+        { position: prevState.position + itemWidth * step }
+      ));
     } else if (this.state.position === hiddenWidth && infinite) {
       this.setState({ position: 0 });
     } else {
-      this.setState(prevState => (
-        { position: prevState.position + (hiddenWidth - prevState.position) }
-      ));
+      this.getInfinitePosition(hiddenWidth);
     }
   };
 
@@ -55,11 +60,10 @@ export class Carousel extends React.Component<Props, State> {
 
     if (this.state.position - itemWidth * step > 0) {
       this.setState(prevState => (
-        { position: prevState.position - itemWidth * step }));
-    } else if (this.state.position === 0 && infinite) {
-      this.setState(prevState => (
-        { position: prevState.position + (hiddenWidth - prevState.position) }
+        { position: prevState.position - itemWidth * step }
       ));
+    } else if (this.state.position === 0 && infinite) {
+      this.getInfinitePosition(hiddenWidth);
     } else {
       this.setState({ position: 0 });
     }
@@ -104,7 +108,7 @@ export class Carousel extends React.Component<Props, State> {
 
         <div className="Carousel__buttons">
           <button
-            className="Carousel__buttons__button"
+            className="Carousel__button"
             type="button"
             onClick={this.prevSliderHandler}
           >
@@ -112,7 +116,7 @@ export class Carousel extends React.Component<Props, State> {
           </button>
 
           <button
-            className="Carousel__buttons__button"
+            className="Carousel__button"
             type="button"
             data-cy="next"
             onClick={this.nextSliderHandler}

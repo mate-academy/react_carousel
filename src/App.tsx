@@ -8,7 +8,7 @@ interface State {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
+  infinite: boolean
 }
 
 class App extends React.Component<{}, State> {
