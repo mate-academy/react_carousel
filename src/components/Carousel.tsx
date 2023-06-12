@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import './Carousel.scss';
 
@@ -10,8 +9,7 @@ type Props = {
   animationDuration: number;
   infinite: boolean;
   autoplay: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onAutoplayChange: (autoplay: boolean) => any;
+  onAutoplayChange: (autoplay: boolean) => void;
 };
 
 type State = {
@@ -27,8 +25,11 @@ export class Carousel extends React.Component<Props, State> {
 
   autoplayId = 0;
 
+  counter = 0;
+
+  showLastSlide = false;
+
   componentDidMount(): void {
-    console.log(this.props.infinite);
     if (this.props.autoplay && this.autoplayId === 0) {
       this.autoplayId = this.autoplay();
     }
@@ -46,6 +47,17 @@ export class Carousel extends React.Component<Props, State> {
   }
 
   autoplay = (): number => {
+    const images: NodeListOf<HTMLImageElement> = document
+      .querySelectorAll('.image');
+    const slides = Array.from(
+      document.querySelectorAll('.Carousel__slide'),
+    ) as HTMLLIElement[];
+
+    for (let i = 0; i < slides.length; i += 1) {
+      slides[i].style.transform = 'translateX(0)';
+      images[i].style.transform = 'translateX(0)';
+    }
+
     const timerId = window.setInterval(() => {
       this.slideNext();
     }, this.props.animationDuration + 1000);
@@ -83,6 +95,38 @@ export class Carousel extends React.Component<Props, State> {
     ) as HTMLLIElement[];
     const urls: string[] = [];
 
+    if (this.props.infinite) {
+      const { step, animationDuration } = this.props;
+
+      if (this.counter - step <= 0) {
+        for (let k = 0; k < slides.length; k += 1) {
+          slides[k].style.transform = 'translateX(0)';
+        }
+
+        this.counter = 0;
+
+        setTimeout(() => {
+          this.setState({ disabled: false });
+        }, animationDuration);
+
+        return;
+      }
+
+      for (let i = 0, end = slides.length - 1; i < slides.length; i += 1) {
+        slides[i].style.transform = `translateX(${-100 * step}%)`;
+        this.counter -= step;
+
+        if (i === end) {
+          setTimeout(() => {
+            this.showLastSlide = false;
+            this.setState({ disabled: false });
+          }, animationDuration);
+
+          return;
+        }
+      }
+    }
+
     for (let i = 0; i < images.length; i += 1) {
       images[i].style.transform = `translateX(-${100 * this.props.step}%)`;
       images[i].style.transition = '0ms';
@@ -117,17 +161,57 @@ export class Carousel extends React.Component<Props, State> {
 
   slideNext = () => {
     this.setState({ disabled: true });
-
-    // if (this.props.infinite) {
-
-    // };
-
     const images: NodeListOf<HTMLImageElement> = document
       .querySelectorAll('.image');
     const urls: string[] = [];
     const slides = Array.from(
       document.querySelectorAll('.Carousel__slide'),
     ) as HTMLLIElement[];
+
+    if (this.props.infinite && this.counter <= this.props.images.length) {
+      this.counter += this.props.step;
+
+      if (this.counter + this.props.frameSize > this.props.images.length) {
+        this.counter = this.props.images.length - this.props.frameSize;
+
+        for (let i = 0, end = slides.length - 1; i < slides.length; i += 1) {
+          slides[i].style.transform = `translateX(-${100 * this.counter}%)`;
+
+          if (i === end && this.showLastSlide) {
+            setTimeout(() => {
+              for (let k = 0; k < slides.length; k += 1) {
+                slides[k].style.transform = 'translateX(0)';
+              }
+
+              this.counter = 0;
+              this.showLastSlide = false;
+              this.setState({ disabled: false });
+            }, this.props.animationDuration);
+
+            return;
+          }
+
+          if (i === end) {
+            this.showLastSlide = true;
+            this.setState({ disabled: false });
+
+            return;
+          }
+        }
+      }
+
+      for (let i = 0, end = slides.length - 1; i < slides.length; i += 1) {
+        slides[i].style.transform = `translateX(-${100 * this.counter}%)`;
+
+        if (i === end) {
+          setTimeout(() => {
+            this.setState({ disabled: false });
+          }, this.props.animationDuration);
+
+          return;
+        }
+      }
+    }
 
     for (let i = 0; i < images.length; i += 1) {
       images[i].style.transition = `${this.props.animationDuration}ms`;

@@ -1,5 +1,4 @@
 .title {
-  font-family: "Segoe UI", sans-serif;
   text-align: center;
   margin: 30px;
 }
@@ -8,6 +7,8 @@
   display: flex;
   margin: 0 auto;
   justify-content: center;
+  box-shadow: 0 5px 25px black;
+  width: min-content;
 
   &__list {
     position: relative;
@@ -16,10 +17,9 @@
     list-style: none;
     overflow: hidden;
     transform: translateX(0);
-    border-radius: 5px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    box-shadow: 5px 5px 15px black;
+    border-top: 1px solid #fdfffc;
+    border-bottom: 1px solid #fdfffc;
+    background-color: #fdfffc;
   }
 
   &__slide {
@@ -27,7 +27,7 @@
     flex-shrink: 0;
     transition-timing-function: linear;
     transform: translateX(0);
-    background-color: azure;
+    background-color: transparent;
 
     img {
       will-change: transform;
@@ -37,25 +37,33 @@
   }
 
   .button {
+    border: 1px solid #fdfffc;
     z-index: 2;
-    border-radius: 5px;
     padding: 10px;
     font-size: 1.5rem;
-    color: white;
+    color: #fdfffc;
     font-weight: bold;
     cursor: pointer;
-    background-color: teal;
-    box-shadow: 0 5px 15px rgb(82, 82, 82);
+    background-color: #e36414;
     &:disabled {
-      background-color: darkslategray;
+      background-color: #823a0c;
+      border: 1px solid #823a0c;
     }
   }
 
   .buttonPrev {
+    box-shadow: 0 5px 15px #525252;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
     order: 1;
   }
 
   .buttonNext {
+    box-shadow: 0 -5px 15px #525252;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
     order: 3;
   }
 }
@@ -65,13 +73,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 label {
   min-width: 20%;
   max-width: 30%;
-  font-family: "Segoe UI", sans-serif;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   display: flex;
   padding-left: 10px;
@@ -82,15 +91,17 @@ label {
 .input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #c0c0c0;
   width: 80px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
   padding: 5px 0  5px 10px;
   margin-left: auto;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .checkbox {
   align-self: baseline;
   transform: scale(1.3);
-  margin-left: 15px;
+  margin-left: auto;
+  margin-right: 75px;
 }

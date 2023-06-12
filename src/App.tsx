@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable padded-blocks */
 import React from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
@@ -41,27 +39,27 @@ class App extends React.Component<{}, State> {
 
     switch (name) {
       case 'step':
-        this.setState({ step: +value });
+        this.setState({ [name]: +value });
         break;
 
       case 'frameSize':
-        this.setState({ frameSize: +value });
+        this.setState({ [name]: +value });
         break;
 
       case 'itemWidth':
-        this.setState({ itemWidth: +value });
+        this.setState({ [name]: +value });
         break;
 
       case 'animationDuration':
-        this.setState({ animationDuration: +value });
+        this.setState({ [name]: +value });
         break;
 
       case 'autoplay':
-        this.setState({ autoplay: e.currentTarget.checked });
+        this.setState({ autoplay: e.currentTarget.checked, infinite: false });
         break;
 
       default:
-        this.setState({ infinite: e.currentTarget.checked });
+        this.setState({ infinite: e.currentTarget.checked, autoplay: false });
         break;
     }
   };
@@ -102,7 +100,7 @@ class App extends React.Component<{}, State> {
 
         <form action="#" className="form">
           <label className="label">
-            {`slide step [${step}] `}
+            Slide step
             <input
               className="input"
               type="number"
@@ -110,12 +108,12 @@ class App extends React.Component<{}, State> {
               id="inputStep"
               min="1"
               max="3"
-              placeholder="1-3"
+              placeholder={`${step}`}
               onChange={this.inputHandler}
             />
           </label>
           <label className="label">
-            {`frame size [${frameSize}] `}
+            Frame size
             <input
               className="input"
               type="number"
@@ -123,12 +121,12 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               min="1"
               max="5"
-              placeholder="1-5"
+              placeholder={`${frameSize}`}
               onChange={this.inputHandler}
             />
           </label>
           <label className="label">
-            {`slide width [${itemWidth}] `}
+            Slide width
             <input
               className="input"
               type="number"
@@ -137,12 +135,12 @@ class App extends React.Component<{}, State> {
               min="130"
               max="350"
               step="20"
-              placeholder="100-350"
+              placeholder={`${itemWidth}`}
               onChange={this.inputHandler}
             />
           </label>
           <label className="label">
-            {`animation [${animationDuration}ms] `}
+            Animation
             <input
               className="input"
               type="number"
@@ -151,12 +149,12 @@ class App extends React.Component<{}, State> {
               min="100"
               max="5000"
               step="100"
-              placeholder="100-5000"
+              placeholder={`${animationDuration}`}
               onChange={this.inputHandler}
             />
           </label>
           <label className="label">
-            {`autoplay [${this.state.autoplay}]`}
+            Autoplay
             <input
               className="checkbox"
               type="checkbox"
@@ -168,7 +166,7 @@ class App extends React.Component<{}, State> {
           </label>
 
           <label className="label">
-            {`infinite [${this.state.infinite}]`}
+            Is finite
             <input
               className="checkbox"
               type="checkbox"
