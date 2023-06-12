@@ -38,9 +38,9 @@ class App extends React.Component<{}, State> {
       case 'itemWidth': {
         if (+event.currentTarget.value > 0) {
           this.setState({ imgWidth: +event.currentTarget.value });
+        } else {
+          this.setState({ imgWidth: 130 });
         }
-
-        this.setState({ imgWidth: 130 });
 
         return;
       }
@@ -49,9 +49,9 @@ class App extends React.Component<{}, State> {
         if (+event.currentTarget.value
           && +event.currentTarget.value <= this.state.images.length) {
           this.setState({ frameSize: +event.currentTarget.value });
+        } else {
+          this.setState({ frameSize: 3 });
         }
-
-        this.setState({ frameSize: 3 });
 
         return;
       }
@@ -59,9 +59,9 @@ class App extends React.Component<{}, State> {
       case 'step': {
         if (+event.currentTarget.value > 0) {
           this.setState({ step: +event.currentTarget.value });
+        } else {
+          this.setState({ step: 3 });
         }
-
-        this.setState({ step: 3 });
 
         return;
       }
@@ -69,9 +69,9 @@ class App extends React.Component<{}, State> {
       case 'animationDuration': {
         if (+event.currentTarget.value > 500) {
           this.setState({ animationDur: +event.currentTarget.value });
+        } else {
+          this.setState({ animationDur: 1000 });
         }
-
-        this.setState({ animationDur: 1000 });
 
         break;
       }
