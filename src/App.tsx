@@ -39,19 +39,10 @@ class App extends React.Component<{}, State> {
 
     switch (name) {
       case 'step':
-        this.setState({ [name]: +value });
-        break;
-
       case 'frameSize':
-        this.setState({ [name]: +value });
-        break;
-
       case 'itemWidth':
-        this.setState({ [name]: +value });
-        break;
-
       case 'animationDuration':
-        this.setState({ [name]: +value });
+        this.setState(prevState => ({ ...prevState, [name]: +value }));
         break;
 
       case 'autoplay':
