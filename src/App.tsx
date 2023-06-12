@@ -110,7 +110,7 @@ class App extends React.Component<{}, State> {
               id="itemWidth"
               min={50}
               placeholder="130"
-              onBlur={this.inputHandler}
+              onChange={this.inputHandler}
             />
           </label>
           <label htmlFor="frameSize">
@@ -121,7 +121,7 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               min={1}
               placeholder="3"
-              onBlur={this.inputHandler}
+              onChange={this.inputHandler}
             />
           </label>
           <label htmlFor="step">
@@ -132,7 +132,7 @@ class App extends React.Component<{}, State> {
               id="step"
               min={1}
               placeholder="3"
-              onBlur={this.inputHandler}
+              onChange={this.inputHandler}
             />
           </label>
           <label htmlFor="animationDuration">
@@ -142,7 +142,7 @@ class App extends React.Component<{}, State> {
               name="animationDuration"
               id="animationDuration"
               placeholder="1000"
-              onBlur={this.inputHandler}
+              onChange={this.inputHandler}
             />
           </label>
         </div>
