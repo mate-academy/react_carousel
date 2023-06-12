@@ -7,6 +7,7 @@ type State = {
   step: number;
   animationDuration:number;
   infinite: boolean;
+  scrollPosition: number;
 };
 
 type Props = {
@@ -20,6 +21,7 @@ class Carousel extends Component<Props, State> {
     step: 3,
     animationDuration: 1000,
     infinite: true,
+    scrollPosition: 0,
   };
 
   updateInput = (event:React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +33,46 @@ class Carousel extends Component<Props, State> {
     }));
   };
 
+  handleNextClick = () => {
+    const {
+      step,
+      itemWidth,
+      frameSize,
+      scrollPosition,
+    } = this.state;
+    const { images } = this.props;
+    const totalItems = images.length;
+    const maxScrollPosition = itemWidth * (totalItems - frameSize);
+
+    if (scrollPosition < maxScrollPosition) {
+      this.setState((prevState) => ({
+        scrollPosition: prevState.scrollPosition + itemWidth * step,
+      }));
+    } else {
+      this.setState({ scrollPosition: 0 });
+    }
+  };
+
+  handlePrevClick = () => {
+    const {
+      step,
+      itemWidth,
+      frameSize,
+      scrollPosition,
+    } = this.state;
+    const { images } = this.props;
+    const totalItems = images.length;
+    const maxScrollPosition = itemWidth * (totalItems - frameSize);
+
+    if (scrollPosition > 0) {
+      this.setState((prevState) => ({
+        scrollPosition: prevState.scrollPosition - itemWidth * step,
+      }));
+    } else {
+      this.setState({ scrollPosition: maxScrollPosition });
+    }
+  };
+
   render() {
     const { images } = this.props;
     const {
@@ -39,6 +81,7 @@ class Carousel extends Component<Props, State> {
       frameSize,
       animationDuration,
       infinite,
+      scrollPosition,
     } = this.state;
 
     return (
@@ -106,7 +149,12 @@ class Carousel extends Component<Props, State> {
           >
             {images.map(img => (
 
-              <li key={img}>
+              <li
+                key={img}
+                style={{
+                  transform: `translateX(-${scrollPosition}px)`,
+                }}
+              >
                 <img
                   src={img}
                   alt={img.slice(6, 7)}
@@ -119,17 +167,7 @@ class Carousel extends Component<Props, State> {
           <button
             type="button"
             disabled={!infinite}
-            onClick={() => {
-              const list = document.querySelector('.Carousel__list');
-
-              if (list) {
-                list.scrollBy({
-                  top: 0,
-                  left: -itemWidth * step,
-                  behavior: 'smooth',
-                });
-              }
-            }}
+            onClick={this.handlePrevClick}
           >
             Prev
           </button>
@@ -137,17 +175,7 @@ class Carousel extends Component<Props, State> {
             type="button"
             data-cy="next"
             disabled={!infinite}
-            onClick={() => {
-              const list = document.querySelector('.Carousel__list');
-
-              if (list) {
-                list.scrollBy({
-                  top: 0,
-                  left: itemWidth * step,
-                  behavior: 'smooth',
-                });
-              }
-            }}
+            onClick={this.handleNextClick}
           >
             Next
           </button>
