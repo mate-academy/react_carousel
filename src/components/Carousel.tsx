@@ -37,12 +37,11 @@ class Carousel extends Component<Props, State> {
     const {
       step,
       itemWidth,
-      frameSize,
       scrollPosition,
     } = this.state;
     const { images } = this.props;
     const totalItems = images.length;
-    const maxScrollPosition = itemWidth * (totalItems - frameSize);
+    const maxScrollPosition = itemWidth * (totalItems - step);
 
     if (scrollPosition < maxScrollPosition) {
       this.setState((prevState) => ({
@@ -98,6 +97,7 @@ class Carousel extends Component<Props, State> {
                 type="number"
                 id="itemId"
                 min="1"
+                value={itemWidth}
                 name="itemWidth"
                 required
                 onChange={this.updateInput}
@@ -110,6 +110,7 @@ class Carousel extends Component<Props, State> {
                 id="frameId"
                 min="1"
                 name="frameSize"
+                value={frameSize}
                 required
                 onChange={this.updateInput}
               />
@@ -121,6 +122,7 @@ class Carousel extends Component<Props, State> {
                 id="stepId"
                 min="1"
                 name="step"
+                value={step}
                 required
                 onChange={this.updateInput}
               />
@@ -132,6 +134,7 @@ class Carousel extends Component<Props, State> {
                 id="animationId"
                 min="1"
                 name="animationDuration"
+                value={animationDuration}
                 required
                 onChange={this.updateInput}
               />
