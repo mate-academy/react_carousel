@@ -2,35 +2,46 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type State = {
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration:number;
-  infinite: boolean;
   scrollPosition: number;
+  infinite: boolean
 };
 
 type Props = {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 class Carousel extends Component<Props, State> {
   state = {
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    infinite: true,
     scrollPosition: 0,
+    itemWidth: this.props.itemWidth,
+    frameSize: this.props.frameSize,
+    step: this.props.step,
+    animationDuration: this.props.animationDuration,
+    infinite: this.props.infinite,
   };
 
-  updateInput = (event:React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      value,
+    } = event.target;
 
-    this.setState((prevState) => ({
-      ...prevState,
-      [name]: (+value),
-    }));
+    if (name === 'infinite') {
+      this.setState((prevState) => ({
+        ...prevState,
+        infinite: !prevState.infinite,
+      }));
+    } else {
+      this.setState((prevState) => ({
+        ...prevState,
+        [name]: +value,
+      }));
+    }
   };
 
   handleNextClick = () => {
@@ -39,6 +50,7 @@ class Carousel extends Component<Props, State> {
       itemWidth,
       scrollPosition,
     } = this.state;
+
     const { images } = this.props;
     const totalItems = images.length;
     const maxScrollPosition = itemWidth * (totalItems - step);
@@ -57,8 +69,9 @@ class Carousel extends Component<Props, State> {
       step,
       itemWidth,
       frameSize,
-      scrollPosition,
-    } = this.state;
+    } = this.props;
+
+    const { scrollPosition } = this.state;
     const { images } = this.props;
     const totalItems = images.length;
     const maxScrollPosition = itemWidth * (totalItems - frameSize);
@@ -84,11 +97,10 @@ class Carousel extends Component<Props, State> {
     } = this.state;
 
     return (
-      <div className="App">
+      <>
         <h1 data-cy="title">
           {`Carousel with ${step} images`}
         </h1>
-
         <div className="Carousel__Form">
           <form>
             <label htmlFor="itemId">
@@ -139,7 +151,16 @@ class Carousel extends Component<Props, State> {
                 onChange={this.updateInput}
               />
             </label>
-
+            <label htmlFor="infinite">
+              infinite
+            </label>
+            <input
+              type="checkbox"
+              id="infinite"
+              checked={infinite}
+              onChange={this.updateInput}
+              name="infinite"
+            />
           </form>
         </div>
         <div className="Carousel">
@@ -151,7 +172,6 @@ class Carousel extends Component<Props, State> {
             }}
           >
             {images.map(img => (
-
               <li
                 key={img}
                 style={{
@@ -183,7 +203,7 @@ class Carousel extends Component<Props, State> {
             Next
           </button>
         </div>
-      </div>
+      </>
     );
   }
 }
