@@ -12,6 +12,14 @@ interface State {
   autoplay: boolean,
 }
 
+enum EnumInputProp {
+  Step = 'step',
+  FrameSize = 'frameSize',
+  ItemWidth = 'itemWidth',
+  AnimationDuration = 'animationDuration',
+  Autoplay = 'autoplay',
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -35,14 +43,6 @@ class App extends React.Component<{}, State> {
   };
 
   inputHandler = (e: { currentTarget: HTMLInputElement }) => {
-    enum EnumInputProp {
-      Step = 'step',
-      FrameSize = 'frameSize',
-      ItemWidth = 'itemWidth',
-      AnimationDuration = 'animationDuration',
-      Autoplay = 'autoplay',
-    }
-
     const { name, value } = e.currentTarget;
 
     switch (name) {

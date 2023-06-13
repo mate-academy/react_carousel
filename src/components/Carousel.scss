@@ -52,7 +52,7 @@ $gray: #525252;
     background-color: $orange;
     &:disabled {
       background-color: darken($orange, 20%);
-      border: 1px solid darken($orange, 20%);;
+      border: 1px solid darken($orange, 20%);
     }
   }
 
