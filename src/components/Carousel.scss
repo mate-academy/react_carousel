@@ -1,3 +1,7 @@
+$white: #fdfffc;
+$orange: #e36414;
+$gray: #525252;
+
 .title {
   text-align: center;
   margin: 30px;
@@ -18,9 +22,9 @@
     list-style: none;
     overflow: hidden;
     transform: translateX(0);
-    border-top: 1px solid #fdfffc;
-    border-bottom: 1px solid #fdfffc;
-    background-color: #fdfffc;
+    border-top: 1px solid $white;
+    border-bottom: 1px solid $white;
+    background-color: $white;
   }
 
   &__slide {
@@ -38,22 +42,22 @@
   }
 
   .button {
-    border: 1px solid #fdfffc;
+    border: 1px solid $white;
     z-index: 2;
     padding: 10px;
     font-size: 1.5rem;
-    color: #fdfffc;
+    color: $white;
     font-weight: bold;
     cursor: pointer;
-    background-color: #e36414;
+    background-color: $orange;
     &:disabled {
-      background-color: #823a0c;
-      border: 1px solid #823a0c;
+      background-color: darken($orange, 20%);
+      border: 1px solid darken($orange, 20%);;
     }
   }
 
   .buttonPrev {
-    box-shadow: 0 5px 15px #525252;
+    box-shadow: 0 5px 15px $gray;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-right: none;
@@ -61,7 +65,7 @@
   }
 
   .buttonNext {
-    box-shadow: 0 -5px 15px #525252;
+    box-shadow: 0 -5px 15px $gray;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: none;
@@ -81,7 +85,6 @@ label {
   min-width: 20%;
   max-width: 30%;
   font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   display: flex;
   padding-left: 10px;
@@ -93,7 +96,6 @@ label {
   outline: none;
   border: none;
   width: 80px;
-  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   padding: 5px 0  5px 10px;
   margin-left: auto;

@@ -35,17 +35,26 @@ class App extends React.Component<{}, State> {
   };
 
   inputHandler = (e: { currentTarget: HTMLInputElement }) => {
+    enum EnumInputProp {
+      Step = 'step',
+      FrameSize = 'frameSize',
+      ItemWidth = 'itemWidth',
+      AnimationDuration = 'animationDuration',
+      Autoplay = 'autoplay',
+    }
+
     const { name, value } = e.currentTarget;
 
     switch (name) {
-      case 'step':
-      case 'frameSize':
-      case 'itemWidth':
-      case 'animationDuration':
-        this.setState(prevState => ({ ...prevState, [name]: +value }));
+      case EnumInputProp.Step:
+      case EnumInputProp.FrameSize:
+      case EnumInputProp.ItemWidth:
+      case EnumInputProp.AnimationDuration:
+        this.setState(prevState => (
+          { ...prevState, [name]: +value }));
         break;
 
-      case 'autoplay':
+      case EnumInputProp.Autoplay:
         this.setState({ autoplay: e.currentTarget.checked, infinite: false });
         break;
 
