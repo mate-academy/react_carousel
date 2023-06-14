@@ -1,6 +1,6 @@
 import React from 'react';
 import './Carousel.scss';
-import { Input } from './FormFields';
+import { Input } from './Input';
 
 type Props = {
   images: string[],
@@ -60,11 +60,11 @@ class Carousel extends React.Component<Props, State> {
     this.setState({ step: +event.target.value });
   };
 
-  AnimationDurationChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+  animationDurationChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ animationDuration: +event.target.value });
   };
 
-  FrameSizeChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+  frameSizeChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ frameSize: +event.target.value });
   };
 
@@ -140,7 +140,7 @@ class Carousel extends React.Component<Props, State> {
             min={1}
             max={10}
             step={1}
-            onChange={this.widthChanger}
+            onChange={this.stepChanger}
           />
 
           <Input
@@ -150,7 +150,7 @@ class Carousel extends React.Component<Props, State> {
             min={100}
             max={3000}
             step={100}
-            onChange={this.AnimationDurationChanger}
+            onChange={this.animationDurationChanger}
           />
 
           <Input
@@ -160,7 +160,7 @@ class Carousel extends React.Component<Props, State> {
             min={1}
             max={10}
             step={1}
-            onChange={this.FrameSizeChanger}
+            onChange={this.frameSizeChanger}
           />
         </div>
       </div>
