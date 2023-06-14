@@ -18,16 +18,18 @@ type State = {
 };
 
 export class Carousel extends React.Component<Props, State> {
-  state = {
-    images: this.props.images,
-    disabled: false,
-  };
-
   autoplayId = 0;
 
   counter = 0;
 
   showLastSlide = false;
+
+  imagesSrc = this.props.images;
+
+  state = {
+    images: this.imagesSrc,
+    disabled: false,
+  };
 
   componentDidMount(): void {
     if (this.props.autoplay && this.autoplayId === 0) {
@@ -168,11 +170,11 @@ export class Carousel extends React.Component<Props, State> {
       document.querySelectorAll('.Carousel__slide'),
     ) as HTMLLIElement[];
 
-    if (this.props.infinite && this.counter <= this.props.images.length) {
+    if (this.props.infinite && this.counter <= this.imagesSrc.length) {
       this.counter += this.props.step;
 
-      if (this.counter + this.props.frameSize > this.props.images.length) {
-        this.counter = this.props.images.length - this.props.frameSize;
+      if (this.counter + this.props.frameSize > this.imagesSrc.length) {
+        this.counter = this.imagesSrc.length - this.props.frameSize;
 
         for (let i = 0, end = slides.length - 1; i < slides.length; i += 1) {
           slides[i].style.transform = `translateX(-${100 * this.counter}%)`;
