@@ -3,7 +3,7 @@ import './Carousel.scss';
 
 type State = {
   scrollPosition: number;
-  infinite: boolean
+  // infinite: boolean
 };
 
 type Props = {
@@ -12,7 +12,6 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
 };
 
 class Carousel extends Component<Props, State> {
@@ -22,7 +21,6 @@ class Carousel extends Component<Props, State> {
     frameSize: this.props.frameSize,
     step: this.props.step,
     animationDuration: this.props.animationDuration,
-    infinite: this.props.infinite,
   };
 
   updateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,17 +29,10 @@ class Carousel extends Component<Props, State> {
       value,
     } = event.target;
 
-    if (name === 'infinite') {
-      this.setState((prevState) => ({
-        ...prevState,
-        infinite: !prevState.infinite,
-      }));
-    } else {
-      this.setState((prevState) => ({
-        ...prevState,
-        [name]: +value,
-      }));
-    }
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: +value,
+    }));
   };
 
   handleNextClick = () => {
@@ -59,8 +50,6 @@ class Carousel extends Component<Props, State> {
       this.setState((prevState) => ({
         scrollPosition: prevState.scrollPosition + itemWidth * step,
       }));
-    } else {
-      this.setState({ scrollPosition: 0 });
     }
   };
 
@@ -92,7 +81,6 @@ class Carousel extends Component<Props, State> {
       step,
       frameSize,
       animationDuration,
-      infinite,
       scrollPosition,
     } = this.state;
 
@@ -151,16 +139,6 @@ class Carousel extends Component<Props, State> {
                 onChange={this.updateInput}
               />
             </label>
-            <label htmlFor="infinite">
-              infinite
-            </label>
-            <input
-              type="checkbox"
-              id="infinite"
-              checked={infinite}
-              onChange={this.updateInput}
-              name="infinite"
-            />
           </form>
         </div>
         <div className="Carousel">
@@ -189,7 +167,6 @@ class Carousel extends Component<Props, State> {
 
           <button
             type="button"
-            disabled={!infinite}
             onClick={this.handlePrevClick}
           >
             Prev
@@ -197,7 +174,6 @@ class Carousel extends Component<Props, State> {
           <button
             type="button"
             data-cy="next"
-            disabled={!infinite}
             onClick={this.handleNextClick}
           >
             Next
