@@ -3,6 +3,10 @@ import './Carousel.scss';
 
 type State = {
   position: number;
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 };
 
 type Props = {
