@@ -52,20 +52,20 @@ class Carousel extends React.Component<Props, State> {
     }
   };
 
-  widthChanger = (value: number) => {
-    this.setState({ itemWidth: value });
+  widthChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value });
   };
 
-  stepChanger = (value: number) => {
-    this.setState({ step: value });
+  stepChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +event.target.value });
   };
 
-  AnimationDurationChanger = (value: number) => {
-    this.setState({ animationDuration: value });
+  AnimationDurationChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ animationDuration: +event.target.value });
   };
 
-  FrameSizeChanger = (value: number) => {
-    this.setState({ frameSize: value });
+  FrameSizeChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +event.target.value });
   };
 
   render() {
@@ -124,6 +124,7 @@ class Carousel extends React.Component<Props, State> {
         </div>
         <div className="Inputs">
           <Input
+            className="Inputs__input"
             name="ItemWidth"
             defaultValue={130}
             min={50}
@@ -133,16 +134,18 @@ class Carousel extends React.Component<Props, State> {
           />
 
           <Input
+            className="Inputs__input"
             name="Step"
             defaultValue={3}
             min={1}
             max={10}
             step={1}
-            onChange={this.stepChanger}
+            onChange={this.widthChanger}
           />
 
           <Input
-            name="AnimationDuration"
+            className="Inputs__input"
+            name="Duration"
             defaultValue={1000}
             min={100}
             max={3000}
@@ -151,6 +154,7 @@ class Carousel extends React.Component<Props, State> {
           />
 
           <Input
+            className="Inputs__input"
             name="Frame-size"
             defaultValue={3}
             min={1}

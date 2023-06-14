@@ -1,10 +1,11 @@
 type Props = {
   name: string,
+  className: string,
   min: number,
   max: number,
   step: number,
   defaultValue: number,
-  onChange: (value: number) => void,
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => number | void
 };
 
 export const Input: React.FC<Props> = ({
@@ -20,14 +21,13 @@ export const Input: React.FC<Props> = ({
       {`${name}`}
       <input
         id={name}
-        type="range"
+        className="Inputs__input"
+        type="number"
         defaultValue={defaultValue}
         step={step}
         min={min}
         max={max}
-        onChange={(event) => {
-          onChange(+event.target.value);
-        }}
+        onChange={onChange}
       />
     </label>
   );

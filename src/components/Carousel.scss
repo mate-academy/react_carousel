@@ -20,5 +20,12 @@
 
 .Inputs {
   display: flex;
-  width: 100px;
+  flex-direction: column;
+  margin-bottom: 100px;
+
+  &__input {
+    display: flex;
+    margin-bottom: 10px;
+    width: 70px;
+  }
 }
