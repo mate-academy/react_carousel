@@ -2,8 +2,7 @@ import { Component } from 'react';
 import './Carousel.scss';
 
 type State = {
-  scrollPosition: number;
-  // infinite: boolean
+  position: number;
 };
 
 type Props = {
@@ -16,7 +15,7 @@ type Props = {
 
 class Carousel extends Component<Props, State> {
   state = {
-    scrollPosition: 0,
+    position: 0,
     itemWidth: this.props.itemWidth,
     frameSize: this.props.frameSize,
     step: this.props.step,
@@ -38,39 +37,36 @@ class Carousel extends Component<Props, State> {
   handleNextClick = () => {
     const {
       step,
-      itemWidth,
-      scrollPosition,
+      position,
     } = this.state;
 
     const { images } = this.props;
-    const totalItems = images.length;
-    const maxScrollPosition = itemWidth * (totalItems - step);
+    const maxposition = images.length - 1;
 
-    if (scrollPosition < maxScrollPosition) {
+    if (position + step <= maxposition) {
       this.setState((prevState) => ({
-        scrollPosition: prevState.scrollPosition + itemWidth * step,
+        position: prevState.position + step,
       }));
+    } else {
+      this.setState({ position: 0 });
     }
   };
 
   handlePrevClick = () => {
     const {
       step,
-      itemWidth,
-      frameSize,
-    } = this.props;
+      position,
+    } = this.state;
 
-    const { scrollPosition } = this.state;
     const { images } = this.props;
-    const totalItems = images.length;
-    const maxScrollPosition = itemWidth * (totalItems - frameSize);
+    const maxposition = images.length;
 
-    if (scrollPosition > 0) {
+    if (position - step >= 0) {
       this.setState((prevState) => ({
-        scrollPosition: prevState.scrollPosition - itemWidth * step,
+        position: prevState.position - step,
       }));
     } else {
-      this.setState({ scrollPosition: maxScrollPosition });
+      this.setState({ position: maxposition - step });
     }
   };
 
@@ -81,18 +77,20 @@ class Carousel extends Component<Props, State> {
       step,
       frameSize,
       animationDuration,
-      scrollPosition,
+      position,
     } = this.state;
+
+    const visibleImages = images.slice(position, position + frameSize);
 
     return (
       <>
         <h1 data-cy="title">
-          {`Carousel with ${step} images`}
+          {`Carousel with ${frameSize} images`}
         </h1>
         <div className="Carousel__Form">
           <form>
             <label htmlFor="itemId">
-              ItemWidth:
+              Item Width:
               <input
                 type="number"
                 id="itemId"
@@ -104,31 +102,33 @@ class Carousel extends Component<Props, State> {
               />
             </label>
             <label htmlFor="frameId">
-              frameSize
+              Frame Size:
               <input
                 type="number"
                 id="frameId"
                 min="1"
                 name="frameSize"
                 value={frameSize}
+                max={images.length}
                 required
                 onChange={this.updateInput}
               />
             </label>
             <label htmlFor="stepId">
-              step
+              Step:
               <input
                 type="number"
                 id="stepId"
                 min="1"
                 name="step"
                 value={step}
+                max={images.length}
                 required
                 onChange={this.updateInput}
               />
             </label>
             <label htmlFor="animationId">
-              animationDuration
+              Animation Duration
               <input
                 type="number"
                 id="animationId"
@@ -149,11 +149,11 @@ class Carousel extends Component<Props, State> {
               transitionDuration: `${animationDuration}ms`,
             }}
           >
-            {images.map(img => (
+            {visibleImages.map(img => (
               <li
                 key={img}
                 style={{
-                  transform: `translateX(-${scrollPosition}px)`,
+                  transform: `translateX(-${position}px)`,
                 }}
               >
                 <img
