@@ -32,7 +32,7 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   componentDidMount(): void {
-    if (this.props.autoplay && this.autoplayId === 0) {
+    if (this.props.autoplay && !this.autoplayId) {
       this.autoplayId = this.autoplay();
     }
   }
