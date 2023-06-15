@@ -61,7 +61,7 @@ class App extends React.Component<{}, State> {
             <label
               htmlFor="itemId"
             >
-              ItemWidth:
+              Item Width:
               <input
                 type="number"
                 id="itemId"
@@ -74,7 +74,7 @@ class App extends React.Component<{}, State> {
               />
             </label>
             <label htmlFor="frameId">
-              FrameSize:
+              Frame Size:
               <input
                 type="number"
                 id="frameId"
@@ -102,7 +102,7 @@ class App extends React.Component<{}, State> {
               />
             </label>
             <label htmlFor="animationId">
-              AnimationDuration
+              Animation Duration
               <input
                 type="number"
                 id="animationId"

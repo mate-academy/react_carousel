@@ -74,14 +74,13 @@ class Carousel extends Component<Props, State> {
             {visibleImages.map(img => (
               <li
                 key={img}
-                style={{
-                  transform: `translateX(-${position}px)`,
-                }}
+                style={{ transitionDuration: `${animationDuration}ms` }}
               >
                 <img
                   src={img}
                   alt={img.slice(6, 7)}
                   width={itemWidth}
+                  style={{ transitionDuration: `${animationDuration}ms` }}
                 />
               </li>
             ))}
