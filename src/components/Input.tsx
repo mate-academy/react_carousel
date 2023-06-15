@@ -20,8 +20,8 @@ export const Input: React.FC<Props> = ({
     <label htmlFor={name}>
       {`${name}`}
       <input
-        id={name}
         className="Inputs__input"
+        id={name}
         type="number"
         defaultValue={defaultValue}
         step={step}

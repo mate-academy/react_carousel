@@ -54,6 +54,7 @@ class Carousel extends React.Component<Props, State> {
 
   widthChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ itemWidth: +event.target.value });
+    this.setState({ translate: 0 });
   };
 
   stepChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +67,7 @@ class Carousel extends React.Component<Props, State> {
 
   frameSizeChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ frameSize: +event.target.value });
+    this.setState({ translate: 0 });
   };
 
   render() {
