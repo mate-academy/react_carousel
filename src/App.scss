@@ -1,1 +1,19 @@
-// style go here
+.Carousel__Form {
+  margin: 10px;
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  position: relative;
+  
+  .button {
+    margin-top: 10px;
+  }
+
+  .Carousel__Form-input {
+    width: 200px;
+  }
+
+}
