@@ -1,0 +1,42 @@
+$border-radius: 10px;
+
+.Carousel {
+  margin: 0 auto;
+  background-color: rgb(19, 174, 235);
+  border-radius: $border-radius;
+
+  &__wrapper {
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0;
+    background-color: rgb(198, 206, 206);
+  }
+
+  &__properties {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 10px 10px;
+    background-color: rgb(198, 206, 206);
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 0 1 45%;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+}

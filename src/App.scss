@@ -1,1 +1,21 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+iframe {
+  display: none;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
