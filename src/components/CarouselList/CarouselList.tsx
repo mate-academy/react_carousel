@@ -37,7 +37,6 @@ export const CarouselList: React.FC<Props> = ({
         <img
           src={image}
           alt={String(index + 1)}
-          width={itemWidth}
         />
       </li>
     ))}
