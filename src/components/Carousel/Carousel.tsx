@@ -146,13 +146,12 @@ export class Carousel extends Component<Props, State> {
   };
 
   addCloneSlidesForInfinitySlider = () => {
-    const imagesFromServer = this.props.images;
-    const { step, itemWidth } = this.props;
-
-    const imagesWithClones = [...this.props.images];
-
-    imagesWithClones.push(...imagesFromServer.slice(0, step));
-    imagesWithClones.unshift(...imagesFromServer.slice(-step));
+    const { step, itemWidth, images: imagesFromServer } = this.props;
+    const imagesWithClones = [
+      ...imagesFromServer.slice(-step),
+      ...imagesFromServer,
+      ...imagesFromServer.slice(0, step),
+    ];
 
     this.setState({
       offset: -(itemWidth * step),
@@ -192,7 +191,12 @@ export class Carousel extends Component<Props, State> {
       <div
         className="wrapper"
       >
-        <div className="Carousel">
+        <div
+          className="Carousel"
+          style={{
+            maxWidth: `${2 * widthContainer}px`,
+          }}
+        >
           <div
             className="Carousel__wrapper"
             style={{
@@ -267,7 +271,9 @@ export class Carousel extends Component<Props, State> {
               />
             </label>
             <label htmlFor="durationId">
-              Animation Duration (in ms)
+              Animation Duration
+              <br />
+              (in ms)
               <input
                 id="durationId"
                 type="number"

@@ -27,7 +27,8 @@ export const CarouselList: React.FC<Props> = ({
   >
     {images.map((image, index) => (
       <li
-        key={`${image}+${Math.random()}}`}
+        // eslint-disable-next-line react/no-array-index-key
+        key={`${image}+${index}}`}
         className="Carousel__item"
         style={{
           width: `${itemWidth}px`,
