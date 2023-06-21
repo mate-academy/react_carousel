@@ -156,6 +156,7 @@ export class Carousel extends Component<Props, State> {
     this.setState({
       offset: -(itemWidth * step),
       images: [...imagesWithClones],
+      infinite: true,
     });
   };
 
@@ -291,7 +292,6 @@ export class Carousel extends Component<Props, State> {
                 type="checkbox"
                 defaultChecked={infinite}
                 onChange={
-                  // (e) => this.setState({ infinite: e.target.checked })
                   (e) => this.updateSlidesList(e.target.checked)
                 }
               />
