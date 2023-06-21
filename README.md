@@ -25,14 +25,14 @@
 ## REQUIREMENTS:
 
 1. The title of the page should contain "Carousel"
-2. The page should continue the input fieds for:
-   - `ItemWidth`
-   - `FrameSize`
-   - `Step`
-   - `AnimationDuration`
+2. The page should contain inputs for:
+   - `itemWidth`
+   - `frameSize`
+   - `step`
+   - `fnimationDuration`
 3. Add data-cy attributes:
    - `title` inside h1 tag
-   - `next` to the `"Next" button`
+   - `next` to the "Next" button
 
 
 ## Instructions
