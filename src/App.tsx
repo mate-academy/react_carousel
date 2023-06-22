@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+
 import { Carousel } from './components/Carousel';
 
 interface State {
@@ -35,10 +36,15 @@ class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value, min, max,
+      name,
+      value,
+      min,
+      max,
     } = event.target;
+    const isValidValue = (+value >= +min && +value <= +max)
+      || name === 'infinite';
 
-    if ((+value >= +min && +value <= +max) || (name === 'infinite')) {
+    if (isValidValue) {
       switch (name) {
         case 'itemWidth':
           this.setState({ itemWidth: +value });
@@ -57,7 +63,7 @@ class App extends React.Component<{}, State> {
           break;
 
         case 'infinite':
-          this.setState(state => ({ infinite: !state.infinite }));
+          this.setState((state) => ({ infinite: !state.infinite }));
           break;
 
         default:
@@ -81,13 +87,13 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 
+        <h1
           data-cy="title"
           className="title"
         >
           Carousel with
           {' '}
-          { images.length }
+          {images.length}
           {' '}
           images
         </h1>
@@ -101,7 +107,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={5}
               defaultValue={step}
-              onInput={this.handleChange}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -113,20 +119,20 @@ class App extends React.Component<{}, State> {
               min={1}
               max={images.length}
               defaultValue={frameSize}
-              onInput={this.handleChange}
+              onChange={this.handleChange}
             />
           </label>
 
           <label htmlFor="itemWidth">
             ItemWidth:
             <input
-              name="itenWidth"
+              name="itemWidth"
               type="number"
               min={10}
               max={1000}
               step={10}
               defaultValue={itemWidth}
-              onInput={this.handleChange}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -138,7 +144,7 @@ class App extends React.Component<{}, State> {
               min={500}
               max={1500}
               defaultValue={animationDuration}
-              onInput={this.handleChange}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -159,7 +165,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          // infinite={infinite}
+          infinite={infinite}
         />
       </div>
     );

@@ -7,29 +7,36 @@ interface Props {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
 interface State {
   shift: number;
+  isInfinite: boolean;
 }
 
 export class Carousel extends Component<Props, State> {
   state: State = {
     shift: 0,
+    isInfinite: this.props.infinite,
   };
 
   handlePrevButton = () => {
     const {
       step,
       itemWidth,
+      infinite,
     } = this.props;
 
     this.setState((prevState) => {
-      const scrolledDist = prevState.shift - +step * +itemWidth;
+      const scrolledDist = prevState.shift - step * itemWidth;
+      const newShift = infinite
+        ? (scrolledDist % itemWidth)
+        : Math.max(0, scrolledDist);
 
-      return (scrolledDist >= 0)
-        ? { shift: scrolledDist }
-        : { shift: 0 };
+      return {
+        shift: newShift,
+      };
     });
   };
 
@@ -39,15 +46,20 @@ export class Carousel extends Component<Props, State> {
       step,
       frameSize,
       itemWidth,
+      infinite,
     } = this.props;
 
-    this.setState((prevState) => {
-      const scrolledDist = prevState.shift + +step * +itemWidth;
-      const endOfScroll = (images.length - +frameSize) * +itemWidth;
+    const endOfScroll = (images.length - frameSize) * itemWidth;
 
-      return (scrolledDist <= endOfScroll)
-        ? { shift: scrolledDist }
-        : { shift: endOfScroll };
+    this.setState((prevState) => {
+      const scrolledDist = prevState.shift + step * itemWidth;
+      const newShift = infinite
+        ? (scrolledDist % endOfScroll)
+        : Math.min(scrolledDist, endOfScroll);
+
+      return {
+        shift: newShift,
+      };
     });
   };
 
@@ -71,6 +83,9 @@ export class Carousel extends Component<Props, State> {
     const imgWidth = {
       width: `${+itemWidth}px`,
     };
+    const isDisabledPrev = shift <= 0 && !this.state.isInfinite;
+    const isDisabledNext = shift >= (images.length - frameSize) * itemWidth
+       && !this.state.isInfinite;
 
     return (
       <div className="Carousel">
@@ -103,7 +118,7 @@ export class Carousel extends Component<Props, State> {
             type="button"
             className="Сarousel_button"
             onClick={this.handlePrevButton}
-            disabled={(shift <= 0)}
+            disabled={isDisabledPrev}
           >
             Prev
           </button>
@@ -113,7 +128,7 @@ export class Carousel extends Component<Props, State> {
             className="Сarousel_button"
             onClick={this.handleNextButton}
             data-cy="next"
-            disabled={(shift >= (images.length - +frameSize) * +itemWidth)}
+            disabled={isDisabledNext}
           >
             Next
           </button>
