@@ -1,9 +1,13 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number,
+  itemWidth: number;
+  frameSize: number,
+  animationDuration: number,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,98 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <div className="settings">
+          <label className="settings__label">
+            INPUT WIDTH
+
+            <input
+              className="settings__input"
+              type="number"
+              min="100"
+              step="10"
+              defaultValue={itemWidth}
+              onChange={(event) => (
+                this.setState({ itemWidth: +event.target.value })
+              )}
+            />
+          </label>
+
+          <label className="settings__label">
+            FRAME SIZE
+
+            <input
+              className="settings__input"
+              type="number"
+              min="1"
+              max="10"
+              defaultValue={frameSize}
+              onChange={(event) => (
+                this.setState({ frameSize: +event.target.value })
+              )}
+            />
+          </label>
+
+          <label className="settings__label">
+            STEP
+
+            <input
+              className="settings__input"
+              type="number"
+              min="1"
+              max="10"
+              defaultValue={step}
+              onChange={(event) => (
+                this.setState({ step: +event.target.value })
+              )}
+            />
+          </label>
+
+          <label className="settings__label">
+            ANIMATION DURATION
+
+            <input
+              className="settings__input"
+              type="number"
+              min="100"
+              max="10000"
+              step="200"
+              defaultValue={itemWidth}
+              onChange={(event) => (
+                this.setState({ animationDuration: +event.target.value })
+              )}
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }

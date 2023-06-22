@@ -1,1 +1,40 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  margin: 0 auto;
+  padding: 20px;
+
+  text-align: center;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &__label {
+    text-align: center;
+    font-weight: 700;
+  }
+
+  &__input {
+    display: block;
+    width: 20%;
+    height: 30px;
+    margin: 0 auto;
+    padding: 5px;
+
+    text-align: center;
+    font-size: 20px;
+
+    background-color: yellow;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
