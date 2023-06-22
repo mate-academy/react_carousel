@@ -1,18 +1,102 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinity: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+type State = {
+  count: number,
+};
+
+class Carousel extends Component<Props, State> {
+  state = {
+    count: 0,
+  };
+
+  render() {
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      animationDuration,
+      infinity,
+      step,
+    } = this.props;
+    const { count } = this.state;
+    const lastSlide = (images.length - frameSize) * -itemWidth;
+    const isDisNextSlide = count <= lastSlide;
+    const isDisPrevSlide = count === 0;
+
+    const nextSlide = () => {
+      const start = count - (itemWidth * step);
+
+      this.setState({
+        count: count <= lastSlide
+          ? 0
+          : Math.max(start, lastSlide),
+      });
+    };
+
+    const prevSlide = () => {
+      const start = count + (itemWidth * step);
+
+      this.setState({
+        count: count >= 0
+          ? lastSlide
+          : Math.min(start, 0),
+      });
+    };
+
+    return (
+      <div
+        className="Carousel"
+        style={{ width: frameSize * itemWidth }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${count}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map((image, index) => (
+            <li key={image}>
+              <img
+                src={image}
+                alt={`${index}`}
+                style={{ width: itemWidth }}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <button
+          className="button button__prev"
+          type="button"
+          data-cy="prev"
+          onClick={prevSlide}
+          disabled={!infinity && isDisPrevSlide}
+        >
+          &#8592;
+        </button>
+        <button
+          className="button button__next"
+          type="button"
+          data-cy="next"
+          onClick={nextSlide}
+          disabled={!infinity && isDisNextSlide}
+        >
+          &#8594;
+        </button>
+      </div>
+    );
+  }
+}
 
 export default Carousel;
