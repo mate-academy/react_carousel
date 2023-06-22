@@ -98,7 +98,11 @@ export class Carousel extends Component<Props, State> {
           >
             {images.map((image) => {
               return (
-                <li className="Carousel__img" key={image} style={{ height: `${itemWidth}px` }}>
+                <li
+                  className="Carousel__img"
+                  key={image}
+                  style={{ height: '100%' }}
+                >
                   <img src={image} alt={image} style={{ width: `${itemWidth}px` }} />
                 </li>
               );

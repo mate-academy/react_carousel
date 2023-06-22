@@ -34,7 +34,7 @@ class App extends Component<{}, State> {
     infinite: false,
   };
 
-  eventHandler = (e: ChangeEvent) => {
+  handleInputChange = (e: ChangeEvent) => {
     const { name, value } = e.target as HTMLInputElement;
 
     switch (name) {
@@ -109,7 +109,7 @@ class App extends Component<{}, State> {
               name="itemWidth"
               className="App__input"
               type="number"
-              onChange={this.eventHandler}
+              onChange={this.handleInputChange}
               value={itemWidth}
             />
           </label>
@@ -120,7 +120,7 @@ class App extends Component<{}, State> {
               name="frameSize"
               className="App__input"
               type="number"
-              onChange={this.eventHandler}
+              onChange={this.handleInputChange}
               value={frameSize}
             />
           </label>
@@ -131,7 +131,7 @@ class App extends Component<{}, State> {
               name="step"
               className="App__input"
               type="number"
-              onChange={this.eventHandler}
+              onChange={this.handleInputChange}
               value={step}
             />
           </label>
@@ -142,7 +142,7 @@ class App extends Component<{}, State> {
               name="animationDuration"
               className="App__input"
               type="number"
-              onChange={this.eventHandler}
+              onChange={this.handleInputChange}
               value={animationDuration}
             />
           </label>
@@ -152,7 +152,7 @@ class App extends Component<{}, State> {
             <input
               type="checkbox"
               name="infinite"
-              onChange={this.eventHandler}
+              onChange={this.handleInputChange}
             />
           </label>
         </form>
