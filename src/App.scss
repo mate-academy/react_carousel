@@ -1,1 +1,24 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__form {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__field {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+  }
+
+  &__input {
+    width: 50px;
+  }
+}
+
+iframe {
+  display: none;
+}
