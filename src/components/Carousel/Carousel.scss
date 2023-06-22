@@ -1,0 +1,55 @@
+.Carousel {
+
+  &__frame {
+    width: 130px;
+    margin: 0 auto;
+    background-color: palegreen;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+
+    transform: translateX(0);
+    transition-property: transform;
+    transition-timing-function: ease;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  &__button {
+    width: 100px;
+    border: none;
+
+    font-size: 40px;
+    color: #111;
+
+    background-color: palegreen;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+
+    &:last-child {
+      margin-left: 20px;
+    }
+
+    &--disabled {
+      background-color: #eee;
+      color: #888;
+      cursor: default;
+      transition: none;
+    }
+
+    &:not(&--disabled):hover {
+      background-color: #777;
+      color: white;
+    }
+  }
+}

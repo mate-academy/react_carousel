@@ -1,1 +1,32 @@
-// style go here
+.App {
+  text-align: center;
+
+  &__content {
+    width: max-content;
+    margin: 0 auto;
+  }
+}
+
+.form {
+  width: max-content;
+  margin: 100px auto 0;
+
+  font-size: 20px;
+
+  &__field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+
+  &__input {
+    width: 100px;
+    margin-left: 60px;
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
