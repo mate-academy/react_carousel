@@ -1,1 +1,95 @@
-// style go here
+@import "/src/App.scss";
+$ease: cubic-bezier(0.2, 1, 0.3, 1);
+$button-color: #ff4136;
+
+svg {
+  width: 100px;
+  height: auto;
+  margin: 0 2rem;
+  cursor: pointer;
+  overflow: visible;
+
+  path {
+    transition: all 0.5s $ease;
+  }
+
+  &:hover path {
+    transition: all 1s $ease;
+    fill: $button-color;
+  }
+
+  &:hover .arrow {
+    animation: arrow-anim 1.5s $ease infinite;
+  }
+
+  &:hover .arrowleft {
+    animation: arrowleft-anim 1.5s $ease infinite;
+  }
+}
+
+@keyframes arrow-anim {
+  100% {
+    transform: translateX(0.5rem);
+    opacity: 0;
+  }
+}
+
+@keyframes arrowleft-anim {
+  100% {
+    transform: translateX(-0.5rem);
+    opacity: 0;
+  }
+}
+
+.Carousel {
+  margin: 0 auto 50px;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 20px auto;
+    border: 3px solid $white-color;
+    border-radius: 10px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+  }
+
+  & > div {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 41, 128);
+    background-color: $white-color;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    transition: background-color 0.3s linear;
+
+    &:disabled svg {
+      cursor: not-allowed;
+    }
+
+    &:disabled {
+      background-color: $button-color;
+    }
+  }
+}
