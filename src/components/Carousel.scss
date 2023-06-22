@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  transition-property: width;
+  transition-duration: 500ms;
+  padding-bottom: 20px;
+
+  &__list {
+    padding: 0;
+    display: flex;
+    transition-property: "translate";
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    font-size: 30px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
