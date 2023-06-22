@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.scss';
+import { Component } from 'react';
 import Carousel from './components/Carousel';
+import { Form } from './components/Form';
+import { State, ChangeStateType } from './Types';
 
-interface State {
-  images: string[];
-}
+import './App.scss';
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,17 +19,66 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 2,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  changeState: ChangeStateType = (name, value, bool) => {
+    switch (name) {
+      case 'frameSize':
+        this.setState({ frameSize: value });
+        break;
+
+      case 'step':
+        this.setState({ step: value });
+        break;
+
+      case 'itemWidth':
+        this.setState({ itemWidth: value });
+        break;
+
+      case 'animationDuration':
+        this.setState({ animationDuration: value });
+        break;
+
+      case 'infinite':
+        this.setState({ infinite: bool });
+        break;
+
+      default:
+        throw new Error('no name');
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel {...this.state} />
+
+        <Form
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          imagesLength={images.length}
+          changeState={this.changeState}
+        />
       </div>
     );
   }
