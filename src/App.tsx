@@ -1,12 +1,19 @@
-import React from 'react';
+import { ChangeEvent, Component } from 'react';
+
+import { Carousel } from './components/Carousel';
+
 import './App.scss';
-import Carousel from './components/Carousel';
 
-interface State {
+type State = {
   images: string[];
-}
+  itemWidth: number;
+  step: number;
+  frameSize: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,17 +27,135 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  eventHandler = (e: ChangeEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+
+    switch (name) {
+      case 'step':
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'frameSize':
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'itemWidth':
+        if (+value >= 0 && +value <= 300) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'animationDuration':
+        if (+value >= 0 && +value <= 7000) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'infinite':
+        this.setState((state) => ({
+          [name]: !state.infinite,
+        }));
+
+        break;
+
+      default:
+        throw new Error('Wrong case');
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      animationDuration,
+      infinite,
+      frameSize,
+      itemWidth,
+      step,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <form className="App__form">
+          <label className="App__field">
+            Item Width
+            <input
+              name="itemWidth"
+              className="App__input"
+              type="number"
+              onChange={this.eventHandler}
+              value={itemWidth}
+            />
+          </label>
+
+          <label className="App__field">
+            Frame Size
+            <input
+              name="frameSize"
+              className="App__input"
+              type="number"
+              onChange={this.eventHandler}
+              value={frameSize}
+            />
+          </label>
+
+          <label className="App__field">
+            Step
+            <input
+              name="step"
+              className="App__input"
+              type="number"
+              onChange={this.eventHandler}
+              value={step}
+            />
+          </label>
+
+          <label className="App__field">
+            Animation Duration
+            <input
+              name="animationDuration"
+              className="App__input"
+              type="number"
+              onChange={this.eventHandler}
+              value={animationDuration}
+            />
+          </label>
+
+          <label className="App__field">
+            Infinite
+            <input
+              type="checkbox"
+              name="infinite"
+              onChange={this.eventHandler}
+            />
+          </label>
+        </form>
       </div>
     );
   }
