@@ -1,0 +1,46 @@
+$border-radius: 10px;
+$bg-color-primary: rgb(19, 174, 235);
+$bg-color-secondary: rgb(198, 206, 206);
+
+.Carousel {
+  margin: 0 auto;
+  background-color: $bg-color-primary;
+  border-radius: $border-radius;
+
+  &__wrapper {
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 30px 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0;
+    background-color: $bg-color-secondary;
+  }
+
+  &__properties {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px 10px 10px;
+    text-align: center;
+    background-color: $bg-color-secondary;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 0 1 15%;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+}
