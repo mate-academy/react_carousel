@@ -1,1 +1,54 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    border: #d3dde4 solid 5px;
+    border-radius: 10px;
+  }
+
+  &__button {
+    height: 50px;
+    width: 50px;
+    background-size: 100%;
+    border: none;
+    border-radius: 50%;
+    background: #1e2936 no-repeat center;
+    opacity: 10;
+
+    &--prev {
+      background-image: url("../images/arrow_prev.svg");
+    }
+
+    &--next {
+      background-image: url("../images/arrow_next.svg");
+    }
+
+    //&:hover {
+    //  background-color: #3b526c;
+    //  transition: ease-in, 500ms;
+    //}
+  }
+
+  &__container {
+    width: 1300px;
+    display: flex;
+    //justify-content: space-between;
+    //border: #d3dde4 solid 5px;
+    //border-radius: 10px;
+  }
+
+  &__image {
+    display: flex;
+  }
+}
+*:disabled {
+  background-color: dimgrey;
+  color: linen;
+  opacity: 1;
+}
+
