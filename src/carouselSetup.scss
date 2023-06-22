@@ -1,0 +1,46 @@
+@import "src/variables";
+
+.carouselSetup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: 600px) {
+    display: grid;
+    grid-template-columns: repeat(2,200px);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      background-color: $second-light;
+      font-size: 20px;
+      font-weight: 400;
+      color: $input-text-light;
+      border: none;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 0 3px hsla(29, 24%, 78%, 0.1);
+      }
+    }
+
+    label {
+      font-size: 20px;
+      color: $primary-light;
+    }
+
+    &--checkbox {
+      flex-direction: row;
+
+      input:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
