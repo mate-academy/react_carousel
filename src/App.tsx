@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import 'bulma/css/bulma.min.css';
+import { Carousel } from './components/Carousel';
+import { CarouselPanel } from './components/CarouselPanel';
+import { NewOptions } from './types/newOptions';
+import { Options } from './types/options';
 
 interface State {
   images: string[];
+  options: Options;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,34 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    options: {
+      step: 3,
+      frameSize: 3,
+      itemWidth: 130,
+      animationDuration: 1000,
+      infinite: false,
+    },
+  };
+
+  changeOptions = (newProp: NewOptions) => {
+    this.setState(prevState => ({
+      options: {
+        ...prevState.options,
+        ...newProp,
+      },
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, options } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="title is-2" data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel images={images} options={options} />
+        <CarouselPanel options={options} changeOptions={this.changeOptions} />
       </div>
     );
   }

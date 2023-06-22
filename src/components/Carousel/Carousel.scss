@@ -1,0 +1,18 @@
+.Carousel {
+  position: relative;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    li {
+      display: inline-block;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    padding: 5px 0;
+  }
+}
