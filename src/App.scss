@@ -1,1 +1,26 @@
 // style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__label {
+    margin: 10px;
+  }
+}
+
+.form :last-child {
+  align-self: flex-start;
+}
+
+.button {
+  border: none;
+  font-size: 30px;
+}
