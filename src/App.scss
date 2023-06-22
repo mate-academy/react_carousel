@@ -1,1 +1,94 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Lato, Arial, sans-serif;
+}
+
+body {
+  background-color: #d9f1ba;
+  color: #fff;
+
+  & .slick-next:before {
+    padding: 20px 60px;
+    border-radius: 50px;
+    background: rgb(54, 54, 156);
+  }
+
+  & .slick-prev:before {
+    padding: 20px 60px;
+    border-radius: 50px;
+    background: rgb(54, 54, 156);
+  }
+
+  & .slick-prev {
+    transform: translate(-600%, -50%);
+  }
+}
+
+.App {
+  margin: 0 auto;
+  max-width: 1300px;
+
+  & h1 {
+    text-align: center;
+  }
+
+  & fieldset {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 65%;
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #8a948a;
+
+    & label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    & input {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 2px solid #000;
+      border-radius: 50px;
+      background: #8a948a;
+      color: #dcdcdc;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #a3a6b9;
+        outline: none;
+      }
+
+      &:last-child {
+        margin-left: 10px;
+      }
+    }
+
+    & button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(to bottom right, #5c5f6f, #30333e);
+      color: #dcdcdc;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(to bottom right, #a3a6b9, #454a5d);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
