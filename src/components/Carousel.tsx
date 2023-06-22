@@ -11,16 +11,16 @@ type Props = {
 };
 
 type State = {
-  disableButtonR: boolean;
-  disableButtonL: boolean;
+  disableRightButton: boolean;
+  disableLeftButton: boolean;
   oneStep: number;
   lastStep: boolean;
 };
 
 export class Carousel extends Component<Props, State> {
   state: Readonly<State> = {
-    disableButtonR: false,
-    disableButtonL: true,
+    disableRightButton: false,
+    disableLeftButton: true,
     oneStep: 0,
     lastStep: false,
   };
@@ -33,11 +33,11 @@ export class Carousel extends Component<Props, State> {
       images,
       frameSize,
     } = this.props;
-    const { disableButtonR, oneStep } = this.state;
+    const { disableRightButton, oneStep } = this.state;
     let { lastStep } = this.state;
     const maxSteps = images.length - frameSize;
 
-    if (disableButtonR && infinite === false) {
+    if (disableRightButton && infinite === false) {
       return;
     }
 
@@ -45,14 +45,14 @@ export class Carousel extends Component<Props, State> {
 
     newStep = Math.max(newStep, -itemWidth * maxSteps);
 
-    if (disableButtonR && infinite) {
+    if (disableRightButton && infinite) {
       lastStep = true;
       newStep = 0;
     }
 
     this.setState({
-      disableButtonR: newStep === -itemWidth * maxSteps,
-      disableButtonL: newStep === 0,
+      disableRightButton: newStep === -itemWidth * maxSteps,
+      disableLeftButton: newStep === 0,
       oneStep: (lastStep && infinite) ? 0 : newStep,
     });
   };
@@ -65,10 +65,10 @@ export class Carousel extends Component<Props, State> {
       images,
       frameSize,
     } = this.props;
-    const { disableButtonL, oneStep } = this.state;
+    const { disableLeftButton, oneStep } = this.state;
     let { lastStep } = this.state;
 
-    if (disableButtonL && infinite === false) {
+    if (disableLeftButton && infinite === false) {
       return;
     }
 
@@ -76,14 +76,14 @@ export class Carousel extends Component<Props, State> {
 
     newStep = Math.min(newStep, 0);
 
-    if (disableButtonL && infinite) {
+    if (disableLeftButton && infinite) {
       lastStep = true;
       newStep = -itemWidth * (images.length - frameSize);
     }
 
     this.setState({
-      disableButtonL: newStep === 0,
-      disableButtonR: newStep
+      disableLeftButton: newStep === 0,
+      disableRightButton: newStep
       === -itemWidth * (images.length - frameSize),
       oneStep: (lastStep && infinite)
         ? (-itemWidth * (images.length - frameSize))
@@ -99,7 +99,7 @@ export class Carousel extends Component<Props, State> {
       animationDuration,
       infinite,
     } = this.props;
-    const { disableButtonR, disableButtonL, oneStep } = this.state;
+    const { disableRightButton, disableLeftButton, oneStep } = this.state;
 
     const startIndex = Math.max(0, -Math.floor(oneStep / itemWidth));
     const endIndex = Math.min(images.length - 1, startIndex + frameSize - 1);
@@ -124,6 +124,7 @@ export class Carousel extends Component<Props, State> {
                   style={{
                     width: itemWidth,
                     visibility: isVisible ? 'visible' : 'hidden',
+                    transition: `visibility ${animationDuration}ms`,
                   }}
                 >
                   <img
@@ -144,14 +145,14 @@ export class Carousel extends Component<Props, State> {
           <button
             type="button"
             aria-label="Prev"
-            className={`Carousel__button Carousel__button--left ${(disableButtonL && infinite === false) ? 'Carousel__button--disable' : ''}`}
+            className={`Carousel__button Carousel__button--left ${(disableLeftButton && infinite === false) ? 'Carousel__button--disable' : ''}`}
             onClick={this.scrollLeft}
           />
           <button
             type="button"
             aria-label="Next"
             data-cy="next"
-            className={`Carousel__button Carousel__button--right ${(disableButtonR && infinite === false) ? 'Carousel__button--disable' : ''}`}
+            className={`Carousel__button Carousel__button--right ${(disableRightButton && infinite === false) ? 'Carousel__button--disable' : ''}`}
             onClick={this.scrollRight}
           />
         </div>

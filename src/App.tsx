@@ -67,7 +67,7 @@ class App extends React.Component<{}, State> {
             type="number"
             id="itemId"
             name="itemWidth"
-            defaultValue={itemWidth}
+            value={itemWidth}
             onChange={this.changeInput}
             required
           />
@@ -79,7 +79,7 @@ class App extends React.Component<{}, State> {
             type="number"
             id="frameId"
             name="frameSize"
-            defaultValue={frameSize}
+            value={frameSize}
             onChange={this.changeInput}
             required
           />
@@ -91,27 +91,29 @@ class App extends React.Component<{}, State> {
             type="number"
             id="stepId"
             name="step"
-            defaultValue={step}
+            value={step}
             onChange={this.changeInput}
             required
           />
         </label>
 
-        <label>
+        <label htmlFor="animationId">
           Animation Duration
           <input
             type="number"
+            id="animationId"
             name="animationDuration"
-            defaultValue={animationDuration}
+            value={animationDuration}
             onChange={this.changeInput}
             required
           />
         </label>
 
-        <label>
+        <label htmlFor="infiniteId">
           Infinite
           <input
             type="checkbox"
+            id="infiniteId"
             name="infinite"
             checked={infinite}
             onChange={this.changeInput}
