@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__button {
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+  }
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

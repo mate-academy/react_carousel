@@ -1,1 +1,25 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+input {
+  box-sizing: border-box;
+  width: 70px;
+  height: fit-content;
+  border: none;
+  border-bottom: 0.5px solid #000;
+  padding-left: 10px;
+}
+
+label {
+  font: 16px sans-serif;
+}
