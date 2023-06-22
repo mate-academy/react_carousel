@@ -1,1 +1,26 @@
-// style go here
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #4885dd;
+}
+
+img {
+  display: block;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__field {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background-color: #31cf3b;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 20px;
+  }
+}
