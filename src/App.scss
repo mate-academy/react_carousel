@@ -1,1 +1,37 @@
-// style go here
+
+html {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+.title {
+  color: grey;
+
+  &__num {
+    color: green;
+  }
+}
+
+.form {
+  &__field {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+  }
+
+  &__content {
+    margin-right: 20px;
+  }
+
+  &__content:last-child {
+    margin: 0;
+  }
+
+  &__content--checkbox {
+    vertical-align: middle;
+  }
+}
