@@ -1,0 +1,48 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+
+  &__wrapper {
+    padding: 5px;
+    overflow: hidden;
+    border: 5px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 15px 15px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__list-item {
+    display: inline-block;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+
+    &:hover:enabled {
+      color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
