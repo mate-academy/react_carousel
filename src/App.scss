@@ -1,1 +1,13 @@
 // style go here
+.App {
+  padding-top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    padding-bottom: 50px;
+  }
+}
+
