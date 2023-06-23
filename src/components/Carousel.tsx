@@ -14,7 +14,6 @@ type State = {
   disableRightButton: boolean;
   disableLeftButton: boolean;
   oneStep: number;
-  lastStep: boolean;
 };
 
 export class Carousel extends Component<Props, State> {
@@ -22,7 +21,6 @@ export class Carousel extends Component<Props, State> {
     disableRightButton: false,
     disableLeftButton: true,
     oneStep: 0,
-    lastStep: false,
   };
 
   scrollRight = () => {
@@ -34,7 +32,6 @@ export class Carousel extends Component<Props, State> {
       frameSize,
     } = this.props;
     const { disableRightButton, oneStep } = this.state;
-    let { lastStep } = this.state;
     const maxSteps = images.length - frameSize;
 
     if (disableRightButton && infinite === false) {
@@ -46,14 +43,13 @@ export class Carousel extends Component<Props, State> {
     newStep = Math.max(newStep, -itemWidth * maxSteps);
 
     if (disableRightButton && infinite) {
-      lastStep = true;
       newStep = 0;
     }
 
     this.setState({
       disableRightButton: newStep === -itemWidth * maxSteps,
       disableLeftButton: newStep === 0,
-      oneStep: (lastStep && infinite) ? 0 : newStep,
+      oneStep: (disableRightButton && infinite) ? 0 : newStep,
     });
   };
 
@@ -66,7 +62,6 @@ export class Carousel extends Component<Props, State> {
       frameSize,
     } = this.props;
     const { disableLeftButton, oneStep } = this.state;
-    let { lastStep } = this.state;
 
     if (disableLeftButton && infinite === false) {
       return;
@@ -77,7 +72,6 @@ export class Carousel extends Component<Props, State> {
     newStep = Math.min(newStep, 0);
 
     if (disableLeftButton && infinite) {
-      lastStep = true;
       newStep = -itemWidth * (images.length - frameSize);
     }
 
@@ -85,7 +79,7 @@ export class Carousel extends Component<Props, State> {
       disableLeftButton: newStep === 0,
       disableRightButton: newStep
       === -itemWidth * (images.length - frameSize),
-      oneStep: (lastStep && infinite)
+      oneStep: (disableLeftButton && infinite)
         ? (-itemWidth * (images.length - frameSize))
         : newStep,
     });
@@ -122,7 +116,6 @@ export class Carousel extends Component<Props, State> {
                 <li
                   key={image}
                   style={{
-                    width: itemWidth,
                     visibility: isVisible ? 'visible' : 'hidden',
                     transition: `visibility ${animationDuration}ms`,
                   }}
