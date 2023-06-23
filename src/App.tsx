@@ -1,17 +1,19 @@
-import React from 'react';
-import './App.scss';
+import { ChangeEvent, Component } from 'react';
+
 import { Carousel } from './components/Carousel';
 
-interface State {
-  images: string[];
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
-}
+import './App.scss';
 
-class App extends React.Component<{}, State> {
+type State = {
+  images: string[];
+  itemWidth: number;
+  step: number;
+  frameSize: number;
+  animationDuration: number;
+  infinite: boolean;
+};
+
+class App extends Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -32,36 +34,64 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      name, value, type, checked,
-    } = e.target;
+  handleInputChange = (e: ChangeEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
 
-    this.setState(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+    switch (name) {
+      case 'step':
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'frameSize':
+        if (+value >= 0 && +value <= 10) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'itemWidth':
+        if (+value >= 0 && +value <= 300) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'animationDuration':
+        if (+value >= 0 && +value <= 7000) {
+          this.setState({ [name]: +value });
+        }
+
+        break;
+
+      case 'infinite':
+        this.setState((state) => ({
+          [name]: !state.infinite,
+        }));
+
+        break;
+
+      default:
+        throw new Error('Wrong case');
+    }
   };
 
   render() {
     const {
       images,
-      step,
-      frameSize,
-      itemWidth,
       animationDuration,
       infinite,
+      frameSize,
+      itemWidth,
+      step,
     } = this.state;
 
     return (
       <div className="App">
-        <h1 className="App__title" data-cy="title">
-          Carousel with
-          {' '}
-          {images.length}
-          {' '}
-          images
-        </h1>
+        {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <Carousel
           images={images}
@@ -73,83 +103,56 @@ class App extends React.Component<{}, State> {
         />
 
         <form className="App__form">
-          <label
-            htmlFor="itemId"
-            className="App__label"
-          >
-            Item width
-
+          <label className="App__field">
+            Item Width
             <input
-              className="App__input"
-              id="itemId"
-              type="number"
               name="itemWidth"
-              value={this.state.itemWidth}
-              onChange={this.handleChange}
+              className="App__input"
+              type="number"
+              onChange={this.handleInputChange}
+              value={itemWidth}
             />
           </label>
 
-          <label
-            htmlFor="frameId"
-            className="App__label"
-          >
-            Frame size
-
+          <label className="App__field">
+            Frame Size
             <input
-              className="App__input"
-              id="frameId"
-              type="number"
               name="frameSize"
-              min={1}
-              max={10}
-              value={this.state.frameSize}
-              onChange={this.handleChange}
+              className="App__input"
+              type="number"
+              onChange={this.handleInputChange}
+              value={frameSize}
             />
           </label>
 
-          <label
-            htmlFor="stepId"
-            className="App__label"
-          >
+          <label className="App__field">
             Step
-
             <input
-              className="App__input"
-              id="stepId"
-              type="number"
-              min={1}
               name="step"
-              value={this.state.step}
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label
-            htmlFor="animationId"
-            title="name"
-            className="App__label"
-          >
-            Animation duration
-
-            <input
               className="App__input"
-              id="animationId"
               type="number"
-              name="animationDuration"
-              value={this.state.animationDuration}
-              onChange={this.handleChange}
+              onChange={this.handleInputChange}
+              value={step}
             />
           </label>
-          <label htmlFor="infinite">
 
-            Infinite
-
+          <label className="App__field">
+            Animation Duration
             <input
-              id="infinite"
+              name="animationDuration"
+              className="App__input"
+              type="number"
+              onChange={this.handleInputChange}
+              value={animationDuration}
+            />
+          </label>
+
+          <label className="App__field">
+            Infinite
+            <input
               type="checkbox"
               name="infinite"
-              checked={this.state.infinite}
-              onChange={this.handleChange}
+              onChange={this.handleInputChange}
             />
           </label>
         </form>

@@ -1,139 +1,131 @@
-import React from 'react';
+import { Component } from 'react';
+
 import './Carousel.scss';
 
 type Props = {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 type State = {
-  position: number,
+  currentIndex: number;
 };
 
-export class Carousel extends React.Component<Props, State> {
-  state = {
-    position: 0,
+export class Carousel extends Component<Props, State> {
+  state: Readonly<State> = {
+    currentIndex: 0,
   };
 
-  handleNextClick = (
-    position: number,
-    maxPosition: number,
-    stepSize: number,
-    isLastCheck: boolean,
-    infinite: boolean,
-  ) => {
-    if (isLastCheck) {
+  nextBtnClickHandler = () => {
+    const { currentIndex } = this.state;
+    const {
+      images,
+      frameSize,
+      infinite,
+      step,
+      itemWidth,
+    } = this.props;
+
+    const maxTransition = images.length * itemWidth - frameSize * itemWidth;
+
+    if (infinite && currentIndex <= -maxTransition) {
       this.setState({
-        position: maxPosition,
+        currentIndex: frameSize * itemWidth,
       });
-    } else {
-      this.setState(state => ({
-        position: state.position - stepSize,
-      }));
     }
 
-    if (infinite && position === maxPosition) {
-      this.setState({
-        position: 0,
-      });
-    }
+    this.setState((prevState) => ({
+      currentIndex:
+        prevState.currentIndex - step * itemWidth < -maxTransition
+          ? -maxTransition
+          : prevState.currentIndex - step * itemWidth,
+    }));
   };
 
-  handlePrevClick = (
-    position: number,
-    maxPosition: number,
-    stepSize: number,
-    infinite: boolean,
-  ) => {
-    if (this.state.position + (stepSize) >= 0) {
+  prevBtnClickHandler = () => {
+    const { currentIndex } = this.state;
+
+    const {
+      images,
+      itemWidth,
+      step,
+      infinite,
+    } = this.props;
+
+    if (infinite && currentIndex >= 0) {
       this.setState({
-        position: 0,
+        currentIndex: -(images.length * itemWidth),
       });
-    } else {
-      this.setState(state => ({
-        position: state.position + (stepSize),
-      }));
     }
 
-    if (infinite && position + stepSize === stepSize) {
-      this.setState({
-        position: maxPosition,
-      });
-    }
+    this.setState((prevState) => ({
+      currentIndex:
+        prevState.currentIndex + step * itemWidth > 0
+          ? 0
+          : prevState.currentIndex + step * itemWidth,
+    }));
   };
 
   render() {
     const {
       images,
-      step,
-      frameSize,
       itemWidth,
+      frameSize,
       animationDuration,
       infinite,
     } = this.props;
-
-    const { position } = this.state;
-
-    const maxPosition = -itemWidth * (images.length - frameSize);
-
-    const stepSize = step * itemWidth;
-
-    const isLastCheck = position - (step * itemWidth) <= maxPosition;
+    const { currentIndex } = this.state;
 
     return (
-      <div
-        className="Carousel Carousel--margin"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-        }}
-      >
-        <ul
-          className="Carousel__list"
+      <div className="Carousel">
+        <div
+          className="Carousel__wrapper"
+          style={{
+            width: `${itemWidth * frameSize}px`,
+            height: `${itemWidth}px`,
+          }}
         >
-          {images.map((image, i) => (
-            <li
-              key={image}
-              className="Carousel__list-item"
-              style={{
-                transform: `translateX(${position}px)`,
-                transition: `transform ${animationDuration}ms`,
-              }}
-            >
-              <img
-                src={image}
-                alt={`Emoji-${i + 1}`}
-                width={itemWidth}
-              />
-            </li>
-          ))}
-        </ul>
+          <ul
+            className="Carousel__list"
+            style={{
+              transform: `translate(${currentIndex}px)`,
+              transitionDuration: `${animationDuration}ms`,
+            }}
+          >
+            {images.map((image) => {
+              return (
+                <li
+                  className="Carousel__img"
+                  key={image}
+                  style={{ height: '100%' }}
+                >
+                  <img src={image} alt={image} style={{ width: `${itemWidth}px` }} />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-        <div className="Carousel__btn-container">
+        <div className="Carousel__buttons">
           <button
             className="Carousel__btn"
             type="button"
-            disabled={!infinite && position === 0}
-            onClick={() => {
-              this.handlePrevClick(position, maxPosition, stepSize, infinite);
-            }}
+            onClick={this.prevBtnClickHandler}
+            disabled={!infinite && currentIndex === 0}
           >
             Prev
           </button>
-
           <button
             className="Carousel__btn"
             type="button"
-            disabled={!infinite && position === maxPosition}
+            onClick={this.nextBtnClickHandler}
             data-cy="next"
-            onClick={() => {
-              this.handleNextClick(
-                position, maxPosition, stepSize, isLastCheck, infinite,
-              );
-            }}
+            disabled={!infinite && currentIndex === itemWidth
+              * (frameSize - images.length)}
           >
             Next
           </button>
@@ -142,3 +134,5 @@ export class Carousel extends React.Component<Props, State> {
     );
   }
 }
+
+export default Carousel;
