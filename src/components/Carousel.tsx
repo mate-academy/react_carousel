@@ -85,6 +85,16 @@ export class Carousel extends Component<Props, State> {
     });
   };
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.itemWidth !== this.props.itemWidth) {
+      const { itemWidth } = this.props;
+
+      this.setState((prevState) => ({
+        oneStep: prevState.oneStep * (itemWidth / prevProps.itemWidth),
+      }));
+    }
+  }
+
   render() {
     const {
       images,
