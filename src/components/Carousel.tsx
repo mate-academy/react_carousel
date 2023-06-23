@@ -23,6 +23,16 @@ export class Carousel extends Component<Props, State> {
     oneStep: 0,
   };
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.itemWidth !== this.props.itemWidth) {
+      const { itemWidth } = this.props;
+
+      this.setState((prevState) => ({
+        oneStep: prevState.oneStep * (itemWidth / prevProps.itemWidth),
+      }));
+    }
+  }
+
   scrollRight = () => {
     const {
       itemWidth,
@@ -84,16 +94,6 @@ export class Carousel extends Component<Props, State> {
         : newStep,
     });
   };
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.itemWidth !== this.props.itemWidth) {
-      const { itemWidth } = this.props;
-
-      this.setState((prevState) => ({
-        oneStep: prevState.oneStep * (itemWidth / prevProps.itemWidth),
-      }));
-    }
-  }
 
   render() {
     const {
