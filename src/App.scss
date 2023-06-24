@@ -1,1 +1,41 @@
-// style go here
+body > iframe {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 20px;
+}
+
+.form {
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    width: 400px;
+    gap: 20px 30px;
+  }
+
+
+  &__input {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  &__radio-input {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    margin-left: 100px;
+  }
+}
+

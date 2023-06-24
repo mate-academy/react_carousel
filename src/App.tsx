@@ -1,12 +1,17 @@
-import React from 'react';
+import { Component } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -20,17 +25,128 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    const formElem = document.getElementById('formId') as HTMLFormElement;
+    const form = new FormData(formElem);
+    const data = Object.fromEntries(form.entries());
+
+    this.setState({
+      step: +data.step,
+      frameSize: +data.frameSize,
+      itemWidth: +data.itemWidth,
+      animationDuration: +data.animationDuration,
+      infinite: data.infinite !== 'false',
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${frameSize} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+        <form className="form" id="formId">
+          <div className="form__container">
+            <label htmlFor="itemId">
+              <strong>Item width: </strong>
+              <input
+                type="number"
+                name="itemWidth"
+                defaultValue="130"
+                id="itemId"
+                className="form__input"
+              />
+            </label>
+
+            <label htmlFor="frameId">
+              <strong>Frame size </strong>
+              <input
+                type="number"
+                name="frameSize"
+                defaultValue="3"
+                id="frameId"
+                className="form__input"
+              />
+            </label>
+
+            <label htmlFor="stepId">
+              <strong>Step: </strong>
+              <input
+                type="number"
+                name="step"
+                defaultValue="3"
+                id="stepId"
+                className="form__input"
+              />
+            </label>
+
+            <label>
+              <strong>Animation duration: </strong>
+              <input
+                type="number"
+                name="AnimationDuration"
+                defaultValue="1000"
+                className="form__input"
+              />
+            </label>
+
+            <div className="form__radio-input">
+              <strong>Infinite: </strong>
+              <label>
+                True
+                <input
+                  type="radio"
+                  value="true"
+                  name="infinite"
+                />
+              </label>
+              <label>
+                False
+                <input
+                  type="radio"
+                  value="false"
+                  name="infinite"
+                  defaultChecked
+                />
+              </label>
+            </div>
+          </div>
+          <div className="form__button">
+            <button
+              type="submit"
+              onClick={this.handleSubmit}
+            >
+              Set values
+            </button>
+          </div>
+        </form>
       </div>
     );
   }

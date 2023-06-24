@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+
+  &__list {
+    display: flex;
+    width: 1300px;
+    padding: 0;
+    right: 100px;
+    list-style: none;
+  }
+
+  &__list--animation {
+    animation: slide 5s infinite linear;
+  }
+
+  @keyframes slide {
+    0% {
+        transform: translate(30%, 0);
+    }
+    100% {
+        transform: translate(-100%, 0)
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
+
+button {
+  height: 30px;
+  width: 130px;
+}
+
