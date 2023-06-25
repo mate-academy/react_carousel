@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -15,7 +15,7 @@ type State = {
   countMove: number;
 };
 
-export class Carousel extends Component<Props, State> {
+export class Carousel extends PureComponent<Props, State> {
   state = {
     move: 0,
     countMove: this.props.images.length,
@@ -80,28 +80,29 @@ export class Carousel extends Component<Props, State> {
       <div
         className="Carousel"
         style={{
-          width: itemWidth * frameSize,
+          width: `${frameSize * itemWidth}px`,
+          transition: `${animationDuration}ms`,
         }}
       >
         <ul
-          className={infinite
-            ? `Carousel__list ${infinite && 'Carousel__list--animation'}`
-            : 'Carousel__list'}
-          style={{
-            transform: `translate(${-move}px)`,
-            transition: `transform ${animationDuration}ms`,
-          }}
+          className="Carousel__list"
         >
           {images.map((img, i) => {
             return (
               <li
                 key={img}
-                className="Carousel__item"
+                className={infinite
+                  ? `Carousel__item ${infinite && 'Carousel__list--animation'}`
+                  : 'Carousel__item'}
+                style={{
+                  transform: `translateX(${-move}px)`,
+                  transition: `${animationDuration}ms`,
+                }}
               >
                 <img
                   src={img}
                   width={itemWidth}
-                  alt={(i + 1).toString()}
+                  alt={`${i + 1}`}
                 />
               </li>
             );

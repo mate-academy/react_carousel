@@ -32,19 +32,14 @@ class App extends Component<{}, State> {
     infinite: false,
   };
 
-  handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const formElem = document.getElementById('formId') as HTMLFormElement;
-    const form = new FormData(formElem);
-    const data = Object.fromEntries(form.entries());
+  handleChnges = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = event.currentTarget;
+    const correctValue = name === 'infinite' ? checked : value;
 
-    this.setState({
-      step: +data.step,
-      frameSize: +data.frameSize,
-      itemWidth: +data.itemWidth,
-      animationDuration: +data.animationDuration,
-      infinite: data.infinite !== 'false',
-    });
+    return this.setState((prevState) => ({
+      ...prevState,
+      [name]: correctValue,
+    }));
   };
 
   render() {
@@ -81,6 +76,8 @@ class App extends Component<{}, State> {
                 name="itemWidth"
                 defaultValue="130"
                 id="itemId"
+                step="10"
+                onChange={(event) => (this.handleChnges(event))}
                 className="form__input"
               />
             </label>
@@ -91,6 +88,9 @@ class App extends Component<{}, State> {
                 type="number"
                 name="frameSize"
                 defaultValue="3"
+                min="1"
+                max={this.state.images.length}
+                onChange={(event) => (this.handleChnges(event))}
                 id="frameId"
                 className="form__input"
               />
@@ -102,6 +102,8 @@ class App extends Component<{}, State> {
                 type="number"
                 name="step"
                 defaultValue="3"
+                min="1"
+                onChange={(event) => (this.handleChnges(event))}
                 id="stepId"
                 className="form__input"
               />
@@ -113,6 +115,9 @@ class App extends Component<{}, State> {
                 type="number"
                 name="AnimationDuration"
                 defaultValue="1000"
+                min={1000}
+                step={500}
+                onChange={(event) => (this.handleChnges(event))}
                 className="form__input"
               />
             </label>
@@ -122,29 +127,13 @@ class App extends Component<{}, State> {
               <label>
                 True
                 <input
-                  type="radio"
+                  type="checkbox"
                   value="true"
                   name="infinite"
-                />
-              </label>
-              <label>
-                False
-                <input
-                  type="radio"
-                  value="false"
-                  name="infinite"
-                  defaultChecked
+                  onChange={(event) => (this.handleChnges(event))}
                 />
               </label>
             </div>
-          </div>
-          <div className="form__button">
-            <button
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              Set values
-            </button>
           </div>
         </form>
       </div>

@@ -1,39 +1,33 @@
 .Carousel {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-
+  margin: 0 auto;
 
   &__list {
     display: flex;
-    width: 1300px;
-    padding: 0;
-    right: 100px;
+    margin: 20px auto;
+    padding: 20px 0;
     list-style: none;
+    overflow: hidden;
   }
 
   &__list--animation {
-    animation: slide 5s infinite linear;
+    animation: slide 2000ms infinite linear;
   }
 
   @keyframes slide {
     0% {
-        transform: translate(30%, 0);
+      transform: translate(500px);
     }
+
     100% {
-        transform: translate(-100%, 0)
+      transform: translate(-1500px);
     }
   }
 
   &__buttons {
+    width: 100px;
     display: flex;
+    align-content: center;
     flex-direction: column;
     row-gap: 10px;
   }
 }
-
-button {
-  height: 30px;
-  width: 130px;
-}
-
