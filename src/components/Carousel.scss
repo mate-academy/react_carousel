@@ -1,1 +1,33 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  margin: 0 auto;
+  padding: 0;
+
+  &__list {
+    display: flex;
+    margin-top: 60px;
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+  }
+}
+
+.button {
+  width: 65px;
+  height: 25px;
+  margin: 15px;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: gray;
+  border: 3px solid black;
+}
