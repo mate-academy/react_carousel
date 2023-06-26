@@ -1,0 +1,31 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  &__title {
+    margin-bottom: 32px;
+  }
+
+  &__carousel {
+    margin-bottom: 40px;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    // width: 1300px;
+    border: 2px dashed gray;
+    border-radius: 8px;
+    padding: 32px;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: rgba(#000, 0.05);
+    }
+  }
+}
