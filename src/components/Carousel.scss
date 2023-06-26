@@ -1,1 +1,21 @@
-// style go here
+.carousel {
+  &__wrap {
+    margin-bottom: 30px;
+
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__btn-wrap {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__fieldset {
+    width: max-content;
+  }
+}
