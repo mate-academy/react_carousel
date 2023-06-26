@@ -3,7 +3,8 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images: string[],
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +21,23 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    // eslint-disable-next-line react/no-unused-state
+    infinite: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1>Carousel </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+        />
       </div>
     );
   }
