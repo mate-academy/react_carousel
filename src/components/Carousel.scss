@@ -1,1 +1,18 @@
 // style go here
+.Carousel__list {
+  display: flex;
+  width: 100%;
+}
+
+.box {
+  overflow: hidden;
+  margin-left: 100px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  all: unset;
+}
