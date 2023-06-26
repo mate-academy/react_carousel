@@ -1,1 +1,24 @@
 // style go here
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0 0 15px;
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+
+    &-item {
+      height: 40px;
+      border-radius: 19px;
+      padding-left: 14px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+}
