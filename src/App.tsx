@@ -12,6 +12,14 @@ interface State {
   infinite: boolean;
 }
 
+enum Parameter {
+  ItemWidth = 'itemWidth',
+  FrameSize = 'frameSize',
+  Step = 'step',
+  AnimationDuration = 'animationDuration',
+  Infinite = 'infinite',
+}
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -42,27 +50,27 @@ class App extends React.Component<{}, State> {
       max,
     } = event.target;
     const isValidValue = (+value >= +min && +value <= +max)
-      || name === 'infinite';
+      || (name === Parameter.Infinite);
 
     if (isValidValue) {
       switch (name) {
-        case 'itemWidth':
+        case Parameter.ItemWidth:
           this.setState({ itemWidth: +value });
           break;
 
-        case 'frameSize':
+        case Parameter.FrameSize:
           this.setState({ frameSize: +value });
           break;
 
-        case 'step':
+        case Parameter.Step:
           this.setState({ step: +value });
           break;
 
-        case 'animationDuration':
+        case Parameter.AnimationDuration:
           this.setState({ animationDuration: +value });
           break;
 
-        case 'infinite':
+        case Parameter.Infinite:
           this.setState((state) => ({ infinite: !state.infinite }));
           break;
 
@@ -91,17 +99,14 @@ class App extends React.Component<{}, State> {
           data-cy="title"
           className="title"
         >
-          Carousel with
-          {' '}
-          {images.length}
-          {' '}
-          images
+          {`Carousel with ${images.length} images`}
         </h1>
 
         <form className="form">
           <label htmlFor="step">
             Step:
             <input
+              className="inputField"
               name="step"
               type="number"
               min={1}
@@ -114,6 +119,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="frameSize">
             FrameSize:
             <input
+              className="inputField"
               name="frameSize"
               type="number"
               min={1}
@@ -126,6 +132,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="itemWidth">
             ItemWidth:
             <input
+              className="inputField"
               name="itemWidth"
               type="number"
               min={10}
@@ -139,6 +146,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="animationDuration">
             AnimationDuration:
             <input
+              className="inputField"
               name="animationDuration"
               type="number"
               min={500}
@@ -151,6 +159,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="infinite">
             Infinite:
             <input
+              className="inputField"
               name="infinite"
               type="checkbox"
               checked={infinite}
