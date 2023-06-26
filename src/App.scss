@@ -1,1 +1,16 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Comme:wght@600&display=swap");
+
+html {
+  background-color: lightcoral;
+}
+
+.App {
+  background-color: lightcoral;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Comme", sans-serif;
+
+  &__title {
+    color: #fff;
+  }
+}
