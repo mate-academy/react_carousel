@@ -1,1 +1,44 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+
+  .Carousel__container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .Carousel__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.3s ease;
+  }
+
+  li {
+    margin-right: 10px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
