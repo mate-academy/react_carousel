@@ -75,7 +75,7 @@ class App extends React.Component<{}, AppState> {
             <input
               type="number"
               defaultValue={3}
-              min={2}
+              min={1}
               max={10}
               onChange={(ev) => this.setState({ frameSize: +ev.target.value })}
             />
@@ -86,7 +86,7 @@ class App extends React.Component<{}, AppState> {
             <input
               type="number"
               defaultValue={3}
-              min={2}
+              min={1}
               max={images.length}
               onChange={(ev) => this.setState({ step: +ev.target.value })}
             />
@@ -108,8 +108,6 @@ class App extends React.Component<{}, AppState> {
             {'Infinite: '}
             <input
               type="checkbox"
-              name=""
-              id=""
               onClick={() => this.setState({ infinite: !infinite })}
             />
           </label>

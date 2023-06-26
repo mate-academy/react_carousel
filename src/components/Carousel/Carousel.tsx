@@ -3,7 +3,7 @@
 import React from 'react';
 import './Carousel.scss';
 
-type Props = {
+type CarouselProps = {
   images: string[],
   step: number,
   frameSize: number,
@@ -12,11 +12,11 @@ type Props = {
   infinite: boolean
 };
 
-type State = {
+type CarouselState = {
   currPos: number
 };
 
-class Carousel extends React.Component<Props, State> {
+class Carousel extends React.Component<CarouselProps, CarouselState> {
   state = {
     currPos: 0,
   };
@@ -24,56 +24,49 @@ class Carousel extends React.Component<Props, State> {
   handleBtn = (step: number) => {
     const { currPos } = this.state;
     const { images, frameSize } = this.props;
-    const firstPos = 0;
+
     const lastPos = -images.length + frameSize;
     let nextPos = currPos + step;
 
-    if (step < 0) {
-      nextPos = (currPos === lastPos)
-        ? 0
-        : Math.max(currPos + step, lastPos);
+    nextPos = Math.max(nextPos, lastPos);
+    nextPos = Math.min(nextPos, 0);
+
+    if (step < 0 && currPos === lastPos) {
+      nextPos = 0;
     }
 
-    if (step > 0) {
-      nextPos = (currPos === firstPos)
-        ? lastPos
-        : Math.min(currPos + step, firstPos);
+    if (step > 0 && currPos === 0) {
+      nextPos = lastPos;
     }
 
     this.setState({ currPos: nextPos });
   };
 
   render() {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      animationDuration,
-      infinite,
-    } = this.props;
+    // eslint-disable-next-line object-curly-newline
+    const { images, step, frameSize, itemWidth, animationDuration, infinite } = this.props;
 
     const listStyles = {
       width: `${frameSize * itemWidth}px`,
       transition: `all ${animationDuration}ms`,
     };
 
-    const imageStyles = {
-      width: `${itemWidth}px`,
-      transform: `translateX(${this.state.currPos * itemWidth}px)`,
-      transition: `all ${animationDuration}ms`,
-    };
-
     return (
       <div className="Carousel App__carousel">
         <ul className="Carousel__list" style={listStyles}>
-          {images.map(image => {
-            const key = image[image.length - 5];
-
-            return (
-              <li className="Carousel__item" key={key}><img src={image} alt={key} style={imageStyles} /></li>
-            );
-          })}
+          {images.map(image => (
+            <li className="Carousel__item" key={image[image.length - 5]}>
+              <img
+                src={image}
+                alt="Carousel emoji"
+                style={{
+                  width: `${itemWidth}px`,
+                  transform: `translateX(${this.state.currPos * itemWidth}px)`,
+                  transition: `all ${animationDuration}ms`,
+                }}
+              />
+            </li>
+          ))}
         </ul>
 
         <div className="Carousel__buttons">
