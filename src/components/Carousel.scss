@@ -1,1 +1,51 @@
-// style go here
+.container {
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  border: 5px rgba(104, 218, 247, 0.3) solid;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: rgb(213, 246, 250);
+  border-radius: 20px;
+  height: 40px;
+  width: 50px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  color: #03f;
+  font-size: 30px;
+  border-color: rgba(104, 218, 247, 0.3);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    color: rgb(213, 246, 250);
+    cursor: default;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &__prev {
+    left: 0;
+  }
+
+  &__next {
+    right: 0;
+  }
+}

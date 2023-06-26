@@ -1,1 +1,45 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  background-color: rgb(213, 246, 250);
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  margin: 40px auto;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    margin: 10px 0;
+    align-items: center;
+    color: #03f;
+
+    &--checkbox {
+      margin-top: 5px;
+    }
+
+    &--input {
+      margin: 10px;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 2px;
+      background: #0fc;
+      border-radius: 20px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+  }
+}
