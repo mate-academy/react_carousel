@@ -66,7 +66,6 @@ class App extends React.Component<{}, CarouselValues> {
               type="number"
               value={itemWidth}
               className="App__input"
-              defaultValue={130}
               step={5}
               onChange={this.onChangeWidth}
               min={130}
@@ -82,6 +81,7 @@ class App extends React.Component<{}, CarouselValues> {
               step={1}
               onChange={this.onChangeFrameSize}
               min={1}
+              max={images.length}
             />
           </label>
 

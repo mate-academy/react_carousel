@@ -8,16 +8,20 @@ $mainBGColor: rgb(193, 193, 245);
 
   &__form {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   &__input {
     height: 20px;
     width: 50px;
     text-align: center;
-    margin: 5px 0 10px 10px;
+    margin: 5px 0 10px 30px;
     background-color: $mainBGColor;
   }
 }
@@ -47,7 +51,7 @@ $mainBGColor: rgb(193, 193, 245);
   &__buttons {
     width: 100%;
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
   }
 
   button {

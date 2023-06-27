@@ -11,58 +11,20 @@ class Carousel extends React.Component<CarouselValues, State> {
     focusPosition: 0,
   };
 
-  maxFocusPositionOfAllIcons = () => {
-    const {
-      itemWidth,
-      frameSize,
-    } = this.props;
+  componentDidUpdate() {
+    const maxFocusPositionOfAllIcons = this.maxFocusValue();
 
-    return -((this.props.images.length - frameSize) * itemWidth);
-  };
-
-  onPrevHandler = () => {
-    const {
-      step,
-      itemWidth,
-      infinite,
-    } = this.props;
-
-    const { focusPosition } = this.state;
-
-    if (infinite && focusPosition >= 0) {
+    if (maxFocusPositionOfAllIcons > this.state.focusPosition) {
       this.setState({
-        focusPosition: this.maxFocusPositionOfAllIcons(),
+        focusPosition: maxFocusPositionOfAllIcons,
       });
-
-      return;
     }
+  }
 
-    this.setState(prevState => {
-      return { focusPosition: prevState.focusPosition + (+step * itemWidth) };
-    });
-  };
+  maxFocusValue = () => {
+    const { frameSize, itemWidth, images } = this.props;
 
-  onNextHandler = () => {
-    const {
-      step,
-      itemWidth,
-      infinite,
-    } = this.props;
-
-    const { focusPosition } = this.state;
-
-    if (
-      infinite
-      && focusPosition
-      <= this.maxFocusPositionOfAllIcons()) {
-      this.setState({ focusPosition: 0 });
-
-      return;
-    }
-
-    this.setState(prevState => {
-      return { focusPosition: prevState.focusPosition - (+step * itemWidth) };
-    });
+    return -((images.length - frameSize) * itemWidth);
   };
 
   render() {
@@ -71,13 +33,55 @@ class Carousel extends React.Component<CarouselValues, State> {
       itemWidth,
       frameSize,
       infinite,
+      step,
       animationDuration,
     } = this.props;
+
     const { focusPosition } = this.state;
+
+    const maxFocusPosition = this.maxFocusValue();
+    const minFocusPosition = 0;
 
     const disablePrevButton = focusPosition >= 0 && !infinite;
     const disableNextButton = focusPosition
-    <= this.maxFocusPositionOfAllIcons() && !infinite;
+    <= maxFocusPosition && !infinite;
+
+    const onPrevHandler = () => {
+      if (infinite && focusPosition >= 0) {
+        this.setState({
+          focusPosition: maxFocusPosition,
+        });
+
+        return;
+      }
+
+      this.setState(prevState => {
+        const newFocusPosition = prevState.focusPosition + (step * itemWidth);
+
+        return {
+          focusPosition: newFocusPosition > minFocusPosition
+            ? minFocusPosition : newFocusPosition,
+        };
+      });
+    };
+
+    const onNextHandler = () => {
+      if (
+        infinite
+        && focusPosition
+        <= maxFocusPosition) {
+        this.setState({ focusPosition: 0 });
+
+        return;
+      }
+
+      this.setState(prevState => {
+        const newValue = prevState.focusPosition - (+step * itemWidth);
+        const maxWidth = -((images.length - frameSize) * itemWidth);
+
+        return { focusPosition: newValue < maxWidth ? maxWidth : newValue };
+      });
+    };
 
     return (
       <div className="Carousel">
@@ -94,7 +98,7 @@ class Carousel extends React.Component<CarouselValues, State> {
                 >
                   <img
                     style={{
-                      width: +itemWidth,
+                      width: itemWidth,
                       transform: `translateX(${focusPosition}px)`,
                       transition: `${animationDuration}ms`,
                     }}
@@ -110,7 +114,7 @@ class Carousel extends React.Component<CarouselValues, State> {
             <button
               type="button"
               disabled={disablePrevButton}
-              onClick={this.onPrevHandler}
+              onClick={onPrevHandler}
             >
               &#8592;
             </button>
@@ -118,7 +122,7 @@ class Carousel extends React.Component<CarouselValues, State> {
               data-cy="next"
               type="button"
               disabled={disableNextButton}
-              onClick={this.onNextHandler}
+              onClick={onNextHandler}
             >
               &#8594;
             </button>
