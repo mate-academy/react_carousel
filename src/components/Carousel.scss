@@ -1,1 +1,62 @@
-// style go here
+$mainBGColor: rgb(193, 193, 245);
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__input {
+    height: 20px;
+    width: 50px;
+    text-align: center;
+    margin: 5px 0 10px 10px;
+    background-color: $mainBGColor;
+  }
+}
+
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around
+  }
+
+  button {
+    height: 30px;
+    width: 50px;
+    background-color: $mainBGColor;
+  }
+
+  :disabled {
+    background-color: rgb(236, 157, 157);
+  }
+}
