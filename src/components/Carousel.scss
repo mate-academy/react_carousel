@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: static;
+  
+  &_container {
+    margin: 0 auto;
+    overflow: hidden;
+    border: thick double rgb(215, 212, 208);
+  }
+
+  &_list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &_item {
+    display: flex;
+  }
+
+  &_buttons {
+    display: flex;
+    margin-left: 50px;
+  }
+
+  &_button {
+    margin-left: 50px;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+  }
+}
