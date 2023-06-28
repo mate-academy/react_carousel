@@ -11,56 +11,57 @@ interface Props {
 }
 
 interface State {
-  shift: number;
-  isInfinite: boolean;
+  position: number;
 }
 
 export class Carousel extends Component<Props, State> {
   state: State = {
-    shift: 0,
-    isInfinite: this.props.infinite,
+    position: 0,
   };
 
-  handlePrevButton = () => {
-    const {
-      step,
-      itemWidth,
-      infinite,
-    } = this.props;
-
-    this.setState((prevState) => {
-      const scrolledDist = prevState.shift - step * itemWidth;
-      const newShift = infinite
-        ? (scrolledDist % itemWidth)
-        : Math.max(0, scrolledDist);
-
-      return {
-        shift: newShift,
-      };
-    });
-  };
-
-  handleNextButton = () => {
+  nextImage = () => {
     const {
       images,
-      step,
       frameSize,
       itemWidth,
       infinite,
     } = this.props;
+    const { position } = this.state;
+    const maxWidth = (images.length - frameSize) * itemWidth;
+    const stepSum = this.props.step * itemWidth;
 
-    const endOfScroll = (images.length - frameSize) * itemWidth;
+    if (position - itemWidth * this.props.step < -maxWidth) {
+      this.setState({ position: -maxWidth });
+    } else {
+      this.setState({ position: position - stepSum });
+    }
 
-    this.setState((prevState) => {
-      const scrolledDist = prevState.shift + step * itemWidth;
-      const newShift = infinite
-        ? (scrolledDist % endOfScroll)
-        : Math.min(scrolledDist, endOfScroll);
+    if (position === -maxWidth && infinite) {
+      this.setState({ position: 0 });
+    }
+  };
 
-      return {
-        shift: newShift,
-      };
-    });
+  prevImage = () => {
+    const { position } = this.state;
+    const stepSum = this.props.step * this.props.itemWidth;
+
+    if (position + stepSum > 0) {
+      this.setState({ position: 0 });
+    } else {
+      this.setState({ position: position + stepSum });
+    }
+
+    const {
+      images,
+      frameSize,
+      itemWidth,
+      infinite,
+    } = this.props;
+    const maxWidth = (images.length - frameSize) * itemWidth;
+
+    if (position === 0 && infinite) {
+      this.setState({ position: -maxWidth });
+    }
   };
 
   render() {
@@ -70,41 +71,28 @@ export class Carousel extends Component<Props, State> {
       itemWidth,
       animationDuration,
     } = this.props;
-
-    const { shift } = this.state;
+    const { position } = this.state;
 
     const carouselTransform = {
-      transform: `translateX(${-shift}px)`,
-      transition: `${animationDuration}ms`,
+      transform: `translateX(${position}px)`,
+      transition: `transform ${animationDuration}ms`,
     };
 
-    const containerWidth = { width: `${+itemWidth * +frameSize}px` };
-
-    const imgWidth = {
-      width: `${+itemWidth}px`,
-    };
-    const isDisabledPrev = shift <= 0 && !this.state.isInfinite;
-    const isDisabledNext = shift >= (images.length - frameSize) * itemWidth
-       && !this.state.isInfinite;
+    const containerWidth = { width: `${itemWidth * frameSize}px` };
+    const imgWidth = { width: `${itemWidth}px` };
+    const isDisabledPrev = position >= 0 && !this.props.infinite;
+    const isDisabledNext = position <= -(images.length - frameSize)
+       * itemWidth && !this.props.infinite;
 
     return (
       <div className="Carousel">
-        <div
-          className="Carousel_container"
-          style={containerWidth}
-        >
-          <ul
-            className="Carousel_list"
-            style={carouselTransform}
-          >
+        <div className="Carousel_container" style={containerWidth}>
+          <ul className="Carousel_list" style={carouselTransform}>
             {images.map((image) => (
-              <li
-                className="Carousei_item"
-                key={image}
-              >
+              <li className="Carousel_item" key={image}>
                 <img
                   className="Carousel_img"
-                  alt={`${image}`}
+                  alt={image}
                   src={image}
                   style={imgWidth}
                 />
@@ -113,11 +101,11 @@ export class Carousel extends Component<Props, State> {
           </ul>
         </div>
 
-        <div className="Сarousel_buttons">
+        <div className="Carousel_buttons">
           <button
             type="button"
-            className="Сarousel_button"
-            onClick={this.handlePrevButton}
+            className="Carousel_button"
+            onClick={this.prevImage}
             disabled={isDisabledPrev}
           >
             Prev
@@ -125,8 +113,8 @@ export class Carousel extends Component<Props, State> {
 
           <button
             type="button"
-            className="Сarousel_button"
-            onClick={this.handleNextButton}
+            className="Carousel_button"
+            onClick={this.nextImage}
             data-cy="next"
             disabled={isDisabledNext}
           >
@@ -134,7 +122,6 @@ export class Carousel extends Component<Props, State> {
           </button>
         </div>
       </div>
-
     );
   }
 }
