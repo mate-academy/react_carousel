@@ -4,8 +4,12 @@
 
   &__wrapper {
     display: flex;
-    width: 1300px;
     position: relative;
+    padding: 0;
+  }
+
+  &__item {
+    list-style: none;
   }
 
   &__buttons-wrapper {

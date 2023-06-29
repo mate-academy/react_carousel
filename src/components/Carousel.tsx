@@ -17,10 +17,10 @@ const Carousel: React.FC<Props> = ({
   step,
   animationDuration,
 }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLUListElement>(null);
   let positionCounter = 0;
   const lastImages = images.length % frameSize;
-  const maxPosCounter = (images.length * itemWidth) - (step * itemWidth);
+  const maxPosCounter = (images.length * itemWidth) - (frameSize * itemWidth);
   const border = maxPosCounter - (lastImages * itemWidth);
 
   const handleNextClick = () => {
@@ -36,11 +36,9 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrevClick = () => {
-    if (positionCounter < frameSize * itemWidth && positionCounter > 0) {
+    if (positionCounter < frameSize * itemWidth && positionCounter !== 0) {
       positionCounter -= lastImages * itemWidth;
-    }
-
-    if (positionCounter !== 0) {
+    } else if (positionCounter > 0) {
       positionCounter -= step * itemWidth;
     }
 
@@ -49,23 +47,28 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
-      <div
+      <ul
         className="Carousel__wrapper"
         ref={wrapperRef}
         data-duration={animationDuration}
-        style={{ transition: `transform ${animationDuration}ms` }}
+        style={{
+          transition: `transform ${animationDuration}ms`,
+          width: images.length * itemWidth,
+        }}
       >
         {images.map((img, i) => (
-          <img
-            key={img}
-            src={img}
-            alt={`${i + 1}`}
-            className="Carousel__img"
-            width={itemWidth}
-            height={itemWidth}
-          />
+          <li key={img} className="Carousel__item">
+            <img
+              src={img}
+              alt={`${i + 1}`}
+              className="Carousel__img"
+              width={itemWidth}
+              height={itemWidth}
+            />
+          </li>
+
         ))}
-      </div>
+      </ul>
 
       <div className="Carousel__buttons-wrapper">
         <button

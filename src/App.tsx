@@ -5,10 +5,10 @@ import Carousel from './components/Carousel';
 interface State {
   images: string[];
   options: {
-    duration: number,
-    width: number,
+    animationDuration: number,
+    itemWidth: number,
     step: number,
-    size: number,
+    frameSize: number,
   }
 }
 
@@ -27,10 +27,10 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
     options: {
-      duration: 1000,
-      width: 130,
+      animationDuration: 1000,
+      itemWidth: 130,
       step: 3,
-      size: 3,
+      frameSize: 3,
     },
   };
 
@@ -49,10 +49,10 @@ class App extends React.Component<{}, State> {
   render() {
     const { images, options } = this.state;
     const {
-      duration,
-      size,
+      animationDuration,
+      frameSize,
       step,
-      width,
+      itemWidth,
     } = options;
 
     return (
@@ -60,45 +60,49 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy='title' className='App__title'>Carousel with {images.length} images</h1>
         <form className="App__form">
-          <label htmlFor="duration">Animation duration (ms)</label>
+          <label htmlFor="animationDuration">Animation duration (ms)</label>
           <input
             type="number"
-            name="duration"
-            id="duration"
-            value={options.duration}
+            name="animationDuration"
+            id="animationDuration"
+            value={animationDuration}
             onChange={(e) => this.handleInputChange(e)}
           />
-          <label htmlFor="width">Slide width (px)</label>
+
+          <label htmlFor="itemId">Slide width (px)</label>
           <input
             type="number"
-            name="width"
-            id="width"
-            value={options.width}
+            name="itemWidth"
+            id="itemId"
+            value={itemWidth}
             onChange={(e) => this.handleInputChange(e)}
           />
-          <label htmlFor="step">Scroll step</label>
+
+          <label htmlFor="stepId">Scroll step</label>
           <input
             type="number"
             name="step"
-            id="step"
-            value={options.step}
+            id="stepId"
+            value={step}
             onChange={(e) => this.handleInputChange(e)}
           />
-          <label htmlFor="size">Images per slide</label>
+
+          <label htmlFor="frameId">Images per slide</label>
           <input
             type="number"
-            name="size"
-            id="size"
-            value={options.size}
+            name="frameSize"
+            id="frameId"
+            value={frameSize}
             onChange={(e) => this.handleInputChange(e)}
           />
         </form>
+
         <Carousel
           images={images}
-          frameSize={size}
-          itemWidth={width}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
           step={step}
-          animationDuration={duration}
+          animationDuration={animationDuration}
         />
       </div>
     );
