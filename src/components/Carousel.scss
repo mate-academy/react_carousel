@@ -1,1 +1,20 @@
-// style go here
+.viewport {
+  margin: 10px 50px;
+  overflow: hidden;
+}
+
+.Carousel__list {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  width: 9999px;
+  position: relative;
+}
+
+.Carousel__item {
+  display: inline-block;
+}
+
+.arrow {
+  margin-right: 50px;
+}
