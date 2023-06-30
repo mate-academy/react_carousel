@@ -18,61 +18,65 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
 }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-  let positionCounter = 0;
+  const positionCounter = useRef(0);
   const lastImages = images.length % frameSize;
   const maxPosCounter = (images.length * itemWidth) - (frameSize * itemWidth);
   const border = maxPosCounter - (lastImages * itemWidth);
 
   const handleNextClick = () => {
-    if (positionCounter === border) {
-      positionCounter += lastImages * itemWidth;
+    if (positionCounter.current === border) {
+      positionCounter.current += lastImages * itemWidth;
     }
 
-    if (positionCounter < maxPosCounter) {
-      positionCounter += step * itemWidth;
+    if (positionCounter.current < maxPosCounter) {
+      positionCounter.current += step * itemWidth;
     }
 
-    wrapperRef.current!.style.transform = `translateX(-${positionCounter}px)`;
+    wrapperRef.current!.style.transform = `translateX(-${positionCounter.current}px)`;
   };
 
   const handlePrevClick = () => {
-    if (positionCounter < frameSize * itemWidth && positionCounter !== 0) {
-      positionCounter -= lastImages * itemWidth;
-    } else if (positionCounter > 0) {
-      positionCounter -= step * itemWidth;
+    if (positionCounter.current < frameSize * itemWidth
+      && positionCounter.current !== 0
+      && lastImages !== 0) {
+      positionCounter.current -= lastImages * itemWidth;
+    } else if (positionCounter.current > 0) {
+      positionCounter.current -= step * itemWidth;
     }
 
-    wrapperRef.current!.style.transform = `translateX(-${positionCounter}px)`;
+    wrapperRef.current!.style.transform = `translateX(-${positionCounter.current}px)`;
   };
 
   return (
-    <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
-      <ul
-        className="Carousel__wrapper"
-        ref={wrapperRef}
-        data-duration={animationDuration}
-        style={{
-          transition: `transform ${animationDuration}ms`,
-          width: images.length * itemWidth,
-        }}
-      >
-        {images.map((img, i) => (
-          <li key={img} className="Carousel__item">
-            <img
-              src={img}
-              alt={`${i + 1}`}
-              className="Carousel__img"
-              width={itemWidth}
-              height={itemWidth}
-            />
-          </li>
+    <>
+      <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
+        <ul
+          className="Carousel__wrapper"
+          ref={wrapperRef}
+          data-duration={animationDuration}
+          style={{
+            transition: `transform ${animationDuration}ms`,
+            width: images.length * itemWidth,
+          }}
+        >
+          {images.map((img, i) => (
+            <li key={img} className="Carousel__item">
+              <img
+                src={img}
+                alt={`${i + 1}`}
+                className="Carousel__img"
+                width={itemWidth}
+                height={itemWidth}
+              />
+            </li>
 
-        ))}
-      </ul>
+          ))}
+        </ul>
+      </div>
 
-      <div className="Carousel__buttons-wrapper">
+      <div className="Buttons">
         <button
-          className="Carousel__button"
+          className="Buttons__button"
           type="button"
           onClick={handlePrevClick}
         >
@@ -80,7 +84,7 @@ const Carousel: React.FC<Props> = ({
         </button>
 
         <button
-          className="Carousel__button"
+          className="Buttons__button"
           type="button"
           data-cy="next"
           onClick={handleNextClick}
@@ -88,8 +92,7 @@ const Carousel: React.FC<Props> = ({
           Next
         </button>
       </div>
-
-    </div>
+    </>
   );
 };
 

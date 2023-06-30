@@ -60,41 +60,49 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy='title' className='App__title'>Carousel with {images.length} images</h1>
         <form className="App__form">
-          <label htmlFor="animationDuration">Animation duration (ms)</label>
-          <input
-            type="number"
-            name="animationDuration"
-            id="animationDuration"
-            value={animationDuration}
-            onChange={(e) => this.handleInputChange(e)}
-          />
+          <div className="App__field">
+            <label htmlFor="animationDuration">Animation duration (ms)</label>
+            <input
+              type="number"
+              name="animationDuration"
+              id="animationDuration"
+              value={animationDuration}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
 
-          <label htmlFor="itemId">Slide width (px)</label>
-          <input
-            type="number"
-            name="itemWidth"
-            id="itemId"
-            value={itemWidth}
-            onChange={(e) => this.handleInputChange(e)}
-          />
+          <div className="App__field">
+            <label htmlFor="itemId">Slide width (px)</label>
+            <input
+              type="number"
+              name="itemWidth"
+              id="itemId"
+              value={itemWidth}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
 
-          <label htmlFor="stepId">Scroll step</label>
-          <input
-            type="number"
-            name="step"
-            id="stepId"
-            value={step}
-            onChange={(e) => this.handleInputChange(e)}
-          />
+          <div className="App__field">
+            <label htmlFor="stepId">Scroll step</label>
+            <input
+              type="number"
+              name="step"
+              id="stepId"
+              value={step}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
 
-          <label htmlFor="frameId">Images per slide</label>
-          <input
-            type="number"
-            name="frameSize"
-            id="frameId"
-            value={frameSize}
-            onChange={(e) => this.handleInputChange(e)}
-          />
+          <div className="App__field">
+            <label htmlFor="frameId">Images per slide</label>
+            <input
+              type="number"
+              name="frameSize"
+              id="frameId"
+              value={frameSize}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
         </form>
 
         <Carousel
