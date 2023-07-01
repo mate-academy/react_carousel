@@ -70,7 +70,7 @@ export class Form extends Component<{}, State> {
                 defaultValue="130"
                 id="itemId"
                 step="10"
-                onChange={(event) => (this.handleChnges(event))}
+                onChange={this.handleChnges}
                 className="form__input"
               />
             </label>
@@ -83,7 +83,7 @@ export class Form extends Component<{}, State> {
                 defaultValue="3"
                 min="1"
                 max={images.length}
-                onChange={(event) => (this.handleChnges(event))}
+                onChange={this.handleChnges}
                 id="frameId"
                 className="form__input"
               />
@@ -96,7 +96,7 @@ export class Form extends Component<{}, State> {
                 name="step"
                 defaultValue="3"
                 min="1"
-                onChange={(event) => (this.handleChnges(event))}
+                onChange={this.handleChnges}
                 id="stepId"
                 className="form__input"
               />
@@ -110,7 +110,7 @@ export class Form extends Component<{}, State> {
                 defaultValue="1000"
                 min={1000}
                 step={500}
-                onChange={(event) => (this.handleChnges(event))}
+                onChange={this.handleChnges}
                 className="form__input"
               />
             </label>
@@ -123,7 +123,7 @@ export class Form extends Component<{}, State> {
                   type="checkbox"
                   value="true"
                   name="infinite"
-                  onChange={(event) => (this.handleChnges(event))}
+                  onChange={this.handleChnges}
                 />
               </label>
             </div>
