@@ -9,20 +9,6 @@
     overflow: hidden;
   }
 
-  &__list--animation {
-    animation: slide 2000ms infinite linear;
-  }
-
-  @keyframes slide {
-    0% {
-      transform: translate(500px);
-    }
-
-    100% {
-      transform: translate(-1500px);
-    }
-  }
-
   &__buttons {
     width: 100px;
     display: flex;

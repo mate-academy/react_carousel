@@ -12,57 +12,60 @@ type Props = {
 
 type State = {
   move: number;
-  countMove: number;
+  // slideLength: number;
 };
 
 export class Carousel extends PureComponent<Props, State> {
   state = {
     move: 0,
-    countMove: this.props.images.length,
+    // slideLength: this.props.itemWidth * this.props.images.length
+    // - this.props.frameSize * this.props.itemWidth,
   };
 
   handleRightSlide = () => {
-    const { itemWidth, step } = this.props;
-    const { move, countMove } = this.state;
-    const scrollNumber = move + (itemWidth * step);
+    const {
+      itemWidth,
+      images,
+      step,
+      frameSize,
+      infinite,
+    } = this.props;
+    const { move } = this.state;
+    const slideLength = itemWidth * images.length - frameSize * itemWidth;
+    const everySlide = itemWidth * step;
 
-    if (countMove === step) {
-      return;
+    if (infinite && move === slideLength) {
+      return this.setState({ move: 0 });
     }
 
-    if ((countMove - step) < step) {
-      this.setState({
-        countMove: step,
-        move: move + (itemWidth * (countMove - step)),
-      });
-    } else {
-      this.setState({
-        countMove: countMove - step,
-        move: scrollNumber,
-      });
+    if ((move + everySlide) < slideLength) {
+      return this.setState({ move: move + everySlide });
     }
+
+    return this.setState({ move: slideLength });
   };
 
   handleLefttSlide = () => {
-    const { itemWidth, step, images } = this.props;
-    const { move, countMove } = this.state;
-    const scrollNumber = move - (itemWidth * step);
+    const {
+      itemWidth,
+      step,
+      images,
+      infinite,
+      frameSize,
+    } = this.props;
+    const { move } = this.state;
+    const everySlide = itemWidth * step;
+    const slideLength = itemWidth * images.length - frameSize * itemWidth;
 
-    if (countMove === images.length) {
-      return;
+    if (infinite && move === 0) {
+      return this.setState({ move: slideLength });
     }
 
-    if ((countMove + step) > images.length) {
-      this.setState({
-        countMove: images.length,
-        move: move - (itemWidth * (images.length - countMove)),
-      });
-    } else {
-      this.setState({
-        countMove: countMove + step,
-        move: scrollNumber,
-      });
+    if ((move - everySlide) > 0) {
+      return this.setState({ move: move - everySlide });
     }
+
+    return this.setState({ move: 0 });
   };
 
   render() {
@@ -71,60 +74,64 @@ export class Carousel extends PureComponent<Props, State> {
       itemWidth,
       frameSize,
       animationDuration,
-      infinite,
     } = this.props;
 
     const { move } = this.state;
 
     return (
-      <div
-        className="Carousel"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-          transition: `${animationDuration}ms`,
-        }}
-      >
-        <ul
-          className="Carousel__list"
+      <>
+        <h1 data-cy="title">
+          {`Carousel with ${frameSize} images`}
+        </h1>
+        <div
+          className="Carousel"
+          style={{
+            width: `${frameSize * itemWidth}px`,
+          }}
         >
-          {images.map((img, i) => {
-            return (
-              <li
-                key={img}
-                className={infinite
-                  ? `Carousel__item ${infinite && 'Carousel__list--animation'}`
-                  : 'Carousel__item'}
-                style={{
-                  transform: `translateX(${-move}px)`,
-                  transition: `${animationDuration}ms`,
-                }}
-              >
-                <img
-                  src={img}
-                  width={itemWidth}
-                  alt={`${i + 1}`}
-                />
-              </li>
-            );
-          })}
-        </ul>
-        <div className="Carousel__buttons">
-          <button
-            type="button"
-            onClick={this.handleRightSlide}
-            data-cy="next"
+          <ul
+            className="Carousel__list"
+            style={{
+              transition: `${animationDuration}ms`,
+            }}
           >
-            Next
-          </button>
+            {images.map((img, i) => {
+              return (
+                <li
+                  key={img}
+                  className="Carousel__item"
+                  style={{
+                    transform: `translateX(${-move}px)`,
+                    transition: `${animationDuration}ms`,
+                  }}
+                >
+                  <img
+                    src={img}
+                    width={itemWidth}
+                    alt={`${i + 1}`}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+          <div className="Carousel__buttons">
+            <button
+              type="button"
+              onClick={this.handleRightSlide}
+              data-cy="next"
+            >
+              Next
+            </button>
 
-          <button
-            type="button"
-            onClick={this.handleLefttSlide}
-          >
-            Prev
-          </button>
+            <button
+              type="button"
+              onClick={this.handleLefttSlide}
+            >
+              Prev
+            </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
