@@ -48,38 +48,41 @@ class App extends React.Component<{}, State> {
           {`Carousel with ${images.length} images`}
         </h1>
 
-        <label className="App__label">
+        <label className="App__label" htmlFor="widthId">
           Item Width:
-          <input
-            type="number"
-            name="itemWidth"
-            value={itemWidth}
-            min={130}
-            max={260}
-            step={10}
-            onChange={(e) => {
-              this.setState({ itemWidth: +e.target.value });
-            }}
-          />
         </label>
+        <input
+          type="number"
+          id="widthId"
+          name="itemWidth"
+          value={itemWidth}
+          min={130}
+          max={260}
+          step={10}
+          onChange={(e) => {
+            this.setState({ itemWidth: +e.target.value });
+          }}
+        />
 
-        <label className="App__label">
+        <label className="App__label" htmlFor="sizeId">
           Frame Size:
-          <input
-            type="number"
-            name="frameSize"
-            value={frameSize}
-            min={3}
-            max={10}
-            step={1}
-            onChange={(e) => {
-              this.setState({ frameSize: +e.target.value });
-            }}
-          />
         </label>
+        <input
+          type="number"
+          id="sizeId"
+          name="frameSize"
+          value={frameSize}
+          min={3}
+          max={10}
+          step={1}
+          onChange={(e) => {
+            this.setState({ frameSize: +e.target.value });
+          }}
+        />
 
         <label className="App__label">
           Animation Duration:
+          {' '}
           <input
             type="number"
             name="animationDuration"
@@ -93,19 +96,21 @@ class App extends React.Component<{}, State> {
           />
         </label>
 
-        <label className="App__label">
+        <label className="App__label" htmlFor="stepId">
           step:
-          <input
-            type="number"
-            name="step"
-            value={step}
-            min={1}
-            max={10}
-            onChange={(e) => {
-              this.setState({ step: +e.target.value });
-            }}
-          />
         </label>
+        <input
+          type="number"
+          id="stepId"
+          name="step"
+          value={step}
+          min={1}
+          max={10}
+          step={1}
+          onChange={(e) => {
+            this.setState({ step: +e.target.value });
+          }}
+        />
 
         <label className="App__label">
           Infinite:
