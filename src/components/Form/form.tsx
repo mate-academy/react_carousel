@@ -107,7 +107,7 @@ export class Form extends Component<{}, State> {
               <strong>Animation duration: </strong>
               <input
                 type="number"
-                name="AnimationDuration"
+                name="animationDuration"
                 defaultValue="1000"
                 min={1000}
                 step={500}

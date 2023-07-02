@@ -92,12 +92,7 @@ export class Carousel extends PureComponent<Props, State> {
             width: `${frameSize * itemWidth}px`,
           }}
         >
-          <ul
-            className="Carousel__list"
-            style={{
-              transition: `${animationDuration}ms`,
-            }}
-          >
+          <ul className="Carousel__list">
             {images.map((img, i) => {
               return (
                 <li
