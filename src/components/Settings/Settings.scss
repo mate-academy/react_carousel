@@ -1,0 +1,35 @@
+.Settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 700px;
+  margin: 0 auto 40px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__label,
+  &__currentValue {
+    color: #4a4237;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &__label {
+    flex-basis: 35%;
+  }
+
+  &__field {
+    display: block;
+    justify-self: flex-start;
+    flex-basis: 55%;
+    padding-block: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+}
