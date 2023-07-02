@@ -63,6 +63,8 @@ class App extends React.Component<{}, State> {
           <div className="App__field">
             <label htmlFor="animationDuration">Animation duration (ms)</label>
             <input
+              min={100}
+              max={10_000}
               type="number"
               name="animationDuration"
               id="animationDuration"
@@ -74,6 +76,8 @@ class App extends React.Component<{}, State> {
           <div className="App__field">
             <label htmlFor="itemId">Slide width (px)</label>
             <input
+              min={100}
+              max={400}
               type="number"
               name="itemWidth"
               id="itemId"
@@ -85,6 +89,8 @@ class App extends React.Component<{}, State> {
           <div className="App__field">
             <label htmlFor="stepId">Scroll step</label>
             <input
+              min={1}
+              max={images.length / 2}
               type="number"
               name="step"
               id="stepId"
@@ -96,6 +102,8 @@ class App extends React.Component<{}, State> {
           <div className="App__field">
             <label htmlFor="frameId">Images per slide</label>
             <input
+              min={1}
+              max={images.length / 2}
               type="number"
               name="frameSize"
               id="frameId"
