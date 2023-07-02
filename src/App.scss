@@ -1,1 +1,9 @@
-// style go here
+.App {
+  display: block;
+  text-align: center;
+
+  &__label {
+    display: inline;
+    margin: 10px;
+  }
+}
