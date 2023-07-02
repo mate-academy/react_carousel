@@ -1,1 +1,27 @@
-// style go here
+.App {
+  &__title {
+    text-align: center;
+  }
+  &__form {
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  &__field {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+    & input {
+      padding: 5px 10px;
+      border: 2px solid #1ba;
+      border-radius: 10px;
+    }
+  }
+}

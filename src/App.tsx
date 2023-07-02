@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  options: {
+    animationDuration: number,
+    itemWidth: number,
+    step: number,
+    frameSize: number,
+  }
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +26,100 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    options: {
+      animationDuration: 1000,
+      itemWidth: 130,
+      step: 3,
+      frameSize: 3,
+    },
   };
 
+  handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState((prev) => {
+      return {
+        ...prev,
+        options: {
+          ...prev.options,
+          [event.target.name]: event.target.value,
+        },
+      };
+    });
+  }
+
   render() {
-    const { images } = this.state;
+    const { images, options } = this.state;
+    const {
+      animationDuration,
+      frameSize,
+      step,
+      itemWidth,
+    } = options;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy='title' className='App__title'>Carousel with {images.length} images</h1>
+        <form className="App__form">
+          <div className="App__field">
+            <label htmlFor="animationDuration">Animation duration (ms)</label>
+            <input
+              min={100}
+              max={10_000}
+              type="number"
+              name="animationDuration"
+              id="animationDuration"
+              value={animationDuration}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
 
-        <Carousel />
+          <div className="App__field">
+            <label htmlFor="itemId">Slide width (px)</label>
+            <input
+              min={100}
+              max={400}
+              type="number"
+              name="itemWidth"
+              id="itemId"
+              value={itemWidth}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
+
+          <div className="App__field">
+            <label htmlFor="stepId">Scroll step</label>
+            <input
+              min={1}
+              max={images.length / 2}
+              type="number"
+              name="step"
+              id="stepId"
+              value={step}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
+
+          <div className="App__field">
+            <label htmlFor="frameId">Images per slide</label>
+            <input
+              min={1}
+              max={images.length / 2}
+              type="number"
+              name="frameSize"
+              id="frameId"
+              value={frameSize}
+              onChange={(e) => this.handleInputChange(e)}
+            />
+          </div>
+        </form>
+
+        <Carousel
+          images={images}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          step={step}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
