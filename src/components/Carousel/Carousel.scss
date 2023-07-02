@@ -1,0 +1,24 @@
+.title {
+  text-align: center;
+}
+
+.Carousel {
+  margin: auto;
+
+  &__list {
+    display: flex;
+    margin: 20px auto;
+    padding: 20px 0;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    width: 100px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
