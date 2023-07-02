@@ -33,15 +33,15 @@ export const Settings: React.FC<Props> = ({
 
       <input
         className="Settings__field"
-        type="number"
+        type="range"
         value={itemWidth}
         min={100}
         max={300}
-        step={10}
         onChange={(event) => setItemWidth(+event.target.value)}
-        placeholder="itemWidth"
         name="itemWidth"
       />
+
+      <span className="Settings__currentValue">{itemWidth}</span>
     </div>
 
     <div className="Settings__row">
@@ -51,14 +51,15 @@ export const Settings: React.FC<Props> = ({
 
       <input
         className="Settings__field"
-        type="number"
+        type="range"
         min={1}
         max={Math.floor(IMAGE_COUNT / 2)}
         value={frameSize}
         onChange={(event) => setFrameSize(+event.target.value)}
-        placeholder="frameSize"
         name="frameSize"
       />
+
+      <span className="Settings__currentValue">{frameSize}</span>
     </div>
 
     <div className="Settings__row">
@@ -68,14 +69,15 @@ export const Settings: React.FC<Props> = ({
 
       <input
         className="Settings__field"
-        type="number"
+        type="range"
         value={step}
         min={1}
         max={IMAGE_COUNT}
         onChange={(event) => setStep(+event.target.value)}
-        placeholder="step"
         name="step"
       />
+
+      <span className="Settings__currentValue">{step}</span>
     </div>
 
     <div className="Settings__row">
@@ -85,15 +87,15 @@ export const Settings: React.FC<Props> = ({
 
       <input
         className="Settings__field"
-        type="number"
+        type="range"
         min={500}
         max={5000}
-        step={500}
         value={animationDuration}
         onChange={(event) => setAnimationDuration(+event.target.value)}
-        placeholder="animationDuration"
         name="animationDuration"
       />
+
+      <span className="Settings__currentValue">{animationDuration}</span>
     </div>
   </div>
 );
