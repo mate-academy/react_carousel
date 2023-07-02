@@ -48,12 +48,12 @@ class App extends React.Component<{}, State> {
           {`Carousel with ${images.length} images`}
         </h1>
 
-        <label className="App__label" htmlFor="widthId">
+        <label className="App__label" htmlFor="itemWidth">
           Item Width:
         </label>
         <input
           type="number"
-          id="widthId"
+          id="itemWidth"
           name="itemWidth"
           value={itemWidth}
           min={130}
@@ -64,12 +64,12 @@ class App extends React.Component<{}, State> {
           }}
         />
 
-        <label className="App__label" htmlFor="sizeId">
+        <label className="App__label" htmlFor="frameSize">
           Frame Size:
         </label>
         <input
           type="number"
-          id="sizeId"
+          id="frameSize"
           name="frameSize"
           value={frameSize}
           min={3}
@@ -80,28 +80,28 @@ class App extends React.Component<{}, State> {
           }}
         />
 
-        <label className="App__label">
+        <label className="App__label" htmlFor="animationDuration">
           Animation Duration:
-          {' '}
-          <input
-            type="number"
-            name="animationDuration"
-            value={animationDuration}
-            min={500}
-            max={2500}
-            step={500}
-            onChange={(e) => {
-              this.setState({ animationDuration: +e.target.value });
-            }}
-          />
-        </label>
-
-        <label className="App__label" htmlFor="stepId">
-          step:
         </label>
         <input
           type="number"
-          id="stepId"
+          id="animationDuration"
+          name="animationDuration"
+          value={animationDuration}
+          min={500}
+          max={2500}
+          step={500}
+          onChange={(e) => {
+            this.setState({ animationDuration: +e.target.value });
+          }}
+        />
+
+        <label className="App__label" htmlFor="step">
+          Step:
+        </label>
+        <input
+          type="number"
+          id="step"
           name="step"
           value={step}
           min={1}
@@ -112,23 +112,24 @@ class App extends React.Component<{}, State> {
           }}
         />
 
-        <label className="App__label">
+        <label className="App__label" htmlFor="infinite">
           Infinite:
-          <input
-            type="checkbox"
-            name="infinite"
-            onChange={(e) => {
-              this.setState({ infinite: e.target.checked });
-            }}
-          />
         </label>
+        <input
+          type="checkbox"
+          id="infininite"
+          name="infinite"
+          onChange={(e) => {
+            this.setState({ infinite: e.target.checked });
+          }}
+        />
 
         <Carousel
           images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
-          animationDuration={1000}
+          animationDuration={animationDuration}
           infinite={infinite}
         />
       </div>

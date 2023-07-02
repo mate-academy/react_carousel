@@ -79,7 +79,7 @@ export class Carousel extends Component<Props, State> {
 
     const prevDisabled = currentIndex === 0 && !infinite;
     const nextDisabled = currentIndex === images.length - frameSize
-    && !infinite;
+      && !infinite;
 
     return (
       <div
@@ -95,7 +95,7 @@ export class Carousel extends Component<Props, State> {
             >
               <img
                 src={img}
-                alt={`${index + 1}`}
+                alt={`emoticon #${index + 1}`}
                 width={itemWidth}
               />
             </li>
