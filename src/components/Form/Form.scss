@@ -1,0 +1,25 @@
+.form {
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px 30px;
+  }
+
+  &__input {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  &__radio-input {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    margin-left: 100px;
+  }
+}

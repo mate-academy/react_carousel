@@ -1,1 +1,13 @@
-// style go here
+body > iframe {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
