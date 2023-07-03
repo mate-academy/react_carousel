@@ -12,14 +12,11 @@ type Props = {
 
 type State = {
   move: number;
-  // slideLength: number;
 };
 
 export class Carousel extends PureComponent<Props, State> {
   state = {
     move: 0,
-    // slideLength: this.props.itemWidth * this.props.images.length
-    // - this.props.frameSize * this.props.itemWidth,
   };
 
   handleRightSlide = () => {
@@ -45,7 +42,7 @@ export class Carousel extends PureComponent<Props, State> {
     return this.setState({ move: slideLength });
   };
 
-  handleLefttSlide = () => {
+  handleLeftSlide = () => {
     const {
       itemWidth,
       step,
@@ -106,7 +103,7 @@ export class Carousel extends PureComponent<Props, State> {
                   <img
                     src={img}
                     width={itemWidth}
-                    alt={`${i + 1}`}
+                    alt={`img_${i + 1}`}
                   />
                 </li>
               );
@@ -123,7 +120,7 @@ export class Carousel extends PureComponent<Props, State> {
 
             <button
               type="button"
-              onClick={this.handleLefttSlide}
+              onClick={this.handleLeftSlide}
             >
               Prev
             </button>

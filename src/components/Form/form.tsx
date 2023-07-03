@@ -32,7 +32,7 @@ export class Form extends Component<{}, State> {
     infinite: false,
   };
 
-  handleChnges = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = event.currentTarget;
     const correctValue = name === 'infinite' ? checked : value;
 
@@ -71,7 +71,7 @@ export class Form extends Component<{}, State> {
                 defaultValue="130"
                 id="itemId"
                 step="10"
-                onChange={this.handleChnges}
+                onChange={this.handleChange}
                 className="form__input"
               />
             </label>
@@ -84,7 +84,7 @@ export class Form extends Component<{}, State> {
                 defaultValue="3"
                 min="1"
                 max={images.length}
-                onChange={this.handleChnges}
+                onChange={this.handleChange}
                 id="frameId"
                 className="form__input"
               />
@@ -97,7 +97,7 @@ export class Form extends Component<{}, State> {
                 name="step"
                 defaultValue="3"
                 min="1"
-                onChange={this.handleChnges}
+                onChange={this.handleChange}
                 id="stepId"
                 className="form__input"
               />
@@ -110,8 +110,9 @@ export class Form extends Component<{}, State> {
                 name="animationDuration"
                 defaultValue="1000"
                 min={1000}
+                max={10000}
                 step={500}
-                onChange={this.handleChnges}
+                onChange={this.handleChange}
                 className="form__input"
               />
             </label>
@@ -124,7 +125,7 @@ export class Form extends Component<{}, State> {
                   type="checkbox"
                   value="true"
                   name="infinite"
-                  onChange={this.handleChnges}
+                  onChange={this.handleChange}
                 />
               </label>
             </div>
