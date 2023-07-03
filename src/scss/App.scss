@@ -1,0 +1,16 @@
+.App {
+  overflow: hidden;
+  min-height: 100vh;
+
+  &-Title {
+    text-align: center;
+  }
+
+  &-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 50px;
+  }
+}
