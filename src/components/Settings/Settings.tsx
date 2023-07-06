@@ -5,7 +5,7 @@ import './Settings.scss';
 interface Props {
   itemWidth: number,
   setItemWidth: (value: number) => void,
-  IMAGE_COUNT: number,
+  imageCount: number,
   frameSize: number,
   setFrameSize: (value: number) => void,
   step: number,
@@ -17,7 +17,7 @@ interface Props {
 export const Settings: React.FC<Props> = ({
   itemWidth,
   setItemWidth,
-  IMAGE_COUNT,
+  imageCount,
   frameSize,
   setFrameSize,
   step,
@@ -53,7 +53,7 @@ export const Settings: React.FC<Props> = ({
         className="Settings__field"
         type="range"
         min={1}
-        max={Math.floor(IMAGE_COUNT / 2)}
+        max={Math.floor(imageCount / 2)}
         value={frameSize}
         onChange={(event) => setFrameSize(+event.target.value)}
         name="frameSize"
@@ -72,7 +72,7 @@ export const Settings: React.FC<Props> = ({
         type="range"
         value={step}
         min={1}
-        max={IMAGE_COUNT}
+        max={imageCount}
         onChange={(event) => setStep(+event.target.value)}
         name="step"
       />

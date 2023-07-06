@@ -20,7 +20,7 @@ const images = [
   './img/10.png',
 ];
 
-const IMAGE_COUNT = images.length;
+const imageCount = images.length;
 
 export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
@@ -31,7 +31,7 @@ export const App: React.FC = () => {
   const [isPrevBtnActive, setIsPrevBtnActive] = useState(false);
   const [isNextBtnActive, setIsNextBtnActive] = useState(true);
 
-  const LAST_POSITON = IMAGE_COUNT - frameSize;
+  const LAST_POSITON = imageCount - frameSize;
   const FIRST_POSITION = 0;
 
   const handlePrevBtnClick = () => {
@@ -61,12 +61,12 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1 className='App__title' data-cy="title">Carousel with {IMAGE_COUNT} images</h1>
+      <h1 className='App__title' data-cy="title">Carousel with {imageCount} images</h1>
 
       <Settings
         itemWidth={itemWidth}
         setItemWidth={setItemWidth}
-        IMAGE_COUNT={IMAGE_COUNT}
+        imageCount={imageCount}
         frameSize={frameSize}
         setFrameSize={setFrameSize}
         step={step}
@@ -78,7 +78,7 @@ export const App: React.FC = () => {
       <div
         className="App__content"
         style={{
-          maxWidth: `${IMAGE_COUNT * itemWidth}px`,
+          maxWidth: `${imageCount * itemWidth}px`,
         }}
       >
         <Carousel
