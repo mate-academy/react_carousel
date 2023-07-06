@@ -1,9 +1,11 @@
+$bg_color: rgb(17, 177, 52);
+
 .Carousel {
   &__list {
     display: flex;
     overflow: hidden;
     padding: 20px 0;
-    background-color: rgb(17, 177, 52);
+    background-color: $bg_color;
     border: 2px solid;
     border-radius: 25px;
     list-style: none;

@@ -32,6 +32,26 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  setWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value });
+  };
+
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +event.target.value });
+  };
+
+  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +event.target.value });
+  };
+
+  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ animationDuration: +event.target.value });
+  };
+
+  setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: event.target.checked });
+  };
+
   render() {
     const {
       images,
@@ -59,11 +79,7 @@ class App extends React.Component<{}, State> {
               min={130}
               max={260}
               step={10}
-              onChange={(event) => {
-                this.setState({
-                  itemWidth: +event.target.value,
-                });
-              }}
+              onChange={this.setWidth}
             />
           </label>
 
@@ -79,11 +95,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={10}
               step={1}
-              onChange={(event) => {
-                this.setState({
-                  step: +event.target.value,
-                });
-              }}
+              onChange={this.setStep}
             />
           </label>
 
@@ -99,11 +111,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={10}
               step={1}
-              onChange={(event) => {
-                this.setState({
-                  frameSize: +event.target.value,
-                });
-              }}
+              onChange={this.setFrameSize}
             />
           </label>
 
@@ -119,11 +127,7 @@ class App extends React.Component<{}, State> {
               min={0}
               max={50000}
               step={500}
-              onChange={(event) => {
-                this.setState({
-                  animationDuration: +event.target.value,
-                });
-              }}
+              onChange={this.setAnimationDuration}
             />
           </label>
 
