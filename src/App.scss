@@ -1,1 +1,23 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.App{
+  text-align: center;
+  padding: 20px;
+}
+
+.label {
+  margin: 0 auto;
+  padding-right: 15px;
+  color: black;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.App input {
+  margin-left: 20px;
+  padding: 5px 0;
+  text-align: right;
+}
