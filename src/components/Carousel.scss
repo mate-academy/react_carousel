@@ -1,1 +1,70 @@
-// style go here
+.Carousel {
+  margin: 0 auto 20px;
+  min-width: 390px;
+
+  &__content {
+    margin: 0 auto 20px;
+    border: 2px solid rgb(3, 5, 126);
+    border-radius: 10px;
+    box-shadow: 5px 5px 4px rgba(36, 1, 1, 0.616);
+    overflow: hidden;
+  }
+
+  &__list {
+    position: relative;
+    transform: translateX(0);
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    flex: 0 0 130px;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 500px;
+  }
+
+  &__button.is-disabled {
+    background-color: #5a5a5a;
+    border-color: #5a5a5a;
+  }
+
+  &__button {
+    position: relative;
+    display: block;
+    padding: 30px 20px;
+    border: 1px solid #374a3a;
+    border-radius: 50%;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #003d0f;
+    cursor: pointer;
+    transition: background-color 0.2s linear,
+      color 0.2s linear,
+      transform 0.2s linear;
+
+    &:not(.is-disabled):hover {
+      background-color: #05e02a;
+      color: #312b22;
+    }
+
+    &:not(.is-disabled):active {
+      transform: scale(0.95);
+    }
+  }
+}
