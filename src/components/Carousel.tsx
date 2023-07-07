@@ -146,7 +146,9 @@ const Carousel: React.FC<Props> = ({
             id="stepId"
             name={InputField.STEP}
             className="Carousel__input"
-            type="number"
+            type="range"
+            min="1"
+            max="10"
             value={step}
           />
         </div>
@@ -166,7 +168,9 @@ const Carousel: React.FC<Props> = ({
             id="frameId"
             name={InputField.FRAME_SIZE}
             className="Carousel__input"
-            type="number"
+            type="range"
+            min="1"
+            max="10"
             value={frameSize}
           />
         </div>
@@ -179,16 +183,17 @@ const Carousel: React.FC<Props> = ({
             onChange={(event) => {
               const value = +event.target.value;
 
-              if (value >= 1 && value <= 500) {
+              if (value >= 50 && value <= 500) {
                 onChangeCarousel(value, InputField.ITEM_WIDTH);
               }
             }}
             id="itemId"
             name={InputField.ITEM_WIDTH}
             className="Carousel__input"
-            type="number"
+            type="range"
+            min="50"
+            max="500"
             value={itemWidth}
-            step="20"
           />
         </div>
         <div className="Carousel__input-container input-container">
@@ -198,17 +203,19 @@ const Carousel: React.FC<Props> = ({
 
           <input
             onChange={(event) => {
-              onChangeCarousel(
-                +event.target.value,
-                InputField.ANIMATION_DURATION,
-              );
+              const value = +event.target.value;
+
+              if (value >= 0 && value <= 5000) {
+                onChangeCarousel(value, InputField.ANIMATION_DURATION);
+              }
             }}
             id="animationId"
             name={InputField.ANIMATION_DURATION}
             className="Carousel__input"
-            type="number"
+            type="range"
+            min="0"
+            max="5000"
             value={animationDuration}
-            step="100"
           />
         </div>
       </div>
@@ -245,7 +252,11 @@ const Carousel: React.FC<Props> = ({
         </li>
 
         <li className="rules__item">
-          Item Width from 1 to 500;
+          Item Width from 50 to 500px;
+        </li>
+
+        <li className="rules__item">
+          Animation Duration from 0 to 5000ms;
         </li>
       </ul>
     </div>

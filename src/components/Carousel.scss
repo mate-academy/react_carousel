@@ -17,7 +17,7 @@
     list-style: none;
     width: 1300px;
     display: flex;
-    transform: translateX(0px);
+    transform: translateX(0);
     transition-property: transform;
     transition-duration: inherit;
   }
@@ -51,7 +51,7 @@
   }
 
   &__input {
-    width: 50px;
+    width: 100px;
     padding: 5px;
     border: 3px solid #ccc;
     border-radius: 5px;
