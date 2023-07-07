@@ -47,41 +47,49 @@ const App: React.FC = () => {
     <div className="App">
       {/* eslint-disable-next-line */}
       <h1 className="App__title">
-        Carousel with {images.length} images
+        Carousel with
+        {' '}
+        {images.length}
+        {' '}
+        images
       </h1>
 
       <div className="form">
         <div className="form__control">
-          <label>Step: </label>
-          <input 
+          <label htmlFor="step">Step: </label>
+          <input
             type="number"
+            id="step"
             value={step}
             onChange={(e) => setStep(+e.target.value)}
           />
         </div>
 
         <div className="form__control">
-          <label>Count images: </label>
-          <input 
-            type="number" 
+          <label htmlFor="count">Count images: </label>
+          <input
+            type="number"
+            id="count"
             value={frameSize}
             onChange={(e) => setFrameSize(+e.target.value)}
           />
         </div>
 
         <div className="form__control">
-          <label>Image width: </label>
+          <label htmlFor="width">Image width: </label>
           <input
-            type="number" 
+            type="number"
+            id="width"
             value={itemWidth}
             onChange={(e) => setItemWidth(+e.target.value)}
           />
         </div>
 
         <div className="form__control">
-          <label>Duration: </label>
+          <label htmlFor="duration">Duration: </label>
           <input
-            type="number" 
+            type="number"
+            id="duration"
             value={animationDuration}
             onChange={(e) => setAnimationDuration(+e.target.value)}
           />
@@ -101,6 +109,6 @@ const App: React.FC = () => {
       />
     </div>
   );
-}
+};
 
 export default App;
