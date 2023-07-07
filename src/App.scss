@@ -15,4 +15,14 @@ body {
   padding-top: 50px;
   font-size: 20px;
   color: #24160d;
+
+  &__title {
+    @media (max-width: 1024px) {
+      font-size: 36px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 27px;
+    }
+  }
 }

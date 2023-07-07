@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import './Carousel.scss';
 import { InputField } from '../data/Data';
@@ -23,22 +23,29 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   onChangeCarousel,
 }) => {
-  useEffect(() => {
-    const carousel = document.getElementById('carousel') as HTMLElement;
-    const carouselWrapper = document
-      .getElementById('carouselWrapper') as HTMLElement;
-    const carouselList = document.getElementById('carouselList') as HTMLElement;
-    const carouselItems = document.getElementsByClassName('Carousel__item');
-    const prevButton = document.getElementById('prevButton') as HTMLElement;
-    const nextButton = document.getElementById('nextButton') as HTMLElement;
-    const itemWidthInput = document
-      .getElementById('itemId') as HTMLElement;
-    const frameSizeInput = document
-      .getElementById('frameId') as HTMLElement;
-    const animationDurationInput = document
-      .getElementById('animationId') as HTMLElement;
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselWrapperRef = useRef<HTMLDivElement>(null);
+  const carouselListRef = useRef<HTMLUListElement>(null);
+  const carouselItemsRef = useRef<HTMLLIElement[]>([]);
+  const prevButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  const itemWidthInputRef = useRef<HTMLInputElement>(null);
+  const frameSizeInputRef = useRef<HTMLInputElement>(null);
+  const animationDurationInputRef = useRef<HTMLInputElement>(null);
 
-    const computedStyle = window.getComputedStyle(carouselList);
+  useEffect(() => {
+    const carousel = carouselRef.current as HTMLElement;
+    const carouselWrapper = carouselWrapperRef.current as HTMLElement;
+    const carouselList = carouselListRef.current as HTMLElement;
+    const carouselItems = carouselItemsRef.current;
+    const prevButton = prevButtonRef.current as HTMLElement;
+    const nextButton = nextButtonRef.current as HTMLElement;
+    const itemWidthInput = itemWidthInputRef.current as HTMLElement;
+    const frameSizeInput = frameSizeInputRef.current as HTMLElement;
+    const animationDurationInput = animationDurationInputRef
+      .current as HTMLElement;
+
+    const computedStyle = getComputedStyle(carouselList);
     let translateValue = +computedStyle
       .getPropertyValue('transform')
       .split(', ')[4];
@@ -104,20 +111,27 @@ const Carousel: React.FC<Props> = ({
   }, [step, itemWidth, frameSize, animationDuration]);
 
   return (
-    <div id="carousel" className="Carousel">
+    <div
+      className="Carousel"
+      ref={carouselRef}
+    >
       <div
-        id="carouselWrapper"
         className="Carousel__wrapper"
+        ref={carouselWrapperRef}
       >
         <ul
-          id="carouselList"
           className="Carousel__list"
+          ref={carouselListRef}
         >
           {images.map((image, id) => (
             <li
-              id="carouselItem"
               key={image}
               className="Carousel__item"
+              ref={(el) => {
+                if (el) {
+                  carouselItemsRef.current[id] = el;
+                }
+              }}
             >
               <img
                 className="Carousel__image"
@@ -172,6 +186,7 @@ const Carousel: React.FC<Props> = ({
             min="1"
             max="10"
             value={frameSize}
+            ref={frameSizeInputRef}
           />
         </div>
         <div className="Carousel__input-container input-container">
@@ -194,6 +209,7 @@ const Carousel: React.FC<Props> = ({
             min="50"
             max="500"
             value={itemWidth}
+            ref={itemWidthInputRef}
           />
         </div>
         <div className="Carousel__input-container input-container">
@@ -216,24 +232,25 @@ const Carousel: React.FC<Props> = ({
             min="0"
             max="5000"
             value={animationDuration}
+            ref={animationDurationInputRef}
           />
         </div>
       </div>
 
       <div className="Carousel__buttons buttons">
         <button
-          id="prevButton"
           className="Carousel__button Carousel__button--prev"
           type="button"
+          ref={prevButtonRef}
         >
           Prev
         </button>
 
         <button
-          id="nextButton"
           className="Carousel__button"
           type="button"
           data-cy="next"
+          ref={nextButtonRef}
         >
           Next
         </button>

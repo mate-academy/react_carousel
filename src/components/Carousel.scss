@@ -6,6 +6,10 @@
   align-items: center;
   transition-duration: 1s;
 
+  @media (max-width: 1024px) {
+    padding-top: 25px;;
+  }
+
   &__wrapper {
     width: 390px;
     overflow: hidden;
@@ -15,7 +19,7 @@
 
   &__list {
     list-style: none;
-    width: 1300px;
+    max-width: 1300px;
     display: flex;
     transform: translateX(0);
     transition-property: transform;
@@ -39,11 +43,16 @@
 
     border-radius: 25px;
     background-color: #966343;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 
   &__input-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   &__label {
@@ -90,6 +99,10 @@
 
 .input-container:not(:last-child) {
   margin-right: 50px;
+
+  @media (max-width: 1024px) {
+    margin-right: 0;
+  }
 }
 
 .buttons {
