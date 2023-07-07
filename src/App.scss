@@ -1,1 +1,43 @@
-// style go here
+body {
+  margin: 0;
+  padding: 0;
+  margin-top: -11px;
+}
+
+.App {
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle, #ff6c91, #6161ff);
+  color: blue;
+
+  &__title {
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
+.form {
+  padding: 10px;
+  border: 2px solid rgb(3, 5, 126);
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px rgba(36, 1, 1, 0.62);
+  width: 390px;
+  margin: 20px auto;
+  background: white;
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    font-weight: bold;
+
+    input {
+      border: 1px solid rgb(3, 5, 126);
+      border-radius: 10px;
+      line-height: 25px;
+      padding-left: 10px;
+      font-weight: bold;
+      color: blue;
+    }
+  }
+}
