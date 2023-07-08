@@ -72,7 +72,10 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className={cn(
             'Carousel__button',
-            { 'Carousel__button--disabled': shift === maxShift },
+            {
+              'Carousel__button--disabled':
+                shift === maxShift || frameSize === images.length,
+            },
           )}
           onClick={slideLeft}
         >
@@ -82,7 +85,10 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className={cn(
             'Carousel__button',
-            { 'Carousel__button--disabled': shift === 0 },
+            {
+              'Carousel__button--disabled':
+                shift === 0 || frameSize === images.length,
+            },
           )}
           data-cy="next"
           onClick={slideRight}
