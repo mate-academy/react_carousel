@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    margin: 10px;
+  }
+
+  &__button {
+    background-color: rgb(104, 50, 175);
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+    height: 40px;
+    width: 60px;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: no-drop;
+      background-color: rgba(175, 50, 175, 0.5);
+    }
+  }
+}

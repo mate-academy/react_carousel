@@ -1,1 +1,31 @@
-// style go here
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(54, 145, 145);
+  color: whitesmoke;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__input {
+    margin-left: 10px;
+  }
+
+  &__button {
+    align-self: center;
+    background-color: rgb(104, 50, 175);
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+    height: 40px;
+    width: max-content;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
