@@ -40,89 +40,91 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <div className="App">
-        <div>
-          <h1 className="App__title" data-cy="title">
-            {`Carousel with ${images.length} images`}
-          </h1>
+      <React.StrictMode>
+        <div className="App">
+          <div>
+            <h1 className="App__title" data-cy="title">
+              {`Carousel with ${images.length} images`}
+            </h1>
 
-          <Carousel
-            images={images}
-            step={step}
-            frameSize={frameSize}
-            itemWidth={itemWidth}
-            animationDuration={animationDuration}
-          />
+            <Carousel
+              images={images}
+              step={step}
+              frameSize={frameSize}
+              itemWidth={itemWidth}
+              animationDuration={animationDuration}
+            />
 
-          <div className="App__inputs">
-            <label className="App__input-label">
-              <input
-                type="number"
-                className="App__input"
-                name="step"
-                defaultValue={step}
-                min={1}
-                max={10}
-                step={1}
-                onChange={
-                  (event) => this.setState({ step: +event.target.value })
-                }
-              />
-              Step
-            </label>
+            <div className="App__inputs">
+              <label className="App__input-label">
+                <input
+                  type="number"
+                  className="App__input"
+                  name="step"
+                  defaultValue={step}
+                  min={1}
+                  max={10}
+                  step={1}
+                  onChange={
+                    (event) => this.setState({ step: +event.target.value })
+                  }
+                />
+                Step
+              </label>
 
-            <label className="App__input-label">
-              <input
-                type="number"
-                className="App__input"
-                name="frameSize"
-                defaultValue={frameSize}
-                min={1}
-                max={10}
-                step={1}
-                onChange={
-                  (event) => this.setState({ frameSize: +event.target.value })
-                }
-              />
-              Count of Smiley
-            </label>
+              <label className="App__input-label">
+                <input
+                  type="number"
+                  className="App__input"
+                  name="frameSize"
+                  defaultValue={frameSize}
+                  min={1}
+                  max={10}
+                  step={1}
+                  onChange={
+                    (event) => this.setState({ frameSize: +event.target.value })
+                  }
+                />
+                Count of Smiley
+              </label>
 
-            <label className="App__input-label">
-              <input
-                type="number"
-                className="App__input"
-                name="itemWidth"
-                defaultValue={itemWidth}
-                min={70}
-                max={150}
-                step={20}
-                onChange={
-                  (event) => this.setState({ itemWidth: +event.target.value })
-                }
-              />
-              Smiley Width
-            </label>
+              <label className="App__input-label">
+                <input
+                  type="number"
+                  className="App__input"
+                  name="itemWidth"
+                  defaultValue={itemWidth}
+                  min={70}
+                  max={150}
+                  step={20}
+                  onChange={
+                    (event) => this.setState({ itemWidth: +event.target.value })
+                  }
+                />
+                Smiley Width
+              </label>
 
-            <label className="App__input-label">
-              <input
-                type="number"
-                className="App__input"
-                name="animationDuration"
-                defaultValue={animationDuration}
-                min={200}
-                max={2000}
-                step={200}
-                onChange={
-                  (event) => this.setState(
-                    { animationDuration: +event.target.value },
-                  )
-                }
-              />
-              Animation Duration
-            </label>
+              <label className="App__input-label">
+                <input
+                  type="number"
+                  className="App__input"
+                  name="animationDuration"
+                  defaultValue={animationDuration}
+                  min={200}
+                  max={2000}
+                  step={200}
+                  onChange={
+                    (event) => this.setState(
+                      { animationDuration: +event.target.value },
+                    )
+                  }
+                />
+                Animation Duration
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+      </React.StrictMode>
     );
   }
 }

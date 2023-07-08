@@ -21,6 +21,10 @@ const Carousel: React.FC<Props> = ({
 
   const maxShift = -(images.length - frameSize);
 
+  if (shift < maxShift) {
+    setShift(maxShift);
+  }
+
   const slideRight = () => {
     const shiftLeft = shift - step;
 
