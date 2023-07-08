@@ -1,1 +1,31 @@
-// style go here
+.App {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  &__title {
+    font-size: 40px;
+  }
+
+  &__inputs {
+    display: flex;
+    margin: 50px auto 0;
+    width: max-content;    
+    gap: 50px;
+  }
+
+  &__input-label {
+     cursor: pointer;
+     font-size: 14px;
+  }
+
+  &__input {
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    line-height: 35px;
+    font-size: 24px;
+    border-radius: 5px;
+  }
+}
