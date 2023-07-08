@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  height: 170px;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 170px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 200px;
+  }
+
+  &__button {
+    font-size: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &--disabled {
+      background-color: #cac497;
+      cursor: default;
+    }
+  }
+}
