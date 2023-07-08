@@ -21,14 +21,14 @@ const Carousel: React.FC<Props> = ({
 
   const maxShift = -(images.length - frameSize);
 
-  const slideLeft = () => {
+  const slideRight = () => {
     const shiftLeft = shift - step;
 
     return shift > maxShift
       && setShift(shiftLeft < maxShift ? maxShift : shiftLeft);
   };
 
-  const slideRight = () => shift < 0
+  const slideLeft = () => shift < 0
     && setShift((shift + step) < 0 ? shift + step : 0);
 
   const transform = () => (shift < maxShift ? maxShift : shift) * itemWidth;
@@ -74,7 +74,7 @@ const Carousel: React.FC<Props> = ({
             'Carousel__button',
             {
               'Carousel__button--disabled':
-                shift === maxShift || frameSize === images.length,
+                shift >= 0 || frameSize === images.length,
             },
           )}
           onClick={slideLeft}
@@ -87,7 +87,7 @@ const Carousel: React.FC<Props> = ({
             'Carousel__button',
             {
               'Carousel__button--disabled':
-                shift === 0 || frameSize === images.length,
+                shift <= maxShift || frameSize === images.length,
             },
           )}
           data-cy="next"
