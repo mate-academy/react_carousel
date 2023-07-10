@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  position: relative;
+  padding: 20px;
+  border-radius: 30px;
+
+  &__list {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    border: 3px solid black;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
+  &__input {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50px;
+  }
+}
+
+.Buttons {
+  margin: 20px auto;
+  justify-content: space-between;
+  display: flex;
+
+  &__button {
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+}
+
+.Inputs {
+  width: max-content;
+  margin: auto;
+}
