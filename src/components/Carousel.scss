@@ -1,1 +1,31 @@
-// style go here
+@import "../utils/variables";
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    margin: 10px;
+  }
+
+  &__button {
+    background-color: $violet;
+    border: 2px solid $light-color;
+    color: $light-color;
+    height: 40px;
+    width: 60px;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: no-drop;
+      background-color: $violet-on-disabled;
+    }
+  }
+}

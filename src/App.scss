@@ -1,1 +1,33 @@
-// style go here
+@import "./utils/variables";
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+  color: $light-color;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__input {
+    margin-left: 10px;
+  }
+
+  &__button {
+    align-self: center;
+    background-color: $violet;
+    border: 2px solid $light-color;
+    color: $light-color;
+    height: 40px;
+    width: max-content;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
