@@ -1,1 +1,30 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__form {
+    display: flex;
+    margin: 20px 0;
+    width: 300px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__field {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    padding-left: 5px;
+    border-radius: 8px;
+    width: 75px;
+  }
+}
