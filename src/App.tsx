@@ -35,7 +35,7 @@ export const App: React.FC = () => {
         infinite={infinite}
       />
 
-      <form action="Get" className="App__form">
+      <form className="App__form">
         <label htmlFor="itemWidth">
           Item Width:
           <input
@@ -104,7 +104,9 @@ export const App: React.FC = () => {
             setInfinite(!infinite);
           }}
         >
-          {infinite ? ('Press to Not Infinite') : ('Press to Infinite')}
+          {infinite
+            ? ('Disable infinite scrolling')
+            : ('Enable infinite scrolling')}
         </button>
       </form>
     </div>
