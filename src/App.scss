@@ -1,1 +1,15 @@
 // style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 250px);
+  }
+
+  &__input {
+    margin: 10px;
+  }
+}
