@@ -84,10 +84,10 @@ export class Carousel extends React.Component<Props, State> {
         }}
       >
         <ul className="Carousel__list">
-          {images.map(image => (
+          {images.map((image, i) => (
             <li
               className="Carousel__list-item"
-              key={`${images.indexOf(image)}`}
+              key={image}
               style={{
                 transform: `translateX(-${curentIndex * itemWidth}px)`,
                 transition: `${animationDuration}ms`,
@@ -95,7 +95,7 @@ export class Carousel extends React.Component<Props, State> {
             >
               <img
                 src={image}
-                alt={`${images.indexOf(image)} emoji`}
+                alt={`${i} emoji`}
                 width={itemWidth}
               />
             </li>
