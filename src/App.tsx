@@ -3,34 +3,47 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
   state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+    images: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130, // px
+    animationDuration: 1000, // 1000
+    infinite: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          imagesNumbers={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
