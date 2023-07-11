@@ -18,27 +18,20 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [itemSize, setItemSize] = useState(itemWidth);
-  const [frameWidth, setFrameWidth] = useState(frameSize);
+  const [inputs, setInputs] = useState({
+    itemSize: itemWidth,
+    frameWidth: frameSize,
+    stepMove: step,
+    animationMove: animationDuration,
+  });
   const [position, setPosition] = useState(0);
-  const [stepMove, setStepMove] = useState(step);
-  const [animationMove, setAnimatonMove] = useState(animationDuration);
   const [infnt, setInfnt] = useState(infinite);
-
-  function changeItemSize(evnt: React.ChangeEvent<HTMLInputElement>) {
-    setItemSize(+evnt.target.value);
-  }
-
-  function changeFrameWidth(evnt: React.ChangeEvent<HTMLInputElement>) {
-    setFrameWidth(+evnt.target.value);
-  }
-
-  function changeStep(evnt: React.ChangeEvent<HTMLInputElement>) {
-    setStepMove(+evnt.target.value);
-  }
+  const lastStep = (inputs.frameWidth - images.length) * inputs.itemSize;
 
   function changeAnimation(evnt: React.ChangeEvent<HTMLInputElement>) {
-    setAnimatonMove(+evnt.target.value);
+    const { name, value } = evnt.target;
+
+    setInputs(prevInputs => ({ ...prevInputs, [name]: +value }));
   }
 
   function changeInfinite(evnt: React.ChangeEvent<HTMLInputElement>) {
@@ -46,22 +39,22 @@ const Carousel: React.FC<Props> = ({
   }
 
   function nextStep() {
-    if (infnt && position === itemSize * -7) {
+    if (infnt && position === lastStep) {
       setPosition(0);
-    } else if (position - itemSize * stepMove < itemSize * -7) {
-      setPosition(itemSize * -7);
+    } else if (position - inputs.itemSize * inputs.stepMove < lastStep) {
+      setPosition(lastStep);
     } else {
-      setPosition(position - itemSize * stepMove);
+      setPosition(position - inputs.itemSize * inputs.stepMove);
     }
   }
 
   function prevStep() {
     if (infnt && position === 0) {
-      setPosition(itemSize * -7);
-    } else if (position + itemSize * stepMove > 0) {
+      setPosition(lastStep);
+    } else if (position + inputs.itemSize * inputs.stepMove > 0) {
       setPosition(0);
     } else {
-      setPosition(position + itemSize * stepMove);
+      setPosition(position + inputs.itemSize * inputs.stepMove);
     }
   }
 
@@ -71,8 +64,8 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={
           {
-            width: frameWidth * itemSize,
-            transition: `${animationMove}ms`,
+            width: inputs.frameWidth * inputs.itemSize,
+            transition: `${inputs.animationMove}ms`,
           }
         }
       >
@@ -82,12 +75,12 @@ const Carousel: React.FC<Props> = ({
             style={
               {
                 transform: `translateX(${position}px)`,
-                transition: `${animationMove}ms`,
+                transition: `${inputs.animationMove}ms`,
               }
             }
           >
             <img
-              style={{ width: itemSize }}
+              style={{ width: inputs.itemSize }}
               src={image}
               alt={image.slice(6).slice(0, -4)}
             />
@@ -99,8 +92,8 @@ const Carousel: React.FC<Props> = ({
         className="Buttons"
         style={
           {
-            width: frameWidth * itemSize,
-            transition: `${animationMove}ms`,
+            width: inputs.frameWidth * inputs.itemSize,
+            transition: `${inputs.animationMove}ms`,
           }
         }
       >
@@ -115,7 +108,7 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className="Buttons__button"
-          disabled={position <= itemSize * -7 && !infnt}
+          disabled={position <= lastStep && !infnt}
           onClick={nextStep}
         >
           Next
@@ -126,48 +119,50 @@ const Carousel: React.FC<Props> = ({
           Item Width
           <input
             className="Carousel__input"
-            name="itemWidth"
-            value={itemSize}
+            name="itemSize"
+            value={inputs.itemSize}
             type="number"
             step="10"
-            onChange={changeItemSize}
+            min={130}
+            max={500}
+            onChange={changeAnimation}
           />
         </label>
 
         <label>
           Frame size
           <input
-            name="frameSize"
+            name="frameWidth"
             className="Carousel__input"
-            value={frameWidth}
+            value={inputs.frameWidth}
             type="number"
             step="1"
             min={1}
             max={10}
-            onChange={changeFrameWidth}
+            onChange={changeAnimation}
           />
         </label>
 
         <label>
           Step
           <input
-            name="step"
+            name="stepMove"
             className="Carousel__input"
-            value={stepMove}
+            value={inputs.stepMove}
             type="number"
             step="1"
             min={1}
             max={10}
-            onChange={changeStep}
+            onChange={changeAnimation}
           />
         </label>
 
         <label>
           AnimationDuration
           <input
-            name="fnimationDuration"
+            name="animationMove"
             className="Carousel__input"
-            value={animationMove}
+            value={inputs.animationMove}
             type="number"
             step="500"
             min={500}
