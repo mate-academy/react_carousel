@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  width: 1300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    // width: 260px;
+    overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+  }
+}

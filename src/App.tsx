@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Value } from './types.tsx/Values';
 
 interface State {
   images: string[];
@@ -20,17 +21,45 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: '130',
+    frameSize: '3',
+    step: '2',
+    animationDuration: '1000',
+    infinite: false,
+  };
+
+  stateHandler = (value: Value) => {
+    this.setState(state => ({
+      images: state.images,
+      ...value,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1>
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          chengeState={this.stateHandler}
+        />
       </div>
     );
   }
