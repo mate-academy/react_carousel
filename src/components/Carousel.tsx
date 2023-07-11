@@ -154,7 +154,11 @@ const Carousel: React.FC<Props> = ({
             method={() => setCyclic(!cyclic)}
           />
         </div>
-        <button type="button" onClick={() => buttonHandler('Next')}>
+        <button
+          type="button"
+          data-cy="next"
+          onClick={() => buttonHandler('Next')}
+        >
           Next
         </button>
       </div>
