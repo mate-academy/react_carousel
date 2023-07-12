@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({
-  imagesNumbers,
+  imagesNumbers: images,
   step,
   frameSize,
   itemWidth,
@@ -20,7 +20,7 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [moveRight, getMoveRight] = useState(0);
 
-  const lastPosition: number = itemWidth * (imagesNumbers.length - step) * -1;
+  const lastPosition: number = itemWidth * (images.length - frameSize) * -1;
 
   function prevImages() {
     if (moveRight === 0) {
@@ -66,7 +66,7 @@ const Carousel: React.FC<Props> = ({
         style={{ transform: `translateX(${moveRight}px)` }}
       >
         <ul className="Carousel__list">
-          {imagesNumbers.map(imagesNumber => (
+          {images.map(imagesNumber => (
             <li className="Carousel__list-item" key={imagesNumber}>
               <img
                 style={{ width: itemWidth }}
