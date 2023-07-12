@@ -1,0 +1,33 @@
+.Form {
+  min-width: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 2px rgba($color: #000, $alpha: 0.4);
+
+  &-Field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    gap: 20px;
+
+    &:last-child {
+      justify-content: start;
+    }
+  }
+
+  &-Label {
+    flex: 0 1 25%;
+  }
+
+  &-Input {
+    flex-grow: 1;
+    font: inherit;
+    border: 1px solid #9c9b9b;
+    border-radius: 10px;
+    padding: 5px;
+  }
+}

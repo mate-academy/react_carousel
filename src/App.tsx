@@ -1,39 +1,56 @@
-import React from 'react';
-import './App.scss';
-import Carousel from './components/Carousel';
+import { useState, FC, ChangeEvent } from 'react';
+import { Form } from './components/Form';
+import { Carousel } from './components/Carousel/Carousel';
+import { CarouselOptions } from './types/CarouselOptions';
+import { OptionsEnum } from './enums/OptionsEnum';
+import './scss/App.scss';
 
-interface State {
-  images: string[];
-}
+export const App: FC = () => {
+  const [carouselOptions, setCarouselOptions] = useState<CarouselOptions>({
+    [OptionsEnum.ItemWidth]: 130,
+    [OptionsEnum.FrameSize]: 3,
+    [OptionsEnum.Step]: 3,
+    [OptionsEnum.AnimationDuration]: 1000,
+  });
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+  const images: string[] = [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ];
+
+  const handleChangeOptionValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const currentOption = event.target.name;
+    const newValue = +event.target.value;
+
+    setCarouselOptions(prevOptions => {
+      return {
+        ...prevOptions,
+        [currentOption]: newValue,
+      };
+    });
   };
 
-  render() {
-    const { images } = this.state;
+  return (
+    <div className="App">
+      <div className="App-Container">
+        <h1 className="App-Title" data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <Form
+          carouselOptions={carouselOptions}
+          changeOptionValue={handleChangeOptionValue}
+          maxSlidesCount={images.length}
+        />
 
-        <Carousel />
+        <Carousel images={images} carouselOptions={carouselOptions} />
       </div>
-    );
-  }
-}
-
-export default App;
+    </div>
+  );
+};

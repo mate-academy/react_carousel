@@ -1,0 +1,45 @@
+html {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+  color: #000;
+}
+
+body,
+div,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+  outline: none;
+  border: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px input-bacground-color inset !important;
+}
+
+img {
+  vertical-align: top;
+}
+
+iframe {
+  display: none;
+}
