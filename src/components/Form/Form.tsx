@@ -30,7 +30,7 @@ export const Form: FC<Props> = (
         </label>
 
         <input
-          id={OptionsEnum.ItemWidth}
+          id="itemId"
           className="Form-Input"
           type="number"
           name={OptionsEnum.ItemWidth}
@@ -41,14 +41,14 @@ export const Form: FC<Props> = (
 
       <div className="Form-Field">
         <label
-          htmlFor={OptionsEnum.ItemWidth}
+          htmlFor={OptionsEnum.FrameSize}
           className="Form-Label"
         >
           {'Frame size: '}
         </label>
 
         <input
-          id={OptionsEnum.FrameSize}
+          id="frameId"
           className="Form-Input"
           type="number"
           name={OptionsEnum.FrameSize}
@@ -61,14 +61,14 @@ export const Form: FC<Props> = (
 
       <div className="Form-Field">
         <label
-          htmlFor={OptionsEnum.ItemWidth}
+          htmlFor={OptionsEnum.Step}
           className="Form-Label"
         >
           {'Step: '}
         </label>
 
         <input
-          id={OptionsEnum.Step}
+          id="stepId"
           className="Form-Input"
           type="number"
           name={OptionsEnum.Step}
@@ -81,7 +81,7 @@ export const Form: FC<Props> = (
 
       <div className="Form-Field">
         <label
-          htmlFor={OptionsEnum.ItemWidth}
+          htmlFor={OptionsEnum.AnimationDuration}
           className="Form-Label"
         >
           {'Animation duration (ms): '}

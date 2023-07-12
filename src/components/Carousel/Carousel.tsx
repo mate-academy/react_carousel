@@ -76,16 +76,9 @@ export const Carousel: FC<Props> = ({ images, carouselOptions }) => {
   };
 
   const styles: CarouselStyles = {
-    listStyles: {
-      width: `${itemWidth * frameSize}px`,
-      transform: `translateX(${translateX}px)`,
-      transition: `transform ${animationDuration}ms ease`,
-    },
-
-    imgStyles: {
-      width: `${itemWidth}px`,
-      height: `${itemWidth}px`,
-    },
+    width: `${itemWidth * frameSize}px`,
+    transform: `translateX(${translateX}px)`,
+    transition: `transform ${animationDuration}ms ease`,
   };
 
   return (
@@ -93,6 +86,7 @@ export const Carousel: FC<Props> = ({ images, carouselOptions }) => {
       <div className="Carousel-Container">
         <CarouselList
           slides={images}
+          itemWidth={itemWidth}
           styles={styles}
         />
 

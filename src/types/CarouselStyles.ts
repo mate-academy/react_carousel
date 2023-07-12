@@ -1,15 +1,5 @@
-export type ListStyles = {
+export type CarouselStyles = {
   width: string;
   transform: string;
   transition: string;
-};
-
-export type ImagesStyles = {
-  width: string;
-  height: string;
-};
-
-export type CarouselStyles = {
-  listStyles: ListStyles;
-  imgStyles: ImagesStyles;
 };
