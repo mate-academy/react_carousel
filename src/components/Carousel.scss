@@ -1,1 +1,36 @@
-// style go here
+$btn_bg: #555;
+$btn_border: #fff;
+
+.Carousel {
+  &__list {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btn {
+    background-color: $btn_border;
+    border: 2px solid $btn_bg;
+    color: black;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 5px;
+    border-radius: 5px;
+    transition-duration: 0.6s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $btn_bg;
+      color: $btn_border;
+    }
+  }
+}
