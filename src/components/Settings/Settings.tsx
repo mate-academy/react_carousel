@@ -29,8 +29,11 @@ const Settings: React.FC<Props> = ({
 
       <div className="Settings__container">
         <div className="Setting__block">
-          <h3>{`Item width: ${itemWidth}px`}</h3>
+          <label htmlFor="itemId">
+            {`Item width: ${itemWidth}px`}
+          </label>
           <input
+            id="itemId"
             type="number"
             className="Setting__input"
             value={itemWidth}
@@ -41,8 +44,11 @@ const Settings: React.FC<Props> = ({
         </div>
 
         <div className="Setting__block">
-          <h3>{`Image quantity: ${frameSize}`}</h3>
+          <label htmlFor="frameId">
+            {`Image quantity: ${frameSize}`}
+          </label>
           <input
+            id="frameId"
             type="number"
             className="Setting__input"
             value={frameSize}
@@ -53,8 +59,11 @@ const Settings: React.FC<Props> = ({
         </div>
 
         <div className="Setting__block">
-          <h3>{`Step: ${step}`}</h3>
+          <label htmlFor="stepId">
+            {`Step: ${step}`}
+          </label>
           <input
+            id="stepId"
             type="number"
             className="Setting__input"
             value={step}
@@ -65,8 +74,11 @@ const Settings: React.FC<Props> = ({
         </div>
 
         <div className="Setting__block">
-          <h3>{`Animation-duration: ${duration}ms`}</h3>
+          <label htmlFor="durationId">
+            {`Animation-duration: ${duration}ms`}
+          </label>
           <input
+            id="durationId"
             type="number"
             className="Setting__input"
             value={duration}
