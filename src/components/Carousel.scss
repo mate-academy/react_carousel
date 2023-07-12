@@ -25,10 +25,6 @@ form {
   margin: 0 auto 20px;
 }
 
-label {
-  display: block;
-}
-
 input {
   display: block;
   margin: 10px 0;
@@ -63,4 +59,18 @@ input {
     top: 60%;
     right: 0;
   }
+}
+
+label {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #8b8787;
+}
+
+.infinite {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
 }

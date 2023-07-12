@@ -103,6 +103,20 @@ class App extends React.Component<{}, State> {
               }
             }}
           />
+
+          <label>
+            Infitite
+            <input
+              type="checkbox"
+              className="infinite"
+              checked={this.state.infinite}
+              onChange={() => {
+                this.setState((state) => ({
+                  infinite: !state.infinite,
+                }));
+              }}
+            />
+          </label>
         </form>
 
         <Carousel
