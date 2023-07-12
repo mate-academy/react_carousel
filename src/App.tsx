@@ -25,7 +25,7 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 2,
+    step: 3,
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
