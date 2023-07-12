@@ -38,20 +38,8 @@ class App extends React.Component<{}, State> {
 
     switch (name) {
       case 'itemWidth':
-        this.setState({ [name]: +value });
-
-        break;
-
       case 'frameSize':
-        this.setState({ [name]: +value });
-
-        break;
-
       case 'animationDuration':
-        this.setState({ [name]: +value });
-
-        break;
-
       case 'step':
         this.setState({ [name]: +value });
 
@@ -65,7 +53,7 @@ class App extends React.Component<{}, State> {
         break;
 
       default:
-        throw new Error('Something wrong');
+        throw new Error('Value from input is not correct');
     }
   };
 
