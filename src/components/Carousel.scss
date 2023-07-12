@@ -1,1 +1,72 @@
-// style go here
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  &__wrapper {
+    min-width: 130px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    min-width: 130px;
+    min-height: 130px;
+    max-width: 390px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    min-width: 130px;
+    max-width: 500px;
+    max-height: 500px;
+    flex-shrink: 0;
+  }
+
+  &__img {
+    min-width: 130px;
+    min-height: 130px;
+
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  &__form-item {
+    display: block;
+    font-size: 18px;
+  }
+
+  &__form-field {
+    padding: 5px;
+    max-width: 50px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px;
+  }
+}
