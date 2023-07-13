@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Carousel.scss';
 import { Value } from '../types.tsx/Values';
 import { Input } from './Input';
@@ -29,7 +29,7 @@ const Carousel: React.FC<Props> = ({
   const [translate, setTranslate] = useState(0);
   const [cyclic, setCyclic] = useState(infinite);
 
-  // const interval = useRef(null);
+  const interval = useRef<NodeJS.Timeout | null>(null);
 
   const clickHandler = () => {
     const value = {
@@ -43,20 +43,22 @@ const Carousel: React.FC<Props> = ({
     chengeState(value);
   };
 
+  const moveRight = () => {
+    if (Math.abs(translate) < (images.length - +step) * +itemWdt) {
+      setTranslate(() => translate - +step * +itemWdt);
+    }
+  };
+
   const buttonHandler = (direction: string) => {
     switch (direction) {
       case 'Prev':
         if (translate < 0) {
           setTranslate(() => translate + +step * +itemWdt);
-          clickHandler();
         }
 
         break;
       case 'Next':
-        if (Math.abs(translate) < (images.length - +step) * +itemWdt) {
-          setTranslate(() => translate - +step * +itemWdt);
-          clickHandler();
-        }
+        moveRight();
 
         break;
       default:
@@ -64,17 +66,19 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (cyclic) {
-  //     interval.current = setInterval(() => {
-  //       setTranslate(() => translate - +itemWdt);
-  //     }, +animationDuration);
-  //   } else {
-  //     clearInterval(interval.current);
-  //     interval.current = null;
-  //   }
-  //   return () => clearInterval(interval.current);
-  // }, [cyclic]);
+  useEffect(() => {
+    if (cyclic) {
+      interval.current = setInterval(() => {
+        moveRight();
+      }, +animationDuration);
+    }
+
+    return () => {
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
+    };
+  }, [cyclic, translate]);
 
   return (
     <div className="Carousel">
@@ -114,45 +118,59 @@ const Carousel: React.FC<Props> = ({
           Prev
         </button>
         <div className="Carousel__inputs">
-          <Input
-            labelFor="item-width"
-            type="number"
-            name="Item width"
-            value={itemWdt}
-            method={setItemWdt}
-          />
+          <form
+            action=""
+            className="Carousel__form"
+            onChange={clickHandler}>
+            <Input
+              labelFor="item-width"
+              type="number"
+              name="Item width"
+              key="Item width"
+              value={itemWdt}
+              method={setItemWdt}
+              // changeState={clickHandler}
+            />
 
-          <Input
-            labelFor="frame-size"
-            type="number"
-            name="Frame size"
-            value={frame}
-            method={setFrame}
-          />
+            <Input
+              labelFor="frame-size"
+              type="number"
+              name="Frame size"
+              key="Frame size"
+              value={frame}
+              method={setFrame}
+              // changeState={clickHandler}
+            />
 
-          <Input
-            labelFor="step"
-            type="number"
-            name="Step"
-            value={steps}
-            method={setSteps}
-          />
+            <Input
+              labelFor="step"
+              type="number"
+              name="Step"
+              key="Step"
+              value={steps}
+              method={setSteps}
+              // changeState={() => clickHandler()}
+            />
 
-          <Input
-            labelFor="animation-duration"
-            type="number"
-            name="Duration"
-            value={duration}
-            method={setDuration}
-          />
+            <Input
+              labelFor="animation-duration"
+              type="number"
+              name="Duration"
+              key="Duration"
+              value={duration}
+              method={setDuration}
+              // changeState={clickHandler}
+            />
 
-          <Input
-            labelFor="cyclic"
-            type="checkbox"
-            name="cyclic"
-            value={duration}
-            method={() => setCyclic(!cyclic)}
-          />
+            <label htmlFor="cyclic">Infinite</label>
+            <input
+              id="cyclic"
+              name="cyclic"
+              type="checkbox"
+              key="cyclic"
+              onChange={() => setCyclic(!cyclic)}
+            />
+          </form>
         </div>
         <button
           type="button"
