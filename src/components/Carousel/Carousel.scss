@@ -1,0 +1,39 @@
+.Carousel {
+  display: flex;
+  gap: 20px;
+  width: fit-content;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+  }
+
+  &__list-item {
+    transition: transform 500ms ease-out;
+  }
+}
+
+.button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 500ms ease-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  &__arrow {
+    width: 70px;
+  }
+}
