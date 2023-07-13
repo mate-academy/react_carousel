@@ -97,7 +97,7 @@ class App extends React.Component<{}, State> {
               type="number"
               min="1000"
               max="5000"
-              step="1000"
+              step="500"
               value={animationDuration}
               onChange={(event) => {
                 this.setState({ animationDuration: +event.target.value });

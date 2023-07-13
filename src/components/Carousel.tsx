@@ -46,16 +46,6 @@ const Carousel: React.FC<Props> = ({
     return getMoveRight(moveRight - (step * itemWidth));
   }
 
-  const timer = window.setInterval(() => {
-    clearInterval(timer);
-
-    if (moveRight === lastPosition && !infinite) {
-      return;
-    }
-
-    nextImages();
-  }, animationDuration);
-
   return (
     <div
       className="Carousel"
@@ -63,7 +53,10 @@ const Carousel: React.FC<Props> = ({
     >
       <div
         className="Carousel__container"
-        style={{ transform: `translateX(${moveRight}px)` }}
+        style={{
+          transform: `translateX(${moveRight}px)`,
+          transition: `transform ${animationDuration}ms linear`,
+        }}
       >
         <ul className="Carousel__list">
           {images.map(imagesNumber => (
@@ -82,10 +75,7 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           disabled={infinite ? false : moveRight === 0}
-          onClick={() => {
-            clearInterval(timer);
-            prevImages();
-          }}
+          onClick={() => prevImages()}
         >
           Prev
         </button>
@@ -94,10 +84,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           data-cy="next"
           disabled={infinite ? false : moveRight === lastPosition}
-          onClick={() => {
-            clearInterval(timer);
-            nextImages();
-          }}
+          onClick={() => nextImages()}
         >
           Next
         </button>
