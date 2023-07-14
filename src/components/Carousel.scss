@@ -30,4 +30,12 @@
     flex-direction: column;
     margin: 0 10px;
   }
+
+  &__btn {
+    background: rgba(102, 102, 247, 0.55);
+  }
+
+  &__end {
+    background: rgb(106, 106, 145);
+  }
 }

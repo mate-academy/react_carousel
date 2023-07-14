@@ -114,14 +114,19 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
       <div className="Carousel__controls">
-        <button type="button" onClick={() => buttonHandler('Prev')}>
+        <button
+          type="button"
+          className={translate === 0 ? 'Carousel__end' : 'Carousel__btn'}
+          onClick={() => buttonHandler('Prev')}
+        >
           Prev
         </button>
         <div className="Carousel__inputs">
           <form
             action=""
             className="Carousel__form"
-            onChange={clickHandler}>
+            onChange={clickHandler}
+          >
             <Input
               labelFor="item-width"
               type="number"
@@ -175,6 +180,8 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           data-cy="next"
+          className={Math.abs(translate) >= (images.length - +step) * +itemWdt
+            ? 'Carousel__end' : 'Carousel__btn'}
           onClick={() => buttonHandler('Next')}
         >
           Next
