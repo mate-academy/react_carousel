@@ -8,7 +8,6 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
 };
 
 const Carousel: React.FC<Props> = ({
@@ -17,7 +16,6 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  // infinite,
 }) => {
   const [marginLeft, setMarginLeft] = useState(0);
 
@@ -28,6 +26,14 @@ const Carousel: React.FC<Props> = ({
 
   const stepLength = step * (itemWidth + marginRight);
 
+  const slideRight = () => {
+    setMarginLeft(Math.max(marginLeft - stepLength, leftSide));
+  };
+
+  const slideLeft = () => {
+    setMarginLeft(Math.min(marginLeft + stepLength, rightSide));
+  };
+
   return (
     <div
       className="Carousel"
@@ -36,8 +42,8 @@ const Carousel: React.FC<Props> = ({
       <ul
         className="Carousel__list"
         style={{
-          marginLeft,
-          transition: `marginLeft ${animationDuration}ms`,
+          transform: `translateX(${marginLeft}px)`,
+          transition: `transform ${animationDuration}ms`,
         }}
       >
         {images.map((image, index) => (
@@ -60,9 +66,7 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className={cn('button', marginLeft === rightSide && 'disabled')}
-          onClick={() => {
-            setMarginLeft(Math.min(marginLeft + stepLength, rightSide));
-          }}
+          onClick={slideLeft}
         >
           {' '}
         </button>
@@ -71,9 +75,7 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           type="button"
           className={cn('button', marginLeft === leftSide && 'disabled')}
-          onClick={() => {
-            setMarginLeft(Math.max(marginLeft - stepLength, leftSide));
-          }}
+          onClick={slideRight}
         >
           {' '}
         </button>
