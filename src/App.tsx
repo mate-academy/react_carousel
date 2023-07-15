@@ -16,11 +16,56 @@ const images = [
   './img/10.png',
 ];
 
+const getCountInRange = (value: string, max: number, min: number) => {
+  const number = +value;
+
+  if (number > max) {
+    return max;
+  }
+
+  if (number < min) {
+    return min;
+  }
+
+  return number;
+};
+
 const App: React.FC = () => {
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [inputs, setInputs] = useState({
+    frameSize: 3,
+    step: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+  });
+  const [marginLeft, setMarginLeft] = useState(0);
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      [name]: (getCountInRange(value, 10, 1)),
+    }));
+  };
+
+  const onChangeWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      [name]: (getCountInRange(value, 200, 80)),
+    }));
+    setMarginLeft(0);
+  };
+
+  const onChangeDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      [name]: (getCountInRange(value, 5000, 250)),
+    }));
+  };
 
   return (
     <div className="App">
@@ -33,7 +78,7 @@ const App: React.FC = () => {
 
       <form className="App__form">
         <label
-          htmlFor="itemWidth"
+          htmlFor="itemId"
           className="App__label"
         >
           Item width:
@@ -42,18 +87,16 @@ const App: React.FC = () => {
             className="App__input"
             type="number"
             name="itemWidth"
-            id="itemWidth"
+            id="itemId"
             min={80}
             max={200}
-            value={itemWidth}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setItemWidth(+event.target.value);
-            }}
+            value={inputs.itemWidth}
+            onChange={onChangeWidth}
           />
         </label>
 
         <label
-          htmlFor="frameSize"
+          htmlFor="frameId"
           className="App__label"
         >
           Frame size:
@@ -62,18 +105,16 @@ const App: React.FC = () => {
             className="App__input"
             type="number"
             name="frameSize"
-            id="frameSize"
+            id="frameId"
             min={1}
             max={10}
-            value={frameSize}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setFrameSize(+event.target.value);
-            }}
+            value={inputs.frameSize}
+            onChange={onChange}
           />
         </label>
 
         <label
-          htmlFor="step"
+          htmlFor="stepId"
           className="App__label"
         >
           Step:
@@ -82,13 +123,11 @@ const App: React.FC = () => {
             className="App__input"
             type="number"
             name="step"
-            id="step"
+            id="stepId"
             min={1}
             max={9}
-            value={step}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setStep(+event.target.value);
-            }}
+            value={inputs.step}
+            onChange={onChange}
           />
         </label>
 
@@ -106,20 +145,20 @@ const App: React.FC = () => {
             min={250}
             max={5000}
             step={250}
-            value={animationDuration}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setAnimationDuration(+event.target.value);
-            }}
+            value={inputs.animationDuration}
+            onChange={onChangeDuration}
           />
         </label>
       </form>
 
       <Carousel
         images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
+        step={inputs.step}
+        frameSize={inputs.frameSize}
+        itemWidth={inputs.itemWidth}
+        animationDuration={inputs.animationDuration}
+        marginLeft={marginLeft}
+        setMarginLeft={setMarginLeft}
       />
     </div>
   );
