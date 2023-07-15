@@ -46,6 +46,8 @@ const Carousel: React.FC<Props> = ({
   const moveRight = () => {
     if (Math.abs(translate) < (images.length - +step) * +itemWdt) {
       setTranslate(() => translate - +step * +itemWdt);
+    } else if (cyclic) {
+      setTranslate(0);
     }
   };
 
@@ -132,9 +134,9 @@ const Carousel: React.FC<Props> = ({
               type="number"
               name="Item width"
               key="Item width"
+              max="260"
               value={itemWdt}
               method={setItemWdt}
-              // changeState={clickHandler}
             />
 
             <Input
@@ -142,9 +144,9 @@ const Carousel: React.FC<Props> = ({
               type="number"
               name="Frame size"
               key="Frame size"
+              max="13"
               value={frame}
               method={setFrame}
-              // changeState={clickHandler}
             />
 
             <Input
@@ -152,9 +154,9 @@ const Carousel: React.FC<Props> = ({
               type="number"
               name="Step"
               key="Step"
+              max="6"
               value={steps}
               method={setSteps}
-              // changeState={() => clickHandler()}
             />
 
             <Input
@@ -162,9 +164,9 @@ const Carousel: React.FC<Props> = ({
               type="number"
               name="Duration"
               key="Duration"
+              max="10000"
               value={duration}
               method={setDuration}
-              // changeState={clickHandler}
             />
 
             <label htmlFor="cyclic">Infinite</label>

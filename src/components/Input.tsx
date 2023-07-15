@@ -5,8 +5,8 @@ type Props = {
   name: string,
   value: string,
   type: string,
+  max: string,
   method: (value: string) => void,
-  // changeState: () => void,
 };
 
 export const Input: React.FC<Props> = ({
@@ -14,20 +14,20 @@ export const Input: React.FC<Props> = ({
   name,
   type,
   value,
+  max,
   method,
-  // changeState,
 }) => {
   return (
     <>
       <label htmlFor={labelFor}>{name}</label>
       <input
         min="0"
+        max={max}
         type={type}
         id={labelFor}
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           method(e.target.value);
-          // changeState();
         }}
       />
     </>
