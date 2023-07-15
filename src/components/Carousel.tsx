@@ -21,13 +21,17 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [marginLeft, setMarginLeft] = useState(0);
 
-  const leftSide = -itemWidth * (images.length - frameSize);
+  const marginRight = 30;
+
+  const leftSide = -(itemWidth + marginRight) * (images.length - frameSize);
   const rightSide = 0;
+
+  const stepLength = step * (itemWidth + marginRight);
 
   return (
     <div
       className="Carousel"
-      style={{ width: frameSize * itemWidth }}
+      style={{ width: frameSize * (itemWidth + marginRight) - marginRight }}
     >
       <ul
         className="Carousel__list"
@@ -43,7 +47,10 @@ const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`${index + 1}`}
-              style={{ width: itemWidth }}
+              style={{
+                width: itemWidth,
+                marginRight,
+              }}
             />
           </li>
         ))}
@@ -54,7 +61,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className={cn('button', marginLeft === rightSide && 'disabled')}
           onClick={() => {
-            setMarginLeft(Math.min(marginLeft + step * itemWidth, rightSide));
+            setMarginLeft(Math.min(marginLeft + stepLength, rightSide));
           }}
         >
           {' '}
@@ -65,7 +72,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className={cn('button', marginLeft === leftSide && 'disabled')}
           onClick={() => {
-            setMarginLeft(Math.max(marginLeft - step * itemWidth, leftSide));
+            setMarginLeft(Math.max(marginLeft - stepLength, leftSide));
           }}
         >
           {' '}
