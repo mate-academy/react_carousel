@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: url(./arrows/left-arrow.png) no-repeat center;
+
+  &:last-child {
+    background: url(./arrows/right-arrow.png) no-repeat center;
+  }
+}
+
+.disabled {
+  background: url(./arrows/left-arrow-d.png) no-repeat center;
+
+  &:last-child {
+    background: url(./arrows/right-arrow-d.png) no-repeat center;
+  }
+}

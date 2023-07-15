@@ -1,1 +1,18 @@
-// style go here
+.App {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 200px;
+  }
+
+  &__input {
+    margin-left: 10px;
+    width: 50px;
+  }
+}
+
+.title {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
