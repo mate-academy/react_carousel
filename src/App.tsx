@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false,
+    infinite: true,
   };
 
   render() {
@@ -44,7 +44,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">
           {`Carousel with
           ${images.length}
@@ -55,12 +54,8 @@ class App extends React.Component<{}, State> {
             type="number"
             className="ItemWidth"
             placeholder="Enter the width of the image"
-            onChange={(event) => {
-              if (+event.currentTarget.value > 0) {
-                this.setState({
-                  itemWidth: +event.currentTarget.value,
-                });
-              }
+            onChange={(e) => {
+              this.setState({ itemWidth: +e.target.value });
             }}
           />
 
@@ -68,12 +63,8 @@ class App extends React.Component<{}, State> {
             type="number"
             className="FrameSize"
             placeholder="Enter the number of the visible image"
-            onChange={(event) => {
-              if (+event.currentTarget.value > 0) {
-                this.setState({
-                  frameSize: +event.currentTarget.value,
-                });
-              }
+            onChange={(e) => {
+              this.setState({ frameSize: +e.target.value });
             }}
           />
 
@@ -81,12 +72,8 @@ class App extends React.Component<{}, State> {
             type="number"
             className="Step"
             placeholder="Enter the number of images scrolled per click"
-            onChange={(event) => {
-              if (+event.currentTarget.value > 0) {
-                this.setState({
-                  step: +event.currentTarget.value,
-                });
-              }
+            onChange={(e) => {
+              this.setState({ step: +e.target.value });
             }}
           />
 
@@ -95,12 +82,8 @@ class App extends React.Component<{}, State> {
             className="AnimationDuration"
             placeholder="Enter the time in ms to
             show the new portion of images"
-            onChange={(event) => {
-              if (+event.currentTarget.value > 0) {
-                this.setState({
-                  animationDuration: +event.currentTarget.value,
-                });
-              }
+            onChange={(e) => {
+              this.setState({ animationDuration: +e.target.value });
             }}
           />
 
@@ -110,10 +93,8 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               className="infinite"
               checked={this.state.infinite}
-              onChange={() => {
-                this.setState((state) => ({
-                  infinite: !state.infinite,
-                }));
+              onChange={(e) => {
+                this.setState({ infinite: e.target.checked });
               }}
             />
           </label>
