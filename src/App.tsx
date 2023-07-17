@@ -104,6 +104,19 @@ class App extends React.Component<{}, State> {
               }}
             />
           </label>
+
+          <label className="values__label">
+            infinite:
+            <select
+              name="infinite"
+              onChange={(event) => {
+                this.setState({ infinite: event.target.value === 'true' });
+              }}
+            >
+              <option value="false">false</option>
+              <option value="true">true</option>
+            </select>
+          </label>
         </form>
 
         <Carousel
