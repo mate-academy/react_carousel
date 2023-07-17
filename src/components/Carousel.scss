@@ -1,1 +1,43 @@
-// style go here
+$bk_color_active: rgba(102, 102, 247, 0.55);
+$bg_color: rgb(106, 106, 145);
+
+.Carousel {
+  width: 1300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+  }
+
+  &__btn {
+    background: $bk_color_active;
+  }
+
+  &__end {
+    background: $bg_color;
+  }
+}
