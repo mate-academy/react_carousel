@@ -23,21 +23,21 @@ const Carousel: React.FC<Props> = ({
   changeState,
 }) => {
   const interval = useRef<NodeJS.Timeout | null>(null);
-  const [translate, setTranslate] = useState(0);
+  const [carouselPosition, setCarouselPosition] = useState(0);
 
   const moveRight = () => {
-    if (Math.abs(translate) < (images.length - +step) * +itemWidth) {
-      setTranslate(() => translate - +step * +itemWidth);
+    if (Math.abs(carouselPosition) < (images.length - +step) * +itemWidth) {
+      setCarouselPosition(() => carouselPosition - +step * +itemWidth);
     } else if (infinite) {
-      setTranslate(0);
+      setCarouselPosition(0);
     }
   };
 
   const buttonHandler = (direction: string) => {
     switch (direction) {
       case 'Prev':
-        if (translate < 0) {
-          setTranslate(() => translate + +step * +itemWidth);
+        if (carouselPosition < 0) {
+          setCarouselPosition(() => carouselPosition + +step * +itemWidth);
         }
 
         break;
@@ -62,7 +62,7 @@ const Carousel: React.FC<Props> = ({
         clearInterval(interval.current);
       }
     };
-  }, [translate]);
+  }, [carouselPosition]);
 
   return (
     <div className="Carousel">
@@ -73,18 +73,17 @@ const Carousel: React.FC<Props> = ({
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(${translate}px)`,
+            transform: `translateX(${carouselPosition}px)`,
             transition: `transform ${(animationDuration)}ms`,
           }}
         >
           {
             images.map((img, index) => {
               return (
-                <li>
+                <li key={img}>
                   <img
                     src={img}
                     alt={`${index}`}
-                    key={img}
                     className="Carousel__image"
                     style={{
                       width: `${itemWidth}px`,
@@ -100,7 +99,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__controls">
         <button
           type="button"
-          className={translate === 0 ? 'Carousel__end' : 'Carousel__btn'}
+          className={carouselPosition === 0 ? 'Carousel__end' : 'Carousel__btn'}
           onClick={() => buttonHandler('Prev')}
         >
           Prev
@@ -166,8 +165,10 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           data-cy="next"
-          className={Math.abs(translate) >= (images.length - +step) * +itemWidth
-            ? 'Carousel__end' : 'Carousel__btn'}
+          className={
+            Math.abs(carouselPosition) >= (images.length - +step) * +itemWidth
+              ? 'Carousel__end' : 'Carousel__btn'
+          }
           onClick={() => buttonHandler('Next')}
         >
           Next
