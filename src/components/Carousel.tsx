@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  imagesNumbers: string[],
+  images: string[],
   step: number,
   frameSize: number,
   itemWidth: number,
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({
-  imagesNumbers: images,
+  images,
   step,
   frameSize,
   itemWidth,
@@ -59,12 +59,12 @@ const Carousel: React.FC<Props> = ({
         }}
       >
         <ul className="Carousel__list">
-          {images.map(imagesNumber => (
-            <li className="Carousel__list-item" key={imagesNumber}>
+          {images.map(image => (
+            <li className="Carousel__list-item" key={image}>
               <img
                 style={{ width: itemWidth }}
-                src={`./img/${imagesNumber}.png`}
-                alt={imagesNumber}
+                src={image}
+                alt={image}
               />
             </li>
           ))}
@@ -74,6 +74,7 @@ const Carousel: React.FC<Props> = ({
       <div className="button__container">
         <button
           type="button"
+          title="previous images"
           disabled={infinite ? false : moveRight === 0}
           onClick={() => prevImages()}
         >
@@ -82,6 +83,7 @@ const Carousel: React.FC<Props> = ({
 
         <button
           type="button"
+          title="next images"
           data-cy="next"
           disabled={infinite ? false : moveRight === lastPosition}
           onClick={() => nextImages()}

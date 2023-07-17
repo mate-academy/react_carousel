@@ -13,12 +13,45 @@ interface State {
 
 class App extends React.Component<{}, State> {
   state = {
-    images: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    images: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
     step: 3,
     frameSize: 3,
     itemWidth: 130, // px
     animationDuration: 1000, // 1000
     infinite: false,
+  };
+
+  handlerStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: +event.target.value });
+  };
+
+  handlerFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ frameSize: +event.target.value });
+  };
+
+  handlerItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ itemWidth: +event.target.value });
+  };
+
+  handlerAnimationDurationChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    this.setState({ animationDuration: +event.target.value });
+  };
+
+  handlerInfiniteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ infinite: event.target.value === 'true' });
   };
 
   render() {
@@ -51,9 +84,7 @@ class App extends React.Component<{}, State> {
               max="5"
               step="1"
               value={step}
-              onChange={(event) => {
-                this.setState({ step: +event.target.value });
-              }}
+              onChange={this.handlerStepChange}
             />
           </label>
 
@@ -67,9 +98,7 @@ class App extends React.Component<{}, State> {
               max="5"
               step="1"
               value={frameSize}
-              onChange={(event) => {
-                this.setState({ frameSize: +event.target.value });
-              }}
+              onChange={this.handlerFrameSizeChange}
             />
           </label>
 
@@ -78,14 +107,12 @@ class App extends React.Component<{}, State> {
             <input
               className="values__input"
               type="range"
-              name="frameSize"
+              name="itemWidth"
               min="130"
               max="300"
               step="10"
               value={itemWidth}
-              onChange={(event) => {
-                this.setState({ itemWidth: +event.target.value });
-              }}
+              onChange={this.handlerItemWidthChange}
             />
           </label>
 
@@ -99,9 +126,7 @@ class App extends React.Component<{}, State> {
               max="5000"
               step="500"
               value={animationDuration}
-              onChange={(event) => {
-                this.setState({ animationDuration: +event.target.value });
-              }}
+              onChange={this.handlerAnimationDurationChange}
             />
           </label>
 
@@ -109,9 +134,8 @@ class App extends React.Component<{}, State> {
             infinite:
             <select
               name="infinite"
-              onChange={(event) => {
-                this.setState({ infinite: event.target.value === 'true' });
-              }}
+              defaultValue="false"
+              onChange={this.handlerInfiniteChange}
             >
               <option value="false">false</option>
               <option value="true">true</option>
@@ -120,7 +144,7 @@ class App extends React.Component<{}, State> {
         </form>
 
         <Carousel
-          imagesNumbers={images}
+          images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
