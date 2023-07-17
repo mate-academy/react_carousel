@@ -1,66 +1,110 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
   images: string[];
-  frameSize: number;
-  updateFrameSize: (newFrameSize: number) => void;
   step: number;
-  updateStep: (newStep: number) => void;
+  frameSize: number;
   itemWidth: number;
-  updateItemWidth: (newItemWidth: number) => void;
   animationDuration: number;
-  updateAnimationDuration: (newAnimationDuration: number) => void;
-  currentIndex: number;
-  updateCurrentIndex: (index: number) => void;
   infinite: boolean;
-  updateInfinite: (state: boolean) => void;
 };
 
 export const Carousel: React.FC<Props> = ({
   images,
-  frameSize,
-  updateFrameSize,
   step,
-  updateStep,
+  frameSize,
   itemWidth,
-  updateItemWidth,
   animationDuration,
-  updateAnimationDuration,
-  currentIndex,
-  updateCurrentIndex: setCurrentIndex,
   infinite,
-  updateInfinite,
 }) => {
-  const handleNext = () => {
-    let newIndex = currentIndex + step;
+  const [state, setState] = useState({
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+    infinite,
+    currentIndex: 0,
+  });
 
-    if (newIndex >= images.length - frameSize) {
-      if (infinite) {
-        newIndex = newIndex + frameSize - images.length;
+  const handleNext = () => {
+    let newIndex = state.currentIndex + state.step;
+
+    if (newIndex >= images.length - state.frameSize) {
+      if (state.infinite) {
+        newIndex = newIndex + state.frameSize - images.length;
       } else {
-        newIndex = images.length - frameSize;
+        newIndex = images.length - state.frameSize;
       }
     }
 
-    setCurrentIndex(newIndex);
+    setState((prevState) => ({
+      ...prevState,
+      currentIndex: newIndex,
+    }));
   };
 
   const handlePrev = () => {
-    let newIndex = currentIndex - step;
+    let newIndex = state.currentIndex - state.step;
 
     if (newIndex < 0) {
-      if (infinite) {
-        newIndex = images.length - step;
+      if (state.infinite) {
+        newIndex = images.length - state.step;
       } else {
         newIndex = 0;
       }
     }
 
-    setCurrentIndex(newIndex);
+    setState((prevState) => ({
+      ...prevState,
+      currentIndex: newIndex,
+    }));
   };
 
-  const transformValue = -currentIndex * itemWidth;
+  const updateStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newStep = +event.target.value;
+
+    setState((prevState) => ({
+      ...prevState,
+      step: newStep,
+    }));
+  };
+
+  const updateFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFrameSize = +event.target.value;
+
+    setState((prevState) => ({
+      ...prevState,
+      frameSize: newFrameSize,
+    }));
+  };
+
+  const updateItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newItemWidth = +event.target.value;
+
+    setState((prevState) => ({
+      ...prevState,
+      itemWidth: newItemWidth,
+    }));
+  };
+
+  const updateAnimationDuration = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newAnimationDuration = +event.target.value;
+
+    setState((prevState) => ({
+      ...prevState,
+      animationDuration: newAnimationDuration,
+    }));
+  };
+
+  const updateInfinite = () => {
+    setState((prevState) => ({
+      ...prevState,
+      infinite: !prevState.infinite,
+    }));
+  };
 
   return (
     <div className="carousel">
@@ -74,13 +118,13 @@ export const Carousel: React.FC<Props> = ({
         </button>
         <div
           className="carousel__list__wrapper"
-          style={{ width: `${itemWidth * frameSize}px` }}
+          style={{ width: `${state.itemWidth * state.frameSize}px` }}
         >
           <ul
             className="carousel__list"
             style={{
-              transform: `translateX(${transformValue}px)`,
-              transition: `transform ${animationDuration}s ease`,
+              transform: `translateX(${-state.currentIndex * state.itemWidth}px)`,
+              transition: `transform ${state.animationDuration}s ease`,
             }}
           >
             {images.map((image: string, index: number) => (
@@ -89,7 +133,7 @@ export const Carousel: React.FC<Props> = ({
                   src={image}
                   alt={`${index}`}
                   className="carousel__img"
-                  style={{ width: `${itemWidth}px` }}
+                  style={{ width: `${state.itemWidth}px` }}
                 />
               </li>
             ))}
@@ -105,48 +149,52 @@ export const Carousel: React.FC<Props> = ({
         </button>
       </div>
       <label>
-        {`Frame size is ${frameSize} `}
+        {`Frame size is ${state.frameSize} `}
         <input
           type="range"
           min="2"
           max="5"
-          value={frameSize}
-          onChange={(event) => updateFrameSize(+event.target.value)}
+          value={state.frameSize}
+          onChange={updateFrameSize}
         />
       </label>
       <label>
-        {`Step number is ${step} `}
+        {`Step number is ${state.step} `}
         <input
           type="range"
           min="2"
           max="5"
-          value={step}
-          onChange={(event) => updateStep(+event.target.value)}
+          value={state.step}
+          onChange={updateStep}
         />
       </label>
       <label>
-        {`Itemwidth is ${itemWidth} `}
+        {`Itemwidth is ${state.itemWidth} `}
         <input
           type="range"
           min="130"
           max="200"
-          value={itemWidth}
-          onChange={(event) => updateItemWidth(+event.target.value)}
+          value={state.itemWidth}
+          onChange={updateItemWidth}
         />
       </label>
       <label>
-        {`Animation duration ${animationDuration}s `}
+        {`Animation duration ${state.animationDuration}s `}
         <input
           type="range"
           min="1"
           max="3"
-          value={animationDuration}
-          onChange={(event) => updateAnimationDuration(+event.target.value)}
+          value={state.animationDuration}
+          onChange={updateAnimationDuration}
         />
       </label>
       <label>
         {'Infinite loop '}
-        <input type="checkbox" onChange={() => updateInfinite(!infinite)} />
+        <input
+          type="checkbox"
+          onChange={updateInfinite}
+          checked={state.infinite}
+        />
       </label>
     </div>
   );
