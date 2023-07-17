@@ -1,4 +1,5 @@
 import React from 'react';
+import { Value } from '../types/Values';
 
 type Props = {
   labelFor: string,
@@ -6,7 +7,7 @@ type Props = {
   value: string,
   type: string,
   max: string,
-  method: (value: string) => void,
+  method: (value: Value) => void,
 };
 
 export const Input: React.FC<Props> = ({
@@ -23,11 +24,15 @@ export const Input: React.FC<Props> = ({
       <input
         min="0"
         max={max}
+        name={name}
         type={type}
         id={labelFor}
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          method(e.target.value);
+          method({
+            value: e.target.value,
+            type: name,
+          });
         }}
       />
     </>

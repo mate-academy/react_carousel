@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Carousel.scss';
-import { Value } from '../types.tsx/Values';
+import React, { useEffect, useRef, useState } from 'react';
+import { Value } from '../types/Values';
 import { Input } from './Input';
+import './Carousel.scss';
 
 type Props = {
   images: string[],
@@ -10,7 +10,7 @@ type Props = {
   itemWidth:string,
   animationDuration: string,
   infinite: boolean,
-  chengeState: (value: Value) => void;
+  changeState: (value: Value) => void,
 };
 
 const Carousel: React.FC<Props> = ({
@@ -20,33 +20,15 @@ const Carousel: React.FC<Props> = ({
   itemWidth,
   animationDuration,
   infinite,
-  chengeState,
+  changeState,
 }) => {
-  const [steps, setSteps] = useState(step);
-  const [frame, setFrame] = useState(frameSize);
-  const [itemWdt, setItemWdt] = useState(itemWidth);
-  const [duration, setDuration] = useState(animationDuration);
-  const [translate, setTranslate] = useState(0);
-  const [cyclic, setCyclic] = useState(infinite);
-
   const interval = useRef<NodeJS.Timeout | null>(null);
-
-  const clickHandler = () => {
-    const value = {
-      step: steps,
-      frameSize: frame,
-      itemWidth: itemWdt,
-      animationDuration: duration,
-      infinite: cyclic,
-    };
-
-    chengeState(value);
-  };
+  const [translate, setTranslate] = useState(0);
 
   const moveRight = () => {
-    if (Math.abs(translate) < (images.length - +step) * +itemWdt) {
-      setTranslate(() => translate - +step * +itemWdt);
-    } else if (cyclic) {
+    if (Math.abs(translate) < (images.length - +step) * +itemWidth) {
+      setTranslate(() => translate - +step * +itemWidth);
+    } else if (infinite) {
       setTranslate(0);
     }
   };
@@ -55,7 +37,7 @@ const Carousel: React.FC<Props> = ({
     switch (direction) {
       case 'Prev':
         if (translate < 0) {
-          setTranslate(() => translate + +step * +itemWdt);
+          setTranslate(() => translate + +step * +itemWidth);
         }
 
         break;
@@ -69,7 +51,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (cyclic) {
+    if (infinite) {
       interval.current = setInterval(() => {
         moveRight();
       }, +animationDuration);
@@ -80,7 +62,7 @@ const Carousel: React.FC<Props> = ({
         clearInterval(interval.current);
       }
     };
-  }, [cyclic, translate]);
+  }, [translate]);
 
   return (
     <div className="Carousel">
@@ -127,7 +109,6 @@ const Carousel: React.FC<Props> = ({
           <form
             action=""
             className="Carousel__form"
-            onChange={clickHandler}
           >
             <Input
               labelFor="item-width"
@@ -135,8 +116,8 @@ const Carousel: React.FC<Props> = ({
               name="Item width"
               key="Item width"
               max="260"
-              value={itemWdt}
-              method={setItemWdt}
+              value={itemWidth}
+              method={changeState}
             />
 
             <Input
@@ -145,8 +126,8 @@ const Carousel: React.FC<Props> = ({
               name="Frame size"
               key="Frame size"
               max="13"
-              value={frame}
-              method={setFrame}
+              value={frameSize}
+              method={changeState}
             />
 
             <Input
@@ -155,8 +136,8 @@ const Carousel: React.FC<Props> = ({
               name="Step"
               key="Step"
               max="6"
-              value={steps}
-              method={setSteps}
+              value={step}
+              method={changeState}
             />
 
             <Input
@@ -165,8 +146,8 @@ const Carousel: React.FC<Props> = ({
               name="Duration"
               key="Duration"
               max="10000"
-              value={duration}
-              method={setDuration}
+              value={animationDuration}
+              method={changeState}
             />
 
             <label htmlFor="cyclic">Infinite</label>
@@ -175,14 +156,17 @@ const Carousel: React.FC<Props> = ({
               name="cyclic"
               type="checkbox"
               key="cyclic"
-              onChange={() => setCyclic(!cyclic)}
+              onChange={() => changeState({
+                type: 'infinite',
+                bool: !infinite,
+              })}
             />
           </form>
         </div>
         <button
           type="button"
           data-cy="next"
-          className={Math.abs(translate) >= (images.length - +step) * +itemWdt
+          className={Math.abs(translate) >= (images.length - +step) * +itemWidth
             ? 'Carousel__end' : 'Carousel__btn'}
           onClick={() => buttonHandler('Next')}
         >

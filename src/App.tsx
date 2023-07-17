@@ -1,7 +1,7 @@
 import React from 'react';
+import { Value } from './types/Values';
 import './App.scss';
 import Carousel from './components/Carousel';
-import { Value } from './types.tsx/Values';
 
 interface State {
   images: string[];
@@ -29,10 +29,40 @@ class App extends React.Component<{}, State> {
   };
 
   stateHandler = (value: Value) => {
-    this.setState(state => ({
-      images: state.images,
-      ...value,
-    }));
+    switch (value.type) {
+      case 'infinite':
+        this.setState(prevSate => ({
+          ...prevSate,
+          infinite: value.bool,
+        }));
+        break;
+      case 'Item width':
+        this.setState(prevSate => ({
+          ...prevSate,
+          itemWidth: value.value,
+        }));
+        break;
+      case 'Frame size':
+        this.setState(prevSate => ({
+          ...prevSate,
+          frameSize: value.value,
+        }));
+        break;
+      case 'Step':
+        this.setState(prevSate => ({
+          ...prevSate,
+          step: value.value,
+        }));
+        break;
+      case 'Duration':
+        this.setState(prevSate => ({
+          ...prevSate,
+          animationDuration: value.value,
+        }));
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
@@ -58,7 +88,7 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           infinite={infinite}
-          chengeState={this.stateHandler}
+          changeState={this.stateHandler}
         />
       </div>
     );
