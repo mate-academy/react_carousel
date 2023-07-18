@@ -1,1 +1,39 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  height: 100vh;
+  background-color: #a58686;
+  font-size: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.App h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.box label {
+  padding: 10px;
+}
+
+.box input,
+.box select {
+  width: 50px;
+  outline: 0;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 15px;
+  border: 0;
+}
+
+.box select {
+  width: 60px;
+}
