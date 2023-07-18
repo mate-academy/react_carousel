@@ -1,1 +1,17 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.values {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  &__label {
+    margin-top: 5px;
+  }
+}
