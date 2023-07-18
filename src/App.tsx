@@ -48,8 +48,8 @@ class App extends React.Component<{}, State> {
     this.setState({ animationDuration: +event.target.value });
   };
 
-  setInfinite = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ infinite: event.target.value === 'true' });
+  setInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: event.target.checked });
   };
 
   render() {
@@ -116,14 +116,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label>
-            Carousel Yes/No:
-            <select
-              value={`${infinite}`}
+            Infinite Yes/No:
+            <input
+              type="checkbox"
               onChange={this.setInfinite}
-            >
-              <option value="false">No</option>
-              <option value="true">Yes</option>
-            </select>
+            />
           </label>
         </div>
 

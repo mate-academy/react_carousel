@@ -52,7 +52,7 @@ const Carousel: React.FC<Props> = ({
       <ul className="Carousel__list">
         {images.map((image, index) => (
           <li
-            key={`${index + 1}`}
+            key={image}
             style={{
               transform: `translateX(${-(itemWidth * firstImg)}px)`,
               transition: `transform ${animationDuration}ms`,
@@ -67,15 +67,17 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      <div className="container">
+      <div className="Carousel__container">
         <button
-          disabled={firstImg - step < -step + 1 && !infinite}
+          className="Carousel__button"
+          disabled={firstImg === 0 && !infinite}
           type="button"
           onClick={() => carouselPrev()}
         >
           Prev
         </button>
         <button
+          className="Carousel__button"
           data-cy="next"
           disabled={firstImg === images.length - step && !infinite}
           type="button"
