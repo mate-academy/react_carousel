@@ -76,7 +76,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           title="previous images"
           disabled={infinite ? false : moveRight === 0}
-          onClick={() => prevImages()}
+          onClick={prevImages}
         >
           Prev
         </button>
@@ -86,7 +86,7 @@ const Carousel: React.FC<Props> = ({
           title="next images"
           data-cy="next"
           disabled={infinite ? false : moveRight === lastPosition}
-          onClick={() => nextImages()}
+          onClick={nextImages}
         >
           Next
         </button>
