@@ -1,1 +1,15 @@
-// style go here
+.App {
+  text-align: center;
+
+  &__settings {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__setting {
+    margin-left: 10px;
+    width: 50px;
+  }
+}
