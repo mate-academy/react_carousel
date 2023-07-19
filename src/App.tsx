@@ -15,11 +15,25 @@ const images = [
   './img/10.png',
 ];
 
+// tried to create a custom hook in order to avoid repeating onChange handlers
+function useInput(initialValue: number) {
+  const [value, setValue] = useState(initialValue);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(+e.target.value);
+  }
+
+  return {
+    value,
+    onChange: handleChange,
+  };
+}
+
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const itemWidth = useInput(130);
+  const frameSize = useInput(3);
+  const step = useInput(3);
+  const animationDuration = useInput(1000);
 
   return (
     <div className="App">
@@ -28,63 +42,59 @@ const App: React.FC = () => {
 
       <Carousel
         images={images}
-        step={step}
-        frameSize={3}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
+        step={step.value}
+        frameSize={frameSize.value}
+        itemWidth={itemWidth.value}
+        animationDuration={animationDuration.value}
       />
 
       <div className="App__settings">
         <label htmlFor="itemId">
           Enter item width
           <input
+            {...itemWidth}
             type="number"
             name="itemWidth"
             id="itemId"
-            value={itemWidth}
             className="App__setting"
-            onChange={e => setItemWidth(+e.target.value)}
           />
         </label>
 
         <label htmlFor="frameId">
           Enter frame size
           <input
+            {...frameSize}
             type="number"
             name="frameSize"
             id="frameId"
-            value={frameSize}
             className="App__setting"
             min={1}
             max={images.length}
-            onChange={e => setFrameSize(+e.target.value)}
           />
         </label>
 
         <label htmlFor="stepId">
           Enter step
           <input
+            {...step}
             type="number"
             name="step"
             id="stepId"
-            value={step}
             className="App__setting"
             min={1}
             max={images.length - 1}
-            onChange={e => setStep(+e.target.value)}
           />
         </label>
 
         <label htmlFor="animationId">
           Enter animation duration
           <input
+            {...animationDuration}
             type="number"
             name="animationDuration"
             id="animationId"
-            value={animationDuration}
             className="App__setting"
             min={0}
-            onChange={e => setAnimationDuration(+e.target.value)}
           />
         </label>
       </div>
