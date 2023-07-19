@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  padding: 20px;
+  &__list {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    overflow: hidden;
+
+  }
+
+  &__img {
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid gray;
+
+    &:hover {
+      transform: scale(1.2);
+      border: 2px solid transparent;
+    }
+  }
+
+  &__button {
+    padding: 40px;
+  }
+}
