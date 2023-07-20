@@ -31,13 +31,6 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  // get visibleImage() {
-  //   const { frameSize, currentImage } = this.state;
-  //   const lastIndex = frameSize + currentImage;
-
-  //   return images.slice(currentImage, lastIndex);
-  // }
-
   handleChangeStep = (event:React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ step: +event.target.value });
   };
@@ -72,9 +65,10 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">
           {`Carousel with ${images.length} images`}
         </h1>
-        <label className="App__input">
+        <label htmlFor="stepId" className="App__input">
           Step:
           <input
+            id="stepId"
             type="number"
             value={step}
             min="1"
@@ -83,9 +77,10 @@ class App extends React.Component<{}, State> {
             onChange={this.handleChangeStep}
           />
         </label>
-        <label className="App__input">
+        <label htmlFor="frameId" className="App__input">
           Frame size:
           <input
+            id="frameId"
             type="number"
             value={frameSize}
             min="1"
@@ -94,9 +89,10 @@ class App extends React.Component<{}, State> {
             onChange={this.handleChangeFrameSize}
           />
         </label>
-        <label className="App__input">
+        <label htmlFor="itemId" className="App__input">
           Item width:
           <input
+            id="itemId"
             type="number"
             value={itemWidth}
             min="130"

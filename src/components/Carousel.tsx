@@ -1,5 +1,4 @@
 import React from 'react';
-// import cn from 'classnames';
 import './Carousel.scss';
 
 type Props = {
@@ -21,25 +20,24 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   handlePrev = () => {
+    const {
+      images,
+      step,
+      frameSize,
+      infinite,
+    } = this.props;
+
     this.setState(currentState => {
       const {
         currentImage,
       } = currentState;
-      const {
-        images,
-        step,
-        frameSize,
-        infinite,
-      } = this.props;
 
-      const newCurrentImage = currentImage - step > 0
+      let newCurrentImage = currentImage - step > 0
         ? currentImage - step
         : 0;
 
       if (currentImage === 0 && infinite) {
-        this.setState({
-          currentImage: images.length - frameSize,
-        });
+        newCurrentImage = images.length - frameSize;
       }
 
       return { ...currentState, currentImage: newCurrentImage };
@@ -47,24 +45,23 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   handleNext = () => {
+    const {
+      images,
+      step,
+      frameSize,
+      infinite,
+    } = this.props;
+
     this.setState(currentState => {
       const {
         currentImage,
       } = currentState;
-      const {
-        images,
-        step,
-        frameSize,
-        infinite,
-      } = this.props;
-      const newCurrentImage = currentImage + step > images.length - frameSize
+      let newCurrentImage = currentImage + step > images.length - frameSize
         ? images.length - frameSize
         : currentImage + step;
 
       if (currentImage === images.length - frameSize && infinite) {
-        this.setState({
-          currentImage: 0,
-        });
+        newCurrentImage = 0;
       }
 
       return { ...currentState, currentImage: newCurrentImage };
