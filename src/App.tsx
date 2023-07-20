@@ -57,6 +57,8 @@ const App: React.FC = () => {
             name="itemWidth"
             id="itemId"
             className="App__setting"
+            min={50}
+            max={350}
           />
         </label>
 
