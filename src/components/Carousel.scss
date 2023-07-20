@@ -1,1 +1,32 @@
 // style go here
+
+.Carousel__list {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.Container {
+  display: flex;
+  justify-content: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.arrow.left {
+  left: 450px;
+}
+
+.arrow.right {
+  right: 450px;
+}
