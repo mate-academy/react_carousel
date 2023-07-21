@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -18,70 +18,73 @@ export const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [startImage, setStartImage] = useState(0);
-  const [endImage, setEndImage] = useState(frameSize);
+  const [itemsOnPage, setItemsOnPage] = useState(0);
 
-  useEffect(() => {
-    setEndImage(startImage + frameSize);
-  }, [frameSize, startImage]);
+  const hiddenImages = (images.length - frameSize) * itemWidth;
 
-  const handlePrev = () => {
-    if (startImage > 0) {
-      setStartImage(startImage - step);
-      setEndImage(endImage - step);
+  const getPrevImage = () => {
+    setItemsOnPage(Math.min(itemsOnPage + itemWidth * step, 0));
+
+    if (itemsOnPage === 0) {
+      setItemsOnPage(-hiddenImages);
     }
   };
 
-  const handleNext = () => {
-    if (endImage < images.length) {
-      setEndImage(endImage + step);
-      setStartImage(startImage + step);
-    }
+  const getNextImage = () => {
+    setItemsOnPage(Math.max(itemsOnPage - itemWidth * step, -hiddenImages));
 
-    if (infinite && endImage === images.length - 1) {
-      setStartImage(0);
-      setEndImage(frameSize);
+    if (itemsOnPage === -hiddenImages && infinite) {
+      setItemsOnPage(0);
     }
   };
+
+  const maxItemsOnPage = (images.length - frameSize) * itemWidth;
+
+  const containerWidth = frameSize * itemWidth;
 
   return (
-    <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
+    <div className="Carousel">
       <ul
         className="Carousel__list"
-        style={{
-          transition: `transform ${animationDuration}ms ease-in-out`,
-        }}
+        style={{ width: `${containerWidth}px` }}
       >
-        {images.slice(startImage, endImage).map((image: string) => (
+        {images.map(image => (
           <li
+            className="Carousel__element"
             key={image}
-            className="Carousel__image"
+            style={{
+              transform: `translateX(${itemsOnPage}px)`,
+              transition: `${animationDuration}ms`,
+            }}
           >
             <img
               src={image}
-              alt={image}
+              alt={`${image}`}
               style={{ width: `${itemWidth}px` }}
             />
           </li>
         ))}
+
       </ul>
+
       <div className="Carousel__buttons">
         <button
-          className="Carousel__bnt"
           type="button"
-          onClick={handlePrev}
-          disabled={startImage === 0}
+          className="Carousel__btn"
+          onClick={getPrevImage}
+          disabled={itemsOnPage === 0}
         >
-          Prev
+          <span className="Carousel__vector">&lt;</span>
         </button>
+
         <button
-          className="Carousel__bnt"
           type="button"
+          className="Carousel__btn"
           data-cy="next"
-          onClick={handleNext}
-          disabled={endImage >= images.length && infinite === false}
+          onClick={getNextImage}
+          disabled={itemsOnPage === -maxItemsOnPage && !infinite}
         >
-          Next
+          <span className="Carousel__vector">&gt;</span>
         </button>
       </div>
     </div>
