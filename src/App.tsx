@@ -114,7 +114,6 @@ export const App: React.FC = () => {
   return (
     <div className="App" data-cy="title">
       <h1>{`Carousel with ${imagesData.length} images`}</h1>
-      <h2>{`Pos:${slideIndex}, maxPos:${maxSlideIndex}`}</h2>
       <Carousel
         images={imagesData}
         step={step}
