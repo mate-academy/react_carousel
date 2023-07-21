@@ -3,16 +3,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    outline: auto;
 
   &__list {
     display: flex;
     margin: 30px;
     overflow: hidden;
-    outline: auto;
+    list-style: none;
   }
 
   &__image {
-    list-style-type: none;
     margin: 25px;
   }
 
@@ -32,7 +32,6 @@
     border: solid 2px white;
     border-radius: 60px;
     cursor: pointer;
-    transition: all 0.4s;
 
     &:hover {
       background-color: rgb(255, 216, 107);

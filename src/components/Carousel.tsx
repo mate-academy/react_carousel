@@ -48,13 +48,14 @@ export const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <ul
         className="Carousel__list"
+        style={{
+          transition: `transform ${animationDuration}ms ease-in-out`,
+        }}
       >
         {images.slice(startImage, endImage).map((image: string) => (
           <li
             key={image}
             className="Carousel__image"
-            style={{ animation: `ease ${animationDuration}ms` }}
-
           >
             <img
               src={image}
@@ -78,6 +79,7 @@ export const Carousel: React.FC<Props> = ({
           type="button"
           data-cy="next"
           onClick={handleNext}
+          disabled={endImage >= images.length && infinite === false}
         >
           Next
         </button>
