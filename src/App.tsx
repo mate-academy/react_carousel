@@ -24,16 +24,16 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    itemWidth: 130,
-    frameSize: 3,
     step: 3,
+    frameSize: 3,
+    itemWidth: 130,
     animationDuration: 1000,
   };
 
-  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
 
-    this.setState({ itemWidth: value || 130 });
+    this.setState({ step: value || 3 });
   };
 
   setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,10 +42,10 @@ class App extends React.Component<{}, State> {
     this.setState({ frameSize: value || 3 });
   };
 
-  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
 
-    this.setState({ step: value || 3 });
+    this.setState({ itemWidth: value || 130 });
   };
 
   setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,18 +70,18 @@ class App extends React.Component<{}, State> {
 
         <div className="menu">
           <label
-            htmlFor="itemId"
+            htmlFor="stepId"
             className="label"
           >
-            Item Width:
+            Step:
             <input
-              value={itemWidth}
               type="number"
-              id="itemId"
-              min={60}
-              max={260}
-              step={10}
-              onChange={this.setItemWidth}
+              id="stepId"
+              value={step}
+              min={1}
+              max={images.length}
+              step={1}
+              onChange={this.setStep}
             />
           </label>
           <label
@@ -90,8 +90,9 @@ class App extends React.Component<{}, State> {
           >
             Frame Size:
             <input
-              value={frameSize}
               type="number"
+              id="frameId"
+              value={frameSize}
               min={1}
               max={images.length}
               step={1}
@@ -99,18 +100,18 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label
-            htmlFor="stepId"
+            htmlFor="itemId"
             className="label"
           >
-            Step:
+            Item Width:
             <input
-              value={step}
               type="number"
-              id="stepId"
-              min={1}
-              max={images.length}
-              step={1}
-              onChange={this.setStep}
+              id="itemId"
+              value={itemWidth}
+              min={60}
+              max={260}
+              step={10}
+              onChange={this.setItemWidth}
             />
           </label>
           <label
@@ -119,9 +120,9 @@ class App extends React.Component<{}, State> {
           >
             AnimationDuration:
             <input
-              value={animationDuration}
               type="number"
               id="animationId"
+              value={animationDuration}
               min={500}
               max={5000}
               step={500}

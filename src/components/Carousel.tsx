@@ -42,7 +42,7 @@ const Carousel: React.FC<Props> = ({
             >
               <img
                 src={img}
-                alt={`${id + 1}`}
+                alt={`#${id + 1}`}
                 width={itemWidth}
               />
             </li>
@@ -53,6 +53,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__buttons">
         <button
           type="button"
+          data-cy="prev"
           onClick={() => {
             setOffset((currentOffset => (
               Math.min(currentOffset + itemWidth * step, 0)
@@ -64,6 +65,7 @@ const Carousel: React.FC<Props> = ({
         </button>
         <button
           type="button"
+          data-cy="next"
           onClick={() => {
             setOffset((currentOffset => (
               Math.max(currentOffset - itemWidth * step, -maxOffset)
