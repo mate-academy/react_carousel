@@ -3,12 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    outline: auto;
 
   &__list {
     display: flex;
     margin: 30px;
     overflow: hidden;
+    border: 5px solid rgb(172, 243, 243);
+    border-radius: 15px;
     list-style: none;
   }
 
@@ -28,13 +29,13 @@
   &__bnt {
     width: 50px;
     height: 50px;
-    background-color: rgb(251, 205, 79);
+    background-color: rgb(172, 243, 243);
     border: solid 2px white;
     border-radius: 60px;
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(255, 216, 107);
+      background-color: rgb(56, 145, 145);
       transform: scale(1.05);
     }
 
@@ -50,7 +51,8 @@
     }
 
     &:hover:disabled {
-      background-color: rgba(255, 216, 107, 60%);
+      cursor: not-allowed;
+      background-color: rgb(43, 61, 61);
       transform: none;
     }
   }

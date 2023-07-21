@@ -45,7 +45,7 @@ export const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div className="Carousel">
+    <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
       <ul
         className="Carousel__list"
         style={{
