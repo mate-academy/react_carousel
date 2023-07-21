@@ -8,9 +8,10 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
+  isInfinite: boolean;
   translate: number;
   onTranslate: React.Dispatch<React.SetStateAction<number>>;
+  onSlideIndex: (move: string) => void;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -19,18 +20,20 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  infinite,
+  isInfinite,
   translate,
   onTranslate,
+  onSlideIndex,
 }) => {
   const maxTranslate = (images.length - frameSize) * itemWidth;
   const minTranslate = 0;
-  const disableForward = translate === maxTranslate && !infinite;
-  const disableBack = translate === minTranslate && !infinite;
+  const disableForward = translate === maxTranslate && !isInfinite;
+  const disableBack = translate === minTranslate && !isInfinite;
 
   const moveForward = () => {
-    if (infinite && translate === maxTranslate) {
+    if (isInfinite && translate === maxTranslate) {
       onTranslate(minTranslate);
+      onSlideIndex('forward');
 
       return;
     }
@@ -40,11 +43,14 @@ const Carousel: React.FC<Props> = ({
       : translate + (step * itemWidth);
 
     onTranslate(newTranslate);
+
+    onSlideIndex('forward');
   };
 
   const moveBack = () => {
-    if (infinite && translate === minTranslate) {
+    if (isInfinite && translate === minTranslate) {
       onTranslate(maxTranslate);
+      onSlideIndex('back');
 
       return;
     }
@@ -54,12 +60,13 @@ const Carousel: React.FC<Props> = ({
       : translate - (step * itemWidth);
 
     onTranslate(newTranslate);
+
+    onSlideIndex('back');
   };
 
   return (
     <div
       className="Carousel"
-      data-qa={infinite}
       style={{ width: `${frameSize * itemWidth}px`, transition: `${animationDuration}ms all` }}
     >
       <div className="Carousel__container">
@@ -71,10 +78,9 @@ const Carousel: React.FC<Props> = ({
             return (
               <li key={image}>
                 <img
+                  width={itemWidth}
                   src={image}
-                  alt={(index + 1).toString()}
-                  style={{ width: `${itemWidth}px` }}
-                  data-qa={step}
+                  alt={`${index + 1}`}
                 />
               </li>
             );

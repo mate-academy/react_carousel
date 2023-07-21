@@ -20,18 +20,60 @@ export const App: React.FC = () => {
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [isInfinite, setIsInfinite] = useState(false);
   const [translate, setTranslate] = useState(0);
+  const [slideIndex, SetSlideIndex] = useState(0);
+
+  const maxSlideIndex = imagesData.length - frameSize;
+
+  const getNewSlideIndex = (move: string): void => {
+    if (move === 'forward') {
+      if (isInfinite && slideIndex === maxSlideIndex) {
+        SetSlideIndex(0);
+
+        return;
+      }
+
+      if (slideIndex + step >= maxSlideIndex) {
+        SetSlideIndex(maxSlideIndex);
+
+        return;
+      }
+
+      SetSlideIndex(slideIndex + step);
+    }
+
+    if (move === 'back') {
+      if (isInfinite && slideIndex === 0) {
+        SetSlideIndex(maxSlideIndex);
+
+        return;
+      }
+
+      if (slideIndex - step < 0) {
+        SetSlideIndex(0);
+
+        return;
+      }
+
+      SetSlideIndex(slideIndex - step);
+    }
+  };
 
   const getNewItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     if (itemWidth !== +value) {
+      const prevWidth = itemWidth;
+
       setItemWidth(+value);
 
-      const newTranslate = translate + (step * itemWidth - translate);
+      if (translate !== 0) {
+        const newTranslate
+          = translate + ((+value - prevWidth) * slideIndex);
 
-      setTranslate(newTranslate);
+        setTranslate(newTranslate);
+      }
     }
   };
 
@@ -63,38 +105,34 @@ export const App: React.FC = () => {
     const { checked } = event.target;
 
     if (checked) {
-      setInfinite(true);
+      setIsInfinite(true);
     } else {
-      setInfinite(false);
+      setIsInfinite(false);
     }
   };
 
   return (
     <div className="App" data-cy="title">
-      <h1>
-        Carousel with
-        {' '}
-        {imagesData.length}
-        {' '}
-        images
-      </h1>
+      <h1>{`Carousel with ${imagesData.length} images`}</h1>
+      <h2>{`Pos:${slideIndex}, maxPos:${maxSlideIndex}`}</h2>
       <Carousel
         images={imagesData}
         step={step}
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
-        infinite={infinite}
+        isInfinite={isInfinite}
         translate={translate}
         onTranslate={setTranslate}
+        onSlideIndex={getNewSlideIndex}
       />
 
       <div className="App__setting">
-        <label htmlFor="itemWidth" className="App__label">
+        <label htmlFor="itemId" className="App__label">
           Item width:
           <input
             className="App__input"
-            id="itemWidth"
+            id="itemId"
             type="number"
             min={30}
             max={400}
@@ -103,11 +141,11 @@ export const App: React.FC = () => {
           />
         </label>
 
-        <label htmlFor="frameSize" className="App__label">
+        <label htmlFor="frameId" className="App__label">
           Frame size:
           <input
             className="App__input"
-            id="frameSize"
+            id="frameId"
             type="number"
             min={1}
             max={10}
@@ -116,11 +154,11 @@ export const App: React.FC = () => {
           />
         </label>
 
-        <label htmlFor="step" className="App__label">
+        <label htmlFor="stepId" className="App__label">
           Step:
           <input
             className="App__input"
-            id="step"
+            id="stepId"
             type="number"
             min={1}
             max={10}
@@ -143,13 +181,13 @@ export const App: React.FC = () => {
           />
         </label>
 
-        <label htmlFor="infinite" className="App__label">
+        <label htmlFor="isInfinite" className="App__label">
           Infinite:
           <input
             className="App__input  App__input--checkbox"
-            id="infinite"
+            id="isInfinite"
             type="checkbox"
-            checked={infinite}
+            checked={isInfinite}
             onChange={getNewInfinte}
           />
         </label>
