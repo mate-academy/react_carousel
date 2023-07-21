@@ -1,30 +1,38 @@
-.Carousel__list {
-  margin-top: 100px;
+.Carousel {
   display: flex;
   justify-content: center;
-}
+  flex-direction: column;
+  align-items: center;
 
-.Container {
-  display: flex;
-  justify-content: center;
-}
+  gap: 20px;
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-}
+  &__list-wrapper {
+    border: 3px solid #aaaaaa;
+    border-radius: 47px;
+    overflow: hidden;
+  }
 
-.arrow.left {
-  left: 450px;
-}
+  &__list {
+    display: flex;
 
-.arrow.right {
-  right: 450px;
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    transition: all 1s ease;
+
+    &-item {
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  &__buttons {
+    border: 3px solid #aaaaaa;
+    border-radius: 10px;
+    padding: 10px;
+  }
 }

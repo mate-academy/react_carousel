@@ -1,9 +1,25 @@
-// style go here
 h1 {
+  color: #818181;
   display: flex;
   justify-content: center;
 }
+
 .Carousel_menu {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 }
+
+.menu {
+  display: flex;
+  padding: 10px;
+  border: 3px solid #aaaaaa;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+.Container {
+  display: flex;
+  justify-content: center;
+}
+

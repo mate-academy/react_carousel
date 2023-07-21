@@ -55,35 +55,69 @@ export const App: React.FC = () => {
       {/* eslint-disable-next-line */}
       <h1 data-cy="title">Carousel with {images.length} images</h1>
       <div className="Carousel_menu">
-        <input
-          placeholder="itemWidth"
-          type="text"
-          onChange={handleWidth}
-        />
-        <input
-          placeholder="frameSize"
-          type="text"
-          onChange={handleItems}
-        />
-        <input
-          placeholder="step"
-          type="text"
-          onChange={handeStep}
-        />
-        <input
-          placeholder="animationDuration"
-          type="text"
-          onChange={handleDuration}
+
+        <div className="menu">
+          <label htmlFor="itemSize">
+            ItemWidth
+            <input
+              id="itemSize"
+              placeholder="itemWidth"
+              type="number"
+              value={itemWidth}
+              min={50}
+              max={260}
+              onChange={handleWidth}
+            />
+          </label>
+
+          <label htmlFor="frameId">
+            FrameSize
+            <input
+              id="frameId"
+              placeholder="frameSize"
+              type="number"
+              value={frameSize}
+              min={1}
+              max={10}
+              onChange={handleItems}
+            />
+          </label>
+
+          <label htmlFor="stepId">
+            Step
+            <input
+              id="stepId"
+              placeholder="step"
+              type="number"
+              value={step}
+              min={1}
+              max={images.length - 1}
+              onChange={handeStep}
+            />
+          </label>
+
+          <label htmlFor="animationId">
+            Animation
+            <input
+              id="animationId"
+              placeholder="animationDuration"
+              type="number"
+              value={animationDuration}
+              min={0}
+              onChange={handleDuration}
+            />
+          </label>
+        </div>
+      </div>
+      <div className="Container">
+        <Carousel
+          images={images}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          step={step}
+          animationDuration={animationDuration}
         />
       </div>
-
-      <Carousel
-        images={images}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        step={step}
-        animationDuration={animationDuration}
-      />
     </div>
   );
 };

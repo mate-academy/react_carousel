@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -16,45 +16,60 @@ const Carousel: React.FC<Props> = ({
   step,
   animationDuration,
 }) => {
-  const [startIndex, setStartIndex] = useState(0);
+  const [offset, setOffset] = useState(0);
 
-  const handleNext = () => {
-    setStartIndex((prevIndex) => Math.min(
-      prevIndex + step, images.length - frameSize,
-    ));
-  };
+  useEffect(() => setOffset(0), [itemWidth]);
 
-  const handlePrev = () => {
-    setStartIndex((prevIndex) => Math.max(prevIndex - step, 0));
-  };
-
-  const visibleImages = images.slice(startIndex, startIndex + frameSize);
+  const maxOffset = images.length * itemWidth - (frameSize * itemWidth);
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list" style={{ transition: `${animationDuration}ms ease` }}>
-        {visibleImages.map((img) => (
-          <li key={img}>
-            <img src={img} alt={img} style={{ width: `${itemWidth}px` }} />
-          </li>
-        ))}
-      </ul>
+      <div
+        className="Carousel__list-wrapper"
+        style={{ width: `${frameSize * itemWidth}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${offset}px)`,
+            transitionDuration: `${animationDuration}ms`,
+          }}
+        >
+          {images.map((img, id) => (
+            <li
+              key={img}
+              className="Carousel__list-item"
+            >
+              <img
+                src={img}
+                alt={`${id + 1}`}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <div className="Container">
+      <div className="Carousel__buttons">
         <button
           type="button"
-          disabled={startIndex === 0}
-          onClick={handlePrev}
-          data-cy="prev"
+          onClick={() => {
+            setOffset((currentOffset => (
+              Math.min(currentOffset + itemWidth * step, 0)
+            )));
+          }}
+          disabled={offset === 0}
         >
           Prev
         </button>
-
         <button
           type="button"
-          disabled={startIndex === images.length}
-          onClick={handleNext}
-          data-cy="next"
+          onClick={() => {
+            setOffset((currentOffset => (
+              Math.max(currentOffset - itemWidth * step, -maxOffset)
+            )));
+          }}
+          disabled={offset === -maxOffset}
         >
           Next
         </button>
