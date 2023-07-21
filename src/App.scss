@@ -1,3 +1,14 @@
+.App {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: #818181;
+  border: 3px solid #818181;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 45px;
+  margin: 25px;
+
+}
+
 h1 {
   color: #818181;
   display: flex;
@@ -12,14 +23,21 @@ h1 {
 
 .menu {
   display: flex;
-  padding: 10px;
-  border: 3px solid #aaaaaa;
-  border-radius: 10px;
+  justify-content: center;
+  color: #818181;
+  font-size: medium;
+  margin-bottom: 25px;
   gap: 10px;
+}
+
+input {
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  outline: none;
 }
 
 .Container {
   display: flex;
   justify-content: center;
 }
-

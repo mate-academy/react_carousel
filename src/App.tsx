@@ -1,125 +1,145 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-const DEFAULT_FRAME_SIZE = 3;
-const DEFAULT_ITEM_WIDTH = 130;
-const STEP = 3;
-const DEFAULT_DURATION = 1000;
+interface State {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+}
 
-export const App: React.FC = () => {
-  const [frameSize, setFrameSize] = useState(DEFAULT_FRAME_SIZE);
-  const [itemWidth, setItemWidth] = useState(DEFAULT_ITEM_WIDTH);
-  const [step, setStep] = useState(STEP);
-  const [animationDuration, setAnimationDuration] = useState(DEFAULT_DURATION);
-
-  const handleItems = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = +event.target.value;
-
-    setFrameSize(value || DEFAULT_FRAME_SIZE);
+class App extends React.Component<{}, State> {
+  state = {
+    images: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
   };
 
-  const handleWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
 
-    setItemWidth(value || DEFAULT_ITEM_WIDTH);
+    this.setState({ itemWidth: value || 130 });
   };
 
-  const handeStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
 
-    setStep(value || STEP);
+    this.setState({ frameSize: value || 3 });
   };
 
-  const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
 
-    setAnimationDuration(value || DEFAULT_DURATION);
+    this.setState({ step: value || 3 });
   };
 
-  const images = [
-    './img/1.png',
-    './img/2.png',
-    './img/3.png',
-    './img/4.png',
-    './img/5.png',
-    './img/6.png',
-    './img/7.png',
-    './img/8.png',
-    './img/9.png',
-    './img/10.png',
-  ];
+  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = +event.target.value;
 
-  return (
-    <div className="App">
-      {/* eslint-disable-next-line */}
-      <h1 data-cy="title">Carousel with {images.length} images</h1>
-      <div className="Carousel_menu">
+    this.setState({ animationDuration: value || 1000 });
+  };
+
+  render() {
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
+
+    return (
+      <div className="App">
+        {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <div className="menu">
-          <label htmlFor="itemSize">
-            ItemWidth
+          <label
+            htmlFor="itemId"
+            className="label"
+          >
+            Item Width:
             <input
-              id="itemSize"
-              placeholder="itemWidth"
-              type="number"
               value={itemWidth}
-              min={50}
+              type="number"
+              id="itemId"
+              min={60}
               max={260}
-              onChange={handleWidth}
+              step={10}
+              onChange={this.setItemWidth}
             />
           </label>
-
-          <label htmlFor="frameId">
-            FrameSize
+          <label
+            htmlFor="frameId"
+            className="label"
+          >
+            Frame Size:
             <input
-              id="frameId"
-              placeholder="frameSize"
-              type="number"
               value={frameSize}
+              type="number"
               min={1}
-              max={10}
-              onChange={handleItems}
+              max={images.length}
+              step={1}
+              onChange={this.setFrameSize}
             />
           </label>
-
-          <label htmlFor="stepId">
-            Step
+          <label
+            htmlFor="stepId"
+            className="label"
+          >
+            Step:
             <input
-              id="stepId"
-              placeholder="step"
-              type="number"
               value={step}
+              type="number"
+              id="stepId"
               min={1}
-              max={images.length - 1}
-              onChange={handeStep}
+              max={images.length}
+              step={1}
+              onChange={this.setStep}
             />
           </label>
-
-          <label htmlFor="animationId">
-            Animation
+          <label
+            htmlFor="animationId"
+            className="label"
+          >
+            AnimationDuration:
             <input
-              id="animationId"
-              placeholder="animationDuration"
-              type="number"
               value={animationDuration}
-              min={0}
-              onChange={handleDuration}
+              type="number"
+              id="animationId"
+              min={500}
+              max={5000}
+              step={500}
+              onChange={this.setAnimationDuration}
             />
           </label>
         </div>
-      </div>
-      <div className="Container">
+
         <Carousel
           images={images}
-          frameSize={frameSize}
           itemWidth={itemWidth}
+          frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
         />
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default App;

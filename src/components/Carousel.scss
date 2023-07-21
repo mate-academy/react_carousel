@@ -7,7 +7,7 @@
   gap: 20px;
 
   &__list-wrapper {
-    border: 3px solid #aaaaaa;
+    border: 3px solid #aaa;
     border-radius: 47px;
     overflow: hidden;
   }
@@ -31,8 +31,14 @@
   }
 
   &__buttons {
-    border: 3px solid #aaaaaa;
-    border-radius: 10px;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 30px;
   }
+}
+
+button {
+  border-radius: 10px;
+  padding-inline: 10px;
 }
