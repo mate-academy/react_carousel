@@ -1,1 +1,83 @@
-// style go here
+@import "../utilities/variables.scss";
+
+.Carousel {
+  overflow: hidden;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    padding: 0;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  &__button {
+    background-color: $mainColor;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, font-weight 0.3s;
+
+    &:hover {
+      background-color: rgb(255, 174, 0);
+      font-weight: bold;
+    }
+
+    &--prev {
+      &::before {
+        content: "\25c4";
+        padding-right: 5px;
+      }
+    }
+
+    &--next {
+      &::after {
+        content: "\25ba";
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+  &__form {
+    position: absolute;
+    background-color: $mainColor;
+    padding: 25px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    margin: 50px auto 0;
+
+    &__label {
+      font-size: 16px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    &__input {
+      height: 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 2px;
+
+      &--checkbox {
+        width: 25px;
+        vertical-align: middle;
+
+        &:checked {
+          accent-color: green;
+        }
+      }
+    }
+  }
+}
