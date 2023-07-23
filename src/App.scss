@@ -1,1 +1,18 @@
-// style go here
+.App {
+  text-align: center;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin: 0 auto 30px;
+  width: max-content;
+}
+
+.setting {
+  margin-left: 15px;
+}
