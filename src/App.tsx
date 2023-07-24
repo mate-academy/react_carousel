@@ -3,10 +3,17 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(130);
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [carouselSettings, setCarouselSettings] = useState<{
+    itemWidth: number;
+    step: number;
+    frameSize: number;
+    animationDuration: number;
+  }>({
+    itemWidth: 130,
+    step: 3,
+    frameSize: 3,
+    animationDuration: 1000,
+  });
 
   const images = [
     './img/1.png',
@@ -21,21 +28,30 @@ const App: React.FC = () => {
     './img/10.png',
   ];
 
+  const handleSettingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+
+    setCarouselSettings((prevState) => ({
+      ...prevState,
+      [id]: +value,
+    }));
+  };
+
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
       <h1>Carousel with {images.length} images</h1>
 
       <div className="settings">
-        <label htmlFor="imageSize">
+        <label htmlFor="itemWidth">
           Adjust image size
           <input
             className="setting"
-            id="imageSize"
+            id="itemWidth"
             type="number"
-            value={itemWidth}
+            value={carouselSettings.itemWidth}
             min={50}
-            onChange={(event) => setItemWidth(+event.target.value)}
+            onChange={handleSettingChange}
           />
         </label>
 
@@ -45,10 +61,10 @@ const App: React.FC = () => {
             className="setting"
             id="step"
             type="number"
-            value={step}
+            value={carouselSettings.step}
             min={1}
             max={images.length - 1}
-            onChange={(event) => setStep(+event.target.value)}
+            onChange={handleSettingChange}
           />
         </label>
 
@@ -58,32 +74,32 @@ const App: React.FC = () => {
             className="setting"
             id="frameSize"
             type="number"
-            value={frameSize}
+            value={carouselSettings.frameSize}
             min={1}
             max={images.length}
-            onChange={(event) => setFrameSize(+event.target.value)}
+            onChange={handleSettingChange}
           />
         </label>
 
-        <label htmlFor="scrollDuration">
+        <label htmlFor="animationDuration">
           Adjust scroll duration
           <input
             className="setting"
-            id="scrollDuration"
+            id="animationDuration"
             type="number"
-            value={animationDuration}
+            value={carouselSettings.animationDuration}
             min={0}
-            onChange={(event) => setAnimationDuration(+event.target.value)}
+            onChange={handleSettingChange}
           />
         </label>
       </div>
 
       <Carousel
         images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
+        step={carouselSettings.step}
+        frameSize={carouselSettings.frameSize}
+        itemWidth={carouselSettings.itemWidth}
+        animationDuration={carouselSettings.animationDuration}
       />
     </div>
   );
