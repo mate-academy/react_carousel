@@ -1,0 +1,57 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    width: 390px;
+    margin: 30px auto;
+    padding: 10px 0;
+    overflow: hidden;
+    border: 3px solid #ccc; /* Subtle gray border */
+    border-radius: 30px;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #000; /* Black text color */
+    background-color: transparent;
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    border: 2px solid #ccc; /* Subtle gray border */
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  &__button:hover {
+    background-color: #e2e2e2; /* Slightly darker gray background on hover */
+    color: #fff;
+  }
+
+  &__button:active {
+    background-color: #bfbfbf; /* Darker gray background on click */
+  }
+
+  &__button:disabled {
+    border-color: #ccc; /* Disabled button border color */
+    cursor: not-allowed;
+  }
+}
