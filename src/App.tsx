@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Carousel } from './Components/Carousel/Carousel';
-import { Form } from './Form/Form';
+import { Form } from './Components/Form/Form';
 import { Params } from './types/Params';
 import { images } from './api/images';
 import './App.scss';
