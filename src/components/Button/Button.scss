@@ -1,0 +1,44 @@
+@import "../../styles/utils/variables";
+
+.button {
+  position: relative;
+  width: 100px;
+  border: 2px solid $colorFont;
+  background-color: $colorGradientBg;
+  color: $colorFont;
+  border-radius: 13px;
+  height: 40px;
+  outline-offset: 3px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.3s;
+  font-family: $fontFamily;
+
+  &:disabled {
+    background-color: $colorDisabledBg;
+    color: $colorDisabled;
+    border-color: $colorDisabled;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0.1rem 0.8rem rgb(254, 100, 70);
+  }
+
+  &:active {
+    box-shadow: 0 0.1rem 0.8rem rgb(254, 174, 70);
+    transform: scale(1.02);
+  }
+
+  &:after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: 2px solid $colorBg;
+    border-radius: 11px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+}

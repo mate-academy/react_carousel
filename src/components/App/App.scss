@@ -1,0 +1,17 @@
+@import "../../styles/utils/variables";
+@import "../../styles/utils/reset";
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(to right, $colorGradientBg, $colorBg);
+
+  &__title {
+    font-size: 48px;
+    color: $colorFont;
+    font-family: $fontFamily;
+  }
+}
