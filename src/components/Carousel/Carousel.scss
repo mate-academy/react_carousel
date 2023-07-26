@@ -1,0 +1,44 @@
+.Carousel {
+  overflow: hidden;
+  margin: 20px auto;
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+
+    & > button {
+      cursor: pointer;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 20px;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+
+      &:disabled {
+        cursor: no-drop;
+      }
+    }
+  }
+}

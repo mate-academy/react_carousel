@@ -1,0 +1,26 @@
+.Form {
+  background-color: rgb(141, 191, 191);
+  width: 400px;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+
+  &__content {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__input {
+    padding: 5px;
+    border-radius: 5px;
+  }
+}
