@@ -1,0 +1,16 @@
+.inputs {
+  &__container {
+    display: flex;
+    flex-direction: column;
+
+    &-radio {
+      display: grid;
+      grid-template-columns: 5fr 1fr 1fr 2fr;
+
+      label {
+        cursor: pointer;
+        display: flex;
+      }
+    }
+  }
+}
