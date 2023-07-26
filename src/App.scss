@@ -1,1 +1,28 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+li,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.App {
+  margin: 0 auto;
+  width: max-content;
+}
+
+.settings {
+  margin: 0 auto;
+  padding: 16px;
+  height: 80px;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f5ae67;
+  border-radius: 8px;
+}
