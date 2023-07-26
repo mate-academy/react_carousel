@@ -1,1 +1,27 @@
-// style go here
+.App {
+  width: 1300px;
+  &__title {
+    margin: 40px 0;
+    text-align: center;
+  }
+}
+
+.configurationForm {
+  margin: 0 auto 40px;
+  padding: 50px;
+  width: max-content;
+  background-color: #e4fac4;
+  border: 1px solid #7fab3b;
+  border-radius: 2px 20px;
+  &__field {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    & input {
+      width: 200px;
+    }
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
