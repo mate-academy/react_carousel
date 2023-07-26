@@ -1,1 +1,25 @@
-// style go here
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+  border-radius: 5px;
+
+}
+
+button {
+  display: inline-block;
+  margin: 20px;
+  width: 50px;
+  height: 40px;
+}
