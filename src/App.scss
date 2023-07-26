@@ -1,1 +1,46 @@
-// style go here
+.page {
+  font-family: roboto, sans-serif;
+  background-color: antiquewhite;
+
+  &__App {
+    margin: auto;
+  }
+}
+
+.App {
+  width: fit-content;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__Option {
+    margin: 0 auto;
+  }
+}
+
+.Option {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px 15px;
+  width: fit-content;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    margin-left: 20px;
+    width: 50px;
+    font-size: 16px;
+  }
+
+  &__error {
+    color: red;
+    font-weight: bold;
+  }
+}
