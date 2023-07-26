@@ -1,1 +1,44 @@
-// style go here
+iframe {
+  z-index: -1;
+}
+
+.Carousel {
+  overflow: hidden;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__btn-block {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    height: 40px;
+    width: 25%;
+    border-radius: 5px;
+    background-color: blueviolet;
+    color: #fff;
+    border-color: transparent;
+    
+    &:disabled {
+      background-color: #ccc;
+    }
+  }
+}
