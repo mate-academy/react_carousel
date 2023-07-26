@@ -1,0 +1,17 @@
+.Form {
+  display: flex;
+  flex-direction: row;
+
+  &__input {
+    width: 160px;
+  }
+
+  &__button {
+    width: 120px;
+  }
+
+  &__error {
+    margin: 0 0 0 10px;
+    color: red;
+  }
+}
