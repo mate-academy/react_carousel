@@ -1,1 +1,64 @@
-// style go here
+
+.Carousel {
+  margin: 0 auto;
+  width: 1300px;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    margin-top: 20px;
+    width: 0;
+    height: 0;
+
+    border: none;
+    background: none;
+
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+
+    cursor: pointer;
+
+    &-left {
+      border-right: 30px solid rgb(243, 199, 6);
+
+      transition: all 0.2s;
+
+      &:hover {
+        border-right: 30px solid gold;
+      }
+
+      &:disabled {
+        border-right: 30px solid rgb(172, 172, 172);
+      }
+    }
+
+    &-right {
+      margin-left: 20px;
+      border-left: 30px solid rgb(243, 199, 6);
+
+      transition: all 0.2s;
+
+      &:hover {
+        border-left: 30px solid gold;
+      }
+
+      &:disabled {
+        border-left: 30px solid rgb(172, 172, 172);
+      }
+    }
+  }
+}
