@@ -1,1 +1,28 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Options {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 0 15px 15px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background: #eee;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__field {
+    margin-bottom: 10px;
+  }
+}
