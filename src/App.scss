@@ -1,1 +1,38 @@
-// style go here
+.App {
+  width: max-content;
+  margin: 50px auto;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  border: 5px solid rgba(182, 32, 6, 0.97);
+  border-radius: 25px;
+
+  &__title {
+    margin: 0;
+    font-size: 40px;
+    color: rgba(182, 32, 6, 0.97);
+  }
+}
+
+.settings {
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+
+  &__label {
+    font-size: 18px;
+    font-style: italic;
+
+  }
+
+  &__input {
+    width: 60px;
+    margin-left: 5px;
+
+  }
+}
