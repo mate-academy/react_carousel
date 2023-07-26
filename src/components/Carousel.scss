@@ -1,1 +1,40 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  
+  &__container {
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+  }
+
+  &__button {
+    position: relative;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    transition: 0.4s ease;
+    font-size: 40px;
+
+    &:hover {
+      box-shadow: 0 0 5px 5px  rgb(250, 194, 42);
+    }
+  }
+}
