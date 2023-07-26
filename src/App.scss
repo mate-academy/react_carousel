@@ -1,1 +1,18 @@
-// style go here
+.App {
+  &__form {
+    margin-bottom: 30px;
+
+    label:not(:last-child) {
+      margin-right: 20px;
+    }
+
+    input {
+      width: 100px;
+      margin-left: 10px;
+
+      &[type="checkbox"] {
+        width: 30px;
+      }
+    }
+  }
+}
