@@ -1,1 +1,11 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: green;
+  border-radius: 20px;
+
+  &__titile {
+    color: white;
+  }
+}
