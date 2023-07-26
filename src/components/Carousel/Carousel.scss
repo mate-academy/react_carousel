@@ -1,0 +1,48 @@
+.carousel {
+  overflow: hidden;
+  margin: 0 auto;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    position: relative;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__buttons-container {
+    display: flex;
+    gap: 50px;
+  }
+
+  &__button {
+    border-color: transparent;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 700;
+    transition: transform 0.3s, color 0.3s;
+
+    &--prev {
+      position: absolute;
+      top: 200px;
+      left: 30%;
+    }
+
+    &--next {
+      position: absolute;
+      top: 200px;
+      left: 65%;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &:disabled {
+      color: rgba(16, 16, 16, 0.3);
+    }
+  }
+}

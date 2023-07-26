@@ -1,1 +1,34 @@
-// style go here
+.app {
+  text-align: center;
+}
+
+.form {
+  margin: 0 auto;
+  display: grid;
+  width: 300px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 5px 0;
+
+  padding: 20px;
+
+  border-radius: 10px;
+  background-color: goldenrod;
+  color: #fff;
+
+  font-size: 17px;
+
+  &__label {
+    color: black;
+    font-weight: bold;
+  }
+
+  &__input {
+    height: 30px;
+    box-sizing: border-box;
+    padding: 5px;
+
+    border: none;
+    border-radius: 5px;
+  }
+}
