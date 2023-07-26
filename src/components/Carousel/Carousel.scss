@@ -1,0 +1,35 @@
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+  padding: 40px 0;
+}
+
+.Carousel__wrapper {
+  overflow: hidden;
+  max-width: 1300px;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+}
+
+.Carousel__arrowbutton {
+  border: none;
+  padding: 12px;
+  font-size: 48px;
+  color: #999;
+  background-color: #efefef;
+}
+
+.Carousel__arrowbutton:active {
+  color: #666;
+}
+
+.Carousel__arrowbutton:disabled {
+  color: #bbb;
+  background-color: #fff;
+}
