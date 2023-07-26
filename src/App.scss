@@ -1,1 +1,69 @@
-// style go here
+body {
+  background-color: rgb(90, 88, 83);
+}
+
+.App {
+  &__title {
+    color: rgb(255, 255, 255);
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgb(4, 4, 4);
+  border-radius: 10%;
+  width: max-content;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgb(222, 184, 135);
+
+  &__input-value {
+    display: inline-block;
+    background-color: rgb(255, 255, 255);
+    color: rgb(241, 0, 0);
+    border-radius: 10%;
+    font-weight: 900;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+
+  &__input-checkbox {
+    position: absolute;
+    z-index: -1;
+    
+  }
+
+  &__input-fake-checkbox {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-color: rgb(247, 243, 243);
+    border-radius: 10px;
+    border: 2px solid;
+
+    &:hover {
+      background-color: rgb(7, 85, 60);
+      color: rgb(255, 255, 255);
+    }
+  }
+  
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(134, 135, 127);
+  font-size: 30px;
+  border-radius: 10px;
+  padding-right: 20px;
+}
+
+.png {
+  background-image: url(./free-png.png);
+  background-size: 50px;
+  background-repeat: no-repeat;
+}
