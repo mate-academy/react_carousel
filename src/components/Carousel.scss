@@ -1,1 +1,32 @@
 // style go here
+.Carousel {
+  margin: auto;
+  overflow: hidden;
+  
+  &__list {
+    display: flex;
+  }
+  
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  &__position {
+    display: flex;
+    gap: 5px;
+  }
+  
+  &__dot {
+    height: 10px;
+    width: 10px;
+    background-color: gray;
+    border-radius: 50%;
+  
+    &-active {
+      background-color: orangered;
+    }
+  }
+}
