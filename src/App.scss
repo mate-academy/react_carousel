@@ -1,1 +1,21 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.list {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 200px;
+  font-size: 1.2em;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+  }
+}
