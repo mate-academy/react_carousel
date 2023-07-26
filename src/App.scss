@@ -1,1 +1,12 @@
-// style go here
+.App {
+  text-align: center;
+
+  &__label {
+    margin: 10px;
+  }
+
+  &__input {
+    width: 50px;
+    margin-left: 5px;
+  }
+}
