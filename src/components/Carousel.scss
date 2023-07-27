@@ -1,1 +1,32 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__button {
+    margin: 0 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    border-radius: 50%;
+    border: 1px solid #646464;
+
+    cursor: pointer;
+
+    &--disabled {
+      background-color: #9b9b9b;
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+}
