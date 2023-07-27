@@ -11,7 +11,7 @@ type Props = {
 };
 
 type State = {
-  itemIndex: number,
+  itemIndex: number;
 };
 
 export class Carousel extends Component<Props, State> {
@@ -19,34 +19,19 @@ export class Carousel extends Component<Props, State> {
     itemIndex: 0,
   };
 
-  handleSwipe = (step: number) => () => {
+  handleSwipeClick = (step: number) => () => {
     const { images, frameSize } = this.props;
     const { itemIndex } = this.state;
     const firstInd = 0;
     const lastInd = images.length - frameSize;
+
     let nextInd = itemIndex + step;
 
-    if (itemIndex === lastInd) {
-      nextInd = firstInd;
-    } else if (nextInd > lastInd) {
+    if (step > 0 && nextInd > lastInd) {
       nextInd = lastInd;
     }
 
-    this.setState(() => ({
-      itemIndex: nextInd,
-    }));
-  };
-
-  handleSwipePrev = (step: number) => () => {
-    const { images, frameSize } = this.props;
-    const { itemIndex } = this.state;
-    const firstInd = 0;
-    const lastInd = images.length - frameSize;
-    let nextInd = itemIndex + step;
-
-    if (itemIndex === firstInd) {
-      nextInd = lastInd;
-    } else if (nextInd < firstInd) {
+    if (step < 0 && nextInd < firstInd) {
       nextInd = firstInd;
     }
 
@@ -78,26 +63,18 @@ export class Carousel extends Component<Props, State> {
         }}
       >
         <ul className="Carousel__list">
-          {
-            images.map((img, ind) => {
-              return (
-                <li
-                  key={img}
-                  className="Carusel__item"
-                  style={{
-                    transform: `translateX(${-itemIndex * itemWidth}px)`,
-                    transition: `${animationDuration}ms`,
-                  }}
-                >
-                  <img
-                    src={img}
-                    alt={`${ind + 1}`}
-                    width={itemWidth}
-                  />
-                </li>
-              );
-            })
-          }
+          {images.map((img, ind) => (
+            <li
+              key={img}
+              className="Carusel__item"
+              style={{
+                transform: `translateX(${-itemIndex * itemWidth}px)`,
+                transition: `${animationDuration}ms`,
+              }}
+            >
+              <img src={img} alt={`${ind + 1}`} width={itemWidth} />
+            </li>
+          ))}
         </ul>
 
         <div className="Carousel__button">
@@ -105,7 +82,7 @@ export class Carousel extends Component<Props, State> {
             type="button"
             className="Carousel__btn"
             disabled={prevDisabled}
-            onClick={this.handleSwipePrev(-step)}
+            onClick={this.handleSwipeClick(-step)}
           >
             &#8678;
           </button>
@@ -114,7 +91,7 @@ export class Carousel extends Component<Props, State> {
             data-cy="next"
             className="Carousel__btn"
             disabled={nextDisabled}
-            onClick={this.handleSwipe(step)}
+            onClick={this.handleSwipeClick(step)}
           >
             &#8680;
           </button>
@@ -123,4 +100,5 @@ export class Carousel extends Component<Props, State> {
     );
   }
 }
+
 export default Carousel;
