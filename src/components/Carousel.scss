@@ -1,1 +1,38 @@
-// style go here
+
+.Carousel {
+  box-sizing: border-box;
+  justify-content: center;
+  display: flex;
+  list-style: none;
+
+}
+
+.Carousel__list {
+  position: relative;
+  padding: 20px 0;
+  display: flex;
+}
+
+.Carousel__box {
+  overflow: hidden;
+}
+
+.oneImg {
+  text-decoration: none;
+  box-shadow: 2px 2px 5px 10px  rgb(241, 241, 8);
+}
+
+.button {
+  background-color: rgb(247, 247, 157);
+  font-size: 40px;
+  border-radius: 20%;
+  border: 2px solid rgb(241, 241, 8);
+  transition-property: background-color, color;
+  transition-duration: 0.3s;
+  &:hover {
+    background-color: white;
+  }
+  &--disabled {
+    background-color: rgb(154, 154, 142);
+  }
+}

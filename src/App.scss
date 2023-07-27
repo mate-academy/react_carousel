@@ -1,1 +1,14 @@
-// style go here
+.title {
+  text-align: center;
+}
+
+.variables {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  font-size: 25px;
+  &__input {
+    border-radius: 5px;
+    font-size: 20px;
+  }
+}
