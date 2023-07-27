@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Form } from './components/Form';
 
 interface State {
   images: string[];
+  step: number;
+  itemWidth: number;
+  frameSize: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,46 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+  };
+
+  handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.currentTarget;
+
+    this.setState(state => {
+      return {
+        ...state,
+        [name]: +value,
+      };
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      itemWidth,
+      frameSize,
+      animationDuration,
+    } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="app__title" data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          animationDuration={animationDuration}
+        />
+
+        <Form handleInput={this.handleInput} />
       </div>
     );
   }

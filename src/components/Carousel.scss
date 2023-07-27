@@ -1,1 +1,33 @@
-// style go here
+.carousel {
+  overflow: hidden;
+  position: relative;
+
+  &__container {
+    width: 1300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #000;
+
+    &--prev,
+    &--next {
+      margin: 10px;
+      outline: none;
+    }
+  }
+}
