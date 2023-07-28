@@ -11,6 +11,7 @@ type Props = {
 };
 
 type State = {
+
   itemIndex: number;
 };
 
