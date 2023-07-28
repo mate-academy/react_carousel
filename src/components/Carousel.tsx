@@ -20,19 +20,33 @@ export class Carousel extends Component<Props, State> {
   };
 
   handleSwipeClick = (step: number) => () => {
-    const { images, frameSize } = this.props;
+    const { images, frameSize, infinity } = this.props;
     const { itemIndex } = this.state;
-    const firstInd = 0;
-    const lastInd = images.length - frameSize;
 
     let nextInd = itemIndex + step;
 
-    if (step > 0 && nextInd > lastInd) {
-      nextInd = lastInd;
-    }
+    if (infinity) {
+    // Handle cyclic behavior when infinity is true
+      const totalImages = images.length;
+      const lastInd = totalImages - frameSize;
 
-    if (step < 0 && nextInd < firstInd) {
-      nextInd = firstInd;
+      if (nextInd < 0) {
+        nextInd = lastInd;
+      } else if (nextInd > lastInd) {
+        nextInd = 0;
+      }
+    } else {
+    // Limit the carousel to the first and last items
+      const firstInd = 0;
+      const lastInd = images.length - frameSize;
+
+      if (step > 0 && nextInd > lastInd) {
+        nextInd = lastInd;
+      }
+
+      if (step < 0 && nextInd < firstInd) {
+        nextInd = firstInd;
+      }
     }
 
     this.setState(() => ({
