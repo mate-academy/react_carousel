@@ -33,11 +33,16 @@ class App extends React.Component<{}, State> {
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = event.target;
+    const {
+      id,
+      type,
+      value,
+      checked,
+    } = event.target;
 
     this.setState((prevState) => ({
       ...prevState,
-      [id]: +value,
+      [id]: type === 'checkbox' ? checked : +value,
     }));
   };
 
@@ -72,7 +77,7 @@ class App extends React.Component<{}, State> {
               id="itemWidth"
               type="number"
               className="App__input"
-              defaultValue={130}
+              value={itemWidth}
               step={10}
               min={100}
               max={250}
@@ -85,7 +90,7 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               type="number"
               className="App__input"
-              defaultValue={3}
+              value={frameSize}
               min={1}
               max={10}
               onChange={this.handleChange}
@@ -97,7 +102,7 @@ class App extends React.Component<{}, State> {
               id="step"
               type="number"
               className="App__input"
-              defaultValue={3}
+              value={step}
               min={1}
               max={10}
               onChange={this.handleChange}
@@ -109,7 +114,7 @@ class App extends React.Component<{}, State> {
               id="animationDuration"
               type="number"
               className="App__input"
-              defaultValue={1000}
+              value={animationDuration}
               step={10}
               min={0}
               onChange={this.handleChange}
@@ -121,9 +126,8 @@ class App extends React.Component<{}, State> {
               id="infinite"
               type="checkbox"
               className="App__input"
-              onChange={(event) => this.setState({
-                infinite: event.target.checked,
-              })}
+              checked={infinite}
+              onChange={this.handleChange}
             />
           </label>
         </div>
