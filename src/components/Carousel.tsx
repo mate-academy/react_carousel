@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
 import { getAlt } from '../utils';
-import { PopUp } from './PopUp/PopUp';
 
 type Props = {
   photos: string[];
@@ -22,21 +21,38 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [translateValue, setTranslateValue] = useState(0);
 
-  const handleNextPic = () => {
-    setTranslateValue(prev => {
-      const nextValue = prev - (itemWidth * step);
-      const minValue = -(itemWidth * photos.length - 1);
+  const maxTranslate = photos.length * itemWidth - (frameSize * itemWidth);
 
-      return nextValue > 0 || nextValue < minValue ? prev : nextValue;
-    });
+  // const handleNextPic = () => {
+  //   setTranslateValue(prev => Math.max(prev - itemWidth * step, -maxTranslate));
+  // };
+
+  // const handlePrevPic = () => {
+  //   setTranslateValue(prev => Math.min(prev + itemWidth * step, 0));
+  // };
+
+  const handleNextPic = () => {
+    const newTranslateValue = translateValue - itemWidth * step;
+
+    if (infinite) {
+      setTranslateValue(() => {
+        return newTranslateValue <= -maxTranslate ? 0 : newTranslateValue;
+      });
+    } else {
+      setTranslateValue(() => Math.max(newTranslateValue, -maxTranslate));
+    }
   };
 
   const handlePrevPic = () => {
-    setTranslateValue(prev => {
-      const nextValue = prev + (itemWidth * step);
+    const newTranslateValue = translateValue + itemWidth * step;
 
-      return nextValue > 0 ? prev : nextValue;
-    });
+    if (infinite) {
+      setTranslateValue(() => {
+        return newTranslateValue > 0 ? -maxTranslate : newTranslateValue;
+      });
+    } else {
+      setTranslateValue(() => Math.min(newTranslateValue, 0));
+    }
   };
 
   return (
@@ -88,8 +104,6 @@ const Carousel: React.FC<Props> = ({
           Next
         </button>
       </div>
-
-      {infinite && <PopUp />}
     </div>
   );
 };
