@@ -1,5 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import './Input.scss';
 
@@ -49,4 +47,13 @@ export const Input: React.FC<Props> = ({
       />
     </div>
   );
+};
+
+Input.defaultProps = {
+  id: '',
+  max: 5,
+  min: 1,
+  placeholder: '',
+  step: 1,
+  onChangeHandler: () => {},
 };

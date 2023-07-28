@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
-import { getAlt } from '../utils';
 
 type Props = {
   photos: string[];
@@ -22,14 +21,6 @@ const Carousel: React.FC<Props> = ({
   const [translateValue, setTranslateValue] = useState(0);
 
   const maxTranslate = photos.length * itemWidth - (frameSize * itemWidth);
-
-  // const handleNextPic = () => {
-  //   setTranslateValue(prev => Math.max(prev - itemWidth * step, -maxTranslate));
-  // };
-
-  // const handlePrevPic = () => {
-  //   setTranslateValue(prev => Math.min(prev + itemWidth * step, 0));
-  // };
 
   const handleNextPic = () => {
     const newTranslateValue = translateValue - itemWidth * step;
@@ -71,7 +62,7 @@ const Carousel: React.FC<Props> = ({
       >
         {photos.map(image => (
           <li
-            key={getAlt(image)}
+            key={image}
             style={{
               transform: `translateX(${translateValue}px)`,
               transition: `${animationDuration}ms`,
@@ -79,7 +70,7 @@ const Carousel: React.FC<Props> = ({
           >
             <img
               src={image}
-              alt={String(getAlt(image))}
+              alt={image}
               style={{ width: `${itemWidth}px` }}
             />
           </li>
