@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+
+  &__list-wrapper {
+    width: 390px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+
+    img {
+      display: block;
+    }
+  }
+
+  &__button:hover {
+    cursor: pointer;
+  }
+
+  &__params {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
