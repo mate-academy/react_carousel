@@ -1,0 +1,13 @@
+.pop-up {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-size: 24px;
+  $width: 400px;
+  width: $width;
+  height: 200px;
+  background-color: orange;
+  border-radius: 5px;
+  position: absolute;
+  left: calc(50% - #{$width / 2});
+}

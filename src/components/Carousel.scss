@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    margin-right: 1px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+
+    &:hover {
+      background-color: azure;
+    }
+  }
+}

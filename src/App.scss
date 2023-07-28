@@ -1,1 +1,24 @@
-// style go here
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body,
+h1,
+button,
+input,
+label,
+ul,
+li,
+img {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+

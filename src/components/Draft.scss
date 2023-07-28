@@ -1,0 +1,17 @@
+.draft {
+
+  &__boxes {
+    display: flex;
+
+  }
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #804674;
+    font-size: 44px;
+    width: 50px;
+    height: 50px;
+  }
+}
