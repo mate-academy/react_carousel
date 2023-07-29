@@ -103,10 +103,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
       <ul className="Carousel__params">
         <li>
-          <label htmlFor="itemWidth">Width of image: </label>
+          <label htmlFor="itemID">Width of image: </label>
 
           <input
-            id="itemWidth"
+            id="itemID"
             type="text"
             value={itemWidth}
             onChange={(e) => setItemWidth(e.target.value)}
@@ -114,10 +114,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </li>
 
         <li>
-          <label htmlFor="frameSize">Size of frame: </label>
+          <label htmlFor="frameID">Size of frame: </label>
 
           <input
-            id="frameSize"
+            id="frameID"
             type="text"
             value={frameSize}
             onChange={(e) => setFrameSize(e.target.value)}
@@ -125,10 +125,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </li>
 
         <li>
-          <label htmlFor="scrollStep">Step of scroll: </label>
+          <label htmlFor="stepID">Step of scroll: </label>
 
           <input
-            id="scrollStep"
+            id="stepID"
             type="text"
             value={step}
             onChange={(e) => setStep(e.target.value)}
