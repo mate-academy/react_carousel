@@ -74,7 +74,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
             <li key={image}>
               <img
                 src={image}
-                alt={String(index)}
+                alt={String(index + 1)}
                 style={{ width: `${debauncedItemWidth}px` }}
               />
             </li>
@@ -103,10 +103,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
       <ul className="Carousel__params">
         <li>
-          <label htmlFor="itemID">Width of image: </label>
+          <label htmlFor="itemId">Width of image (px):</label>
 
           <input
-            id="itemID"
+            id="itemId"
             type="text"
             value={itemWidth}
             onChange={(e) => setItemWidth(e.target.value)}
@@ -114,10 +114,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </li>
 
         <li>
-          <label htmlFor="frameID">Size of frame: </label>
+          <label htmlFor="frameId">Size of frame:</label>
 
           <input
-            id="frameID"
+            id="frameId"
             type="text"
             value={frameSize}
             onChange={(e) => setFrameSize(e.target.value)}
@@ -125,10 +125,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
         </li>
 
         <li>
-          <label htmlFor="stepID">Step of scroll: </label>
+          <label htmlFor="stepId">Step of scroll:</label>
 
           <input
-            id="stepID"
+            id="stepId"
             type="text"
             value={step}
             onChange={(e) => setStep(e.target.value)}
