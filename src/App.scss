@@ -1,3 +1,5 @@
+@import "./variable.scss";
+
 .App {
   width: max-content;
   margin: 50px auto;
@@ -13,7 +15,7 @@
   &__title {
     margin: 0;
     font-size: 40px;
-    color: rgba(182, 32, 6, 0.97);
+    color: $main-color;
   }
 }
 

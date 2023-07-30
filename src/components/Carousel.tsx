@@ -28,14 +28,14 @@ const Carousel: React.FC<Props> = ({
   };
 
   const getNextImage = () => {
-    if (currentShift === -hiddenImagesLength && infinite) {
-      setCurrentShift(0);
-    }
-
     setCurrentShift((shift) => Math.max(
       shift - itemWidth * step,
       -hiddenImagesLength,
     ));
+
+    if (currentShift === -hiddenImagesLength && infinite) {
+      setCurrentShift(0);
+    }
   };
 
   return (
@@ -46,7 +46,7 @@ const Carousel: React.FC<Props> = ({
       >
         {images.map((img, ind) => (
           <li
-            key={img}
+            key={`ImageId / ${ind + 1}`}
             style={{
               transform: `translateX(${currentShift}px)`,
               transition: `${animationDuration}ms`,
@@ -54,7 +54,7 @@ const Carousel: React.FC<Props> = ({
           >
             <img
               src={img}
-              alt={`${ind + 1}`}
+              alt={`Emoji #${ind + 1}`}
               style={{ width: `${itemWidth}px` }}
             />
           </li>

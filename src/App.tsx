@@ -7,7 +7,7 @@ interface State {
 }
 
 const App: React.FC = () => {
-  const state: State = {
+  const imagesOfEmoji: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,12 +22,12 @@ const App: React.FC = () => {
     ],
   };
 
-  const { images } = state;
+  const { images } = imagesOfEmoji;
   const [step, setStep] = useState(3);
   const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1000);
-  const [toggleChecked, setToggleChecked] = useState(false);
+  const [infiniteAnimation, setInfiniteAnimation] = useState(false);
 
   return (
     <div className="App">
@@ -45,7 +45,7 @@ const App: React.FC = () => {
             className="settings__input"
             type="number"
             id="itemId"
-            defaultValue={itemWidth}
+            value={itemWidth}
             min={30}
             max={520}
             onChange={(event) => {
@@ -63,7 +63,7 @@ const App: React.FC = () => {
             className="settings__input"
             type="number"
             id="frameId"
-            defaultValue={frameSize}
+            value={frameSize}
             min={1}
             max={images.length}
             onChange={(event) => {
@@ -81,7 +81,7 @@ const App: React.FC = () => {
             className="settings__input"
             type="number"
             id="stepId"
-            defaultValue={step}
+            value={step}
             min={1}
             max={images.length}
             onChange={(event) => {
@@ -99,7 +99,7 @@ const App: React.FC = () => {
             className="settings__input"
             type="number"
             id="animationId"
-            defaultValue={animationDuration}
+            value={animationDuration}
             max={5000}
             step={500}
             onChange={(event) => {
@@ -116,9 +116,9 @@ const App: React.FC = () => {
           <input
             type="checkbox"
             id="infiniteId"
-            checked={toggleChecked}
+            checked={infiniteAnimation}
             onChange={() => {
-              setToggleChecked(checked => !checked);
+              setInfiniteAnimation(checked => !checked);
             }}
           />
         </label>
@@ -130,7 +130,7 @@ const App: React.FC = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
-        infinite={toggleChecked}
+        infinite={infiniteAnimation}
       />
     </div>
   );

@@ -1,3 +1,5 @@
+@import "../variable.scss";
+
 .Carousel {
   display: flex;
   justify-content: center;
@@ -10,7 +12,7 @@
     padding: 10px 0;
     display: flex;
     list-style: none;
-    border: 2px solid rgba(182, 32, 6, 0.97);
+    border: 2px solid $main-color;
     border-radius: 25px;
     overflow: hidden;
   }
@@ -25,7 +27,7 @@
   &__button {
     width: 75px;
     padding: 2px 0;
-    border: 2px solid rgba(182, 32, 6, 0.97);
+    border: 2px solid $main-color;
     border-radius: 25px;
     background-color: yellow;
     cursor: pointer;
