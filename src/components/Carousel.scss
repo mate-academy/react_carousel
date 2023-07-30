@@ -1,1 +1,55 @@
-// style go here
+@import "../variable.scss";
+
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+
+  &__list {
+    margin: 0;
+    padding: 10px 0;
+    display: flex;
+    list-style: none;
+    border: 2px solid $main-color;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+  }
+
+  &__button {
+    width: 75px;
+    padding: 2px 0;
+    border: 2px solid $main-color;
+    border-radius: 25px;
+    background-color: yellow;
+    cursor: pointer;
+
+    &:hover {
+      width: 100px;
+
+    }
+
+    &:active {
+      background-color: white;
+    }
+
+    &:disabled {
+      width: 75px;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:disabled:active {
+      width: 75px;
+      background-color: yellow;
+    }
+  }
+}

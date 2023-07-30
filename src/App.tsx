@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -6,8 +6,8 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+const App: React.FC = () => {
+  const imagesOfEmoji: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,18 +22,118 @@ class App extends React.Component<{}, State> {
     ],
   };
 
-  render() {
-    const { images } = this.state;
+  const { images } = imagesOfEmoji;
+  const [step, setStep] = useState(3);
+  const [frameSize, setFrameSize] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infiniteAnimation, setInfiniteAnimation] = useState(false);
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1 className="App__title" data-cy="title">
+        {`Carousel with ${images.length} images`}
+      </h1>
 
-        <Carousel />
+      <div className="settings">
+        <label
+          htmlFor="itemId"
+          className="settings__label"
+        >
+          Set item width:
+          <input
+            className="settings__input"
+            type="number"
+            id="itemId"
+            value={itemWidth}
+            min={30}
+            max={520}
+            onChange={(event) => {
+              setItemWidth(+event.target.value);
+            }}
+          />
+        </label>
+
+        <label
+          htmlFor="frameId"
+          className="settings__label"
+        >
+          Set frame size:
+          <input
+            className="settings__input"
+            type="number"
+            id="frameId"
+            value={frameSize}
+            min={1}
+            max={images.length}
+            onChange={(event) => {
+              setFrameSize(+event.target.value);
+            }}
+          />
+        </label>
+
+        <label
+          htmlFor="stepId"
+          className="settings__label"
+        >
+          Set step:
+          <input
+            className="settings__input"
+            type="number"
+            id="stepId"
+            value={step}
+            min={1}
+            max={images.length}
+            onChange={(event) => {
+              setStep(+event.target.value);
+            }}
+          />
+        </label>
+
+        <label
+          htmlFor="animationId"
+          className="settings__label"
+        >
+          Set animation duration:
+          <input
+            className="settings__input"
+            type="number"
+            id="animationId"
+            value={animationDuration}
+            max={5000}
+            step={500}
+            onChange={(event) => {
+              setAnimationDuration(+event.target.value);
+            }}
+          />
+        </label>
+
+        <label
+          htmlFor="infiniteId"
+          className="settings__label"
+        >
+          Set infinity animation:
+          <input
+            type="checkbox"
+            id="infiniteId"
+            checked={infiniteAnimation}
+            onChange={() => {
+              setInfiniteAnimation(checked => !checked);
+            }}
+          />
+        </label>
       </div>
-    );
-  }
-}
+
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        infinite={infiniteAnimation}
+      />
+    </div>
+  );
+};
 
 export default App;
