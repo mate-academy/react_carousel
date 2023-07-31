@@ -33,6 +33,7 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="prev"
+        aria-disabled={slide === 0}
         onClick={() => handleButton(-step)}
       >
         Prev
@@ -62,6 +63,7 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="next"
+        aria-disabled={slide === images.length - frameSize}
         onClick={() => handleButton(step)}
       >
         Next
