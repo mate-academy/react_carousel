@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,91 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
+
+        <form className="App__remote">
+          <label htmlFor="imageNumber">
+            <input
+              type="range"
+              id="imageNumber"
+              min="1"
+              max={images.length}
+              value={frameSize}
+              onChange={(e) => this.setState({
+                frameSize: +e.target.value,
+              })}
+            />
+            Displayed images number
+          </label>
+
+          <label htmlFor="imageWidth">
+            <input
+              type="range"
+              id="imageWidth"
+              min="65"
+              max="390"
+              value={itemWidth}
+              onChange={(e) => this.setState({
+                itemWidth: +e.target.value,
+              })}
+            />
+            Images width
+          </label>
+
+          <label htmlFor="scrollStep">
+            <input
+              type="range"
+              id="scrollStep"
+              min="1"
+              max={images.length}
+              value={step}
+              onChange={(e) => this.setState({
+                step: +e.target.value,
+              })}
+            />
+            Scroll step
+          </label>
+
+          <label htmlFor="animationSpeed">
+            <input
+              type="range"
+              id="animationSpeed"
+              min="500"
+              max="4000"
+              step="500"
+              value={animationDuration}
+              onChange={(e) => this.setState({
+                animationDuration: +e.target.value,
+              })}
+            />
+            Animation duration
+          </label>
+        </form>
       </div>
     );
   }
