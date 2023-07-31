@@ -1,1 +1,23 @@
 // style go here
+html {
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  padding: 0 50px;
+  width: min-content;
+  margin: 50px auto;
+  background-color: lightyellow;
+  border: 4px solid black;
+  border-radius: 20px;
+}
+
+.inputs {
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: max-content;
+  max-width: max-content;
+}
