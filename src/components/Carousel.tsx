@@ -16,15 +16,15 @@ const Carousel: React.FC<Props> = ({
   itemWidth,
   animationDuration,
 }) => {
-  const [slide, setShift] = useState(0);
+  const [slide, setSlide] = useState(0);
 
   const handleButton = (movement: number) => {
     if (slide + movement >= images.length - frameSize) {
-      setShift(images.length - frameSize);
+      setSlide(images.length - frameSize);
     } else if (slide + movement <= 0) {
-      setShift(0);
+      setSlide(0);
     } else {
-      setShift(slide + movement);
+      setSlide(slide + movement);
     }
   };
 
