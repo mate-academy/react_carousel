@@ -1,1 +1,47 @@
-// style go here
+.Carousel {
+  width: 1300px;
+
+  .Carousel__container {
+    width: 260px;
+    padding-left: 40px;
+  }
+
+  .Carousel__list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .Carousel__item {
+    transform: translateX(0);
+    transition: transform 1s;
+
+    .Carousel__item img {
+      width: 130px;
+    }
+  }
+
+  .Carousel__button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.button {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.disabled {
+  background-color: #ccc;
+  pointer-events: none;
+}
