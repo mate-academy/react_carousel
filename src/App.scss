@@ -3,6 +3,14 @@
   width: max-content;
 }
 
+.app-form {
+  display: flex;
+}
+
+.app-field {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
 [data-cy="title"] {
   text-align: center;
 }

@@ -63,35 +63,59 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <input
-          type="text"
-          className="field"
-          defaultValue={`${itemWidth}px`}
-          placeholder="emoji width"
-          onChange={(event) => this.changeItemWidth(+event.currentTarget.value)}
-        />
-        <input
-          type="text"
-          className="field"
-          defaultValue={frameSize}
-          placeholder="frame size"
-          onChange={(event) => this.changeFrameSize(+event.currentTarget.value)}
-        />
-        <input
-          type="text"
-          className="field"
-          defaultValue={step}
-          placeholder="step per click"
-          onChange={(event) => this.changeStepLong(+event.currentTarget.value)}
-        />
+        <div className="app-form">
+          <div className="app-field">
+            <h3>Emoji width</h3>
 
-        <input
-          type="text"
-          className="field"
-          defaultValue={`${animationDuration}ms`}
-          placeholder="duration"
-          onChange={(event) => this.changeDuration(+event.currentTarget.value)}
-        />
+            <input
+              type="text"
+              className="field"
+              defaultValue={`${itemWidth}px`}
+              placeholder="emoji width"
+              onChange={(event) => this
+                .changeItemWidth(+event.currentTarget.value)}
+            />
+          </div>
+
+          <div className="app-field">
+            <h3>Frame size</h3>
+
+            <input
+              type="text"
+              className="field"
+              defaultValue={frameSize}
+              placeholder="frame size"
+              onChange={(event) => this
+                .changeFrameSize(+event.currentTarget.value)}
+            />
+          </div>
+
+          <div className="app-field">
+            <h3>Step per click</h3>
+
+            <input
+              type="text"
+              className="field"
+              defaultValue={step}
+              placeholder="step per click"
+              onChange={(event) => this
+                .changeStepLong(+event.currentTarget.value)}
+            />
+          </div>
+
+          <div className="app-field">
+            <h3>Animation duration</h3>
+
+            <input
+              type="text"
+              className="field"
+              defaultValue={`${animationDuration}ms`}
+              placeholder="duration"
+              onChange={(event) => this
+                .changeDuration(+event.currentTarget.value)}
+            />
+          </div>
+        </div>
 
         <Carousel
           images={images}
