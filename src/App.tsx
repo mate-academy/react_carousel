@@ -66,26 +66,30 @@ class App extends React.Component<{}, State> {
         <input
           type="text"
           className="field"
-          placeholder="item width"
+          defaultValue={`${itemWidth}px`}
+          placeholder="emoji width"
           onChange={(event) => this.changeItemWidth(+event.currentTarget.value)}
         />
         <input
           type="text"
           className="field"
+          defaultValue={frameSize}
           placeholder="frame size"
           onChange={(event) => this.changeFrameSize(+event.currentTarget.value)}
         />
         <input
           type="text"
           className="field"
-          placeholder="step"
+          defaultValue={step}
+          placeholder="step per click"
           onChange={(event) => this.changeStepLong(+event.currentTarget.value)}
         />
 
         <input
           type="text"
           className="field"
-          placeholder="animation duration"
+          defaultValue={`${animationDuration}ms`}
+          placeholder="duration"
           onChange={(event) => this.changeDuration(+event.currentTarget.value)}
         />
 
