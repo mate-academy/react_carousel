@@ -29,7 +29,11 @@ class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">
-          Carousel with {images.length} images
+          Carousel with
+          {' '}
+          {images.length}
+          {' '}
+          images
         </h1>
         <Carousel images={images} />
       </div>

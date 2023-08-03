@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import './Carousel.scss';
 
-interface Props {
+type Props = {
   images: string[];
 }
 
@@ -53,25 +53,33 @@ const Carousel: React.FC<Props> = ({ images }) => {
     <div className="Carousel">
       <div className="Carousel__inputs">
         <input
-          type="text"
+          type="number"
+          value={itemWidth}
           onChange={(event) => setStep(+event.currentTarget.value)}
           placeholder="Write a number of step here..."
         />
 
         <input
-          type="text"
+          type="number"
+          value={frameSize}
           onChange={(event) => setFrameSize(+event.currentTarget.value)}
           placeholder="Write a size of frame here..."
+          min={1}
+          max={images.length}
         />
 
         <input
-          type="text"
+          type="number"
+          value={step}
           onChange={(event) => setItemWidth(+event.currentTarget.value)}
           placeholder="Write a size of image here..."
+          min={1}
+          max={images.length}
         />
 
         <input
-          type="text"
+          type="number"
+          value={animationDuration}
           onChange={(event) => setAnimationDuration(+event.currentTarget.value)}
           placeholder="Write a duration of animation here..."
         />
