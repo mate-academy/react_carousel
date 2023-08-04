@@ -27,6 +27,35 @@ const Carousel: React.FC<Props> = ({
   const widthPortion = itemWidth * frameSize;
   const widthCarousel = itemWidth * images.length;
 
+  const handleOnClickBack = () => {
+    setShift((currentShift) => {
+      if (currentShift === 0 && infinite) {
+        return -(widthCarousel - itemWidth * frameSize);
+      }
+
+      if (currentShift > -(itemWidth * step)) {
+        return 0;
+      }
+
+      return currentShift + itemWidth * step;
+    });
+  };
+
+  const handleOnClickForward = () => {
+    setShift((currentShift) => {
+      if (currentShift <= -(widthCarousel - widthPortion) && infinite) {
+        return 0;
+      }
+
+      if (currentShift <= -(widthCarousel - widthPortion)
+        + itemWidth * step) {
+        return -(widthCarousel - widthPortion);
+      }
+
+      return currentShift - itemWidth * step;
+    });
+  };
+
   return (
     <div
       className="Carousel"
@@ -51,43 +80,20 @@ const Carousel: React.FC<Props> = ({
       </div>
 
       <button
-        onClick={() => {
-          setShift((currentShift) => {
-            if (currentShift === 0 && infinite) {
-              return -(widthCarousel - itemWidth * frameSize);
-            }
-
-            if (currentShift > -(itemWidth * step)) {
-              return 0;
-            }
-
-            return currentShift + itemWidth * step;
-          });
-        }}
+        onClick={() => handleOnClickBack()}
+        className="Carousel__button"
         type="button"
-        disabled={shift >= 0 && !infinite && true}
+        disabled={shift >= 0 && !infinite}
       >
         Prev
       </button>
 
       <button
-        onClick={() => {
-          setShift((currentShift) => {
-            if (currentShift <= -(widthCarousel - widthPortion) && infinite) {
-              return 0;
-            }
-
-            if (currentShift <= -(widthCarousel - widthPortion)
-              + itemWidth * step) {
-              return -(widthCarousel - widthPortion);
-            }
-
-            return currentShift - itemWidth * step;
-          });
-        }}
+        onClick={() => handleOnClickForward()}
+        className="Carousel__button"
         data-cy="Next"
         type="button"
-        disabled={shift <= -(widthCarousel - widthPortion) && !infinite && true}
+        disabled={shift <= -(widthCarousel - widthPortion) && !infinite}
       >
         Next
       </button>

@@ -9,6 +9,10 @@ interface State {
   step: number,
   animationDuration: number,
   infinite: boolean,
+  itemWidthError: boolean,
+  frameSizeError: boolean,
+  stepError: boolean,
+  durationError: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -30,22 +34,50 @@ class App extends React.Component<{}, State> {
     step: 3,
     animationDuration: 1000,
     infinite: false,
+    itemWidthError: false,
+    frameSizeError: false,
+    stepError: false,
+    durationError: false,
   };
 
   changeItemWidth = (width: number) => {
-    this.setState({ itemWidth: width });
+    if (Number.isNaN(width) || width < 30 || width > 200) {
+      this.setState({ itemWidthError: true });
+
+      return;
+    }
+
+    this.setState({ itemWidth: width, itemWidthError: false });
   };
 
   changeFrameSize = (size: number) => {
-    this.setState({ frameSize: size });
+    if (Number.isNaN(size) || size < 1 || size > 10) {
+      this.setState({ frameSizeError: true });
+
+      return;
+    }
+
+    this.setState({ frameSize: size, frameSizeError: false });
   };
 
   changeStepLong = (long: number) => {
-    this.setState({ step: long });
+    if (Number.isNaN(long) || long < 1 || long > 10) {
+      this.setState({ stepError: true });
+
+      return;
+    }
+
+    this.setState({ step: long, stepError: false });
   };
 
   changeDuration = (time: number) => {
-    this.setState({ animationDuration: time });
+    if (Number.isNaN(time) || time < 500 || time > 3000) {
+      this.setState({ durationError: true });
+
+      return;
+    }
+
+    this.setState({ animationDuration: time, durationError: false });
   };
 
   render() {
@@ -56,6 +88,10 @@ class App extends React.Component<{}, State> {
       step,
       animationDuration,
       infinite,
+      itemWidthError,
+      frameSizeError,
+      stepError,
+      durationError,
     } = this.state;
 
     return (
@@ -65,12 +101,19 @@ class App extends React.Component<{}, State> {
 
         <div className="app-form">
           <div className="app-field">
-            <h3>Emoji width</h3>
-
+            {itemWidthError ? (
+              <h3 style={{ color: 'red' }}>
+                Input number!
+                <br />
+                from 30 to 200
+              </h3>
+            ) : (
+              <h3>Emoji width, px</h3>
+            )}
             <input
               type="text"
               className="field"
-              defaultValue={`${itemWidth}px`}
+              defaultValue={itemWidth}
               placeholder="emoji width"
               onChange={(event) => this
                 .changeItemWidth(+event.currentTarget.value)}
@@ -78,8 +121,15 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="app-field">
-            <h3>Frame size</h3>
-
+            {frameSizeError ? (
+              <h3 style={{ color: 'red' }}>
+                Input number!
+                <br />
+                from 1 to 10
+              </h3>
+            ) : (
+              <h3>Frame size</h3>
+            )}
             <input
               type="text"
               className="field"
@@ -91,8 +141,15 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="app-field">
-            <h3>Step per click</h3>
-
+            {stepError ? (
+              <h3 style={{ color: 'red' }}>
+                Input number!
+                <br />
+                from 1 to 10
+              </h3>
+            ) : (
+              <h3>Step per click</h3>
+            )}
             <input
               type="text"
               className="field"
@@ -104,12 +161,19 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="app-field">
-            <h3>Animation duration</h3>
-
+            {durationError ? (
+              <h3 style={{ color: 'red' }}>
+                Input number!
+                <br />
+                from 500 to 3000
+              </h3>
+            ) : (
+              <h3>Animation duration, ms</h3>
+            )}
             <input
               type="text"
               className="field"
-              defaultValue={`${animationDuration}ms`}
+              defaultValue={`${animationDuration}`}
               placeholder="duration"
               onChange={(event) => this
                 .changeDuration(+event.currentTarget.value)}
