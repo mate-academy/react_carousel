@@ -4,7 +4,7 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-}
+};
 
 const Carousel: React.FC<Props> = ({ images }) => {
   const [translate, setTranslate] = useState(0);
@@ -19,7 +19,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
   };
 
   const styleCarousel = {
-    width: `${itemWidth + frameSize}px`,
+    width: `${itemWidth * frameSize}px`,
   };
 
   const styleCarouselImage = {
@@ -52,23 +52,27 @@ const Carousel: React.FC<Props> = ({ images }) => {
   return (
     <div className="Carousel">
       <div className="Carousel__inputs">
+        <label htmlFor="itemId">Width of image (px):</label>
         <input
+          id="itemId"
           type="number"
           value={itemWidth}
           onChange={(event) => setStep(+event.currentTarget.value)}
-          placeholder="Write a number of step here..."
         />
 
+        <label htmlFor="frameId">Size of frame:</label>
         <input
+          id="frameId"
           type="number"
           value={frameSize}
           onChange={(event) => setFrameSize(+event.currentTarget.value)}
-          placeholder="Write a size of frame here..."
           min={1}
           max={images.length}
         />
 
+        <label htmlFor="stepId">Step of scroll:</label>
         <input
+          id="stepId"
           type="number"
           value={step}
           onChange={(event) => setItemWidth(+event.currentTarget.value)}
@@ -77,7 +81,11 @@ const Carousel: React.FC<Props> = ({ images }) => {
           max={images.length}
         />
 
+        <label htmlFor="animationDuration">
+          Duration of animation (ms):
+        </label>
         <input
+          id="animationDuration"
           type="number"
           value={animationDuration}
           onChange={(event) => setAnimationDuration(+event.currentTarget.value)}
