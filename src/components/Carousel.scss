@@ -1,1 +1,39 @@
-// style go here
+$blocksWidth: 390px;
+
+.Carousel {
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: $blocksWidth;
+  }
+
+  &__list {
+    list-style: none;
+    overflow: hidden;
+    width: 260px;
+    padding: 0;
+  }
+
+  &__visibleList {
+    display: flex;
+    transition: transform 0.3 ease;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: $blocksWidth;
+  }
+
+  &__button {
+    display: flex;
+    cursor: pointer;
+
+    &--disabled {
+      cursor: default;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+  }
+}
