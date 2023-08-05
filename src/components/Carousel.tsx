@@ -76,7 +76,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
           type="number"
           value={step}
           onChange={(event) => setStep(+event.currentTarget.value)}
-          placeholder="Write a size of image here..."
           min={1}
           max={images.length}
         />
@@ -89,7 +88,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
           type="number"
           value={animationDuration}
           onChange={(event) => setAnimationDuration(+event.currentTarget.value)}
-          placeholder="Write a duration of animation here..."
         />
       </div>
 
