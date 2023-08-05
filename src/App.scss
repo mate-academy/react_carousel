@@ -1,1 +1,63 @@
-// style go here
+.App {
+  max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Carousel {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__list {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+
+  }
+
+  &__button {
+    margin-top: 30px;
+    width: 100px;
+    height: 50px;
+    font-family: sans-serif;
+    font-size: 30px;
+    background-color: #00acdc;
+    border: 0;
+    border-radius: 20px;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+
+  &__button1 {
+    margin-right: 40px;
+  }
+}
+
+.Input {
+  display: flex;
+  flex-direction: column;
+
+  &__fields {
+    margin-top: 25px;
+    width: 370px;
+    height: 30px;
+    transition: 0.5s;
+
+  }
+}
