@@ -57,7 +57,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           id="itemId"
           type="number"
           value={itemWidth}
-          onChange={(event) => setStep(+event.currentTarget.value)}
+          onChange={(event) => setItemWidth(+event.currentTarget.value)}
         />
 
         <label htmlFor="frameId">Size of frame:</label>
@@ -75,7 +75,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           id="stepId"
           type="number"
           value={step}
-          onChange={(event) => setItemWidth(+event.currentTarget.value)}
+          onChange={(event) => setStep(+event.currentTarget.value)}
           placeholder="Write a size of image here..."
           min={1}
           max={images.length}
