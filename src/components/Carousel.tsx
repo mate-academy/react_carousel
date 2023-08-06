@@ -20,34 +20,40 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [offset, setOffset] = useState(0);
 
-  const handlePrevClick = (prev: number) => {
-    if (prev >= 0 && infinity) {
+  const handlePrevClick = () => {
+    if (offset >= 0 && infinity) {
       return -(itemWidth * images.length) + itemWidth * frameSize;
     }
 
-    if (prev < -(itemWidth * step)) {
-      return prev + step * itemWidth;
+    if (offset < -(itemWidth * step)) {
+      return offset + step * itemWidth;
     }
 
     return 0;
   };
 
-  const handleNextClick = (prev: number) => {
-    if (prev <= -(images.length * itemWidth) + itemWidth * frameSize
+  const handleNextClick = () => {
+    if (offset <= -(images.length * itemWidth) + itemWidth * frameSize
       && infinity
     ) {
       return 0;
     }
 
-    if (prev <= -(images.length * itemWidth) + itemWidth * (frameSize + step)) {
+    if (offset <= -(images.length * itemWidth)
+      + itemWidth * (frameSize + step)
+    ) {
       return -(images.length * itemWidth) + itemWidth * frameSize;
     }
 
-    if (prev >= -(images.length * itemWidth) + itemWidth * frameSize) {
-      return prev - itemWidth * step;
+    if (offset >= -(images.length * itemWidth) + itemWidth * frameSize) {
+      return offset - itemWidth * step;
     }
 
     return 0;
+  };
+
+  const handleOffset = (callback: () => number) => () => {
+    setOffset(callback);
   };
 
   return (
@@ -79,18 +85,14 @@ const Carousel: React.FC<Props> = ({
 
       <button
         type="button"
-        onClick={() => (
-          setOffset(handlePrevClick)
-        )}
+        onClick={handleOffset(handlePrevClick)}
       >
         Prev
       </button>
       <button
         type="button"
         data-cy="next"
-        onClick={() => (
-          setOffset(handleNextClick)
-        )}
+        onClick={handleOffset(handleNextClick)}
       >
         Next
       </button>
