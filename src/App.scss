@@ -1,1 +1,17 @@
-// style go here
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel__list {
+  width: 260px;
+  overflow: hidden;
+  display: flex;
+  transition-property: transform;
+}
+
+.image {
+  width: 130px;
+  height: 130px;
+}
