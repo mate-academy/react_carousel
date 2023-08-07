@@ -19,31 +19,46 @@ export const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [current, setCurrent] = useState(0);
+  const [listStyle, setListStyle] = useState({
+    width: `${frameSize * itemWidth}px`,
+    // transform: 'translate(0, 0)',
+    margineLeft: '0',
+    transitionDuration: `${animationDuration}s`,
+  });
   const imageStyle = {
     width: `${itemWidth}px`,
     height: `${itemWidth}px`,
   };
-  const listStyle = {
-    width: `${frameSize * itemWidth}px`,
-    transform: '',
-    transitionDuration: `${animationDuration}s`,
-  };
+
   const handlePrev = () => {
+    console.log(listStyle.margineLeft);
+
     if (!infinite) {
       if (current > 3) {
-        listStyle.transform = `translate(${current * itemWidth - step * itemWidth}px, 0)`;
+        setListStyle(prevStyle => ({
+          ...prevStyle,
+          margineLeft: `${current * itemWidth - step * itemWidth}px`,
+        }));
         setCurrent(old => old - 3);
       } else {
-        listStyle.transform = 'translate(0, 0)';
+        setListStyle(prevStyle => ({
+          ...prevStyle,
+          margineLeft: '0',
+        }));
         setCurrent(0);
       }
     }
   };
 
   const handleNext = () => {
+    console.log(listStyle.margineLeft);
+
     if (!infinite) {
       if (current < images.length - 3) {
-        listStyle.transform = `translate(${current * itemWidth + step * itemWidth}px, 0)`;
+        setListStyle(prevStyle => ({
+          ...prevStyle,
+          margineLeft: `${current * itemWidth + step * itemWidth}px`,
+        }));
         setCurrent(old => old + 3);
       }
     }
