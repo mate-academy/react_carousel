@@ -1,88 +1,78 @@
+import React, { useState } from 'react';
+import './Carousel.scss';
 import { Image } from '../types/Image';
 import { Params } from '../types/Params';
-
-import './Carousel.scss';
 
 type Props = {
   images: Image[];
   params: Params;
-  imgLength: number;
-  changeCarousel: (key: string, value: number | boolean) => void;
+  changeCarousel: (key: string, value: number | boolean) => void
 };
 
 const Carousel: React.FC<Props> = ({
   images,
   params,
-  imgLength,
   changeCarousel,
 }) => {
-  const changeInfinite = () => {
-    changeCarousel('infinite', !params.infinite);
+  const [firstVisibleImg, setFirstVisibleImg] = useState(1);
+
+  const scrolRight = () => {
+    let nextVisibleImg = firstVisibleImg + params.step;
+
+    if ((nextVisibleImg + params.frameSize) >= images.length) {
+      nextVisibleImg = images.length - params.frameSize + 1;
+    }
+
+    if (params.infinite && (firstVisibleImg === nextVisibleImg)) {
+      nextVisibleImg = 1;
+    }
+
+    setFirstVisibleImg(nextVisibleImg);
   };
 
-  const incStep = () => changeCarousel('step', params.step + 1);
-  const decrStep = () => changeCarousel('step', params.step - 1);
+  const scrolLeft = () => {
+    let nextVisibleImg = firstVisibleImg - params.step;
 
-  const incFrameSize = () => changeCarousel('frameSize', params.frameSize + 1);
-  const decrFrameSize = () => changeCarousel('frameSize', params.frameSize - 1);
+    if (nextVisibleImg < 1) {
+      nextVisibleImg = 1;
+    }
 
-  const incImgSize = () => changeCarousel('itemWidth', params.itemWidth + 10);
-  const decrImgSize = () => changeCarousel('itemWidth', params.itemWidth - 10);
-
-  const incAanimationDuration = () => {
-    changeCarousel('animationDuration', params.animationDuration + 500);
-  };
-
-  const decrAanimationDuration = () => {
-    changeCarousel('animationDuration', params.animationDuration - 500);
-  };
-
-  const nextItem = () => {
-    changeCarousel('firstImg', params.firstImg + params.step);
-  };
-
-  const prevItem = () => {
-    changeCarousel('firstImg', params.firstImg - params.step);
-  };
-
-  const prevButtonDisabled = () => {
-    return !params.infinite
-      && (params.firstImg - params.step <= 0);
-  };
-
-  const nextButtonDisabled = () => {
-    return !params.infinite
-      && (params.firstImg + params.step > imgLength);
+    setFirstVisibleImg(nextVisibleImg);
   };
 
   return (
     <div className="Carousel">
-      <div className="Carousel__slider">
+      <div className="Carousel__container">
         <button
           type="button"
           className="Carousel__button"
-          onClick={prevItem}
-          disabled={prevButtonDisabled()}
+          onClick={scrolLeft}
+          disabled={firstVisibleImg === 1}
         >
           Prev
         </button>
 
         <div
-          className="Carousel__container"
-          style={{ width: `${params.frameSize * params.itemWidth}px` }}
+          style={{
+            width: `${params.itemWidth * params.frameSize}px`,
+            transition: `${params.animationDuration}ms`,
+          }}
         >
-          <ul
-            className="Carousel__list"
-          >
+          <ul className="Carousel__list">
             {images.map(image => (
-              <li key={image.id}>
+              <li
+                key={image.id}
+                style={{
+                  transform: `translateX(${-params.itemWidth * (firstVisibleImg - 1)}px)`,
+                  transition: `${params.animationDuration}ms`,
+                }}
+              >
                 <img
                   src={image.url}
                   alt={image.id.toString()}
                   style={{
-                    width: params.itemWidth,
-                    height: params.itemWidth,
-
+                    width: `${params.itemWidth}px`,
+                    height: `${params.itemWidth}px`,
                   }}
                 />
               </li>
@@ -92,10 +82,12 @@ const Carousel: React.FC<Props> = ({
 
         <button
           type="button"
-          className="Carousel__button"
           data-cy="next"
-          onClick={nextItem}
-          disabled={nextButtonDisabled()}
+          className="Carousel__button"
+          onClick={scrolRight}
+          disabled={(!params.infinite
+            && (firstVisibleImg === (images.length - params.frameSize + 1)))
+            || params.frameSize === images.length}
         >
           Next
         </button>
@@ -103,107 +95,98 @@ const Carousel: React.FC<Props> = ({
 
       <div className="Carousel__props Props">
         <div className="Props__container">
-          {'Images size in pixels: '}
-          <button
-            type="button"
-            className="Props__button"
-            onClick={decrImgSize}
-            disabled={params.itemWidth <= 50}
-          >
-            -
-          </button>
+          <label htmlFor="itemWidth">Item size: </label>
 
-          <span>{` ${params.itemWidth}x${params.itemWidth} `}</span>
+          <input
+            type="range"
+            id="itemWidth"
+            name="itemWidth"
+            className="Props__range"
+            min={50}
+            max={300}
+            step={1}
+            value={params.itemWidth}
+            onChange={(e) => changeCarousel('itemWidth', +e.target.value)}
+          />
 
-          <button
-            type="button"
-            className="Props__button"
-            onClick={incImgSize}
-            disabled={params.itemWidth >= 260}
-          >
-            +
-          </button>
+          <span>{`${params.itemWidth}x${params.itemWidth} px`}</span>
         </div>
 
         <div className="Props__container">
-          {'Number of images displayed at the same time: '}
-          <button
-            type="button"
-            className="Props__button"
-            onClick={decrFrameSize}
-            disabled={params.frameSize === 1}
-          >
-            -
-          </button>
+          <label htmlFor="step">
+            {'Number of images scrolled per click: '}
+          </label>
 
-          <span>{` ${params.frameSize} `}</span>
-          <button
-            type="button"
-            className="Props__button"
-            onClick={incFrameSize}
-            disabled={params.frameSize === imgLength}
-          >
-            +
-          </button>
+          <input
+            type="number"
+            id="step"
+            name="step"
+            className="Props__number"
+            min={1}
+            max={images.length - 1}
+            step={1}
+            value={params.step}
+            onChange={(e) => changeCarousel('step', +e.target.value)}
+          />
         </div>
 
         <div className="Props__container">
-          <span>Number of images scrolled per click: </span>
+          <label htmlFor="frameSize">
+            {'Number of images displayed at the same time: '}
+          </label>
 
-          <button
-            type="button"
-            className="Props__button"
-            onClick={decrStep}
-            disabled={params.step === 1}
-          >
-            -
-          </button>
-
-          <span>{` ${params.step} `}</span>
-
-          <button
-            type="button"
-            className="Props__button"
-            onClick={incStep}
-            disabled={params.step >= imgLength - 1}
-          >
-            +
-          </button>
+          <input
+            type="number"
+            id="frameSize"
+            name="frameSize"
+            className="Props__number"
+            min={1}
+            max={images.length}
+            step={1}
+            value={params.frameSize}
+            onChange={(e) => changeCarousel('frameSize', +e.target.value)}
+          />
         </div>
 
         <div className="Props__container">
-          <span>Itime in ms to show the new portion of images: </span>
+          <label htmlFor="animationDuration">
+            {'Itime in ms to show the new portion of images: '}
+          </label>
 
-          <button
-            type="button"
-            className="Props__button"
-            onClick={decrAanimationDuration}
-            disabled={params.animationDuration <= 500}
-          >
-            -
-          </button>
-
-          <span>{` ${params.animationDuration} `}</span>
-
-          <button
-            type="button"
-            className="Props__button"
-            onClick={incAanimationDuration}
-            disabled={params.animationDuration >= 4000}
-          >
-            +
-          </button>
+          <input
+            type="range"
+            id="animationDuration"
+            name="animationDuration"
+            className="Props__range"
+            min={300}
+            max={3000}
+            step={100}
+            value={params.animationDuration}
+            onChange={
+              (e) => changeCarousel('animationDuration', +e.target.value)
+            }
+          />
+          <span>{`${params.animationDuration} ms`}</span>
         </div>
 
         <div className="Props__container">
-          <span>To do the carousel cyclic </span>
-          <button
-            type="button"
-            className="Props__button"
-            onClick={changeInfinite}
-          >
-            {params.infinite ? '✓' : '✘'}
-          </button>
+          <label htmlFor="infinite">
+            {'To do the carousel cyclic '}
+          </label>
+
+          <input
+            type="checkbox"
+            id="infinite"
+            name="infinite"
+            className="Props__checkbox"
+            min={300}
+            max={3000}
+            step={100}
+            defaultChecked={params.infinite}
+            onChange={
+              (e) => changeCarousel('infinite', e.target.checked)
+            }
+          />
         </div>
       </div>
     </div>

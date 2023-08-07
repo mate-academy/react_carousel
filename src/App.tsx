@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import imagesFromServer from './api/images.json';
+import './App.scss';
+import Carousel from './components/Carousel';
 import { Image } from './types/Image';
 import { Params } from './types/Params';
-import Carousel from './components/Carousel';
-import './App.scss';
 
-let visibleImages = [];
-const imgLength = imagesFromServer.length;
 const baseParams = {
   firstImg: 1,
   step: 3,
@@ -16,58 +14,31 @@ const baseParams = {
   infinite: false,
 };
 
-function getPreparedImages(images: Image[], filterParams: Params): Image[] {
-  let preparedImages = [...images];
-  let firstImgIndex = preparedImages
-    .findIndex(img => img.id === filterParams.firstImg);
+function getPreparedImages(img: Image[], filterParams: Params): Image[] {
+  const firstImgIndex = img.findIndex(el => el.id === filterParams.firstImg);
 
-  if (filterParams.infinite) {
-    preparedImages = preparedImages.slice(firstImgIndex)
-      .concat(preparedImages.slice(0, firstImgIndex));
-
-    firstImgIndex = preparedImages
-      .findIndex(img => img.id === filterParams.firstImg);
-  }
-
-  preparedImages = preparedImages
-    .slice(firstImgIndex, firstImgIndex + filterParams.frameSize);
-
-  return preparedImages;
+  return [...img].slice(firstImgIndex);
 }
 
 export const App = () => {
   const [params, setParams] = useState(baseParams);
+  const images = getPreparedImages(imagesFromServer, params);
 
   const changeParams = (key: string, value: number | boolean) => {
-    let validValue = value;
-
-    if (key === 'firstImg' && typeof value === 'number') {
-      if (value > imgLength) {
-        validValue = value - imgLength;
-      }
-
-      if (value <= 0) {
-        validValue = value + imgLength;
-      }
-    }
+    const validValue = value;
 
     setParams(previousParams => {
       return { ...previousParams, [key]: validValue };
     });
   };
 
-  visibleImages = getPreparedImages(imagesFromServer, params);
-
   return (
     <div className="App">
-      <h1 data-cy="title">
-        {`Carousel with ${visibleImages.length} images`}
-      </h1>
+      <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
 
       <Carousel
-        images={visibleImages}
+        images={images}
         params={params}
-        imgLength={imgLength}
         changeCarousel={changeParams}
       />
     </div>
