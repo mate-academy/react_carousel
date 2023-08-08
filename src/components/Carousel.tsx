@@ -62,6 +62,12 @@ export const Carousel: React.FC<Props> = ({
           marginLeft: `${current * itemWidth + step * itemWidth * (-1)}px`,
         }));
         setCurrent(old => old + 3);
+      } else {
+        setFirstLiStyle(prevStyle => ({
+          ...prevStyle,
+          marginLeft: `${(images.length - 3) * itemWidth + step * itemWidth * (-1)}px`,
+        }));
+        setCurrent(0);
       }
     }
   };
