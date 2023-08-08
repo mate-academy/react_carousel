@@ -20,7 +20,9 @@ const images = [
 const imageCount = images.length;
 
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(130);
+  const defaultItemWidth = window.innerWidth < 390 ? 100 : 130;
+
+  const [itemWidth, setItemWidth] = useState(defaultItemWidth);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
