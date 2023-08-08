@@ -19,14 +19,10 @@ export const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [current, setCurrent] = useState(0);
-  // const [listStyle, setListStyle] = useState({
-  //   width: `${frameSize * itemWidth}px`,
-  //   // transform: 'translate(0, 0)',,
-  // });
   const [firstLiStyle, setFirstLiStyle] = useState({
     marginLeft: '0',
     transitionProperty: 'margin-left',
-    transitionDuration: `${animationDuration}s`,
+    transitionDuration: `${animationDuration}ms`,
   });
   const imageStyle = {
     width: `${itemWidth}px`,
@@ -63,7 +59,7 @@ export const Carousel: React.FC<Props> = ({
       if (current < images.length - 3) {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
-          marginLeft: `${current * itemWidth + step * itemWidth}px`,
+          marginLeft: `${current * itemWidth + step * itemWidth * (-1)}px`,
         }));
         setCurrent(old => old + 3);
       }
