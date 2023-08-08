@@ -1,1 +1,43 @@
-// style go here
+$widthByDefault: 390px;
+
+.Carousel {
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: $widthByDefault;
+
+    &--label {
+      margin: 0 auto;
+      font-size: 26px;
+    }
+
+    &--input {
+      font-size: 22px;
+      padding-left: 20px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    overflow: hidden;
+    width: 260px;
+    padding: 0;
+  }
+
+  &__visible-list {
+    display: flex;
+    transition: all 0.3 ease-in-out;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    &--button {
+      font-family: 'Jost', sans-serif;
+      padding: 14px;
+      font-size: 16px;
+    }
+  }
+}
