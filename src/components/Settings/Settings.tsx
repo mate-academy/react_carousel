@@ -106,8 +106,8 @@ const Settings: React.FC<Props> = ({
         <input
           className="Slider"
           type="range"
-          min={200}
-          max={1000}
+          min={500}
+          max={1500}
           value={animationDuration}
           onChange={(event) => setAnimationDuration(+event.target.value)}
           id="animationDuration"

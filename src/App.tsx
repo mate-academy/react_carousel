@@ -19,10 +19,6 @@ const images = [
 
 const imageCount = images.length;
 
-const getImageId = (url: string) => {
-  return url.match(/(\d+)\.png$/)?.[1] || '';
-};
-
 const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
@@ -54,13 +50,6 @@ const App: React.FC = () => {
     setIsPrevButtontnActive(position > FIRST_POSITION);
     setIsNextButtonActive(position < LAST_POSITION);
   }, [position]);
-
-  useEffect(() => { }, [
-    itemWidth,
-    frameSize,
-    step,
-    animationDuration,
-  ]);
 
   return (
     <div className="App">
@@ -95,7 +84,6 @@ const App: React.FC = () => {
         isNextButtonActive={isNextButtonActive}
         hadlePrevButtonClick={handlePrevButtonClick}
         hadleNextButtonClick={handleNextButtonClick}
-        getImageId={getImageId}
       />
     </div>
   );

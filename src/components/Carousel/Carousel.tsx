@@ -13,7 +13,6 @@ interface Props {
   isNextButtonActive: boolean,
   hadlePrevButtonClick: () => void
   hadleNextButtonClick: () => void
-  getImageId: (url: string) => string;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -26,7 +25,6 @@ const Carousel: React.FC<Props> = ({
   isNextButtonActive,
   hadlePrevButtonClick,
   hadleNextButtonClick,
-  getImageId,
 }) => {
   const carouselWidth = frameSize * actualImageWidth;
   const translateCoords = position * -actualImageWidth;
@@ -47,7 +45,7 @@ const Carousel: React.FC<Props> = ({
           >
             {images.map((image: string) => (
               <li
-                key={getImageId(image)}
+                key={image}
                 className="Carousel__item"
                 style={{
                   flexBasis: `${actualImageWidth}px`,
@@ -55,10 +53,7 @@ const Carousel: React.FC<Props> = ({
               >
                 <img
                   src={image}
-                  alt={`${getImageId(image)}`}
-                  style={{
-                    flexBasis: `${actualImageWidth}px`,
-                  }}
+                  alt={`${image}`}
                   className="Carousel__image"
                 />
               </li>
