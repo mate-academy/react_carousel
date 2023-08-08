@@ -40,6 +40,18 @@ const Carousel: React.FC<Props> = ({
     setFirstVisibleImg(nextVisibleImg);
   };
 
+  const changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeCarousel('frameSize', +e.target.value);
+
+    if ((params.frameSize + firstVisibleImg) > images.length) {
+      if ((images.length - params.frameSize) > 0) {
+        setFirstVisibleImg(images.length - params.frameSize);
+      } else {
+        setFirstVisibleImg(1);
+      }
+    }
+  };
+
   return (
     <div className="Carousel">
       <div className="Carousel__container">
@@ -64,7 +76,7 @@ const Carousel: React.FC<Props> = ({
                 key={image.id}
                 style={{
                   transform: `translateX(${-params.itemWidth * (firstVisibleImg - 1)}px)`,
-                  transition: `${params.animationDuration}ms`,
+                  transition: `transform ${params.animationDuration}ms`,
                 }}
               >
                 <img
@@ -95,21 +107,21 @@ const Carousel: React.FC<Props> = ({
 
       <div className="Carousel__props Props">
         <div className="Props__container">
-          <label htmlFor="itemWidth">Item size: </label>
+          <label htmlFor="itemWidth">Item width: </label>
 
           <input
-            type="range"
+            type="number"
             id="itemWidth"
             name="itemWidth"
-            className="Props__range"
+            className="Props__number"
             min={50}
             max={300}
-            step={1}
+            step={10}
             value={params.itemWidth}
             onChange={(e) => changeCarousel('itemWidth', +e.target.value)}
           />
 
-          <span>{`${params.itemWidth}x${params.itemWidth} px`}</span>
+          <span>{' px'}</span>
         </div>
 
         <div className="Props__container">
@@ -144,7 +156,7 @@ const Carousel: React.FC<Props> = ({
             max={images.length}
             step={1}
             value={params.frameSize}
-            onChange={(e) => changeCarousel('frameSize', +e.target.value)}
+            onChange={changeFrameSize}
           />
         </div>
 
