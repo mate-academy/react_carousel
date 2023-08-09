@@ -19,10 +19,20 @@ const images = [
 
 const imageCount = images.length;
 
-const App: React.FC = () => {
-  const defaultItemWidth = window.innerWidth < 390 ? 50 : 130;
+const calculateDefaultItemWidth = (): number => {
+  let defaultItemWidth = 130;
 
-  const [itemWidth, setItemWidth] = useState(defaultItemWidth);
+  if (window.innerWidth < 500) {
+    defaultItemWidth = 60;
+  } else if (window.innerWidth < 690) {
+    defaultItemWidth = 100;
+  }
+
+  return defaultItemWidth;
+};
+
+const App: React.FC = () => {
+  const [itemWidth, setItemWidth] = useState(calculateDefaultItemWidth);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
