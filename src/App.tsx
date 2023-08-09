@@ -20,7 +20,7 @@ const images = [
 const imageCount = images.length;
 
 const App: React.FC = () => {
-  const defaultItemWidth = window.innerWidth < 390 ? 100 : 130;
+  const defaultItemWidth = window.innerWidth < 390 ? 50 : 130;
 
   const [itemWidth, setItemWidth] = useState(defaultItemWidth);
   const [frameSize, setFrameSize] = useState(3);
