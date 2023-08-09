@@ -108,6 +108,8 @@ const Carousel: React.FC<Props> = ({ source }) => {
             (event) => setItemWidth(+event.currentTarget.value)
           }
           step={10}
+          min={50}
+          max={1000}
         />
 
         <label
@@ -161,6 +163,8 @@ const Carousel: React.FC<Props> = ({ source }) => {
             (event) => setAnimationDuration(+event.currentTarget.value)
           }
           step={500}
+          min={500}
+          max={10000}
         />
       </div>
 
