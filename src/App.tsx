@@ -1,47 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+export const App: React.FC = () => {
+  const images = [
+    '../img/1.png',
+    '../img/2.png',
+    '../img/3.png',
+    '../img/4.png',
+    '../img/5.png',
+    '../img/6.png',
+    '../img/7.png',
+    '../img/8.png',
+    '../img/9.png',
+    '../img/10.png',
+  ];
+  const [step, setStep] = useState(3);
+  const [frameSize, setFrameSize] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [animationDuration, setAnimationDuration] = useState(1000);
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      '../img/1.png',
-      '../img/2.png',
-      '../img/3.png',
-      '../img/4.png',
-      '../img/5.png',
-      '../img/6.png',
-      '../img/7.png',
-      '../img/8.png',
-      '../img/9.png',
-      '../img/10.png',
-    ],
-  };
-
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        {/* <Carousel /> */}
-        <Carousel
-          images={images}
-          step={3}
-          frameSize={3}
-          itemWidth={130}
-          animationDuration={1000}
-          infinite={false}
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
+      <label>
+        Step
+        <input
+          type="text"
+          value={step}
+          onChange={(e) => setStep(+e.target.value)}
         />
-      </div>
-    );
-  }
-}
+      </label>
+      <br />
+      <label>
+        FrameSize
+        <input
+          type="text"
+          value={frameSize}
+          onChange={(e) => setFrameSize(+e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        ItemWidth
+        <input
+          type="text"
+          value={itemWidth}
+          onChange={(e) => setItemWidth(+e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Animation Duration
+        <input
+          type="text"
+          value={animationDuration}
+          onChange={(e) => setAnimationDuration(+e.target.value)}
+        />
+      </label>
+      <br />
 
-export default App;
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        infinite={false}
+      />
+    </div>
+  );
+};

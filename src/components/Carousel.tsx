@@ -33,15 +33,13 @@ export const Carousel: React.FC<Props> = ({
   };
 
   const handlePrev = () => {
-    // console.log(listStyle.margineLeft);
-
     if (!infinite) {
-      if (current > 3) {
+      if (current > step + 1) {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
-          marginLeft: `${current * itemWidth - step * itemWidth}px`,
+          marginLeft: `${(parseInt(prevStyle.marginLeft, 10)) + (step * itemWidth)}px`,
         }));
-        setCurrent(old => old - 3);
+        setCurrent(old => old - frameSize);
       } else {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
@@ -50,24 +48,25 @@ export const Carousel: React.FC<Props> = ({
         setCurrent(0);
       }
     }
+
+    // console.log('handlePrev:', firstLiStyle.marginLeft);
   };
 
   const handleNext = () => {
-    // console.log(listStyle.margineLeft);
-
     if (!infinite) {
-      if (current < images.length - 3) {
+      if (current < images.length - step - 1) {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
-          marginLeft: `${current * itemWidth + step * itemWidth * (-1)}px`,
+          marginLeft: `${parseInt(prevStyle.marginLeft, 10) - (step * itemWidth)}px`,
         }));
-        setCurrent(old => old + 3);
+        setCurrent(old => old + step);
       } else {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
-          marginLeft: `${(images.length - 3) * itemWidth + step * itemWidth * (-1)}px`,
+          marginLeft: `${-(images.length - frameSize) * itemWidth}px`,
         }));
-        setCurrent(0);
+
+        setCurrent((images.length - frameSize));
       }
     }
   };
@@ -92,7 +91,7 @@ export const Carousel: React.FC<Props> = ({
       </ul>
 
       <button type="button" onClick={handlePrev}>Prev</button>
-      <button type="button" onClick={handleNext}>Next</button>
+      <button type="button" data-cy="next" onClick={handleNext}>Next</button>
     </div>
   );
 };
