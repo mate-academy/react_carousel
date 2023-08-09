@@ -45,9 +45,6 @@ const Carousel: React.FC<Props> = ({
 
     setTranslateValue(value);
   };
-  console.log(translateValue, 'transl value');
-  console.log(newTranslateValue, 'new value');
-  console.log(visibleImagesWidth, 'visible');
 
   return (
     <div className="Carousel">
