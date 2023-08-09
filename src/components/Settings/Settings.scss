@@ -1,0 +1,56 @@
+.SlideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 700px;
+  margin: 0 auto 40px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    max-width: 700px;
+    margin: 0 auto 20px;
+  }
+
+  &__width,
+  &__count,
+  &__step,
+  &__animation {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+}
+
+.Slider {
+  display: block;
+  justify-self: flex-start;
+  flex-basis: 10%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  background: #d5c2a6;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 2;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+  }
+
+}
