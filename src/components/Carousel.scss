@@ -1,1 +1,89 @@
-// style go here
+:root {
+  --image-size: 130px;
+  --animation-duration: 1s;
+  --transform-offset: 0;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+img {
+  width: var(--image-size);
+  height: var(--image-size);
+}
+
+.transformed {
+  transform: translateX(var(--transform-offset));
+}
+
+.prev-button,
+.next-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.prev-button {
+  left: 0;
+  &::before {
+    content: "";
+    display: block;
+    margin-right: 5px;
+    width: 8px;
+    height: 8px;
+    border: solid 2px;
+    border-right: none;
+    border-bottom: none;
+    transform: rotate(-45deg);
+  }
+}
+
+.next-button {
+  right: 0;
+  &::after {
+    content: "";
+    display: block;
+    margin-left: 5px;
+    width: 8px;
+    height: 8px;
+    border: solid 2px;
+    border-left: none;
+    border-top: none;
+    transform: rotate(-45deg);
+  }
+}
+
+.Carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: calc(var(--frame-size) * var(--image-size));
+  padding: 0 30px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    transform: translateX(var(--transform-offset));
+    transition: transform var(--animation-duration) ease-out;
+  }
+
+  & li:not(:last-child) img {
+    margin-right: 10px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
