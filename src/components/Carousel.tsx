@@ -34,17 +34,16 @@ export const Carousel: React.FC<Props> = ({
 
   const handlePrev = () => {
     if (!infinite) {
+      setFirstLiStyle(prevStyle => ({
+        ...prevStyle,
+        marginLeft: current > step + 1
+          ? `${(parseInt(prevStyle.marginLeft, 10)) + (step * itemWidth)}px`
+          : '0',
+      }));
+
       if (current > step + 1) {
-        setFirstLiStyle(prevStyle => ({
-          ...prevStyle,
-          marginLeft: `${(parseInt(prevStyle.marginLeft, 10)) + (step * itemWidth)}px`,
-        }));
         setCurrent(old => old - frameSize);
       } else {
-        setFirstLiStyle(prevStyle => ({
-          ...prevStyle,
-          marginLeft: '0',
-        }));
         setCurrent(0);
       }
     }
@@ -73,18 +72,14 @@ export const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <ul className="Carousel__list" style={listStyle}>
         {images.map(image => (
-          image.localeCompare(images[0]) === 0
-            ? (
-              <li key={image} style={firstLiStyle}>
-                <img className="image" style={imageStyle} src={image} alt={`${images.indexOf(image)}`} />
-              </li>
-            )
-            : (
-              <li key={image}>
-                <img className="image" style={imageStyle} src={image} alt={`${images.indexOf(image)}`} />
-              </li>
-            )
-
+          <li
+            key={image}
+            style={image.localeCompare(images[0]) === 0
+              ? firstLiStyle
+              : {}}
+          >
+            <img className="image" style={imageStyle} src={image} alt={`${images.indexOf(image)}`} />
+          </li>
         ))}
       </ul>
 
