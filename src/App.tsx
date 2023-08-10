@@ -8,7 +8,7 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    // infinite: false,
+    infinite: false,
   };
 
   render() {
@@ -53,10 +53,18 @@ class App extends React.Component<{}, State> {
       = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({
         animationDuration: +event.target.value,
       });
-    // const handleInfinite
-    //   = () => this.setState({
-    //     infinite: true,
-    //   });
+    const handleInfinite
+      = () => {
+        if (this.state.infinite === false) {
+          this.setState({
+            infinite: true,
+          });
+        } else {
+          this.setState({
+            infinite: false,
+          });
+        }
+      };
 
     return (
       <div className="App">
@@ -69,7 +77,7 @@ class App extends React.Component<{}, State> {
           frameSize={this.state.frameSize}
           itemWidth={this.state.itemWidth}
           animationDuration={this.state.animationDuration}
-          // infinite={this.state.infinite}
+          infinite={this.state.infinite}
         />
         <div className="input-container">
           <h1>
@@ -92,9 +100,17 @@ class App extends React.Component<{}, State> {
               value={animationDuration}
             />
           </h1>
-          {/* <button type="button" onClick={handleInfinite}>
-            Infinite
-          </button> */}
+          {this.state.infinite === false
+            ? (
+              <button type="button" onClick={handleInfinite}>
+                Infinite - false
+              </button>
+            )
+            : (
+              <button type="button" onClick={handleInfinite}>
+                Infinite - true
+              </button>
+            )}
         </div>
       </div>
     );

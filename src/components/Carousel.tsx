@@ -8,7 +8,7 @@ interface Props {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite: boolean,
+  infinite: boolean,
 }
 
 const Carousel: React.FC<Props> = ({
@@ -17,7 +17,7 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  // infinite,
+  infinite,
 }) => {
   const gap = 20;
   const totalGapValue = gap * (frameSize - 1);
@@ -41,6 +41,10 @@ const Carousel: React.FC<Props> = ({
       value = Math.max(
         translateValue - newTranslateValue, (-extremeTranslatePoint),
       );
+    }
+
+    if (infinite === true && -1 * value >= extremeTranslatePoint) {
+      value = 0;
     }
 
     setTranslateValue(value);
