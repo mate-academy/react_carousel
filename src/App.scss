@@ -14,3 +14,13 @@ ul {
   width: 130px;
   height: 130px;
 }
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  margin-left: 10px;
+}

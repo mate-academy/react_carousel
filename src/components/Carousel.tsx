@@ -48,8 +48,6 @@ export const Carousel: React.FC<Props> = ({
         setCurrent(0);
       }
     }
-
-    // console.log('handlePrev:', firstLiStyle.marginLeft);
   };
 
   const handleNext = () => {
