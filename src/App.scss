@@ -37,4 +37,11 @@ button {
   display: inline-block;
   font-size: 16px;
   margin: 20px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #bbdbbc;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
