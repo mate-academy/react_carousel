@@ -18,7 +18,7 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration = 1000,
 }) => {
   const [offset, setOffset] = useState(0);
-  const imagesLeft = images.length - offset;
+  const maxOffset = images.length - frameSize;
 
   const handlePrev = () => {
     if (offset >= step) {
@@ -29,8 +29,10 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   const handleNext = () => {
-    if (offset + step < images.length - frameSize + 1) {
+    if (offset + step < maxOffset) {
       setOffset(prevOffset => prevOffset + step);
+    } else {
+      setOffset(maxOffset);
     }
   };
 
@@ -65,7 +67,7 @@ const Carousel: React.FC<CarouselProps> = ({
         <button
           type="button"
           onClick={handleNext}
-          className={`next-button ${imagesLeft <= frameSize ? 'disabled' : ''}`}
+          className={`next-button ${offset >= maxOffset ? 'disabled' : ''}`}
         >
           Next
         </button>
