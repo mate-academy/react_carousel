@@ -1,0 +1,20 @@
+.controls {
+  display: flex;
+  justify-content: space;
+  align-items: center;
+  flex-flow: column wrap;
+  margin-bottom: 20px;
+
+  &__item {
+    margin-bottom: 20px;
+  }
+
+  &__infinite {
+    align-self: start;
+  }
+
+  &__width {
+    display: flex;
+    flex-flow: row wrap;
+  }
+}

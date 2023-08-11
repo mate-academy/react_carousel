@@ -1,5 +1,9 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
+import '../styles/blocks/button.scss';
+import '../styles/blocks/controls.scss';
 
 type CarouselProps = {
   images: string[];
@@ -7,7 +11,7 @@ type CarouselProps = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite?: boolean;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -16,13 +20,19 @@ const Carousel: React.FC<CarouselProps> = ({
   itemWidth = 130,
   step = 3,
   animationDuration = 1000,
+  infinite: propInfinite = false,
 }) => {
   const [offset, setOffset] = useState(0);
+  const [localInfinite, setLocalInfinite] = useState(propInfinite);
+  const [dynamicItemWidth, setDynamicItemWidth] = useState<number>(itemWidth);
+  const [inputValue, setInputValue] = useState<number>(itemWidth);
   const maxOffset = images.length - frameSize;
 
   const handlePrev = () => {
     if (offset >= step) {
       setOffset(prevOffset => prevOffset - step);
+    } else if (localInfinite) {
+      setOffset(maxOffset);
     } else {
       setOffset(0);
     }
@@ -31,48 +41,106 @@ const Carousel: React.FC<CarouselProps> = ({
   const handleNext = () => {
     if (offset + step < maxOffset) {
       setOffset(prevOffset => prevOffset + step);
+    } else if (localInfinite) {
+      setOffset(0);
     } else {
       setOffset(maxOffset);
     }
   };
 
+  const MIN_WIDTH = 100;
+  const MAX_WIDTH = 350;
+
+  const updateWidth = () => {
+    if (inputValue < MIN_WIDTH || inputValue > MAX_WIDTH) {
+      alert('Please enter a value between 100 and 350.');
+
+      return;
+    }
+
+    if (inputValue > 0) {
+      setDynamicItemWidth(inputValue);
+    }
+  };
+
   useEffect(() => {
-    const scrollWidth = offset * itemWidth;
+    console.log('useEffect has been triggered!');
+    const scrollWidth = offset * dynamicItemWidth;
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
-    document.documentElement.style.setProperty('--image-size', `${itemWidth}px`);
+    document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
     document.documentElement.style.setProperty('--frame-size', `${frameSize}`);
     document.documentElement.style.setProperty('--animation-duration', `${animationDuration}ms`);
-  }, [offset, itemWidth, frameSize, animationDuration]);
+  }, [offset, dynamicItemWidth, frameSize, animationDuration]);
 
   return (
-    <div className="container">
-      <div className="Carousel">
-        <ul className="Carousel__list transformed">
-          {images.map((imgSrc) => (
-            <li key={imgSrc}>
-              <img src={imgSrc} alt="" />
-            </li>
-          ))}
-        </ul>
-
+    <>
+      <div className="container">
         <button
           type="button"
           onClick={handlePrev}
-          className={`prev-button ${offset === 0 ? 'disabled' : ''}`}
+          className={`button button--prev ${offset === 0 ? 'disabled' : ''}`}
         >
           Prev
         </button>
 
+        <div className="Carousel">
+          <ul className="Carousel__list transformed">
+            {images.map((imgSrc) => (
+              <li key={imgSrc}>
+                <img className="Carousel__image" src={imgSrc} alt="" />
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <button
           type="button"
           onClick={handleNext}
-          className={`next-button ${offset >= maxOffset ? 'disabled' : ''}`}
+          className={`button button--next ${offset >= maxOffset ? 'disabled' : ''}`}
+          data-cy="next"
         >
           Next
         </button>
       </div>
-    </div>
+
+      <div className="container--controls">
+        <div className="controls">
+          <div className="controls__infinite controls__item">
+            <button
+              type="button"
+              className="button"
+              onClick={() => setLocalInfinite(!localInfinite)}
+            >
+              Toggle Infinite Scroll
+            </button>
+          </div>
+
+          <div className="controls__width controls__item">
+            <input
+              className="controls__width"
+              type="number"
+              title="Enter the item width"
+              value={inputValue}
+              min="100"
+              max="350"
+              onChange={(e) => {
+                const newValue = parseInt(e.target.value, 10);
+
+                if (!Number.isNaN(newValue)) {
+                  setInputValue(newValue);
+                }
+              }}
+            />
+
+            <button type="button" className="button" onClick={updateWidth}>
+              Set Width
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+
   );
 };
 
