@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -24,6 +24,14 @@ export const Carousel: React.FC<Props> = ({
     transitionProperty: 'margin-left',
     transitionDuration: `${animationDuration}ms`,
   });
+
+  useEffect(() => {
+    setFirstLiStyle((prev) => ({
+      ...prev,
+      transitionDuration: `${animationDuration}ms`,
+    }));
+  }, [animationDuration]);
+
   const imageStyle = {
     width: `${itemWidth}px`,
     height: `${itemWidth}px`,
@@ -83,8 +91,21 @@ export const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      <button type="button" onClick={handlePrev}>Prev</button>
-      <button type="button" data-cy="next" onClick={handleNext}>Next</button>
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={current === 0}
+      >
+        Prev
+      </button>
+      <button
+        type="button"
+        data-cy="next"
+        onClick={handleNext}
+        disabled={current === images.length - frameSize}
+      >
+        Next
+      </button>
     </div>
   );
 };
