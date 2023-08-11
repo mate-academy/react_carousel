@@ -1,0 +1,17 @@
+.carousel {
+  margin: 0 auto;
+  min-width: fit-content;
+  color: rgb(93, 93, 255);
+  text-align: center;
+  padding: 20px;
+  box-shadow: 2px 4px 10px 5px rgba(99, 81, 0, 0.4);
+  border-radius: 0 0 10px 10px;
+  background: rgba(255, 217, 0, 0.8);
+  &__title {
+    text-align: center;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,15 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  color: antiquewhite;
+  background-color: rgb(120, 120, 250);
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 250px));
+  grid-gap: 20px;
+  justify-content: center;
+}

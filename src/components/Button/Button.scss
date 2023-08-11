@@ -1,0 +1,18 @@
+.button {
+  padding: 10px;
+  font-size: 10px;
+  border-radius: 50%;
+  color: rgba(99, 81, 0, 1);
+  background: #fcfbfb;
+  border: none;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    color: #fcfbfb;
+    background: rgba(99, 81, 0, 0.9);
+    border-radius: 10%;
+  }
+}
+
+[data-cy="prev-button"] {
+  margin-right: 10px;
+}

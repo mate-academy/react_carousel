@@ -1,39 +1,40 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { images } from './components/img/Images';
+import { CarouselSettings } from './components/CarouselSettings';
 
-interface State {
-  images: string[];
-}
+export const App = () => {
+  const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [step, setStep] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
-
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
-      </div>
-    );
-  }
-}
-
-export default App;
+  return (
+    <div className="App">
+      <CarouselSettings
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={infinite}
+        onItemWidthChange={(e) => setItemWidth(parseInt(e.target.value, 10))}
+        onFrameSizeChange={(e) => setFrameSize(parseInt(e.target.value, 10))}
+        onStepChange={(e) => setStep(parseInt(e.target.value, 10))}
+        onAnimationDurationChange={
+          (e) => setAnimationDuration(parseInt(e.target.value, 10))
+        }
+        onInfiniteChange={(e) => setInfinite(e.target.checked)}
+      />
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        infinite={infinite}
+      />
+    </div>
+  );
+};
