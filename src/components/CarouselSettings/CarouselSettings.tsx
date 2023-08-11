@@ -4,7 +4,7 @@ import './CarouselSettings.scss';
 type CarouselSettingsProps = {
   frameSize: number;
   step: number;
-  itemWidth?: number;
+  itemWidth: number;
   animationDuration: number;
   infinite: boolean;
   onItemWidthChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,6 +34,8 @@ export const CarouselSettings: React.FC<CarouselSettingsProps> = ({
           Item Width:
           <input
             type="number"
+            min={100}
+            max={150}
             value={itemWidth}
             onChange={onItemWidthChange}
           />
@@ -41,6 +43,8 @@ export const CarouselSettings: React.FC<CarouselSettingsProps> = ({
         <label>
           Frame Size:
           <input
+            min={1}
+            max={4}
             type="number"
             value={frameSize}
             onChange={onFrameSizeChange}
@@ -50,6 +54,8 @@ export const CarouselSettings: React.FC<CarouselSettingsProps> = ({
           Step:
           <input
             type="number"
+            min={1}
+            max={4}
             value={step}
             onChange={onStepChange}
           />
@@ -58,6 +64,8 @@ export const CarouselSettings: React.FC<CarouselSettingsProps> = ({
           Animation Duration (ms):
           <input
             type="number"
+            min={300}
+            max={1500}
             value={animationDuration}
             onChange={onAnimationDurationChange}
           />
@@ -73,8 +81,4 @@ export const CarouselSettings: React.FC<CarouselSettingsProps> = ({
       </div>
     </div>
   );
-};
-
-CarouselSettings.defaultProps = {
-  itemWidth: 130,
 };

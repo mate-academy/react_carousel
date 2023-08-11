@@ -5,11 +5,11 @@ import { CarouselItem } from '../CarouselItem';
 
 type CarouselProps = {
   images: string[];
-  step?: number;
-  frameSize?: number;
-  itemWidth?: number;
-  animationDuration?: number;
-  infinite?: boolean;
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 export const Carousel: React.FC<CarouselProps> = ({
@@ -24,17 +24,24 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   const prevOnClick = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - step);
+      setCurrentIndex(Math.max(currentIndex - step, 0));
     }
   };
 
   const nextOnClick = () => {
-    if (currentIndex < images.length - frameSize) {
-      setCurrentIndex(currentIndex + step);
+    const maxIndex = images.length - frameSize;
+
+    if (currentIndex < maxIndex) {
+      setCurrentIndex(Math.min(currentIndex + step, maxIndex));
     } else if (infinite) {
       setCurrentIndex(0);
     }
   };
+
+  const isPrevButtonDisabled
+    = currentIndex === 0;
+  const isNextButtonDisabled
+    = currentIndex >= images.length - frameSize && !infinite;
 
   return (
     <div className="carousel">
@@ -52,26 +59,17 @@ export const Carousel: React.FC<CarouselProps> = ({
         <Button
           label="<<"
           onClick={prevOnClick}
-          disabled={currentIndex === 0}
+          disabled={isPrevButtonDisabled}
           data-cy="prev-button"
         />
 
         <Button
           label=">>"
           onClick={nextOnClick}
-          disabled={currentIndex >= images.length - frameSize && !infinite}
+          disabled={isNextButtonDisabled}
           data-cy="next-button"
         />
       </div>
     </div>
   );
-};
-
-// Define default props
-Carousel.defaultProps = {
-  step: 3,
-  frameSize: 3,
-  infinite: false,
-  itemWidth: 130,
-  animationDuration: 1000,
 };
