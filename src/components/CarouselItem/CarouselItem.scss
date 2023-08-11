@@ -1,0 +1,11 @@
+.gallery {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto 10px;
+
+  &__list {
+    display: flex;
+    margin: 0 auto;
+  }
+}
