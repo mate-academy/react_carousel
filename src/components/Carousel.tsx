@@ -32,6 +32,7 @@ const Carousel: React.FC<Props> = ({ img }) => {
     const newImgWidth = parseInt(event.target.value, 10);
 
     setImgWidth(newImgWidth);
+    scrollContainer(0);
 
     const carouselImgElements = document.querySelectorAll('.Carousel__img');
 
