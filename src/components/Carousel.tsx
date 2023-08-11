@@ -67,11 +67,9 @@ const Carousel: React.FC<Props> = ({ img }) => {
     setAnimDuration(newAnimDuration);
 
     const carouselList = document.querySelector('.Carousel__list');
+    const carouselListCopy = carouselList as HTMLElement;
 
-    carouselList?.classList.add('animated');
-    setTimeout(() => {
-      carouselList?.classList.remove('animated');
-    }, newAnimDuration);
+    carouselListCopy.style.transition = `transform ${newAnimDuration}ms ease-in`;
   };
 
   return (
