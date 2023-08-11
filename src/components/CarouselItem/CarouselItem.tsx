@@ -34,7 +34,7 @@ export const CarouselItem: React.FC<Props> = ({
           >
             <img
               style={{ width: `${itemWidth}px` }}
-              src={`../img/${image}`}
+              src={`/img/${image}`}
               alt={`Imagin-${image}`}
             />
           </li>
