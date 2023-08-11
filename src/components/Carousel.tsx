@@ -44,12 +44,12 @@ export const Carousel: React.FC<Props> = ({
     if (!infinite) {
       setFirstLiStyle(prevStyle => ({
         ...prevStyle,
-        marginLeft: current > step - 1
+        marginLeft: current > step
           ? `${(parseInt(prevStyle.marginLeft, 10)) + (step * itemWidth)}px`
           : '0',
       }));
 
-      if (current > step) {
+      if (current > step + 1) {
         setCurrent(old => old - step);
       } else {
         setCurrent(0);
@@ -59,7 +59,7 @@ export const Carousel: React.FC<Props> = ({
 
   const handleNext = () => {
     if (!infinite) {
-      if (current < images.length - step) {
+      if (current + step < images.length - frameSize) {
         setFirstLiStyle(prevStyle => ({
           ...prevStyle,
           marginLeft: `${parseInt(prevStyle.marginLeft, 10) - (step * itemWidth)}px`,
@@ -71,7 +71,7 @@ export const Carousel: React.FC<Props> = ({
           marginLeft: `${-(images.length - frameSize) * itemWidth}px`,
         }));
 
-        setCurrent((images.length - frameSize - 1));
+        setCurrent((images.length - frameSize + 1));
       }
     }
   };
@@ -102,7 +102,7 @@ export const Carousel: React.FC<Props> = ({
         type="button"
         data-cy="next"
         onClick={handleNext}
-        disabled={current === images.length - frameSize}
+        disabled={current === images.length - frameSize + 1}
       >
         Next
       </button>
