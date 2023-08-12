@@ -30,33 +30,10 @@ const Carousel: React.FC<Props> = ({
   const allImagesWidth = (10 * itemWidth) + (9 * gap);
   const extremeTranslatePoint = allImagesWidth - visibleImagesWidth;
 
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   const currentButton = event.currentTarget;
-  //   const currentButtonClasslist = currentButton.classList;
-  //   let value = 0;
-
-  //   if (currentButtonClasslist.contains('button-prev')) {
-  //     value = Math.min(translateValue + newTranslateValue, 0);
-  //   } else if (currentButtonClasslist.contains('button-next')) {
-  //     value = Math.max(
-  //       translateValue - newTranslateValue, (-extremeTranslatePoint),
-  //     );
-  //   }
-
-  //   if (infinite && -1 * value >= extremeTranslatePoint) {
-  //     value = 0;
-  //   }
-
-  //   setTranslateValue(value);
-  // };
-
   const handlePrev = () => {
     let value = 0;
 
     value = Math.min(translateValue + newTranslateValue, 0);
-    // if (infinite && -1 * value >= extremeTranslatePoint) {
-    //   value = 0;
-    // }
 
     setTranslateValue(value);
   };
@@ -86,37 +63,29 @@ const Carousel: React.FC<Props> = ({
         >
           <div className="button-prev__text">&lt;</div>
         </button>
-        <ul className="Carousel__list" style={{ width: `${visibleImagesWidth}px` }}>
-          <div
-            className="Carousel__item-wrapper"
-            style={{
-              transform: `translateX(${translateValue}px)`,
-              transition: `transform ${animationDuration}ms ease`,
-              gap: `${gap}px`,
-            }}
-          >
-            {images.map(image => (
-              <li
-                className="Carousel__item"
-                key={image}
-                style={{
-                  transform: `translateX(${translateValue}px)`,
-                  transition: `transform ${animationDuration}ms ease`,
-                }}
-                // style={{ height: `${itemWidth}px` }}
-              >
-                <img
-                  src={image}
-                  alt={`${images.indexOf(image) + 1}`}
-                  width={itemWidth}
-                  // style={{
-                  //   width: `${itemWidth}px`,
-                  //   height: `${itemWidth}px`,
-                  // }}
-                />
-              </li>
-            ))}
-          </div>
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${visibleImagesWidth}px`,
+            gap: `${gap}px`,
+          }}
+        >
+          {images.map(image => (
+            <li
+              className="Carousel__item"
+              key={image}
+              style={{
+                transform: `translateX(${translateValue}px)`,
+                transition: `transform ${animationDuration}ms ease`,
+              }}
+            >
+              <img
+                src={image}
+                alt={`${images.indexOf(image) + 1}`}
+                width={itemWidth}
+              />
+            </li>
+          ))}
         </ul>
         <button
           className={cn('button-next', {

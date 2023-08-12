@@ -59,12 +59,9 @@ body {
   }
 
   &__list {
+    display: flex;
     padding: 0;
     overflow: hidden;
     list-style: none;
-  }
-
-  &__item-wrapper {
-    display: flex;
   }
 }

@@ -32,26 +32,14 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  // handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const {
-  //     name, value, checked, type,
-  //   } = event.target;
-
-  //   this.setState({ [name]: type === 'checkbox' ? checked : value });
-  // };
-
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       name, value, checked, type,
     } = event.target;
 
-    const partialState = {
-      [name]: type === 'checkbox' ? checked : value,
-    };
-
     this.setState(prevState => ({
       ...prevState,
-      ...partialState,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -59,35 +47,6 @@ class App extends React.Component<{}, State> {
     const {
       images, step, frameSize, itemWidth, animationDuration, infinite,
     } = this.state;
-
-    // const handleStep
-    //   = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({
-    //     step: +event.target.value,
-    //   });
-    // const handleFrameSize
-    //   = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({
-    //     frameSize: +event.target.value,
-    //   });
-    // const handleItemWidth
-    //   = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({
-    //     itemWidth: +event.target.value,
-    //   });
-    // const handleAnimationDuration
-    //   = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({
-    //     animationDuration: +event.target.value,
-    //   });
-    // const handleInfinite
-    //   = () => {
-    //     if (this.state.infinite === false) {
-    //       this.setState({
-    //         infinite: true,
-    //       });
-    //     } else {
-    //       this.setState({
-    //         infinite: false,
-    //       });
-    //     }
-    //   };
 
     return (
       <div className="App">
@@ -106,20 +65,20 @@ class App extends React.Component<{}, State> {
           <div className="input-container__item">
             <label htmlFor="itemId">item - width </label>
             <input
-              name={`${itemWidth}`}
+              name="itemWidth"
               id="itemId"
               type="number"
               min="100"
-              max="200"
+              max="220"
               onChange={this.handleChange}
               value={itemWidth}
             />
           </div>
           <div className="input-container__item">
-            <label htmlFor="frameSizeId">frame-size</label>
+            <label htmlFor="frameId">frame-size</label>
             <input
-              name={`${frameSize}`}
-              id="frameSizeId"
+              name="frameSize"
+              id="frameId"
               type="number"
               min="1"
               max="10"
@@ -130,7 +89,7 @@ class App extends React.Component<{}, State> {
           <div className="input-container__item">
             <label htmlFor="stepId">step</label>
             <input
-              name={`${step}`}
+              name="step"
               id="stepId"
               type="number"
               min="1"
@@ -142,7 +101,7 @@ class App extends React.Component<{}, State> {
           <div className="input-container__item">
             <label htmlFor="animationDurationId">animation-duration</label>
             <input
-              name={`${animationDuration}`}
+              name="animationDuration"
               id="animationDurationId"
               type="number"
               min="100"
@@ -155,7 +114,7 @@ class App extends React.Component<{}, State> {
           <div className="input-container__item">
             <label htmlFor="infiniteId">Infinite</label>
             <input
-              name={`${infinite}`}
+              name="infinite"
               id="infiniteId"
               type="checkbox"
               onChange={this.handleChange}
