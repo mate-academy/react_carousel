@@ -1,3 +1,9 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .Carousel__container {
   overflow: hidden;
   width: 390px;
@@ -10,13 +16,14 @@
 
 .Carousel__control {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  min-width: 200px;
 }
 
 .Carousel__btn {
   box-sizing: border-box;
 
-  padding: 10px 30px;
+  padding: 10px 20px;
 
   border: 0;
   cursor: pointer;
@@ -32,10 +39,12 @@
 
   &_prev {
     border-radius: 5px 30px;
+    margin-right: 5px;
   }
 
   &_next {
     border-radius: 30px 5px;
+    margin-left: 5px;
   }
 
   &:hover {
@@ -45,6 +54,7 @@
 
 .Carousel__inputs {
   margin-top: 15px;
+  min-width: 200px;
 }
 
 .Carousel__label {
@@ -72,7 +82,6 @@
   }
 
   &:focus,
-
   :hover {
     border: 2px solid transparent;
     background-color: #6502bc;
