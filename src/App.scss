@@ -1,47 +1,42 @@
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+
+* {
+  box-sizing: border-box;
 }
 
-.Carousel__list {
-  width: 260px;
-  overflow: hidden;
-  display: flex;
-  border: 2px solid #4caf50;
-  margin-top: 20px;
+html {
+  font-family: "Lilita One", cursive;
 }
 
-.image {
-  width: 130px;
-  height: 130px;
-}
-
-.inputs {
+.App {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
+  justify-content: center;
+  align-items: center;
 
-input {
-  margin-left: 10px;
-}
+  &__setting {
+    margin: 40px 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
 
-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 20px;
-  cursor: pointer;
+  &__label {
+    font-size: 16px;
+  }
 
-  &:disabled {
-    background-color: #bbdbbc;
-    cursor: not-allowed;
-    pointer-events: none;
+  &__input {
+    width: 70px;
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    &--checkbox {
+      width: 15px;
+      transform: translateY(3px);
+    }
   }
 }

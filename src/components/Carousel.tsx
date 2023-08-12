@@ -1,111 +1,122 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import cn from 'classnames';
 import './Carousel.scss';
 
 type Props = {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  isInfinite: boolean;
+  translate: number;
+  onTranslate: React.Dispatch<React.SetStateAction<number>>;
+  onSlideIndex: (move: string) => void;
 };
 
 export const Carousel: React.FC<Props> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
-  infinite = false,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  isInfinite,
+  translate,
+  onTranslate,
+  onSlideIndex,
 }) => {
-  const [current, setCurrent] = useState(0);
-  const [firstLiStyle, setFirstLiStyle] = useState({
-    marginLeft: '0',
-    transitionProperty: 'margin-left',
-    transitionDuration: `${animationDuration}ms`,
-  });
+  const maxTranslate = (images.length - frameSize) * itemWidth;
+  const minTranslate = 0;
+  const disableForward = translate === maxTranslate && !isInfinite;
+  const disableBack = translate === minTranslate && !isInfinite;
 
-  useEffect(() => {
-    setFirstLiStyle((prev) => ({
-      ...prev,
-      transitionDuration: `${animationDuration}ms`,
-    }));
-  }, [animationDuration]);
+  const moveForward = () => {
+    if (isInfinite && translate === maxTranslate) {
+      onTranslate(minTranslate);
+      onSlideIndex('forward');
 
-  const imageStyle = {
-    width: `${itemWidth}px`,
-    height: `${itemWidth}px`,
-  };
-  const listStyle = {
-    width: `${frameSize * itemWidth}px`,
-  };
-
-  const handlePrev = () => {
-    if (!infinite) {
-      setFirstLiStyle(prevStyle => ({
-        ...prevStyle,
-        marginLeft: current > step
-          ? `${(parseInt(prevStyle.marginLeft, 10)) + (step * itemWidth)}px`
-          : '0',
-      }));
-
-      if (current > step + 1) {
-        setCurrent(old => old - step);
-      } else {
-        setCurrent(0);
-      }
+      return;
     }
+
+    const newTranslate = translate + (step * itemWidth) > maxTranslate
+      ? maxTranslate
+      : translate + (step * itemWidth);
+
+    onTranslate(newTranslate);
+
+    onSlideIndex('forward');
   };
 
-  const handleNext = () => {
-    if (!infinite) {
-      if (current + step < images.length - frameSize) {
-        setFirstLiStyle(prevStyle => ({
-          ...prevStyle,
-          marginLeft: `${parseInt(prevStyle.marginLeft, 10) - (step * itemWidth)}px`,
-        }));
-        setCurrent(old => old + step);
-      } else {
-        setFirstLiStyle(prevStyle => ({
-          ...prevStyle,
-          marginLeft: `${-(images.length - frameSize) * itemWidth}px`,
-        }));
+  const moveBack = () => {
+    if (isInfinite && translate === minTranslate) {
+      onTranslate(maxTranslate);
+      onSlideIndex('back');
 
-        setCurrent((images.length - frameSize + 1));
-      }
+      return;
     }
+
+    const newTranslate = translate - (step * itemWidth) <= minTranslate
+      ? minTranslate
+      : translate - (step * itemWidth);
+
+    onTranslate(newTranslate);
+
+    onSlideIndex('back');
   };
 
   return (
-    <div className="Carousel">
-      <ul className="Carousel__list" style={listStyle}>
-        {images.map(image => (
-          <li
-            key={image}
-            style={image.localeCompare(images[0]) === 0
-              ? firstLiStyle
-              : {}}
-          >
-            <img className="image" style={imageStyle} src={image} alt={`${images.indexOf(image)}`} />
-          </li>
-        ))}
-      </ul>
+    <div
+      className="Carousel"
+      style={{ width: `${frameSize * itemWidth}px`, transition: `${animationDuration}ms all` }}
+    >
+      <div className="Carousel__container">
+        <ul
+          className="Carousel__list"
+          style={{ transition: `${animationDuration}ms all`, transform: `translateX(-${translate}px)` }}
+        >
+          {images.map((image, index) => {
+            return (
+              <li key={image}>
+                <img
+                  width={itemWidth}
+                  src={image}
+                  alt={`${index + 1}`}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-      <button
-        type="button"
-        onClick={handlePrev}
-        disabled={current === 0}
-      >
-        Prev
-      </button>
-      <button
-        type="button"
-        data-cy="next"
-        onClick={handleNext}
-        disabled={current === images.length - frameSize + 1}
-      >
-        Next
-      </button>
+      <div className="Carousel__buttons">
+        <button
+          style={{ transition: `${animationDuration}ms all` }}
+          disabled={disableBack}
+          className={cn(
+            'Carousel__button',
+            { 'Carousel__button--disabled': disableBack },
+          )}
+          type="button"
+          onClick={moveBack}
+        >
+          Prev
+
+        </button>
+
+        <button
+          data-cy="next"
+          style={{ transition: `${animationDuration}ms all` }}
+          disabled={disableForward}
+          className={cn(
+            'Carousel__button',
+            { 'Carousel__button--disabled': disableForward },
+          )}
+          type="button"
+          onClick={moveForward}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
