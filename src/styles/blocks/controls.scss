@@ -11,19 +11,22 @@
   }
 
   &__infinite {
-    align-self: start;
+    display: flex;
+    // align-self: start;
+    justify-content: center;
   }
 
   &__width {
     display: flex;
-    flex-flow: row wrap;
+    // flex-flow: row wrap;
+    align-content: center;
   }
 
   &__animation {
     display: flex;
   }
-}
 
-// button of controls have to have same size,
-// the inputs also
-// add classes for control buttons
+  &__step {
+    display: flex;
+  }
+}

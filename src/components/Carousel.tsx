@@ -32,11 +32,14 @@ const Carousel: React.FC<CarouselProps> = ({
   const [dynamicAnimationDuration, setDynamicAnimationDuration]
     = useState<number>(animationDuration);
 
+  const [inputStep, setInputStep] = useState<string>(step.toString());
+  const [localStep, setLocalStep] = useState<number>(step);
+
   const maxOffset = images.length - frameSize;
 
   const handlePrev = () => {
-    if (offset >= step) {
-      setOffset(prevOffset => prevOffset - step);
+    if (offset >= localStep) {
+      setOffset(prevOffset => prevOffset - localStep);
     } else if (localInfinite) {
       setOffset(maxOffset);
     } else {
@@ -45,8 +48,8 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   const handleNext = () => {
-    if (offset + step < maxOffset) {
-      setOffset(prevOffset => prevOffset + step);
+    if (offset + localStep < maxOffset) {
+      setOffset(prevOffset => prevOffset + localStep);
     } else if (localInfinite) {
       setOffset(0);
     } else {
@@ -72,6 +75,19 @@ const Carousel: React.FC<CarouselProps> = ({
   const updateAnimationDuration = () => {
     if (inputAnimationDuration > 0) {
       setDynamicAnimationDuration(inputAnimationDuration);
+    }
+  };
+
+  // prideti safeguards min max values
+
+  const updateStep = () => {
+    const newStep = parseInt(inputStep, 10);
+
+    if (!Number.isNaN(newStep) && newStep > 0 && newStep <= images.length) {
+      setLocalStep(newStep);
+    } else {
+      alert('Please enter a valid step!');
+      setInputStep(localStep.toString());
     }
   };
 
@@ -126,7 +142,7 @@ const Carousel: React.FC<CarouselProps> = ({
           <div className="controls__infinite controls__item">
             <button
               type="button"
-              className="button"
+              className={`button button--controls ${localInfinite ? 'button--active' : ''}`}
               onClick={() => setLocalInfinite(!localInfinite)}
             >
               Toggle Infinite Scroll
@@ -150,7 +166,11 @@ const Carousel: React.FC<CarouselProps> = ({
               }}
             />
 
-            <button type="button" className="button" onClick={updateWidth}>
+            <button
+              type="button"
+              className="button button--controls"
+              onClick={updateWidth}
+            >
               Set Width
             </button>
           </div>
@@ -166,10 +186,28 @@ const Carousel: React.FC<CarouselProps> = ({
             />
             <button
               type="button"
-              className="button"
+              className="button button--controls"
               onClick={updateAnimationDuration}
             >
               Set Animation Duration
+            </button>
+          </div>
+
+          <div className="controls__item controls__step">
+            <input
+              type="number"
+              value={inputStep}
+              onChange={(e) => setInputStep(e.target.value)}
+              placeholder="Step"
+              min="1"
+            />
+
+            <button
+              type="button"
+              className="button button--controls"
+              onClick={updateStep}
+            >
+              Set Scroll Step
             </button>
           </div>
         </div>

@@ -43,6 +43,17 @@
     }
   }
 
+  &--active {
+    background-color: #2a3fb8ee;
+    color: white;
+  }
+
+  &--controls {
+    width: 200px;
+    height: 40px;
+
+  }
+
   &:hover {
     background-color: #2a3fb8ee;
     color: white;
@@ -51,4 +62,12 @@
   &:active {
     transform: scale(1.2);
   }
+}
+
+// input {
+//   // height: 40px;
+// }
+
+input {
+  margin-right: 5px;
 }

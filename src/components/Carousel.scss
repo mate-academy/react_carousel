@@ -31,17 +31,13 @@
   & li:not(:last-child) img {
     margin-right: 10px;
   }
-
-  // &__controls {
-  //   align-items: flex-start;
-  // }
 }
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row; // Stack elements vertically
+  flex-direction: row;
   height: 100%;
   gap: 10px;
 }
