@@ -1,1 +1,42 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Lilita One", cursive;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__setting {
+    margin: 40px 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 16px;
+  }
+
+  &__input {
+    width: 70px;
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+
+    &--checkbox {
+      width: 15px;
+      transform: translateY(3px);
+    }
+  }
+}
