@@ -26,6 +26,12 @@ const Carousel: React.FC<CarouselProps> = ({
   const [localInfinite, setLocalInfinite] = useState(propInfinite);
   const [dynamicItemWidth, setDynamicItemWidth] = useState<number>(itemWidth);
   const [inputValue, setInputValue] = useState<number>(itemWidth);
+  const [inputAnimationDuration, setInputAnimationDuration]
+    = useState<number>(animationDuration);
+
+  const [dynamicAnimationDuration, setDynamicAnimationDuration]
+    = useState<number>(animationDuration);
+
   const maxOffset = images.length - frameSize;
 
   const handlePrev = () => {
@@ -63,6 +69,12 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
+  const updateAnimationDuration = () => {
+    if (inputAnimationDuration > 0) {
+      setDynamicAnimationDuration(inputAnimationDuration);
+    }
+  };
+
   useEffect(() => {
     console.log('useEffect has been triggered!');
     const scrollWidth = offset * dynamicItemWidth;
@@ -70,8 +82,13 @@ const Carousel: React.FC<CarouselProps> = ({
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
     document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
     document.documentElement.style.setProperty('--frame-size', `${frameSize}`);
-    document.documentElement.style.setProperty('--animation-duration', `${animationDuration}ms`);
-  }, [offset, dynamicItemWidth, frameSize, animationDuration]);
+    document.documentElement.style.setProperty(
+      '--animation-duration', `${animationDuration}ms`,
+    );
+    document.documentElement.style.setProperty(
+      '--animation-duration', `${dynamicAnimationDuration}ms`,
+    );
+  }, [offset, dynamicItemWidth, frameSize, dynamicAnimationDuration]);
 
   return (
     <>
@@ -135,6 +152,24 @@ const Carousel: React.FC<CarouselProps> = ({
 
             <button type="button" className="button" onClick={updateWidth}>
               Set Width
+            </button>
+          </div>
+
+          <div className="controls__item controls__animation">
+            <input
+              type="number"
+              value={inputAnimationDuration}
+              onChange={
+                (e) => setInputAnimationDuration(Number(e.target.value))
+              }
+              placeholder="Enter duration in ms"
+            />
+            <button
+              type="button"
+              className="button"
+              onClick={updateAnimationDuration}
+            >
+              Set Animation Duration
             </button>
           </div>
         </div>
