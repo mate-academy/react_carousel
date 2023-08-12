@@ -30,19 +30,43 @@ const Carousel: React.FC<Props> = ({
   const allImagesWidth = (10 * itemWidth) + (9 * gap);
   const extremeTranslatePoint = allImagesWidth - visibleImagesWidth;
 
-  const handleeClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const currentButton = event.currentTarget;
-    const currentButtonClasslist = currentButton.classList;
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   const currentButton = event.currentTarget;
+  //   const currentButtonClasslist = currentButton.classList;
+  //   let value = 0;
+
+  //   if (currentButtonClasslist.contains('button-prev')) {
+  //     value = Math.min(translateValue + newTranslateValue, 0);
+  //   } else if (currentButtonClasslist.contains('button-next')) {
+  //     value = Math.max(
+  //       translateValue - newTranslateValue, (-extremeTranslatePoint),
+  //     );
+  //   }
+
+  //   if (infinite && -1 * value >= extremeTranslatePoint) {
+  //     value = 0;
+  //   }
+
+  //   setTranslateValue(value);
+  // };
+
+  const handlePrev = () => {
     let value = 0;
 
-    if (currentButtonClasslist.contains('button-prev')) {
-      value = Math.min(translateValue + newTranslateValue, 0);
-    } else if (currentButtonClasslist.contains('button-next')) {
-      value = Math.max(
-        translateValue - newTranslateValue, (-extremeTranslatePoint),
-      );
-    }
+    value = Math.min(translateValue + newTranslateValue, 0);
+    // if (infinite && -1 * value >= extremeTranslatePoint) {
+    //   value = 0;
+    // }
 
+    setTranslateValue(value);
+  };
+
+  const handleRight = () => {
+    let value = 0;
+
+    value = Math.max(
+      translateValue - newTranslateValue, (-extremeTranslatePoint),
+    );
     if (infinite && -1 * value >= extremeTranslatePoint) {
       value = 0;
     }
@@ -58,7 +82,7 @@ const Carousel: React.FC<Props> = ({
             'button-prev__disabled': translateValue === 0,
           })}
           type="button"
-          onClick={handleeClick}
+          onClick={handlePrev}
         >
           <div className="button-prev__text">&lt;</div>
         </button>
@@ -75,15 +99,20 @@ const Carousel: React.FC<Props> = ({
               <li
                 className="Carousel__item"
                 key={image}
-                style={{ height: `${itemWidth}px` }}
+                style={{
+                  transform: `translateX(${translateValue}px)`,
+                  transition: `transform ${animationDuration}ms ease`,
+                }}
+                // style={{ height: `${itemWidth}px` }}
               >
                 <img
                   src={image}
                   alt={`${images.indexOf(image) + 1}`}
-                  style={{
-                    width: `${itemWidth}px`,
-                    height: `${itemWidth}px`,
-                  }}
+                  width={itemWidth}
+                  // style={{
+                  //   width: `${itemWidth}px`,
+                  //   height: `${itemWidth}px`,
+                  // }}
                 />
               </li>
             ))}
@@ -95,7 +124,7 @@ const Carousel: React.FC<Props> = ({
           })}
           type="button"
           data-cy="next"
-          onClick={handleeClick}
+          onClick={handleRight}
         >
           <div className="button-next__text">&gt;</div>
         </button>
