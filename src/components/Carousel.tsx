@@ -20,35 +20,34 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const gap = 20;
-  const totalGapValue = gap * (frameSize - 1);
-  const visibleImagesWidth = itemWidth * frameSize + totalGapValue;
-
+  const visibleImagesWidth = itemWidth * frameSize + ((frameSize - 1) * gap);
   const [translateValue, setTranslateValue] = useState(0);
-
   const newTranslateValue = step * (itemWidth + gap);
-
-  const allImagesWidth = (10 * itemWidth) + (9 * gap);
-  const extremeTranslatePoint = allImagesWidth - visibleImagesWidth;
+  const extremeTranslatePoint
+  = -(itemWidth + gap) * (10 - frameSize);
 
   const handlePrev = () => {
-    let value = 0;
+    setTranslateValue(
+      translateValue + newTranslateValue >= 0
+        ? 0
+        : prevPos => prevPos + newTranslateValue,
+    );
 
-    value = Math.min(translateValue + newTranslateValue, 0);
-
-    setTranslateValue(value);
+    if (infinite && translateValue === 0) {
+      setTranslateValue(extremeTranslatePoint);
+    }
   };
 
-  const handleRight = () => {
-    let value = 0;
-
-    value = Math.max(
-      translateValue - newTranslateValue, (-extremeTranslatePoint),
+  const handleNext = () => {
+    setTranslateValue(
+      translateValue - newTranslateValue <= extremeTranslatePoint
+        ? extremeTranslatePoint
+        : prevPos => prevPos - newTranslateValue,
     );
-    if (infinite && -1 * value >= extremeTranslatePoint) {
-      value = 0;
-    }
 
-    setTranslateValue(value);
+    if (infinite && translateValue === extremeTranslatePoint) {
+      setTranslateValue(0);
+    }
   };
 
   return (
@@ -56,7 +55,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__container">
         <button
           className={cn('button-prev', {
-            'button-prev__disabled': translateValue === 0,
+            'button-prev__disabled': !infinite && translateValue === 0,
           })}
           type="button"
           onClick={handlePrev}
@@ -89,11 +88,12 @@ const Carousel: React.FC<Props> = ({
         </ul>
         <button
           className={cn('button-next', {
-            'button-next__disabled': translateValue === -extremeTranslatePoint,
+            'button-next__disabled': !infinite
+            && translateValue === extremeTranslatePoint,
           })}
           type="button"
           data-cy="next"
-          onClick={handleRight}
+          onClick={handleNext}
         >
           <div className="button-next__text">&gt;</div>
         </button>
