@@ -1,9 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import './Carousel.scss';
-import '../styles/blocks/button.scss';
-import '../styles/blocks/controls.scss';
+import '../styles/main.scss';
 
 type CarouselProps = {
   images: string[];
@@ -16,11 +14,11 @@ type CarouselProps = {
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  frameSize = 3,
-  itemWidth = 130,
-  step = 3,
-  animationDuration = 1000,
-  infinite: propInfinite = false,
+  frameSize,
+  itemWidth,
+  step,
+  animationDuration,
+  infinite: propInfinite,
 }) => {
   const [offset, setOffset] = useState(0);
   const [localInfinite, setLocalInfinite] = useState(propInfinite);
@@ -35,7 +33,11 @@ const Carousel: React.FC<CarouselProps> = ({
   const [inputStep, setInputStep] = useState<string>(step.toString());
   const [localStep, setLocalStep] = useState<number>(step);
 
-  const maxOffset = images.length - frameSize;
+  const [inputFrameSize, setInputFrameSize]
+    = useState<string>(frameSize.toString());
+  const [localFrameSize, setLocalFrameSize] = useState<number>(frameSize);
+
+  const maxOffset = images.length - localFrameSize;
 
   const handlePrev = () => {
     if (offset >= localStep) {
@@ -91,20 +93,35 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
+  // ???????????
+  // type checking needed
+
+  const updateFrameSize = () => {
+    const newFrameSize = parseInt(inputFrameSize, 10);
+
+    if (newFrameSize >= 1 && newFrameSize <= images.length) {
+      setLocalFrameSize(newFrameSize);
+    } else {
+      alert(
+        'Invalid frame size. Must be between 1 and the total number of images.',
+      );
+    }
+  };
+
   useEffect(() => {
-    console.log('useEffect has been triggered!');
+    // console.log('useEffect has been triggered!');
     const scrollWidth = offset * dynamicItemWidth;
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
     document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
-    document.documentElement.style.setProperty('--frame-size', `${frameSize}`);
+    document.documentElement.style.setProperty('--frame-size', `${localFrameSize}`);
     document.documentElement.style.setProperty(
       '--animation-duration', `${animationDuration}ms`,
     );
     document.documentElement.style.setProperty(
       '--animation-duration', `${dynamicAnimationDuration}ms`,
     );
-  }, [offset, dynamicItemWidth, frameSize, dynamicAnimationDuration]);
+  }, [offset, dynamicItemWidth, localFrameSize, dynamicAnimationDuration]);
 
   return (
     <>
@@ -208,6 +225,22 @@ const Carousel: React.FC<CarouselProps> = ({
               onClick={updateStep}
             >
               Set Scroll Step
+            </button>
+          </div>
+
+          <div className="controls__frameSize controls__item">
+            <input
+              type="number"
+              title="Enter the frame size"
+              value={inputFrameSize}
+              onChange={(e) => setInputFrameSize(e.target.value)}
+            />
+            <button
+              type="button"
+              className="button button--controls"
+              onClick={updateFrameSize}
+            >
+              Set Frame Size
             </button>
           </div>
         </div>

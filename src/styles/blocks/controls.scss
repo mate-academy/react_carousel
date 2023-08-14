@@ -10,23 +10,12 @@
     width: 350px;
   }
 
-  &__infinite {
+  &__infinite,
+  &__width,
+  &__animation,
+  &__step,
+  &__frameSize {
     display: flex;
-    // align-self: start;
     justify-content: center;
-  }
-
-  &__width {
-    display: flex;
-    // flex-flow: row wrap;
-    align-content: center;
-  }
-
-  &__animation {
-    display: flex;
-  }
-
-  &__step {
-    display: flex;
   }
 }
