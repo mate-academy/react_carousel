@@ -1,1 +1,41 @@
-// style go here
+.Carousel {
+  display: flex;
+
+  &__list {
+    padding: 0;
+  }
+
+  &__img {
+    margin-right: 10px;
+    overflow: hidden;
+    // transition: all 1000ms ease-out;
+  }
+
+  &__arrow {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+
+    &--left {
+      margin-right: 15px;
+      &::before {
+        content: '\2190';
+        margin-right: 10px;
+      }
+    }
+
+    &--right {
+      margin-left: 5px;
+      &::after {
+        content: '\2192';
+        margin-left: 10px;
+      }
+    }
+  }
+}
