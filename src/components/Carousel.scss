@@ -19,6 +19,7 @@
   &__list {
     display: flex;
     list-style: none;
+    padding: 0;
     transform: translateX(var(--transform-offset));
     transition: transform var(--animation-duration) ease-out;
   }

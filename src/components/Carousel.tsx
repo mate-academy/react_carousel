@@ -37,7 +37,7 @@ const Carousel: React.FC<CarouselProps> = ({
     = useState<string>(frameSize.toString());
   const [localFrameSize, setLocalFrameSize] = useState<number>(frameSize);
 
-  const maxOffset = images.length - localFrameSize;
+  const maxOffset = images.length - localFrameSize + 1;
 
   const handlePrev = () => {
     if (offset >= localStep) {
@@ -110,7 +110,7 @@ const Carousel: React.FC<CarouselProps> = ({
 
   useEffect(() => {
     // console.log('useEffect has been triggered!');
-    const scrollWidth = offset * dynamicItemWidth;
+    const scrollWidth = offset * (dynamicItemWidth + 10);
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
     document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
@@ -214,9 +214,20 @@ const Carousel: React.FC<CarouselProps> = ({
             <input
               type="number"
               value={inputStep}
-              onChange={(e) => setInputStep(e.target.value)}
+              onChange={(e) => {
+                const val = parseInt(e.target.value, 10);
+
+                if (val < 1) {
+                  setInputStep('1');
+                } else if (val > images.length) {
+                  setInputStep(images.length.toString());
+                } else {
+                  setInputStep(e.target.value);
+                }
+              }}
               placeholder="Step"
               min="1"
+              max={images.length}
             />
 
             <button
@@ -232,8 +243,20 @@ const Carousel: React.FC<CarouselProps> = ({
             <input
               type="number"
               title="Enter the frame size"
+              min="1"
+              max={images.length}
               value={inputFrameSize}
-              onChange={(e) => setInputFrameSize(e.target.value)}
+              onChange={(e) => {
+                const val = parseInt(e.target.value, 10);
+
+                if (val < 1) {
+                  setInputFrameSize('1');
+                } else if (val > images.length) {
+                  setInputFrameSize(images.length.toString());
+                } else {
+                  setInputFrameSize(e.target.value);
+                }
+              }}
             />
             <button
               type="button"
@@ -246,7 +269,6 @@ const Carousel: React.FC<CarouselProps> = ({
         </div>
       </div>
     </>
-
   );
 };
 
