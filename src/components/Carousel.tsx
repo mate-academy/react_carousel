@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import '../styles/main.scss';
+import './Carousel.scss';
 
 type CarouselProps = {
   images: string[];
@@ -74,13 +73,19 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
+  const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseInt(e.target.value, 10);
+
+    if (!Number.isNaN(newValue)) {
+      setInputValue(newValue);
+    }
+  };
+
   const updateAnimationDuration = () => {
     if (inputAnimationDuration > 0) {
       setDynamicAnimationDuration(inputAnimationDuration);
     }
   };
-
-  // prideti safeguards min max values
 
   const updateStep = () => {
     const newStep = parseInt(inputStep, 10);
@@ -93,8 +98,17 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
-  // ???????????
-  // type checking needed
+  const handleStepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseInt(e.target.value, 10);
+
+    if (val < 1) {
+      setInputStep('1');
+    } else if (val > images.length) {
+      setInputStep(images.length.toString());
+    } else {
+      setInputStep(e.target.value);
+    }
+  };
 
   const updateFrameSize = () => {
     const newFrameSize = parseInt(inputFrameSize, 10);
@@ -108,8 +122,19 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
+  const handleFrameSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseInt(e.target.value, 10);
+
+    if (val < 1) {
+      setInputFrameSize('1');
+    } else if (val > images.length) {
+      setInputFrameSize(images.length.toString());
+    } else {
+      setInputFrameSize(e.target.value);
+    }
+  };
+
   useEffect(() => {
-    // console.log('useEffect has been triggered!');
     const scrollWidth = offset * (dynamicItemWidth + 10);
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
@@ -168,19 +193,13 @@ const Carousel: React.FC<CarouselProps> = ({
 
           <div className="controls__width controls__item">
             <input
-              className="controls__width"
+              className="controls__width controls__input"
               type="number"
               title="Enter the item width"
               value={inputValue}
               min="100"
               max="350"
-              onChange={(e) => {
-                const newValue = parseInt(e.target.value, 10);
-
-                if (!Number.isNaN(newValue)) {
-                  setInputValue(newValue);
-                }
-              }}
+              onChange={handleWidthChange}
             />
 
             <button
@@ -195,6 +214,7 @@ const Carousel: React.FC<CarouselProps> = ({
           <div className="controls__item controls__animation">
             <input
               type="number"
+              className="controls__input"
               value={inputAnimationDuration}
               onChange={
                 (e) => setInputAnimationDuration(Number(e.target.value))
@@ -213,18 +233,9 @@ const Carousel: React.FC<CarouselProps> = ({
           <div className="controls__item controls__step">
             <input
               type="number"
+              className="controls__input"
               value={inputStep}
-              onChange={(e) => {
-                const val = parseInt(e.target.value, 10);
-
-                if (val < 1) {
-                  setInputStep('1');
-                } else if (val > images.length) {
-                  setInputStep(images.length.toString());
-                } else {
-                  setInputStep(e.target.value);
-                }
-              }}
+              onChange={handleStepChange}
               placeholder="Step"
               min="1"
               max={images.length}
@@ -242,21 +253,12 @@ const Carousel: React.FC<CarouselProps> = ({
           <div className="controls__frameSize controls__item">
             <input
               type="number"
+              className="controls__input"
               title="Enter the frame size"
               min="1"
               max={images.length}
               value={inputFrameSize}
-              onChange={(e) => {
-                const val = parseInt(e.target.value, 10);
-
-                if (val < 1) {
-                  setInputFrameSize('1');
-                } else if (val > images.length) {
-                  setInputFrameSize(images.length.toString());
-                } else {
-                  setInputFrameSize(e.target.value);
-                }
-              }}
+              onChange={handleFrameSizeChange}
             />
             <button
               type="button"

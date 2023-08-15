@@ -1,6 +1,5 @@
 .controls {
   display: flex;
-  justify-content: space;
   align-items: center;
   flex-flow: column wrap;
   margin-bottom: 20px;
@@ -8,6 +7,10 @@
   &__item {
     margin-bottom: 20px;
     width: 350px;
+  }
+
+  &__input {
+    margin-right: 5px;
   }
 
   &__infinite,
