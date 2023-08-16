@@ -16,7 +16,7 @@ const Carousel: React.FC<Props> = ({ img }) => {
 
   const scrollContainer = (amount: number) => {
     const carouselList = carouselListRef.current;
-    const imageWidth = 130;
+    const imageWidth = imgWight;
     const newIndex = currentIndex + amount;
 
     if (newIndex >= 0 && newIndex < img.length) {
