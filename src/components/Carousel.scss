@@ -1,1 +1,27 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.button {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+
+  &--disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+}

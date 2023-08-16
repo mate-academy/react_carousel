@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,98 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleInfiniteToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: e.target.checked });
+  };
+
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: parseInt(value, 10),
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+        <div className="inputs">
+          <label>
+            Item Width:
+            <input
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              onChange={this.handleChange}
+            />
+          </label>
 
-        <Carousel />
+          <label>
+            Frame Size:
+            <input
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              onChange={this.handleChange}
+            />
+          </label>
+
+          <label>
+            Step:
+            <input
+              type="number"
+              name="step"
+              value={step}
+              onChange={this.handleChange}
+            />
+          </label>
+
+          <label>
+            Animation Duration:
+            <input
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleChange}
+            />
+          </label>
+
+          <label>
+            Infinite:
+            <input
+              type="checkbox"
+              checked={infinite}
+              onChange={this.handleInfiniteToggle}
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
