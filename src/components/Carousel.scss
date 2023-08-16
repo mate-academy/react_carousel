@@ -1,1 +1,90 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Carousel__container {
+  overflow: hidden;
+  width: 390px;
+}
+
+.Carousel__list {
+  display: flex;
+  transition: transform 0.5s ease-in;
+}
+
+.Carousel__control {
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+}
+
+.Carousel__btn {
+  box-sizing: border-box;
+
+  padding: 10px 20px;
+
+  border: 0;
+  cursor: pointer;
+
+  background-color: #80f;
+  color: #fff;
+  font-size: 12px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+
+  transition: background-color 1s ease-in;
+
+  &_prev {
+    border-radius: 5px 30px;
+    margin-right: 5px;
+  }
+
+  &_next {
+    border-radius: 30px 5px;
+    margin-left: 5px;
+  }
+
+  &:hover {
+    background-color: #6502bc;
+  }
+}
+
+.Carousel__inputs {
+  margin-top: 15px;
+  min-width: 200px;
+}
+
+.Carousel__label {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  font-weight: 700;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.Carousel__input {
+  margin-top: 5px;
+  border-radius: 30px;
+  padding: 10px 30px;
+  box-sizing: border-box;
+  border: 2px solid #80f;
+  outline: none;
+  transition: background-color 0.15s ease-in;
+
+  &::placeholder {
+    color: inherit;
+  }
+
+  &:focus,
+  :hover {
+    border: 2px solid transparent;
+    background-color: #6502bc;
+    color: #fff;
+  }
+}
