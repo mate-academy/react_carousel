@@ -4,6 +4,10 @@
   --transform-offset: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .transformed {
   transform: translateX(var(--transform-offset));
 }
@@ -13,7 +17,9 @@
   display: flex;
   align-items: center;
   width: calc(var(--frame-size) * var(--image-size));
-  padding: 0 30px;
+  // padding: 0 30px;
+  // margin-right: 30px;
+  margin: 0 30px;
   overflow: hidden;
 
   &__list {
@@ -22,6 +28,11 @@
     padding: 0;
     transform: translateX(var(--transform-offset));
     transition: transform var(--animation-duration) ease-out;
+  }
+
+  &__item {
+    margin: 0;
+    padding: 0;
   }
 
   &__image {

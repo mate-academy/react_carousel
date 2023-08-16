@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
@@ -36,7 +37,7 @@ const Carousel: React.FC<CarouselProps> = ({
     = useState<string>(frameSize.toString());
   const [localFrameSize, setLocalFrameSize] = useState<number>(frameSize);
 
-  const maxOffset = images.length - localFrameSize + 1;
+  const maxOffset = images.length - localFrameSize;
 
   const handlePrev = () => {
     if (offset >= localStep) {
@@ -146,8 +147,12 @@ const Carousel: React.FC<CarouselProps> = ({
     setInputFrameSize(e.target.value);
   };
 
+  // console.log('offset =', offset);
+
   useEffect(() => {
     const scrollWidth = offset * (dynamicItemWidth + 10);
+
+    // console.log(`scrollW = ${scrollWidth}`);
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
     document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
