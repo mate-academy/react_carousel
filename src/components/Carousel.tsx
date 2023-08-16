@@ -9,13 +9,14 @@ const Carousel: React.FC<Props> = ({ img }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselListRef = useRef<HTMLUListElement>(null);
 
+  const [imgWight, setImgWidth] = useState<number>(130);
   const [frameWight, setFrameWight] = useState<number>(3);
   const [step, setStep] = useState<number>(3);
   const [animDuration, setAnimDuration] = useState<number>(1000);
 
   const scrollContainer = (amount: number) => {
     const carouselList = carouselListRef.current;
-    const imageWidth = carouselList?.querySelector('li')?.offsetWidth || 0;
+    const imageWidth = 130;
     const newIndex = currentIndex + amount;
 
     if (newIndex >= 0 && newIndex < img.length) {
@@ -28,7 +29,33 @@ const Carousel: React.FC<Props> = ({ img }) => {
     }
   };
 
-  const handleFarmeWidthChange = (event: React
+  const handleImgWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newImgWidth = parseInt(event.target.value, 10);
+
+    setImgWidth(newImgWidth);
+
+    const carouselImgElements = document.querySelectorAll('.Carousel__img');
+
+    const imgElementsArray = Array
+      .from(carouselImgElements) as HTMLImageElement[];
+
+    imgElementsArray.forEach((imgElement) => {
+      if (imgElement instanceof HTMLImageElement) {
+        const imgElementCopy = imgElement.cloneNode(true) as HTMLImageElement;
+
+        imgElementCopy.style.width = `${newImgWidth}px`;
+        imgElement.parentElement?.replaceChild(imgElementCopy, imgElement);
+      }
+    });
+
+    const containerElement = document.querySelector('.Carousel__container');
+    const containerElementCopy = containerElement as HTMLElement;
+    const newContainerWidth = newImgWidth * step;
+
+    containerElementCopy.style.width = `${newContainerWidth}px`;
+  };
+
+  const handleFrameWidthChange = (event: React
     .ChangeEvent<HTMLInputElement>) => {
     const newFrameWidth = parseInt(event.target.value, 10);
 
@@ -37,7 +64,7 @@ const Carousel: React.FC<Props> = ({ img }) => {
 
     const containerElement = document.querySelector('.Carousel__container');
     const containerElementCopy = containerElement as HTMLElement;
-    const newContainerWidth = newFrameWidth * 130;
+    const newContainerWidth = newFrameWidth * imgWight;
 
     containerElementCopy.style.width = `${newContainerWidth}px`;
   };
@@ -100,6 +127,19 @@ const Carousel: React.FC<Props> = ({ img }) => {
 
       <div className="Carousel__inputs">
         <label className="Carousel__label">
+          Image width
+          <input
+            type="number"
+            value={imgWight}
+            min={50}
+            max={350}
+            className="Carousel__input"
+            placeholder="Enter numbers in px"
+            onChange={handleImgWidthChange}
+          />
+        </label>
+
+        <label className="Carousel__label">
           Images in the carousel
           <input
             type="number"
@@ -108,21 +148,23 @@ const Carousel: React.FC<Props> = ({ img }) => {
             max={5}
             className="Carousel__input"
             placeholder="Enter numbers in px"
-            onChange={handleFarmeWidthChange}
+            onChange={handleFrameWidthChange}
           />
         </label>
+
         <label className="Carousel__label">
           Step
           <input
             type="number"
             value={step}
             min={1}
-            max={img.length - 1}
+            max={5}
             className="Carousel__input"
             placeholder="Enter numbers"
             onChange={handleStepChange}
           />
         </label>
+
         <label className="Carousel__label">
           Animation duration
           <input
