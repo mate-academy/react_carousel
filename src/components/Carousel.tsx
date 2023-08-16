@@ -21,17 +21,21 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [offset, setOffset] = useState(0);
 
+  const maxOffset = images.length - frameSize;
+
   const handleNextClick = () => {
-    if (infinite && offset + step > images.length - frameSize) {
-      setOffset((offset + step) % images.length);
+    const difference = frameSize - step;
+
+    if (infinite && offset + step >= images.length - difference) {
+      setOffset(0);
     } else {
-      setOffset(Math.min(offset + step, images.length - frameSize));
+      setOffset(Math.min(offset + step, maxOffset));
     }
   };
 
   const handlePrevClick = () => {
     if (infinite && offset - step < 0) {
-      setOffset(images.length - ((frameSize - offset + step) % frameSize));
+      setOffset(maxOffset);
     } else {
       setOffset(Math.max(offset - step, 0));
     }
@@ -69,11 +73,10 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className={cn('button', {
-            'button--disabled': offset >= images.length - frameSize
-              && !infinite,
+            'button--disabled': offset >= maxOffset && !infinite,
           })}
           onClick={handleNextClick}
-          disabled={offset >= images.length - frameSize && !infinite}
+          disabled={offset >= maxOffset && !infinite}
           data-cy="next"
         >
           &gt;

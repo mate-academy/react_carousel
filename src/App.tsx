@@ -65,6 +65,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="itemWidth"
               value={itemWidth}
+              min={130}
               onChange={this.handleChange}
             />
           </label>
@@ -75,6 +76,8 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               value={frameSize}
+              min={1}
+              max={10}
               onChange={this.handleChange}
             />
           </label>
