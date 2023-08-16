@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -6,8 +6,8 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+const App: React.FC = () => {
+  const state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,18 +22,82 @@ class App extends React.Component<{}, State> {
     ],
   };
 
-  render() {
-    const { images } = this.state;
+  const { images } = state;
+  const [sizeImages, setSizeImages] = useState(130);
+  const [step, setStep] = useState(3);
+  const [frameSize, setFrameSize] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [isInfinite, setIsInfinite] = useState(false);
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1>{`Carousel with ${images.length} images`}</h1>
 
-        <Carousel />
+      <div className="App__inputs">
+        <label>
+          Size images, px
+          <input
+            type="number"
+            value={sizeImages}
+            min={10}
+            max={200}
+            onChange={(event) => setSizeImages(+event.target.value)}
+          />
+        </label>
+
+        <label>
+          Step per images
+          <input
+            type="number"
+            value={step}
+            min={1}
+            max={10}
+            onChange={(event) => setStep(+event.target.value)}
+          />
+        </label>
+
+        <label>
+          Frame size
+          <input
+            type="number"
+            value={frameSize}
+            min={1}
+            max={10}
+            onChange={(event) => setFrameSize(+event.target.value)}
+          />
+        </label>
+
+        <label>
+          Anumation, ms
+          <input
+            type="number"
+            value={animationDuration}
+            min={500}
+            max={3000}
+            onChange={(event) => setAnimationDuration(+event.target.value)}
+          />
+        </label>
+
+        <label>
+          Infinite:
+          <input
+            type="checkbox"
+            checked={isInfinite}
+            onChange={(event) => setIsInfinite(!!event.target.checked)}
+          />
+        </label>
       </div>
-    );
-  }
-}
+
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={sizeImages}
+        animationDuration={animationDuration}
+        infinite={isInfinite}
+      />
+    </div>
+  );
+};
 
 export default App;
