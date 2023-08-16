@@ -29,7 +29,7 @@
     height: var(--image-size);
   }
 
-  & li:not(:last-child) img {
+  &__item:not(&__item--last) &__image {
     margin-right: 10px;
   }
 }

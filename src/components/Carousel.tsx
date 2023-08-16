@@ -103,11 +103,17 @@ const Carousel: React.FC<CarouselProps> = ({
 
     if (val < 1) {
       setInputStep('1');
-    } else if (val > images.length) {
-      setInputStep(images.length.toString());
-    } else {
-      setInputStep(e.target.value);
+
+      return;
     }
+
+    if (val > images.length) {
+      setInputStep(images.length.toString());
+
+      return;
+    }
+
+    setInputStep(e.target.value);
   };
 
   const updateFrameSize = () => {
@@ -127,11 +133,17 @@ const Carousel: React.FC<CarouselProps> = ({
 
     if (val < 1) {
       setInputFrameSize('1');
-    } else if (val > images.length) {
-      setInputFrameSize(images.length.toString());
-    } else {
-      setInputFrameSize(e.target.value);
+
+      return;
     }
+
+    if (val > images.length) {
+      setInputFrameSize(images.length.toString());
+
+      return;
+    }
+
+    setInputFrameSize(e.target.value);
   };
 
   useEffect(() => {
@@ -161,8 +173,11 @@ const Carousel: React.FC<CarouselProps> = ({
 
         <div className="Carousel">
           <ul className="Carousel__list transformed">
-            {images.map((imgSrc) => (
-              <li key={imgSrc}>
+            {images.map((imgSrc, index) => (
+              <li
+                key={imgSrc}
+                className={`Carousel__item ${index === images.length - 1 ? 'Carousel__item--last' : ''}`}
+              >
                 <img className="Carousel__image" src={imgSrc} alt="" />
               </li>
             ))}
