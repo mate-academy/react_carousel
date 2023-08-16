@@ -21,7 +21,7 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(1);
   const imageRigth = (currentImage - 1) * itemWidth;
-  const imageLeft = images.length - currentImage;
+  const imageLeft = images.length - frameSize + 1;
 
   const widthCarousel = frameSize * itemWidth;
   const isEnd = currentImage === imageLeft;

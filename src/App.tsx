@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   const { images } = state;
   const [sizeImages, setSizeImages] = useState(130);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [frameSize, setFrameSize] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [isInfinite, setIsInfinite] = useState(false);
