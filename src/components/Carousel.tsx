@@ -22,8 +22,8 @@ const Carousel: React.FC<Props> = ({
   const [offset, setOffset] = useState(0);
 
   const handleNextClick = () => {
-    if (infinite && offset + step >= images.length) {
-      setOffset(0);
+    if (infinite && offset + step > images.length - frameSize) {
+      setOffset((offset + step) % images.length);
     } else {
       setOffset(Math.min(offset + step, images.length - frameSize));
     }
@@ -31,7 +31,7 @@ const Carousel: React.FC<Props> = ({
 
   const handlePrevClick = () => {
     if (infinite && offset - step < 0) {
-      setOffset(images.length - frameSize);
+      setOffset(images.length - ((frameSize - offset + step) % frameSize));
     } else {
       setOffset(Math.max(offset - step, 0));
     }
