@@ -59,9 +59,10 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
         <div className="inputs">
-          <label>
+          <label htmlFor="itemWidth">
             Item Width:
             <input
+              id="itemWidth"
               type="number"
               name="itemWidth"
               value={itemWidth}
@@ -70,9 +71,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
+          <label htmlFor="frameSize">
             Frame Size:
             <input
+              id="frameSize"
               type="number"
               name="frameSize"
               value={frameSize}
@@ -82,9 +84,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
+          <label htmlFor="step">
             Step:
             <input
+              id="step"
               type="number"
               name="step"
               value={step}
