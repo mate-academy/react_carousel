@@ -7,6 +7,10 @@
     display: flex;
   }
 
+  &__image {
+    width: 130px;
+  }
+
   &__buttons {
     display: flex;
     justify-content: space-between;
