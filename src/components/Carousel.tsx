@@ -177,7 +177,10 @@ const Carousel: React.FC<CarouselProps> = ({
         </button>
 
         <div className="Carousel">
-          <ul className="Carousel__list transformed">
+          <ul
+            className="Carousel__list transformed"
+            style={{ width: `${localFrameSize} * ${dynamicItemWidth}` }}
+          >
             {images.map((imgSrc, index) => (
               <li
                 key={imgSrc}
