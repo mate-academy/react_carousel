@@ -25,8 +25,8 @@ const App: React.FC<AppProps> = () => {
     './img/10.png',
   ];
 
-  const [itemWidth, setItemWidth] = useState<number>(300);
-  const [animationDuration, setAnimationDuration] = useState<number>(500);
+  const [itemWidth, setItemWidth] = useState<number>(130);
+  const [animationDuration, setAnimationDuration] = useState<number>(1000);
   const [frameSize, setFrameSize] = useState<number>(3);
   const [infinite, setInfinite] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
