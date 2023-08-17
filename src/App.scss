@@ -1,1 +1,80 @@
-// style go here
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+* {
+  box-sizing: border-box;
+  font-family: Lato, Arial, sans-serif;
+}
+
+body {
+  background-color: #282c34;
+  color: #dcdcdc;
+}
+
+.App {
+  margin: 0 auto;
+  max-width: 1300px;
+
+  & h1 {
+    text-align: center;
+  }
+
+  & fieldset {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, #3c3f4a, #2e313c);
+
+    & label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    & input {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #5c5f6f;
+      border-radius: 50px;
+      background: linear-gradient(to bottom right, #3c3f4a, #2e313c);
+      color: #dcdcdc;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #a3a6b9;
+        outline: none;
+      }
+
+      &:last-child {
+        margin-left: 10px;
+      }
+    }
+
+    & button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(to bottom right, #5c5f6f, #30333e);
+      color: #dcdcdc;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(to bottom right, #a3a6b9, #454a5d);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
