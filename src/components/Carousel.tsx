@@ -33,7 +33,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrev = () => {
-    setCurrentIndex((currentI) => Math.max(currentI- step, 0));
+    setCurrentIndex((currentI) => Math.max(currentI - step, 0));
   };
 
   let visibleImages;
