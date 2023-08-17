@@ -1,1 +1,11 @@
-// style go here
+.Carousel {
+  &__list {
+    display: grid;
+    grid-auto-flow: column;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}

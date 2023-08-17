@@ -1,18 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 1,
+  animationDuration = 300,
+  infinite = false,
+}) => {
+  const [x, setX] = useState(0);
+  const maxIndex = -(images.length - frameSize);
+
+  useEffect(() => {
+    // Проверка, чтобы не показывать пустое пространство
+    if (x < maxIndex) {
+      setX(maxIndex);
+    }
+  }, [frameSize]);
+
+  // button "Next"
+  const handleNext = () => {
+    const currentIndex = Math.max(x - step, maxIndex);
+
+    setX(infinite && currentIndex === maxIndex ? 0 : currentIndex);
+  };
+
+  // button "Prev"
+  const handlePrev = () => {
+    const currentIndex = Math.min(x + step, 0);
+
+    setX(infinite && currentIndex === 0 ? maxIndex : currentIndex);
+  };
+
+  return (
+    <div
+      className="Carousel"
+      style={{
+        width: `${frameSize * itemWidth}px`,
+      }}
+    >
+      <ul className="Carousel__list">
+        {images.map((image, index) => (
+          <li
+            key={image}
+            className="Carousel__item"
+            style={{
+              transform: `translateX(${x * itemWidth}px)`,
+              transition: `${animationDuration}ms`,
+            }}
+          >
+            <img
+              width={itemWidth}
+              src={image}
+              alt={`${index + 1}`}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={!infinite && x === 0}
+      >
+        Prev
+      </button>
+
+      <button
+        type="button"
+        onClick={handleNext}
+        disabled={!infinite && x === maxIndex}
+        data-cy="next"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
