@@ -34,7 +34,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1>Carousel with {images.length} images</h1>
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
       <Carousel
         images={images}
         itemWidth={itemWidth}
@@ -44,10 +44,11 @@ const App: React.FC<AppProps> = () => {
         step={step}
       />
 
-      <label>
+      <label htmlFor="itemId">
         Item width:
         <input
           type="number"
+          id="itemId"
           value={itemWidth}
           min={130}
           max={1300}
@@ -57,10 +58,11 @@ const App: React.FC<AppProps> = () => {
         />
       </label>
 
-      <label>
+      <label htmlFor="frameId">
         Number of images to display:
         <input
           type="number"
+          id="frameId"
           value={frameSize}
           min={1}
           max={10}
@@ -70,10 +72,11 @@ const App: React.FC<AppProps> = () => {
         />
       </label>
 
-      <label>
+      <label htmlFor="stepId">
         Number of images scrolled:
         <input
           type="number"
+          id="stepId"
           name="step"
           min={1}
           max={10}
