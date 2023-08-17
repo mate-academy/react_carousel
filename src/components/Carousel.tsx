@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
-  images: string[]; 
-  itemWidth: number; 
-  frameSize: number; 
-  step: number; 
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
   animationDuration: number;
-  infinite: boolean; 
+  infinite: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -22,7 +22,7 @@ const Carousel: React.FC<Props> = ({
   const [x, setX] = useState(0);
   const maxIndex = -(images.length - frameSize);
 
-   // button "Next"
+  // button "Next"
   const handleNext = () => {
     const currentIndex = Math.max(x - step, maxIndex);
 
@@ -37,7 +37,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div 
+    <div
       className="Carousel"
       style={{
         width: `${frameSize * itemWidth}px`,
@@ -62,7 +62,7 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      <button 
+      <button
         type="button"
         onClick={handlePrev}
         disabled={!infinite && x === 0}
@@ -70,7 +70,8 @@ const Carousel: React.FC<Props> = ({
         Prev
       </button>
 
-      <button type="button"
+      <button
+        type="button"
         onClick={handleNext}
         disabled={!infinite && x === maxIndex}
         data-cy="next"

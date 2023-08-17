@@ -90,7 +90,7 @@ const App: React.FC<AppProps> = () => {
           value={animationDuration}
           min={100}
           max={10000}
-          step={500}
+          step={100}
           onChange={(e) => setAnimationDuration(Number(e.target.value))}
           placeholder="Animation Duration"
         />
