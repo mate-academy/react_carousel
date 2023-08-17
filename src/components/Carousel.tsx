@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './Carousel.scss';
 
@@ -21,6 +21,13 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [x, setX] = useState(0);
   const maxIndex = -(images.length - frameSize);
+
+  useEffect(() => {
+    // Проверка, чтобы не показывать пустое пространство
+    if (x < maxIndex) {
+      setX(maxIndex);
+    }
+  }, [frameSize]);
 
   // button "Next"
   const handleNext = () => {
