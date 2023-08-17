@@ -147,12 +147,8 @@ const Carousel: React.FC<CarouselProps> = ({
     setInputFrameSize(e.target.value);
   };
 
-  // console.log('offset =', offset);
-
   useEffect(() => {
-    const scrollWidth = offset * (dynamicItemWidth + 10);
-
-    // console.log(`scrollW = ${scrollWidth}`);
+    const scrollWidth = offset * (dynamicItemWidth);
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
     document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
@@ -179,7 +175,6 @@ const Carousel: React.FC<CarouselProps> = ({
         <div className="Carousel">
           <ul
             className="Carousel__list transformed"
-            style={{ width: `${localFrameSize} * ${dynamicItemWidth}` }}
           >
             {images.map((imgSrc, index) => (
               <li

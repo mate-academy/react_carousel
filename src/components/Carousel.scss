@@ -9,11 +9,9 @@
 }
 
 .Carousel {
-  // position: relative;
   display: flex;
   align-items: center;
   width: calc(var(--frame-size) * var(--image-size));
-  // padding: 0 30px;
   margin: 0 30px;
   overflow: hidden;
 
@@ -34,9 +32,5 @@
     align-self: center;
     width: var(--image-size);
     height: var(--image-size);
-  }
-
-  &__item:not(&__item--last) &__image {
-    margin-right: 10px;
   }
 }
