@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
-const App = () => {
-  const [images] = useState([
-    './img/1.png',
-    './img/2.png',
-    './img/3.png',
-    './img/4.png',
-    './img/5.png',
-    './img/6.png',
-    './img/7.png',
-    './img/8.png',
-    './img/9.png',
-    './img/10.png',
-  ]);
+const images = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
+
+export const App = () => {
   const [step, setStep] = useState(3);
   const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
@@ -69,7 +70,8 @@ const App = () => {
           type="number"
           value={itemWidth.toString()}
           onChange={onChangeHandler}
-          max={1300}
+          max={200}
+          min={100}
         />
 
         <label htmlFor="frameId">Frame size</label>
@@ -119,5 +121,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;
