@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
-  images: string[]; // массив URL-адресов изображений
-  itemWidth: number; // ширина каждого элемента карусели, значение по умолчанию будет установлено позже
-  frameSize: number; // количество изображений, отображаемых одновременно
-  step: number; // количество изображений, прокручиваемых за один клик
+  images: string[]; 
+  itemWidth: number; 
+  frameSize: number; 
+  step: number; 
   animationDuration: number;
-  infinite: boolean; // бесконечная карусель
+  infinite: boolean; 
 }
 
 const Carousel: React.FC<Props> = ({
@@ -19,58 +19,62 @@ const Carousel: React.FC<Props> = ({
   animationDuration = 300,
   infinite = false,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const carouselWidth = itemWidth * frameSize;
+  const [x, setX] = useState(0);
+  const maxIndex = -(images.length - frameSize);
 
-  const carouselStyle = {
-    width: `${carouselWidth}px`,
-    overflow: 'hidden',
-  };
-
+   // button "Next"
   const handleNext = () => {
-    setCurrentIndex((currentI) => Math.min(currentI + step,
-      images.length - frameSize));
+    const currentIndex = Math.max(x - step, maxIndex);
+
+    setX(infinite && currentIndex === maxIndex ? 0 : currentIndex);
   };
 
+  // button "Prev"
   const handlePrev = () => {
-    setCurrentIndex((currentI) => Math.max(currentI - step, 0));
+    const currentIndex = Math.min(x + step, 0);
+
+    setX(infinite && currentIndex === 0 ? maxIndex : currentIndex);
   };
-
-  let visibleImages;
-
-  if (infinite) {
-    visibleImages = [
-      ...images.slice(-step),
-      ...images,
-      ...images.slice(0, step),
-    ];
-  } else {
-    visibleImages = images;
-  }
 
   return (
-    <div className="Carousel" style={carouselStyle}>
-      <ul
-        className="Carousel__list"
-        style={{
-          transform: `translateX(-${
-            (currentIndex + (infinite ? step : 0)) * itemWidth
-          }px)`,
-          transition: `transform ${animationDuration}ms ease-out`,
-        }}
-      >
-        {visibleImages.map((img) => (
-          <li key={img} style={{ width: `${itemWidth}px` }}>
-            <img src={img} alt="Carousel item" style={{ width: '100%' }} />
+    <div 
+      className="Carousel"
+      style={{
+        width: `${frameSize * itemWidth}px`,
+      }}
+    >
+      <ul className="Carousel__list">
+        {images.map((image, index) => (
+          <li
+            key={image}
+            className="Carousel__item"
+            style={{
+              transform: `translateX(${x * itemWidth}px)`,
+              transition: `${animationDuration}ms`,
+            }}
+          >
+            <img
+              width={itemWidth}
+              src={image}
+              alt={`${index + 1}`}
+            />
           </li>
         ))}
       </ul>
 
-      <button type="button" onClick={handlePrev}>
+      <button 
+        type="button"
+        onClick={handlePrev}
+        disabled={!infinite && x === 0}
+      >
         Prev
       </button>
 
-      <button type="button" onClick={handleNext}>
+      <button type="button"
+        onClick={handleNext}
+        disabled={!infinite && x === maxIndex}
+        data-cy="next"
+      >
         Next
       </button>
     </div>
