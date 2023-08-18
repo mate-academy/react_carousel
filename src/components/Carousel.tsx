@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -42,6 +42,12 @@ const Carousel: React.FC<Props> = ({
       setCurrentSlide(slide);
     }
   };
+
+  useEffect(() => {
+    if (currentSlide > lastSlide) {
+      handleSlideChange(lastSlide);
+    }
+  }, [frameSize]);
 
   return (
     <div className="Carousel">
