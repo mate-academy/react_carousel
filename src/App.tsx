@@ -87,9 +87,9 @@ class App extends React.Component<{}, State> {
           <label htmlFor="stepId">
             Step:
             <input
-              id="step"
+              id="stepId"
               type="number"
-              name="stepId"
+              name="step"
               value={step}
               onChange={this.handleChange}
             />
