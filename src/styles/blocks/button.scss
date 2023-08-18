@@ -44,7 +44,7 @@
   }
 
   &--active {
-    background-color: #2a3fb8ee;
+    background-color: green;
     color: white;
   }
 
@@ -55,11 +55,6 @@
   }
 
   &:hover {
-    background-color: #2a3fb8ee;
-    color: white;
-  }
-
-  &:active {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }

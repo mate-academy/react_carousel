@@ -34,6 +34,26 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  updateStep = (newStep: number) => {
+    this.setState({ step: newStep });
+  };
+
+  updateItemWidth = (newWidth: number) => {
+    this.setState({ itemWidth: newWidth });
+  };
+
+  updateAnimationDuration = (newDuration: number) => {
+    this.setState({ animationDuration: newDuration });
+  };
+
+  updateInfinite = (newInfinite: boolean) => {
+    this.setState({ infinite: newInfinite });
+  };
+
+  updateFrameSize = (newSize: number) => {
+    this.setState({ frameSize: newSize });
+  };
+
   render() {
     const {
       images,
@@ -56,10 +76,15 @@ class App extends React.Component<{}, State> {
         <Carousel
           images={images}
           frameSize={frameSize}
+          updateFrameSize={this.updateFrameSize}
           step={step}
+          updateStep={this.updateStep}
           itemWidth={itemWidth}
+          updateItemWidth={this.updateItemWidth}
           animationDuration={animationDuration}
+          updateAnimationDuration={this.updateAnimationDuration}
           infinite={infinite}
+          updateInfinite={this.updateInfinite}
         />
       </div>
     );

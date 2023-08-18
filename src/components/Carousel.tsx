@@ -1,48 +1,57 @@
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type CarouselProps = {
   images: string[];
   step: number;
+  updateStep: (value: number) => void,
   frameSize: number;
+  updateFrameSize: (value: number) => void,
   itemWidth: number;
+  updateItemWidth: (value: number) => void,
   animationDuration: number;
-  infinite: boolean;
+  updateAnimationDuration: (value: number) => void,
+  infinite: boolean,
+  updateInfinite: (value: boolean) => void,
+};
+
+type CSSProperties = React.CSSProperties & {
+  '--transform-offset': string;
+  '--image-size': string;
+  '--frame-size': string;
+  '--animation-duration': string;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
   frameSize,
+  updateFrameSize,
+
   itemWidth,
+  updateItemWidth,
+
   step,
+  updateStep,
   animationDuration,
-  infinite: propInfinite,
+  updateAnimationDuration,
+
+  infinite,
+  updateInfinite,
 }) => {
   const [offset, setOffset] = useState(0);
-  const [localInfinite, setLocalInfinite] = useState(propInfinite);
-  const [dynamicItemWidth, setDynamicItemWidth] = useState<number>(itemWidth);
-  const [inputValue, setInputValue] = useState<number>(itemWidth);
-  const [inputAnimationDuration, setInputAnimationDuration]
-    = useState<number>(animationDuration);
+  const maxOffset = images.length - frameSize;
 
-  const [dynamicAnimationDuration, setDynamicAnimationDuration]
-    = useState<number>(animationDuration);
-
-  const [inputStep, setInputStep] = useState<string>(step.toString());
-  const [localStep, setLocalStep] = useState<number>(step);
-
-  const [inputFrameSize, setInputFrameSize]
-    = useState<string>(frameSize.toString());
-  const [localFrameSize, setLocalFrameSize] = useState<number>(frameSize);
-
-  const maxOffset = images.length - localFrameSize;
+  const carouselStyles: CSSProperties = {
+    '--transform-offset': `-${offset * itemWidth}px`,
+    '--image-size': `${itemWidth}px`,
+    '--frame-size': `${frameSize}`,
+    '--animation-duration': `${animationDuration}ms`,
+  };
 
   const handlePrev = () => {
-    if (offset >= localStep) {
-      setOffset(prevOffset => prevOffset - localStep);
-    } else if (localInfinite) {
+    if (offset >= step) {
+      setOffset(prevOffset => prevOffset - step);
+    } else if (infinite) {
       setOffset(maxOffset);
     } else {
       setOffset(0);
@@ -50,27 +59,12 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   const handleNext = () => {
-    if (offset + localStep < maxOffset) {
-      setOffset(prevOffset => prevOffset + localStep);
-    } else if (localInfinite) {
+    if (offset + step < maxOffset) {
+      setOffset(prevOffset => prevOffset + step);
+    } else if (infinite) {
       setOffset(0);
     } else {
       setOffset(maxOffset);
-    }
-  };
-
-  const MIN_WIDTH = 100;
-  const MAX_WIDTH = 350;
-
-  const updateWidth = () => {
-    if (inputValue < MIN_WIDTH || inputValue > MAX_WIDTH) {
-      alert('Please enter a value between 100 and 350.');
-
-      return;
-    }
-
-    if (inputValue > 0) {
-      setDynamicItemWidth(inputValue);
     }
   };
 
@@ -78,24 +72,16 @@ const Carousel: React.FC<CarouselProps> = ({
     const newValue = parseInt(e.target.value, 10);
 
     if (!Number.isNaN(newValue)) {
-      setInputValue(newValue);
+      updateItemWidth(newValue);
     }
   };
 
-  const updateAnimationDuration = () => {
-    if (inputAnimationDuration > 0) {
-      setDynamicAnimationDuration(inputAnimationDuration);
-    }
-  };
+  const handleAnimationDurationChange
+  = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDuration = parseInt(e.target.value, 10);
 
-  const updateStep = () => {
-    const newStep = parseInt(inputStep, 10);
-
-    if (!Number.isNaN(newStep) && newStep > 0 && newStep <= images.length) {
-      setLocalStep(newStep);
-    } else {
-      alert('Please enter a valid step!');
-      setInputStep(localStep.toString());
+    if (!Number.isNaN(newDuration) && newDuration > 0) {
+      updateAnimationDuration(newDuration);
     }
   };
 
@@ -103,63 +89,48 @@ const Carousel: React.FC<CarouselProps> = ({
     const val = parseInt(e.target.value, 10);
 
     if (val < 1) {
-      setInputStep('1');
+      updateStep(1);
 
       return;
     }
 
     if (val > images.length) {
-      setInputStep(images.length.toString());
+      updateStep(images.length);
 
       return;
     }
 
-    setInputStep(e.target.value);
-  };
-
-  const updateFrameSize = () => {
-    const newFrameSize = parseInt(inputFrameSize, 10);
-
-    if (newFrameSize >= 1 && newFrameSize <= images.length) {
-      setLocalFrameSize(newFrameSize);
-    } else {
-      alert(
-        'Invalid frame size. Must be between 1 and the total number of images.',
-      );
-    }
+    updateStep(val);
   };
 
   const handleFrameSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
 
     if (val < 1) {
-      setInputFrameSize('1');
+      updateFrameSize(1);
 
       return;
     }
 
     if (val > images.length) {
-      setInputFrameSize(images.length.toString());
+      updateFrameSize(images.length);
 
       return;
     }
 
-    setInputFrameSize(e.target.value);
+    updateFrameSize(val);
   };
 
   useEffect(() => {
-    const scrollWidth = offset * (dynamicItemWidth);
+    const scrollWidth = offset * (itemWidth);
 
     document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
-    document.documentElement.style.setProperty('--image-size', `${dynamicItemWidth}px`);
-    document.documentElement.style.setProperty('--frame-size', `${localFrameSize}`);
+    document.documentElement.style.setProperty('--image-size', `${itemWidth}px`);
+    document.documentElement.style.setProperty('--frame-size', `${frameSize}`);
     document.documentElement.style.setProperty(
       '--animation-duration', `${animationDuration}ms`,
     );
-    document.documentElement.style.setProperty(
-      '--animation-duration', `${dynamicAnimationDuration}ms`,
-    );
-  }, [offset, dynamicItemWidth, localFrameSize, dynamicAnimationDuration]);
+  }, [offset, itemWidth, frameSize, animationDuration]);
 
   return (
     <>
@@ -172,7 +143,10 @@ const Carousel: React.FC<CarouselProps> = ({
           Prev
         </button>
 
-        <div className="Carousel">
+        <div
+          className="Carousel"
+          style={carouselStyles}
+        >
           <ul
             className="Carousel__list transformed"
           >
@@ -199,92 +173,68 @@ const Carousel: React.FC<CarouselProps> = ({
 
       <div className="container--controls">
         <div className="controls">
-          <div className="controls__infinite controls__item">
+          <div className="controls__item controls__infinite">
             <button
               type="button"
-              className={`button button--controls ${localInfinite ? 'button--active' : ''}`}
-              onClick={() => setLocalInfinite(!localInfinite)}
+              className={`button button--controls ${infinite ? 'button--active' : ''}`}
+              onClick={() => updateInfinite(!infinite)}
             >
               Toggle Infinite Scroll
             </button>
           </div>
 
-          <div className="controls__width controls__item">
+          <div className="controls__item controls__width ">
             <input
               className="controls__width controls__input"
               type="number"
               title="Enter the item width"
-              value={inputValue}
+              value={itemWidth}
               min="100"
               max="350"
               onChange={handleWidthChange}
             />
 
-            <button
-              type="button"
-              className="button button--controls"
-              onClick={updateWidth}
-            >
-              Set Width
-            </button>
+            <div>Set Width</div>
           </div>
 
           <div className="controls__item controls__animation">
             <input
               type="number"
               className="controls__input"
-              value={inputAnimationDuration}
-              onChange={
-                (e) => setInputAnimationDuration(Number(e.target.value))
-              }
+              value={animationDuration}
+              onChange={handleAnimationDurationChange}
               placeholder="Enter duration in ms"
             />
-            <button
-              type="button"
-              className="button button--controls"
-              onClick={updateAnimationDuration}
-            >
-              Set Animation Duration
-            </button>
+
+            <div>Set Animation Duration</div>
           </div>
 
           <div className="controls__item controls__step">
             <input
               type="number"
               className="controls__input"
-              value={inputStep}
+              value={step}
               onChange={handleStepChange}
               placeholder="Step"
               min="1"
               max={images.length}
             />
 
-            <button
-              type="button"
-              className="button button--controls"
-              onClick={updateStep}
-            >
-              Set Scroll Step
-            </button>
+            <div>Set Scroll Step</div>
           </div>
 
-          <div className="controls__frameSize controls__item">
+          <div className="controls__item controls__frameSize">
             <input
               type="number"
               className="controls__input"
               title="Enter the frame size"
               min="1"
               max={images.length}
-              value={inputFrameSize}
+              value={frameSize}
               onChange={handleFrameSizeChange}
             />
-            <button
-              type="button"
-              className="button button--controls"
-              onClick={updateFrameSize}
-            >
-              Set Frame Size
-            </button>
+
+            <div>Set Frame Size</div>
           </div>
         </div>
       </div>
