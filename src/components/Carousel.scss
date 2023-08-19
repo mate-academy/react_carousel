@@ -1,1 +1,36 @@
-// style go here
+:root {
+  --image-size: 130px;
+  --animation-duration: 1s;
+  --transform-offset: 0;
+}
+
+.transformed {
+  transform: translateX(var(--transform-offset));
+}
+
+.Carousel {
+  display: flex;
+  align-items: center;
+  width: calc(var(--frame-size) * var(--image-size));
+  margin: 0 30px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    transform: translateX(var(--transform-offset));
+    transition: transform var(--animation-duration) ease-out;
+  }
+
+  &__item {
+    display: flex;
+    padding: 0;
+  }
+
+  &__image {
+    align-self: center;
+    width: var(--image-size);
+    height: var(--image-size);
+  }
+}
