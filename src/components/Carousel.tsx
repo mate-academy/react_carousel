@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type CarouselProps = {
@@ -120,17 +120,6 @@ const Carousel: React.FC<CarouselProps> = ({
 
     updateFrameSize(val);
   };
-
-  useEffect(() => {
-    const scrollWidth = offset * (itemWidth);
-
-    document.documentElement.style.setProperty('--transform-offset', `-${scrollWidth}px`);
-    document.documentElement.style.setProperty('--image-size', `${itemWidth}px`);
-    document.documentElement.style.setProperty('--frame-size', `${frameSize}`);
-    document.documentElement.style.setProperty(
-      '--animation-duration', `${animationDuration}ms`,
-    );
-  }, [offset, itemWidth, frameSize, animationDuration]);
 
   return (
     <>
