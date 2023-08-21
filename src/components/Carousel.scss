@@ -1,1 +1,110 @@
-// style go here
+$primary-color: #313131;
+$border-radius: 15px;
+$border-width: 4px;
+$m-i: linear-gradient(#000, #000);
+$m-o: content-box, padding-box;
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  &__title {
+    text-align: center;
+    font-style: bold;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 50px;
+    margin-bottom: 50px;
+    background: linear-gradient(to right, 
+    #488cfb,
+    #29dbbc,
+    #ddf505,
+    #ff9f0e,
+    #e440bb,
+    #655adc,
+    #488cfb
+  );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &__frame {
+    border: 4px solid;
+    border-image: linear-gradient(to right,
+    #488cfb,
+    #29dbbc,
+    #ddf505,
+    #ff9f0e,
+    #e440bb,
+    #655adc,
+    #488cfb) 1;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    list-style: none;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 50px;
+
+  &__button {
+    cursor: pointer;
+    appearance: none;
+    position: relative;
+    padding: 1em 2em;
+    border: 0;
+    background-color: $primary-color;
+    font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    z-index: 2;
+  }
+   
+  &__button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: $border-width;
+    border-radius: $border-radius;
+    background-image: conic-gradient(
+      #488cfb,
+      #29dbbc,
+      #ddf505,
+      #ff9f0e,
+      #e440bb,
+      #655adc,
+      #488cfb
+    );
+    -webkit-mask-image: $m-i, $m-i;
+    mask-image: $m-i, $m-i;
+    -webkit-mask-origin: $m-o;
+    mask-origin: $m-o;
+    mask-clip: $m-o;
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+    filter: hue-rotate(0);
+    animation: rotate-hue linear 500ms infinite;
+    animation-play-state: paused;
+  }
+   
+  &__button:hover::after {
+    animation-play-state: running;
+  }
+  
+  @keyframes rotate-hue {
+    to {
+      filter: hue-rotate(1turn);
+    }
+  }
+}
