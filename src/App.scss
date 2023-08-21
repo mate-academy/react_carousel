@@ -1,1 +1,48 @@
-// style go here
+$char-w: 1ch;
+$gap: 0.5*$char-w;
+$n-char: 5;
+$in-w: $n-char*($char-w + $gap);
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: 20px droid sans mono, consolas, monospace;
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-lable {
+      display: flex ;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        color: #1e90ff;
+      }
+    }
+
+    &-field {
+      display: block;
+      margin: 10px auto;
+      border: none;
+      padding: 0;
+      width: $in-w;
+      background: repeating-linear-gradient(90deg,
+      #696969 0, #696969 $char-w,
+      transparent 0, transparent $char-w + $gap)
+        0 100%/ #{$in-w - $gap} 2px no-repeat;
+      letter-spacing: $gap;
+
+      &:focus {
+        outline: none;
+        color: #1e90ff;
+      }
+    }
+  }
+}
