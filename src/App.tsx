@@ -136,7 +136,7 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     const isButtonNext = moveLeft > -10 * (itemWidth + 10)
-    + step * (itemWidth + 10);
+    + frameSize * (itemWidth + 10);
 
     return (
       <>
