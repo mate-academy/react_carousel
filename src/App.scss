@@ -1,1 +1,63 @@
-// style go here
+body {
+  margin: 0;
+  background: #6495ed;
+}
+
+.App {
+  padding: 15px;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 15px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.Control {
+  margin: 15px 0;
+
+  &__title {
+    margin: 0 0 10px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+    background: #5b87d6;
+    box-sizing: border-box;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__label {
+    width: 100%;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    text-align: left;
+    color: #fff;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background-color: #547bc3;
+    color: #fff;
+  }
+}

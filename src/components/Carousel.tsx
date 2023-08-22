@@ -1,18 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images, itemWidth, frameSize, step, animationDuration,
+}) => {
+  const [translateX, setTranslateX] = useState(0);
+
+  const frameWidth = itemWidth * frameSize;
+
+  const handlePrevClick = () => {
+    const prevTranslateX = translateX + itemWidth * step;
+    const minTranslateX = 0;
+
+    setTranslateX(Math.min(prevTranslateX, minTranslateX));
+  };
+
+  const handleNextClick = () => {
+    const nextTranslateX = translateX - itemWidth * step;
+    const maxTranslateX = -itemWidth * (images.length - frameSize);
+
+    setTranslateX(Math.max(nextTranslateX, maxTranslateX));
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{ width: `${frameWidth}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${translateX}px)`,
+            transition: `transform ${animationDuration}ms ease 0s`,
+          }}
+        >
+          {images.map((image, index) => (
+            <li key={image} className="Carousel__item">
+              <img
+                className="Carousel__image"
+                src={image}
+                alt={`Slide ${index + 1}`}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="Carousel__navigation">
+          <button
+            className="Carousel__button"
+            type="button"
+            onClick={handlePrevClick}
+            disabled={translateX >= 0}
+          >
+            🡠
+          </button>
+          <button
+            className="Carousel__button"
+            type="button"
+            data-cy="next"
+            onClick={handleNextClick}
+            disabled={translateX <= -itemWidth * (images.length - frameSize)}
+          >
+            🡢
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
