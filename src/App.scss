@@ -1,23 +1,14 @@
 .form {
   width: 350px;
   text-align: right;
+}
 
-  input {
-    margin-top: 10px;
-    width: 100px;
-  }
+.input {
+  margin-top: 10px;
+  width: 100px;
+  display: inline-block;
+}
 
-  button {
-    margin-top: 10px;
-    margin-right: 10px;
-    background-color: gray;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    height: 50px;
-    text-align: center;
-    border-radius: 10px;
-  }
+.div {
+  display: block;
 }

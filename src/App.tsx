@@ -1,5 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable no-mixed-operators */
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
@@ -10,6 +8,7 @@ interface State {
   frameSize: number;
   itemWidth: number;
   moveLeft: number;
+  step: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -30,61 +29,100 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     moveLeft: 0,
-  };
-
-  getInputs = (x: string): number => {
-    const input = document.getElementById(x) as HTMLInputElement;
-    let value = 0;
-
-    if (input) {
-      value = Number(input.value);
-    }
-
-    return value;
+    step: 3,
   };
 
   prevButton = () => {
-    this.setState((state) => {
-      const width = this.getInputs('itemWidth') + 10;
+    this.setState((prevstate) => {
+      const width = prevstate.itemWidth + 10;
       let left = 0;
-      const setLeft = state.moveLeft / (this.state.itemWidth + 10) * width;
+      // eslint-disable-next-line no-mixed-operators
+      const setLeft = prevstate.moveLeft / (prevstate.itemWidth + 10) * width;
 
-      if (state.moveLeft <= this.getInputs('step') * -width) {
-        left = setLeft + this.getInputs('step') * width;
+      if (prevstate.moveLeft <= prevstate.step * -width) {
+        left = setLeft + prevstate.step * width;
       } else {
         left = 0;
       }
 
       return {
-        animationDuration: this.getInputs('animationDuration'),
-        frameSize: this.getInputs('frameSize'),
-        itemWidth: this.getInputs('itemWidth'),
         moveLeft: left,
       };
     });
   };
 
   nextButton = () => {
-    this.setState((state) => {
-      const width = this.getInputs('itemWidth') + 10;
-      const size = this.getInputs('frameSize') * width;
+    this.setState((prevstate) => {
+      const width = prevstate.itemWidth + 10;
+      const size = prevstate.frameSize * width;
       let left = 0;
-      const setLeft = state.moveLeft / (this.state.itemWidth + 10) * width;
+      // eslint-disable-next-line no-mixed-operators
+      const setLeft = prevstate.moveLeft / (width) * width;
 
-      if (state.moveLeft
-        <= -(10 * width) + size + (this.getInputs('step')) * width) {
+      if (prevstate.moveLeft
+        <= -(10 * width) + size + (prevstate.step) * width) {
         left = -(10 * width) + size;
       } else {
-        left = setLeft - (this.getInputs('step')) * width;
+        left = setLeft - (prevstate.step) * width;
       }
 
       return {
-        animationDuration: this.getInputs('animationDuration'),
-        frameSize: this.getInputs('frameSize'),
-        itemWidth: this.getInputs('itemWidth'),
         moveLeft: left,
       };
     });
+  };
+
+  changeItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevstate) => {
+      let width = Number(e.target.value);
+
+      if (Number(e.target.value) < 0) {
+        width = 0;
+      }
+
+      const left
+      // eslint-disable-next-line no-mixed-operators
+      = prevstate.moveLeft / (prevstate.itemWidth + 10) * (width + 10);
+
+      return {
+        itemWidth: width,
+        moveLeft: left,
+      };
+    });
+  };
+
+  changeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number(e.target.value) < 1) {
+      this.setState({
+        step: 1,
+      });
+    } else if ((Number(e.target.value) > 9)) {
+      this.setState({
+        step: 9,
+      });
+    } else {
+      this.setState({
+        step: Number(e.target.value),
+      });
+    }
+  };
+
+  changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const steps = -this.state.moveLeft / (this.state.itemWidth + 10);
+
+    if (Number(e.target.value) < 1) {
+      this.setState({
+        frameSize: 1,
+      });
+    } else if ((Number(e.target.value) > 10 - steps)) {
+      this.setState({
+        frameSize: 10 - steps,
+      });
+    } else {
+      this.setState({
+        frameSize: Number(e.target.value),
+      });
+    }
   };
 
   render() {
@@ -94,7 +132,11 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       moveLeft,
+      step,
     } = this.state;
+
+    const isButtonNext = moveLeft > -10 * (itemWidth + 10)
+    + step * (itemWidth + 10);
 
     return (
       <>
@@ -102,27 +144,17 @@ class App extends React.Component<{}, State> {
           {/* eslint-disable-next-line */}
           <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-          <div className="Carousel">
-            {moveLeft !== 0
-              ? (
-                <button
-                  className="Carousel__arrow Carousel__arrow--left"
-                  type="button"
-                  style={{ marginTop: `${itemWidth / 2 - 15}px` }}
-                  onClick={this.prevButton}
-                >
-                  Prev
-                </button>
-              ) : (
-                <button
-                  className="Carousel__arrow Carousel__arrow--left"
-                  type="button"
-                  onClick={this.prevButton}
-                  style={{ opacity: '0' }}
-                >
-                  Prev
-                </button>
-              )}
+          <div className="carousel">
+            <button
+              className="carousel__arrow carousel__arrow--left"
+              type="button"
+              style={moveLeft !== 0
+                ? { marginTop: `${itemWidth / 2 - 15}px` }
+                : { opacity: '0' }}
+              onClick={this.prevButton}
+            >
+              Prev
+            </button>
             <Carousel
               images={images}
               animationDuration={animationDuration}
@@ -131,10 +163,9 @@ class App extends React.Component<{}, State> {
               moveLeft={moveLeft}
             />
 
-            {moveLeft > -10 * (itemWidth + 10)
-            + this.getInputs('step') * (itemWidth + 10) && (
+            {isButtonNext && (
               <button
-                className="Carousel__arrow Carousel__arrow--right"
+                className="carousel__arrow carousel__arrow--right"
                 type="button"
                 data-cy="next"
                 style={{ marginTop: `${itemWidth / 2 - 15}px` }}
@@ -147,47 +178,71 @@ class App extends React.Component<{}, State> {
         </div>
 
         <form action="" className="form">
-          <label htmlFor="itemWidth">
-            item width:
+          <div className="div">
+            <label htmlFor="itemWidth">
+              item width:
+              <input
+                type="number"
+                id="itemWidth"
+                name="itemWidth"
+                className="input"
+                value={itemWidth}
+                onChange={
+                  (
+                    e: React.ChangeEvent<HTMLInputElement>,
+                  ) => this.changeItemWidth(e)
+                }
+              />
+            </label>
+          </div>
+
+          <div className="div">
+            <label htmlFor="frameSize">frame size: </label>
             <input
               type="number"
-              id="itemWidth"
-              name="itemWidth"
-              defaultValue="130"
+              id="frameSize"
+              name="frameSize"
+              className="input"
+              value={frameSize}
+              onChange={
+                (
+                  e: React.ChangeEvent<HTMLInputElement>,
+                ) => this.changeFrameSize(e)
+              }
             />
-          </label>
+          </div>
 
-          <br />
+          <div className="div">
+            <label htmlFor="step">step: </label>
+            <input
+              type="number"
+              id="step"
+              name="step"
+              className="input"
+              value={step}
+              onChange={
+                (
+                  e: React.ChangeEvent<HTMLInputElement>,
+                ) => this.changeStep(e)
+              }
+            />
+          </div>
 
-          <label htmlFor="frameSize">frame size: </label>
-          <input
-            type="number"
-            id="frameSize"
-            name="frameSize"
-            defaultValue="3"
-          />
-
-          <br />
-
-          <label htmlFor="step">step: </label>
-          <input
-            type="number"
-            id="step"
-            name="step"
-            defaultValue="3"
-          />
-
-          <br />
-
-          <label htmlFor="animationDuration">animation duration(ms): </label>
-          <input
-            type="number"
-            id="animationDuration"
-            name="animationDuration"
-            defaultValue="1000"
-          />
-
-          <br />
+          <div className="div">
+            <label htmlFor="animationDuration">animation duration(ms): </label>
+            <input
+              type="number"
+              id="animationDuration"
+              name="animationDuration"
+              className="input"
+              value={animationDuration}
+              onChange={(event) => {
+                this.setState({
+                  animationDuration: Number(event.target.value),
+                });
+              }}
+            />
+          </div>
         </form>
       </>
     );

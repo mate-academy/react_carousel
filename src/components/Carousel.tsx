@@ -22,7 +22,7 @@ class Carousel extends React.PureComponent<Props> {
 
     return (
       <ul
-        className="Carousel__list"
+        className="carousel__list"
         style={{
           display: 'flex',
           width: `${frameSize * (itemWidth + 10)}px`,
@@ -32,18 +32,18 @@ class Carousel extends React.PureComponent<Props> {
       >
         {images.map((image, index) => (
           <li
-            key={index}
+            key={image}
             style={{ listStyleType: 'none' }}
           >
             <img
-              className="Carousel__img"
+              className="carousel__img"
               style={{
                 width: `${itemWidth}px`,
                 transform: `translateX(${moveLeft}px)`,
                 transition: `all ${animationDuration}ms ease-out`,
               }}
               src={image}
-              alt={image.slice(6, 7)}
+              alt={`icon-${index}`}
             />
           </li>
         ))}
