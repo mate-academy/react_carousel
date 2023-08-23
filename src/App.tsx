@@ -178,7 +178,7 @@ class App extends React.Component<{}, State> {
         </div>
 
         <form action="" className="form">
-          <div className="div">
+          <div className="container">
             <label htmlFor="itemWidth">
               item width:
               <input
@@ -196,7 +196,7 @@ class App extends React.Component<{}, State> {
             </label>
           </div>
 
-          <div className="div">
+          <div className="container">
             <label htmlFor="frameSize">frame size: </label>
             <input
               type="number"
@@ -212,7 +212,7 @@ class App extends React.Component<{}, State> {
             />
           </div>
 
-          <div className="div">
+          <div className="container">
             <label htmlFor="step">step: </label>
             <input
               type="number"
@@ -228,7 +228,7 @@ class App extends React.Component<{}, State> {
             />
           </div>
 
-          <div className="div">
+          <div className="container">
             <label htmlFor="animationDuration">animation duration(ms): </label>
             <input
               type="number"

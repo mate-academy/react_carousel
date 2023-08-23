@@ -24,16 +24,14 @@ class Carousel extends React.PureComponent<Props> {
       <ul
         className="carousel__list"
         style={{
-          display: 'flex',
           width: `${frameSize * (itemWidth + 10)}px`,
-          overflow: 'hidden',
           transition: `all ${animationDuration}ms ease-out`,
         }}
       >
         {images.map((image, index) => (
           <li
+            className="carousel__element"
             key={image}
-            style={{ listStyleType: 'none' }}
           >
             <img
               className="carousel__img"
