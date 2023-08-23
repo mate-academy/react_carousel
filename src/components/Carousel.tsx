@@ -1,18 +1,53 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  animationDuration: number;
+  frameSize: number;
+  itemWidth: number;
+  moveLeft: number
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+class Carousel extends React.PureComponent<Props> {
+  render() {
+    const {
+      images,
+      animationDuration,
+      frameSize,
+      itemWidth,
+      moveLeft,
+    } = this.props;
+
+    return (
+      <ul
+        className="carousel__list"
+        style={{
+          width: `${frameSize * (itemWidth + 10)}px`,
+          transition: `all ${animationDuration}ms ease-out`,
+        }}
+      >
+        {images.map((image, index) => (
+          <li
+            className="carousel__element"
+            key={image}
+          >
+            <img
+              className="carousel__img"
+              style={{
+                width: `${itemWidth}px`,
+                transform: `translateX(${moveLeft}px)`,
+                transition: `all ${animationDuration}ms ease-out`,
+              }}
+              src={image}
+              alt={`icon-${index}`}
+            />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
 
 export default Carousel;
