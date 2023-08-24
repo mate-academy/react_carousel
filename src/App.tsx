@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import Control from './components/Control/Control';
+import { Setup } from './types/setup';
 
-interface State {
-  images: string[];
-}
-
-class App extends React.Component<{}, State> {
-  state = {
+const App: React.FC = () => {
+  const [setup, setSetup] = useState<Setup>({
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,20 +18,55 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  });
+
+  const handleInputChange = (
+    key: keyof Setup,
+  ) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = key === 'images'
+      ? Array.from(e.target.files || []).map(file => URL.createObjectURL(file))
+      : Number(e.target.value);
+
+    setSetup(prevSetup => ({
+      ...prevSetup,
+      [key]: value,
+    }));
   };
 
-  render() {
-    const { images } = this.state;
+  const {
+    images, itemWidth, frameSize, step, animationDuration,
+  } = setup;
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1
+        data-cy="title"
+        className="title"
+      >
+        {`Carousel with ${images.length} images`}
+      </h1>
 
-        <Carousel />
-      </div>
-    );
-  }
-}
+      <Carousel
+        images={images}
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+      />
+
+      <Control
+        itemWidth={setup.itemWidth}
+        frameSize={setup.frameSize}
+        step={setup.step}
+        animationDuration={setup.animationDuration}
+        handleInputChange={handleInputChange}
+      />
+    </div>
+  );
+};
 
 export default App;
