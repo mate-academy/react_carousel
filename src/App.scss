@@ -1,1 +1,33 @@
-// style go here
+html {
+  font-family: "Phudu", cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  color: #30cfd0;
+}
+
+.input {
+  margin-left: 5px;
+  width: 50px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
