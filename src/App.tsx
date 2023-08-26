@@ -101,7 +101,6 @@ const App: React.FC = () => {
         </label>
       </div>
     </div>
-
   );
 };
 
