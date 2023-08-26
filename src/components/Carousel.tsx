@@ -21,9 +21,11 @@ const Carousel: React.FC<Props> = ({
   const [indexStart, setIndexImage] = useState(0);
 
   const moveForward = (stepShift: number, smile: string[], size: number) => {
-    if (indexStart + stepShift >= smile.length - size && !infinite) {
+    const isEnoughImages = indexStart + stepShift >= smile.length - size;
+
+    if (isEnoughImages && !infinite) {
       setIndexImage(smile.length - size);
-    } else if (indexStart + stepShift >= smile.length - size && infinite) {
+    } else if (isEnoughImages && infinite) {
       setIndexImage(0);
     } else {
       setIndexImage(indexStart + stepShift);
@@ -31,21 +33,30 @@ const Carousel: React.FC<Props> = ({
   };
 
   const moveBack = (stepShift: number, smile: string[], size: number) => {
-    if (indexStart - stepShift < 0 && !infinite) {
+    const isEnoughImages = indexStart - stepShift < 0;
+
+    if (isEnoughImages && !infinite) {
       setIndexImage(0);
-    } else if (indexStart - stepShift < 0 && infinite) {
+    } else if (isEnoughImages && infinite) {
       setIndexImage(smile.length - size);
     } else {
       setIndexImage(indexStart - stepShift);
     }
   };
 
+  const styleCarousel = {
+    width: `${itemWidth * frameSize}px`,
+  };
+
+  const styleImages = {
+    transitionDuration: `${animationDuration}ms`,
+    transform: `translateX(-${indexStart * itemWidth}px)`,
+  };
+
   return (
     <div
       className="Carousel"
-      style={{
-        width: `${itemWidth * frameSize}px`,
-      }}
+      style={styleCarousel}
     >
       <ul
         className="Carousel__list"
@@ -54,10 +65,7 @@ const Carousel: React.FC<Props> = ({
         {images.map((image, index) => (
           <li
             key={image}
-            style={{
-              transitionDuration: `${animationDuration}ms`,
-              transform: `translateX(-${indexStart * itemWidth}px)`,
-            }}
+            style={styleImages}
           >
             <img
               src={image}
