@@ -2,7 +2,7 @@
 
   display: flex;
   align-items: center;
-  &> button {
+  & > button {
     height: 20px;
     cursor: pointer;
   }
@@ -15,7 +15,7 @@
     overflow: hidden;
     list-style-type: none;
 
-    &> li {
+    & > li {
       padding: 0 10px;
     }
   }
