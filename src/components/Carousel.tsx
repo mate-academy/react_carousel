@@ -52,20 +52,20 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div className="container">
+    <div className="carousel">
       <button
         className={cn(
-          'button',
-          { 'button--disabled': (start && !infinite) },
+          'carousel__button',
+          { 'carousel__button--disabled': (start && !infinite) },
         )}
         type="button"
-        onClick={() => prevImg()}
+        onClick={prevImg}
       >
         &#8656;
       </button>
 
       <ul
-        className="list"
+        className="carousel__list"
         style={{
           width: `${size}px`,
         }}
@@ -91,11 +91,11 @@ const Carousel: React.FC<Props> = ({
 
       <button
         className={cn(
-          'button',
-          { 'button--disabled': (end && !infinite) },
+          'carousel__button',
+          { 'carousel__button--disabled': (end && !infinite) },
         )}
         type="button"
-        onClick={() => nextImg()}
+        onClick={nextImg}
         data-cy="next"
       >
         &#8658;

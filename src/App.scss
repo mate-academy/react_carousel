@@ -1,3 +1,6 @@
+$app-color: #30cfd0;
+$blue-color: blue;
+
 html {
   font-family: "Phudu", cursive;
 }
@@ -5,29 +8,31 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  background-image: linear-gradient(
+    to top, $app-color 0%, #330867 100%
+  );
 }
 
-.App {
+.app {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
-}
 
-.title {
-  margin: 0;
-  font-size: 30px;
-  color: #30cfd0;
-}
+  &__title {
+    margin: 0;
+    font-size: 30px;
+    color: $blue-color;
+  }
 
-.input {
-  margin-left: 5px;
-  width: 50px;
-}
+  &__input {
+    margin-left: 5px;
+    width: 50px;
+  }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }

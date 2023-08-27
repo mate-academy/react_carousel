@@ -29,9 +29,9 @@ const App: React.FC = () => {
   const [infinite, setInfinite] = useState(false);
 
   return (
-    <div className="App">
+    <div className="app">
       {/* eslint-disable-next-line */}
-      <h1 className='title' data-cy='title'>Carousel with {state.images.length} images</h1>
+      <h1 className="app__title" data-cy="title">Carousel with {state.images.length} images</h1>
 
       <Carousel
         images={state.images}
@@ -42,11 +42,11 @@ const App: React.FC = () => {
         infinite={infinite}
       />
 
-      <div className="form">
+      <div className="app__form">
         <label>
           Step:
           <input
-            className="input"
+            className="app__input"
             type="number"
             min="1"
             max={state.images.length}
@@ -58,7 +58,7 @@ const App: React.FC = () => {
         <label>
           Count emoticons:
           <input
-            className="input"
+            className="app__input"
             type="number"
             min="1"
             max={state.images.length}
@@ -70,7 +70,7 @@ const App: React.FC = () => {
         <label>
           Item width:
           <input
-            className="input"
+            className="app__input"
             type="number"
             min="100"
             max="200"
@@ -82,7 +82,7 @@ const App: React.FC = () => {
         <label>
           Animation Duration:
           <input
-            className="input"
+            className="app__input"
             type="number"
             min="100"
             max="5000"
