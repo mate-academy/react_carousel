@@ -45,7 +45,7 @@ class App extends React.Component<{}, State> {
             Item width:
 
             <input
-              id="widthId"
+              id="itemId"
               type="number"
               value={itemWidth}
               min={130}
@@ -60,7 +60,7 @@ class App extends React.Component<{}, State> {
             Displayed images number
 
             <input
-              id="frameSize"
+              id="frameId"
               type="number"
               value={frameSize}
               min={1}
@@ -75,7 +75,7 @@ class App extends React.Component<{}, State> {
             Step:
 
             <input
-              id="step"
+              id="stepId"
               type="number"
               value={step}
               min={1}
@@ -86,14 +86,16 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label htmlFor="itemWidth">
+          <label htmlFor="durationId">
             Animation duration:
 
             <input
-              id="widthId"
+              id="durationId"
               type="number"
               value={animationDuration}
-              min={500}
+              min={100}
+              max={100000}
+              step={100}
               onChange={ev => {
                 this.setState({ animationDuration: +ev.target.value });
               }}
