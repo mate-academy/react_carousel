@@ -1,1 +1,40 @@
-// style go here
+$blue-color: blue;
+$white-color: white;
+
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__list {
+    margin: 0;
+    padding: 10px 0;
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+    background-image: linear-gradient(
+      to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%
+    );
+    border-radius: 30px;
+    border: 5px solid $blue-color;
+  }
+
+  &__button {
+    width: 30px;
+    height: 40px;
+    border-radius: 40%;
+    border: 2px solid black;
+    background-color: $white-color;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: $blue-color;
+      color: $white-color;
+      transform: scale(1.1);
+    }
+
+    &--disabled {
+      pointer-events: none;
+    }
+  }
+}

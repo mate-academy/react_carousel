@@ -1,1 +1,38 @@
-// style go here
+$app-color: #30cfd0;
+$blue-color: blue;
+
+html {
+  font-family: "Phudu", cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(
+    to top, $app-color 0%, #330867 100%
+  );
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__title {
+    margin: 0;
+    font-size: 30px;
+    color: $blue-color;
+  }
+
+  &__input {
+    margin-left: 5px;
+    width: 50px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
