@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -19,6 +19,15 @@ export const Carousel: React.FC<Props> = ({
 }) => {
   const containerWidth = (itemWidth + 25) * frameSize;
 
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const moveLeft = () => {
+    setCurrentOffset(currentOffset - itemWidth);
+  };
+
+  const moveRight = () => {
+    setCurrentOffset(currentOffset + itemWidth);
+  };
+
   return (
     // eslint-disable-next-line react/jsx-indent
     <div className="Carousel">
@@ -33,14 +42,30 @@ export const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`Image ${index + 1}`}
-              style={{ width: `${itemWidth}px` }}
+              style={{
+                width: `${itemWidth}px`,
+                marginLeft: `${currentOffset}px`,
+              }}
             />
           </li>
         ))}
       </ul>
 
-      <button title="prevButton" type="button"> ← </button>
-      <button data-cy="next" title="nextButton" type="button"> → </button>
+      <button
+        title="prevButton"
+        type="button"
+        onClick={moveLeft}
+      >
+        {' ← '}
+      </button>
+      <button
+        data-cy="next"
+        title="nextButton"
+        type="button"
+        onClick={moveRight}
+      >
+        {' → '}
+      </button>
     </div>
   );
 };
