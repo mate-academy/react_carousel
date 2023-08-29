@@ -45,10 +45,11 @@ export class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div>
-          <label>
+          <label htmlFor="stepId">
             Item Width:
             <input
               type="number"
+              name="stepId"
               value={itemWidth}
               onChange={(e) => this
                 .setState({ itemWidth: Number(e.target.value) })}
@@ -56,10 +57,11 @@ export class App extends React.Component<{}, State> {
           </label>
         </div>
         <div>
-          <label>
+          <label htmlFor="frameSize">
             Frame Size:
             <input
               type="number"
+              name="frameSize"
               value={frameSize}
               onChange={(e) => this
                 .setState({ frameSize: Number(e.target.value) })}
@@ -67,20 +69,22 @@ export class App extends React.Component<{}, State> {
           </label>
         </div>
         <div>
-          <label>
+          <label htmlFor="step">
             Step:
             <input
               type="number"
+              name="step"
               value={step}
               onChange={(e) => this.setState({ step: Number(e.target.value) })}
             />
           </label>
         </div>
         <div>
-          <label>
+          <label htmlFor="animationDuration">
             Animation Duration:
             <input
               type="number"
+              name="animationDuration"
               value={animationDuration}
               onChange={(e) => this
                 .setState({ animationDuration: Number(e.target.value) })}
