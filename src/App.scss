@@ -1,1 +1,10 @@
-// style go here
+.carousel {
+  display: flex;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+
+  }
+}

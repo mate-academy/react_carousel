@@ -1,18 +1,42 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+}) => {
+  const containerWidth = (itemWidth + 25) * frameSize;
 
-export default Carousel;
+  return (
+    // eslint-disable-next-line react/jsx-indent
+    <div className="Carousel">
+      <ul
+        className="Carousel__list"
+        style={{
+          width: `${containerWidth}px`,
+        }}
+      >
+        {images.map((image, index) => (
+          <li key={image}>
+            <img
+              src={image}
+              alt={`Image ${index + 1}`}
+              style={{ width: `${itemWidth}px` }}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <button type="button"> ← </button>
+      <button type="button"> → </button>
+    </div>
+  );
+};
