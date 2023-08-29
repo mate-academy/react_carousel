@@ -31,11 +31,14 @@ export class App extends React.Component<{}, State> {
 
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
         <Carousel
+          // step={3}
           images={images}
-          itemWidth={itemWidth}
           frameSize={frameSize}
+          itemWidth={itemWidth}
+          // animationDuration={1000}
+          // infinite={false}
         />
       </div>
 

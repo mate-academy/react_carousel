@@ -6,12 +6,16 @@ interface Props {
   images: string[];
   itemWidth: number;
   frameSize: number;
+  // step: number;
+  // animationDuration: number;
 }
 
 export const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
   frameSize = 3,
+  // step = 3,
+  // animationDuration = 1000,
 }) => {
   const containerWidth = (itemWidth + 25) * frameSize;
 
@@ -35,8 +39,8 @@ export const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      <button type="button"> ← </button>
-      <button type="button"> → </button>
+      <button title="prevButton" type="button"> ← </button>
+      <button data-cy="next" title="nextButton" type="button"> → </button>
     </div>
   );
 };
