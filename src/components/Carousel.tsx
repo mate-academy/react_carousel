@@ -1,32 +1,32 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
   images: string[];
-  itemWidth: number;
+  imageWidth: number;
   frameSize: number;
   step: number;
   animationDuration: number;
-  infinite?: boolean;
+  infinite: boolean;
 }
 
 export const Carousel: React.FC<Props> = ({
   images,
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animationDuration = 1000,
-  infinite = true,
+  imageWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite = false,
 }) => {
   const gap = 25;
-  const containerWidth = (itemWidth + gap) * frameSize;
-  const totalWidth = (itemWidth + gap) * images.length;
+  const containerWidth = (imageWidth + gap) * frameSize;
+  const totalWidth = (imageWidth + gap) * images.length;
   const maxOffset = -(totalWidth - containerWidth);
 
   const [currentOffset, setCurrentOffset] = useState(0);
   const moveLeft = () => {
-    let newOffset = currentOffset - (itemWidth + gap) * step;
+    let newOffset = currentOffset - (imageWidth + gap) * step;
 
     if (infinite && newOffset < maxOffset) {
       newOffset = maxOffset;
@@ -36,7 +36,7 @@ export const Carousel: React.FC<Props> = ({
   };
 
   const moveRight = () => {
-    let newOffset = currentOffset + (itemWidth + gap) * step;
+    let newOffset = currentOffset + (imageWidth + gap) * step;
 
     if (infinite && newOffset > 0) {
       newOffset = 0;
@@ -61,7 +61,7 @@ export const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`Image ${index + 1}`}
-              style={{ width: `${itemWidth}px` }}
+              style={{ width: `${imageWidth}px` }}
             />
           </li>
         ))}
