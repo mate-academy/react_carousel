@@ -1,7 +1,14 @@
+.CarouselWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .Carousel {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
 
   .Carousel__list {
     list-style: none;
@@ -14,6 +21,7 @@
     align-items: center;
     // justify-content: center;
     gap: 25px;
+    transition: margin-left 1s ease-in-out;
 
     li {
       display: inline-block;

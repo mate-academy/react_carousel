@@ -6,35 +6,40 @@ interface Props {
   images: string[];
   itemWidth: number;
   frameSize: number;
-  // step: number;
-  // animationDuration: number;
+  step: number;
+  animationDuration: number;
 }
 
 export const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
   frameSize = 3,
-  // step = 3,
-  // animationDuration = 1000,
+  step = 3,
+  animationDuration = 1000,
 }) => {
-  const containerWidth = (itemWidth + 25) * frameSize;
+  const gap = 25;
+  const containerWidth = (itemWidth + gap) * frameSize;
+  const totalWidth = (itemWidth + gap) * images.length;
+  const maxOffset = -(totalWidth - containerWidth);
 
   const [currentOffset, setCurrentOffset] = useState(0);
   const moveLeft = () => {
-    setCurrentOffset(currentOffset - itemWidth);
+    setCurrentOffset(currentOffset - (itemWidth + gap) * step);
   };
 
   const moveRight = () => {
-    setCurrentOffset(currentOffset + itemWidth);
+    setCurrentOffset(currentOffset + (itemWidth + gap) * step);
   };
 
   return (
     // eslint-disable-next-line react/jsx-indent
-    <div className="Carousel">
+    <div className="Carousel" style={{ width: `${containerWidth}px` }}>
       <ul
         className="Carousel__list"
         style={{
-          width: `${containerWidth}px`,
+          width: `${totalWidth}px`,
+          marginLeft: `${currentOffset}px`,
+          transition: `margin-left ${animationDuration / 1000}s ease-in-out`,
         }}
       >
         {images.map((image, index) => (
@@ -42,10 +47,7 @@ export const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`Image ${index + 1}`}
-              style={{
-                width: `${itemWidth}px`,
-                marginLeft: `${currentOffset}px`,
-              }}
+              style={{ width: `${itemWidth}px` }}
             />
           </li>
         ))}
@@ -54,7 +56,12 @@ export const Carousel: React.FC<Props> = ({
       <button
         title="prevButton"
         type="button"
-        onClick={moveLeft}
+        onClick={() => {
+          if (currentOffset > maxOffset) {
+            moveLeft();
+          }
+        }}
+        disabled={currentOffset <= maxOffset}
       >
         {' ← '}
       </button>
@@ -62,7 +69,12 @@ export const Carousel: React.FC<Props> = ({
         data-cy="next"
         title="nextButton"
         type="button"
-        onClick={moveRight}
+        onClick={() => {
+          if (currentOffset < 0) {
+            moveRight();
+          }
+        }}
+        disabled={currentOffset >= 0}
       >
         {' → '}
       </button>
