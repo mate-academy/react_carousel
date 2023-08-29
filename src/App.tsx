@@ -88,11 +88,11 @@ export class App extends React.Component<{}, State> {
           </label>
         </div>
         <Carousel
-          step={3}
+          step={step}
           images={images}
           frameSize={frameSize}
           imageWidth={itemWidth}
-          animationDuration={1000}
+          animationDuration={animationDuration}
           infinite
         />
       </div>
