@@ -38,7 +38,7 @@ export class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={1000}
-          // infinite={false}
+          infinite
         />
       </div>
 
