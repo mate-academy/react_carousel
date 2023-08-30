@@ -1,1 +1,7 @@
-// style go here
+.App {
+  &__form {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+   }
+}
