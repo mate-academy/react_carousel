@@ -50,121 +50,93 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     return (
-      <>
-        <div className="App">
+      <div className="App">
+        {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <form method="post" className="App__form">
 
-          <form method="post" className="form">
+          <label htmlFor="itemId" className="itemWidth">
+            ITEM WIDTH:
+            <input
+              id="itemId"
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              min={130}
+              max={1300}
+              onChange={this.handleChange}
+            />
+          </label>
+          <br />
+          <label htmlFor="frameId" className="frameSize">
+            FRAME SIZE:
+            <input
+              id="frameId"
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              min={1}
+              max={10}
+              onChange={this.handleChange}
+            />
+          </label>
 
-            <div className="field">
-              <label htmlFor="itemId" className="input is-naormal">
-                <div className="control">
-                  ITEM WIDTH:
-                  <input
-                    className="input is-medium"
-                    id="itemId"
-                    type="number"
-                    name="input"
-                    value={itemWidth}
-                    min={130}
-                    max={1300}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </label>
-            </div>
+          <br />
+          <label htmlFor="stepId" className="itemWidth">
+            STEP:
+            <input
+              id="stepId"
+              type="number"
+              name="step"
+              value={step}
+              min={1}
+              max={10}
+              onChange={this.handleChange}
+            />
+          </label>
 
-            <div className="field">
-              <label htmlFor="frameId" className="input is-normal">
-                <div className="control">
-                  FRAME SIZE:
-                  <input
-                    id="frameId"
-                    type="number"
-                    name="frameSize"
-                    value={frameSize}
-                    min={1}
-                    max={10}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </label>
-            </div>
+          <br />
+          <label htmlFor="durationId" className="itemWidth">
+            ANIMATION DURATION:
+            <input
+              id="durationId"
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              min={100}
+              max={100000}
+              step={100}
+              onChange={this.handleChange}
+            />
+          </label>
 
-            <div className="field">
-              <label htmlFor="stepId" className="input is-normal">
-                <div className="control">
-                  STEP:
-                  <input
-                    id="stepId"
-                    type="number"
-                    name="step"
-                    value={step}
-                    min={1}
-                    max={10}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </label>
-            </div>
+          <br />
+          <label htmlFor="infiniteId" className="itemWidth">
+            INFINITE
+            <input
+              type="checkbox"
+              id="infiniteId"
+              name="infinite"
+              onClick={() => {
+                this.setState({
+                  infinite: !infinite,
+                });
+              }}
+            />
+          </label>
+        </form>
 
-            <div className="field">
-              <label htmlFor="durationId" className="input is-normal">
-                <div className="control">
-                  ANIMATION DURATION:
-                  <input
-                    id="durationId"
-                    type="number"
-                    name="animationDuration"
-                    value={animationDuration}
-                    min={100}
-                    max={100000}
-                    step={100}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </label>
-            </div>
-
-            <div className="field">
-              <label htmlFor="infiniteId" className="checkbox">
-                <div className="control">
-                  INFINITE
-                  <input
-                    type="checkbox"
-                    id="infiniteId"
-                    name="infinite"
-                    onClick={() => {
-                      this.setState({
-                        infinite: !infinite,
-                      });
-                    }}
-                  />
-                </div>
-              </label>
-            </div>
-
-          </form>
-
-          <h1
-            data-cy="title"
-            className="title"
-          >
-            Carousel with
-            <strong>{images.length}</strong>
-            images
-          </h1>
-
-          <Carousel
-            images={images}
-            step={step}
-            frameSize={frameSize}
-            itemWidth={itemWidth}
-            animationDuration={animationDuration}
-            infinite={infinite}
-          />
-        </div>
-      </>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+      </div>
     );
   }
 }
+
 export default App;
