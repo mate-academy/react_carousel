@@ -1,5 +1,13 @@
 .App {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
   &__form {
+    margin: 15px;
+    padding: 15px;
+    border: 5px solid purple;
     margin-left: 20px;
     display: flex;
     flex-direction: column;

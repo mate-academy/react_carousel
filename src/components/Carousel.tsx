@@ -54,27 +54,29 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div
-      className="Carousel"
-      style={styleCarousel}
-    >
-      <ul
-        className="Carousel__list"
-
+    <>
+      <div
+        className="Carousel"
+        style={styleCarousel}
       >
-        {images.map((image, index) => (
-          <li
-            key={image}
-            style={styleImages}
-          >
-            <img
-              src={image}
-              alt={index.toString()}
-              width={itemWidth}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul
+          className="Carousel__list"
+        >
+          {images.map((image, index) => (
+            <li
+              key={image}
+              style={styleImages}
+            >
+              <img
+                src={image}
+                alt={index.toString()}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="button-section">
         <button
           className="button is-link"
@@ -98,8 +100,7 @@ const Carousel: React.FC<Props> = ({
           Next
         </button>
       </div>
-
-    </div>
+    </>
   );
 };
 

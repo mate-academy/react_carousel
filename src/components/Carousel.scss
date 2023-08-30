@@ -1,16 +1,21 @@
 .Carousel {
   overflow: hidden;
+
   &__list {
     display: flex;
     list-style: none;
+    box-sizing: border-box;
+
     padding-left: 0;
     background-color: rgb(205, 122, 50);
     border-radius: 20px;
     border: solid black 2px;
+    overflow: hidden;
   }
-  &__buttons {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 40px;
-  }
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px;
 }

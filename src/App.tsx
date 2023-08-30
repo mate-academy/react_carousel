@@ -51,13 +51,12 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
         <form method="post" className="App__form">
 
           <label htmlFor="itemId" className="itemWidth">
-            ITEM WIDTH:
+            Item width
             <input
+              className="input is-rounded"
               id="itemId"
               type="number"
               name="itemWidth"
@@ -67,10 +66,11 @@ class App extends React.Component<{}, State> {
               onChange={this.handleChange}
             />
           </label>
-          <br />
+
           <label htmlFor="frameId" className="frameSize">
-            FRAME SIZE:
+            Frame size
             <input
+              className="input is-rounded"
               id="frameId"
               type="number"
               name="frameSize"
@@ -81,10 +81,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <br />
           <label htmlFor="stepId" className="itemWidth">
-            STEP:
+            Step
             <input
+              className="input is-rounded"
               id="stepId"
               type="number"
               name="step"
@@ -95,10 +95,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <br />
           <label htmlFor="durationId" className="itemWidth">
-            ANIMATION DURATION:
+            Animation duration
             <input
+              className="input is-rounded"
               id="durationId"
               type="number"
               name="animationDuration"
@@ -110,10 +110,10 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <br />
           <label htmlFor="infiniteId" className="itemWidth">
-            INFINITE
+            Infinite
             <input
+              className="checkbox"
               type="checkbox"
               id="infiniteId"
               name="infinite"
@@ -126,6 +126,8 @@ class App extends React.Component<{}, State> {
           </label>
         </form>
 
+        {/* eslint-disable-next-line */}
+        <h1 className="title is-1" data-cy="title">Carousel with {images.length} images</h1>
         <Carousel
           images={images}
           step={step}
