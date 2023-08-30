@@ -95,7 +95,7 @@ const Carousel: React.FC<Props> = ({
             { 'button--disabled': (isEnd && !infinite) },
           )}
           type="button"
-          onClick={() => handleNextImage()}
+          onClick={handleNextImage}
         >
           {'>>'}
         </button>
