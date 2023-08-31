@@ -1,1 +1,64 @@
-// style go here
+.MainWrap {
+  display: flex;
+}
+
+.Carousel {
+  width: 1300px;
+  justify-content: space-between;
+  
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__img {
+    height: 130px;
+    width: 130px;
+  }
+
+  &__button {
+    width: 0;
+    height: 130px;
+  }
+}
+
+.button--right {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-left: 80px solid #d8b721;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    transform: translateX(5px);
+    animation-duration: 3s;
+  }
+}
+
+.button--left {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-right: 80px solid #d8b721;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    transform: translateX(-5px);
+  }
+}
+
+.disabled {
+  visibility: hidden;
+}
+
+.Wrap {
+  width: 260px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  transition: 0;
+}

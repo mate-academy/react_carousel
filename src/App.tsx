@@ -6,6 +6,11 @@ interface State {
   images: string[];
 }
 
+const step = 3;
+const frameSize = 3;
+const itemWidth = 130;
+const animationDuration = 1000;
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -28,9 +33,14 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 className="App__title">Carousel with {images.length} images</h1>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
