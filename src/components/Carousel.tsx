@@ -143,9 +143,8 @@ const Carousel: React.FC<Props> = ({
         <label>
           {'Item width: '}
           <input
-            min={130}
-            step={130}
-            max={520}
+            min={30}
+            max={500}
             name="itemWidth"
             value={params.itemWidth}
             type="number"
