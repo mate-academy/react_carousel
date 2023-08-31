@@ -1,76 +1,84 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
+import { Image } from '../types/Image';
+import { Params } from '../types/Parameters';
 
-interface Props {
-  images: string[],
-  itemWidth: number,
-  step: number,
-  frameSize: number,
-  animationDuration: number,
-  infinite: boolean,
-}
+type Props = {
+  images: Image[];
+  params: Params;
+  changeCarousel: (key: string, value: number | boolean) => void
+};
 
 const Carousel: React.FC<Props> = ({
   images,
-  step,
-  frameSize,
-  itemWidth,
-  animationDuration,
-  infinite,
+  params,
+  changeCarousel,
 }) => {
-  const [indexStart, setIndexImage] = useState(0);
+  const [firstVisibleImg, setFirstVisibleImg] = useState(1);
 
-  const moveForward = (stepShift: number, smile: string[], size: number) => {
-    const isEnoughImages = indexStart + stepShift >= smile.length - size;
+  const scrolRight = () => {
+    let nextVisibleImg = firstVisibleImg + params.step;
 
-    if (isEnoughImages && !infinite) {
-      setIndexImage(smile.length - size);
-    } else if (isEnoughImages && infinite) {
-      setIndexImage(0);
-    } else {
-      setIndexImage(indexStart + stepShift);
+    if ((nextVisibleImg + params.frameSize) >= images.length) {
+      nextVisibleImg = images.length - params.frameSize + 1;
     }
-  };
 
-  const moveBack = (stepShift: number, smile: string[], size: number) => {
-    const isEnoughImages = indexStart - stepShift < 0;
-
-    if (isEnoughImages && !infinite) {
-      setIndexImage(0);
-    } else if (isEnoughImages && infinite) {
-      setIndexImage(smile.length - size);
-    } else {
-      setIndexImage(indexStart - stepShift);
+    if (params.infinite && (firstVisibleImg === nextVisibleImg)) {
+      nextVisibleImg = 1;
     }
+
+    setFirstVisibleImg(nextVisibleImg);
   };
 
-  const styleCarousel = {
-    width: `${itemWidth * frameSize}px`,
+  const scrolLeft = () => {
+    let nextVisibleImg = firstVisibleImg - params.step;
+
+    if (nextVisibleImg < 1) {
+      nextVisibleImg = 1;
+    }
+
+    setFirstVisibleImg(nextVisibleImg);
   };
 
-  const styleImages = {
-    transitionDuration: `${animationDuration}ms`,
-    transform: `translateX(-${indexStart * itemWidth}px)`,
+  const changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeCarousel('frameSize', +e.target.value);
+
+    if ((params.frameSize + firstVisibleImg) > images.length) {
+      if ((images.length - params.frameSize) > 0) {
+        setFirstVisibleImg(images.length - params.frameSize);
+      } else {
+        setFirstVisibleImg(1);
+      }
+    }
   };
 
   return (
     <>
       <div
         className="Carousel"
-        style={styleCarousel}
+        style={{
+          width: `${params.itemWidth * params.frameSize}px`,
+          transition: `${params.animationDuration}ms`,
+        }}
       >
         <ul
           className="Carousel__list"
         >
-          {images.map((image, index) => (
+          {images.map(image => (
             <li
-              key={image}
-              style={styleImages}
+              key={image.id}
+              style={{
+                transform: `translateX(${-params.itemWidth * (firstVisibleImg - 1)}px)`,
+                transition: `transform ${params.animationDuration}ms`,
+              }}
             >
               <img
-                src={image}
-                alt={index.toString()}
-                width={itemWidth}
+                src={image.url}
+                alt={image.id.toString()}
+                style={{
+                  width: `${params.itemWidth}px`,
+                  height: `${params.itemWidth}px`,
+                }}
               />
             </li>
           ))}
@@ -79,26 +87,90 @@ const Carousel: React.FC<Props> = ({
 
       <div className="button-section">
         <button
-          className="button is-link"
+          className="button-63"
+          disabled={firstVisibleImg === 1}
           type="button"
-          disabled={indexStart === 0 && !infinite}
-          onClick={() => {
-            moveBack(step, images, frameSize);
-          }}
+          onClick={scrolLeft}
         >
           Prev
         </button>
         <button
-          className="button is-link"
-          data-cy="next"
+          className="button-63"
+          disabled={(!params.infinite
+            && (firstVisibleImg === (images.length - params.frameSize + 1)))
+            || params.frameSize === images.length}
           type="button"
-          disabled={indexStart > images.length - frameSize - 1 && !infinite}
-          onClick={() => {
-            moveForward(step, images, frameSize);
-          }}
+          data-cy="next"
+          onClick={scrolRight}
         >
           Next
         </button>
+      </div>
+
+      <div className="form">
+        <label>
+          {'Step: '}
+          <input
+            min={1}
+            max={images.length - 1}
+            name="step"
+            value={params.step}
+            type="number"
+            onChange={(e) => changeCarousel('step', +e.target.value)}
+          />
+        </label>
+
+        <label>
+          {'Frame size: '}
+          <input
+            min={1}
+            max={images.length}
+            name="frameSize"
+            value={params.frameSize}
+            type="number"
+            onChange={changeFrameSize}
+          />
+        </label>
+
+        <label>
+          {'Item width: '}
+          <input
+            min={130}
+            step={130}
+            max={520}
+            name="itemWidth"
+            value={params.itemWidth}
+            type="number"
+            onChange={(e) => changeCarousel('itemWidth', +e.target.value)}
+          />
+        </label>
+
+        <label>
+          {'Animation duration: '}
+          <input
+            min={100}
+            step={100}
+            max={3000}
+            name="animationDuration"
+            value={params.animationDuration}
+            type="number"
+            onChange={
+              (e) => changeCarousel('animationDuration', +e.target.value)
+            }
+          />
+        </label>
+
+        <label>
+          {'Infinity: '}
+          <input
+            name="infinity"
+            defaultChecked={params.infinite}
+            type="checkbox"
+            onChange={
+              (e) => changeCarousel('infinite', e.target.checked)
+            }
+          />
+        </label>
       </div>
     </>
   );

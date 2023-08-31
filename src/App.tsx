@@ -1,144 +1,51 @@
-import React from 'react';
-import './App.scss';
+import { useState } from 'react';
+import imagesFromServer from './data/images.json';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[],
-  itemWidth: number,
-  frameSize: number,
-  step: number,
-  animationDuration: number,
-  infinite: boolean,
+import { Image } from './types/Image';
+import { Params } from './types/Parameters';
+
+import './App.scss';
+
+const base = {
+  firstImg: 1,
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
+function getPreparedImages(img: Image[], filterParams: Params): Image[] {
+  const firstImgIndex = img.findIndex(el => el.id === filterParams.firstImg);
+
+  return [...img].slice(firstImgIndex);
 }
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    infinite: false,
+const App = () => {
+  const [params, setParams] = useState(base);
+  const images = getPreparedImages(imagesFromServer, params);
+  const changeParams = (key: string, value: number | boolean) => {
+    const validValue = value;
+
+    setParams(previousParams => {
+      return { ...previousParams, [key]: validValue };
+    });
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState(prevState => ({
-      ...prevState,
-      [event.target.name]: +event.target.value,
-    }));
-  };
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-  render() {
-    const {
-      images,
-      itemWidth,
-      frameSize,
-      step,
-      animationDuration,
-      infinite,
-    } = this.state;
+      <Carousel
+        images={images}
+        params={params}
+        changeCarousel={changeParams}
+      />
 
-    return (
-      <div className="App">
-        <form method="post" className="App__form">
-
-          <label htmlFor="itemId" className="itemWidth">
-            Item width
-            <input
-              className="input is-rounded"
-              id="itemId"
-              type="number"
-              name="itemWidth"
-              value={itemWidth}
-              min={130}
-              max={1300}
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label htmlFor="frameId" className="frameSize">
-            Frame size
-            <input
-              className="input is-rounded"
-              id="frameId"
-              type="number"
-              name="frameSize"
-              value={frameSize}
-              min={1}
-              max={10}
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label htmlFor="stepId" className="itemWidth">
-            Step
-            <input
-              className="input is-rounded"
-              id="stepId"
-              type="number"
-              name="step"
-              value={step}
-              min={1}
-              max={10}
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label htmlFor="durationId" className="itemWidth">
-            Animation duration
-            <input
-              className="input is-rounded"
-              id="durationId"
-              type="number"
-              name="animationDuration"
-              value={animationDuration}
-              min={100}
-              max={100000}
-              step={100}
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label htmlFor="infiniteId" className="itemWidth">
-            Infinite
-            <input
-              className="checkbox"
-              type="checkbox"
-              id="infiniteId"
-              name="infinite"
-              onClick={() => {
-                this.setState({
-                  infinite: !infinite,
-                });
-              }}
-            />
-          </label>
-        </form>
-
-        {/* eslint-disable-next-line */}
-        <h1 className="title is-1" data-cy="title">Carousel with {images.length} images</h1>
-        <Carousel
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
-        />
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
