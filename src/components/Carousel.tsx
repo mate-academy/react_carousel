@@ -37,6 +37,10 @@ const Carousel: React.FC<Props> = ({
       nextVisibleImg = 1;
     }
 
+    if (params.infinite && (firstVisibleImg === nextVisibleImg)) {
+      nextVisibleImg = 10 - (params.step - 1);
+    }
+
     setFirstVisibleImg(nextVisibleImg);
   };
 
@@ -98,7 +102,7 @@ const Carousel: React.FC<Props> = ({
       <div className="button-section">
         <button
           className="button-63"
-          disabled={firstVisibleImg === 1}
+          disabled={firstVisibleImg === 1 && !params.infinite}
           type="button"
           onClick={scrolLeft}
         >
