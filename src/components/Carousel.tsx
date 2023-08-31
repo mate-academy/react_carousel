@@ -19,7 +19,7 @@ const Carousel: React.FC<Props> = ({
   const scrolRight = () => {
     let nextVisibleImg = firstVisibleImg + params.step;
 
-    if ((nextVisibleImg + params.frameSize) >= images.length) {
+    if ((nextVisibleImg + params.frameSize) > images.length) {
       nextVisibleImg = images.length - params.frameSize + 1;
     }
 
@@ -52,14 +52,30 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
+  const styleForCarousel = {
+    width: `${params.itemWidth * params.frameSize}px`,
+    transition: `${params.animationDuration}ms`,
+  };
+
+  const styleContainerImage = {
+    transform: `translateX(${-params.itemWidth * (firstVisibleImg - 1)}px)`,
+    transition: `transform ${params.animationDuration}ms`,
+  };
+
+  const disabledForButtonNext = (!params.infinite
+    && (firstVisibleImg === (images.length - params.frameSize + 1)))
+    || params.frameSize === images.length;
+
+  const styleImage = {
+    width: `${params.itemWidth}px`,
+    height: `${params.itemWidth}px`,
+  };
+
   return (
     <>
       <div
         className="Carousel"
-        style={{
-          width: `${params.itemWidth * params.frameSize}px`,
-          transition: `${params.animationDuration}ms`,
-        }}
+        style={styleForCarousel}
       >
         <ul
           className="Carousel__list"
@@ -67,18 +83,12 @@ const Carousel: React.FC<Props> = ({
           {images.map(image => (
             <li
               key={image.id}
-              style={{
-                transform: `translateX(${-params.itemWidth * (firstVisibleImg - 1)}px)`,
-                transition: `transform ${params.animationDuration}ms`,
-              }}
+              style={styleContainerImage}
             >
               <img
                 src={image.url}
                 alt={image.id.toString()}
-                style={{
-                  width: `${params.itemWidth}px`,
-                  height: `${params.itemWidth}px`,
-                }}
+                style={styleImage}
               />
             </li>
           ))}
@@ -96,9 +106,7 @@ const Carousel: React.FC<Props> = ({
         </button>
         <button
           className="button-63"
-          disabled={(!params.infinite
-            && (firstVisibleImg === (images.length - params.frameSize + 1)))
-            || params.frameSize === images.length}
+          disabled={disabledForButtonNext}
           type="button"
           data-cy="next"
           onClick={scrolRight}
@@ -166,9 +174,7 @@ const Carousel: React.FC<Props> = ({
             name="infinity"
             defaultChecked={params.infinite}
             type="checkbox"
-            onChange={
-              (e) => changeCarousel('infinite', e.target.checked)
-            }
+            onChange={(e) => changeCarousel('infinite', e.target.checked)}
           />
         </label>
       </div>
