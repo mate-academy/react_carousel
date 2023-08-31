@@ -1,1 +1,61 @@
 // style go here
+.App {
+  overflow: hidden;
+  border-style: groove;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Carousel__list-container {
+  box-sizing: border-box;
+  border-style: groove;
+  border-radius: 35px;
+  border-color: black;
+  overflow: hidden;
+  background-color: aqua;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.inputContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.input-wrapp {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 80px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
