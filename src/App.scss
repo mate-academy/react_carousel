@@ -1,1 +1,15 @@
-// style go here
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-around;
+  text-align: center;
+  padding: 20px;
+}
+
+.inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
