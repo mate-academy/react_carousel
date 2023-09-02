@@ -4,6 +4,8 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  indexVisibleImages: number[];
+  frameSize: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +22,41 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    indexVisibleImages: [],
+    frameSize: 3,
+  };
+
+  componentDidMount() {
+    const { frameSize } = this.state;
+
+    this.setState({
+      indexVisibleImages: Array.from({ length: frameSize }, (_, i) => i),
+    });
+  }
+
+  onPageChange = (nextIndexOfImages: number[]) => {
+    this.setState({
+      indexVisibleImages: [...nextIndexOfImages],
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, indexVisibleImages, frameSize } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
+        <Carousel
+          images={images}
+          indexVisibleImages={indexVisibleImages}
+          step={3}
+          frameSize={frameSize}
+          itemWidth={130}
+          animationDuration={1000}
+          onPageChange={this.onPageChange}
+        />
       </div>
     );
   }
