@@ -64,10 +64,25 @@ const Carousel: React.FC<Props> = ({
         }}
       >
         {images.map((image, index) => (
-          <li key={image}>
+          <li
+            key={image}
+            style={{
+              height: `${itemWidth}px`,
+              width: `${itemWidth}px`,
+            }}
+          >
             <img
               src={image}
               alt={String(index)}
+              style={{
+                height: `${itemWidth}px`,
+                width: `${itemWidth}px`,
+
+                visibility: indexVisibleImages.includes(index)
+                  ? 'visible'
+                  : 'hidden',
+                transition: `visibility ${animationDuration}ms`,
+              }}
             />
           </li>
         ))}
