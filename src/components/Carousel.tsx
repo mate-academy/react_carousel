@@ -32,9 +32,7 @@ export const Carousel: React.FC<Props> = ({
       setStartImage(nextStartImg > lastVisible
         ? lastVisible
         : nextStartImg);
-    }
-
-    if (isCarouselEnd && infinite) {
+    } else if (infinite) {
       setStartImage(1);
     }
   };

@@ -1,3 +1,6 @@
+$color-black: #000;
+$color-light-grey: #d3d3d3;
+
 .Carousel {
   display: flex;
   flex-direction: column;
@@ -10,7 +13,7 @@
     overflow: hidden;
     padding: 0;
     list-style: none;
-    border: 1px solid black;
+    border: 1px solid $color-black;
     border-radius: 20px;
   }
 
@@ -22,16 +25,16 @@
   &__button {
     height: 30px;
     width: 60px;
-    border: 1px solid black;
+    border: 1px solid $color-black;
     border-radius: 5px;
     cursor: pointer;
 
     &:hover {
-      background-color: lightgrey;
+      background-color: $color-light-grey;
     }
 
     &:disabled {
-      border: 1px solid lightgrey;
+      border: 1px solid $color-light-grey;
     }
   }
 }

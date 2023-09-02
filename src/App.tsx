@@ -44,7 +44,7 @@ export class App extends React.Component<{}, State> {
       ...prevState,
       [name]: type === 'checkbox'
         ? checked
-        : value,
+        : +value,
     }));
   };
 
