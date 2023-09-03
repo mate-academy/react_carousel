@@ -27,7 +27,7 @@ const Carousel: React.FC<Props> = ({
   const moveForward = (stepShift: number, smile: string[], size: number) => {
     const isEnoughImages = indexStart + stepShift >= smile.length - size;
 
-    if (isEnoughImages && !Infinity) {
+    if (isEnoughImages && !infinite) {
       setIndexImage(smile.length - size);
     } else if (isEnoughImages && infinite) {
       setIndexImage(0);
