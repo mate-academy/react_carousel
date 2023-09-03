@@ -13,7 +13,7 @@ interface Props {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
-const Carousel: React.FC<Props> = () => ({
+const Carousel: React.FC<Props> = ({
   images,
   step,
   frameSize,
