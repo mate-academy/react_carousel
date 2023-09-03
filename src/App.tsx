@@ -24,6 +24,8 @@ class App extends React.Component<{}, State> {
     ],
     indexVisibleImages: [],
     frameSize: 3,
+    step: 3,
+    itemWidth: 130,
   };
 
   componentDidMount() {
@@ -41,7 +43,13 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { images, indexVisibleImages, frameSize } = this.state;
+    const {
+      images,
+      indexVisibleImages,
+      frameSize,
+      step,
+      itemWidth,
+    } = this.state;
 
     return (
       <div className="App">
@@ -51,9 +59,9 @@ class App extends React.Component<{}, State> {
         <Carousel
           images={images}
           indexVisibleImages={indexVisibleImages}
-          step={3}
+          step={step}
           frameSize={frameSize}
-          itemWidth={130}
+          itemWidth={itemWidth}
           animationDuration={1000}
           onPageChange={this.onPageChange}
         />

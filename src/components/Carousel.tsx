@@ -23,7 +23,7 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const gapBetweenPictures = 10;
   const fullVisibleWidth
-  = (itemWidth * frameSize) + (frameSize * gapBetweenPictures);
+    = (itemWidth * frameSize) + (frameSize * gapBetweenPictures);
 
   const handleClickToPrev = (prevIndexOfImages: number[]) => {
     if (prevIndexOfImages[0] < 0) {
