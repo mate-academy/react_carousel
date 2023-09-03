@@ -22,15 +22,23 @@ const Carousel: React.FC<Prop> = ({
   const maxCurrentImage = Math.min(images.length - frameSize,
     images.length - step) + 1;
 
-  const moveButton = (s: number) => {
+  const moveImages = (s: number) => {
     if (infinite) {
       switch (true) {
-        case currentImg + s > maxCurrentImage:
+        case currentImg === maxCurrentImage && currentImg + s > maxCurrentImage:
           setCurrentImage(1);
           break;
 
-        case currentImg + s < 1:
+        case currentImg === 1 && currentImg + s < 1:
           setCurrentImage(maxCurrentImage);
+          break;
+
+        case currentImg + s > maxCurrentImage:
+          setCurrentImage(maxCurrentImage);
+          break;
+
+        case currentImg + s < 1:
+          setCurrentImage(1);
           break;
 
         default:
@@ -87,14 +95,14 @@ const Carousel: React.FC<Prop> = ({
         <button
           type="button"
           disabled={currentImg === 1 && !infinite}
-          onClick={() => moveButton(-step)}
+          onClick={() => moveImages(-step)}
         >
           Prev
         </button>
         <button
           type="button"
           disabled={currentImg === maxCurrentImage && !infinite}
-          onClick={() => moveButton(step)}
+          onClick={() => moveImages(step)}
           data-cy="next"
         >
           Next
