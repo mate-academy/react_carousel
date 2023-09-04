@@ -1,173 +1,235 @@
 import React, { useState } from 'react';
+
 import './Carousel.scss';
 
+import { Image } from '../types/Image';
+import { Params } from '../types/Params';
+
 type Props = {
-  source: string[];
+  images: Image[],
+  params: Params,
+  changedCarousel: (key: string, value: number | boolean) => void,
 };
 
-const Carousel: React.FC<Props> = ({ source }) => {
-  const [translate, setTranslate] = useState(0);
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+const Carousel: React.FC<Props> = ({
+  images,
+  params,
+  changedCarousel,
+}) => {
+  const [firstItem, setFirstItem] = useState(1);
 
-  const carouselLength = source.length * itemWidth;
-  const maxTranslateRight = -carouselLength + (itemWidth * frameSize);
-
-  const styleVisibleCarousel = {
-    transform: `translateX(${translate}px)`,
-    transition: `transform ${animationDuration}ms`,
+  const styleForCarousel = {
+    width: `${params.itemWidth * params.frameSize}px`,
+    transition: `${params.animationDuration}ms`,
   };
 
-  const styleCarousel = {
-    width: `${itemWidth * frameSize}px`,
+  const styleContainerImage = {
+    transform: `translateX(${-params.itemWidth * (firstItem - 1)}px)`,
+    transition: `transform ${params.animationDuration}ms`,
   };
 
-  const styleCarouselImage = {
-    width: `${itemWidth}px`,
+  const disabledForNextButton = (!params.infinite
+    && (firstItem === (images.length - params.frameSize + 1)))
+    || params.frameSize === images.length;
+
+  const disabledForPrevButton = firstItem === 1 && !params.infinite;
+
+  const styleImage = {
+    width: `${params.itemWidth}px`,
+    height: `${params.itemWidth}px`,
+    maxWidth: 'fit-content',
   };
 
-  function nextButton() {
-    const currentTranslate = translate - (itemWidth * step);
+  const nextButton = () => {
+    let nextItem = firstItem + params.step;
 
-    if (currentTranslate > maxTranslateRight) {
-      setTranslate(currentTranslate);
-    } else {
-      setTranslate(0);
+    if ((nextItem + params.frameSize) > images.length) {
+      nextItem = images.length - params.frameSize + 1;
     }
-  }
 
-  function prevButton() {
-    const currentTranslate = translate + (itemWidth * step);
-
-    if (currentTranslate <= 0) {
-      setTranslate(currentTranslate);
-    } else {
-      setTranslate(0);
+    if (params.infinite && (firstItem === nextItem)) {
+      nextItem = 1;
     }
-  }
+
+    setFirstItem(nextItem);
+  };
+
+  const prevButton = () => {
+    let prevItem = firstItem - params.step;
+
+    if (prevItem < 1) {
+      prevItem = 1;
+    }
+
+    if (params.infinite && (firstItem === prevItem)) {
+      prevItem = 10 - (params.step - 1);
+    }
+
+    setFirstItem(prevItem);
+  };
+
+  const changeFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changedCarousel('frameSize', +event.target.value);
+
+    if ((params.frameSize + firstItem) > images.length) {
+      if ((images.length - params.frameSize) > 0) {
+        setFirstItem(images.length - params.frameSize);
+      } else {
+        setFirstItem(1);
+      }
+    }
+  };
+
+  const handleOnChange = (input: string) => (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = +event.target.value;
+
+    changedCarousel(input, value);
+
+    if (input === 'frameSize' && (value + firstItem) > images.length) {
+      if ((images.length - value) > 0) {
+        setFirstItem(images.length - value);
+      } else {
+        setFirstItem(1);
+      }
+    }
+  };
 
   return (
     <div className="Carousel">
-      <ul
-        className="Carousel__list"
-        style={styleCarousel}
+      <div
+        className="Carousel__images"
+        style={styleForCarousel}
       >
-        <div
-          className="Carousel__visible-list"
-          style={styleVisibleCarousel}
-        >
-          {
-            source.map((element: string, index: number) => (
-              <li key={element}>
-                <img
-                  src={element}
-                  alt={`${index + 1}`}
-                  style={styleCarouselImage}
-                />
-              </li>
-            ))
-          }
+        <ul className="Carousel__list">
+          {images.map(currentImage => (
+            <li
+              key={currentImage.id}
+              style={styleContainerImage}
+            >
+              <img
+                style={styleImage}
+                src={currentImage.url}
+                alt={currentImage.id.toFixed()}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__form">
+        <div className="Carousel__button-section">
+          <button
+            className="button is-primary"
+            type="button"
+            onClick={prevButton}
+            disabled={disabledForPrevButton}
+          >
+            Prev
+          </button>
+
+          <button
+            className="button is-primary"
+            type="button"
+            onClick={nextButton}
+            disabled={disabledForNextButton}
+          >
+            Next
+          </button>
         </div>
-      </ul>
 
-      <div className="Carousel__buttons">
-        <button
-          className="Carousel__buttons--button"
-          type="button"
-          onClick={() => prevButton()}
-        >
-          Prev
-        </button>
+        <div className="form">
+          <label
+            className="label"
+            htmlFor="step"
+          >
+            <span>
+              Step
+            </span>
 
-        <button
-          className="Carousel__buttons--button"
-          type="button"
-          data-cy="next"
-          onClick={() => nextButton()}
-        >
-          Next
-        </button>
+            <input
+              type="number"
+              name="step"
+              className="input"
+              min={1}
+              value={params.step}
+              max={images.length - 1}
+              onChange={handleOnChange('step')}
+            />
+          </label>
 
+          <label
+            className="label"
+            htmlFor="frameSize"
+          >
+            <span>
+              Frame size
+            </span>
+
+            <input
+              type="number"
+              name="frameSize"
+              className="input"
+              min={1}
+              max={images.length}
+              value={params.frameSize}
+              onChange={changeFrameSize}
+            />
+          </label>
+
+          <label
+            className="label"
+            htmlFor="itemWidth"
+          >
+            <span>
+              Item width
+            </span>
+
+            <input
+              type="number"
+              name="itemWidth"
+              className="input"
+              min={100}
+              max={600}
+              step={20}
+              value={params.itemWidth}
+              onChange={handleOnChange('itemWidth')}
+            />
+          </label>
+
+          <label
+            className="label"
+            htmlFor="animationDuration"
+          >
+            <span>
+              Animation duration
+            </span>
+
+            <input
+              type="number"
+              name="animationDuration"
+              className="input"
+              min={100}
+              max={3000}
+              step={500}
+              value={params.animationDuration}
+              onChange={handleOnChange('animationDuration')}
+            />
+          </label>
+
+          <label className="label">
+            Infinity:
+            <input
+              name="infinity"
+              type="checkbox"
+              className="checkbox"
+              defaultChecked={params.infinite}
+              onChange={(e) => changedCarousel('infinite', e.target.checked)}
+            />
+          </label>
+        </div>
       </div>
-
-      <div className="Carousel__inputs">
-        <label
-          htmlFor="itemWidth"
-          className="Carousel__inputs--label"
-        >
-          Item width(px):
-        </label>
-        <input
-          className="Carousel__inputs--input"
-          id="itemWidth"
-          type="number"
-          value={itemWidth}
-          onChange={
-            (event) => setItemWidth(+event.currentTarget.value)
-          }
-          step={10}
-          min={50}
-          max={1000}
-        />
-
-        <label
-          htmlFor="itemFrame"
-          className="Carousel__inputs--label"
-        >
-          Frame size:
-        </label>
-        <input
-          className="Carousel__inputs--input"
-          id="itemFrame"
-          type="number"
-          value={frameSize}
-          onChange={
-            (event) => setFrameSize(+event.currentTarget.value)
-          }
-          min={1}
-          max={source.length}
-        />
-
-        <label
-          htmlFor="stepScroll"
-          className="Carousel__inputs--label"
-        >
-          Scroll step:
-        </label>
-        <input
-          className="Carousel__inputs--input"
-          id="stepScroll"
-          type="number"
-          value={step}
-          onChange={
-            (event) => setStep(+event.currentTarget.value)
-          }
-          min={1}
-          max={source.length}
-        />
-
-        <label
-          htmlFor="animationDuration"
-          className="Carousel__inputs--label"
-        >
-          Duration(ms):
-        </label>
-        <input
-          className="Carousel__inputs--input"
-          id="animationDuration"
-          type="number"
-          value={animationDuration}
-          onChange={
-            (event) => setAnimationDuration(+event.currentTarget.value)
-          }
-          step={500}
-          min={500}
-          max={10000}
-        />
-      </div>
-
     </div>
   );
 };
