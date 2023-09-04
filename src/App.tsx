@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-}
-
 const App: React.FC = () => {
-  const state: State = {
-    images: [
+  const images = [
       './img/1.png',
       './img/2.png',
       './img/3.png',
@@ -19,10 +14,8 @@ const App: React.FC = () => {
       './img/8.png',
       './img/9.png',
       './img/10.png',
-    ],
-  };
+    ];
 
-  const { images } = state;
   const [sizeImages, setSizeImages] = useState(130);
   const [step, setStep] = useState(3);
   const [frameSize, setFrameSize] = useState(3);

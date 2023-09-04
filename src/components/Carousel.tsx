@@ -55,7 +55,7 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <ul
         className="Carousel__list"
-        style={{ width: widthCarousel }}
+        style={{ width: `${widthCarousel}px` }}
       >
         {images.map((img) => (
           <li
@@ -84,7 +84,7 @@ const Carousel: React.FC<Props> = ({
             'button',
             { 'button--disabled': (isStart && !infinite) },
           )}
-          onClick={() => handlePrevImage()}
+          onClick={handlePrevImage}
         >
           {'<<'}
         </button>
