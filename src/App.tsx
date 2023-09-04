@@ -142,7 +142,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          onPageChange={() => {}}
+          onPageChange={() => { }}
         />
       </div>
     );

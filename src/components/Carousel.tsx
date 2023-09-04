@@ -58,16 +58,17 @@ const Carousel: React.FC<Props> = ({
           <li
             key={image}
             style={{
-              height: `${itemWidth}px`,
               width: `${itemWidth}px`,
+              height: `${itemWidth}px`,
             }}
           >
             <img
               src={image}
               alt={String(index)}
+              width={itemWidth}
               style={{
-                height: `${itemWidth}px`,
                 width: `${itemWidth}px`,
+                height: `${itemWidth}px`,
                 visibility: index >= activeIndex
                 && index < activeIndex + frameSize ? 'visible' : 'hidden',
                 transition: `visibility ${animationDuration}ms`,
