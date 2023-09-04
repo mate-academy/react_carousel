@@ -7,18 +7,16 @@ interface Props {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinite: boolean,
 }
 
 const Carousel: React.FC<Props> = ({
-  images, step, frameSize, itemWidth, animationDuration, infinite,
+  images, step, frameSize, itemWidth, animationDuration,
 }) => {
   const [currentSmile, setCurrentSmile] = useState(0);
   const [smileWidth, setSmileWidth] = useState(itemWidth);
   const [amountSteps, setAmountSteps] = useState(step);
   const [amountImages, setAmountImages] = useState(frameSize);
   const [animationTime, setAnimationTime] = useState(animationDuration);
-  const [infiniteSmiles, setInfiniteSmiles] = useState(infinite);
 
   const endOfList
     = -(+smileWidth * (images.length - amountImages - amountSteps));
@@ -73,57 +71,59 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
 
-      Width:&nbsp;
-      <input
-        type="number"
-        min="130"
-        max="390"
-        step="10"
-        value={`${smileWidth}`}
-        onChange={event => {
-          setSmileWidth(+event.target.value);
-          setCurrentSmile(0);
-        }}
-      />
-
-      Step:&nbsp;
-      <input
-        type="number"
-        min="1"
-        max={images.length - 1}
-        value={`${amountSteps}`}
-        onChange={event => setAmountSteps(+event.target.value)}
-      />
-
-      Frame size:&nbsp;
-      <input
-        type="number"
-        min="1"
-        max={images.length - 1}
-        value={`${amountImages}`}
-        onChange={event => {
-          setAmountImages(+event.target.value);
-          setCurrentSmile(0);
-        }}
-      />
-
-      Animation duration:&nbsp;
-      <input
-        type="number"
-        min="1000"
-        max="5000"
-        value={`${animationTime}`}
-        onChange={event => setAnimationTime(+event.target.value)}
-      />
-
-      {/* sorry, Could not beautifully implement an infinite carousel */}
-      <label htmlFor="isInfinite">
-        Infinite&nbsp;
+      <label htmlFor="width">
+        Width:
         <input
-          type="checkbox"
-          id="isInfinite"
-          checked={infiniteSmiles}
-          onChange={event => setInfiniteSmiles(event.target.checked)}
+          type="number"
+          id="width"
+          min="130"
+          max="390"
+          step="10"
+          value={`${smileWidth}`}
+          onChange={event => {
+            setSmileWidth(+event.target.value);
+            setCurrentSmile(0);
+          }}
+        />
+      </label>
+
+      <label htmlFor="step">
+        Step:
+        <input
+          type="number"
+          id="step"
+          min="1"
+          max={images.length - 1}
+          value={`${amountSteps}`}
+          onChange={event => setAmountSteps(+event.target.value)}
+        />
+      </label>
+
+      <label htmlFor="frame-size">
+        Frame size:
+        <input
+          type="number"
+          id="frame-size"
+          min="1"
+          max={images.length - 1}
+          value={`${amountImages}`}
+          onChange={event => {
+            setAmountImages(+event.target.value);
+            setCurrentSmile(0);
+          }}
+        />
+      </label>
+
+      <label htmlFor="animation-duration">
+        Animation duration:
+        <input
+          type="number"
+          id="animation-duration"
+          min="1000"
+          max="5000"
+          step="1000"
+          value={`${animationTime}`}
+          onChange={event => setAnimationTime(+event.target.value)}
         />
       </label>
 

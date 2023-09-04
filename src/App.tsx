@@ -8,7 +8,6 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +28,6 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinite: false,
   };
 
   render() {
@@ -39,7 +37,6 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinite,
     } = this.state;
 
     return (
@@ -53,7 +50,6 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={infinite}
         />
       </div>
     );
