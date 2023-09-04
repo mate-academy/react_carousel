@@ -26,12 +26,13 @@ export const Carousel: React.FC<Props> = ({
   animationDuration,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPrevBtnDisabled, setPrevBtnDisabled] = useState(true);
-  const [isNextBtnDisabled, setNextBtnDisabled] = useState(false);
   const [imgWidth, setImgWidth] = useState(itemWidth);
   const [imgCount, setImgCount] = useState(frameSize);
   const [carouselStep, setCarouselStep] = useState(step);
   const [duration, setDuration] = useState(animationDuration);
+
+  const beginOfList = imgWidth * carouselStep * -1;
+  const endOfList = imgWidth * (images.length - imgCount - carouselStep) * -1;
 
   const options: TypedOptions = [
     ['itemWidth', imgWidth, setImgWidth],
@@ -49,43 +50,30 @@ export const Carousel: React.FC<Props> = ({
     item: { minWidth: `${imgWidth}px` },
   };
 
-  const slideCarousel = (btn: any) => {
-    const beginOfList = imgWidth * carouselStep * -1;
-    const endOfList = imgWidth * (images.length - imgCount - carouselStep) * -1;
+  const slideBack = () => {
+    if (currentSlide >= imgWidth * carouselStep * -1) {
+      setCurrentSlide(0);
+    }
 
-    const slideBack = () => {
-      if (currentSlide >= imgWidth * carouselStep * -1) {
-        setCurrentSlide(0);
-        setPrevBtnDisabled(true);
-      }
+    if (
+      currentSlide >= imgWidth * images.length * -1
+      && currentSlide <= beginOfList
+    ) {
+      setCurrentSlide(currentSlide + (imgWidth * carouselStep));
+    }
+  };
 
-      if (
-        currentSlide >= imgWidth * images.length * -1
-        && currentSlide <= beginOfList
-      ) {
-        setCurrentSlide(currentSlide + (+imgWidth * carouselStep));
-        setNextBtnDisabled(false);
-      }
-    };
+  const slideForward = () => {
+    if (currentSlide > imgWidth * (images.length - imgCount) * -1) {
+      setCurrentSlide(currentSlide - (imgWidth * carouselStep));
+    }
 
-    const slideForward = () => {
-      if (currentSlide > imgWidth * (images.length - imgCount) * -1) {
-        setCurrentSlide(currentSlide - (imgWidth * carouselStep));
-        setPrevBtnDisabled(false);
-      }
-
-      if (
-        currentSlide >= (imgWidth * images.length * -1)
-        && currentSlide <= endOfList
-      ) {
-        setCurrentSlide((imgWidth * (images.length - imgCount) * -1));
-        setNextBtnDisabled(true);
-      }
-    };
-
-    btn.classList.contains('Carousel__btn--prev')
-      ? slideBack()
-      : slideForward();
+    if (
+      currentSlide >= (imgWidth * images.length * -1)
+      && currentSlide <= endOfList
+    ) {
+      setCurrentSlide(imgWidth * (images.length - imgCount) * -1);
+    }
   };
 
   return (
@@ -109,10 +97,10 @@ export const Carousel: React.FC<Props> = ({
           className={cn(
             'Carousel__btn',
             'Carousel__btn--prev',
-            { 'Carousel__btn--disabled': isPrevBtnDisabled },
+            { 'Carousel__btn--disabled': currentSlide === 0 },
           )}
           type="button"
-          onClick={({ target }) => slideCarousel(target)}
+          onClick={slideBack}
         >
           Prev
         </button>
@@ -120,17 +108,24 @@ export const Carousel: React.FC<Props> = ({
           className={cn(
             'Carousel__btn',
             'Carousel__btn--next',
-            { 'Carousel__btn--disabled': isNextBtnDisabled },
+            {
+              'Carousel__btn--disabled': currentSlide === imgWidth
+                * (images.length - imgCount) * -1,
+            },
           )}
           type="button"
           data-cy="next"
-          onClick={({ target }) => slideCarousel(target)}
+          onClick={slideForward}
         >
           Next
         </button>
       </div>
 
-      <Options options={options} imagesLength={images.length} />
+      <Options
+        options={options}
+        setCurrentSlide={setCurrentSlide}
+        imagesLength={images.length}
+      />
     </>
   );
 };

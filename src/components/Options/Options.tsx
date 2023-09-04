@@ -3,10 +3,15 @@ import './Options.scss';
 
 interface Props {
   options: [string, number, React.Dispatch<React.SetStateAction<number>>][];
+  setCurrentSlide: React.Dispatch<React.SetStateAction<number>>,
   imagesLength: number;
 }
 
-export const Options: React.FC<Props> = ({ options, imagesLength }) => (
+export const Options: React.FC<Props> = ({
+  options,
+  setCurrentSlide,
+  imagesLength,
+}) => (
   <div className="Options">
     {options.map(option => {
       const [optionName, optionValue, setOption] = option;
@@ -34,6 +39,7 @@ export const Options: React.FC<Props> = ({ options, imagesLength }) => (
         }
 
         setOption(targetValue);
+        setCurrentSlide(0);
       };
 
       return (
