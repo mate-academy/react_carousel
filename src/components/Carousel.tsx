@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
 type Props = {
   images: string[],
-  indexVisibleImages: number[],
   step: number,
   frameSize: number,
   itemWidth: number,
@@ -14,7 +13,6 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({
   images,
-  indexVisibleImages,
   step,
   frameSize,
   itemWidth,
@@ -25,25 +23,20 @@ const Carousel: React.FC<Props> = ({
   const fullVisibleWidth
     = (itemWidth * frameSize) + (frameSize * gapBetweenPictures);
 
-  const handleClickToPrev = (prevIndexOfImages: number[]) => {
-    if (prevIndexOfImages[0] < 0) {
-      onPageChange(Array.from({ length: frameSize }, (_, i) => i));
-    }
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    if (prevIndexOfImages[0] >= 0) {
-      onPageChange(prevIndexOfImages);
-    }
+  useEffect(() => {
+    onPageChange(Array.from({ length: frameSize }, (_, i) => activeIndex + i));
+  }, [activeIndex, frameSize, onPageChange]);
+
+  const handleClickToPrev = () => {
+    setActiveIndex((prevIndex) => Math.max(prevIndex - step, 0));
   };
 
-  const handleClickToNext = (nextIndexOfImages: number[]) => {
-    if (nextIndexOfImages[nextIndexOfImages.length - 1] > images.length - 1) {
-      onPageChange(Array.from({ length: frameSize },
-        (_, i) => images.length - frameSize + i));
-    }
-
-    if (nextIndexOfImages[nextIndexOfImages.length - 1] <= images.length - 1) {
-      onPageChange(nextIndexOfImages);
-    }
+  const handleClickToNext = () => {
+    setActiveIndex(
+      (prevIndex) => Math.min(prevIndex + step, images.length - frameSize),
+    );
   };
 
   return (
@@ -57,9 +50,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={{
           gap: `${gapBetweenPictures}px`,
-          transform: indexVisibleImages[frameSize - 1] <= images.length - 1
-            ? `translateX(-${(indexVisibleImages[0] * 100) / step}%)`
-            : 'none',
+          transform: `translateX(-${(activeIndex * (itemWidth + gapBetweenPictures))}px)`,
           transition: `transform ${animationDuration}ms`,
         }}
       >
@@ -73,14 +64,12 @@ const Carousel: React.FC<Props> = ({
           >
             <img
               src={image}
-              alt={String(index + 1)}
+              alt={String(index)}
               style={{
                 height: `${itemWidth}px`,
                 width: `${itemWidth}px`,
-
-                visibility: indexVisibleImages.includes(index)
-                  ? 'visible'
-                  : 'hidden',
+                visibility: index >= activeIndex
+                && index < activeIndex + frameSize ? 'visible' : 'hidden',
                 transition: `visibility ${animationDuration}ms`,
               }}
             />
@@ -91,10 +80,8 @@ const Carousel: React.FC<Props> = ({
       <div className="button-container">
         <button
           type="button"
-          onClick={() => handleClickToPrev(
-            indexVisibleImages.map(i => i - step),
-          )}
-          className={cn('button', { disabled: indexVisibleImages[0] === 0 })}
+          onClick={handleClickToPrev}
+          className={cn('button', { disabled: activeIndex === 0 })}
         >
           «
         </button>
@@ -102,12 +89,9 @@ const Carousel: React.FC<Props> = ({
         <button
           data-cy="next"
           type="button"
-          onClick={() => handleClickToNext(
-            indexVisibleImages.map(i => i + step),
-          )}
+          onClick={handleClickToNext}
           className={cn('button', {
-            disabled: indexVisibleImages[indexVisibleImages.length - 1]
-              === images.length - 1,
+            disabled: activeIndex >= images.length - frameSize,
           })}
         >
           »

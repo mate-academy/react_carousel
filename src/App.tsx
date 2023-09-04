@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  indexVisibleImages: number[];
   frameSize: number;
+  step: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -22,33 +24,60 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    indexVisibleImages: [],
     frameSize: 3,
     step: 3,
     itemWidth: 130,
+    animationDuration: 1000,
   };
 
-  componentDidMount() {
-    const { frameSize } = this.state;
+  handleFrameSizeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newFrameSize = parseInt(event.target.value, 10);
 
-    this.setState({
-      indexVisibleImages: Array.from({ length: frameSize }, (_, i) => i),
-    });
-  }
+    if (!Number.isNaN(newFrameSize)
+      && newFrameSize >= 1 && newFrameSize <= 10) {
+      this.setState({
+        frameSize: newFrameSize,
+      });
+    }
+  };
 
-  onPageChange = (nextIndexOfImages: number[]) => {
-    this.setState({
-      indexVisibleImages: [...nextIndexOfImages],
-    });
+  handleItemWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newItemWidth = parseInt(event.target.value, 10);
+
+    if (!Number.isNaN(newItemWidth)) {
+      this.setState({
+        itemWidth: newItemWidth,
+      });
+    }
+  };
+
+  handleStepChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newStep = parseInt(event.target.value, 10);
+
+    if (!Number.isNaN(newStep) && newStep >= 1 && newStep <= 10) {
+      this.setState({
+        step: newStep,
+      });
+    }
+  };
+
+  handleAnimationDurationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDuration = parseInt(event.target.value, 10);
+
+    if (!Number.isNaN(newDuration) && newDuration >= 0) {
+      this.setState({
+        animationDuration: newDuration,
+      });
+    }
   };
 
   render() {
     const {
       images,
-      indexVisibleImages,
       frameSize,
       step,
       itemWidth,
+      animationDuration,
     } = this.state;
 
     return (
@@ -56,14 +85,64 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">
           {`Carousel with ${images.length} images`}
         </h1>
+        <div>
+          <label htmlFor="itemWidthInput">Item Width:</label>
+          <input
+            type="number"
+            id="itemWidthInput"
+            value={itemWidth}
+            onChange={this.handleItemWidthChange}
+            className="small-input"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="frameSizeInput">Frame Size:</label>
+          <input
+            type="number"
+            id="frameSizeInput"
+            value={frameSize}
+            min="1"
+            max="10"
+            onChange={this.handleFrameSizeChange}
+            className="small-input"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="stepInput">Scroll Step:</label>
+          <input
+            type="number"
+            id="stepInput"
+            value={step}
+            min="1"
+            max="10"
+            onChange={this.handleStepChange}
+            className="small-input"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="animationDurationInput">
+            Animation:
+          </label>
+          <input
+            type="number"
+            id="animationDurationInput"
+            value={animationDuration}
+            min="0"
+            onChange={this.handleAnimationDurationChange}
+            className="small-input"
+          />
+        </div>
+
         <Carousel
           images={images}
-          indexVisibleImages={indexVisibleImages}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}
-          animationDuration={1000}
-          onPageChange={this.onPageChange}
+          animationDuration={animationDuration}
+          onPageChange={() => {}}
         />
       </div>
     );
