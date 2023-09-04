@@ -89,7 +89,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="itemId">Item Width:</label>
           <input
             type="number"
-            id="itemWidthInput"
+            id="itemId"
             value={itemWidth}
             onChange={this.handleItemWidthChange}
             className="small-input"
@@ -100,7 +100,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="frameId">Frame Size:</label>
           <input
             type="number"
-            id="frameSizeInput"
+            id="frameId"
             value={frameSize}
             min="1"
             max="10"
@@ -113,7 +113,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="stepId">Scroll Step:</label>
           <input
             type="number"
-            id="stepInput"
+            id="stepId"
             value={step}
             min="1"
             max="10"
