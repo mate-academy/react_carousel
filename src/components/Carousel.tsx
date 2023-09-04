@@ -22,9 +22,9 @@ const Carousel: React.FC<Props> = ({
   let sizeTranslate = 0;
 
   if (step === 2 || frameSize === 2) {
-    sizeTranslate = 260;
+    sizeTranslate = itemWidth * frameSize;
   } else {
-    sizeTranslate = 390;
+    sizeTranslate = itemWidth * frameSize;
   }
 
   const handleNext = () => {
