@@ -1,1 +1,43 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #72afff;
+  color: #051044;
+}
+
+.App {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-block: 20px;
+  align-items: center;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+.buttons {
+  display: flex;
+  width: 230px;
+  margin: 20px auto;
+  justify-content: space-between;
+}
+
+.button {
+  border: 1px solid #777;
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+
+  &--disabled {
+    color: #aaa;
+    border-color: #fff;
+    pointer-events: none;
+  }
+}
