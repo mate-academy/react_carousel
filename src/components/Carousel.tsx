@@ -11,6 +11,8 @@ interface Props {
   infinite: boolean;
 }
 
+const GAP = 25;
+
 export const Carousel: React.FC<Props> = ({
   images,
   imageWidth,
@@ -19,14 +21,14 @@ export const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite = false,
 }) => {
-  const gap = 25;
-  const containerWidth = (imageWidth + gap) * frameSize;
-  const totalWidth = (imageWidth + gap) * images.length;
+  const containerWidth = (imageWidth + GAP) * frameSize;
+  const totalWidth = (imageWidth + GAP) * images.length;
   const maxOffset = -(totalWidth - containerWidth);
 
   const [currentOffset, setCurrentOffset] = useState(0);
+
   const moveLeft = () => {
-    let newOffset = currentOffset - (imageWidth + gap) * step;
+    let newOffset = currentOffset - (imageWidth + GAP) * step;
 
     if (infinite && newOffset < maxOffset) {
       newOffset = maxOffset;
@@ -36,7 +38,7 @@ export const Carousel: React.FC<Props> = ({
   };
 
   const moveRight = () => {
-    let newOffset = currentOffset + (imageWidth + gap) * step;
+    let newOffset = currentOffset + (imageWidth + GAP) * step;
 
     if (infinite && newOffset > 0) {
       newOffset = 0;

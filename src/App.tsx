@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.scss';
 import { Carousel } from './components/Carousel';
 
 interface State {
