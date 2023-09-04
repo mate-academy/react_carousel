@@ -83,7 +83,7 @@ const App: React.FC = () => {
           <input
             type="checkbox"
             checked={isInfinite}
-            onChange={(event) => setIsInfinite(!!event.target.checked)}
+            onChange={(event) => setIsInfinite(event.target.checked)}
           />
         </label>
       </div>
