@@ -12,12 +12,6 @@ interface Props {
   animationDuration: number,
 }
 
-type TypedOptions = [
-  string,
-  number,
-  React.Dispatch<React.SetStateAction<number>>,
-][];
-
 export const Carousel: React.FC<Props> = ({
   images,
   itemWidth,
@@ -33,12 +27,43 @@ export const Carousel: React.FC<Props> = ({
 
   const beginOfList = imgWidth * carouselStep * -1;
   const endOfList = imgWidth * (images.length - imgCount - carouselStep) * -1;
+  const totalWidth = imgWidth * images.length * -1;
+  const isNextBtnDisabled = currentSlide === imgWidth
+    * (images.length - imgCount) * -1;
 
-  const options: TypedOptions = [
-    ['itemWidth', imgWidth, setImgWidth],
-    ['frameSize', imgCount, setImgCount],
-    ['step', carouselStep, setCarouselStep],
-    ['animationDuration', duration, setDuration],
+  const options = [
+    {
+      name: 'imgWidth',
+      placeholder: 'Img width',
+      min: 100,
+      max: 200,
+      value: imgWidth,
+      set: setImgWidth,
+    },
+    {
+      name: 'imgCount',
+      placeholder: 'Img count',
+      min: 1,
+      max: images.length - 1,
+      value: imgCount,
+      set: setImgCount,
+    },
+    {
+      name: 'carouselStep',
+      placeholder: 'Step',
+      min: 1,
+      max: images.length - imgCount,
+      value: carouselStep,
+      set: setCarouselStep,
+    },
+    {
+      name: 'duration',
+      placeholder: 'Animation duration',
+      min: 300,
+      max: 1200,
+      value: duration,
+      set: setDuration,
+    },
   ];
 
   const carouselStyles = {
@@ -55,10 +80,7 @@ export const Carousel: React.FC<Props> = ({
       setCurrentSlide(0);
     }
 
-    if (
-      currentSlide >= imgWidth * images.length * -1
-      && currentSlide <= beginOfList
-    ) {
+    if (currentSlide >= totalWidth && currentSlide <= beginOfList) {
       setCurrentSlide(currentSlide + (imgWidth * carouselStep));
     }
   };
@@ -68,10 +90,7 @@ export const Carousel: React.FC<Props> = ({
       setCurrentSlide(currentSlide - (imgWidth * carouselStep));
     }
 
-    if (
-      currentSlide >= (imgWidth * images.length * -1)
-      && currentSlide <= endOfList
-    ) {
+    if (currentSlide >= totalWidth && currentSlide <= endOfList) {
       setCurrentSlide(imgWidth * (images.length - imgCount) * -1);
     }
   };
@@ -109,8 +128,7 @@ export const Carousel: React.FC<Props> = ({
             'Carousel__btn',
             'Carousel__btn--next',
             {
-              'Carousel__btn--disabled': currentSlide === imgWidth
-                * (images.length - imgCount) * -1,
+              'Carousel__btn--disabled': isNextBtnDisabled,
             },
           )}
           type="button"
@@ -124,7 +142,6 @@ export const Carousel: React.FC<Props> = ({
       <Options
         options={options}
         setCurrentSlide={setCurrentSlide}
-        imagesLength={images.length}
       />
     </>
   );

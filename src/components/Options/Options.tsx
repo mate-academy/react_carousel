@@ -2,28 +2,31 @@ import React from 'react';
 import './Options.scss';
 
 interface Props {
-  options: [string, number, React.Dispatch<React.SetStateAction<number>>][];
+  options: {
+    name: string;
+    placeholder: string;
+    min: number;
+    max: number;
+    value: number;
+    set: React.Dispatch<React.SetStateAction<number>>;
+  }[];
   setCurrentSlide: React.Dispatch<React.SetStateAction<number>>,
-  imagesLength: number;
 }
 
 export const Options: React.FC<Props> = ({
   options,
   setCurrentSlide,
-  imagesLength,
 }) => (
   <div className="Options">
     {options.map(option => {
-      const [optionName, optionValue, setOption] = option;
-
-      const minItemWidth = optionName === 'itemWidth' ? 100 : null;
-      const minDuration = optionName === 'animationDuration' ? 300 : null;
-
-      const maxItemWidth = optionName === 'itemWidth' ? 200 : null;
-      const maxFrameSize = optionName === 'frameSize' ? imagesLength - 1 : null;
-      const maxDuration = optionName === 'animationDuration' ? 1200 : null;
-      const maxStep = optionName === 'step'
-        ? imagesLength - options[1][1] : null;
+      const {
+        name: optionName,
+        placeholder: optionPlaceholder,
+        min: optionMin,
+        max: optionMax,
+        value: optionValue,
+        set: optionSet,
+      } = option;
 
       const changeOption = (target: EventTarget & HTMLInputElement) => {
         const targetMin = +target.min;
@@ -38,35 +41,25 @@ export const Options: React.FC<Props> = ({
           targetValue = targetMax;
         }
 
-        setOption(targetValue);
+        optionSet(targetValue);
         setCurrentSlide(0);
       };
 
       return (
-        <div className="Options__option" key={optionName.toString()}>
+        <div className="Options__option" key={optionName}>
           <label
             className="Options__label"
-            htmlFor={optionName.toString()}
+            htmlFor={optionName}
           >
-            {optionName}
+            {optionPlaceholder}
           </label>
           <input
-            id={optionName.toString()}
+            id={optionName}
             className="Options__input"
             type="number"
-            name={optionName.toString()}
-            placeholder={optionName.toString()}
-            min={
-              minItemWidth?.toString()
-              || minDuration?.toString()
-              || 1
-            }
-            max={
-              maxItemWidth?.toString()
-              || maxFrameSize?.toString()
-              || maxStep?.toString()
-              || maxDuration?.toString()
-            }
+            name={optionName}
+            min={optionMin}
+            max={optionMax}
             value={optionValue}
             onChange={({ target }) => changeOption(target)}
           />
