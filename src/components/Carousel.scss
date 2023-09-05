@@ -1,65 +1,42 @@
 .MainWrap {
   display: flex;
+  align-items: center; /* Вирівнювання по горизонталі по центру */
+  min-height: 100vh; /* Мінімальна висота на весь вікно браузера */
+  flex-direction: column;
 }
 
 .Carousel {
   width: 1300px;
-  justify-content: space-between;
+  overflow: hidden;
+  justify-content: center;
   
   &__list {
     display: flex;
+    justify-content: center;
     padding: 0;
     margin: 0;
     list-style: none;
   }
 
   &__img {
+    justify-content: center;
     height: 130px;
     width: 130px;
+    
   }
 
   &__button {
-    width: 0;
-    height: 130px;
-    font-size: 0;
+    width: 100px;
+    height: 30px;
+    margin: 10px;
   }
 }
 
-.button--right {
-  width: 0;
-  height: 0;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;
-  border-left: 80px solid #d8b721;
-  transition: all 0.3s ease-in-out;
-
-  &:active {
-    transform: translateX(5px);
-    animation-duration: 3s;
-  }
-}
-
-.button--left {
-  width: 0;
-  height: 0;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;
-  border-right: 80px solid #d8b721;
-  transition: all 0.3s ease-in-out;
-
-  &:active {
-    transform: translateX(-5px);
-  }
+input {
+  width: 50px;
+  margin: 10px;
 }
 
 .disabled {
-  visibility: hidden;
-}
-
-.Wrap {
-  width: 260px;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  transition: 0;
+  opacity: 0.3;
 }
