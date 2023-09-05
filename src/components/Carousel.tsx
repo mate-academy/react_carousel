@@ -24,14 +24,20 @@ const Carousel: React.FC<Props> = ({
   const [duration, setDuration] = useState(animationDuration);
   const [infiniteImg, setInfiniteImg] = useState(infinite);
   const [visibleIndex, setVisibleIndex] = useState(0);
+  let animationWidth = 0;
 
   const handleNext = () => {
     const newIndex = (visibleIndex + stepChange) % images.length;
 
     setVisibleIndex(newIndex);
+    animationWidth = (itemWidthChange);
 
     if (images.length - (visibleIndex + frameSizeChange) < stepChange) {
       setVisibleIndex((images.length - stepChange));
+    }
+
+    if (visibleIndex + frameSizeChange === images.length) {
+      setVisibleIndex(0);
     }
   };
 
@@ -39,9 +45,13 @@ const Carousel: React.FC<Props> = ({
     const newIndex = (visibleIndex - stepChange);
 
     setVisibleIndex(newIndex);
-
+    animationWidth = (-itemWidthChange);
     if ((visibleIndex - frameSizeChange) < 0) {
       setVisibleIndex((0));
+    }
+
+    if (visibleIndex < 1) {
+      setVisibleIndex(images.length - frameSizeChange);
     }
   };
 
@@ -54,19 +64,10 @@ const Carousel: React.FC<Props> = ({
 
   useEffect(() => {
     const wrapElement = document.querySelector('.Carousel') as HTMLElement;
-    const imgElements = document.querySelectorAll(
-      '.Carousel__img',
-    ) as NodeListOf<HTMLElement>;
-
-    imgElements.forEach((imgElem) => {
-      const newElem = imgElem;
-
-      newElem.style.width = `${itemWidthChange}px`;
-      newElem.style.height = `${itemWidthChange}px`;
-    });
 
     if (wrapElement) {
       wrapElement.style.transition = `all ${duration}ms ease-in-out`;
+      wrapElement.style.transform = `translateX(${animationWidth}px)`;
     }
   }, [itemWidthChange, duration]);
 
@@ -81,7 +82,13 @@ const Carousel: React.FC<Props> = ({
         <ul className="Carousel__list">
           {visiblePhoto.map((elem, index) => (
             <li key={elem}>
-              <img key={elem} src={elem} alt={`${index + 1}`} className="Carousel__img" />
+              <img
+                key={elem}
+                src={elem}
+                alt={`${index + 1}`}
+                className="Carousel__img"
+                style={{ width: `${itemWidthChange}px`, height: `${itemWidthChange}px` }}
+              />
             </li>
           ))}
         </ul>
