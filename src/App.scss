@@ -1,1 +1,15 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
