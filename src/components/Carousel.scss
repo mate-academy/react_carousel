@@ -1,1 +1,20 @@
-// style go here
+.carousel {
+  overflow: hidden;
+  border: 1px solid black;
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+
+  &__image {
+    width: 130px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
+}
