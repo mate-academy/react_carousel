@@ -1,19 +1,22 @@
+$background: #fff;
+$border-color: #151b54;
+
 * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: $background;
 }
 
 .App {
   text-align: center;
-  background-color: #fff;
+  background-color: $background;
   padding: 20px;
 }
 
 .label {
   margin: 0 auto;
   padding-right: 15px;
-  color: #151b54;
+  color: $border-color;
   cursor: pointer;
   font-size: 20px;
   display: flex;

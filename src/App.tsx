@@ -90,6 +90,7 @@ class App extends Component<{}, State> {
             onChange={this.setWidth}
           />
         </label>
+
         <label
           htmlFor="frameId"
           className="label"
@@ -105,6 +106,7 @@ class App extends Component<{}, State> {
             onChange={this.setFrameSize}
           />
         </label>
+
         <label
           htmlFor="stepId"
           className="label"
@@ -120,6 +122,7 @@ class App extends Component<{}, State> {
             onChange={this.setStep}
           />
         </label>
+
         <label
           htmlFor="animationId"
           className="label"
@@ -135,6 +138,7 @@ class App extends Component<{}, State> {
             onChange={this.setAnimationDuration}
           />
         </label>
+
         <label
           htmlFor="infinityId"
           className="label"

@@ -1,3 +1,6 @@
+$border-color: #151b54;
+$hover-color: #fdd017;
+
 .Carousel {
   margin: 0 auto;
 
@@ -6,7 +9,7 @@
     padding: 20px 0;
     display: flex;
     overflow: hidden;
-    border: 3px solid #151b54;
+    border: 3px solid $border-color;
     border-radius: 50px;
     list-style-type: none;
   }
@@ -39,8 +42,8 @@
     &:hover {
       transform: scale(1.2);
       opacity: 0.5;
-      background-color: #fdd017;
-      border: 1px solid #fdd017;
+      background-color: $hover-color;
+      border: 1px solid $hover-color;
     }
 
     &:disabled {

@@ -27,7 +27,6 @@ export class Carousel extends Component<Props, State> {
     let nextInd = itemIndex + step;
 
     if (infinity) {
-    // Handle cyclic behavior when infinity is true
       const totalImages = images.length;
       const lastInd = totalImages - frameSize;
 
@@ -37,7 +36,6 @@ export class Carousel extends Component<Props, State> {
         nextInd = 0;
       }
     } else {
-    // Limit the carousel to the first and last items
       const firstInd = 0;
       const lastInd = images.length - frameSize;
 
