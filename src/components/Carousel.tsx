@@ -99,6 +99,7 @@ export class Carousel extends Component<Props, State> {
           >
             &#8678;
           </button>
+
           <button
             type="button"
             data-cy="next"

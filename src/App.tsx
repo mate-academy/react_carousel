@@ -67,6 +67,7 @@ class App extends Component<{}, State> {
         <h1 data-cy="title">
           Carousel
         </h1>
+
         <Carousel
           images={images}
           itemWidth={itemWidth}
