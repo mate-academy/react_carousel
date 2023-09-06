@@ -48,27 +48,7 @@ export const Carousel: React.FC<Props> = ({
   };
 
   return (
-    // eslint-disable-next-line react/jsx-indent
-    <div className="Carousel" style={{ width: `${containerWidth}px` }}>
-      <ul
-        className="Carousel__list"
-        style={{
-          width: `${totalWidth}px`,
-          marginLeft: `${currentOffset}px`,
-          transition: `margin-left ${animationDuration / 1000}s ease-in-out`,
-        }}
-      >
-        {images.map((image, index) => (
-          <li key={image}>
-            <img
-              src={image}
-              alt={`Image ${index + 1}`}
-              style={{ width: `${imageWidth}px` }}
-            />
-          </li>
-        ))}
-      </ul>
-
+    <div className="CarouselWrapper">
       <button
         title="prevButton"
         type="button"
@@ -81,6 +61,29 @@ export const Carousel: React.FC<Props> = ({
       >
         {' ← '}
       </button>
+      {/* eslint-disable-next-line react/jsx-indent */}
+      <div className="Carousel" style={{ width: `${containerWidth}px` }}>
+
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${totalWidth}px`,
+            marginLeft: `${currentOffset}px`,
+            transition: `margin-left ${animationDuration / 1000}s ease-in-out`,
+          }}
+        >
+          {images.map((image, index) => (
+            <li key={image}>
+              <img
+                src={image}
+                alt={`Image ${index + 1}`}
+                style={{ width: `${imageWidth}px` }}
+              />
+            </li>
+          ))}
+        </ul>
+
+      </div>
       <button
         data-cy="next"
         title="nextButton"

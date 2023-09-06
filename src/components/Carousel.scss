@@ -1,6 +1,8 @@
 .CarouselWrapper {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  width: fit-content;
 }
 
 .Carousel {
@@ -49,5 +51,13 @@
     align-items: center;
     justify-content: center;
     margin: 0 10px;
+  }
+}
+
+form {
+  margin-top: 20px;
+  input,
+  label {
+    margin-bottom: 15px;
   }
 }

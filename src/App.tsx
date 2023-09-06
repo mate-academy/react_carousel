@@ -7,6 +7,7 @@ interface State {
   frameSize: number,
   step: number,
   animationDuration: number,
+  infinite: boolean,
 }
 
 export class App extends React.Component<{}, State> {
@@ -27,6 +28,13 @@ export class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: true,
+  };
+
+  toggleInfinite = () => {
+    this.setState((prevState: State): State => {
+      return { ...prevState, infinite: !prevState.infinite };
+    });
   };
 
   render() {
@@ -36,6 +44,7 @@ export class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      infinite,
     } = this.state;
 
     return (
@@ -43,60 +52,74 @@ export class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
-        <div>
-          <label htmlFor="stepId">
-            Item Width:
-            <input
-              type="number"
-              name="stepId"
-              value={imageWidth}
-              onChange={(e) => this
-                .setState({ imageWidth: Number(e.target.value) })}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="frameSize">
-            Frame Size:
-            <input
-              type="number"
-              name="frameSize"
-              value={frameSize}
-              onChange={(e) => this
-                .setState({ frameSize: Number(e.target.value) })}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="step">
-            Step:
-            <input
-              type="number"
-              name="step"
-              value={step}
-              onChange={(e) => this.setState({ step: Number(e.target.value) })}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="animationDuration">
-            Animation Duration:
-            <input
-              type="number"
-              name="animationDuration"
-              value={animationDuration}
-              onChange={(e) => this
-                .setState({ animationDuration: Number(e.target.value) })}
-            />
-          </label>
-        </div>
+        <form style={{ margin: '20px', display: 'inline-block' }}>
+          <div>
+            <label htmlFor="stepId">
+              Item Width:&nbsp;
+              <input
+                type="number"
+                name="stepId"
+                value={imageWidth}
+                onChange={(e) => this
+                  .setState({ imageWidth: Number(e.target.value) })}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="frameSize">
+              Frame Size:&nbsp;
+              <input
+                type="number"
+                name="frameSize"
+                value={frameSize}
+                onChange={(e) => this
+                  .setState({ frameSize: Number(e.target.value) })}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="step">
+              Step:&nbsp;
+              <input
+                type="number"
+                name="step"
+                value={step}
+                onChange={
+                  (e) => this.setState({ step: Number(e.target.value) })
+                }
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="animationDuration">
+              Animation Duration:&nbsp;
+              <input
+                type="number"
+                name="animationDuration"
+                value={animationDuration}
+                onChange={(e) => this
+                  .setState({ animationDuration: Number(e.target.value) })}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Infinite Scroll:
+              <input
+                type="checkbox"
+                checked={this.state.infinite}
+                onChange={this.toggleInfinite}
+              />
+            </label>
+          </div>
+        </form>
         <Carousel
           step={step}
           images={images}
           frameSize={frameSize}
           imageWidth={imageWidth}
           animationDuration={animationDuration}
-          infinite
+          infinite={infinite}
         />
       </div>
 
