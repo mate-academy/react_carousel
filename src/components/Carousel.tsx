@@ -28,23 +28,20 @@ export class Carousel extends Component<Props, State> {
 
     if (infinity) {
       const totalImages = images.length;
-      const lastInd = totalImages - frameSize;
 
       if (nextInd < 0) {
-        nextInd = lastInd;
-      } else if (nextInd > lastInd) {
-        nextInd = 0;
+        nextInd %= totalImages;
+        nextInd += totalImages;
+      } else if (nextInd >= totalImages) {
+        nextInd %= totalImages;
       }
     } else {
-      const firstInd = 0;
       const lastInd = images.length - frameSize;
 
-      if (step > 0 && nextInd > lastInd) {
+      if (nextInd < 0) {
+        nextInd = 0;
+      } else if (nextInd > lastInd) {
         nextInd = lastInd;
-      }
-
-      if (step < 0 && nextInd < firstInd) {
-        nextInd = firstInd;
       }
     }
 

@@ -32,24 +32,18 @@ class App extends Component<{}, State> {
     infinity: false,
   };
 
-  setWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value });
-  };
+  handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: keyof State,
+  ) => {
+    const { value, type, checked } = event.target;
 
-  setFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +event.target.value });
-  };
+    const newValue = type === 'checkbox' ? checked : +value;
 
-  setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +event.target.value });
-  };
-
-  setAnimationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +event.target.value });
-  };
-
-  setInfinity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinity: event.target.checked });
+    this.setState((prevState) => ({
+      ...prevState,
+      [key]: newValue,
+    }));
   };
 
   render() {
@@ -88,7 +82,7 @@ class App extends Component<{}, State> {
             min={130}
             max={260}
             step={10}
-            onChange={this.setWidth}
+            onChange={(event) => this.handleChange(event, 'itemWidth')}
           />
         </label>
 
@@ -104,7 +98,7 @@ class App extends Component<{}, State> {
             min={1}
             max={images.length}
             step={1}
-            onChange={this.setFrameSize}
+            onChange={(event) => this.handleChange(event, 'frameSize')}
           />
         </label>
 
@@ -120,7 +114,7 @@ class App extends Component<{}, State> {
             min={1}
             max={images.length}
             step={1}
-            onChange={this.setStep}
+            onChange={(event) => this.handleChange(event, 'step')}
           />
         </label>
 
@@ -136,7 +130,7 @@ class App extends Component<{}, State> {
             min={500}
             max={5000}
             step={500}
-            onChange={this.setAnimationDuration}
+            onChange={(event) => this.handleChange(event, 'animationDuration')}
           />
         </label>
 
@@ -148,7 +142,7 @@ class App extends Component<{}, State> {
           <input
             type="checkbox"
             id="infinityId"
-            onChange={this.setInfinity}
+            onChange={(event) => this.handleChange(event, 'infinity')}
           />
         </label>
       </div>
