@@ -45,11 +45,18 @@ class App extends React.Component<{}, State> {
 
   handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    let newValue = +value;
+
+    if (name === 'frameSize' || name === 'step' || name === 'itemWidth') {
+      const { min, max } = event.target;
+
+      newValue = Math.max(+min, Math.min(+max, +value));
+    }
 
     this.setState((prevState) => {
       return {
         ...prevState,
-        [name]: parseInt(value, 10),
+        [name]: parseInt(String(newValue), 10),
       };
     });
   };
@@ -75,6 +82,7 @@ class App extends React.Component<{}, State> {
                 value={itemWidth}
                 onChange={this.handleNumberChange}
                 min={130}
+                max={1000}
               />
             </label>
 
