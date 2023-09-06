@@ -1,18 +1,68 @@
-import React from 'react';
+import cn from 'classnames';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [transformX, setTransformX] = useState(0);
+
+  const handlePrevClick = () => {
+    if (currentIndex !== undefined && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 2);
+      setTransformX(transformX - 2);
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentIndex !== undefined && currentIndex < images.length - 2) {
+      setCurrentIndex(currentIndex + 2);
+      setTransformX(transformX + 2);
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <ul
+        className="Carousel__list"
+        style={{
+          transform: `translateX(-${transformX * 50}%)`,
+          transition: 'transform 1s ease-in-out',
+        }}
+      >
+        {images.map((image, index) => (
+          <li>
+            <img src={image} alt={`index-${index}`} />
+          </li>
+        ))}
+      </ul>
+      <div className="container">
+        <button
+          type="button"
+          onClick={handlePrevClick}
+          className={cn('button', {
+            'button--hide': currentIndex === 0,
+          })}
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          data-cy="next"
+          onClick={handleNextClick}
+          className={cn('button', {
+            'button--hide': currentIndex >= images.length - 2,
+          })}
+        >
+          →
+        </button>
+      </div>
+
+    </div>
+  );
+};
 
 export default Carousel;
