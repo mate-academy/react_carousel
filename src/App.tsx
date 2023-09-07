@@ -20,12 +20,17 @@ const App: React.FC = () => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    const value = event.target.type === 'checkbox'
-      ? event.target.checked : event.target.value;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
+    const newValue = type === 'checkbox'
+      ? checked : +value;
 
     setInputs((prev) => {
-      return { ...prev, [name]: value };
+      return { ...prev, [name]: newValue };
     });
   };
 
