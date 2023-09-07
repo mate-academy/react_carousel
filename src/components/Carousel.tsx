@@ -24,63 +24,56 @@ const Carousel: React.FC<Props> = ({
   const [duration, setDuration] = useState(animationDuration);
   const [infiniteImg, setInfiniteImg] = useState(infinite);
   const [visibleIndex, setVisibleIndex] = useState(0);
-  let animationWidth = 0;
 
   const handleNext = () => {
-    const newIndex = (visibleIndex + stepChange) % images.length;
+    const newIndex = ((visibleIndex + stepChange) % images.length);
 
     setVisibleIndex(newIndex);
-    animationWidth = (itemWidthChange);
 
-    if (images.length - (visibleIndex + frameSizeChange) < stepChange) {
-      setVisibleIndex((images.length - stepChange));
-    }
+    const listElement = document.querySelector(
+      '.Carousel__list',
+    ) as HTMLElement;
 
-    if (visibleIndex + frameSizeChange === images.length) {
-      setVisibleIndex(0);
-    }
+    listElement.style.transform = `translateX(${newIndex * itemWidthChange}px)`;
+
+    setVisibleIndex(newIndex);
+
+    // if (images.length - (visibleIndex + frameSizeChange)< stepChange) {
+    //   setVisibleIndex((images.length - stepChange));
+    // }
+
+    // if ((visibleIndex + frameSizeChange) === images.length) {
+    //   setVisibleIndex(0);
+    // }
   };
 
   const handlePrev = () => {
-    const newIndex = (visibleIndex - stepChange);
+    // const newIndex = (visibleIndex - stepChange);
 
-    setVisibleIndex(newIndex);
-    animationWidth = (-itemWidthChange);
-    if ((visibleIndex - frameSizeChange) < 0) {
-      setVisibleIndex((0));
-    }
+    // setVisibleIndex(newIndex);
+    // animationWidth = (-itemWidthChange);
+    // if ((visibleIndex - frameSizeChange) < 0) {
+    //   setVisibleIndex((0));
+    // }
 
-    if (visibleIndex < 1) {
-      setVisibleIndex(images.length - frameSizeChange);
-    }
-  };
-
-  const handleFrameSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFrameSize = parseInt(e.target.value, 10);
-
-    setFrameSizeChange(newFrameSize);
-    setVisibleIndex(0);
+    // if (visibleIndex < 1) {
+    //   setVisibleIndex(images.length - frameSizeChange);
+    // }
   };
 
   useEffect(() => {
     const wrapElement = document.querySelector('.Carousel') as HTMLElement;
+    const visibleImg = document.querySelector('.Carousel__list') as HTMLElement;
 
-    if (wrapElement) {
-      wrapElement.style.transition = `all ${duration}ms ease-in-out`;
-      wrapElement.style.transform = `translateX(${animationWidth}px)`;
-    }
-  }, [itemWidthChange, duration]);
-
-  const visiblePhoto = images.slice(
-    visibleIndex, visibleIndex + frameSizeChange,
-
-  );
+    visibleImg.style.width = `${itemWidthChange * frameSizeChange}px`;
+    wrapElement.style.transition = `all ${duration}ms ease-in-out`;
+  }, [stepChange, frameSizeChange, itemWidthChange, duration]);
 
   return (
     <div className="MainWrap">
       <div className="Carousel">
         <ul className="Carousel__list">
-          {visiblePhoto.map((elem, index) => (
+          {images.map((elem, index) => (
             <li key={elem}>
               <img
                 key={elem}
@@ -131,7 +124,10 @@ const Carousel: React.FC<Props> = ({
             min={2}
             max={5}
             type="number"
-            onChange={handleFrameSizeChange}
+            onChange={(e) => {
+              setFrameSizeChange(parseInt(e.target.value, 10));
+              setVisibleIndex(0);
+            }}
             value={frameSizeChange}
           />
           <label htmlFor="itemWidth">Choose a width item:</label>
