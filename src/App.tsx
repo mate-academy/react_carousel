@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { images } from './constants';
 
 interface State {
   images: string[];
@@ -8,66 +9,41 @@ interface State {
 
 const App: React.FC = () => {
   const state: State = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+    images,
   };
+  const [inputs, setInputs] = useState({
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  });
 
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    const value = event.target.type === 'checkbox'
+      ? event.target.checked : event.target.value;
 
-  const handleStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStep(+event.target.value);
-  };
-
-  const handleFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFrameSize(+event.target.value);
-  };
-
-  const handleItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setItemWidth(+event.target.value);
-  };
-
-  const handleAnimationDuration = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setAnimationDuration(+event.target.value);
-  };
-
-  const handleInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInfinite(!!event.target.checked);
+    setInputs((prev) => {
+      return { ...prev, [name]: value };
+    });
   };
 
   return (
     <div className="App">
       <h1 className="App__title" data-cy="title">
-        Carousel with
-        {' '}
-        {state.images.length}
-        {' '}
-        images
+        {`Carousel with ${state.images.length} images`}
       </h1>
       <div className="App__inputs">
         <label>
           Step:
           <input
             type="number"
-            value={step}
+            name="step"
+            value={inputs.step}
             min={1}
             max={10}
-            onChange={handleStep}
+            onChange={handleChange}
           />
         </label>
 
@@ -75,10 +51,11 @@ const App: React.FC = () => {
           Frame Size:
           <input
             type="number"
-            value={frameSize}
+            name="frameSize"
+            value={inputs.frameSize}
             min={1}
             max={state.images.length}
-            onChange={handleFrameSize}
+            onChange={handleChange}
           />
         </label>
 
@@ -86,8 +63,9 @@ const App: React.FC = () => {
           Item Width:
           <input
             type="number"
-            value={itemWidth}
-            onChange={handleItemWidth}
+            name="itemWidth"
+            value={inputs.itemWidth}
+            onChange={handleChange}
           />
         </label>
 
@@ -95,10 +73,11 @@ const App: React.FC = () => {
           Animation Duration:
           <input
             type="number"
+            name="animationDuration"
             min={1000}
             max={3000}
-            value={animationDuration}
-            onChange={handleAnimationDuration}
+            value={inputs.animationDuration}
+            onChange={handleChange}
           />
         </label>
 
@@ -106,19 +85,20 @@ const App: React.FC = () => {
           Infinite:
           <input
             type="checkbox"
-            checked={infinite}
-            onChange={handleInfinite}
+            name="infinite"
+            checked={inputs.infinite}
+            onChange={handleChange}
           />
         </label>
       </div>
 
       <Carousel
         images={state.images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
-        infinite={infinite}
+        step={inputs.step}
+        frameSize={inputs.frameSize}
+        itemWidth={inputs.itemWidth}
+        animationDuration={inputs.animationDuration}
+        infinite={inputs.infinite}
       />
     </div>
   );
