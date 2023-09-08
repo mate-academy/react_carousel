@@ -61,11 +61,11 @@ class App extends React.Component<{}, State> {
           method="post"
           className="App__form"
         >
-          <label htmlFor="itemWidth">
+          <label htmlFor="itemId">
             Item Width
             <input
               className="App__input"
-              id="itemWidth"
+              id="itemId"
               name="itemWidth"
               type="number"
               value={itemWidth}
@@ -76,11 +76,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label htmlFor="frameSize">
+          <label htmlFor="frameId">
             Frame Size
             <input
               className="App__input"
-              id="frameSize"
+              id="frameId"
               name="frameSize"
               type="number"
               value={frameSize}
@@ -90,11 +90,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label htmlFor="step">
+          <label htmlFor="stepId">
             Step
             <input
               className="App__input"
-              id="step"
+              id="stepId"
               name="step"
               type="number"
               value={step}
@@ -104,11 +104,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label htmlFor="animationDuration">
+          <label htmlFor="durationId">
             Animation Duration
             <input
               className="App__input"
-              id="animationDuration"
+              id="durationId"
               name="animationDuration"
               type="number"
               value={animationDuration}
@@ -119,11 +119,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label htmlFor="infinite">
+          <label htmlFor="infiniteId">
             Infinite
             <input
               className="App__input"
-              id="infinite"
+              id="infiniteId"
               name="infinite"
               type="checkbox"
               onClick={() => this.setState({
