@@ -1,12 +1,12 @@
 // style go here
-$frameSize: 2;
+$frameSize: 3;
 $itemWidth: 130px;
 $carousel-width: $itemWidth * $frameSize;
 
 $mygap: 10px;
 
 .Carousel {
-  width: $carousel-width + $mygap * $frameSize;
+  // width: $carousel-width + $mygap * $frameSize;
   overflow: hidden;
 
   &__list {
@@ -31,4 +31,11 @@ $mygap: 10px;
   &--hide {
     visibility: hidden;
   }
+}
+
+.input {
+  border-radius: 15px;
+  text-align: center;
+  width: 55px;
+  margin-left: 5px;
 }
