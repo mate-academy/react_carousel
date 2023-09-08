@@ -1,1 +1,14 @@
-// style go here
+.App{
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    margin-left: 10px;
+  }
+}
