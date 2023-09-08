@@ -1,7 +1,6 @@
 .MainWrap {
   display: flex;
-  align-items: center; /* Вирівнювання по горизонталі по центру */
-  min-height: 100vh; /* Мінімальна висота на весь вікно браузера */
+  align-items: center;
   flex-direction: column;
 }
 
@@ -13,13 +12,11 @@
   
   &__list {
     display: flex;
-    transition: 0;
     transform: translateX(0);
     padding: 0;
     margin: 0;
     list-style: none;
-    overflow: hidden;
-    
+    transition: all, 1000ms ;
   }
 
   &__img {
@@ -36,9 +33,4 @@
     height: 30px;
     margin: 10px;
   }
-}
-
-input {
-  width: 50px;
-  margin: 10px;
 }

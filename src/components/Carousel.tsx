@@ -18,61 +18,55 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [stepChange, setStepChange] = useState(step);
-  const [frameSizeChange, setFrameSizeChange] = useState(frameSize);
-  const [itemWidthChange, setItemWidthChange] = useState(itemWidth);
-  const [duration, setDuration] = useState(animationDuration);
-  const [infiniteImg, setInfiniteImg] = useState(infinite);
-  const [visibleIndex, setVisibleIndex] = useState(0);
-
+  const [transform, setTransform] = useState(0);
   const handleNext = () => {
-    const newIndex = ((visibleIndex + stepChange) % images.length);
+    let newTransform = transform + step * itemWidth;
 
-    setVisibleIndex(newIndex);
+    if (images.length - (transform / itemWidth + frameSize) < step) {
+      newTransform = (images.length * itemWidth) - (frameSize * itemWidth);
+    }
 
-    const listElement = document.querySelector(
-      '.Carousel__list',
-    ) as HTMLElement;
+    if (transform / itemWidth + frameSize >= images.length && infinite) {
+      newTransform = 0;
+    }
 
-    listElement.style.transform = `translateX(${newIndex * itemWidthChange}px)`;
-
-    setVisibleIndex(newIndex);
-
-    // if (images.length - (visibleIndex + frameSizeChange)< stepChange) {
-    //   setVisibleIndex((images.length - stepChange));
-    // }
-
-    // if ((visibleIndex + frameSizeChange) === images.length) {
-    //   setVisibleIndex(0);
-    // }
+    setTransform(newTransform);
   };
 
   const handlePrev = () => {
-    // const newIndex = (visibleIndex - stepChange);
+    let newTransform = transform - step * itemWidth;
 
-    // setVisibleIndex(newIndex);
-    // animationWidth = (-itemWidthChange);
-    // if ((visibleIndex - frameSizeChange) < 0) {
-    //   setVisibleIndex((0));
-    // }
+    if ((transform / itemWidth - frameSize) < 0) {
+      newTransform = 0;
+    }
 
-    // if (visibleIndex < 1) {
-    //   setVisibleIndex(images.length - frameSizeChange);
-    // }
+    if (transform < 1 && infinite) {
+      newTransform = (images.length - frameSize) * itemWidth;
+    }
+
+    setTransform(newTransform);
   };
 
   useEffect(() => {
     const wrapElement = document.querySelector('.Carousel') as HTMLElement;
-    const visibleImg = document.querySelector('.Carousel__list') as HTMLElement;
 
-    visibleImg.style.width = `${itemWidthChange * frameSizeChange}px`;
-    wrapElement.style.transition = `all ${duration}ms ease-in-out`;
-  }, [stepChange, frameSizeChange, itemWidthChange, duration]);
+    wrapElement.style.width = `${itemWidth * frameSize}px`;
+    wrapElement.style.transition = `all ${animationDuration}ms ease-in-out`;
+  }, [step, frameSize, itemWidth, animationDuration]);
 
   return (
     <div className="MainWrap">
-      <div className="Carousel">
-        <ul className="Carousel__list">
+      <div
+        className="Carousel"
+        style={{ width: `${itemWidth * frameSize}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${-transform}px)`,
+            transition: `all ${animationDuration}ms ease-in-out`,
+          }}
+        >
           {images.map((elem, index) => (
             <li key={elem}>
               <img
@@ -80,7 +74,10 @@ const Carousel: React.FC<Props> = ({
                 src={elem}
                 alt={`${index + 1}`}
                 className="Carousel__img"
-                style={{ width: `${itemWidthChange}px`, height: `${itemWidthChange}px` }}
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                }}
               />
             </li>
           ))}
@@ -91,7 +88,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={handlePrev}
-          disabled={visibleIndex === 0 && !infiniteImg}
+          disabled={transform < 1 && !infinite}
         >
           {'< Prev'}
         </button>
@@ -99,67 +96,12 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={handleNext}
-          disabled={visibleIndex >= images.length - stepChange && !infiniteImg}
+          disabled={
+            transform / itemWidth + frameSize >= images.length && !infinite
+          }
         >
           {'Next >'}
         </button>
-      </div>
-      <div className="Carousel__interactionForms">
-        <form>
-          <label htmlFor="step">Choose a step:</label>
-          <input
-            id="step"
-            min={2}
-            max={4}
-            type="number"
-            onChange={(e) => {
-              setStepChange(parseInt(e.target.value, 10));
-              setVisibleIndex(0);
-            }}
-            value={stepChange}
-          />
-          <label htmlFor="frameSize">Choose a size frame:</label>
-          <input
-            id="frameSize"
-            min={2}
-            max={5}
-            type="number"
-            onChange={(e) => {
-              setFrameSizeChange(parseInt(e.target.value, 10));
-              setVisibleIndex(0);
-            }}
-            value={frameSizeChange}
-          />
-          <label htmlFor="itemWidth">Choose a width item:</label>
-          <input
-            id="itemWidth"
-            min={130}
-            max={150}
-            type="number"
-            onChange={(e) => setItemWidthChange(parseInt(e.target.value, 10))}
-            value={itemWidthChange}
-          />
-          <label htmlFor="duration">Choose a duration animation:</label>
-          <input
-            id="duration"
-            type="number"
-            min={1000}
-            max={5000}
-            step={50}
-            onChange={(e) => setDuration(parseInt(e.target.value, 10))}
-            value={duration}
-          />
-          <label htmlFor="checkbox">infinite</label>
-          <input
-            id="checkbox"
-            type="checkbox"
-            onChange={(e) => {
-              setInfiniteImg(e.target.checked);
-              setVisibleIndex(0);
-            }}
-            checked={infiniteImg}
-          />
-        </form>
       </div>
     </div>
   );
