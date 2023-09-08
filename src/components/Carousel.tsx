@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -47,18 +47,14 @@ const Carousel: React.FC<Props> = ({
     setTransform(newTransform);
   };
 
-  useEffect(() => {
-    const wrapElement = document.querySelector('.Carousel') as HTMLElement;
-
-    wrapElement.style.width = `${itemWidth * frameSize}px`;
-    wrapElement.style.transition = `all ${animationDuration}ms ease-in-out`;
-  }, [step, frameSize, itemWidth, animationDuration]);
+  const width = `${itemWidth * frameSize}px`;
+  const transition = `all ${animationDuration}ms ease-in-out`;
 
   return (
     <div className="MainWrap">
       <div
         className="Carousel"
-        style={{ width: `${itemWidth * frameSize}px` }}
+        style={{ width, transition }}
       >
         <ul
           className="Carousel__list"
