@@ -1,0 +1,10 @@
+.inputBlock {
+  width: max-content;
+  font-size: 24px;
+  border: none;
+  outline: none;
+
+  &::-webkit-input-placeholder {
+    color: black;
+  }
+}

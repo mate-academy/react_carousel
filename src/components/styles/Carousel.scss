@@ -1,0 +1,63 @@
+// style go here
+@import "../utils/extends";
+@import "./containerOne.scss";
+@import "./containerTwo.scss";
+@import "./inputBlock.scss";
+
+.Carousel {
+  display: grid;
+  gap: 15px;
+  
+  &__list {
+    display: flex;
+    transition-property: all;
+  }
+
+  &__move {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__step {
+    @extend %manipulationItems;
+  }
+
+  &__image_width {
+    @extend %manipulationItems;
+  }
+
+  &__frameSize {
+    @extend %manipulationItems;
+  }
+
+  &__animationDuration {
+    @extend %manipulationItems;
+  }
+
+  &__infinite {
+    justify-self: center;
+  }
+}
+
+.ButtonElement {
+  height: 30px;
+  width: 60px;
+  color: #fff;
+  background-color: #4dccc6;
+  border-radius: 5px;
+  background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 54%);
+  box-shadow: inset 2px 2px 2px 0 rgba(255,255,255,0.5),
+    7px 7px 20px 0 rgba(0,0,0,0.1),
+    4px 4px 5px 0 rgba(0,0,0,0.1);
+  outline: none;
+  border: none;
+
+  &:hover {
+    background-color: #89d8d3;
+    background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
