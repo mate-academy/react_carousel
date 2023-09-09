@@ -29,23 +29,31 @@ const Carousel: React.FC<Props> = ({
   const carouselStart = currentImage === 1;
 
   const handlePrev = () => {
-    if (!carouselStart) {
-      const prevImage = currentImage - step;
+    let prevImage = currentImage - step;
 
-      setCurrentImage(prevImage < 1
-        ? 1
-        : prevImage);
+    if (prevImage < 1) {
+      prevImage = 1;
     }
+
+    if (inifinite && (currentImage === prevImage)) {
+      prevImage = 10 - (step - 1);
+    }
+
+    setCurrentImage(prevImage);
   };
 
   const handleNext = () => {
-    if (!carouselEnd) {
-      const nextImage = currentImage + step;
+    let nextImage = currentImage + 1;
 
-      setCurrentImage(nextImage > leftImage
-        ? leftImage
-        : nextImage);
+    if ((nextImage + frameSize) > images.length) {
+      nextImage = images.length - frameSize + 1;
     }
+
+    if (inifinite && (currentImage === nextImage)) {
+      nextImage = 1;
+    }
+
+    setCurrentImage(nextImage);
   };
 
   return (
@@ -54,7 +62,7 @@ const Carousel: React.FC<Props> = ({
         className={cn('Carousel__button',
           { 'Carousel__button--disabled': (carouselStart && !inifinite) })}
         type="button"
-        onClick={() => handlePrev()}
+        onClick={handlePrev}
       >
         Prev
       </button>
@@ -85,7 +93,7 @@ const Carousel: React.FC<Props> = ({
           className={cn('Carousel__button',
             { 'Carousel__button--disabled': (carouselEnd && !inifinite) })}
           type="button"
-          onClick={() => handleNext()}
+          onClick={handleNext}
         >
           Next
         </button>
