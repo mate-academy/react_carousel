@@ -11,12 +11,17 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinityMode, setInfinityMode] = useState(false);
 
   const maxStep = 100 - ((100 / images.length) * frameSize);
   const currentStep = (100 / images.length) * step;
 
   function nextClick() {
     setTranslate(prevTranslate => {
+      if (prevTranslate === maxStep) {
+        return 0;
+      }
+
       return prevTranslate + currentStep > maxStep
         ? maxStep
         : prevTranslate + currentStep;
@@ -25,6 +30,10 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
   function prevClick() {
     setTranslate(prevTranslate => {
+      if (prevTranslate === 0) {
+        return maxStep;
+      }
+
       return prevTranslate - currentStep < 0
         ? 0
         : prevTranslate - currentStep;
@@ -37,6 +46,12 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
   function isLastImage() {
     return translate >= maxStep;
+  }
+
+  function isChecked() {
+    setInfinityMode(state => {
+      return state === false;
+    });
   }
 
   const imageStyle = {
@@ -69,14 +84,18 @@ const Carousel: React.FC<Props> = ({ images }) => {
       <button
         type="button"
         onClick={prevClick}
-        disabled={isFirstImage()}
+        disabled={
+          (isFirstImage() && !infinityMode) || (isFirstImage() && isLastImage())
+        }
       >
         Prev
       </button>
       <button
         type="button"
         onClick={nextClick}
-        disabled={isLastImage()}
+        disabled={
+          (isLastImage() && !infinityMode) || (isLastImage() && isFirstImage())
+        }
         data-cy="next"
       >
         Next
@@ -117,7 +136,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="stepId"
           className="Carousel__params--label"
         >
-          Step of scroll
+          Step of scroll:
         </label>
 
         <input
@@ -133,7 +152,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
           htmlFor="durationAnimationId"
           className="Carousel__params--label"
         >
-          Duration of animation in ms
+          Duration of animation in ms:
         </label>
 
         <input
@@ -143,6 +162,22 @@ const Carousel: React.FC<Props> = ({ images }) => {
           min={0}
           onChange={value => setAnimationDuration(Number(value.target.value))}
         />
+
+        <div className="Carousel__params--infinity">
+          <label
+            htmlFor="infinityId"
+            className="Carousel__params--label"
+          >
+            Infinity mode:
+          </label>
+
+          <input
+            type="checkbox"
+            id="infinityId"
+            checked={infinityMode}
+            onClick={isChecked}
+          />
+        </div>
       </div>
     </div>
   );
