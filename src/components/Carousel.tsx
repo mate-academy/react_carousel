@@ -43,7 +43,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handleNext = () => {
-    let nextImage = currentImage + 1;
+    let nextImage = currentImage + step;
 
     if ((nextImage + frameSize) > images.length) {
       nextImage = images.length - frameSize + 1;
