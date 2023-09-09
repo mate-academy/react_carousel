@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+// import Carousel from './components/Carousel';
+import { Functional } from './components/Functional/Functional';
 
 interface State {
   images: string[];
@@ -30,7 +31,7 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel images={images} />
+        <Functional images={images} />
       </div>
     );
   }
