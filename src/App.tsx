@@ -3,7 +3,12 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
-  images: string[];
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,103 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name, value, max,
+    } = event.currentTarget;
+    const min = 0;
+    const defaultValue = Math.max(
+      Number(min),
+      Math.min(Number(max), Number(value)),
+    );
+
+    this.setState((state) => (({
+      ...state,
+      [name]: +defaultValue,
+    })));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
+
+    const maxItemWidth = 1300;
+    const maxDisplayedItems = Math.floor(maxItemWidth / itemWidth);
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {this.state.images.length} images</h1>
+        <fieldset>
+          <label htmlFor="itemId">Item width</label>
+          <input
+            id="itemId"
+            name="itemWidth"
+            type="number"
+            value={itemWidth.toString()}
+            onChange={this.onChangeHandler}
+            max={maxItemWidth}
+          />
 
-        <Carousel />
+          <label htmlFor="frameId">Frame size</label>
+          <input
+            id="frameId"
+            name="frameSize"
+            type="number"
+            value={frameSize.toString()}
+            onChange={this.onChangeHandler}
+            max={maxDisplayedItems}
+          />
+          <label htmlFor="stepId">Step</label>
+          <input
+            id="stepId"
+            name="step"
+            type="number"
+            value={step.toString()}
+            onChange={this.onChangeHandler}
+            max={images.length}
+          />
+          <label htmlFor="animationDuration">Animation duration</label>
+          <input
+            name="animationDuration"
+            type="number"
+            value={animationDuration.toString()}
+            onChange={this.onChangeHandler}
+            max={1000 * images.length}
+          />
+          <label>
+            Infinite
+            <input
+              name="animationDuration"
+              type="checkbox"
+              onChange={(event) => this.setState({
+                infinite: event.currentTarget.checked,
+              })}
+              checked={infinite}
+            />
+          </label>
+        </fieldset>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
