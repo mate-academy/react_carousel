@@ -1,1 +1,46 @@
-// style go here
+.container {
+  width: 390px;
+  overflow: hidden;
+}
+
+.images {
+  width: 1300px;
+  position: relative;
+  display: flex;
+  transition: transform 1000s;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.arrow {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border: 3px solid gray;
+  border-radius: 50%;
+
+  &:disabled::after {
+    display: none;
+  }
+  
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+    transform: translate(-50%, -50%) rotate(45deg);
+    
+  }
+
+  &--right:after {
+    transform: translate(-50%, -50%) rotate(-135deg);
+  }
+}
