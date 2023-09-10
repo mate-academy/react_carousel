@@ -1,1 +1,89 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  margin: 0 auto;
+  
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+
+    &-item {
+      display: block;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    &-right,
+    &-left {
+      border: none;
+      border-radius: 10%;
+      width: 100px;
+      height: 40px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease;
+    }
+
+    &-right::before,
+    &-left::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent #fff;
+      transform: translateY(-50%);
+      transition: border-width 0.3s ease;
+    }
+
+    &-left {
+      padding-left: 25px;
+
+      &::before {
+        left: 10px;
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      &_disabled {
+        background-color: red;
+      }
+    }
+
+    &-right {
+      padding-right: 25px;
+
+      &::before {
+        right: 10px;
+      }
+
+      &_disabled {
+        background-color: red;
+      }
+    }
+
+    &-left:hover,
+    &-right:hover {
+      background-color: #0069d9;
+    }
+
+    &-left_disabled:hover,
+    &-right_disabled:hover {
+      background-color: #c82333;
+    }
+
+    &-left:hover::before,
+    &-right:hover::before {
+      border-width: 10px 10px 10px 0;
+    }
+  }
+}
