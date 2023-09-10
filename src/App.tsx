@@ -32,20 +32,11 @@ class App extends React.Component<{}, State> {
     infiniteImg: false,
   };
 
-  handleStepChange = (value: number) => {
-    this.setState({ stepChange: value });
-  };
-
-  handleFrameSizeChange = (value: number) => {
-    this.setState({ frameSizeChange: value });
-  };
-
-  handleItemWidthChange = (value: number) => {
-    this.setState({ itemWidthChange: value });
-  };
-
-  handleDurationChange = (value: number) => {
-    this.setState({ duration: value });
+  handleChange = (value: number, key: keyof State) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
   };
 
   handleInfiniteChange = (value: boolean) => {
@@ -82,7 +73,7 @@ class App extends React.Component<{}, State> {
             max={4}
             type="number"
             onChange={(e) => {
-              this.handleStepChange(parseInt(e.target.value, 10));
+              this.handleChange(parseInt(e.target.value, 10), 'stepChange');
             }}
             value={stepChange}
           />
@@ -93,7 +84,10 @@ class App extends React.Component<{}, State> {
             max={5}
             type="number"
             onChange={(e) => {
-              this.handleFrameSizeChange(parseInt(e.target.value, 10));
+              this.handleChange(parseInt(
+                e.target.value,
+                10,
+              ), 'frameSizeChange');
             }}
             value={frameSizeChange}
           />
@@ -104,7 +98,10 @@ class App extends React.Component<{}, State> {
             max={150}
             type="number"
             onChange={(e) => {
-              this.handleItemWidthChange(parseInt(e.target.value, 10));
+              this.handleChange(parseInt(
+                e.target.value,
+                10,
+              ), 'itemWidthChange');
             }}
             value={itemWidthChange}
           />
@@ -116,7 +113,7 @@ class App extends React.Component<{}, State> {
             max={5000}
             step={50}
             onChange={(e) => {
-              this.handleDurationChange(parseInt(e.target.value, 10));
+              this.handleChange(parseInt(e.target.value, 10), 'duration');
             }}
             value={duration}
           />

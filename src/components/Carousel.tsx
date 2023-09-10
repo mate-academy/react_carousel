@@ -19,14 +19,16 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [transform, setTransform] = useState(0);
+  const imgLength = images.length;
+  const sequenceNumberImg = transform / itemWidth;
   const handleNext = () => {
     let newTransform = transform + step * itemWidth;
 
-    if (images.length - (transform / itemWidth + frameSize) < step) {
-      newTransform = (images.length * itemWidth) - (frameSize * itemWidth);
+    if (imgLength - (sequenceNumberImg + frameSize) < step) {
+      newTransform = (imgLength * itemWidth) - (frameSize * itemWidth);
     }
 
-    if (transform / itemWidth + frameSize >= images.length && infinite) {
+    if (sequenceNumberImg + frameSize >= imgLength && infinite) {
       newTransform = 0;
     }
 
@@ -36,12 +38,12 @@ const Carousel: React.FC<Props> = ({
   const handlePrev = () => {
     let newTransform = transform - step * itemWidth;
 
-    if ((transform / itemWidth - frameSize) < 0) {
+    if ((sequenceNumberImg - frameSize) < 0) {
       newTransform = 0;
     }
 
     if (transform < 1 && infinite) {
-      newTransform = (images.length - frameSize) * itemWidth;
+      newTransform = (imgLength - frameSize) * itemWidth;
     }
 
     setTransform(newTransform);
@@ -49,6 +51,8 @@ const Carousel: React.FC<Props> = ({
 
   const width = `${itemWidth * frameSize}px`;
   const transition = `all ${animationDuration}ms ease-in-out`;
+  const regimeDisabletNext = transform / itemWidth + frameSize >= images.length;
+  const regimeDisabletPrev = transform < 1;
 
   return (
     <div className="MainWrap">
@@ -84,7 +88,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={handlePrev}
-          disabled={transform < 1 && !infinite}
+          disabled={regimeDisabletPrev && !infinite}
         >
           {'< Prev'}
         </button>
@@ -92,9 +96,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={handleNext}
-          disabled={
-            transform / itemWidth + frameSize >= images.length && !infinite
-          }
+          disabled={regimeDisabletNext && !infinite}
         >
           {'Next >'}
         </button>
