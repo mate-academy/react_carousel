@@ -1,1 +1,45 @@
-// style go here
+@import "./utils/mixins";
+
+.App {
+  @include centering;
+
+  &__title {
+    color: gray;
+    @include typography;
+  }
+
+  &__inputs {
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0;
+    color: gray;
+    @include centering;
+    @include typography;
+
+    &-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    &-label {
+      margin-right: 5px;
+    }
+
+    &-input {
+      color: gray;
+      margin-right: 5px;
+      @include typography;
+
+      &::placeholder {
+        color: gray;
+        @include typography;
+      }
+    }
+  }
+
+  &__item {
+    margin-right: 20px;
+  }
+}
