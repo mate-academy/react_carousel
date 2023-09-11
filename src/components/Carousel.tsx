@@ -41,12 +41,16 @@ const Carousel: React.FC<Props> = ({ images }) => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setInputWidth(event.target.value);
+    setTransformX(0);
+    setCurrentIndex(0);
   };
 
   const handleFrameSize = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFrameSize(event.target.value);
+    setTransformX(0);
+    setCurrentIndex(0);
   };
 
   const handleAnimation = (
@@ -59,6 +63,8 @@ const Carousel: React.FC<Props> = ({ images }) => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setStep(event.target.value);
+    setTransformX(0);
+    setCurrentIndex(0);
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,98 +72,104 @@ const Carousel: React.FC<Props> = ({ images }) => {
   };
 
   return (
-    <div
-      className="Carousel"
-      style={{
-        width: +frameSize * +inputWidth + (+frameSize * 10),
-      }}
-    >
-      <ul
-        className="Carousel__list"
+    <>
+      <div
+        className="Carousel"
         style={{
-          transform: `translateX(-${transformX}px)`,
-          transition: `transform ${inputAnimation}ms ease-in-out`,
+          width: +frameSize * +inputWidth + (+frameSize * 10),
         }}
       >
-        {images.map((image, index) => (
-          <li key={image}>
-            <img
-              src={image}
-              alt={`index-${index}`}
-              style={{
-                width: +inputWidth,
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-      <div className="container">
-        <button
-          type="button"
-          onClick={handlePrevClick}
-          className={cn('button', {
-            'button--hide': currentIndex === 0,
-          })}
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(-${transformX}px)`,
+            transition: `transform ${inputAnimation}ms ease-in-out`,
+          }}
         >
-          ←
-        </button>
-        <button
-          type="button"
-          data-cy="next"
-          onClick={handleNextClick}
-          className={cn('button', {
-            'button--hide': !infinite && currentIndex >= images.length - 2,
-          })}
-        >
-          →
-        </button>
+          {images.map((image, index) => (
+            <li key={image}>
+              <img
+                src={image}
+                alt={`index-${index}`}
+                style={{
+                  width: +inputWidth,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="container">
+          <button
+            type="button"
+            onClick={handlePrevClick}
+            className={cn('button', {
+              'button--hide': currentIndex === 0,
+            })}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            data-cy="next"
+            onClick={handleNextClick}
+            className={cn('button', {
+              'button--hide': !infinite && currentIndex >= images.length - 2,
+            })}
+          >
+            →
+          </button>
+        </div>
       </div>
       <div>
-        Item Width:
-        <input
-          type="text"
-          value={inputWidth}
-          onChange={handleInputChangeWidth}
-          className="input"
-        />
+        <div>
+          Item Width:
+          <input
+            type="text"
+            value={inputWidth}
+            onChange={handleInputChangeWidth}
+            className="input"
+            min="19"
+          />
+        </div>
+        <div>
+          Frame Size:
+          <input
+            type="text"
+            value={frameSize}
+            onChange={handleFrameSize}
+            className="input"
+          />
+        </div>
+        <div>
+          Step:
+          <input
+            type="text"
+            value={step}
+            onChange={handleStep}
+            className="input"
+          />
+        </div>
+        <div>
+          AnimationDuration:
+          <input
+            type="text"
+            value={inputAnimation}
+            onChange={handleAnimation}
+            className="input"
+          />
+        </div>
+        <div>
+          Infinite:
+          <input
+            type="checkbox"
+            checked={infinite}
+            onChange={handleCheckboxChange}
+            className="input"
+          />
+        </div>
       </div>
-      <div>
-        Frame Size:
-        <input
-          type="text"
-          value={frameSize}
-          onChange={handleFrameSize}
-          className="input"
-        />
-      </div>
-      <div>
-        Step:
-        <input
-          type="text"
-          value={step}
-          onChange={handleStep}
-          className="input"
-        />
-      </div>
-      <div>
-        AnimationDuration:
-        <input
-          type="text"
-          value={inputAnimation}
-          onChange={handleAnimation}
-          className="input"
-        />
-      </div>
-      <div>
-        Infinite:
-        <input
-          type="checkbox"
-          checked={infinite}
-          onChange={handleCheckboxChange}
-          className="input"
-        />
-      </div>
-    </div>
+    </>
+
   );
 };
 

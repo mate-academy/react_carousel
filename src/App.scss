@@ -6,7 +6,6 @@ $carousel-width: $itemWidth * $frameSize;
 $mygap: 10px;
 
 .Carousel {
-  // width: $carousel-width + $mygap * $frameSize;
   overflow: hidden;
 
   &__list {
@@ -25,7 +24,6 @@ $mygap: 10px;
 .button {
   border-radius: 50%;
   background-color: bisque;
-  font-size: 18px;
   font-weight: bold;
 
   &--hide {
