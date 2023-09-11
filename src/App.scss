@@ -1,1 +1,43 @@
 // style go here
+$frameSize: 3;
+$itemWidth: 130px;
+$carousel-width: $itemWidth * $frameSize;
+
+$mygap: 10px;
+
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: $mygap;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  border-radius: 50%;
+  background-color: bisque;
+  font-weight: bold;
+
+  &--hide {
+    visibility: hidden;
+  }
+}
+
+.input {
+  border-radius: 15px;
+  text-align: center;
+  width: 55px;
+  margin-left: 5px;
+}
+
+li {
+  list-style: none;
+}
