@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -19,8 +19,16 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [transform, setTransform] = useState(0);
+  const [carouselWidth, setCarouselWidth] = useState(0);
   const imgLength = images.length;
   const sequenceNumberImg = transform / itemWidth;
+
+  useEffect(() => {
+    const newCarouselWidth = itemWidth * frameSize;
+
+    setCarouselWidth(newCarouselWidth);
+  }, [itemWidth, frameSize]);
+
   const handleNext = () => {
     let newTransform = transform + step * itemWidth;
 
@@ -49,7 +57,7 @@ const Carousel: React.FC<Props> = ({
     setTransform(newTransform);
   };
 
-  const width = `${itemWidth * frameSize}px`;
+  const width = `${carouselWidth}px`;
   const transition = `all ${animationDuration}ms ease-in-out`;
   const regimeDisabletNext = transform / itemWidth + frameSize >= images.length;
   const regimeDisabletPrev = transform < 1;
