@@ -7,31 +7,29 @@ type Props = {
 };
 
 const Carousel: React.FC<Props> = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [transformX, setTransformX] = useState(0);
-  const [inputWidth, setInputWidth] = useState('130');
-  const [frameSize, setFrameSize] = useState('3');
-  const [inputAnimation, setInputAnimation] = useState('1000');
-  const [step, setStep] = useState('3');
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [transformX, setTransformX] = useState<number>(0);
+  const [inputWidth, setInputWidth] = useState<number>(130);
+  const [frameSize, setFrameSize] = useState<number>(3);
+  const [inputAnimation, setInputAnimation] = useState<number>(1000);
+  const [step, setStep] = useState<number>(3);
   const [infinite, setInfinite] = useState(false);
 
   const handlePrevClick = () => {
-    if (currentIndex !== undefined && currentIndex > 0) {
-      setCurrentIndex(currentIndex - +step);
-      setTransformX(transformX - (+step * 10) - +inputWidth * +step);
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - step);
+      setTransformX(transformX - (step * 10) - inputWidth * step);
     }
   };
 
   const handleNextClick = () => {
-    if (currentIndex !== undefined && currentIndex < images.length - 2) {
-      setCurrentIndex(currentIndex + +step);
-      setTransformX(transformX + (+step * 10) + +inputWidth * +step);
+    if (currentIndex < images.length - 1) {
+      setCurrentIndex(currentIndex + step);
+      setTransformX(transformX + (step * 10) + inputWidth * step);
     }
 
     if (infinite
-      && currentIndex !== undefined
-      && (currentIndex === images.length - 1
-        || currentIndex === images.length - 2)) {
+      && currentIndex >= images.length - 2) {
       setTransformX(0);
       setCurrentIndex(0);
     }
@@ -40,7 +38,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const handleInputChangeWidth = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setInputWidth(event.target.value);
+    setInputWidth(+event.target.value);
     setTransformX(0);
     setCurrentIndex(0);
   };
@@ -48,7 +46,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const handleFrameSize = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setFrameSize(event.target.value);
+    setFrameSize(+event.target.value);
     setTransformX(0);
     setCurrentIndex(0);
   };
@@ -56,13 +54,13 @@ const Carousel: React.FC<Props> = ({ images }) => {
   const handleAnimation = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setInputAnimation(event.target.value);
+    setInputAnimation(+event.target.value);
   };
 
   const handleStep = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setStep(event.target.value);
+    setStep(+event.target.value);
     setTransformX(0);
     setCurrentIndex(0);
   };
@@ -76,7 +74,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
       <div
         className="Carousel"
         style={{
-          width: +frameSize * +inputWidth + (+frameSize * 10),
+          width: frameSize * inputWidth + (frameSize * 10),
         }}
       >
         <ul
@@ -92,7 +90,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
                 src={image}
                 alt={`index-${index}`}
                 style={{
-                  width: +inputWidth,
+                  width: inputWidth,
                 }}
               />
             </li>
