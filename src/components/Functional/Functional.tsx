@@ -105,7 +105,7 @@ export const Functional: React.FC<Props> = ({ images }) => {
             id="itemId"
             value={inputs.itemWidth}
             name="itemWidth"
-            onChange={event => handleChange(event)}
+            onChange={handleChange}
           />
 
           <label
@@ -122,7 +122,7 @@ export const Functional: React.FC<Props> = ({ images }) => {
             min={1}
             max={images.length}
             name="frameSize"
-            onChange={event => handleChange(event)}
+            onChange={handleChange}
           />
 
           <label
@@ -139,7 +139,7 @@ export const Functional: React.FC<Props> = ({ images }) => {
             min={1}
             max={images.length}
             name="step"
-            onChange={event => handleChange(event)}
+            onChange={handleChange}
           />
 
           <label
@@ -155,7 +155,7 @@ export const Functional: React.FC<Props> = ({ images }) => {
             value={inputs.animationDuration}
             min={0}
             name="animationDuration"
-            onChange={event => handleChange(event)}
+            onChange={handleChange}
           />
 
           <div className="Carousel__params--infinity">
