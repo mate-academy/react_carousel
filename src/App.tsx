@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[],
