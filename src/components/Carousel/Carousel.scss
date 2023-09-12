@@ -1,0 +1,25 @@
+.Carousel {
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: inline-flex;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  &__params {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    &--label {
+      margin-top: 15px;
+    }
+
+    &--infinity {
+      margin-top: 15px;
+    }
+  }
+}
