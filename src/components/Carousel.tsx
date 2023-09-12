@@ -95,9 +95,7 @@ export class Carousel extends Component<Props, State> {
         <div className="Carousel__button-container">
           <button
             type="button"
-            className={isFirstImage
-              ? 'Carousel__button disabled'
-              : 'Carousel__button'}
+            className={`Carousel__button ${isFirstImage ? 'disabled' : ''}`}
             onClick={() => this.handleSwipeClick(-step)}
           >
             <img
@@ -110,9 +108,7 @@ export class Carousel extends Component<Props, State> {
           <button
             type="button"
             data-cy="next"
-            className={isLastImage
-              ? 'Carousel__button disabled'
-              : 'Carousel__button'}
+            className={`Carousel__button ${isLastImage ? 'disabled' : ''}`}
             onClick={() => this.handleSwipeClick(step)}
           >
             <img
