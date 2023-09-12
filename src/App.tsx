@@ -56,6 +56,12 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  handleInfiniteChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      infinite: Boolean(event.target.value),
+    });
+  };
+
   render() {
     const {
       images,
@@ -146,11 +152,8 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               className="App__input App__input-checkbox"
               id="isInfinite"
-              onClick={() => {
-                this.setState({
-                  infinite: !infinite,
-                });
-              }}
+              checked={infinite}
+              onChange={this.handleInfiniteChange}
             />
             Infinite Scroll
           </label>
