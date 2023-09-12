@@ -7,17 +7,29 @@ interface Props {
 
 export const Functional: React.FC<Props> = ({ images }) => {
   const [translate, setTranslate] = useState(0);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinityMode, setInfinityMode] = useState(false);
 
-  const maxStep = 100 - ((100 / images.length) * frameSize);
-  const currentStep = (100 / images.length) * step;
+  const [inputs, setInputs] = useState({
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  });
+
+  const maxStep = 100 - ((100 / images.length) * inputs.frameSize);
+  const currentStep = (100 / images.length) * inputs.step;
 
   const isFirstImage = translate <= 0;
   const isLastImage = translate >= maxStep;
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+
+    setInputs(newInputs => ({
+      ...newInputs,
+      [name]: Number(value),
+    }));
+  }
 
   function nextClick() {
     setTranslate(prevTranslate => {
@@ -44,20 +56,16 @@ export const Functional: React.FC<Props> = ({ images }) => {
   }
 
   function isChecked() {
-    setInfinityMode(state => {
-      return state === false;
-    });
+    setInfinityMode(state => !state);
   }
 
   return (
     <>
       <Carousel
         images={images}
-        // step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
-        // infinite={infinityMode}
+        frameSize={inputs.frameSize}
+        itemWidth={inputs.itemWidth}
+        animationDuration={inputs.animationDuration}
         translate={translate}
       />
 
@@ -66,7 +74,8 @@ export const Functional: React.FC<Props> = ({ images }) => {
           type="button"
           onClick={prevClick}
           disabled={
-            (isFirstImage && !infinityMode) || (isFirstImage && isLastImage)
+            (isFirstImage && !infinityMode)
+            || (isFirstImage && isLastImage)
           }
         >
           Prev
@@ -75,7 +84,8 @@ export const Functional: React.FC<Props> = ({ images }) => {
           type="button"
           onClick={nextClick}
           disabled={
-            (isLastImage && !infinityMode) || (isLastImage && isFirstImage)
+            (isLastImage && !infinityMode)
+            || (isLastImage && isFirstImage)
           }
           data-cy="next"
         >
@@ -93,8 +103,9 @@ export const Functional: React.FC<Props> = ({ images }) => {
           <input
             type="number"
             id="itemId"
-            value={itemWidth}
-            onChange={event => setItemWidth(Number(event.target.value))}
+            value={inputs.itemWidth}
+            name="itemWidth"
+            onChange={event => handleChange(event)}
           />
 
           <label
@@ -107,10 +118,11 @@ export const Functional: React.FC<Props> = ({ images }) => {
           <input
             type="number"
             id="frameId"
-            value={frameSize}
+            value={inputs.frameSize}
             min={1}
             max={images.length}
-            onChange={event => setFrameSize(Number(event.target.value))}
+            name="frameSize"
+            onChange={event => handleChange(event)}
           />
 
           <label
@@ -123,10 +135,11 @@ export const Functional: React.FC<Props> = ({ images }) => {
           <input
             type="number"
             id="stepId"
-            value={step}
+            value={inputs.step}
             min={1}
             max={images.length}
-            onChange={event => setStep(Number(event.target.value))}
+            name="step"
+            onChange={event => handleChange(event)}
           />
 
           <label
@@ -139,9 +152,10 @@ export const Functional: React.FC<Props> = ({ images }) => {
           <input
             type="number"
             id="durationAnimationId"
-            value={animationDuration}
+            value={inputs.animationDuration}
             min={0}
-            onChange={event => setAnimationDuration(Number(event.target.value))}
+            name="animationDuration"
+            onChange={event => handleChange(event)}
           />
 
           <div className="Carousel__params--infinity">
