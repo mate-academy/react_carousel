@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
 
   handleInfiniteChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      infinite: Boolean(event.target.checked),
+      infinite: event.target.checked,
     });
   };
 
