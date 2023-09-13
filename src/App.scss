@@ -1,1 +1,52 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-color: lightgrey;
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__parameters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    border: none;
+    transition: 0.5s;
+  }
+
+  &__parameter {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #1f1f1f;
+    &:hover {
+      cursor: pointer;
+      color: black;
+    }
+  }
+
+  &__input {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #eeebeb;
+    width: 60px;
+    height: 20px;
+    margin-right: 10px;
+    font-size: 15px;
+
+    &:focus {
+      background-color: #f8dd8c;
+      outline: none;
+      border: 1px solid black;
+    }
+  }
+}
