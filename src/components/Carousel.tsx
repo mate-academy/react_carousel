@@ -27,28 +27,28 @@ export class Carousel extends Component<Props, State> {
     } = this.props;
     const { firstImageIndex } = this.state;
 
-    const lastFirstImage = images.length - frameSize;
-    const nextFirstImage = firstImageIndex + step;
+    const lastIndex = images.length - frameSize;
+    let nextIndex = firstImageIndex + step;
 
     if (infinite) {
-      this.setState(() => ({
-        firstImageIndex: step > 0
-          ? lastFirstImage
-          : 0,
-      }));
-    } else if (step > 0) {
-      this.setState(() => ({
-        firstImageIndex: nextFirstImage < lastFirstImage
-          ? nextFirstImage
-          : lastFirstImage,
-      }));
-    } else if (step < 0) {
-      this.setState(() => ({
-        firstImageIndex: nextFirstImage < 0
-          ? 0
-          : nextFirstImage,
-      }));
+      if (nextIndex < 0) {
+        nextIndex = lastIndex;
+      } else if (nextIndex > lastIndex) {
+        nextIndex = 0;
+      }
+    } else {
+      if (step > 0 && nextIndex > lastIndex) {
+        nextIndex = lastIndex;
+      }
+
+      if (step < 0 && nextIndex < 0) {
+        nextIndex = 0;
+      }
     }
+
+    this.setState(() => ({
+      firstImageIndex: nextIndex,
+    }));
   };
 
   render() {
@@ -58,13 +58,15 @@ export class Carousel extends Component<Props, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinite,
     } = this.props;
 
     const { firstImageIndex } = this.state;
 
     const transformValue = itemWidth * firstImageIndex;
-    const isFirstImage = firstImageIndex === 0;
-    const isLastImage = firstImageIndex === images.length - frameSize;
+    const isPrevDisabled = firstImageIndex === 0 && !infinite;
+    const isNextDisabled = (firstImageIndex === images.length - frameSize)
+      && !infinite;
 
     return (
       <div className="Carousel">
@@ -95,7 +97,7 @@ export class Carousel extends Component<Props, State> {
         <div className="Carousel__button-container">
           <button
             type="button"
-            className={`Carousel__button ${isFirstImage ? 'disabled' : ''}`}
+            className={`Carousel__button ${isPrevDisabled ? 'disabled' : ''}`}
             onClick={() => this.handleSwipeClick(-step)}
           >
             <img
@@ -108,7 +110,7 @@ export class Carousel extends Component<Props, State> {
           <button
             type="button"
             data-cy="next"
-            className={`Carousel__button ${isLastImage ? 'disabled' : ''}`}
+            className={`Carousel__button ${isNextDisabled ? 'disabled' : ''}`}
             onClick={() => this.handleSwipeClick(step)}
           >
             <img
