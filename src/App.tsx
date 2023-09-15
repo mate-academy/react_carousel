@@ -34,7 +34,8 @@ class App extends React.Component<{}, State> {
 
   submitHandler = (e: any) => {
     e.preventDefault();
-    const inputs = [...e.target];
+    const inputsArr = e.target || null;
+    const inputs = [...inputsArr];
     const ul = document.querySelector<HTMLElement>('.Carousel__list');
     const btnPrevQuery = document
       .querySelector('.Carousel__button-Prev');
@@ -43,6 +44,17 @@ class App extends React.Component<{}, State> {
 
     const [itemWidth, frameSize, step, aimationDuration, infinite] = inputs;
 
+    let correctCarouselWidth = 0;
+
+    if (window.innerWidth - 80 < +itemWidth.value * +frameSize.value) {
+      correctCarouselWidth = Math.floor(
+        (window.innerWidth - 80) / +frameSize.value,
+      );
+      itemWidth.value = correctCarouselWidth;
+
+      return;
+    }
+
     if (!itemWidth.value.trim().length) {
       this.setState({ itemWidth: 130 });
       itemWidth.value = 130;
@@ -50,21 +62,21 @@ class App extends React.Component<{}, State> {
       this.setState({ itemWidth: +(itemWidth.value) });
     }
 
-    if (!itemWidth.value.trim().length) {
+    if (!frameSize.value.trim().length) {
       this.setState({ frameSize: 3 });
       frameSize.value = 3;
     } else {
       this.setState({ frameSize: +(frameSize.value) });
     }
 
-    if (!itemWidth.value.trim().length) {
+    if (!step.value.trim().length) {
       this.setState({ step: 3 });
       step.value = 3;
     } else {
       this.setState({ step: +(step.value) });
     }
 
-    if (!itemWidth.value.trim().length) {
+    if (!aimationDuration.value.trim().length) {
       this.setState({ aimationDuration: 1000 });
       aimationDuration.value = 1000;
     } else {
@@ -115,7 +127,7 @@ class App extends React.Component<{}, State> {
             <input
               defaultValue={130}
               type="number"
-              min={0}
+              min={50}
             />
           </label>
           <label
@@ -125,7 +137,8 @@ class App extends React.Component<{}, State> {
             <input
               defaultValue={3}
               type="number"
-              min={0}
+              min={1}
+              max={images.length}
             />
           </label>
           <label
@@ -135,7 +148,8 @@ class App extends React.Component<{}, State> {
             <input
               defaultValue={3}
               type="number"
-              min={0}
+              min={1}
+              max={images.length}
             />
           </label>
           <label
