@@ -1,1 +1,41 @@
-// style go here
+body {
+  overflow: hidden;
+}
+
+.Carousel {
+  position: relative;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+
+    padding: 0;
+
+    &-item {
+      list-style: none;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: calc(50% - 20px);
+
+    &-Prev {
+      left: -40px;
+    }
+
+    &-Next {
+      right: -40px;
+    }
+
+  }
+}
