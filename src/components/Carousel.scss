@@ -1,1 +1,35 @@
 // style go here
+.Carousel {
+  margin: 0 auto 20px;
+
+  &__list {
+    margin: 20px auto;
+    padding: 20px 0;
+    display: flex;
+    overflow: hidden;
+    border: 3px solid #151b54;
+    border-radius: 50px;
+    list-style-type: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      background-color: black;
+      border-radius: 10px;
+      color: white;
+    }
+
+    button:hover {
+      cursor: pointer;
+      color: black;
+      background-color: white;
+    }
+
+    button:disabled {
+      cursor: no-drop;
+    }
+  }
+}
