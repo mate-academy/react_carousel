@@ -35,6 +35,11 @@ class App extends React.Component<{}, State> {
   submitHandler = (e: any) => {
     e.preventDefault();
     const inputs = [...e.target];
+    const ul = document.querySelector<HTMLElement>('.Carousel__list');
+    const btnPrevQuery = document
+      .querySelector('.Carousel__button-Prev');
+    const btnNextQuery = document
+      .querySelector('.Carousel__button-Next');
 
     const [itemWidth, frameSize, step, aimationDuration, infinite] = inputs;
 
@@ -67,6 +72,12 @@ class App extends React.Component<{}, State> {
     }
 
     this.setState({ infinite: infinite.checked });
+
+    if (ul) {
+      ul.style.transform = 'translateX(0)';
+      (btnPrevQuery as HTMLInputElement).disabled = false;
+      (btnNextQuery as HTMLInputElement).disabled = false;
+    }
   };
 
   render() {
