@@ -9,7 +9,7 @@ const Carousel: React.FC<State> = ({
   step,
   animationDuration,
   infinite,
-}) => {
+}:State) => {
   const caruselListwidth = frameSize * itemWidth;
   const [visibleImage, setVisibleImage] = useState(0);
 
