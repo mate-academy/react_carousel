@@ -1,1 +1,40 @@
-// style go here
+.container{
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  justify-content: center;
+  border: 3px solid rgba(4, 61, 7, 0.088);
+  border-radius: 70px;
+  margin-bottom: 20px;
+  box-shadow: 12;
+  box-shadow: 1px 1px 7px 10px rgba(0, 255, 13, 0.367);
+}
+.Carousel__list {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid red;
+  box-shadow: 1px 1px 7px 10px rgba(255, 0, 0, 0.844);
+  border-radius: 70px;
+  overflow: hidden;
+  background-color:#ff0000; ;
+}
+li {
+  list-style-type: none;
+}
+.button_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #fe9191;
+  font-size: 14px;
+  border-radius: 45%;
+  border: 0;
+}
+button:hover {
+  transform: scale(1.5, 1.5);
+  
+  transition: 500ms;
+}
