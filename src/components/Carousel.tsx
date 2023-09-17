@@ -20,6 +20,14 @@ const Carousel: React.FC<CarouselProps> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevButtonDisabled, setPrevButtonDisabled] = useState(true);
+  const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    // Визначення, чи слід вимкнути кнопки "prev" і "next"
+    setPrevButtonDisabled(currentIndex === 0);
+    setNextButtonDisabled(currentIndex + frameSize >= images.length);
+  }, [currentIndex, frameSize, images]);
 
   const handleNextClick = () => {
     if (currentIndex + step < images.length) {
@@ -55,11 +63,23 @@ const Carousel: React.FC<CarouselProps> = ({
         ))}
       </ul>
 
-      <button type="button" onClick={handlePrevClick} data-cy="prevButton">
-        prev
+      <button
+        type="button"
+        onClick={handlePrevClick}
+        data-cy="prevButton"
+        className={prevButtonDisabled ? 'disabled' : ''}
+        disabled={prevButtonDisabled}
+      >
+        &#8592;
       </button>
-      <button type="button" onClick={handleNextClick} data-cy="nextButton">
-        next
+      <button
+        type="button"
+        onClick={handleNextClick}
+        data-cy="nextButton"
+        className={nextButtonDisabled ? 'disabled' : ''}
+        disabled={nextButtonDisabled}
+      >
+        &#8594;
       </button>
     </div>
   );
