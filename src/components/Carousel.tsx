@@ -24,7 +24,6 @@ const Carousel: React.FC<CarouselProps> = ({
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
 
   useEffect(() => {
-    // Визначення, чи слід вимкнути кнопки "prev" і "next"
     setPrevButtonDisabled(currentIndex === 0);
     setNextButtonDisabled(currentIndex + frameSize >= images.length);
   }, [currentIndex, frameSize, images]);

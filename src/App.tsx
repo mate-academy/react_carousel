@@ -32,7 +32,7 @@ const App: React.FC = () => {
         <label>Item Width: </label>
         <input
           type="number"
-          value={itemWidth.toString()} // Конвертуємо число у рядок
+          value={itemWidth.toString()}
           onChange={(e) => setItemWidth(parseInt(e.target.value, 10))}
         />
       </div>
@@ -41,7 +41,7 @@ const App: React.FC = () => {
         <label>Frame Size: </label>
         <input
           type="number"
-          value={frameSize.toString()} // Конвертуємо число у рядок
+          value={frameSize.toString()}
           onChange={(e) => setFrameSize(parseInt(e.target.value, 10))}
         />
       </div>
@@ -50,7 +50,7 @@ const App: React.FC = () => {
         <label>Step: </label>
         <input
           type="number"
-          value={step.toString()} // Конвертуємо число у рядок
+          value={step.toString()}
           onChange={(e) => setStep(parseInt(e.target.value, 10))}
         />
       </div>
@@ -59,7 +59,7 @@ const App: React.FC = () => {
         <label>Animation Duration (ms): </label>
         <input
           type="number"
-          value={animationDuration.toString()} // Конвертуємо число у рядок
+          value={animationDuration.toString()}
           onChange={(e) => setAnimationDuration(parseInt(e.target.value, 10))}
         />
       </div>
