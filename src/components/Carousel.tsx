@@ -51,32 +51,33 @@ const Carousel: React.FC<CarouselProps> = ({
     return () => clearInterval(interval);
   }, [currentIndex, handleNextClick, animationDuration]);
 
-  const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+  let visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+
+  if (currentIndex === images.length - 1 && images.length > frameSize) {
+    visibleImages = images.slice(images.length - frameSize, images.length);
+  }
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list">
+      <button
+        type="button"
+        onClick={handlePrevClick}
+        className={`Carousel-button prevButton ${prevButtonDisabled ? 'disabled' : ''}`}
+        disabled={prevButtonDisabled}
+      >
+        &#8592;
+      </button>
+      <ul className="Carousel__list" style={{ transition: `transform ${animationDuration}ms ease` }}>
         {visibleImages.map((image) => (
           <li key={image}>
             <img src={image} alt={`Зображення ${image}`} style={{ width: itemWidth }} />
           </li>
         ))}
       </ul>
-
-      <button
-        type="button"
-        onClick={handlePrevClick}
-        data-cy="prevButton"
-        className={prevButtonDisabled ? 'disabled' : ''}
-        disabled={prevButtonDisabled}
-      >
-        &#8592;
-      </button>
       <button
         type="button"
         onClick={handleNextClick}
-        data-cy="nextButton"
-        className={nextButtonDisabled ? 'disabled' : ''}
+        className={`Carousel-button nextButton ${nextButtonDisabled ? 'disabled' : ''}`}
         disabled={nextButtonDisabled}
       >
         &#8594;

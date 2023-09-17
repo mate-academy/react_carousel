@@ -25,19 +25,15 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1>
-        Carousel with
-        {' '}
-        {images.length}
-        {' '}
-        images
+        {`Carousel with ${images.length} images`}
       </h1>
 
       <div>
         <label>Item Width: </label>
         <input
           type="number"
-          value={itemWidth}
-          onChange={(e) => setItemWidth(parseFloat(e.target.value))}
+          value={itemWidth.toString()} // Конвертуємо число у рядок
+          onChange={(e) => setItemWidth(parseInt(e.target.value, 10))}
         />
       </div>
 
@@ -45,8 +41,8 @@ const App: React.FC = () => {
         <label>Frame Size: </label>
         <input
           type="number"
-          value={frameSize}
-          onChange={(e) => setFrameSize(parseFloat(e.target.value))}
+          value={frameSize.toString()} // Конвертуємо число у рядок
+          onChange={(e) => setFrameSize(parseInt(e.target.value, 10))}
         />
       </div>
 
@@ -54,8 +50,8 @@ const App: React.FC = () => {
         <label>Step: </label>
         <input
           type="number"
-          value={step}
-          onChange={(e) => setStep(parseFloat(e.target.value))}
+          value={step.toString()} // Конвертуємо число у рядок
+          onChange={(e) => setStep(parseInt(e.target.value, 10))}
         />
       </div>
 
@@ -63,8 +59,8 @@ const App: React.FC = () => {
         <label>Animation Duration (ms): </label>
         <input
           type="number"
-          value={animationDuration}
-          onChange={(e) => setAnimationDuration(parseFloat(e.target.value))}
+          value={animationDuration.toString()} // Конвертуємо число у рядок
+          onChange={(e) => setAnimationDuration(parseInt(e.target.value, 10))}
         />
       </div>
 
@@ -73,6 +69,7 @@ const App: React.FC = () => {
         itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
+        animationDuration={animationDuration}
         infinite={false}
       />
     </div>

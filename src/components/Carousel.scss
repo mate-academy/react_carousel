@@ -1,4 +1,3 @@
-
 .Carousel {
   max-width: 1300px;
   overflow: hidden;
@@ -20,13 +19,12 @@
   margin-right: 10px;
 }
 
-
 .Carousel__list img {
   width: 130px;
   height: 130px;
 }
 
-button {
+.Carousel-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -40,15 +38,15 @@ button {
   border-radius: 50%;
 }
 
-button[data-cy="prevButton"] {
+.prevButton {
   left: 10px;
 }
 
-button[data-cy="nextButton"] {
+.nextButton {
   right: 10px;
 }
 
-button.disabled {
-  cursor: not-allowed; 
+.Carousel-button.disabled {
+  cursor: default;
   color: #ccc;
 }
