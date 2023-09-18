@@ -16,7 +16,7 @@ const Carousel: React.FC<CarouselProps> = ({
   itemWidth = 130,
   frameSize = 3,
   step = 3,
-  animationDuration = 1000,
+  animationDuration = 1000, // Використовуємо параметр animationDuration
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,17 +44,15 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(handleNextClick, animationDuration);
-
-    return () => clearInterval(interval);
-  }, [currentIndex, handleNextClick, animationDuration]);
-
   let visibleImages = images.slice(currentIndex, currentIndex + frameSize);
 
   if (currentIndex === images.length - 1 && images.length > frameSize) {
     visibleImages = images.slice(images.length - frameSize, images.length);
   }
+
+  const ulStyle = {
+    transition: `transform ${animationDuration}ms ease`,
+  };
 
   return (
     <div className="Carousel">
@@ -66,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({
       >
         &#8592;
       </button>
-      <ul className="Carousel__list" style={{ transition: `transform ${animationDuration}ms ease` }}>
+      <ul className="Carousel__list" style={ulStyle}>
         {visibleImages.map((image) => (
           <li key={image}>
             <img src={image} alt={`Зображення ${image}`} style={{ width: itemWidth }} />
