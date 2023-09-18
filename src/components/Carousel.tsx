@@ -1,18 +1,86 @@
-import React from 'react';
+/* eslint-disable react/require-default-props */
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface CarouselProps {
+  images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevButtonDisabled, setPrevButtonDisabled] = useState(true);
+  const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    setPrevButtonDisabled(currentIndex === 0);
+    setNextButtonDisabled(currentIndex + frameSize >= images.length);
+  }, [currentIndex, frameSize, images]);
+
+  const handleNextClick = () => {
+    if (currentIndex + step < images.length) {
+      setCurrentIndex(currentIndex + step);
+    } else if (infinite) {
+      setCurrentIndex(0);
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (currentIndex - step >= 0) {
+      setCurrentIndex(currentIndex - step);
+    } else if (infinite) {
+      setCurrentIndex(images.length - frameSize);
+    }
+  };
+
+  let visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+
+  if (currentIndex === images.length - 1 && images.length > frameSize) {
+    visibleImages = images.slice(images.length - frameSize, images.length);
+  }
+
+  const ulStyle = {
+    transition: `transform ${animationDuration}ms ease`,
+  };
+
+  return (
+    <div className="Carousel">
+      <button
+        type="button"
+        onClick={handlePrevClick}
+        className={`Carousel-button prevButton ${prevButtonDisabled ? 'disabled' : ''}`}
+        disabled={prevButtonDisabled}
+      >
+        &#8592;
+      </button>
+      <ul className="Carousel__list" style={ulStyle}>
+        {visibleImages.map((image) => (
+          <li key={image} style={{ width: `${itemWidth}px` }}>
+            <img src={image} alt={`Зображення ${image}`} style={{ width: '100%' }} />
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        onClick={handleNextClick}
+        className={`Carousel-button nextButton ${nextButtonDisabled ? 'disabled' : ''}`}
+        disabled={nextButtonDisabled}
+      >
+        &#8594;
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;

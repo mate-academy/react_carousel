@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  max-width: 1300px;
+  overflow: hidden;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+}
+
+.Carousel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.Carousel__list li {
+  margin-right: 10px;
+}
+
+.Carousel__list img {
+  width: 130px;
+  height: 130px;
+}
+
+.Carousel-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  color: #4e4949;
+  border-radius: 50%;
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+.Carousel-button.disabled {
+  cursor: default;
+  color: #ccc;
+}
