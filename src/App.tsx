@@ -32,7 +32,7 @@ class App extends Component<{}, State> {
     infinity: false,
   };
 
-  setItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ itemWidth: +event.target.value });
   };
 
@@ -77,19 +77,19 @@ class App extends Component<{}, State> {
         />
 
         <label
-          htmlFor="itemId"
+          htmlFor="itemWidth"
           className="label"
         >
           Item Widht:
           <input
             className="App_input"
             type="number"
-            id="itemId"
+            id="itemWidth"
             value={itemWidth}
             min={130}
             max={260}
             step={10}
-            onChange={this.setItemWidth}
+            onChange={this.setWidth}
           />
         </label>
 

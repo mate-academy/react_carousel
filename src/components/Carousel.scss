@@ -45,5 +45,11 @@
       opacity: 0.6;
       background-color: #d49a2d;
     }
+
+    &:disabled {
+      border: none;
+      cursor: not-allowed;
+      background-color: bisque;
+    }
   }
 }

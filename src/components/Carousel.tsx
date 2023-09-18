@@ -70,6 +70,7 @@ export class Carousel extends Component<Props, State> {
       <div
         className="Carousel"
         style={{
+          maxWidth: `${frameSize * itemWidth}px`,
           width: `${frameSize * itemWidth}px`,
           transition: `${animationDuration}ms`,
         }}
@@ -84,7 +85,11 @@ export class Carousel extends Component<Props, State> {
                 transition: `${animationDuration}ms`,
               }}
             >
-              <img src={image} alt={`${index + 1}`} />
+              <img
+                src={image}
+                alt={`${index + 1}`}
+                width={itemWidth}
+              />
             </li>
           ))}
         </ul>
