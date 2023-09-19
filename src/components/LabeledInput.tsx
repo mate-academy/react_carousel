@@ -2,15 +2,8 @@
 import './LabeledInput.scss';
 
 type InputProps = {
-  name: string;
   label:string;
-  value: string | number;
-  type?: string;
-  min?: number;
-  max?: number;
-  checked?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-};
+} & React.HTMLProps<HTMLInputElement>;
 
 export const LabeledInput = ({
   type = 'number',
