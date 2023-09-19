@@ -38,25 +38,28 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
   };
 
   calculateTransition = (actualTransition: number, operator: 1 | -1) => {
-    const { step, infinite, images, frameSize } = this.props;
+    const { step, images, frameSize } = this.props;
     const maxTransition = calculateMaxTransition(images.length, frameSize);
 
-    if (infinite && actualTransition === 0) {
-      return maxTransition;
-    }
+    let delta = (step / frameSize) * 100 * operator;
 
-    if (infinite && actualTransition === maxTransition) {
-      return 0;
+    if (delta > maxTransition - actualTransition && operator === 1) {
+      delta = maxTransition - actualTransition;
+    } else if (delta > actualTransition && operator === -1) {
+      delta = actualTransition;
     }
-
-    const delta = (step / frameSize) * 100 * operator;
 
     let result = actualTransition + delta;
-    result = Math.min(result, maxTransition);
-    result = Math.max(result, 0);
+
+    if (result > maxTransition) {
+      result = 0;
+    } else if (result < 0) {
+      result = maxTransition;
+    }
 
     return result;
   };
+
 
   isBlocked = (button: 'prev' | 'next') => {
     const { images, frameSize, infinite} = this.props;
