@@ -8,7 +8,7 @@ interface State {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinity: boolean,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
-    infinity: false,
+    infinite: false,
   };
 
   render() {
@@ -39,7 +39,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
-      infinity,
+      infinite,
     } = this.state;
 
     return (
@@ -57,7 +57,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinity={infinity}
+          infinite={infinite}
         />
 
         <div className="App__inputs-container">
@@ -117,7 +117,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               step="10"
               onChange={(e) => this.setState(
-                { infinity: e.target.checked },
+                { infinite: e.target.checked },
               )}
             />
           </label>

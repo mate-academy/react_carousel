@@ -7,7 +7,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  infinity: boolean,
+  infinite: boolean,
 };
 
 const Carousel: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  infinity,
+  infinite,
 }) => {
   const [movingCarousel, setMovingCarousel] = useState(0);
 
@@ -27,8 +27,7 @@ const Carousel: React.FC<Props> = ({
       setMovingCarousel(0);
     }
 
-    if (movingCarousel === 0
-      && infinity) {
+    if (movingCarousel === 0 && infinite) {
       setMovingCarousel(images.length - frameSize);
     }
   };
@@ -41,7 +40,7 @@ const Carousel: React.FC<Props> = ({
       setMovingCarousel(images.length - frameSize);
     }
 
-    if (movingCarousel === images.length - frameSize && infinity) {
+    if (movingCarousel === images.length - frameSize && infinite) {
       setMovingCarousel(0);
     }
   };
@@ -85,22 +84,22 @@ const Carousel: React.FC<Props> = ({
         <div className="Carousel__buttons-container">
           <button
             type="button"
-            className={movingCarousel === 0 && !infinity
+            className={movingCarousel === 0 && !infinite
               ? 'button button--prev disabled'
               : 'button button--prev'}
             onClick={clickInPrev}
-            disabled={movingCarousel === 0 && !infinity}
+            disabled={movingCarousel === 0 && !infinite}
           >
             Prev
           </button>
 
           <button
             type="button"
-            className={movingCarousel === images.length - frameSize && !infinity
+            className={movingCarousel === images.length - frameSize && !infinite
               ? 'button button--next disabled'
               : 'button button--next'}
             onClick={clickInNext}
-            disabled={movingCarousel === images.length - frameSize && !infinity}
+            disabled={movingCarousel === images.length - frameSize && !infinite}
           >
             Next
           </button>
