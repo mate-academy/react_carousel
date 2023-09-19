@@ -42,6 +42,26 @@ class App extends React.Component<{}, State> {
       infinite,
     } = this.state;
 
+    const handleStep = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({ step: +e.target.value });
+    };
+
+    const handleFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({ frameSize: +e.target.value });
+    };
+
+    const handleItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({ itemWidth: +e.target.value });
+    };
+
+    const handleDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({ animationDuration: +e.target.value });
+    };
+
+    const handleInfinte = (e: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({ infinite: e.target.checked });
+    };
+
     return (
       <div className="App">
         <h1
@@ -69,7 +89,7 @@ class App extends React.Component<{}, State> {
               max="10"
               value={step}
               step="1"
-              onChange={(e) => this.setState({ step: +e.target.value })}
+              onChange={handleStep}
             />
           </label>
 
@@ -81,7 +101,7 @@ class App extends React.Component<{}, State> {
               max="4"
               value={frameSize}
               step="1"
-              onChange={(e) => this.setState({ frameSize: +e.target.value })}
+              onChange={handleFrameSize}
             />
           </label>
 
@@ -93,7 +113,7 @@ class App extends React.Component<{}, State> {
               max="200"
               value={itemWidth}
               step="10"
-              onChange={(e) => this.setState({ itemWidth: +e.target.value })}
+              onChange={handleItemWidth}
             />
           </label>
 
@@ -105,9 +125,7 @@ class App extends React.Component<{}, State> {
               max="2000"
               value={animationDuration}
               step="10"
-              onChange={(e) => this.setState(
-                { animationDuration: +e.target.value },
-              )}
+              onChange={handleDuration}
             />
           </label>
 
@@ -116,9 +134,7 @@ class App extends React.Component<{}, State> {
             <input
               type="checkbox"
               step="10"
-              onChange={(e) => this.setState(
-                { infinite: e.target.checked },
-              )}
+              onChange={handleInfinte}
             />
           </label>
         </div>

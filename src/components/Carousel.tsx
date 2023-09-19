@@ -27,7 +27,7 @@ const Carousel: React.FC<Props> = ({
       setMovingCarousel(0);
     }
 
-    if (movingCarousel === 0 && infinite) {
+    if (!movingCarousel && infinite) {
       setMovingCarousel(images.length - frameSize);
     }
   };
@@ -84,11 +84,11 @@ const Carousel: React.FC<Props> = ({
         <div className="Carousel__buttons-container">
           <button
             type="button"
-            className={movingCarousel === 0 && !infinite
+            className={!movingCarousel && !infinite
               ? 'button button--prev disabled'
               : 'button button--prev'}
             onClick={clickInPrev}
-            disabled={movingCarousel === 0 && !infinite}
+            disabled={!movingCarousel && !infinite}
           >
             Prev
           </button>
