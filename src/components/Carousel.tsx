@@ -38,25 +38,22 @@ export class Carousel extends React.Component<CarouselProps, CarouselState> {
   };
 
   calculateTransition = (actualTransition: number, operator: 1 | -1) => {
-    const { step, images, frameSize } = this.props;
+    const { step, infinite, images, frameSize } = this.props;
     const maxTransition = calculateMaxTransition(images.length, frameSize);
 
-    let delta = (step / frameSize) * 100 * operator;
-
-    if (operator === 1) {
-      const remaining = maxTransition - actualTransition;
-      delta = delta <= remaining ? delta : remaining - (100 - delta);
-    } else if (operator === -1) {
-      delta = delta >= -actualTransition ? delta : -actualTransition;
+    if (infinite && actualTransition === 0) {
+      return maxTransition;
     }
+
+    if (infinite && actualTransition === maxTransition) {
+      return 0;
+    }
+
+    const delta = (step / frameSize) * 100 * operator;
 
     let result = actualTransition + delta;
-
-    if (result > maxTransition) {
-      result = 0;
-    } else if (result < 0) {
-      result = maxTransition;
-    }
+    result = Math.min(result, maxTransition);
+    result = Math.max(result, 0);
 
     return result;
   };
