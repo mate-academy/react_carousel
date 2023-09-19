@@ -1,1 +1,48 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #00f 50%, #ff0 50%);
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    display: flex;
+    margin: 0 0 20px;
+  }
+
+  &__buttons-container {
+    display: flex;
+    column-gap: 20px;
+    margin: 0 0 20px;
+  }
+}
+
+.button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: lightblue;
+
+  &--prev {
+    grid-column: 4 / 6;
+  }
+
+  &--next {
+    grid-column: 8 / 10;
+  }
+}
+
+.disabled {
+  background-color: #ff970d;
+  color: #ff520d;
+  cursor: auto;
+}
