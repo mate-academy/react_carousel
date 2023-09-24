@@ -1,3 +1,7 @@
+li {
+  list-style-type: none;
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -8,9 +12,11 @@
   margin-bottom: 20px;
   box-shadow: 1px 1px 7px 10px rgba(0, 255, 13, 0.37);
 }
+
 .Carousel {
   max-width: 1440px;
 }
+
 .Carousel__list {
   padding: 0;
   display: flex;
@@ -23,10 +29,6 @@
   transition: 1000ms;
 }
 
-li {
-  list-style-type: none;
-}
-
 .button_container {
   display: flex;
   align-self: center;
@@ -34,14 +36,14 @@ li {
   max-width: 1440px;
 }
 
-button {
+.move_button {
   background-color: #fe9191;
   font-size: 14px;
   border-radius: 45%;
   border: 0;
 }
 
-button:hover {
+.move_button:hover {
   transform: scale(1.5, 1.5);
   transition: 500ms;
 }

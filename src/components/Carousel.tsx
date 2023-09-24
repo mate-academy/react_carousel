@@ -73,6 +73,7 @@ const Carousel: React.FC<State> = ({
         </ul>
         <div className="button_container">
           <button
+            className="move_button"
             disabled={visibleImage <= 0 && !infinite}
             type="button"
             onClick={() => {
@@ -82,6 +83,7 @@ const Carousel: React.FC<State> = ({
             Prev
           </button>
           <button
+            className="move_button"
             data-cy="next"
             disabled={visibleImage + frameSize === images.length && !infinite}
             type="button"

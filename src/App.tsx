@@ -1,38 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-// import { State } from './interface';
 
-// class App extends React.Component<{}, State> {
-//   state = {
-//     images: [
-//       './img/1.png',
-//       './img/2.png',
-//       './img/3.png',
-//       './img/4.png',
-//       './img/5.png',
-//       './img/6.png',
-//       './img/7.png',
-//       './img/8.png',
-//       './img/9.png',
-//       './img/10.png',
-//     ],
-//     frameSize: 3,
-//     itemWidth: 130,
-//     step: 3,
-//     animationDuration: 1000,
-//     infinite: false,
-//   };
-
-//   render() {
-//     const {
-//       images,
-//       frameSize,
-//       itemWidth,
-//       step,
-//       animationDuration,
-//       infinite,
-//     } = this.state;
 const App : React.FC = () => {
   const images = [
     './img/1.png',
@@ -69,6 +38,7 @@ const App : React.FC = () => {
         >
           Frame Size
           <input
+            className="input_feeld"
             id="frame"
             type="number"
             min={1}
@@ -84,6 +54,7 @@ const App : React.FC = () => {
         >
           Item Width
           <input
+            className="input_feeld"
             id="width"
             type="number"
             min={130}
@@ -101,6 +72,7 @@ const App : React.FC = () => {
         >
           Step
           <input
+            className="input_feeld"
             id="step"
             type="number"
             min={1}
@@ -118,6 +90,7 @@ const App : React.FC = () => {
         >
           Delay
           <input
+            className="input_feeld"
             id="delay"
             type="number"
             min={1}
@@ -134,6 +107,7 @@ const App : React.FC = () => {
         >
           Infinite
           <input
+            className="input_feeld"
             type="checkbox"
             id="infinite"
             onChange={(event) => {
