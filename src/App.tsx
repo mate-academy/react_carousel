@@ -32,6 +32,22 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  minStep = 1;
+
+  maxStep = 5;
+
+  minFrameSize = 1;
+
+  maxFrameSize = 10;
+
+  minWidth = 130;
+
+  maxWidth = 260;
+
+  widthStep = 10;
+
+  animationDurationStep = 10;
+
   setStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ step: +event.target.value });
   };
@@ -83,9 +99,9 @@ class App extends React.Component<{}, State> {
               className="inputs__input"
               type="number"
               value={step}
-              min={1}
-              max={5}
-              step={1}
+              min={this.minStep}
+              max={this.maxStep}
+              step={this.minStep}
               onChange={this.setStep}
             />
           </label>
@@ -97,9 +113,9 @@ class App extends React.Component<{}, State> {
               className="inputs__input"
               type="number"
               value={frameSize}
-              min={1}
-              max={10}
-              step={1}
+              min={this.minFrameSize}
+              max={this.maxFrameSize}
+              step={this.minStep}
               onChange={this.setFrameSize}
             />
           </label>
@@ -111,9 +127,9 @@ class App extends React.Component<{}, State> {
               className="input"
               type="number"
               value={itemWidth}
-              min={130}
-              max={260}
-              step={10}
+              min={this.minWidth}
+              max={this.maxWidth}
+              step={this.widthStep}
               onChange={this.setImageWidth}
             />
           </label>
@@ -125,7 +141,7 @@ class App extends React.Component<{}, State> {
               className="inputs__input"
               type="number"
               value={animationDuration}
-              step={10}
+              step={this.animationDurationStep}
               onChange={this.setAnimationDuration}
             />
           </label>

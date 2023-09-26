@@ -18,15 +18,21 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
+  const newImages = images.map((image, index) => ({
+    imageUrl: image,
+    imageId: index + 1,
+  }));
+
   const [slide, setSlide] = useState(0);
+
   const slideNext = () => {
-    if (slide + step < images.length - frameSize) {
-      setSlide(Math.min(slide + step, images.length - frameSize));
+    if (slide + step < newImages.length - frameSize) {
+      setSlide(Math.min(slide + step, newImages.length - frameSize));
     } else {
-      setSlide(images.length - frameSize);
+      setSlide(newImages.length - frameSize);
     }
 
-    if (slide === images.length - frameSize && infinite) {
+    if (slide === newImages.length - frameSize && infinite) {
       setSlide(0);
     }
   };
@@ -39,12 +45,12 @@ const Carousel: React.FC<Props> = ({
     }
 
     if (infinite && !slide) {
-      setSlide(images.length - frameSize);
+      setSlide(newImages.length - frameSize);
     }
   };
 
   const disabledPrev = !infinite && !slide;
-  const disabledNext = !infinite && slide === images.length - frameSize;
+  const disabledNext = !infinite && slide === newImages.length - frameSize;
 
   return (
     <div
@@ -57,17 +63,17 @@ const Carousel: React.FC<Props> = ({
       <ul
         className="Carousel__list"
       >
-        {images.map(image => (
+        {newImages.map(({ imageUrl, imageId }) => (
           <li
-            key={images.indexOf(image) + 1}
+            key={imageId}
             style={{
               transform: `translateX(${-slide * itemWidth}px)`,
               transition: `transform ${animationDuration}ms`,
             }}
           >
             <img
-              src={image}
-              alt={String(images.indexOf(image) + 1)}
+              src={imageUrl}
+              alt={String(imageId)}
               width={itemWidth}
               style={{
                 transition: `width ${animationDuration}ms`,
