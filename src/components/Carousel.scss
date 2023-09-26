@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  list-style: none;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    background-color: lightblue;
+    border: 2px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 40px;
+  }
+}
