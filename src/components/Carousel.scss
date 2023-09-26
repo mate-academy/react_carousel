@@ -1,1 +1,40 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  cursor: pointer;
+  width: 25px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.disabled {
+  cursor: not-allowed;
+
+  background-color: #ccc;
+  color: #667;
+}
+
+.small-input {
+  width: 66px;
+  height: 21px;
+}
