@@ -3,21 +3,33 @@ import './App.scss';
 import Carousel from './components/Carousel';
 
 const images = [
-  { id: 1, url: './img/1.png' },
-  { id: 2, url: './img/2.png' },
-  { id: 3, url: './img/3.png' },
-  { id: 4, url: './img/4.png' },
-  { id: 5, url: './img/5.png' },
-  { id: 6, url: './img/6.png' },
-  { id: 7, url: './img/7.png' },
-  { id: 8, url: './img/8.png' },
-  { id: 9, url: './img/9.png' },
-  { id: 10, url: './img/10.png' },
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
 ];
 
 const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
+  const [step, setStep] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
+
+  const minWidth = 130;
+  const maxWidth = 1300;
+  const widthStep = 10;
+  const minFrameSize = 1;
+  const maxFrameSize = 10;
+  const minStep = 1;
+  const maxStep = 5;
+  const animationDurationStep = 10;
 
   return (
     <div className="App">
@@ -26,29 +38,29 @@ const App: React.FC = () => {
       </h1>
 
       <form method="post" className="App__form">
-        <label htmlFor="widthId">
+        <label htmlFor="itemId">
           ITEM WIDTH:
           <input
-            id="widthId"
+            id="itemId"
             type="number"
             name="itemWidth"
-            min={130}
-            max={1300}
-            step={1}
+            min={minWidth}
+            max={maxWidth}
+            step={widthStep}
             value={itemWidth}
             onChange={event => setItemWidth(+event.target.value)}
           />
         </label>
 
-        <label htmlFor="frameSizeId">
+        <label htmlFor="frameId">
           FRAME SIZE:
           <input
-            id="frameSizeId"
+            id="frameId"
             type="number"
             name="frameSize"
-            min={1}
-            max={10}
-            step={1}
+            min={minFrameSize}
+            max={maxFrameSize}
+            step={minStep}
             value={frameSize}
             onChange={event => setFrameSize(+event.target.value)}
           />
@@ -60,10 +72,11 @@ const App: React.FC = () => {
             id="stepId"
             type="number"
             name="step"
-            min="1"
-            max="10"
-            step="1"
-            value="1"
+            min={minStep}
+            max={maxStep}
+            step={minStep}
+            value={step}
+            onChange={event => setStep(+event.target.value)}
           />
         </label>
 
@@ -73,10 +86,9 @@ const App: React.FC = () => {
             id="animationDurationId"
             type="number"
             name="animationDuration"
-            min="1000"
-            max="100000"
-            step="100"
-            value="1000"
+            step={animationDurationStep}
+            value={animationDuration}
+            onChange={event => setAnimationDuration(+event.target.value)}
           />
         </label>
 
@@ -86,6 +98,8 @@ const App: React.FC = () => {
             id="infiniteId"
             type="checkbox"
             name="infinite"
+            checked={infinite}
+            onChange={event => setInfinite(event.target.checked)}
           />
         </label>
       </form>
@@ -94,46 +108,12 @@ const App: React.FC = () => {
         images={images}
         itemWidth={itemWidth}
         frameSize={frameSize}
-        // step={3}
-        // animationDuration={1000}
-        // infinite={false}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );
 };
-
-// interface State {
-//   images: string[];
-// }
-
-// class App extends React.Component<{}, State> {
-//   state = {
-//     images: [
-//       './img/1.png',
-//       './img/2.png',
-//       './img/3.png',
-//       './img/4.png',
-//       './img/5.png',
-//       './img/6.png',
-//       './img/7.png',
-//       './img/8.png',
-//       './img/9.png',
-//       './img/10.png',
-//     ],
-//   };
-
-//   render() {
-//     const { images } = this.state;
-
-//     return (
-//       <div className="App">
-//         {/* eslint-disable-next-line */}
-//         <h1>Carousel with {images.length} images</h1>
-
-//         <Carousel />
-//       </div>
-//     );
-//   }
-// }
 
 export default App;

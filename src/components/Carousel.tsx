@@ -1,47 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-interface Image {
-  id: number,
-  url: string,
-}
-
 type Props = {
-  images: Image[]
+  images: string[],
   itemWidth: number,
   frameSize: number,
-  // step: number,
-  // animationDuration: number,
-  // infinite: boolean,
+  step: number,
+  animationDuration: number,
+  infinite: boolean,
 };
 
 const Carousel: React.FC<Props> = ({
   images,
   itemWidth,
   frameSize,
-  // step,
-  // animationDuration,
-  // infinite,
+  step,
+  animationDuration,
+  infinite,
 }) => {
-  const frameWidth = itemWidth * frameSize;
+  const [slide, setSlide] = useState(0);
+
+  const newImages = images.map((image, index) => ({
+    imageId: index + 1,
+    imageUrl: image,
+  }));
+
+  const lastSlide = newImages.length - frameSize;
+
+  const slidePrev = () => {
+    if (slide - step > 0) {
+      setSlide(prevState => prevState - step);
+    } else {
+      setSlide(0);
+    }
+
+    if (infinite && !slide) {
+      setSlide(lastSlide);
+    }
+  };
+
+  const slideNext = () => {
+    if (slide + step < lastSlide) {
+      setSlide(prevState => prevState + step);
+    } else {
+      setSlide(lastSlide);
+    }
+
+    if (infinite && slide === lastSlide) {
+      setSlide(0);
+    }
+  };
+
+  const isPrevDisabled = !slide && !infinite;
+  const isNextDisabled = slide === lastSlide && !infinite;
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list" style={{ width: `${frameWidth}px` }}>
-        {images.map(image => (
-          <li>
+      <ul
+        className="Carousel__list"
+        style={{
+          width: `${itemWidth * frameSize}px`,
+          transition: `${animationDuration}ms`,
+        }}
+      >
+        {newImages.map(({ imageId, imageUrl }) => (
+          <li
+            key={imageId}
+            style={{
+              transform: `translateX(${-slide * itemWidth}px)`,
+              transition: `transform ${animationDuration}ms ease 0s`,
+            }}
+          >
             <img
-              src={image.url}
-              alt={image.id.toString()}
+              src={imageUrl}
+              alt={String(imageId)}
               width={itemWidth}
+              style={{ transition: `${animationDuration}ms` }}
             />
           </li>
         ))}
       </ul>
 
       <div className="Carousel__buttons">
-        <button type="button">Prev</button>
-        <button type="button">Next</button>
+        <button
+          type="button"
+          onClick={slidePrev}
+          disabled={isPrevDisabled}
+        >
+          Prev
+        </button>
+        <button
+          data-cy="next"
+          type="button"
+          onClick={slideNext}
+          disabled={isNextDisabled}
+        >
+          Next
+        </button>
       </div>
 
     </div>
