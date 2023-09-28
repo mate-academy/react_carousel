@@ -11,7 +11,6 @@ type Props = {
 };
 
 type State = {
-
   itemIndex: number;
 };
 
@@ -27,17 +26,14 @@ export class Carousel extends Component<Props, State> {
     let nextInd = itemIndex + step;
 
     if (infinity) {
-    // Handle cyclic behavior when infinity is true
       const totalImages = images.length;
-      const lastInd = totalImages - frameSize;
 
-      if (nextInd < 0) {
-        nextInd = lastInd;
-      } else if (nextInd > lastInd) {
-        nextInd = 0;
+      if (step > 0 && nextInd >= totalImages) {
+        nextInd %= totalImages;
+      } else if (step < 0 && nextInd < 0) {
+        nextInd = ((nextInd % totalImages) + totalImages) % totalImages;
       }
     } else {
-    // Limit the carousel to the first and last items
       const firstInd = 0;
       const lastInd = images.length - frameSize;
 

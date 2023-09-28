@@ -68,14 +68,6 @@ class App extends React.Component<{}, State> {
           Carousel
         </h1>
 
-        <Carousel
-          images={images}
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
-          animationDuration={animationDuration}
-          infinity={infinity}
-        />
         <label
           htmlFor="itemId"
           className="label"
@@ -147,6 +139,15 @@ class App extends React.Component<{}, State> {
             onChange={this.setInfinity}
           />
         </label>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinity={infinity}
+        />
       </div>
     );
   }
