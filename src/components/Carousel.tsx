@@ -55,27 +55,31 @@ const Carousel: React.FC<Props> = ({
   const isNextDisabled = slide === lastSlide && !infinite;
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={{
+        width: `${itemWidth * frameSize}px`,
+        transition: `${animationDuration}ms`,
+      }}
+    >
       <ul
         className="Carousel__list"
-        style={{
-          width: `${itemWidth * frameSize}px`,
-          transition: `${animationDuration}ms`,
-        }}
       >
         {newImages.map(({ imageId, imageUrl }) => (
           <li
             key={imageId}
             style={{
               transform: `translateX(${-slide * itemWidth}px)`,
-              transition: `transform ${animationDuration}ms ease 0s`,
+              transition: `${animationDuration}ms`,
             }}
           >
             <img
               src={imageUrl}
               alt={String(imageId)}
               width={itemWidth}
-              style={{ transition: `${animationDuration}ms` }}
+              style={{
+                transition: `${animationDuration}ms`,
+              }}
             />
           </li>
         ))}
