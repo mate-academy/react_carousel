@@ -1,1 +1,29 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.App {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.label {
+  margin: 0 auto;
+  color: #151b54;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.App input {
+  margin-left: 10px;
+  padding: 3px 0;
+  border-radius: 10px;
+  text-align: end;
+}
