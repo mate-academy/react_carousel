@@ -102,7 +102,6 @@ const Carousel: React.FC<Props> = ({
           Next
         </button>
       </div>
-
     </div>
   );
 };
