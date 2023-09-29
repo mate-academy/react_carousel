@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import './Carousel.scss';
 
@@ -19,48 +19,70 @@ export const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [startingPosition, setStartingPosition] = useState(0);
+  const amount = images.length;
 
-  const isLastImage = !infinite
-    ? startingPosition + frameSize >= images.length
-    : false;
+  const [rotatedImages, setRotatedImages] = useState([...images]);
+
+  const startIndex = +rotatedImages[0].replace(/\D/g, '') - 1;
+
+  const endIndex = startIndex + frameSize - 1;
 
   const isFirstImage = !infinite
-    ? !startingPosition
+    ? startIndex === 0
+    : false;
+
+  const isLastImage = !infinite
+    ? endIndex === amount - 1
     : false;
 
   const scrollLogic = () => {
-    if ((startingPosition + step + frameSize) >= images.length) {
-      setStartingPosition(images.length - frameSize);
+    if (endIndex + frameSize >= amount && !infinite) {
+      setRotatedImages([
+        ...rotatedImages.slice(amount - endIndex - 1, amount),
+        ...rotatedImages.slice(0, amount - endIndex - 1),
+      ]);
     } else {
-      setStartingPosition(startingPosition + step);
+      setRotatedImages([
+        ...rotatedImages.slice(step, amount),
+        ...rotatedImages.slice(0, step),
+      ]);
     }
   };
 
-  const timeoutId = window.setTimeout(scrollLogic, animationDuration);
+  let timeoutId = 0;
+
+  useMemo(() => {
+    timeoutId = window.setTimeout(scrollLogic, animationDuration);
+  }, [endIndex]);
 
   const handlePrevClick = () => {
-    if ((startingPosition - step) <= 0) {
-      setStartingPosition(0);
-    } else {
-      setStartingPosition(startingPosition - step);
-    }
-
     clearTimeout(timeoutId);
+
+    if (startIndex - step <= 0 && !infinite) {
+      setRotatedImages([
+        ...rotatedImages.slice(
+          amount - startIndex, amount,
+        ),
+        ...rotatedImages.slice(0, amount - startIndex),
+      ]);
+    } else {
+      setRotatedImages([
+        ...rotatedImages.slice(amount - step, amount),
+        ...rotatedImages.slice(0, amount - step),
+      ]);
+    }
   };
 
   const handleNextClick = () => {
-    scrollLogic();
     clearTimeout(timeoutId);
+    scrollLogic();
   };
 
   return (
     <div className="Carousel">
       <ul className="Carousel__list">
-        {images.map((image, index) => {
-          const isShown = (
-            index >= startingPosition && index < startingPosition + frameSize
-          );
+        {rotatedImages.map((image, index) => {
+          const isShown = (index < frameSize);
 
           return (
             <li
@@ -83,21 +105,21 @@ export const Carousel: React.FC<Props> = ({
       <div className="Carousel__buttons">
         <button
           type="button"
-          className="Carousel__button"
+          className="Carousel__button Carousel__button--prev"
           onClick={handlePrevClick}
           disabled={isFirstImage}
         >
-          Prev
+          &#8592;
         </button>
 
         <button
           data-cy="next"
           type="button"
-          className="Carousel__button"
+          className="Carousel__button Carousel__button--next"
           onClick={handleNextClick}
           disabled={isLastImage}
         >
-          Next
+          &#8594;
         </button>
       </div>
     </div>
