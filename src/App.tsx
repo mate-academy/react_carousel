@@ -1,39 +1,113 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './App.scss';
-import Carousel from './components/Carousel';
+import './services/reset.scss';
+import { Carousel } from './components/Carousel';
+import { CarouselParameters } from './types/CarouselParameters';
+import { getNumbers } from './services/utils';
 
-interface State {
-  images: string[];
-}
+const defaultCarouselParameters:CarouselParameters = {
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+};
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const getImagesUrls = getNumbers(1, 10)
+  .map(n => `./img/${n}.png`);
+
+export const App: React.FC = () => {
+  const [carouselParameters, setCarouselParameters] = (
+    useState<CarouselParameters>({ ...defaultCarouselParameters })
+  );
+  const [isInfinite, setIsInfinite] = useState(false);
+
+  const images = getImagesUrls;
+
+  const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCarouselParameters({
+      ...carouselParameters,
+      [event.target.name]: +event.target.value,
+    });
   };
 
-  render() {
-    const { images } = this.state;
+  const handleInfiniteChange = () => {
+    setIsInfinite(!isInfinite);
+  };
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1 data-cy="title">
+        {`Carousel with ${images.length} images`}
+      </h1>
 
-        <Carousel />
+      <div className="App__inputs">
+        <label htmlFor="itemId">
+          Enter image width in px: &nbsp;&nbsp;
+          <input
+            id="itemId"
+            name="itemWidth"
+            type="number"
+            value={carouselParameters.itemWidth}
+            onChange={handleFieldChange}
+          />
+        </label>
+
+        <label htmlFor="frameId">
+          Enter number of images on page:&nbsp;&nbsp;
+          <input
+            id="frameId"
+            name="frameSize"
+            type="number"
+            value={carouselParameters.frameSize}
+            min="1"
+            max="10"
+            onChange={handleFieldChange}
+          />
+        </label>
+
+        <label htmlFor="stepId">
+          Enter number of images scrolled:&nbsp;&nbsp;
+          <input
+            id="stepId"
+            name="step"
+            type="number"
+            value={carouselParameters.step}
+            min="1"
+            max="10"
+            onChange={handleFieldChange}
+          />
+        </label>
+
+        <label>
+          Enter animation duration time in ms:&nbsp;&nbsp;
+          <input
+            name="animationDuration"
+            type="number"
+            value={carouselParameters.animationDuration}
+            onChange={handleFieldChange}
+          />
+        </label>
+
+        <label>
+          Do you want infinite scrolling?&nbsp;&nbsp;
+          <input
+            name="infinite"
+            type="checkbox"
+            checked={isInfinite}
+            onChange={handleInfiniteChange}
+          />
+        </label>
       </div>
-    );
-  }
-}
 
-export default App;
+      <Carousel
+        images={images}
+        step={carouselParameters.step}
+        frameSize={carouselParameters.frameSize}
+        itemWidth={carouselParameters.itemWidth}
+        animationDuration={carouselParameters.animationDuration}
+        infinite={isInfinite}
+      />
+    </div>
+  );
+};

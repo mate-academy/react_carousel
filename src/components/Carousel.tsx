@@ -1,18 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+}) => {
+  const [startingPosition, setStartingPosition] = useState(0);
 
-export default Carousel;
+  const isLastImage = !infinite
+    ? startingPosition + frameSize >= images.length
+    : false;
+
+  const isFirstImage = !infinite
+    ? !startingPosition
+    : false;
+
+  const scrollLogic = () => {
+    if ((startingPosition + step + frameSize) >= images.length) {
+      setStartingPosition(images.length - frameSize);
+    } else {
+      setStartingPosition(startingPosition + step);
+    }
+  };
+
+  const timeoutId = window.setTimeout(scrollLogic, animationDuration);
+
+  const handlePrevClick = () => {
+    if ((startingPosition - step) <= 0) {
+      setStartingPosition(0);
+    } else {
+      setStartingPosition(startingPosition - step);
+    }
+
+    clearTimeout(timeoutId);
+  };
+
+  const handleNextClick = () => {
+    scrollLogic();
+    clearTimeout(timeoutId);
+  };
+
+  return (
+    <div className="Carousel">
+      <ul className="Carousel__list">
+        {images.map((image, index) => {
+          const isShown = (
+            index >= startingPosition && index < startingPosition + frameSize
+          );
+
+          return (
+            <li
+              key={image}
+              className="Carousel__item"
+              style={{
+                display: isShown ? 'block' : 'none',
+              }}
+            >
+              <img
+                src={image}
+                alt={image}
+                width={itemWidth}
+              />
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={handlePrevClick}
+          disabled={isFirstImage}
+        >
+          Prev
+        </button>
+
+        <button
+          data-cy="next"
+          type="button"
+          className="Carousel__button"
+          onClick={handleNextClick}
+          disabled={isLastImage}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
