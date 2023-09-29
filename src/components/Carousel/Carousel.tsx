@@ -60,7 +60,7 @@ export const Carousel: React.FC<State> = ({
             key={img}
           >
             <img
-              src={`${img}`}
+              src={img}
               alt={`${index + 1}`}
               style={{
                 width: `${itemWidth}px`,
