@@ -1,0 +1,10 @@
+.Carousel {
+  margin: auto;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+}
