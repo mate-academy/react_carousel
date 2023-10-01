@@ -5,9 +5,10 @@
     display: flex;
     justify-content: center;
     list-style: none;
+    margin-bottom: 30px;
   }
 
-  &__buttons {
+  &__move-buttons {
     position: absolute;
     top: 0;
     width: 100%;
@@ -29,5 +30,15 @@
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
     }
+
+    &--start {
+      height: 40px;
+      width: 130px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: center;
   }
 }

@@ -6,7 +6,7 @@ import { Carousel } from './components/Carousel';
 import { CarouselParameters } from './types/CarouselParameters';
 import { getNumbers } from './services/utils';
 
-const defaultCarouselParameters:CarouselParameters = {
+const defaultCarouselParameters: CarouselParameters = {
   step: 3,
   frameSize: 3,
   itemWidth: 130,
@@ -20,19 +20,15 @@ export const App: React.FC = () => {
   const [carouselParameters, setCarouselParameters] = (
     useState<CarouselParameters>({ ...defaultCarouselParameters })
   );
-  const [isInfinite, setIsInfinite] = useState(false);
 
   const images = getImagesUrls;
+  const isInfinite = false;
 
   const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCarouselParameters({
       ...carouselParameters,
       [event.target.name]: +event.target.value,
     });
-  };
-
-  const handleInfiniteChange = () => {
-    setIsInfinite(!isInfinite);
   };
 
   return (
@@ -86,16 +82,6 @@ export const App: React.FC = () => {
             type="number"
             value={carouselParameters.animationDuration}
             onChange={handleFieldChange}
-          />
-        </label>
-
-        <label>
-          Do you want infinite scrolling?&nbsp;&nbsp;
-          <input
-            name="infinite"
-            type="checkbox"
-            checked={isInfinite}
-            onChange={handleInfiniteChange}
           />
         </label>
       </div>
