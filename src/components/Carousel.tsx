@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import './Carousel.scss';
 
@@ -21,90 +21,101 @@ export const Carousel: React.FC<Props> = ({
 }) => {
   const amount = images.length;
 
-  const [rotatedImages, setRotatedImages] = useState([...images]);
+  const [position, setPosition] = useState(0);
+  const [isLastImage, setIsLastImage] = useState(false);
+  const [isFirstImage, setIsFirstImage] = useState(true && !infinite);
 
-  let startIndex = +rotatedImages[0].replace(/\D/g, '') - 1;
-  let endIndex = startIndex + frameSize - 1;
-
-  const isFirstImage = !infinite
-    ? startIndex === 0
-    : false;
-
-  const isLastImage = !infinite
-    ? endIndex === amount - 1
-    : false;
+  let lastIndex = 0;
 
   const handleNextClick = () => {
-    setRotatedImages((currentImages) => {
-      startIndex = +currentImages[0].replace(/\D/g, '') - 1;
-      endIndex = startIndex + frameSize - 1;
+    setPosition((currentPosition) => {
+      setIsFirstImage(false);
 
-      if (endIndex + step >= amount && !infinite) {
-        return [
-          ...currentImages.slice(amount - endIndex - 1, amount),
-          ...currentImages.slice(0, amount - endIndex - 1),
-        ];
+      lastIndex = -currentPosition / itemWidth + frameSize - 1;
+
+      if ((lastIndex === amount - 1) && infinite) {
+        return currentPosition + itemWidth * (amount - frameSize);
       }
 
-      return [
-        ...currentImages.slice(step, amount),
-        ...currentImages.slice(0, step),
-      ];
+      if (lastIndex + step >= amount - 1) {
+        setIsLastImage(true && !infinite);
+
+        return currentPosition - itemWidth * (amount - 1 - lastIndex);
+      }
+
+      return currentPosition - itemWidth * step;
+    });
+  };
+
+  const handlePrevClick = () => {
+    setPosition((currentPosition) => {
+      setIsLastImage(false);
+
+      const firstIndex = -currentPosition / itemWidth;
+
+      if (!firstIndex && infinite) {
+        return currentPosition - itemWidth * (amount - frameSize);
+      }
+
+      if (firstIndex - step <= 0) {
+        setIsFirstImage(true && !infinite);
+
+        return currentPosition + itemWidth * firstIndex;
+      }
+
+      return currentPosition + itemWidth * step;
     });
   };
 
   let timeoutId = 0;
 
-  const startCarousel = useCallback(() => {
+  const startCarousel = (() => {
     timeoutId = window.setTimeout(function animation() {
+      clearTimeout(timeoutId);
       handleNextClick();
+
       timeoutId = window.setTimeout(animation, animationDuration);
 
-      if (endIndex + step >= amount && !infinite) {
+      if (lastIndex + step >= amount - 1 && !infinite) {
         clearTimeout(timeoutId);
       }
     }, animationDuration);
-  }, []);
-
-  const handlePrevClick = () => {
-    setRotatedImages((currentImages) => {
-      if (startIndex - step <= 0 && !infinite) {
-        return [
-          ...currentImages.slice(amount - startIndex, amount),
-          ...currentImages.slice(0, amount - startIndex),
-        ];
-      }
-
-      return [
-        ...currentImages.slice(amount - step, amount),
-        ...currentImages.slice(0, amount - step),
-      ];
-    });
-  };
+  });
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list">
-        {rotatedImages.map((image, index) => {
-          const isShown = (index < frameSize);
-
-          return (
-            <li
-              key={image}
-              className="Carousel__item"
-              style={{
-                display: isShown ? 'block' : 'none',
-              }}
-            >
-              <img
-                src={image}
-                alt={image}
-                width={itemWidth}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <div
+        className="Carousel__wrapper"
+        style={{
+          width: `${itemWidth * frameSize}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${itemWidth * amount}px`,
+          }}
+        >
+          {images.map((image) => {
+            return (
+              <li
+                key={image}
+                className="Carousel__item"
+                style={{
+                  transform: `translateX(${position}px)`,
+                  transition: `transform ${animationDuration / 1000}s`,
+                }}
+              >
+                <img
+                  src={image}
+                  alt={image}
+                  width={itemWidth}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <div className="Carousel__move-buttons">
         <button

@@ -20,15 +20,21 @@ export const App: React.FC = () => {
   const [carouselParameters, setCarouselParameters] = (
     useState<CarouselParameters>({ ...defaultCarouselParameters })
   );
+  const [isInfinite, setIsInfinite] = useState(false);
 
   const images = getImagesUrls;
-  const isInfinite = false;
 
   const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
     setCarouselParameters({
       ...carouselParameters,
-      [event.target.name]: +event.target.value,
+      [name]: +value,
     });
+  };
+
+  const handleInfiniteChange = () => {
+    setIsInfinite(!isInfinite);
   };
 
   return (
@@ -82,6 +88,16 @@ export const App: React.FC = () => {
             type="number"
             value={carouselParameters.animationDuration}
             onChange={handleFieldChange}
+          />
+        </label>
+
+        <label>
+          Do you want infinite scrolling?&nbsp;&nbsp;
+          <input
+            name="infinite"
+            type="checkbox"
+            checked={isInfinite}
+            onChange={handleInfiniteChange}
           />
         </label>
       </div>

@@ -1,16 +1,20 @@
 .Carousel {
   position: relative;
+  display: flex;
+  justify-content: center;
+
+  &__wrapper {
+    overflow: hidden;
+  }
 
   &__list {
     display: flex;
-    justify-content: center;
     list-style: none;
     margin-bottom: 30px;
   }
 
   &__move-buttons {
     position: absolute;
-    top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -38,7 +42,7 @@
   }
 
   &__bottom {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    bottom: -20px;
   }
 }
