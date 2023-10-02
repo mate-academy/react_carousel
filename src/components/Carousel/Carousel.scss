@@ -1,1 +1,17 @@
-// style go here
+.Carousel {
+  box-sizing: content-box;
+  margin: 0 auto;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    background-color: #9199bd;
+  }
+
+  &__item {
+    justify-content: center;
+    display: flex;
+  }
+}

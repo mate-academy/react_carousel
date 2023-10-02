@@ -1,20 +1,45 @@
-import React from 'react';
-
-import { CarouselButton } from '../CarouselButton/CarouselButton';
-import { CarouselList } from '../CarouselList';
-import { Form } from '../Form';
 import './Carousel.scss';
 
 type Props = {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  firstImage: number;
+  animationDuration: number;
 };
 
-export const Carousel: React.FC<Props> = ({ images }) => (
-  <div className="Carousel">
-    <Form />
+export const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  firstImage,
+  animationDuration,
+}) => {
+  return (
+    <div
+      className="Carousel"
+      style={{ width: frameSize * itemWidth }}
 
-    <CarouselList images={images} />
-
-    <CarouselButton />
-  </div>
-);
+    >
+      <ul className="Carousel__list">
+        {images.map(image => (
+          <li
+            className="Carousel__item"
+            key={image}
+            style={{
+              transform: `translateX(${-(itemWidth * firstImage)}px)`,
+              transition: `transform ${animationDuration}ms`,
+            }}
+          >
+            <img
+              src={image}
+              alt={image}
+              className="Carousel__image"
+              style={{ width: itemWidth }}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
