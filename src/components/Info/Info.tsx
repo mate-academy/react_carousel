@@ -7,6 +7,7 @@ type Props = {
   frameSize: number,
   step: number,
   animationDuration: number,
+  imagesLength: number,
 };
 
 export const Info: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const Info: React.FC<Props> = ({
   frameSize,
   step,
   animationDuration,
+  imagesLength,
 }) => {
   return (
     <div className="info">
@@ -33,7 +35,7 @@ export const Info: React.FC<Props> = ({
               max={260}
               step={10}
               value={`${itemWidth}`}
-              onChange={(event) => onHandleChange(event)}
+              onChange={onHandleChange}
               name="itemWidth"
             />
           </label>
@@ -51,9 +53,10 @@ export const Info: React.FC<Props> = ({
               type="number"
               id="frameSize"
               min={1}
-              max={3}
+              step={1}
+              max={imagesLength}
               value={`${frameSize}`}
-              onChange={(event) => onHandleChange(event)}
+              onChange={onHandleChange}
               name="frameSize"
             />
           </label>
@@ -71,7 +74,7 @@ export const Info: React.FC<Props> = ({
               id="step"
               min={1}
               value={`${step}`}
-              onChange={(event) => onHandleChange(event)}
+              onChange={onHandleChange}
               name="step"
             />
           </label>
@@ -90,7 +93,7 @@ export const Info: React.FC<Props> = ({
               min={100}
               step={100}
               value={`${animationDuration}`}
-              onChange={(event) => onHandleChange(event)}
+              onChange={onHandleChange}
               name="animationDuration"
             />
           </label>

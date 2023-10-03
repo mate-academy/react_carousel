@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 import { State } from '../../types/State';
 import { Direction } from '../Direction';
@@ -12,6 +12,12 @@ export const Carousel: React.FC<State> = ({
   infinity,
 }) => {
   const [indexStart, setIndexImage] = useState(0);
+
+  useEffect(() => {
+    if (images.length > frameSize) {
+      setIndexImage(prevIndexStart => prevIndexStart - 1);
+    }
+  }, [frameSize]);
 
   const handleMoveRight = () => {
     const isEnoughImages = indexStart + step >= images.length - frameSize;
@@ -37,38 +43,39 @@ export const Carousel: React.FC<State> = ({
     }
   };
 
-  const styleCourse = {
-    width: `${itemWidth * frameSize}px`,
+  const styleTransform = {
+    transform: `translateX(-${indexStart * itemWidth}px)`,
+    transition: `${animationDuration}ms`,
   };
-  const prevDisabled = indexStart === 0 && !infinity;
+
+  const prevDisabled = indexStart <= 0 && !infinity;
   const nextDisabled = indexStart > images.length - frameSize - 1 && !infinity;
 
   return (
-    <div
-      className="Carousel"
-      style={styleCourse}
-    >
-      <ul
-        className="Carousel__list"
-        style={{
-          transform: `translateX(-${indexStart * itemWidth}px)`,
-          transition: `${animationDuration}ms`,
-        }}
+    <>
+      <div
+        className="Carousel"
+        style={{ width: `${itemWidth * frameSize}px` }}
       >
-        {images.map((img, index) => (
-          <li
-            key={img}
-          >
-            <img
-              src={img}
-              alt={`${index + 1}`}
-              style={{
-                width: `${itemWidth}px`,
-              }}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul
+          className="Carousel__list"
+          style={styleTransform}
+        >
+          {images.map((img, index) => (
+            <li
+              key={img}
+            >
+              <img
+                src={img}
+                alt={`${index + 1}`}
+                style={{
+                  width: `${itemWidth}px`,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <Direction
         changeMoveLeft={handleMoveLeft}
@@ -76,6 +83,6 @@ export const Carousel: React.FC<State> = ({
         prevDisabled={prevDisabled}
         nextDisabled={nextDisabled}
       />
-    </div>
+    </>
   );
 };

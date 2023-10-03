@@ -69,6 +69,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          imagesLength={images.length}
         />
       </div>
     );
