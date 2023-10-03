@@ -1,1 +1,40 @@
 // style go here
+.Carousel {
+  max-width: 1110px;
+  margin: 0 auto 50px;
+  margin-bottom: 100px;
+  overflow: hidden;
+  border: 5px solid black;
+  border-radius: 40px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+}
+
+.buttons {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    height: 30px;
+    width: 80px;
+    background-color: orangered;
+    color: white;
+    border: 1px solid darkred;
+    border-radius: 10px;
+    cursor: pointer;
+    transition-property: border background-color;
+    transition-duration: 0.2s;
+
+    &:disabled {
+      background-color: gray;
+      border: gray;
+    }
+  }
+}

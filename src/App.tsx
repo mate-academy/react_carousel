@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { Options } from './components/Options/Options';
 
 interface State {
   images: string[];
+  step: number
+  frameSize: number
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +26,59 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+      infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <Options
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          changeStep={(newStep) => {
+            return this.setState({ step: newStep });
+          }}
+          changeFrameSize={(newFrameSize) => {
+            return this.setState({ frameSize: newFrameSize });
+          }}
+          changeItemWidth={(newItemWidth) => {
+            return this.setState({ itemWidth: newItemWidth });
+          }}
+          changeAnimationDuration={(newAnimationDuration) => {
+            return this.setState({ animationDuration: newAnimationDuration });
+          }}
+          changeInfinite={(newInfinite) => {
+            return this.setState({ infinite: newInfinite });
+          }}
+        />
       </div>
     );
   }
