@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -10,11 +10,6 @@ type Props = {
   infinite: boolean;
 };
 
-enum Buttons {
-  next = 'next',
-  prev = 'prev',
-}
-
 const Carousel: React.FC<Props> = ({
   images,
   step,
@@ -23,241 +18,83 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [preparedImgs, setPreparedImgs] = useState(images);
-  const [currentImg, setCurrentImg] = useState(0);
-  const [isNextBtnDisabled, setIsNextBtnDisabled] = useState(false);
-  const [isPrevBtnDisabled, setIsPrevBtnDisabled] = useState(true);
-  const [isAnimationRun, setIsAnimationRun] = useState(false);
-
-  if (currentImg > 9) {
-    setCurrentImg(prevImgIndex => prevImgIndex - 9 - 1);
-  }
-
-  if (currentImg < 0) {
-    setCurrentImg(prevImgIndex => prevImgIndex + 9 + 1);
-  }
-
-  const carouselBlock = useRef<HTMLUListElement | null>(null);
-  const nextBtn = useRef<HTMLButtonElement | null>(null);
-  const prevBtn = useRef<HTMLButtonElement | null>(null);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const maxIndex = 9 - frameSize + 1;
 
   useEffect(() => {
-    if (!infinite && currentImg === 0) {
-      setIsPrevBtnDisabled(true);
+    if (currentImgIndex + frameSize > 9) {
+      setCurrentImgIndex(maxIndex);
     }
+  }, [frameSize, itemWidth]);
 
-    if (!infinite && currentImg === 9) {
-      setIsNextBtnDisabled(true);
+  useEffect(() => {
+    if (currentImgIndex + step > 9) {
+      setCurrentImgIndex(maxIndex);
     }
+  }, [currentImgIndex]);
 
-    if (infinite && !isAnimationRun) {
-      setIsNextBtnDisabled(false);
-      setIsPrevBtnDisabled(false);
+  function handleNext() {
+    setCurrentImgIndex(prevImgIndex => prevImgIndex + step);
+
+    if (infinite && currentImgIndex === maxIndex) {
+      setCurrentImgIndex(0);
+    } else if (currentImgIndex + step > 9
+        || currentImgIndex + frameSize + step > 9) {
+      setCurrentImgIndex(maxIndex);
     }
-  }, [currentImg, infinite, isAnimationRun]);
-
-  function buttonClickHandlerInfinite(btn: Buttons) {
-    if (btn === Buttons.prev) {
-      setPreparedImgs(prevImgs => {
-        return [...prevImgs.slice(-1), ...prevImgs.slice(0, -1)];
-      });
-
-      carouselBlock.current?.scroll(itemWidth, 0);
-    }
-
-    if (nextBtn.current && prevBtn.current) {
-      setIsNextBtnDisabled(true);
-      setIsPrevBtnDisabled(true);
-    }
-
-    setTimeout(() => {
-      if (nextBtn.current && prevBtn.current) {
-        setIsNextBtnDisabled(false);
-        setIsPrevBtnDisabled(false);
-      }
-    }, animationDuration);
-
-    const framesCount = Math.floor(60 * (animationDuration / 1000));
-    const scrollPerFrame = Math.floor((step * itemWidth) / framesCount);
-    let currentDist = 0;
-    let picturesBehind = 0;
-    const interval = animationDuration / framesCount;
-
-    const timerId = window.setInterval(() => {
-      setIsAnimationRun(true);
-
-      if (btn === Buttons.next) {
-        carouselBlock.current?.scrollBy(scrollPerFrame, 0);
-      } else {
-        carouselBlock.current?.scrollBy(-scrollPerFrame, 0);
-      }
-
-      currentDist += scrollPerFrame;
-
-      if (currentDist >= itemWidth) {
-        currentDist = 0;
-        picturesBehind += 1;
-
-        if (btn === Buttons.next) {
-          setCurrentImg(prevImgIndex => {
-            if (!infinite && prevImgIndex === 8) {
-              window.clearInterval(timerId);
-              setIsAnimationRun(false);
-              setIsNextBtnDisabled(true);
-            }
-
-            return prevImgIndex + 1;
-          });
-
-          setPreparedImgs(prevImgs => {
-            return [...prevImgs.slice(1), ...prevImgs.slice(0, 1)];
-          });
-
-          carouselBlock.current?.scroll(0, 0);
-        } else {
-          setCurrentImg(prevImgIndex => prevImgIndex - 1);
-
-          setPreparedImgs(prevImgs => {
-            return [...prevImgs.slice(-1), ...prevImgs.slice(0, -1)];
-          });
-
-          carouselBlock.current?.scroll(itemWidth, 0);
-        }
-      }
-
-      if (picturesBehind === step) {
-        window.clearInterval(timerId);
-        setIsAnimationRun(false);
-
-        if (btn === Buttons.prev) {
-          setPreparedImgs(prevImgs => {
-            return [...prevImgs.slice(1), ...prevImgs.slice(0, 1)];
-          });
-
-          carouselBlock.current?.scroll(0, 0);
-        }
-      }
-    }, interval);
   }
 
-  function buttonClickHandlerDefault(btn: Buttons) {
-    setPreparedImgs(images);
-    carouselBlock.current?.scroll(currentImg * itemWidth, 0);
+  function handlePrev() {
+    setCurrentImgIndex(prevImgIndex => prevImgIndex - step);
 
-    if (nextBtn.current && prevBtn.current) {
-      setIsNextBtnDisabled(true);
-      setIsPrevBtnDisabled(true);
+    if (infinite && currentImgIndex === 0) {
+      setCurrentImgIndex(maxIndex);
+    } else if (currentImgIndex - step < 0) {
+      setCurrentImgIndex(0);
     }
-
-    setTimeout(() => {
-      if (nextBtn.current && prevBtn.current) {
-        setIsNextBtnDisabled(false);
-        setIsPrevBtnDisabled(false);
-      }
-    }, animationDuration);
-
-    const framesCount = Math.floor(60 * (animationDuration / 1000));
-    const scrollPerFrame = Math.floor((step * itemWidth) / framesCount);
-    let currentDist = 0;
-    let picturesBehind = 0;
-    const interval = animationDuration / framesCount;
-
-    const timerId = window.setInterval(() => {
-      setIsAnimationRun(true);
-
-      if (btn === Buttons.next) {
-        carouselBlock.current?.scrollBy(scrollPerFrame, 0);
-      } else {
-        carouselBlock.current?.scrollBy(-scrollPerFrame, 0);
-      }
-
-      currentDist += scrollPerFrame;
-
-      if (currentDist >= itemWidth) {
-        currentDist = 0;
-        picturesBehind += 1;
-
-        if (btn === Buttons.next) {
-          setCurrentImg(prevImgIndex => {
-            if (prevImgIndex + step + 1 >= 9) {
-              window.clearInterval(timerId);
-              setIsAnimationRun(false);
-              setIsNextBtnDisabled(true);
-
-              return prevImgIndex;
-            }
-
-            carouselBlock.current?.scroll((prevImgIndex + 1) * itemWidth, 0);
-
-            return prevImgIndex + 1;
-          });
-        } else {
-          setCurrentImg(prevImgIndex => {
-            if (prevImgIndex - 1 < 0) {
-              window.clearInterval(timerId);
-              setIsAnimationRun(false);
-              setIsPrevBtnDisabled(true);
-
-              return prevImgIndex;
-            }
-
-            carouselBlock.current?.scroll((prevImgIndex - 1) * itemWidth, 0);
-
-            return prevImgIndex - 1;
-          });
-        }
-      }
-
-      if (picturesBehind === step) {
-        window.clearInterval(timerId);
-        setIsAnimationRun(false);
-      }
-    }, interval);
   }
 
   return (
-    <div className="Carousel">
-      <ul
-        className="Carousel__list"
-        ref={carouselBlock}
-        style={{ maxWidth: `${frameSize * itemWidth}px` }}
-      >
+    <>
+      <div className="Carousel" style={{ maxWidth: `${frameSize * itemWidth}px` }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${-(currentImgIndex * itemWidth)}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
 
-        {preparedImgs.map((imageSrc, index) => (
-          <li key={imageSrc}>
-            <img
-              src={imageSrc}
-              alt={index.toString()}
-              style={{ width: itemWidth }}
-            />
-          </li>
-        ))}
-      </ul>
+          {images.map((imageSrc, index) => (
+            <li key={imageSrc}>
+              <img
+                src={imageSrc}
+                alt={index.toString()}
+                style={{ width: itemWidth }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="buttons">
         <button
           type="button"
-          onClick={() => (infinite
-            ? buttonClickHandlerInfinite(Buttons.prev)
-            : buttonClickHandlerDefault(Buttons.prev))}
-          disabled={isPrevBtnDisabled}
-          ref={prevBtn}
+          onClick={handlePrev}
+          disabled={!infinite && currentImgIndex === 0}
         >
           <i className="fas fa-angle-double-left" />
         </button>
 
         <button
           type="button"
-          onClick={() => (infinite
-            ? buttonClickHandlerInfinite(Buttons.next)
-            : buttonClickHandlerDefault(Buttons.next))}
-          ref={nextBtn}
-          disabled={isNextBtnDisabled}
+          onClick={handleNext}
+          disabled={!infinite && currentImgIndex === maxIndex}
         >
           <i className="fas fa-angle-double-right" />
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

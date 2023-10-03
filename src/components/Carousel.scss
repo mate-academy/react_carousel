@@ -1,22 +1,22 @@
 // style go here
 .Carousel {
   max-width: 1110px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
   margin-bottom: 100px;
+  overflow: hidden;
+  border: 5px solid black;
+  border-radius: 40px;
 
   &__list {
     list-style: none;
     display: flex;
     padding: 0;
-    margin: 0 auto;
-    overflow: hidden;
-    border: 5px solid black;
-    border-radius: 40px;
-    margin-bottom: 50px;
   }
 }
 
 .buttons {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
