@@ -1,1 +1,49 @@
 // style go here
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list{
+    display: flex;
+    padding: 30px 0;
+    margin: 10px 0;
+    overflow: hidden;
+    border: 3px solid rgb(16, 6, 49);
+    border-radius: 50px;
+    list-style: none;
+  }
+
+  &__item {
+    margin-block: 10px;
+  }
+
+  &__buttons {
+    max-width: 1024px;
+    margin: 20px auto;
+  }
+
+  &__button {
+    margin-inline: 10px;
+    width: 100px;
+    height: 30px;
+    background-color:rgb(23, 134, 64);
+    border: solid 1px transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+      background-color: rgb(26, 169, 169);
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    &:hover:disabled {
+      cursor: not-allowed;
+      background-color: rgb(30, 51, 51);
+    }
+  }
+}
