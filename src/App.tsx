@@ -64,7 +64,7 @@ class App extends React.Component<{}, State> {
         />
 
         <Info
-          onHandleChange={(event => this.handleChange(event))}
+          onHandleChange={this.handleChange}
           itemWidth={itemWidth}
           frameSize={frameSize}
           step={step}
