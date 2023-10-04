@@ -14,7 +14,7 @@ export const Carousel: React.FC<State> = ({
   const [indexStart, setIndexImage] = useState(0);
 
   useEffect(() => {
-    if (images.length > frameSize) {
+    if (images.length > frameSize && indexStart !== 0) {
       setIndexImage(prevIndexStart => prevIndexStart - 1);
     }
   }, [frameSize]);
