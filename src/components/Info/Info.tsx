@@ -34,7 +34,7 @@ export const Info: React.FC<Props> = ({
               min={30}
               max={260}
               step={10}
-              value={`${itemWidth}`}
+              value={itemWidth}
               onChange={onHandleChange}
               name="itemWidth"
             />
@@ -55,7 +55,7 @@ export const Info: React.FC<Props> = ({
               min={1}
               step={1}
               max={imagesLength}
-              value={`${frameSize}`}
+              value={frameSize}
               onChange={onHandleChange}
               name="frameSize"
             />
@@ -73,7 +73,7 @@ export const Info: React.FC<Props> = ({
               type="number"
               id="step"
               min={1}
-              value={`${step}`}
+              value={step}
               onChange={onHandleChange}
               name="step"
             />
@@ -92,7 +92,7 @@ export const Info: React.FC<Props> = ({
               id="animationDuration"
               min={100}
               step={100}
-              value={`${animationDuration}`}
+              value={animationDuration}
               onChange={onHandleChange}
               name="animationDuration"
             />
