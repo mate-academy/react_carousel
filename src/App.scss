@@ -7,6 +7,7 @@ body {
   margin: 0;
   background-color: #adadad;
 }
+
 .App {
   display: flex;
   flex-direction: column;
@@ -14,11 +15,11 @@ body {
   padding-block: 20px;
   gap: 45px;
 
-&_title {
-  margin: 10px;
-}
+  &_title {
+    margin: 10px;
+  }
 
-&_inputs {
+  &_inputs {
     display: flex;
     flex-direction: column;
     gap: 15px;
