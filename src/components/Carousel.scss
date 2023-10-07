@@ -1,1 +1,21 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  background-color: orange;
+
+  &__img {
+    width: 100%;
+    height: auto;
+  }
+
+  &__item {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+}
