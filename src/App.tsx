@@ -8,6 +8,7 @@ interface State {
   step: number;
   animationDuration: number;
   images: string[];
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -16,6 +17,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: false,
     images: [
       './img/1.png',
       './img/2.png',
@@ -59,6 +61,10 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  infiniteInput = () => {
+    this.setState((prev) => ({ infinite: !(prev.infinite) }));
+  };
+
   render() {
     const { images } = this.state;
     const dataInput = ['itemWidth', 'frameSize', 'step', 'animationDuration'];
@@ -66,11 +72,13 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          {`Carousel with ${images.length} images`}
+        </h1>
 
         <ul>
           {dataInput.map(data => (
-            <li>
+            <li key={data}>
               <label htmlFor={data}>
                 {`${data}: `}
               </label>
@@ -79,12 +87,21 @@ class App extends React.Component<{}, State> {
                 type="text"
                 id={data}
                 placeholder={`Enter a ${data}`}
-                value={this.state[data as keyof State]}
+                value={String(this.state[data as keyof State])}
                 onChange={event => this.chooseInput(data, event)}
               />
             </li>
           ))}
         </ul>
+
+        <label>
+          <input
+            type="checkbox"
+            checked={this.state.infinite}
+            onChange={() => this.infiniteInput()}
+          />
+          infinite
+        </label>
 
         <Carousel
           images={this.state.images}
@@ -92,7 +109,7 @@ class App extends React.Component<{}, State> {
           frameSize={this.state.frameSize}
           itemWidth={this.state.itemWidth}
           animationDuration={this.state.animationDuration}
-          // infinite={false}
+          infinite={this.state.infinite}
         />
       </div>
     );

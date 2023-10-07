@@ -7,7 +7,7 @@ type CarouselProps = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -16,28 +16,54 @@ const Carousel: React.FC<CarouselProps> = ({
   frameSize,
   itemWidth,
   animationDuration,
-  // infinite,
+  infinite,
 }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [positionLeft, setPositionLeft] = useState(false);
+  const [positionRight, setPositionRight] = useState(false);
 
   const scrollPositionLeft = () => {
     let newPositoin = scrollPosition + itemWidth * step;
 
-    if (newPositoin > 0) {
-      newPositoin = 0;
+    if (infinite) {
+      newPositoin = itemWidth * -(images.length - step);
+      setPositionRight(true);
+      setScrollPosition(newPositoin);
+
+      return;
     }
 
-    setScrollPosition(newPositoin);
+    if (newPositoin > 0) {
+      newPositoin = 0;
+      setPositionLeft(true);
+      setScrollPosition(newPositoin);
+    } else {
+      setPositionRight(false);
+      setPositionLeft(false);
+      setScrollPosition(newPositoin);
+    }
   };
 
   const scrollPositionRight = () => {
     let newPositoin = scrollPosition - itemWidth * step;
 
-    if ((newPositoin - step * itemWidth) < -(itemWidth * images.length)) {
-      newPositoin = itemWidth * -(images.length - step);
+    if (infinite) {
+      newPositoin = 0;
+      setPositionLeft(true);
+      setScrollPosition(newPositoin);
+
+      return;
     }
 
-    setScrollPosition(newPositoin);
+    if ((newPositoin - step * itemWidth) < -(itemWidth * images.length)) {
+      newPositoin = itemWidth * -(images.length - step);
+      setPositionRight(true);
+      setScrollPosition(newPositoin);
+    } else {
+      setPositionLeft(false);
+      setPositionRight(false);
+      setScrollPosition(newPositoin);
+    }
   };
 
   return (
@@ -62,13 +88,15 @@ const Carousel: React.FC<CarouselProps> = ({
           }}
         >
           {images.map(image => (
-            <li>
+            <li className="Carousel__item">
               <img
                 src={image}
                 alt="Smile"
+                key={image}
                 style={{
                   width: `${itemWidth}px`,
                 }}
+                className="Carousel__img"
               />
             </li>
           ))}
@@ -78,6 +106,11 @@ const Carousel: React.FC<CarouselProps> = ({
       <button
         type="button"
         onClick={scrollPositionLeft}
+        disabled={positionLeft && !infinite}
+        style={{
+          visibility: itemWidth * step >= -129 && itemWidth * frameSize <= 129
+            ? 'hidden' : 'visible',
+        }}
       >
         &#8592;
       </button>
@@ -88,7 +121,10 @@ const Carousel: React.FC<CarouselProps> = ({
         style={{
           position: 'absolute',
           right: '0',
+          visibility: itemWidth * step >= -129 && itemWidth * frameSize <= 129
+            ? 'hidden' : 'visible',
         }}
+        disabled={positionRight && !infinite}
       >
         &#8594;
       </button>
