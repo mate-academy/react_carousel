@@ -23,47 +23,47 @@ const Carousel: React.FC<CarouselProps> = ({
   const [positionRight, setPositionRight] = useState(false);
 
   const scrollPositionLeft = () => {
-    let newPositoin = scrollPosition + itemWidth * step;
+    let newPosition = scrollPosition + itemWidth * step;
 
     if (infinite) {
-      newPositoin = itemWidth * -(images.length - step);
+      newPosition = itemWidth * -(images.length - step);
       setPositionRight(true);
-      setScrollPosition(newPositoin);
+      setScrollPosition(newPosition);
 
       return;
     }
 
-    if (newPositoin > 0) {
-      newPositoin = 0;
+    if (newPosition > 0) {
+      newPosition = 0;
       setPositionLeft(true);
-      setScrollPosition(newPositoin);
     } else {
       setPositionRight(false);
       setPositionLeft(false);
-      setScrollPosition(newPositoin);
     }
+
+    setScrollPosition(newPosition);
   };
 
   const scrollPositionRight = () => {
-    let newPositoin = scrollPosition - itemWidth * step;
+    let newPosition = scrollPosition - itemWidth * step;
 
     if (infinite) {
-      newPositoin = 0;
+      newPosition = 0;
       setPositionLeft(true);
-      setScrollPosition(newPositoin);
+      setScrollPosition(newPosition);
 
       return;
     }
 
-    if ((newPositoin - step * itemWidth) < -(itemWidth * images.length)) {
-      newPositoin = itemWidth * -(images.length - step);
+    if ((newPosition - step * itemWidth) < -(itemWidth * images.length)) {
+      newPosition = itemWidth * -(images.length - step);
       setPositionRight(true);
-      setScrollPosition(newPositoin);
     } else {
       setPositionLeft(false);
       setPositionRight(false);
-      setScrollPosition(newPositoin);
     }
+
+    setScrollPosition(newPosition);
   };
 
   return (
@@ -108,7 +108,7 @@ const Carousel: React.FC<CarouselProps> = ({
         onClick={scrollPositionLeft}
         disabled={positionLeft && !infinite}
         style={{
-          visibility: itemWidth * step >= -129 && itemWidth * frameSize <= 129
+          visibility: itemWidth * step >= -55 && itemWidth * frameSize <= 55
             ? 'hidden' : 'visible',
         }}
       >
@@ -121,7 +121,7 @@ const Carousel: React.FC<CarouselProps> = ({
         style={{
           position: 'absolute',
           right: '0',
-          visibility: itemWidth * step >= -129 && itemWidth * frameSize <= 129
+          visibility: itemWidth * step >= -55 && itemWidth * frameSize <= 55
             ? 'hidden' : 'visible',
         }}
         disabled={positionRight && !infinite}

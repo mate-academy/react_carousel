@@ -32,36 +32,37 @@ class App extends React.Component<{}, State> {
     ],
   };
 
-  itemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ itemWidth: +event.target.value });
   };
 
-  frameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ frameSize: +event.target.value });
   };
 
-  step = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ step: +event.target.value });
   };
 
-  animationDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeAnimationDuration =
+  (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ animationDuration: +event.target.value });
   };
 
   chooseInput = (data: string, event: React.ChangeEvent<HTMLInputElement>) => {
     switch (data) {
       case 'itemWidth':
-        return this.itemWidth(event);
+        return this.handleChangeItemWidth(event);
       case 'frameSize':
-        return this.frameSize(event);
+        return this.handleChangeFrameSize(event);
       case 'step':
-        return this.step(event);
+        return this.handleChangeStep(event);
       default:
-        return this.animationDuration(event);
+        return this.handleChangeAnimationDuration(event);
     }
   };
 
-  infiniteInput = () => {
+  getInfiniteInput = () => {
     this.setState((prev) => ({ infinite: !(prev.infinite) }));
   };
 
@@ -98,7 +99,7 @@ class App extends React.Component<{}, State> {
           <input
             type="checkbox"
             checked={this.state.infinite}
-            onChange={() => this.infiniteInput()}
+            onChange={() => this.getInfiniteInput()}
           />
           infinite
         </label>
