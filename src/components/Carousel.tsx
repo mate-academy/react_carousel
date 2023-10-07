@@ -22,6 +22,8 @@ const Carousel: React.FC<CarouselProps> = ({
   const [positionLeft, setPositionLeft] = useState(false);
   const [positionRight, setPositionRight] = useState(false);
 
+  const stateButton = itemWidth * step >= -55 && itemWidth * frameSize <= 55;
+
   const scrollPositionLeft = () => {
     let newPosition = scrollPosition + itemWidth * step;
 
@@ -88,11 +90,10 @@ const Carousel: React.FC<CarouselProps> = ({
           }}
         >
           {images.map(image => (
-            <li className="Carousel__item">
+            <li className="Carousel__item" key={image}>
               <img
                 src={image}
                 alt="Smile"
-                key={image}
                 style={{
                   width: `${itemWidth}px`,
                 }}
@@ -108,7 +109,7 @@ const Carousel: React.FC<CarouselProps> = ({
         onClick={scrollPositionLeft}
         disabled={positionLeft && !infinite}
         style={{
-          visibility: itemWidth * step >= -55 && itemWidth * frameSize <= 55
+          visibility: stateButton
             ? 'hidden' : 'visible',
         }}
       >
@@ -121,7 +122,7 @@ const Carousel: React.FC<CarouselProps> = ({
         style={{
           position: 'absolute',
           right: '0',
-          visibility: itemWidth * step >= -55 && itemWidth * frameSize <= 55
+          visibility: stateButton
             ? 'hidden' : 'visible',
         }}
         disabled={positionRight && !infinite}

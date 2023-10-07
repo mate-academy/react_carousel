@@ -11,6 +11,8 @@ interface State {
   infinite: boolean,
 }
 
+const dataInput = ['itemWidth', 'frameSize', 'step', 'animationDuration'];
+
 class App extends React.Component<{}, State> {
   state = {
     itemWidth: 130,
@@ -51,11 +53,11 @@ class App extends React.Component<{}, State> {
 
   chooseInput = (data: string, event: React.ChangeEvent<HTMLInputElement>) => {
     switch (data) {
-      case 'itemWidth':
+      case dataInput[0]:
         return this.handleChangeItemWidth(event);
-      case 'frameSize':
+      case dataInput[1]:
         return this.handleChangeFrameSize(event);
-      case 'step':
+      case dataInput[2]:
         return this.handleChangeStep(event);
       default:
         return this.handleChangeAnimationDuration(event);
@@ -68,7 +70,6 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { images } = this.state;
-    const dataInput = ['itemWidth', 'frameSize', 'step', 'animationDuration'];
 
     return (
       <div className="App">
