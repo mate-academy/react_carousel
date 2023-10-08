@@ -4,16 +4,21 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 };
 
 const IMAGE_GAP = 10;
 
-const Carousel: React.FC<Props> = ({ images }) => {
-  const frameSize = 3;
-  const step = 3;
-  const itemWidth = 130;
-  const animationDuration = 1000;
-
+const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+}) => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const maxIndex = images.length - frameSize;
@@ -69,7 +74,7 @@ const Carousel: React.FC<Props> = ({ images }) => {
                 src={image}
                 alt={String(index + 1)}
                 className="Carousel__image"
-                style={{ width: `${itemWidth}px` }}
+                width={itemWidth}
               />
             </li>
           ))}
@@ -85,24 +90,6 @@ const Carousel: React.FC<Props> = ({ images }) => {
         onClick={imageIndex === maxIndex ? undefined : handleNextButton}
         aria-label="next images"
       />
-
-      {/* <button
-        type="button"
-        className={cn('Carousel__button Carousel__button--next', {
-          'Carousel__button--inactive': imageIndex === maxIndex,
-        })}
-        onClick={imageIndex === maxIndex ? undefined : handleNextButton}
-        aria-label="next images"
-      /> */}
-      {/* <button
-        type="button"
-        className={cn('Carousel__button Carousel__button--prev', {
-          'Carousel__button--inactive': imageIndex === 0,
-        })}
-        onClick={imageIndex === 0 ? undefined : handlePrevButton}
-        aria-label="previous images"
-      /> */}
-
     </div>
   );
 };
