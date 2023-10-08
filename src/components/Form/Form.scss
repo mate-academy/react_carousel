@@ -1,0 +1,23 @@
+.form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 30px;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &__input {
+    width: 50px;
+    outline: none;
+    border: 2px solid #a9a9a9;
+    border-radius: 5px;
+  }
+}
