@@ -39,11 +39,11 @@ const App: React.FC = () => {
         infinite={infinite}
       />
 
-      <label htmlFor="itemWidthId" className="App__label">
+      <label htmlFor="itemId" className="App__label">
         {'Item Width: '}
         <input
           type="number"
-          id="itemWidthId"
+          id="itemId"
           value={itemWidth}
           min={130}
           max={260}
@@ -52,11 +52,11 @@ const App: React.FC = () => {
         />
       </label>
 
-      <label htmlFor="frameSizeId" className="App__label">
+      <label htmlFor="frameId" className="App__label">
         {'Frame Size: '}
         <input
           type="number"
-          id="frameSizeId"
+          id="frameId"
           value={frameSize}
           min={1}
           max={getMaxFrames}
