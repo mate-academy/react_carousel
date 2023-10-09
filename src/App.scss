@@ -1,1 +1,32 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 18px;
+
+  &__title {
+    margin: 0 0 50px;
+    padding: 0;
+  }
+
+  &__field {
+    display: block;
+    margin: 0 0 30px;
+  }
+
+  &__input {
+    margin: 0 6px 0 20px;
+    padding: 5px 10px;
+    width: 70px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: serif;
+    font-size: 16px;
+  }
+}
