@@ -28,7 +28,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>{`Carousel with ${images.length} images`}</h1>
+      <h1 data-cy="title">Carousel</h1>
 
       <Carousel
         images={images}
