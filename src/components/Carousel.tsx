@@ -11,6 +11,7 @@ type Props = {
 };
 
 const IMAGE_GAP = 10;
+const MIN_INDEX = 0;
 
 const Carousel: React.FC<Props> = ({
   images,
@@ -19,7 +20,7 @@ const Carousel: React.FC<Props> = ({
   itemWidth,
   animationDuration,
 }) => {
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(MIN_INDEX);
 
   const maxIndex = images.length - frameSize;
 
@@ -42,8 +43,8 @@ const Carousel: React.FC<Props> = ({
   const handlePrevButton = () => {
     const newIndex = imageIndex - step;
 
-    if (newIndex < 0) {
-      setImageIndex(0);
+    if (newIndex < MIN_INDEX) {
+      setImageIndex(MIN_INDEX);
     } else {
       setImageIndex(newIndex);
     }
@@ -54,9 +55,9 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         className={cn('Carousel__button Carousel__button--prev', {
-          'Carousel__button--inactive': imageIndex === 0,
+          'Carousel__button--inactive': imageIndex === MIN_INDEX,
         })}
-        onClick={imageIndex === 0 ? undefined : handlePrevButton}
+        onClick={imageIndex === MIN_INDEX ? undefined : handlePrevButton}
         aria-label="previous images"
       />
 
