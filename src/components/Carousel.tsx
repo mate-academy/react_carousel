@@ -88,7 +88,7 @@ const Carousel: React.FC<Props> = ({
         className={cn('Carousel__button Carousel__button--next', {
           'Carousel__button--inactive': imageIndex === maxIndex,
         })}
-        onClick={imageIndex === maxIndex ? undefined : handleNextButton}
+        onClick={imageIndex !== maxIndex && handleNextButton}
         aria-label="next images"
       />
     </div>
