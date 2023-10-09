@@ -11,7 +11,11 @@ interface Prorps {
 const Carousel: React.FC<Prorps> = ({ images, visabilityParams }) => {
   const [position, setPosition] = useState(0);
   const {
-    step, frameSize, itemWidth, animationDuration, infinite,
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+    infinite,
   } = visabilityParams;
 
   const handlePrevClick = () => {
@@ -33,6 +37,9 @@ const Carousel: React.FC<Prorps> = ({ images, visabilityParams }) => {
       setPosition(0);
     }
   };
+
+  const isNextButtonDisabled
+    = position === -(images.length - frameSize) * itemWidth && !infinite;
 
   return (
     <div className="Carousel">
@@ -72,9 +79,7 @@ const Carousel: React.FC<Prorps> = ({ images, visabilityParams }) => {
           className="Carousel__button"
           type="button"
           onClick={handleNextClick}
-          disabled={
-            position === -(images.length - frameSize) * itemWidth && !infinite
-          }
+          disabled={isNextButtonDisabled}
         >
           {'Next >>'}
         </button>
