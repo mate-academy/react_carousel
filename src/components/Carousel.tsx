@@ -1,64 +1,59 @@
 import { Component } from 'react';
 import './Carousel.scss';
 
-type Props = {
+interface Props {
   images: string[];
   itemWidth: number;
   frameSize: number;
   step: number;
   animationDuration: number;
   infinity: boolean;
-};
+}
 
-type State = {
+interface State {
+  itemIndex: number,
+}
 
-  itemIndex: number;
-};
-
-export class Carousel extends Component<Props, State> {
+class Carousel extends Component<Props, State> {
   state = {
     itemIndex: 0,
   };
 
-  handleSwipeClick = (step: number) => () => {
-    const { images, frameSize, infinity } = this.props;
+  handleNext = () => {
+    const { images, frameSize, step } = this.props;
     const { itemIndex } = this.state;
-
+    const firstInd = 0;
+    const lastInd = images.length - frameSize;
     let nextInd = itemIndex + step;
 
-    if (infinity) {
-    // Handle cyclic behavior when infinity is true
-      const totalImages = images.length;
-      const lastInd = totalImages - frameSize;
-
-      if (nextInd < 0) {
-        nextInd = lastInd;
-      } else if (nextInd > lastInd) {
-        nextInd = 0;
-      }
-    } else {
-    // Limit the carousel to the first and last items
-      const firstInd = 0;
-      const lastInd = images.length - frameSize;
-
-      if (step > 0 && nextInd > lastInd) {
-        nextInd = lastInd;
-      }
-
-      if (step < 0 && nextInd < firstInd) {
-        nextInd = firstInd;
-      }
+    if (itemIndex === lastInd) {
+      nextInd = firstInd;
+    } else if (nextInd > lastInd) {
+      nextInd = lastInd;
     }
 
-    this.setState(() => ({
-      itemIndex: nextInd,
-    }));
+    this.setState({ itemIndex: nextInd });
+  };
+
+  handlePrev = () => {
+    const { images, frameSize, step } = this.props;
+    const { itemIndex } = this.state;
+    const firstInd = 0;
+    const lastInd = images.length - frameSize;
+    let nextInd = itemIndex - step;
+
+    if (itemIndex === firstInd) {
+      nextInd = lastInd;
+    } else if (nextInd < firstInd) {
+      nextInd = firstInd;
+    }
+
+    this.setState({ itemIndex: nextInd });
   };
 
   render() {
     const {
       images,
-      step,
       itemWidth,
       frameSize,
       animationDuration,
@@ -77,38 +72,48 @@ export class Carousel extends Component<Props, State> {
           transition: `${animationDuration}ms`,
         }}
       >
-        <ul className="Carousel__list">
-          {images.map((img, ind) => (
-            <li
-              key={img}
-              className="Carusel__item"
-              style={{
-                transform: `translateX(${-itemIndex * itemWidth}px)`,
-                transition: `${animationDuration}ms`,
-              }}
-            >
-              <img src={img} alt={`${ind + 1}`} width={itemWidth} />
-            </li>
-          ))}
+        <ul
+          className="Carousel__list"
+        >
+          {
+            images.map((img, ind) => {
+              return (
+                <li
+                  key={img}
+                  className="Carusel__item"
+                  style={{
+                    transform: `translateX(${-itemIndex * itemWidth}px)`,
+                    transition: `${animationDuration}ms`,
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={`${ind + 1}`}
+                    width={itemWidth}
+                  />
+                </li>
+              );
+            })
+          }
         </ul>
 
-        <div className="Carousel__button">
+        <div className="button">
           <button
             type="button"
-            className="Carousel__btn"
+            className="button__nav"
             disabled={prevDisabled}
-            onClick={this.handleSwipeClick(-step)}
+            onClick={this.handlePrev}
           >
-            &#8678;
+            Prev
           </button>
           <button
             type="button"
             data-cy="next"
-            className="Carousel__btn"
+            className="button__nav"
             disabled={nextDisabled}
-            onClick={this.handleSwipeClick(step)}
+            onClick={this.handleNext}
           >
-            &#8680;
+            Next
           </button>
         </div>
       </div>
