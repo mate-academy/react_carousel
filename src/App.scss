@@ -1,1 +1,36 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+iframe {
+  display: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    margin-top: 50px;
+  }
+
+  &__field {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 20px;
+  }
+
+  &__input {
+    width: 70px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-family: serif;
+    font-size: 18px;
+  }
+}
