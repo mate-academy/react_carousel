@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  width: 260px;
+  overflow:hidden;
+  margin-bottom: 10px;
+  
+  &__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 1300px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+img {
+  width: 130px;
+  height: 130px;
+}
+}
+
+.Carousel-inputs {
+  display: flex;
+  gap: 10px;
+}
