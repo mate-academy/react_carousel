@@ -13,7 +13,7 @@
     flex-direction: row;
     width: max-content;
     list-style: none;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   &__image {
@@ -38,10 +38,12 @@
     }
 
     &--left {
+      margin: 0 20px;
       clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
     }
 
     &--right {
+      margin: 0 20px;
       clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
     }
 

@@ -57,7 +57,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 data-cy='title'className='App__title'>
+        <h1 data-cy="title" className="App__title">
           {`Carousel with ${images.length} images`}
         </h1>
 
@@ -86,7 +86,7 @@ class App extends React.Component<{}, State> {
             className="App__input"
             value={frameSize}
             min={1}
-            max={images.length - 1}
+            max={images.length}
             onChange={this.handleFrameSizeChange}
           />
         </label>

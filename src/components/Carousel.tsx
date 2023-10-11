@@ -63,7 +63,7 @@ const Carousel: React.FC<Props> = ({
 
       <div
         className="Carousel__container"
-        style={{ width: `${itemWidth * frameSize + (frameSize - 1) * IMAGE_GAP}px` }}
+        style={{ width: `${itemWidth * frameSize + (frameSize) * IMAGE_GAP}px` }}
       >
 
         <ul
