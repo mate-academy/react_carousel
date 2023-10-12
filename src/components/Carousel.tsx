@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './Carousel.scss';
-// import cn from 'classnames';
 
 interface A {
   images: string[],
@@ -171,7 +170,6 @@ const Carousel = (
         <input
           id="infinite"
           type="checkbox"
-          // value={infinite}
           onChange={() => {
             makeInfinite(!infinite);
           }}
