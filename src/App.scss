@@ -21,16 +21,16 @@ body {
     font-size: 14px;
     font-weight: 700;
     margin: 5px auto;
-    height: 40;
-    line-height: 40;
-    width: 200;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
     border: 3px solid orange;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-    border-radius: 50;
+    border-radius: 50px;
     transition: 0.3s;
     cursor: pointer;
     &:hover {
-      box-shadow: 10 10 10 rgba(0, 0, 0, 0.5);
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
     }
   }
 }
@@ -38,10 +38,10 @@ body {
 .input {
   margin: auto 0;
   border: 1px solid rgb(68, 68, 68);
-  border-radius: 50;
+  border-radius: 50px;
   font-weight: 700;
   font-size: 12px;
-  width: 50;
+  width: 50px;
   background-color: #bab3b3;
   text-align: center;
   height: 25px;
@@ -55,12 +55,12 @@ input.apple-switch {
   appearance: none;
   outline: none;
   top: 7px;
-  width: 40;
+  width: 40px;
   height: 21px;
   background-color: orange;
   border: 1px solid #bab3b3;
-  border-radius: 50;
-  box-shadow: inset -20 0 0 0 #bab3b3;
+  border-radius: 50px;
+  box-shadow: inset -20px 0 0 0 #bab3b3;
   transition-duration: 200ms;
   cursor: pointer;
 }
@@ -79,10 +79,10 @@ input.apple-switch:after {
 
 input.apple-switch:checked {
   border-color: #08c62b;
-  box-shadow: inset 20 0 0 0 #08c62b;
+  box-shadow: inset 20px 0 0 0 #08c62b;
 }
 
 input.apple-switch:checked:after {
-  left: 20;
+  left: 20px;
   box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
 }
