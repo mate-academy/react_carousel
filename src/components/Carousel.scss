@@ -1,1 +1,69 @@
 // style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__list {
+    width: 390px;
+    display: flex;
+    overflow: hidden;
+
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.button-up,
+.button-down {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  position: relative;
+  padding: 5px;
+  margin: 30px auto;
+  background: #000;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  transition: all 0.2s linear;
+}
+
+.button-down:hover {
+  transform: translateX(10px);
+}
+
+.button-up:hover {
+  transform: translateX(-10px);
+}
+
+.button-up::after,
+.button-down::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  z-index: 11;
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.button-up::after {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+.button-down::after {
+  top: 10px;
+  left: 10px;
+  transform: rotate(135deg);
+}
+
+.button-down:disabled,
+.button-up:disabled {
+  background-color: silver;
+  transform: none;
+}
