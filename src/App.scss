@@ -1,1 +1,23 @@
-// style go here
+body {
+  margin: 0;
+  background-color: #aaa;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-block: 20px;
+  align-items: center;
+
+  &__title {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
