@@ -1,1 +1,48 @@
 // style go here
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: lightgray
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid gray;
+    border-radius: 50px;
+    padding: 0 10px;
+
+    &:hover {
+      box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.6);
+      transition-duration: 300ms;
+    }
+  }
+
+  &__input {
+    width: 60px;
+    height: 25px;
+    line-height: 20px;
+    text-align: center;
+    border: 3px solid gray;
+    border-radius: 40px;
+    outline: none;
+  }
+
+  &__checkbox {
+    width: 60px;
+    height: 20px;
+  }
+}
