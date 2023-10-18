@@ -19,13 +19,14 @@ export const App: React.FC = () => {
   const [step, setStep] = useState(3);
   const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(3000);
+  const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
-      <h1 data-cy="title">Carousel with {images.length} images</h1>
+      <h1 data-cy="title">
+        {`Carousel with ${images.length} images`}
+      </h1>
 
       <Carousel
         images={images}
@@ -64,7 +65,7 @@ export const App: React.FC = () => {
           <input
             type="number"
             value={itemWidth}
-            min={130}
+            min={1}
             onChange={(event) => setItemWidth(+event.target.value)}
           />
         </label>
@@ -74,7 +75,7 @@ export const App: React.FC = () => {
           <input
             type="number"
             value={animationDuration}
-            min={3000}
+            min={1000}
             onChange={(event) => setAnimationDuration(+event.target.value)}
           />
         </label>
