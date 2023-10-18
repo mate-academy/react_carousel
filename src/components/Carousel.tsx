@@ -23,12 +23,22 @@ export class Carousel extends Component<Props, State> {
     const { images, frameSize, infinity } = this.props;
     let { itemIndex } = this.state;
     const totalImages = images.length;
-    const lastInd = totalImages - frameSize;
+    const lastIndex = Math.min(totalImages - frameSize, totalImages - step);
 
     if (infinity) {
-      itemIndex = (itemIndex + step + lastInd + 1) % (lastInd + 1);
+      if (itemIndex === lastIndex && itemIndex + step > lastIndex) {
+        itemIndex = 0;
+      } else if (itemIndex === 0 && itemIndex + step < 1) {
+        itemIndex = lastIndex;
+      } else if (itemIndex + step > lastIndex) {
+        itemIndex = lastIndex;
+      } else if (itemIndex + step < 1) {
+        itemIndex = 0;
+      } else {
+        itemIndex += step;
+      }
     } else {
-      itemIndex = Math.min(Math.max(itemIndex + step, 0), lastInd);
+      itemIndex = Math.min(Math.max(itemIndex + step, 0), lastIndex);
     }
 
     this.setState({ itemIndex });

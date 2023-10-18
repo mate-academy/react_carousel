@@ -40,5 +40,13 @@
       background-color: #fdd017;
       border: 1px solid #fdd017;
     }
+
+    &:disabled {
+      background-color: #aeaeae;
+      border: none;
+      transform: scale(0.9);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 }
