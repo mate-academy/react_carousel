@@ -1,1 +1,22 @@
-// style go here
+.App {
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+  &__wrapper {
+    padding: 5px;
+    width: 1300px;
+    margin: 0 auto;
+    overflow: hidden;
+    &-button {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    align-items: center;
+  }
+}

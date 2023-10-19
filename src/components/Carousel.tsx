@@ -1,17 +1,41 @@
 import React from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  animationDuration: number;
+  currentImage: number;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  animationDuration,
+  currentImage,
+}) => (
+  <div className="Carousel" style={{ width: frameSize * itemWidth }}>
+    <ul className="Carousel__list">
+      {images.map((image) => (
+        <li
+          style={{
+            transform: `translateX(${-(itemWidth * currentImage)}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+          key={image}
+          className="Carousel__item"
+        >
+          <img
+            style={{ width: itemWidth }}
+            className="Carousel__image"
+            src={image}
+            alt="1"
+          />
+        </li>
+      ))}
+    </ul>
   </div>
 );
 
