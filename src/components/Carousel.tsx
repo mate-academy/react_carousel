@@ -54,6 +54,7 @@ const Carousel: React.FC<Props> = ({
             key={image}
             style={{
               transform: `translateX(${-currentImage * itemWidth}px)`,
+              transition: `${animationDuration}ms`,
             }}
           >
             <img
