@@ -1,13 +1,14 @@
 body {
-  background: rgb(148,54,166);
-  background: linear-gradient(90deg, rgba(148,54,166,1) 22%, rgba(71,133,158,1) 61%);
+  background: linear-gradient(90deg, rgba(148,54,166,1) 22%,
+  rgba(71,133,158,1) 61%);
   padding: 0;
   margin: 0;
-  font-family: 'Pixelify Sans', sans-serif;
+  font-family: "Pixelify Sans", sans-serif;
   letter-spacing: 1px;
 }
 
-ul,li {
+ul,
+li {
   padding: 0;
   margin: 0;
   list-style: none;
