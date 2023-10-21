@@ -1,0 +1,25 @@
+.options {
+  border: 2px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__label {
+    width: 320px;
+    padding: 10px;
+    color: #151b54;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid black;
+  }
+
+  &__input {
+    padding: 3px 0;
+    width: 70px;
+    text-align: center;
+  }
+}
