@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    border: 3px rgb(98, 98, 97) solid;
+    border-radius: 30%;
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 20px;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__button {
+    height: fit-content;
+    width: fit-content;
+    color: blue;
+    border: 3px rgb(98, 98, 97) solid;
+    border-radius: 40%;
+    background-color: #ffff;
+    padding: 0;
+
+    &--active:hover {
+      border-color: rgb(224, 133, 15);
+    }
+
+    &--disactive {
+      opacity: 0.5;
+    }
+  }
+
+  &__icon {
+    height: 70px;
+  }
+}
