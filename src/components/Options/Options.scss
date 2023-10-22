@@ -1,5 +1,5 @@
 .options {
-  border: 2px solid black;
+  border: 2px solid #000;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -8,13 +8,13 @@
   &__label {
     width: 320px;
     padding: 10px;
-    color: #151b54;
+    color: #7c7c7c;
     cursor: pointer;
     font-size: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: 1px solid black;
+    border: 1px solid #000;
   }
 
   &__input {

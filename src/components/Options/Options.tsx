@@ -2,31 +2,35 @@ import React from 'react';
 import './Options.scss';
 
 type Props = {
-  itemWidth: number;
-  setItemWidth: (e: number) => void;
-  frameSize: number;
-  setFrameSize: (e: number) => void;
+  state: {
+    itemWidth: number;
+    frameSize: number;
+    step: number;
+    animationDuration: number;
+    infinite: boolean;
+  };
   images: string[];
-  step: number;
-  setStep: (e: number) => void;
-  animationDuration: number;
-  setAnimationDuration: (e: number) => void;
-  setInfinite: (e: boolean) => void;
+  setState: (state: {
+    itemWidth: number;
+    frameSize: number;
+    step: number;
+    animationDuration: number;
+    infinite: boolean;
+  }) => void;
 };
 
 export const Options: React.FC<Props> = ({
-  itemWidth,
-  setItemWidth,
-  frameSize,
-  setFrameSize,
+  state,
   images,
-  step,
-  setStep,
-  animationDuration,
-  setAnimationDuration,
-  setInfinite,
+  setState,
 }) => {
-  const infinite = false;
+  const {
+    itemWidth,
+    frameSize,
+    step,
+    animationDuration,
+    infinite,
+  } = state;
 
   return (
     <div className="options">
@@ -40,7 +44,9 @@ export const Options: React.FC<Props> = ({
           min={130}
           max={260}
           step={10}
-          onChange={(event) => setItemWidth(+event.target.value)}
+          onChange={
+            (event) => setState({ ...state, itemWidth: +event.target.value })
+          }
         />
       </label>
 
@@ -54,7 +60,9 @@ export const Options: React.FC<Props> = ({
           min={1}
           max={images.length}
           step={1}
-          onChange={(event) => setFrameSize(+event.target.value)}
+          onChange={
+            (event) => setState({ ...state, frameSize: +event.target.value })
+          }
         />
       </label>
 
@@ -68,7 +76,9 @@ export const Options: React.FC<Props> = ({
           min={1}
           max={images.length}
           step={1}
-          onChange={(event) => setStep(+event.target.value)}
+          onChange={
+            (event) => setState({ ...state, step: +event.target.value })
+          }
         />
       </label>
 
@@ -82,7 +92,11 @@ export const Options: React.FC<Props> = ({
           min={500}
           max={5000}
           step={500}
-          onChange={(event) => setAnimationDuration(+event.target.value)}
+          onChange={
+            (event) => setState(
+              { ...state, animationDuration: +event.target.value },
+            )
+          }
         />
       </label>
 
@@ -91,7 +105,8 @@ export const Options: React.FC<Props> = ({
         <input
           type="checkbox"
           id="infinityId"
-          onChange={() => setInfinite(!infinite)}
+          checked={infinite}
+          onChange={() => setState({ ...state, infinite: !infinite })}
         />
       </label>
     </div>

@@ -6,7 +6,7 @@
     padding: 20px 0;
     display: flex;
     overflow: hidden;
-    border: 2px solid black;
+    border: 2px solid #000;
     list-style-type: none;
   }
 
@@ -17,19 +17,19 @@
 
     button {
       padding: 10px;
-      border: 2px solid black;
+      border: 2px solid #000;
 
       transition-duration: 300ms;
 
       &:hover {
         cursor: pointer;
-        color: black;
-        background-color: white;
+        color: #000;
+        background-color: #fff;
       }
 
       &:disabled {
         cursor: no-drop;
-        color: gray;
+        color: #808080;
       }
     }
   }

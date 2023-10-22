@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
 import { Options } from './components/Options/Options';
 
 const images = [
@@ -16,44 +16,32 @@ const images = [
   './img/10.png',
 ];
 
+const initialState = {
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 const App: React.FC = () => {
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [state, setState] = useState(initialState);
 
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1
-        data-cy="title"
-      >
-        Carousel with
-        {images.length}
-        images
-      </h1>
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
       <Carousel
         images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
-        infinite={infinite}
+        {...state}
       />
 
       <Options
-        itemWidth={itemWidth}
-        setItemWidth={setItemWidth}
-        frameSize={frameSize}
-        setFrameSize={setFrameSize}
         images={images}
-        step={step}
-        setStep={setStep}
-        animationDuration={animationDuration}
-        setAnimationDuration={setAnimationDuration}
-        setInfinite={setInfinite}
+        state={state}
+        {...state}
+        setState={setState}
       />
     </div>
   );
