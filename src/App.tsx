@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 const images = [
   './img/1.png',
@@ -15,7 +15,7 @@ const images = [
   './img/10.png',
 ];
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [width, setWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);

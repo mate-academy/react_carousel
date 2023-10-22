@@ -11,7 +11,7 @@ type Props = {
   isInfinite: boolean;
 };
 
-const Carousel: React.FC<Props> = ({
+export const Carousel: React.FC<Props> = ({
   images,
   step,
   width,
@@ -140,5 +140,3 @@ const Carousel: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Carousel;
