@@ -27,19 +27,19 @@ export const Carousel: React.FC<Props> = ({
   const translateDistance = currentImage * itemWidth;
   const maxImages = images.length - frameSize;
 
-  function handlePrev() {
+  const handlePrev = () => {
     const stepResult = currentImage - step;
     const limitStep = stepResult < 0 ? 0 : stepResult;
 
     return setCurrentImage(currentImage === 0 ? maxImages : limitStep);
-  }
+  };
 
-  function handleNext() {
+  const handleNext = () => {
     const stepResult = currentImage + step;
     const limitStep = stepResult > maxImages ? maxImages : stepResult;
 
     return setCurrentImage(currentImage === maxImages ? 0 : limitStep);
-  }
+  };
 
   const isDisabledPrev = currentImage === 0 && !infinite;
   const isDisabledNext = currentImage === maxImages && !infinite;

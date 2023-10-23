@@ -16,7 +16,7 @@ const images = [
 ];
 
 const App: React.FC = () => {
-  const [corouselSettings, setCorouselSettings] = useState({
+  const [carouselSettings, setCarouselSettings] = useState({
     itemWidth: 130,
     frameSize: 3,
     step: 3,
@@ -32,10 +32,10 @@ const App: React.FC = () => {
     animationDuration,
     infinite,
     currentImage,
-  } = corouselSettings;
+  } = carouselSettings;
 
   const setCurrentImage = (value: number) => {
-    return setCorouselSettings(prevState => ({
+    return setCarouselSettings(prevState => ({
       ...prevState,
       currentImage: value,
     }));
@@ -60,7 +60,7 @@ const App: React.FC = () => {
             value={itemWidth}
             id="itemId"
             className="App__input"
-            onChange={event => setCorouselSettings(prevState => ({
+            onChange={event => setCarouselSettings(prevState => ({
               ...prevState,
               itemWidth: +event.target.value,
             }))}
@@ -81,7 +81,7 @@ const App: React.FC = () => {
             value={frameSize}
             id="frameId"
             className="App__input"
-            onChange={event => setCorouselSettings(prevState => ({
+            onChange={event => setCarouselSettings(prevState => ({
               ...prevState,
               frameSize: +event.target.value,
             }))}
@@ -102,7 +102,7 @@ const App: React.FC = () => {
             value={step}
             id="stepId"
             className="App__input"
-            onChange={event => setCorouselSettings(prevState => ({
+            onChange={event => setCarouselSettings(prevState => ({
               ...prevState,
               step: +event.target.value,
             }))}
@@ -119,7 +119,7 @@ const App: React.FC = () => {
             step="500"
             value={animationDuration}
             className="App__input"
-            onChange={event => setCorouselSettings(prevState => ({
+            onChange={event => setCarouselSettings(prevState => ({
               ...prevState,
               animationDuration: +event.target.value,
             }))}
@@ -132,7 +132,7 @@ const App: React.FC = () => {
           <input
             type="checkbox"
             className="App__switch"
-            onChange={() => setCorouselSettings(prevState => ({
+            onChange={() => setCarouselSettings(prevState => ({
               ...prevState,
               infinite: !prevState.infinite,
             }))}
