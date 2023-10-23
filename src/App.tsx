@@ -21,6 +21,12 @@ export const App: React.FC = () => {
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [isInfinite, setIsInfinite] = useState(false);
+  const [indexCurrImg, setIndexCurrImg] = useState(0);
+
+  function handleFrameSize(e: React.ChangeEvent<HTMLInputElement>) {
+    setFrameSize(+e.target.value);
+    setIndexCurrImg(0);
+  }
 
   return (
     <div className="App">
@@ -49,7 +55,7 @@ export const App: React.FC = () => {
             value={frameSize}
             min={1}
             max={10}
-            onChange={e => setFrameSize(+e.target.value)}
+            onChange={handleFrameSize}
           />
         </label>
 
@@ -94,6 +100,8 @@ export const App: React.FC = () => {
         duration={animationDuration}
         frameSize={frameSize}
         isInfinite={isInfinite}
+        indexCurrImg={indexCurrImg}
+        setIndexCurrImg={setIndexCurrImg}
       />
     </div>
   );

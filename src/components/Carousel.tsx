@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -9,6 +9,8 @@ type Props = {
   duration: number;
   frameSize: number;
   isInfinite: boolean;
+  indexCurrImg: number;
+  setIndexCurrImg: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const Carousel: React.FC<Props> = ({
@@ -18,8 +20,9 @@ export const Carousel: React.FC<Props> = ({
   duration,
   frameSize,
   isInfinite,
+  indexCurrImg,
+  setIndexCurrImg,
 }) => {
-  const [indexCurrImg, setIndexCurrImg] = useState(0);
   const minIndex = 0;
   const maxIndex = 9 * width;
   const maxVisibleIndex = (9 * width) - (width * (frameSize - 1));
@@ -55,16 +58,18 @@ export const Carousel: React.FC<Props> = ({
   function handleNext() {
     const indexNextImg = indexCurrImg + (width * step);
 
-    if (indexNextImg > maxVisibleIndex && !isInfinite) {
+    if (!isInfinite && indexNextImg > maxVisibleIndex) {
       setIndexCurrImg(maxVisibleIndex);
-    } else if (indexNextImg > maxVisibleIndex
-      && isInfinite
+    } else if (isInfinite
+      && indexNextImg > maxVisibleIndex
       && indexCurrImg !== maxVisibleIndex) {
       setIndexCurrImg(maxVisibleIndex);
-    } else if (indexNextImg > maxIndex && isInfinite) {
+    } else if (isInfinite
+       && indexNextImg >= maxVisibleIndex
+       && indexCurrImg === maxVisibleIndex) {
       setIndexCurrImg(minIndex);
     } else {
-      setIndexCurrImg(indexNextImg);
+      setIndexCurrImg(indexCurrImg + (width * step));
     }
   }
 
