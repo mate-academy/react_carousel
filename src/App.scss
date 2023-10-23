@@ -1,1 +1,28 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__input {
+    margin-top: 8px;
+    margin-left: 7px;
+    width: 55px;
+    border: 3px rgb(98, 98, 97) solid;
+    border-radius: 30%;
+    text-align: center;
+
+    &:hover {
+      border-color: rgb(224, 133, 15);
+    }
+  }
+}
