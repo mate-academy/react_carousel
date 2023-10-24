@@ -1,0 +1,18 @@
+.inputForm {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: max-content 75px;
+
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background: #eee;
+
+  &__label {
+    display: inline-block;
+  }
+
+  &__input {
+    display: inline-block;
+  }
+}

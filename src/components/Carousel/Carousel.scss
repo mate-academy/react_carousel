@@ -1,0 +1,62 @@
+.Carousel {
+  position: relative;
+  padding: 10px 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background: #eee;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__image {
+    display: block;
+  }
+}
+
+.Arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 28px;
+  line-height: 28px;
+  color: #444;
+  display: block;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #ccc;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+  }
+
+  &--Prev {
+    left: 7px;
+  }
+
+  &--Next {
+    right: 7px;
+  }
+}
