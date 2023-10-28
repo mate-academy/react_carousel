@@ -70,7 +70,7 @@ const Carousel: React.FC<Props> = ({
       </button>
 
       <button
-        data-cy=""
+        data-cy="next"
         type="button"
         className={cn('Carousel__btn', {
           'Carousel__btn--disabled': isNextBtnDisabled,
