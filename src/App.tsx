@@ -41,10 +41,6 @@ export const App: React.FC = () => {
     = (event: React.ChangeEvent<HTMLInputElement>): void => {
       const newItemWidth = Math.round(+(event.target.value));
 
-      // if (newItemWidth < 130 || newItemWidth > 260) {
-      //   return;
-      // }
-
       setCarouselSettings(prev => setObjField(
         prev,
         'itemWidth',
@@ -97,11 +93,13 @@ export const App: React.FC = () => {
       ));
     };
 
-  const onChangeInfinite = (): void => {
+  const onChangeInfinite = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     setCarouselSettings(prev => setObjField(
       prev,
       'infinite',
-      !prev.infinite,
+      event.target.checked,
     ));
   };
 
