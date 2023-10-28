@@ -41,9 +41,9 @@ export const App: React.FC = () => {
     = (event: React.ChangeEvent<HTMLInputElement>): void => {
       const newItemWidth = Math.round(+(event.target.value));
 
-      if (newItemWidth < 130 || newItemWidth > 260) {
-        return;
-      }
+      // if (newItemWidth < 130 || newItemWidth > 260) {
+      //   return;
+      // }
 
       setCarouselSettings(prev => setObjField(
         prev,
