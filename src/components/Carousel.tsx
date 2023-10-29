@@ -82,6 +82,7 @@ export class Carousel extends React.Component<Props, State> {
               <img
                 style={{
                   transform: `translateX(${-position * itemWidth}px)`,
+                  transition: `transform ${animationDuration}ms ease-in-out`,
                 }}
                 src={image}
                 alt={`${index}`}

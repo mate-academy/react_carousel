@@ -32,24 +32,18 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  setStep = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +e.target.value });
-  };
+  setInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      value,
+      name,
+      checked,
+      type,
+    } = e.target;
 
-  setFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +e.target.value });
-  };
-
-  setItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +e.target.value });
-  };
-
-  setAnimationDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +e.target.value });
-  };
-
-  setInfinite = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinite: e.target.checked });
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : +value,
+    }));
   };
 
   render() {
@@ -87,7 +81,7 @@ class App extends React.Component<{}, State> {
               min={130}
               max={260}
               value={itemWidth}
-              onChange={this.setItemWidth}
+              onChange={this.setInput}
             />
           </label>
 
@@ -105,7 +99,7 @@ class App extends React.Component<{}, State> {
               max={images.length}
               step={1}
               value={frameSize}
-              onChange={this.setFrameSize}
+              onChange={this.setInput}
             />
           </label>
 
@@ -123,7 +117,7 @@ class App extends React.Component<{}, State> {
               max={images.length}
               step={1}
               value={step}
-              onChange={this.setStep}
+              onChange={this.setInput}
             />
           </label>
 
@@ -140,7 +134,7 @@ class App extends React.Component<{}, State> {
               max={3000}
               step={500}
               value={animationDuration}
-              onChange={this.setAnimationDuration}
+              onChange={this.setInput}
             />
           </label>
 
@@ -149,11 +143,11 @@ class App extends React.Component<{}, State> {
           >
             Infinite
             <input
-              type="number"
+              type="checkbox"
               className="form__input"
               name="infinite"
               id="infiniteId"
-              onChange={this.setInfinite}
+              onChange={this.setInput}
             />
           </label>
         </form>
