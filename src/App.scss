@@ -1,1 +1,217 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  padding-top: 50px;
+  box-sizing: border-box;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  &__title {
+    margin: 0;
+    font-family: "Roboto Mono", serif;
+    font-size: 44px;
+    align-items: center;
+
+    animation: text-pop-up 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      infinite alternate both;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    color: #7525de;
+    font-weight: bold;
+    animation: text-animation 0.8s cubic-bezier(0.21, 0.61, 0.35, 1)
+      3 alternate both;
+
+    & p {
+      margin: 0;
+      font-family: "Roboto Mono", serif;
+      font-size: 12px;
+    }
+  }
+}
+
+.controls {
+  width: 300px;
+  font-family: "Roboto Mono", serif;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__container:not(.controls__infinite) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__infinite {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 20px;
+  }
+
+  &__input {
+    font-size: 20px;
+    background-color: transparent;
+    width: 50px;
+    border-radius: 80px;
+    padding-inline: 10px;
+    font-weight: bold;
+
+    animation: borderAnimation 3s infinite alternate linear,
+      colorAnimation 1s infinite alternate linear;
+    outline: none;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    &--checkbox {
+      margin: 0;
+      margin-top: 3px;
+      background-color: red;
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  margin-top: 3px;
+
+  width: 40px;
+  height: 23px;
+
+  & input {
+    display: none;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+
+  border-radius: 34px;
+  border: 2px solid transparent;
+  animation: borderAnimation 3s infinite alternate linear;
+
+  &::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 1px;
+    bottom: 1px;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+
+    border-radius: 50%;
+  }
+}
+
+input:checked + .slider {
+  background-color: #55b3ff;
+
+  &::before {
+    transform: translateX(17px);
+  }
+}
+
+.animated {
+  background-image: url("bg.jpg");
+  animation: bg-animate 5s linear infinite alternate both;
+}
+
+@keyframes text-animation {
+  0% {
+    letter-spacing: -0.5em;
+    transform: translateZ(-700px);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bg-animate {
+  0% {
+    background-position: 50% 100%;
+  }
+
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-color: rgba(219, 70, 252, 0.2);
+  }
+
+  50% {
+    border-color: rgba(136, 83, 251, 0.2);
+  }
+
+  100% {
+    border-color: rgba(63, 94, 251, 0.2);
+  }
+}
+
+@keyframes colorAnimation {
+  0% {
+    color: rgba(219, 70, 252, 1);
+  }
+
+  50% {
+    color: rgba(136, 83, 251, 1);
+  }
+
+  100% {
+    color: rgba(63, 94, 251, 1);
+  }
+}
+
+@keyframes text-pop-up {
+  0% {
+    transform: translateY(0);
+    transform-origin: 50% 50%;
+    text-shadow: none;
+  }
+
+  100% {
+    transform: translateY(-5px);
+    transform-origin: 50% 50%;
+    text-shadow: 0 1px 0 #767676,
+      0 2px 0 #767676,
+      0 3px 0 #767676,
+      0 30px 30px rgba(0, 0, 0, 0.3);
+  }
+}
