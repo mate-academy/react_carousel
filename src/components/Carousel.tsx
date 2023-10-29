@@ -31,11 +31,6 @@ const Carousel: React.FC<Props> = ({
     transition: `width ${animationDuration}ms, transform ${animationDuration}ms`,
   };
 
-  const imgRenderedStyles = {
-    width: itemWidth,
-    height: itemWidth,
-  };
-
   const prevButtonClick = () => {
     const prev = document.getElementById('prev__button') as HTMLElement;
     const next = document.getElementById('next__button') as HTMLElement;
@@ -48,11 +43,7 @@ const Carousel: React.FC<Props> = ({
 
     if (currentIndex - step < 0) {
       if (infinite) {
-        valToMove = -(images.length - step);
-
-        if ((currentIndex - valToMove) + frameSize >= images.length) {
-          valToMove = -(images.length - frameSize - currentIndex);
-        }
+        valToMove = currentIndex;
       } else {
         valToMove = currentIndex;
       }
@@ -81,7 +72,7 @@ const Carousel: React.FC<Props> = ({
 
     if (currentIndex + frameSize + step > images.length) {
       if (infinite) {
-        valToMove = -(images.length - step - frameSize + 1);
+        valToMove = -currentIndex;
       } else {
         valToMove = images.length - currentIndex - frameSize;
       }
@@ -103,9 +94,10 @@ const Carousel: React.FC<Props> = ({
           {images.map((image, index) => (
             <li className="Carousel__item" key={image}>
               <img
+                width={itemWidth}
+                height={itemWidth}
                 src={image}
                 alt={String(index)}
-                style={imgRenderedStyles}
               />
             </li>
           ))}

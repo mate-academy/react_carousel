@@ -10,12 +10,9 @@ interface State {
   infinite: boolean;
   animationSpeed: number;
 }
-const MAX_IMAGE_SIZE = 200;
-const MIN_IMAGE_SIZE = 100;
+
 const MAX_STEP = 9;
 const MIN_STEP = 1;
-const MAX_ANIMATION_SPEED = 5000;
-const MIN_ANIMATION_SPEED = 100;
 const MAX_FRAME_SIZE = 10;
 const MIN_FRAME_SIZE = 1;
 
@@ -49,7 +46,9 @@ class App extends React.Component<{}, State> {
   };
 
   updateFrameSize = (newValue: number) => {
-    this.setState({ frameSize: newValue });
+    if (newValue >= MIN_FRAME_SIZE && newValue <= MAX_FRAME_SIZE) {
+      this.setState({ frameSize: newValue });
+    }
   };
 
   updateItemWidth = (newValue: number) => {
@@ -57,7 +56,9 @@ class App extends React.Component<{}, State> {
   };
 
   updateStep = (newValue: number) => {
-    this.setState({ step: newValue });
+    if (newValue >= MIN_STEP && newValue <= MAX_STEP) {
+      this.setState({ step: newValue });
+    }
   };
 
   render() {
@@ -76,23 +77,9 @@ class App extends React.Component<{}, State> {
       const target = e.currentTarget;
       const value = parseInt(target.value, 10);
 
-      if (e.key === 'ArrowUp' && value !== maxValue) {
-        if (target === document.getElementById('animation__input')) {
-          target.value = (+target.value + 99).toString();
-        }
-
-        return;
+      if (value > maxValue || value < minValue) {
+        e.preventDefault();
       }
-
-      if (e.key === 'ArrowDown' && value !== minValue) {
-        if (target === document.getElementById('animation__input')) {
-          target.value = (+target.value - 99).toString();
-        }
-
-        return;
-      }
-
-      e.preventDefault();
     };
 
     return (
@@ -117,7 +104,6 @@ class App extends React.Component<{}, State> {
               name="itemId"
               type="number"
               value={itemWidth}
-              onKeyDown={(e) => onValueInput(e, MAX_IMAGE_SIZE, MIN_IMAGE_SIZE)}
               onChange={(e) => {
                 this.updateItemWidth(parseInt(e.currentTarget.value, 10));
               }}
@@ -126,13 +112,14 @@ class App extends React.Component<{}, State> {
           <div className="controls__container controls__frame">
             <label
               className="controls__label"
-              htmlFor="frameSize"
+              htmlFor="frameId"
             >
               Frame size:
             </label>
             <input
+              id="frameId"
               className="controls__input"
-              name="frameSize"
+              name="frameId"
               type="number"
               value={frameSize}
               onKeyDown={(e) => onValueInput(e, MAX_FRAME_SIZE, MIN_FRAME_SIZE)}
@@ -144,13 +131,14 @@ class App extends React.Component<{}, State> {
           <div className="controls__container controls__step">
             <label
               className="controls__label"
-              htmlFor="step"
+              htmlFor="stepId"
             >
               Step:
             </label>
             <input
+              id="stepId"
               className="controls__input"
-              name="step"
+              name="stepId"
               type="number"
               value={step}
               onKeyDown={(e) => onValueInput(e, MAX_STEP, MIN_STEP)}
@@ -172,9 +160,6 @@ class App extends React.Component<{}, State> {
               name="animation"
               type="number"
               value={animationSpeed}
-              onKeyDown={(e) => {
-                onValueInput(e, MAX_ANIMATION_SPEED, MIN_ANIMATION_SPEED);
-              }}
               onChange={(e) => {
                 this.updateAnimationSpeed(parseInt(e.currentTarget.value, 10));
               }}
