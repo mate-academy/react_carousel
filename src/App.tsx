@@ -94,6 +94,7 @@ class App extends React.Component<{}, State> {
 
           <label
             className="form__label"
+            htmlFor="frameId"
           >
             Frame Size
             <input
