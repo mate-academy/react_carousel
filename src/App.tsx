@@ -44,7 +44,7 @@ class App extends React.Component<{}, State> {
       this.setState((prevState) => ({
         ...prevState,
         frameSize: +value,
-      }))
+      }));
     }
 
     this.setState((prevState) => ({
@@ -100,7 +100,7 @@ class App extends React.Component<{}, State> {
               type="number"
               className="form__input"
               name="frameSize"
-              id="fromeId"
+              id="frameId"
               min={1}
               max={images.length}
               step={1}
