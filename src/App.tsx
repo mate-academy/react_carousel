@@ -7,7 +7,7 @@ interface State {
 }
 
 const App: React.FC = () => {
-  const initialState:State = {
+  const initialState: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -35,7 +35,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1 data-cy="title" className="App__title">
-        { `Carousel with ${images.length} images`}
+        {`Carousel with ${images.length} images`}
       </h1>
       <div className="container">
         <div className="list_item">
@@ -43,7 +43,7 @@ const App: React.FC = () => {
             Width:
           </label>
           <input
-            onChange={event => setItemWidth(+event.target.value)}
+            onChange={(event) => setItemWidth(+event.target.value)}
             type="number"
             className="input_item"
             value={itemWidth}
@@ -55,7 +55,7 @@ const App: React.FC = () => {
             Step:
           </label>
           <input
-            onChange={event => setStep(+event.target.value)}
+            onChange={(event) => setStep(+event.target.value)}
             type="number"
             className="input_item"
             value={step}
@@ -69,7 +69,7 @@ const App: React.FC = () => {
             Frame Size:
           </label>
           <input
-            onChange={event => setFrameSize(+event.target.value)}
+            onChange={(event) => setFrameSize(+event.target.value)}
             type="number"
             className="input_item"
             value={frameSize}
@@ -83,7 +83,7 @@ const App: React.FC = () => {
             Animation Duration:
           </label>
           <input
-            onChange={event => setAnimationDuration(+event.target.value)}
+            onChange={(event) => setAnimationDuration(+event.target.value)}
             type="number"
             className="input_item"
             value={animationDuration}
