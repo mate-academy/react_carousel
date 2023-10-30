@@ -40,6 +40,13 @@ class App extends React.Component<{}, State> {
       type,
     } = e.target;
 
+    if (name === 'frameSize') {
+      this.setState((prevState) => ({
+        ...prevState,
+        frameSize: +value,
+      }))
+    }
+
     this.setState((prevState) => ({
       ...prevState,
       [name]: type === 'checkbox' ? checked : +value,
@@ -87,7 +94,6 @@ class App extends React.Component<{}, State> {
 
           <label
             className="form__label"
-            htmlFor="frameId"
           >
             Frame Size
             <input
