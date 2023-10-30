@@ -95,6 +95,7 @@ export class Carousel extends React.Component<Props, State> {
         <div className="Carousel__buttons">
           <button
             type="button"
+            data-cy="prev"
             className="Carousel__button"
             disabled={isPrevDisabled}
             onClick={this.handlePrevButton}
@@ -104,6 +105,7 @@ export class Carousel extends React.Component<Props, State> {
 
           <button
             type="button"
+            data-cy="next"
             className="Carousel__button"
             disabled={isNextDisabled}
             onClick={this.handleNextButton}
