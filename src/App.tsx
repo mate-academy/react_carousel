@@ -17,8 +17,8 @@ const images = [
 
 export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState<number>(130);
-  const [frameWidth, setFrameWidth] = useState(1);
-  const [step, setStep] = useState(1);
+  const [frameWidth, setFrameWidth] = useState(3);
+  const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
@@ -44,7 +44,9 @@ export const App: React.FC = () => {
     <div className="App">
       {/* eslint-disable-next-line */}
 
-      <h1>
+      <h1
+        data-cy="title"
+      >
         Carousel with
         {images.length}
         {' '}
