@@ -52,9 +52,9 @@ export const App: React.FC = () => {
         {' '}
         images
       </h1>
-      <label htmlFor="itemWidth">itemWidth</label>
+      <label htmlFor="itemId">itemWidth</label>
       <input
-        id="itemWidth"
+        id="itemId"
         type="number"
         min={130}
         max={260}
@@ -63,9 +63,9 @@ export const App: React.FC = () => {
         onChange={handleItemChange}
       />
 
-      <label htmlFor="frameWidth">frameWidth</label>
+      <label htmlFor="frameId">frameWidth</label>
       <input
-        id="frameWidth"
+        id="frameId"
         type="number"
         min={1}
         max={10}
@@ -73,18 +73,18 @@ export const App: React.FC = () => {
         onChange={handleFrameChange}
       />
 
-      <label htmlFor="step">Step</label>
+      <label htmlFor="stepId">Step</label>
       <input
-        id="step"
+        id="stepId"
         type="number"
         min={1}
         max={10}
         value={step}
         onChange={handleStepChange}
       />
-      <label htmlFor="animation">Animation duration</label>
+      <label htmlFor="animationId">Animation duration</label>
       <input
-        id="animation"
+        id="animationId"
         type="number"
         min={500}
         max={3000}
@@ -92,9 +92,9 @@ export const App: React.FC = () => {
         onChange={handleAnimationChange}
       />
 
-      <label htmlFor="infinite">Infinite</label>
+      <label htmlFor="infiniteId">Infinite</label>
       <input
-        id="infinite"
+        id="infiniteId"
         type="checkbox"
         checked={infinite}
         onChange={() => setInfinite(!infinite)}

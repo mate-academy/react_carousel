@@ -50,7 +50,7 @@ const Carousel: React.FC<Props> = ({
           width: `${frameWidth * itemWidth}px`,
         }}
       >
-        {images.map((image) => (
+        {images.map((image, index) => (
           <li
             key={image}
             className="Carousel__item"
@@ -63,10 +63,8 @@ const Carousel: React.FC<Props> = ({
               src={`${image}`}
               style={{
                 width: `${itemWidth}px`,
-                height: `${itemWidth * 1.05}px`,
               }}
-              alt=""
-              className="Carousel-img"
+              alt={`${index + 1}`}
             />
           </li>
         ))}
@@ -75,11 +73,11 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         onClick={prevButton}
-
       >
         Prev
       </button>
       <button
+        data-cy="next"
         type="button"
         onClick={nextButton}
       >
