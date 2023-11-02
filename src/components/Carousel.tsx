@@ -7,18 +7,19 @@ type Props = {
   images: string[]
   width: number
   frameSize: number
-  range: { start: number; end: number }
+  firstVisibleImage: number
   nextClick: () => void
   prevClick: () => void
   animationDuration: number
+  infinite: boolean
+  resizing: boolean
 };
 
 const Carousel: React.FC<Props> = (
   {
-    images, width, frameSize,
-    range: { start, end },
+    images, width, frameSize, firstVisibleImage,
     nextClick, prevClick,
-    animationDuration,
+    animationDuration, infinite, resizing,
   },
 ) => (
   <div
@@ -29,15 +30,15 @@ const Carousel: React.FC<Props> = (
       className="Carousel__list"
       style={{
         height: width,
-
       }}
     >
-      {images.slice(start, end).map((image, i) => (
+      {images.map((image, i) => (
         <li
           style={{
             width,
             height: width,
-            transition: `${animationDuration / 1000}s ease`,
+            transform: `translate(-${width * firstVisibleImage}px)`,
+            transition: resizing ? 'none' : `transform ${animationDuration / 1000}s ease`,
           }}
           className="Carousel__item"
           key={image}
@@ -56,8 +57,8 @@ const Carousel: React.FC<Props> = (
       <button
         type="button"
         className={cn('Carousel__button', {
-          'Carousel__button--active': start !== 0,
-          'Carousel__button--disabled': start === 0,
+          'Carousel__button--active': firstVisibleImage !== 0,
+          'Carousel__button--disabled': firstVisibleImage === 0 && !infinite,
         })}
         onClick={prevClick}
       >
@@ -66,8 +67,10 @@ const Carousel: React.FC<Props> = (
       <button
         type="button"
         className={cn('Carousel__button', {
-          'Carousel__button--active': end !== images.length,
-          'Carousel__button--disabled': end === images.length,
+          'Carousel__button--active':
+            firstVisibleImage !== images.length - frameSize,
+          'Carousel__button--disabled':
+            firstVisibleImage === images.length - frameSize && !infinite,
         })}
         data-cy="next"
         onClick={nextClick}

@@ -7,9 +7,10 @@ interface State {
   itemWidth: number;
   frameSize: number;
   step: number;
+  firstVisibleImage: number;
   animationDuration: number;
   infinite: boolean;
-  visibleRange: { start: number; end: number };
+  resizing: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,19 +30,27 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     frameSize: 3,
     step: 3,
+    firstVisibleImage: 0,
     animationDuration: 1000,
     infinite: false,
-    visibleRange: { start: 0, end: 3 },
+    resizing: false,
   };
 
   handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value });
+    this.setState({
+      itemWidth: +event.target.value,
+      resizing: true,
+    });
+
+    setTimeout(() => {
+      this.setState({ resizing: false });
+    }, 100);
   };
 
   handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(() => ({
       frameSize: +event.target.value,
-      visibleRange: { start: 0, end: +event.target.value },
+      firstVisibleImage: 0,
     }));
   };
 
@@ -59,22 +68,57 @@ class App extends React.Component<{}, State> {
   };
 
   handleNextClickChange = () => {
-    const end = Math.min(this.state.images.length,
-      this.state.visibleRange.end + this.state.step);
-    const start = end - this.state.frameSize;
+    this.setState((prevState) => {
+      const lastImages = prevState.images.length - prevState.frameSize;
+      const newFirstVisibleImage = prevState.firstVisibleImage + prevState.step;
 
-    this.setState(() => ({ visibleRange: { start, end } }));
+      if (newFirstVisibleImage < lastImages) {
+        return {
+          firstVisibleImage: newFirstVisibleImage,
+        };
+      }
+
+      if (newFirstVisibleImage > lastImages && !prevState.infinite) {
+        return {
+          firstVisibleImage: lastImages,
+        };
+      }
+
+      return {
+        firstVisibleImage: 0,
+      };
+    });
   };
 
   handlePrevClickChange = () => {
-    const start = Math.max(0, this.state.visibleRange.start - this.state.step);
-    const end = start + this.state.frameSize;
+    this.setState((prevState) => {
+      const lastImages = prevState.images.length - prevState.frameSize;
+      const newFirstVisibleImage = prevState.firstVisibleImage - prevState.step;
 
-    this.setState(() => ({ visibleRange: { start, end } }));
+      if (newFirstVisibleImage >= 0) {
+        return {
+          firstVisibleImage: newFirstVisibleImage,
+        };
+      }
+
+      if (newFirstVisibleImage < 0 && !prevState.infinite) {
+        return {
+          firstVisibleImage: 0,
+        };
+      }
+
+      return {
+        firstVisibleImage: lastImages,
+      };
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images, itemWidth, frameSize, step,
+      firstVisibleImage, animationDuration,
+      infinite, resizing,
+    } = this.state;
 
     return (
       <div className="App">
@@ -91,10 +135,10 @@ class App extends React.Component<{}, State> {
             <input
               className="App__input"
               type="number"
-              value={this.state.itemWidth}
+              value={itemWidth}
               min="50"
               max="350"
-              step="5"
+              step="10"
               onChange={this.handleItemWidthChange}
             />
           </label>
@@ -104,7 +148,7 @@ class App extends React.Component<{}, State> {
             <input
               className="App__input"
               type="number"
-              value={this.state.frameSize}
+              value={frameSize}
               min="1"
               max="10"
               onChange={this.handleFrameSizeChange}
@@ -117,8 +161,8 @@ class App extends React.Component<{}, State> {
               className="App__input"
               type="number"
               min="1"
-              max={this.state.frameSize}
-              value={this.state.step}
+              max={frameSize}
+              value={step}
               onChange={this.handleStepChange}
             />
           </label>
@@ -128,7 +172,7 @@ class App extends React.Component<{}, State> {
             <input
               className="App__input"
               type="number"
-              value={this.state.animationDuration}
+              value={animationDuration}
               min="0"
               max="5000"
               step="500"
@@ -142,7 +186,7 @@ class App extends React.Component<{}, State> {
               className="App__checkbox"
               type="checkbox"
               value="Infinite"
-              checked={this.state.infinite}
+              checked={infinite}
               onChange={this.handleInfiniteChange}
             />
           </label>
@@ -151,12 +195,14 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          width={this.state.itemWidth}
-          frameSize={this.state.frameSize}
-          range={this.state.visibleRange}
+          width={itemWidth}
+          frameSize={frameSize}
+          firstVisibleImage={firstVisibleImage}
           nextClick={this.handleNextClickChange}
           prevClick={this.handlePrevClickChange}
-          animationDuration={this.state.animationDuration}
+          animationDuration={animationDuration}
+          infinite={infinite}
+          resizing={resizing}
         />
       </div>
     );
