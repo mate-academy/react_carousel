@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.scss';
 import Carousel from './components/Carousel';
 import { Images } from './types/Images';
@@ -46,9 +47,6 @@ class App extends React.Component<{}, State> {
       3,
       4,
       5,
-      6,
-      7,
-      8,
     ],
 
     selectedFrameSize: 3,
@@ -60,8 +58,6 @@ class App extends React.Component<{}, State> {
       160,
       170,
       180,
-      190,
-      200,
     ],
 
     selectedItemWidth: 130,
@@ -126,10 +122,10 @@ class App extends React.Component<{}, State> {
               value={selectedStep}
             >
               {
-                steps.map((item, index) => (
+                steps.map(item => (
                   <option
                     value={item}
-                    key={`${index + 1}`}
+                    key={uuidv4()}
                   >
                     {item}
                   </option>
@@ -149,10 +145,10 @@ class App extends React.Component<{}, State> {
               value={selectedFrameSize}
             >
               {
-                framesSize.map((item, index) => (
+                framesSize.map(item => (
                   <option
                     value={item}
-                    key={`${index + 1}`}
+                    key={uuidv4()}
                   >
                     {item}
                   </option>
@@ -172,10 +168,10 @@ class App extends React.Component<{}, State> {
               value={selectedItemWidth}
             >
               {
-                itemsWidth.map((item, index) => (
+                itemsWidth.map(item => (
                   <option
                     value={item}
-                    key={`${index + 1}`}
+                    key={uuidv4()}
                   >
                     {item}
                   </option>
@@ -195,10 +191,10 @@ class App extends React.Component<{}, State> {
               value={selectedAnimationDuration}
             >
               {
-                animationsDuration.map((item, index) => (
+                animationsDuration.map(item => (
                   <option
                     value={item}
-                    key={`${index + 1}`}
+                    key={uuidv4()}
                   >
                     {item}
                   </option>

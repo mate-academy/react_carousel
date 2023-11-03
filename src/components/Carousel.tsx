@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './Carousel.scss';
 import { Images } from '../types/Images';
 
@@ -32,34 +33,34 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrevSlide = () => {
-    if (index > frameSize) {
-      const currentStep = step < index - frameSize
-        ? step
-        : index - frameSize;
+    const currentStep = step < index - frameSize
+      ? step
+      : index - frameSize;
 
-      updateSlide(
-        offsetX + (currentStep * (itemWidth + 20)),
-        index - currentStep,
-      );
-    }
+    updateSlide(
+      offsetX + (currentStep * (itemWidth + 20)),
+      index - currentStep,
+    );
   };
 
   const handleNextSlide = () => {
-    if (index < images.length) {
-      const currentStep = step < images.length - index
-        ? step
-        : images.length - index;
+    const currentStep = step < images.length - index
+      ? step
+      : images.length - index;
 
-      updateSlide(
-        offsetX - (currentStep * (itemWidth + 20)),
-        index + currentStep,
-      );
-    }
+    updateSlide(
+      offsetX - (currentStep * (itemWidth + 20)),
+      index + currentStep,
+    );
   };
 
   return (
     <div className="container">
-      <button onClick={handlePrevSlide} type="button">
+      <button
+        onClick={handlePrevSlide}
+        type="button"
+        disabled={index <= frameSize}
+      >
         <img
           src="./img/arrow.jpg"
           alt="arrow"
@@ -82,7 +83,7 @@ const Carousel: React.FC<Props> = ({
         >
           {
             images.map(image => (
-              <li key={image}>
+              <li key={uuidv4()}>
                 <img
                   className="Carousel__img"
                   style={{ width: `${itemWidth}px` }}
@@ -99,6 +100,8 @@ const Carousel: React.FC<Props> = ({
         onClick={handleNextSlide}
         type="button"
         data-cy="next"
+        disabled={index >= images.length}
+
       >
         <img
           src="./img/arrow.jpg"
