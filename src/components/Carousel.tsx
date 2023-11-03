@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Carousel.scss';
 import { Images } from '../types/Images';
 import { getUniqueId } from '../utils/getUniqueId';
+import './Carousel.scss';
 
 type Props = {
   images: Images;
