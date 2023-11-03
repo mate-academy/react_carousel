@@ -1,1 +1,34 @@
-// style go here
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  &__list {
+    overflow: hidden;
+    display: flex;
+    padding: 0;
+    margin: 0 0 20px;
+
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.button {
+  cursor: pointer;
+
+  width: 100px;
+  height: 50px;
+  border: 2px solid gray;
+  border-radius: 20px;
+
+  &:disabled {
+    cursor: no-drop;
+  }
+}
