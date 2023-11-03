@@ -1,1 +1,31 @@
-// style go here
+.container {
+  margin: 0 auto;
+  width: 1300px;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 100px;
+}
+
+.Carousel {
+  width: 260px;
+
+  margin: 0 auto;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    transition: transform 0.5s;
+  }
+
+  &__btn-img {
+    width: 150px;
+
+    &--transform-scaleX {
+      transform: scaleX(-1);
+    }
+  }
+}
