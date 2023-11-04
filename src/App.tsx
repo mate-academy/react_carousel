@@ -32,20 +32,13 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  changeStep = (newStep: number) => {
-    this.setState({ step: newStep });
-  };
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
 
-  changeFrameSize = (newStep: number) => {
-    this.setState({ frameSize: newStep });
-  };
-
-  changeItemWidth = (newStep: number) => {
-    this.setState({ itemWidth: newStep });
-  };
-
-  changeAnimationDuration = (newStep: number) => {
-    this.setState({ animationDuration: newStep });
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   render() {
@@ -73,9 +66,7 @@ class App extends React.Component<{}, State> {
               max="10"
               min="1"
               value={step}
-              onChange={(event) => {
-                this.changeStep(Number(event.target.value));
-              }}
+              onChange={this.handleChange}
             />
           </label>
           <label htmlFor="frameSize">
@@ -88,9 +79,7 @@ class App extends React.Component<{}, State> {
               max="10"
               min="1"
               value={frameSize}
-              onChange={(event) => {
-                this.changeFrameSize(Number(event.target.value));
-              }}
+              onChange={this.handleChange}
             />
           </label>
           <label htmlFor="itemWidth">
@@ -103,9 +92,7 @@ class App extends React.Component<{}, State> {
               min="130"
               step="10"
               value={itemWidth}
-              onChange={(event) => {
-                this.changeItemWidth(Number(event.target.value));
-              }}
+              onChange={this.handleChange}
             />
           </label>
           <label htmlFor="animationDuration">
@@ -118,9 +105,7 @@ class App extends React.Component<{}, State> {
               min="500"
               step="100"
               value={animationDuration}
-              onChange={(event) => {
-                this.changeAnimationDuration(Number(event.target.value));
-              }}
+              onChange={this.handleChange}
             />
           </label>
           <label htmlFor="infinite">

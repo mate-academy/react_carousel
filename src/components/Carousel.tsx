@@ -21,6 +21,43 @@ const Carousel: React.FC<Props> = ({
   const [leftMargin, setLeftMargin] = useState(0);
   const [itemsPassed, setItemsPassed] = useState(0);
 
+  const previousImages = () => {
+    let itemsToUpdate = 0;
+
+    if (infinite && (itemsPassed <= 0)) {
+      itemsToUpdate = images.length - frameSize;
+      setItemsPassed(itemsPassed + itemsToUpdate);
+      setLeftMargin(leftMargin - (itemWidth * itemsToUpdate));
+    } else {
+      for (let i = 0; i < step; i += 1) {
+        if (itemsPassed - i > 0) {
+          itemsToUpdate += 1;
+        }
+      }
+
+      setItemsPassed(itemsPassed - itemsToUpdate);
+      setLeftMargin(leftMargin + (itemWidth * itemsToUpdate));
+    }
+  };
+
+  const nextImages = () => {
+    if (infinite && itemsPassed >= images.length - frameSize) {
+      setItemsPassed(0);
+      setLeftMargin(0);
+    } else {
+      let itemsToUpdate = 0;
+
+      for (let i = 0; i < step; i += 1) {
+        if (itemsPassed + i < images.length - frameSize) {
+          itemsToUpdate += 1;
+        }
+      }
+
+      setItemsPassed(itemsPassed + itemsToUpdate);
+      setLeftMargin(leftMargin - (itemWidth * itemsToUpdate));
+    }
+  };
+
   return (
     <div className="Carousel">
       <ul
@@ -49,24 +86,7 @@ const Carousel: React.FC<Props> = ({
         <button
           className="Carousel__button"
           type="button"
-          onClick={() => {
-            let itemsToUpdate = 0;
-
-            if (infinite && (itemsPassed <= 0)) {
-              itemsToUpdate = images.length - frameSize;
-              setItemsPassed(itemsPassed + itemsToUpdate);
-              setLeftMargin(leftMargin - (itemWidth * itemsToUpdate));
-            } else {
-              for (let i = 0; i < step; i += 1) {
-                if (itemsPassed - i > 0) {
-                  itemsToUpdate += 1;
-                }
-              }
-
-              setItemsPassed(itemsPassed - itemsToUpdate);
-              setLeftMargin(leftMargin + (itemWidth * itemsToUpdate));
-            }
-          }}
+          onClick={previousImages}
           disabled={!infinite && (itemsPassed === 0)}
         >
           Prev
@@ -75,23 +95,7 @@ const Carousel: React.FC<Props> = ({
           className="Carousel__button"
           type="button"
           data-cy="next"
-          onClick={() => {
-            if (infinite && itemsPassed >= images.length - frameSize) {
-              setItemsPassed(0);
-              setLeftMargin(0);
-            } else {
-              let itemsToUpdate = 0;
-
-              for (let i = 0; i < step; i += 1) {
-                if (itemsPassed + i < images.length - frameSize) {
-                  itemsToUpdate += 1;
-                }
-              }
-
-              setItemsPassed(itemsPassed + itemsToUpdate);
-              setLeftMargin(leftMargin - (itemWidth * itemsToUpdate));
-            }
-          }}
+          onClick={nextImages}
           disabled={!infinite && (itemsPassed >= images.length - frameSize)}
         >
           Next
