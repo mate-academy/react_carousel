@@ -1,1 +1,58 @@
 // style go here
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+
+    &-item {
+      position: relative;
+      transition: all 5s;
+    }
+  }
+
+  &__box {
+    display: flex;
+    margin: 50px auto 0;
+    gap: 20px;
+  }
+
+  &__button {
+    width: 50px;
+    height: 50px;
+
+    background-color: #e4a81d;
+    border: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    transition: all 0.5s;
+
+    &:disabled {
+      opacity: 0.5;
+      transform: none !important;
+      color: #fff !important;
+      background-color: #e4a81d !important;
+    }
+
+    &:hover {
+      color: rgb(151, 233, 244);
+      transform: scale(110%);
+    }
+
+    &:active {
+      background-color: #ab7f18;
+      color: rgb(69, 158, 170);
+    }
+  }
+}
