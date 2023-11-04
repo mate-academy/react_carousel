@@ -1,1 +1,15 @@
-// style go here
+.App {
+  &__title {
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    margin-block: 10px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
