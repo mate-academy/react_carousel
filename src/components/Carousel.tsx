@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -20,6 +20,10 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [leftMargin, setLeftMargin] = useState(0);
   const [itemsPassed, setItemsPassed] = useState(0);
+
+  useEffect(() => {
+    setLeftMargin(itemsPassed * itemWidth * -1);
+  }, [itemsPassed, itemWidth]);
 
   const previousImages = () => {
     let itemsToUpdate = 0;
