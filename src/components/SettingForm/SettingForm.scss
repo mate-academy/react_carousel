@@ -1,0 +1,31 @@
+.SettingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 5px 10px rgba(#000, 0.2);
+
+  &__label {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    font-size: 20px;
+    margin-left: 10px;
+    width: 80px;
+    padding: 5px 0 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #000;
+  }
+
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+}
