@@ -17,15 +17,15 @@ const images = [
 
 export const App:React.FC = () => {
   const [settings, setSettings] = useState({
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
+    stepId: 3,
+    frameId: 3,
+    itemId: 130,
     animationDuration: 1000,
     infinite: false,
   });
 
   const {
-    step, frameSize, itemWidth, animationDuration, infinite,
+    stepId, frameId, itemId, animationDuration, infinite,
   } = settings;
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -55,46 +55,46 @@ export const App:React.FC = () => {
         action="#"
       >
         <div className="mb-2">
-          <label htmlFor="step" className="form-label">
+          <label htmlFor="stepId" className="form-label">
             Step:
           </label>
           <input
-            value={step}
+            value={stepId}
             onChange={handleChange}
             type="number"
             className="form-control form-control-sm"
-            name="step"
-            id="step"
+            name="stepId"
+            id="stepId"
             min={1}
             max={10}
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="frameSize" className="form-label">
+          <label htmlFor="frameId" className="form-label">
             Frame size:
           </label>
           <input
-            value={frameSize}
+            value={frameId}
             onChange={handleChange}
             type="number"
             className="form-control form-control-sm"
-            name="frameSize"
-            id="frameSize"
+            name="frameId"
+            id="frameId"
             min={1}
             max={10}
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="itemWidth" className="form-label">
+          <label htmlFor="itemId" className="form-label">
             Item width:
           </label>
           <input
-            value={itemWidth}
+            value={itemId}
             onChange={handleChange}
             type="number"
             className="form-control form-control-sm"
-            name="itemWidth"
-            id="itemWidth"
+            name="itemId"
+            id="itemId"
             min={100}
             max={260}
             step={10}
@@ -134,9 +134,9 @@ export const App:React.FC = () => {
 
       <Carousel
         images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
+        step={stepId}
+        frameSize={frameId}
+        itemWidth={itemId}
         animationDuration={animationDuration}
         infinite={infinite}
       />
