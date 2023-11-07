@@ -1,0 +1,24 @@
+.Carousel {
+  background-color: rgba(243, 227, 85, 0.57);
+  border-radius: 10px;
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 5px;
+  }
+
+  &__button {
+    border-radius: 10px;
+    border: 2px solid #bbb;
+    width: 60px;
+    background-color: #fff;
+  }
+}

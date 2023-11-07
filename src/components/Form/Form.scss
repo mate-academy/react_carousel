@@ -1,0 +1,22 @@
+.Form {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(243, 227, 85, 0.57);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 300px;
+
+  &__label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    border: 2px solid #bbb;
+
+    border-radius: 10px;
+    width: 60px;
+  }
+}
