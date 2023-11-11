@@ -19,13 +19,17 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [translateValue, setTranslateValue] = useState(0);
+
   const imgStyle = {
     width: itemWidth,
     height: itemWidth,
+    transform: `translate(${translateValue}%)`,
+    transition: `all ${animationDuration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`,
   };
 
-  const animationStyles = {
-    transition: `transform ${animationDuration}ms ease-in-out`,
+  const widthList = {
+    width: frameSize * itemWidth,
   };
 
   const disabledNextButton
@@ -45,6 +49,10 @@ const Carousel: React.FC<Props> = ({
     }
 
     setCurrentIndex(newIndex);
+    setTranslateValue(10);
+    setTimeout(() => {
+      setTranslateValue(0);
+    }, animationDuration / 20);
   };
 
   const handlePrevClick = () => {
@@ -59,13 +67,17 @@ const Carousel: React.FC<Props> = ({
     }
 
     setCurrentIndex(newIndex);
+    setTranslateValue(-10);
+    setTimeout(() => {
+      setTranslateValue(0);
+    }, animationDuration / 20);
   };
 
   const displayedImages = images.slice(currentIndex, currentIndex + frameSize);
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list" style={animationStyles}>
+      <ul className="Carousel__list" style={widthList}>
         {displayedImages.map((img: string, index: number) => (
           <li key={img}>
             <img src={`${img}`} alt={`img${index}`} style={imgStyle} />
@@ -84,6 +96,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           onClick={handleNextClick}
           disabled={disabledNextButton}
+          data-cy="next"
         >
           &gt;
         </button>

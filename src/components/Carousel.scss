@@ -1,25 +1,35 @@
 .Carousel {
-  & button {
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-
-    & :disabled {
-      opacity: 0.5;
-    }
-  }
   &__buttons {
+    margin: 20px auto 0;
+    width: 500px;
     display: flex;
-    justify-content: center;
   }
   &__list {
     list-style: none;
     display: flex;
     overflow: hidden;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     justify-content: center;
+    border: 6px solid rgba(120, 120, 120, 0.267);
+    border-radius: 60px;
+    margin-top: 20px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  }
+}
+button {
+  border: 3px solid rgba(120, 120, 120, 0.267);
+  font-size: 36px;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  transition: all 0.5s ease-in-out;
+  border-radius: 20px;
+
+  & :disabled {
+    opacity: 0.5;
+  }
+  &:hover {
+    box-shadow: 5px 5px 10px 2px rgba(24, 24, 24, 0.8);
   }
 }

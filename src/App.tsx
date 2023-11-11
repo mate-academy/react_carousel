@@ -51,45 +51,58 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <label>
-          Item Width:
-          <input
-            name="itemWidth"
-            type="number"
-            value={this.state.itemWidth}
-            onChange={this.handleInputChange}
-          />
-        </label>
+        <div className="App__inputs">
+          <label>
+            Item Width:
+            <br />
+            <input
+              name="itemWidth"
+              type="number"
+              value={this.state.itemWidth}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
 
-        <label>
-          Frame Size:
-          <input
-            name="frameSize"
-            type="number"
-            value={this.state.frameSize}
-            onChange={this.handleInputChange}
-          />
-        </label>
+          <label>
+            Frame Size:
+            <br />
+            <input
+              name="frameSize"
+              type="number"
+              value={this.state.frameSize}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
 
-        <label>
-          Step:
-          <input
-            name="step"
-            type="number"
-            value={this.state.step}
-            onChange={this.handleInputChange}
-          />
-        </label>
+          <label>
+            Step:
+            <br />
+            <input
+              name="step"
+              type="number"
+              value={this.state.step}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
 
-        <label>
-          Animation Duration (ms):
-          <input
-            name="animationDuration"
-            type="number"
-            value={this.state.animationDuration}
-            onChange={this.handleInputChange}
-          />
-        </label>
+          <label>
+            Animation Duration (ms):
+            <br />
+            <input
+              name="animationDuration"
+              type="number"
+              value={this.state.animationDuration}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+          </label>
+        </div>
 
         <Carousel
           images={this.state.images}

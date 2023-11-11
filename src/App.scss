@@ -1,1 +1,20 @@
-// style go here
+.App {
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.input {
+  border: 2px solid rgba(120, 120, 120, 0.267);
+  border-radius: 20px;
+  box-shadow: 0px 2px 5px px rgba(0, 0, 0, 0.5);
+  height: 30px;
+  transition: box-shadow 0.5s ease-in-out;
+  &:hover {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.759);
+  }
+  &:focus {
+    outline: none;
+  }
+}
