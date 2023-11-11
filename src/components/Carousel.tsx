@@ -93,7 +93,7 @@ const Carousel: React.FC<CarouselProp> = ({
             images.map((img: string, index: number) => (
               <li
                 className="Carousel__item"
-                key={index}
+                key={img}
               >
                 <img
                   className="Carousel__img"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -35,8 +35,10 @@ class App extends React.Component<{}, State> {
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
       frameSize: +event.target.value,
-      count: this.state.images.length - +event.target.value,
     });
+    this.setState(prevState => ({
+      count: prevState.count - prevState.images.length,
+    }));
   }
 
   widthItem(event: React.ChangeEvent<HTMLInputElement>) {
