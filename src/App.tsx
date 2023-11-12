@@ -1,142 +1,115 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-  step: number;
-  frameSize: number,
-  itemWidth: number,
-  count: number,
-  animationDuration: number;
-}
-
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+export const App: React.FC = () => {
+  const [carouselSettings, setCarouselSettings] = useState({
     step: 3,
     frameSize: 3,
     itemWidth: 130,
     count: 7,
     animationDuration: 1000,
-  };
+  });
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      frameSize: +event.target.value,
-    });
-    this.setState(prevState => ({
-      count: prevState.count - prevState.images.length,
-    }));
-  }
+  const images = [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ];
+  const {
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+  } = carouselSettings;
 
-  widthItem(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ itemWidth: +event.target.value });
-  }
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-  stepChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ step: +event.target.value });
-  }
+      <form className="App__form" action="/">
+        <label htmlFor="NumberImages">
+          Number of images
 
-  animationChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ animationDuration: +event.target.value });
-  }
+          <input
+            className="App__input"
+            type="number"
+            value={frameSize}
+            min={3}
+            max={10}
+            name="NumberImages"
+            onChange={(event) => setCarouselSettings(prevState => ({
+              ...prevState,
+              frameSize: +event.target.value,
+              count: (images.length - step) - images.length - prevState.count,
+            }))}
+          />
+        </label>
+        <label htmlFor="iteamWidth">
+          Item Width
 
-  countChange(value: number) {
-    this.setState({ count: value });
-  }
+          <input
+            className="App__input"
+            type="number"
+            value={itemWidth}
+            name="iteamWidth"
+            onChange={(event) => setCarouselSettings(prevState => ({
+              ...prevState,
+              itemWidth: +event.target.value,
+            }))}
+          />
+        </label>
 
-  render() {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      count,
-      animationDuration,
-    } = this.state;
+        <label htmlFor="imagesScrolled">
+          Number of images scrolled
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+          <input
+            className="App__input"
+            type="number"
+            value={step}
+            min={1}
+            max={9}
+            name="imagesScrolled"
+            onChange={(event) => setCarouselSettings(prevState => ({
+              ...prevState,
+              step: +event.target.value,
+            }))}
+          />
+        </label>
 
-        <form className="App__form" action="/">
-          <label htmlFor="item">
-            Number of images
+        <label htmlFor="animationDuration">
+          Animation Duration
 
-            <input
-              className="App__input"
-              type="number"
-              value={frameSize}
-              min={3}
-              max={10}
-              name="input1"
-              onChange={(event) => this.handleChange(event)}
-            />
-          </label>
-
-          <label htmlFor="item2">
-            Item Width
-
-            <input
-              className="App__input"
-              type="number"
-              value={itemWidth}
-              name="input2"
-              onChange={(event) => this.widthItem(event)}
-            />
-          </label>
-
-          <label htmlFor="item">
-            Number of images scrolled
-
-            <input
-              className="App__input"
-              type="number"
-              value={step}
-              min={1}
-              max={9}
-              name="input1"
-              onChange={(event) => this.stepChange(event)}
-            />
-          </label>
-
-          <label htmlFor="item">
-            Animation Duration
-
-            <input
-              className="App__input"
-              type="number"
-              value={animationDuration}
-              name="input1"
-              onChange={(event) => this.animationChange(event)}
-            />
-          </label>
-        </form>
-        <Carousel
-          images={images}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          step={step}
-          count={count}
-          animationDuration={animationDuration}
-          countChange={(value) => this.countChange(value)}
-        />
-      </div>
-    );
-  }
-}
+          <input
+            className="App__input"
+            type="number"
+            value={animationDuration}
+            name="animationDuration"
+            onChange={(event) => setCarouselSettings(prevState => ({
+              ...prevState,
+              animationDuration: +event.target.value,
+            }))}
+          />
+        </label>
+      </form>
+      <Carousel
+        images={images}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        step={step}
+        animationDuration={animationDuration}
+      />
+    </div>
+  );
+};
 
 export default App;

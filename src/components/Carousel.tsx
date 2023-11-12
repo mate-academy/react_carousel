@@ -6,9 +6,7 @@ type CarouselProp = {
   step: number
   frameSize: number;
   itemWidth: number;
-  count: number;
   animationDuration:number;
-  countChange: (value: number) => void;
 };
 
 const Carousel: React.FC<CarouselProp> = ({
@@ -16,63 +14,33 @@ const Carousel: React.FC<CarouselProp> = ({
   frameSize,
   itemWidth,
   step,
-  count,
   animationDuration,
-  countChange,
 }) => {
   const widthContainer = frameSize * itemWidth;
-  const muvStep = itemWidth * step;
   let disabledButtonNext = false;
   let disabledButtonPrev = false;
-  const prevValue = ((images.length - frameSize) - count);
-  const [muveNext, setMuveNext] = useState(0);
+  const maxLength = images.length - step;
 
-  if (count <= 0) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (currentIndex === images.length - step) {
     disabledButtonNext = true;
   }
 
-  if (count === images.length - frameSize) {
+  if (currentIndex === 0) {
     disabledButtonPrev = true;
   }
 
-  const muvNextEmoticon = () => {
-    let muv = 0;
-
-    if (count <= 0) {
-      return;
-    }
-
-    if (count < step) {
-      setMuveNext(muveNext + itemWidth * count);
-      countChange(0);
-    } else {
-      if (muveNext === 0) {
-        muv += muvStep;
-        countChange(count - step);
-      } else {
-        muv += muveNext + muvStep;
-        countChange(count - step);
-      }
-
-      setMuveNext(muv);
-    }
-  };
-
-  const muvPrevEmoticon = () => {
-    let muv = 0;
-
-    if (count < images.length - count) {
-      muv = muveNext - muvStep;
-      countChange(count + step);
-
-      if (muveNext > 0) {
-        setMuveNext(muv);
-      }
-    } else {
-      setMuveNext(0);
-      countChange(count + prevValue);
-    }
-  };
+  const moveBack = () => (
+    currentIndex !== 0
+      ? setCurrentIndex(prevIndex => Math.max(prevIndex - step, 0))
+      : setCurrentIndex(maxLength)
+  );
+  const moveForward = () => (
+    currentIndex !== maxLength
+      ? setCurrentIndex(prevIndex => Math.min(prevIndex + step, maxLength))
+      : setCurrentIndex(0)
+  );
 
   return (
     <div className="Carousel">
@@ -84,7 +52,7 @@ const Carousel: React.FC<CarouselProp> = ({
       >
         <ul
           style={{
-            transform: `translateX(-${muveNext}px)`,
+            transform: `translateX(-${(currentIndex * itemWidth)}px)`,
             transition: `all ${animationDuration}ms`,
           }}
           className="Carousel__list"
@@ -114,7 +82,7 @@ const Carousel: React.FC<CarouselProp> = ({
           className="Carousel__button"
           type="button"
           disabled={disabledButtonPrev}
-          onClick={() => muvPrevEmoticon()}
+          onClick={moveBack}
         >
           Prev
         </button>
@@ -123,7 +91,7 @@ const Carousel: React.FC<CarouselProp> = ({
           className="Carousel__button"
           data-cy="next"
           type="button"
-          onClick={() => muvNextEmoticon()}
+          onClick={moveForward}
           disabled={disabledButtonNext}
         >
           Next
