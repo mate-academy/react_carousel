@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  &__list {
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid rgb(43, 40, 40);
+    border-radius: 40px;
+    box-shadow: 0 5px 6px rgba(97, 94, 94, 0.5);
+    background-color: white;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    font-size: 24px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+}
