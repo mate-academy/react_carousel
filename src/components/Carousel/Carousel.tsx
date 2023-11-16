@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cn from 'classnames';
 import { CarouselProps } from '../../types';
 import './Carousel.scss';
 
@@ -69,11 +70,10 @@ const Carousel: React.FC<CarouselProps> = ({
 
       <div className="Carousel__controls">
         <button
-          className={
-            isDisabledPrev
-              ? 'Carousel__btn Carousel__btn--disable'
-              : 'Carousel__btn Carousel__btn--active'
-          }
+          className={cn('Carousel__btn', {
+            'Carousel__btn--disable': isDisabledPrev,
+            'Carousel__btn--active': !isDisabledPrev,
+          })}
           type="button"
           onClick={handlePrev}
           disabled={isDisabledPrev}
@@ -82,11 +82,10 @@ const Carousel: React.FC<CarouselProps> = ({
         </button>
 
         <button
-          className={
-            isDisabledNext
-              ? 'Carousel__btn Carousel__btn--disable'
-              : 'Carousel__btn Carousel__btn--active'
-          }
+          className={cn('Carousel__btn', {
+            'Carousel__btn--disable': isDisabledNext,
+            'Carousel__btn--active': !isDisabledNext,
+          })}
           data-cy="next"
           type="button"
           onClick={handleNext}

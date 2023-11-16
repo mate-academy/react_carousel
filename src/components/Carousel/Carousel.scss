@@ -22,25 +22,23 @@
   }
 
   &__btn {
-    cursor: pointer;
+    cursor: no-drop;
     font-size: 20px;
     width: 100px;
     height: 45px;
-    color: #fff;
-    border: 2px solid #21765e;
+    color: #364843;
+    border-color: #364843;
     background-color: transparent;
 
-    &__btn--active {
+    &--active {
+      color: #fff;
+      border: 2px solid #21765e;
+      cursor: pointer;
+
       &:hover {
         color: #00ffb7;
         border-color: #00ffb7;
       }
-    }
-
-    &__btn--disabled {
-      color: #364843;
-      border-color: #364843;
-      cursor: no-drop;
     }
   }
 }
