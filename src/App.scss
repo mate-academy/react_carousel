@@ -1,1 +1,121 @@
-// style go here
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+html,
+#root {
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  background-color: #09142c;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #c0c1c2;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #c0c1c2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #808080;
+}
+
+.title {
+  margin: 30px 0 40px;
+  font-weight: 400;
+  font-size: 26px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    max-width: 740px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+    height: 40px;
+    margin: 15px auto;
+    padding: 2px 15px;
+    font-size: 18px;
+    align-items: center;
+    border-left: 3px solid #21765e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    &:hover {
+      border-left: 3px solid #00ffb7;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__input {
+    width: 50px;
+    height: 25px;
+    margin: auto 0;
+    border: 1px solid #21765e;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    background-color: #09142c;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid #00ffb7;
+    }
+  }
+
+  input[role="switch"] {
+    --switch-handle-size: 8px;
+    --switch-bg-size: 24px;
+    --switch-handle-gap: 3px;
+    --switch-fg: #00ffb7;
+    --switch-bg: color-mix(in sRGB, var(--switch-fg) 20%, transparent);
+
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    display: inline-flex;
+    padding-inline: 0 var(--switch-bg-size);
+    border: 1px solid #21765e;
+    font-size: 0;
+    margin: 0;
+    height: auto;
+    width: auto;
+    border-radius: 100px;
+    background: var(--switch-bg);
+    transition: var(--switch-duration, 0.2s) cubic-bezier(0.65, 0, 0.5, 1);
+    user-select: none;
+    outline: none;
+    filter: grayscale(1);
+    cursor: pointer;
+    &:hover {
+      border: 1px solid #00ffb7;
+    }
+  }
+
+  input[role="switch"]:checked {
+    padding-inline: var(--switch-bg-size) 0;
+    filter: none;
+  }
+
+  input[role="switch"]::before {
+    content: "";
+    padding: var(--switch-handle-size);
+    margin: var(--switch-handle-gap);
+    background: var(--switch-fg);
+    border-radius: 50%;
+    transition: inherit;
+    border: 1px solid #21765e;
+  }
+}
