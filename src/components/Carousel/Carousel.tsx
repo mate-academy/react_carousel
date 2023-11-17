@@ -14,8 +14,14 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const maxImages = images.length - frameSize;
-  const isDisabledPrev = currentImage === 0 && !infinite;
-  const isDisabledNext = currentImage === maxImages && !infinite;
+
+  function isDisabledPrev() {
+    return currentImage === 0 && !infinite;
+  }
+
+  function isDisabledNext() {
+    return currentImage === maxImages && !infinite;
+  }
 
   function handlePrev() {
     return (
@@ -71,25 +77,25 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className="Carousel__controls">
         <button
           className={cn('Carousel__btn', {
-            'Carousel__btn--disable': isDisabledPrev,
-            'Carousel__btn--active': !isDisabledPrev,
+            'Carousel__btn--disable': isDisabledPrev(),
+            'Carousel__btn--active': !isDisabledPrev(),
           })}
           type="button"
           onClick={handlePrev}
-          disabled={isDisabledPrev}
+          disabled={isDisabledPrev()}
         >
           Prev
         </button>
 
         <button
           className={cn('Carousel__btn', {
-            'Carousel__btn--disable': isDisabledNext,
-            'Carousel__btn--active': !isDisabledNext,
+            'Carousel__btn--disable': isDisabledNext(),
+            'Carousel__btn--active': !isDisabledNext(),
           })}
           data-cy="next"
           type="button"
           onClick={handleNext}
-          disabled={isDisabledNext}
+          disabled={isDisabledNext()}
         >
           Next
         </button>
