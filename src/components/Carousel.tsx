@@ -3,51 +3,65 @@ import './Carousel.scss';
 
 type Props = {
   images: string[],
+  frameSize: number,
+  itemWidth: number,
+  step: number,
+  animationDuration: number,
 };
 
-const Carousel: React.FC<Props> = ({ images }) => {
+const Carousel: React.FC<Props> = ({
+  images,
+  frameSize,
+  itemWidth,
+  step,
+  animationDuration,
+}) => {
   const [translateX, setTranslateX] = useState(0);
 
   const margin = 20;
-  const imageWidth = 130 + margin;
+  const imageWidth = itemWidth + margin;
   const containerWidth = images.length * imageWidth;
-  const imagePerScroll = 3;
   const startOffset = 0;
-  const scrollWidth = (containerWidth - (imagePerScroll * imageWidth));
+  const scrollWidth = step * imageWidth;
   const isPrevDisabled = translateX === startOffset;
-  const isNextDisabled = -translateX === scrollWidth;
+  const isNextDisabled
+  = -translateX === containerWidth - (frameSize * imageWidth);
 
   const handlePrevClick = () => {
-    if (translateX < startOffset) {
-      const imagesLeft = (-translateX) / imageWidth;
+    const imagesLeft = (-translateX) / imageWidth;
 
-      if (imagesLeft - imagePerScroll < 0) {
-        setTranslateX(prev => prev + imagesLeft * imageWidth);
-      } else {
-        setTranslateX(prev => prev + imagePerScroll * imageWidth);
-      }
+    if (imagesLeft - step < 0) {
+      setTranslateX(prev => prev + imagesLeft * imageWidth);
+    } else {
+      setTranslateX(prev => prev + scrollWidth);
     }
   };
 
   const handleNextClick = () => {
-    if (translateX > -scrollWidth) {
-      const imagesRight = (scrollWidth - (-translateX)) / imageWidth;
+    const imagesRight = (containerWidth + translateX) / imageWidth;
 
-      if (imagesRight - imagePerScroll < 0) {
-        setTranslateX(prev => prev - imagesRight * imageWidth);
-      } else {
-        setTranslateX(prev => prev - imagePerScroll * imageWidth);
-      }
+    if (imagesRight - frameSize < step) {
+      setTranslateX(prev => prev - (imagesRight - frameSize) * imageWidth);
+    } else {
+      setTranslateX(prev => prev - scrollWidth);
     }
   };
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={
+        {
+          width: `${frameSize * (itemWidth + margin)}px`,
+        }
+      }
+    >
       <ul
         className="Carousel__list"
         style={
           {
             transform: `translateX(${translateX}px)`,
+            transition: `all ${animationDuration}ms`,
           }
         }
       >
@@ -61,6 +75,8 @@ const Carousel: React.FC<Props> = ({ images }) => {
                 src={image}
                 alt={String(index + 1)}
                 className="Carousel__img"
+                width={itemWidth}
+                height={itemWidth}
               />
             </li>
           ))
@@ -72,13 +88,17 @@ const Carousel: React.FC<Props> = ({ images }) => {
           type="button"
           disabled={isPrevDisabled}
           onClick={handlePrevClick}
+          className="Carousel__button"
         >
           Prev
         </button>
+
         <button
           type="button"
           disabled={isNextDisabled}
           onClick={handleNextClick}
+          data-cy="next"
+          className="Carousel__button"
         >
           Next
         </button>

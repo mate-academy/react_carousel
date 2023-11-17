@@ -1,7 +1,7 @@
 .Carousel {
-  width: 450px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  text-align: center;
 
   &__list {
     display: flex;
@@ -16,14 +16,26 @@
 
   &__img {
     display: block;
-    width: 130px;
-    height: 130px;
     object-position: center;
   }
 
   &__buttons {
     display: flex;
-    justify-content: space-between;
-    padding: 0 50px;
+    justify-content: space-around;
+  }
+
+  &__button {
+    padding: 5px 15px;
+    border: 1px solid #d7d8d9;
+    border-radius: 2px;
+    transition: 0.2s;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover:not(&:disabled) {
+      background-color: #d7d8d9;
+    }
   }
 }
