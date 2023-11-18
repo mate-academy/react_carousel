@@ -14,16 +14,10 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const maxImages = images.length - frameSize;
+  const isDisabledPrev = currentImage === 0 && !infinite;
+  const isDisabledNext = currentImage === maxImages && !infinite;
 
-  function isDisabledPrev() {
-    return currentImage === 0 && !infinite;
-  }
-
-  function isDisabledNext() {
-    return currentImage === maxImages && !infinite;
-  }
-
-  function handlePrev() {
+  const handlePrev = () => {
     return (
       currentImage !== 0
         ? setCurrentImage(currentImage - step >= 0
@@ -31,9 +25,9 @@ const Carousel: React.FC<CarouselProps> = ({
           : 0)
         : setCurrentImage(maxImages)
     );
-  }
+  };
 
-  function handleNext() {
+  const handleNext = () => {
     return (
       currentImage !== maxImages
         ? setCurrentImage(currentImage + step <= maxImages
@@ -41,7 +35,7 @@ const Carousel: React.FC<CarouselProps> = ({
           : maxImages)
         : setCurrentImage(0)
     );
-  }
+  };
 
   return (
     <div
@@ -77,25 +71,25 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className="Carousel__controls">
         <button
           className={cn('Carousel__btn', {
-            'Carousel__btn--disable': isDisabledPrev(),
-            'Carousel__btn--active': !isDisabledPrev(),
+            'Carousel__btn--disable': isDisabledPrev,
+            'Carousel__btn--active': !isDisabledPrev,
           })}
           type="button"
           onClick={handlePrev}
-          disabled={isDisabledPrev()}
+          disabled={isDisabledPrev}
         >
           Prev
         </button>
 
         <button
           className={cn('Carousel__btn', {
-            'Carousel__btn--disable': isDisabledNext(),
-            'Carousel__btn--active': !isDisabledNext(),
+            'Carousel__btn--disable': isDisabledNext,
+            'Carousel__btn--active': !isDisabledNext,
           })}
           data-cy="next"
           type="button"
           onClick={handleNext}
-          disabled={isDisabledNext()}
+          disabled={isDisabledNext}
         >
           Next
         </button>
