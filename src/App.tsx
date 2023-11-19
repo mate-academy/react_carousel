@@ -85,6 +85,7 @@ class App extends React.Component<{}, State> {
               type="number"
               id="frameId"
               min={1}
+              max={10}
               value={frameSize}
               onChange={this.handleOnChange}
             />
