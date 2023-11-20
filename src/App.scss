@@ -1,1 +1,49 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  gap: 30px;
+
+  &__header {
+    margin: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+
+    width: 30%;
+    margin: 0 auto;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.3s, background-color 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: burlywood;
+    }
+  }
+
+  &__input {
+    text-align: center;
+    border-radius: 10%;
+    height: 20px;
+    width: 100px;
+    border: none;
+
+    font-size: medium;
+    font-style: italic;
+  }
+}

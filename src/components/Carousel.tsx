@@ -1,18 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+}) => {
+  const [offSet, setOffSet] = useState(0);
+
+  const maxOffSet = images.length - frameSize;
+  const isDisabledLeft = offSet === 0 && !infinite;
+  const isDisabledRight = offSet === maxOffSet && !infinite;
+
+  const hadleLeft = () => {
+    return (
+      offSet !== 0
+        ? setOffSet(offSet - step >= 0
+          ? offSet - step
+          : 0)
+        : setOffSet(maxOffSet)
+    );
+  };
+
+  const hadleRight = () => {
+    return (
+      offSet !== maxOffSet
+        ? setOffSet(offSet + step <= maxOffSet
+          ? offSet + step
+          : maxOffSet)
+        : setOffSet(0)
+    );
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__window"
+        style={{
+          width: `${frameSize * itemWidth}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${-(offSet * itemWidth)}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map(((image, i) => (
+            <li
+              className="Carousel__element"
+              key={image}
+            >
+              <img
+                className="Carousel__image"
+                src={image}
+                alt={`${i + 1}`}
+                style={{
+                  height: `${itemWidth}px`,
+                  width: `${itemWidth}px`,
+                }}
+              />
+            </li>
+          )))}
+        </ul>
+      </div>
+
+      <div className="Carousel__menu">
+        <button
+          className="Carousel__button left"
+          type="button"
+          onClick={hadleLeft}
+          disabled={isDisabledLeft}
+        >
+          Prev
+        </button>
+
+        <button
+          className="Carousel__button right"
+          type="button"
+          onClick={hadleRight}
+          disabled={isDisabledRight}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
