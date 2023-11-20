@@ -89,6 +89,7 @@ const Carousel: React.FC<Props> = ({
         </button>
 
         <button
+          data-cy="next"
           className="Carousel__button right"
           type="button"
           onClick={hadleRight}

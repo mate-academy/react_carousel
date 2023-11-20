@@ -57,7 +57,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1 className="App__header">Carousel with {images.length} images</h1>
+      <h1 data-cy='title' className="App__header">Carousel with {images.length} images</h1>
       <div className="App__list">
         <label className="App__label">
           Item width:
