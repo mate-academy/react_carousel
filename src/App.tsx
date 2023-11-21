@@ -30,6 +30,47 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
+        <form className="App__form" action="/">
+
+          <label className="App__label">
+            Box Width:
+            <input
+              className="App__input"
+              type="number"
+              min={130}
+            />
+          </label>
+
+          <label className="App__label">
+            Frame Size:
+            <input
+              className="App__input"
+              type="number"
+              min={1}
+              max={10}
+            />
+          </label>
+
+          <label className="App__label">
+            Step:
+            <input
+              className="App__input"
+              type="number"
+              min={1}
+            />
+          </label>
+
+          <label className="App__label">
+            Animation Duration:
+            <input
+              className="App__input"
+              type="number"
+              min={500}
+              step={500}
+            />
+          </label>
+
+        </form>
         <Carousel />
       </div>
     );

@@ -1,1 +1,58 @@
-// style go here
+.Carousel {
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    &__item {
+        display: inline-flex;
+        height: 130px;
+        width: 130px;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+
+        :last-child {
+            margin: 0;
+        }
+    }
+
+    &__img {
+        display: block;
+        object-position: center;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    // &__button {
+
+    // }
+
+    // &__from {
+    //     width: 300px;
+    //     display: flex;
+    //     flex-direction: column;
+    //     // justify-content: center;
+    //     // align-items: center;
+    //     gap: 15px;
+    // }
+    
+    // &__label {
+    //     display: flex;
+    //     // justify-content: start;
+    //     gap: 10px;
+    // }
+}
+
