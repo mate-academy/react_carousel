@@ -1,1 +1,21 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #b79467;
+  color: #906226;
+}
+
+.App {
+  text-align: center;
+}
+
+.label {
+  margin: 0 auto;
+  color: #856337;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
