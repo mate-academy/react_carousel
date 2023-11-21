@@ -1,1 +1,25 @@
-// style go here
+.Carousel {
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__container {
+    display: flex;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  &__item {
+    list-style: none;
+    flex-shrink: 0;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-around;
+  }
+}
