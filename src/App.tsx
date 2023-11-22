@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number
+  step: number
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,68 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>, key: keyof State,
+  ) => {
+    const value = Number(event);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      [key]: Number.isNaN(value) ? 0 : value,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <input
+          type="text"
+          value={itemWidth}
+          onChange={(event) => this.handleInputChange(event, 'itemWidth')}
+        />
+        <input
+          type="text"
+          value={frameSize}
+          onChange={(event) => this.handleInputChange(event, 'frameSize')}
+        />
+        <input
+          type="text"
+          value={step}
+          onChange={(event) => this.handleInputChange(event, 'step')}
+        />
+        <input
+          type="text"
+          value={animationDuration}
+          onChange={
+            (event) => this.handleInputChange(event, 'animationDuration')
+          }
+        />
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={false}
+        />
       </div>
     );
   }

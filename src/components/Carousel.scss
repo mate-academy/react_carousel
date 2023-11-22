@@ -1,1 +1,31 @@
 // style go here
+
+.Carousel {
+  width: 1300px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: transform 1000ms ease-in-out;
+  }
+
+  &__item {
+    margin-right: 10px;
+  }
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
