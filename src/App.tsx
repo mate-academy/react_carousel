@@ -27,14 +27,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-<<<<<<< HEAD
         <h1 data-cy="title">
           {`Carousel with ${images.length} images`}
         </h1>
-=======
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
->>>>>>> f0f08c9a8602f580553a3ba5714193e9ab247847
 
         <Carousel
           images={images}
@@ -42,10 +37,7 @@ class App extends React.Component<{}, State> {
           frameSize={3}
           itemWidth={130}
           animationDuration={1000}
-<<<<<<< HEAD
           infinite={false}
-=======
->>>>>>> f0f08c9a8602f580553a3ba5714193e9ab247847
         />
       </div>
     );
