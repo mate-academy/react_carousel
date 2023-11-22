@@ -1,1 +1,67 @@
 // style go here
+
+body {
+  margin: 20px;
+}
+
+.button-prev {
+  &__text {
+    font-weight: bold;
+    font-size: 30px;
+  }
+  background-color: #55c932;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: 0.4s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 20px rgb(21, 63, 168);
+  }
+
+  &__disabled {
+    background-color: gray;
+    border: none;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.button-next {
+  &__text {
+    font-weight: bold;
+    font-size: 30px;
+  }
+  background-color: #55c932;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: 0.4s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 20px rgb(21, 63, 168);
+  }
+
+  &__disabled {
+    background-color: gray;
+    border: none;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.Carousel {
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+  }
+}
