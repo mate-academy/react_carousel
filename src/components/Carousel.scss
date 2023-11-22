@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+.container {
+  overflow: hidden;
+}
+
+>>>>>>> f0f08c9a8602f580553a3ba5714193e9ab247847
 img {
   display: block;
 }
@@ -6,7 +13,10 @@ img {
   &__list {
     display: flex;
     padding: 0;
+<<<<<<< HEAD
     list-style-type: none;
+=======
+>>>>>>> f0f08c9a8602f580553a3ba5714193e9ab247847
   }
 
   &__buttons {
@@ -14,8 +24,11 @@ img {
     justify-content: space-between;
   }
 }
+<<<<<<< HEAD
 
 .container {
   overflow: hidden;
   margin: 0 auto;
 }
+=======
+>>>>>>> f0f08c9a8602f580553a3ba5714193e9ab247847
