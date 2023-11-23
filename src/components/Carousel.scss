@@ -1,58 +1,48 @@
 .Carousel {
-    width: 390px;
+    max-width: 1300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+
+    &__container {
+        width: 390px;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
 
     &__list {
         display: flex;
         align-items: center;
         list-style: none;
         padding: 0;
+        margin: 0;
     }
 
     &__item {
         display: inline-flex;
-        height: 130px;
-        width: 130px;
         align-items: center;
         justify-content: center;
-        margin: 0 10px;
-
-        :last-child {
-            margin: 0;
-        }
     }
 
     &__img {
         display: block;
         object-position: center;
+        height: 130px;
+        width: 130px;
     }
 
     &__buttons {
         display: flex;
         justify-content: space-between;
-        cursor: pointer;
     }
 
-    // &__button {
-
-    // }
-
-    // &__from {
-    //     width: 300px;
-    //     display: flex;
-    //     flex-direction: column;
-    //     // justify-content: center;
-    //     // align-items: center;
-    //     gap: 15px;
-    // }
-    
-    // &__label {
-    //     display: flex;
-    //     // justify-content: start;
-    //     gap: 10px;
-    // }
+    &__button {
+        cursor: pointer;
+        width: 80px;
+        height: 30px;
+        border-radius: 10px;
+    }
 }
 

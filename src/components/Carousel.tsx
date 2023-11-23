@@ -1,57 +1,98 @@
-import React from 'react';
-// import { useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  // const [activeIndex, setActiveIndex] = useState(0);
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li className="Carousel__item">
-        <img
-          className="Carousel__img"
-          src="./img/1.png"
-          alt="1"
-        />
-      </li>
-      <li className="Carousel__item">
-        <img
-          className="Carousel__img"
-          src="./img/2.png"
-          alt="2"
-        />
-      </li>
-      <li className="Carousel__item">
-        <img
-          className="Carousel__img"
-          src="./img/3.png"
-          alt="3"
-        />
-      </li>
-      <li className="Carousel__item">
-        <img
-          className="Carousel__img"
-          src="./img/4.png"
-          alt="4"
-        />
-      </li>
-    </ul>
+interface Props {
+  images: string[],
+  boxWidth: number,
+  frameSize: number,
+  step: number,
+  // animationDuration: number,
+  infinite: boolean,
+}
 
-    <div className="Carousel__buttons">
-      <button
-        className="Carousel__button"
-        type="button"
+export const Carousel: React.FC<Props> = ({
+  images,
+  boxWidth,
+  frameSize,
+  step,
+  // animationDuration,
+  infinite,
+}) => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const maxImagesPosition = images.length - frameSize;
+  const isDisabledPrev = currentImage === 0 && !infinite;
+  const isDisabledNext = currentImage === maxImagesPosition
+  && !infinite;
+
+  const handlePrev = () => (
+    currentImage !== 0
+      ? setCurrentImage(prev => Math.max(prev - step, 0))
+      : setCurrentImage(maxImagesPosition)
+  );
+
+  const handleNext = () => (
+    currentImage !== maxImagesPosition
+      ? setCurrentImage(prev => Math.min(prev + step, maxImagesPosition))
+      : setCurrentImage(0)
+  );
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{
+          width: `${boxWidth * frameSize}px`,
+          height: `${boxWidth}px`,
+        }}
       >
-        {'<<'}
-      </button>
-      <button
-        className="Carousel__button"
-        type="button"
-      >
-        {'>>'}
-      </button>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: 'translate(0px, 0px)',
+          }}
+        >
+          {images.map((image, index) => (
+            <li
+              className="Carousel__item"
+              key={image}
+            >
+              <img
+                className="Carousel__img"
+                src={image}
+                alt={`Smile № ${index + 1}`}
+                style={{
+                  width: `${boxWidth}px`,
+                  height: `${boxWidth}px`,
+                }}
+              />
+            </li>
+          ))}
+
+        </ul>
+      </div>
+
+      <div className="Carousel__buttons">
+        <button
+          className="Carousel__button"
+          type="button"
+          onClick={handlePrev}
+          disabled={isDisabledPrev}
+        >
+          {'<<'}
+        </button>
+        <button
+          className="Carousel__button"
+          type="button"
+          onClick={handleNext}
+          disabled={isDisabledNext}
+          data-cy="next"
+        >
+          {'>>'}
+        </button>
+      </div>
+
     </div>
-
-  </div>
-);
+  );
+};
 
 export default Carousel;
