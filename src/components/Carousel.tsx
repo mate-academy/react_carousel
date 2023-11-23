@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -35,6 +35,14 @@ const Carousel: React.FC<Props> = ({
       setCurrentIndex(newIndex);
     }
   };
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     handleNextClick();
+  //   }, animationDuration);
+
+  //   return () => clearInterval(intervalId);
+  // }, [currentIndex, animationDuration]);
 
   return (
     <div className="Carousel">
