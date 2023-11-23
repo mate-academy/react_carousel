@@ -16,13 +16,13 @@ const images: string[] = [
 ];
 
 const App: React.FC = () => {
-  const [boxWidth, setBoxWidth] = useState(130);
+  const [itemWidth, setBoxWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
-  const getMaxFrames = Math.floor(1300 / boxWidth);
+  const getMaxFrames = Math.floor(1300 / itemWidth);
 
   const handleBoxWidth = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -59,24 +59,26 @@ const App: React.FC = () => {
 
       <form className="App__form" action="/">
 
-        <label className="App__label">
+        <label htmlFor="itemId" className="App__label">
           Box Width:
           <input
             className="App__input"
             type="number"
+            id="itemId"
             min={130}
-            max={1300}
-            step={100}
-            value={boxWidth}
+            max={390}
+            step={20}
+            value={itemWidth}
             onChange={handleBoxWidth}
           />
         </label>
 
-        <label className="App__label">
+        <label htmlFor="frameId" className="App__label">
           Frame Size:
           <input
             className="App__input"
             type="number"
+            id="frameId"
             min={1}
             max={getMaxFrames}
             step={1}
@@ -85,11 +87,12 @@ const App: React.FC = () => {
           />
         </label>
 
-        <label className="App__label">
+        <label htmlFor="stepId" className="App__label">
           Step:
           <input
             className="App__input"
             type="number"
+            id="stepId"
             min={1}
             max={10}
             step={1}
@@ -98,11 +101,12 @@ const App: React.FC = () => {
           />
         </label>
 
-        <label className="App__label">
+        <label htmlFor="animationId" className="App__label">
           Animation Duration:
           <input
             className="App__input"
             type="number"
+            id="animationId"
             min={500}
             max={5000}
             step={500}
@@ -111,11 +115,13 @@ const App: React.FC = () => {
           />
         </label>
 
-        <label className="App__label">
+        <label htmlFor="infiniteId" className="App__label">
           Infinite:
           <input
             className="App__input App__bigInpute"
             type="checkbox"
+            id="infiniteId"
+            value={animationDuration}
             onChange={handleInfinite}
           />
         </label>
@@ -124,10 +130,10 @@ const App: React.FC = () => {
 
       <Carousel
         images={images}
-        boxWidth={boxWidth}
+        itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
-        // animationDuration={animationDuration}
+        animationDuration={animationDuration}
         infinite={infinite}
       />
     </div>

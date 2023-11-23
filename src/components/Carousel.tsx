@@ -3,19 +3,19 @@ import './Carousel.scss';
 
 interface Props {
   images: string[],
-  boxWidth: number,
+  itemWidth: number,
   frameSize: number,
   step: number,
-  // animationDuration: number,
+  animationDuration: number,
   infinite: boolean,
 }
 
 export const Carousel: React.FC<Props> = ({
   images,
-  boxWidth,
+  itemWidth,
   frameSize,
   step,
-  // animationDuration,
+  animationDuration,
   infinite,
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -41,28 +41,32 @@ export const Carousel: React.FC<Props> = ({
       <div
         className="Carousel__container"
         style={{
-          width: `${boxWidth * frameSize}px`,
-          height: `${boxWidth}px`,
+          width: `${itemWidth * frameSize}px`,
+          height: `${itemWidth}px`,
         }}
       >
         <ul
           className="Carousel__list"
           style={{
-            transform: 'translate(0px, 0px)',
+            transition: `${animationDuration}ms`,
           }}
         >
           {images.map((image, index) => (
             <li
               className="Carousel__item"
               key={image}
+              style={{
+                transform: `translateX(-${itemWidth * currentImage}px)`,
+                transitionDuration: `${animationDuration}ms`,
+              }}
             >
               <img
                 className="Carousel__img"
                 src={image}
                 alt={`Smile № ${index + 1}`}
                 style={{
-                  width: `${boxWidth}px`,
-                  height: `${boxWidth}px`,
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
                 }}
               />
             </li>

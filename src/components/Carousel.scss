@@ -24,13 +24,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        height: 130px;
+        width: 130px;
     }
 
     &__img {
         display: block;
         object-position: center;
-        height: 130px;
-        width: 130px;
     }
 
     &__buttons {
