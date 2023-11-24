@@ -43,6 +43,7 @@ export const Carousel: React.FC<Props> = ({
         style={{
           width: `${itemWidth * frameSize}px`,
           height: `${itemWidth}px`,
+          transition: `${animationDuration}ms`,
         }}
       >
         <ul
@@ -57,17 +58,15 @@ export const Carousel: React.FC<Props> = ({
               key={image}
               style={{
                 transform: `translateX(-${itemWidth * currentImage}px)`,
-                transitionDuration: `${animationDuration}ms`,
+                transition: `${animationDuration}ms`,
               }}
             >
               <img
                 className="Carousel__img"
                 src={image}
                 alt={`Smile № ${index + 1}`}
-                style={{
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth}px`,
-                }}
+                width={itemWidth}
+                height={itemWidth}
               />
             </li>
           ))}
@@ -77,7 +76,7 @@ export const Carousel: React.FC<Props> = ({
 
       <div className="Carousel__buttons">
         <button
-          className="Carousel__button"
+          className="Carousel__button Carousel__button--active"
           type="button"
           onClick={handlePrev}
           disabled={isDisabledPrev}
@@ -85,7 +84,7 @@ export const Carousel: React.FC<Props> = ({
           {'<<'}
         </button>
         <button
-          className="Carousel__button"
+          className="Carousel__button Carousel__button--active"
           type="button"
           onClick={handleNext}
           disabled={isDisabledNext}
