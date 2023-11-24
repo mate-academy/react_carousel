@@ -15,7 +15,7 @@ const images: string[] = [
   './img/10.png',
 ];
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const [itemWidth, setBoxWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
