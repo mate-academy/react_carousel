@@ -7,16 +7,6 @@
   position: relative;
   text-align: center;
 
-  // &__wrapper {
-  //   width: 260px;
-  //   overflow: hidden;
-  // }
-
-  // &__wrapper {
-  //   // display: inline-block;
-  //   // transition: transform 0.3s ease-in-out;
-  // }
-
   &__list {
     list-style: none;
     padding: 0;
@@ -47,11 +37,9 @@
 
   &__next {
     margin-left: 50px;
-    // transform: translateY(-50%);
   }
 
   &__prev {
     margin-right: 50px;
-    // transform: translateY(-50%);
   }
 }
