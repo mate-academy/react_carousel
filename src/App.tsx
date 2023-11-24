@@ -8,6 +8,7 @@ interface State {
   frameSize: number
   step: number
   animationDuration: number;
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -28,12 +29,16 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: false,
   };
 
   handleInputChange = (
-    event: string, key: keyof State,
+    event:
+    React.ChangeEvent<HTMLInputElement>, key: keyof State,
   ) => {
-    const value = Number(event);
+    const value = key === 'infinite'
+      ? event.target.checked
+      : Number(event.target.value);
 
     this.setState((prevState) => ({
       ...prevState,
@@ -48,6 +53,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      infinite,
     } = this.state;
 
     return (
@@ -58,10 +64,10 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="itemWidth">Item Width: </label>
           <input
-            type="text"
+            type="number"
             value={itemWidth}
             onChange={(event) => this.handleInputChange(
-              event.target.value, 'itemWidth',
+              event, 'itemWidth',
             )}
           />
         </div>
@@ -69,10 +75,10 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="frameSize">Frame Size: </label>
           <input
-            type="text"
+            type="number"
             value={frameSize}
             onChange={(event) => this.handleInputChange(
-              event.target.value, 'frameSize',
+              event, 'frameSize',
             )}
           />
         </div>
@@ -80,10 +86,10 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="step">Step: </label>
           <input
-            type="text"
+            type="number"
             value={step}
             onChange={(event) => this.handleInputChange(
-              event.target.value, 'step',
+              event, 'step',
             )}
           />
         </div>
@@ -91,11 +97,19 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="animationDuration">Animation Duration: </label>
           <input
-            type="text"
+            type="number"
             value={animationDuration}
             onChange={(event) => this.handleInputChange(
-              event.target.value, 'animationDuration',
+              event, 'animationDuration',
             )}
+          />
+        </div>
+        <div>
+          <label htmlFor="infiniteScroll">Infinite scroll: </label>
+          <input
+            type="checkbox"
+            checked={infinite}
+            onChange={(event) => this.handleInputChange(event, 'infinite')}
           />
         </div>
 
