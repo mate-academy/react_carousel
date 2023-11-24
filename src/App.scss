@@ -1,5 +1,12 @@
 // style go here
 
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content:  center;
+  align-items: center;
+}
+
 input {
   margin-bottom: 5px;
 }

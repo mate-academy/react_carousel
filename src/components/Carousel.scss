@@ -1,10 +1,21 @@
 // style go here
 
 .Carousel {
+  margin-top: 40px;
   width: 1300px;
   overflow: hidden;
   position: relative;
   text-align: center;
+
+  // &__wrapper {
+  //   width: 260px;
+  //   overflow: hidden;
+  // }
+
+  // &__wrapper {
+  //   // display: inline-block;
+  //   // transition: transform 0.3s ease-in-out;
+  // }
 
   &__list {
     list-style: none;
@@ -15,17 +26,32 @@
   }
 
   &__item {
-    margin-right: 10px;
+    width: 130px;
+    height: 130px;
+    display: inline-block;
   }
-}
 
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
+  &__button {
+    margin-top: 50px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+    &.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  &__next {
+    margin-left: 50px;
+    // transform: translateY(-50%);
+  }
+
+  &__prev {
+    margin-right: 50px;
+    // transform: translateY(-50%);
   }
 }

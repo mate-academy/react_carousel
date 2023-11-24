@@ -55,34 +55,49 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <input
-          type="text"
-          value={itemWidth}
-          onChange={(event) => this.handleInputChange(
-            event.target.value, 'itemWidth',
-          )}
-        />
-        <input
-          type="text"
-          value={frameSize}
-          onChange={(event) => this.handleInputChange(
-            event.target.value, 'frameSize',
-          )}
-        />
-        <input
-          type="text"
-          value={step}
-          onChange={(event) => this.handleInputChange(
-            event.target.value, 'step',
-          )}
-        />
-        <input
-          type="text"
-          value={animationDuration}
-          onChange={(event) => this.handleInputChange(
-            event.target.value, 'animationDuration',
-          )}
-        />
+        <div>
+          <label htmlFor="itemWidth">Item Width: </label>
+          <input
+            type="text"
+            value={itemWidth}
+            onChange={(event) => this.handleInputChange(
+              event.target.value, 'itemWidth',
+            )}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="frameSize">Frame Size: </label>
+          <input
+            type="text"
+            value={frameSize}
+            onChange={(event) => this.handleInputChange(
+              event.target.value, 'frameSize',
+            )}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="step">Step: </label>
+          <input
+            type="text"
+            value={step}
+            onChange={(event) => this.handleInputChange(
+              event.target.value, 'step',
+            )}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="animationDuration">Animation Duration: </label>
+          <input
+            type="text"
+            value={animationDuration}
+            onChange={(event) => this.handleInputChange(
+              event.target.value, 'animationDuration',
+            )}
+          />
+        </div>
 
         <Carousel
           images={images}
