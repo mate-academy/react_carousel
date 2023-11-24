@@ -16,40 +16,27 @@ const images: string[] = [
 ];
 
 const App: React.FC = () => {
-  const [itemWidth, setBoxWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [inputs, setInputs] = useState({
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  });
 
-  const getMaxFrames = Math.floor(1300 / itemWidth);
+  const getMaxFrames = Math.floor(1300 / inputs.itemWidth);
 
-  const handleBoxWidth = (
+  const handleInput = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setBoxWidth(+event.target.value);
-  };
+    const value = event.target.name === 'infinite'
+      ? event.target.checked
+      : event.target.value;
 
-  const handleFrameSize = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setFrameSize(+event.target.value);
-  };
-
-  const handleStep = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setStep(+event.target.value);
-  };
-
-  const handleAnimationDuration = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setAnimationDuration(+event.target.value);
-  };
-
-  const handleInfinite = () => {
-    setInfinite(!infinite);
+    setInputs({
+      ...inputs,
+      [event.target.name]: value,
+    });
   };
 
   return (
@@ -58,18 +45,18 @@ const App: React.FC = () => {
       <h1 data-cy="title">Carousel with {images.length} images</h1>
 
       <form className="App__form" action="/">
-
         <label htmlFor="itemId" className="App__label">
           Box Width:
           <input
             className="App__input"
             type="number"
             id="itemId"
+            name="itemWidth"
             min={130}
             max={390}
             step={20}
-            value={itemWidth}
-            onChange={handleBoxWidth}
+            value={inputs.itemWidth}
+            onChange={handleInput}
           />
         </label>
 
@@ -82,8 +69,8 @@ const App: React.FC = () => {
             min={1}
             max={getMaxFrames}
             step={1}
-            value={frameSize}
-            onChange={handleFrameSize}
+            value={inputs.frameSize}
+            onChange={handleInput}
           />
         </label>
 
@@ -96,8 +83,8 @@ const App: React.FC = () => {
             min={1}
             max={10}
             step={1}
-            value={step}
-            onChange={handleStep}
+            value={inputs.step}
+            onChange={handleInput}
           />
         </label>
 
@@ -110,8 +97,8 @@ const App: React.FC = () => {
             min={500}
             max={5000}
             step={500}
-            value={animationDuration}
-            onChange={handleAnimationDuration}
+            value={inputs.animationDuration}
+            onChange={handleInput}
           />
         </label>
 
@@ -120,21 +107,21 @@ const App: React.FC = () => {
           <input
             className="App__input App__bigInpute"
             type="checkbox"
+            name="infinite"
             id="infiniteId"
-            value={animationDuration}
-            onChange={handleInfinite}
+            value={inputs.animationDuration}
+            onChange={handleInput}
           />
         </label>
-
       </form>
 
       <Carousel
         images={images}
-        itemWidth={itemWidth}
-        frameSize={frameSize}
-        step={step}
-        animationDuration={animationDuration}
-        infinite={infinite}
+        itemWidth={inputs.itemWidth}
+        frameSize={inputs.frameSize}
+        step={inputs.step}
+        animationDuration={inputs.animationDuration}
+        infinite={inputs.infinite}
       />
     </div>
   );
