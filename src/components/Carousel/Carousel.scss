@@ -1,0 +1,55 @@
+// style go here
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: teal;
+  border-radius: 5px;
+
+  &__list {
+    display: flex;
+    margin-bottom: 30px;
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 5px;
+  }
+
+  &__button-prev,
+  &__button-next {
+    font-size: 12px;
+    text-transform: uppercase;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    width: 50px;
+    height: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &__button-prev--disabled,
+  &__button-next--disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+  }
+}
