@@ -10,15 +10,14 @@ interface Props {
   infinite: boolean,
 }
 
-export const Carousel: React.FC<Props> = ({ inputs, images }) => {
-  const {
-    itemWidth,
-    frameSize,
-    step,
-    animationDuration,
-    infinite,
-  } = inputs;
-
+export const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}) => {
   const [currentImage, setCurrentImage] = useState(0);
   const maxImagesPosition = images.length - frameSize;
   const isDisabledPrev = currentImage === 0 && !infinite;
