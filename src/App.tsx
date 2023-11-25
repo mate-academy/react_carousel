@@ -33,10 +33,10 @@ const App: React.FC = () => {
       ? event.target.checked
       : event.target.value;
 
-    setInputs({
-      ...inputs,
+    setInputs(prevState => ({
+      ...prevState,
       [event.target.name]: value,
-    });
+    }));
   };
 
   return (
