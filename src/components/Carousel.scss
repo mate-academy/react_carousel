@@ -19,6 +19,13 @@
     display: inline-block;
   }
 
+  &__button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__button {
     margin-top: 50px;
     background-color: #3498db;
@@ -31,13 +38,5 @@
       background-color: #ccc;
       cursor: not-allowed;
     }
-  }
-
-  &__next {
-    margin-left: 50px;
-  }
-
-  &__prev {
-    margin-right: 50px;
   }
 }

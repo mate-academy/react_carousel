@@ -43,7 +43,6 @@ class App extends React.Component<{}, State> {
     this.setState((prevState) => ({
       ...prevState,
       [event.target.name]: Number.isNaN(value) ? 0 : value,
-      // [key]: Number.isNaN(value) ? 0 : value,
     }));
   };
 
@@ -65,7 +64,6 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="itemWidth">Item Width: </label>
           <input
-            // type="number"
             name="itemWidth"
             value={itemWidth}
             onChange={(event) => this.handleInputChange(
@@ -77,7 +75,6 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="frameSize">Frame Size: </label>
           <input
-            // type="number"
             name="frameSize"
             value={frameSize}
             onChange={(event) => this.handleInputChange(
@@ -89,7 +86,6 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="step">Step: </label>
           <input
-            // type="number"
             name="step"
             value={step}
             onChange={(event) => this.handleInputChange(
@@ -101,7 +97,6 @@ class App extends React.Component<{}, State> {
         <div>
           <label htmlFor="animationDuration">Animation Duration: </label>
           <input
-            // type="number"
             name="animationDuration"
             value={animationDuration}
             onChange={(event) => this.handleInputChange(

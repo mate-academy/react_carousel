@@ -74,21 +74,23 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button
-        className={`Carousel__button Carousel__prev ${currentIndex === 0 ? 'disabled' : ''}`}
-        onClick={handlePrevClick}
-        type="button"
-        data-cy="next"
-      >
-        Prev
-      </button>
-      <button
-        className={`Carousel__button Carousel__next ${currentIndex + frameSize >= images.length ? 'disabled' : ''}`}
-        onClick={handleNextClick}
-        type="button"
-      >
-        Next
-      </button>
+      <div className="Carousel__button-wrapper">
+        <button
+          className={`Carousel__button Carousel__prev ${currentIndex === 0 ? 'disabled' : ''}`}
+          onClick={handlePrevClick}
+          type="button"
+          data-cy="next"
+        >
+          Prev
+        </button>
+        <button
+          className={`Carousel__button Carousel__next ${currentIndex + frameSize >= images.length ? 'disabled' : ''}`}
+          onClick={handleNextClick}
+          type="button"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
