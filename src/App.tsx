@@ -65,6 +65,7 @@ const App: React.FC = () => {
           <input
             className="App__input"
             type="number"
+            name="frameSize"
             id="frameId"
             min={1}
             max={getMaxFrames}
@@ -79,6 +80,7 @@ const App: React.FC = () => {
           <input
             className="App__input"
             type="number"
+            name="step"
             id="stepId"
             min={1}
             max={10}
@@ -93,6 +95,7 @@ const App: React.FC = () => {
           <input
             className="App__input"
             type="number"
+            name="animationDuration"
             id="animationId"
             min={500}
             max={5000}
