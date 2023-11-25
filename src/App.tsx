@@ -120,7 +120,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={false}
+          infinite={infinite}
         />
       </div>
     );
