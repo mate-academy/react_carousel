@@ -1,6 +1,8 @@
 import React from 'react';
 import './Carousel.scss';
 
+let lengthMove = 0;
+
 type Props = {
   images: string[];
   step: number;
@@ -10,15 +12,14 @@ type Props = {
   infinite: boolean;
 };
 
-const Carousel: React.FC<Props> = ({
+export const Carousel: React.FC<Props> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
-  infinite = false,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
 }) => {
-  let lengthMove = 0;
   const moveSlider = (event: React.MouseEvent<HTMLElement>) => {
     const list = document.querySelector('.Carousel__list');
     const currentButton = event.target;
@@ -28,7 +29,7 @@ const Carousel: React.FC<Props> = ({
       .querySelector<HTMLButtonElement>('[data-cy=prev]');
     const totalWidth = images.length * itemWidth;
     const totalFrameSize = frameSize * itemWidth;
-    const totalStep = itemWidth * step;
+    const totalStep = step * itemWidth;
 
     if (currentButton instanceof HTMLElement
       && list instanceof HTMLElement
@@ -45,12 +46,14 @@ const Carousel: React.FC<Props> = ({
           } else if (!infinite
             && Math.abs(lengthMove) === totalWidth - totalFrameSize) {
             buttonNext.disabled = true;
+            break;
           }
 
           lengthMove -= totalStep;
 
-          if (Math.abs(lengthMove) + totalStep > totalWidth) {
+          if (Math.abs(lengthMove) > totalWidth - totalFrameSize) {
             lengthMove = -1 * (totalWidth - totalFrameSize);
+            buttonPrev.disabled = false;
             list.style.transform = `translateX(${lengthMove}px)`;
           } else {
             buttonPrev.disabled = false;
@@ -66,12 +69,14 @@ const Carousel: React.FC<Props> = ({
             break;
           } else if (!infinite && lengthMove === 0) {
             buttonPrev.disabled = true;
+            break;
           }
 
           lengthMove += totalStep;
 
           if (lengthMove > 0) {
             lengthMove = 0;
+            buttonNext.disabled = false;
             list.style.transform = `translateX(${lengthMove}px)`;
           } else {
             buttonNext.disabled = false;
@@ -93,6 +98,7 @@ const Carousel: React.FC<Props> = ({
         width: `${images.length * itemWidth}px`,
       }}
     >
+
       <div
         className="container"
         style={{
@@ -140,5 +146,3 @@ const Carousel: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Carousel;
