@@ -3,29 +3,33 @@ import './Form.scss';
 
 type Props = {
   members: number;
+  lengthMove: number;
   pace: number;
-  enteredStep: (pace: number) => void;
   frame: number;
-  enteredFrame: (frame: number) => void;
   size: number;
-  enteredSize: (size: number) => void;
   speed: number;
-  enteredSpeed: (speed: number) => void;
   infinite: boolean;
+  setLengthMove: (frame: number) => void;
+  enteredStep: (pace: number) => void;
+  enteredFrame: (frame: number) => void;
+  enteredSize: (size: number) => void;
+  enteredSpeed: (speed: number) => void;
   setInfinite: (infinite: boolean) => void;
 };
 
 export const Form: React.FC<Props> = ({
   members,
+  lengthMove,
   pace,
-  enteredStep,
   frame,
-  enteredFrame,
   size,
-  enteredSize,
   speed,
-  enteredSpeed,
   infinite,
+  setLengthMove,
+  enteredStep,
+  enteredFrame,
+  enteredSize,
+  enteredSpeed,
   setInfinite,
 }) => {
   const onChangeValue = (
@@ -38,6 +42,23 @@ export const Form: React.FC<Props> = ({
       enteredFunction(+event.target.value);
     } else {
       enteredFunction(startValue);
+    }
+
+    if (event.target.getAttribute('name') === 'size' && lengthMove < 0) {
+      const disp = (lengthMove / currentValue) * +event.target.value;
+
+      setLengthMove(disp);
+    }
+
+    const position = (-1 * lengthMove) + (size * frame);
+
+    if (event.target.getAttribute('name') === 'frame'
+      && lengthMove < 0
+      && position === members * size
+    ) {
+      const disp = (members - +event.target.value) * size * -1;
+
+      setLengthMove(disp);
     }
   };
 
@@ -57,6 +78,7 @@ export const Form: React.FC<Props> = ({
         Frame:
         <input
           type="number"
+          name="frame"
           value={frame}
           min={1}
           max={members}

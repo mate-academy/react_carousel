@@ -1,9 +1,9 @@
 import React from 'react';
 import './Carousel.scss';
 
-let lengthMove = 0;
-
 type Props = {
+  lengthMove: number;
+  setLengthMove: (frame: number) => void;
   images: string[];
   step: number;
   frameSize: number;
@@ -13,6 +13,8 @@ type Props = {
 };
 
 export const Carousel: React.FC<Props> = ({
+  lengthMove,
+  setLengthMove,
   images,
   step,
   frameSize,
@@ -40,8 +42,7 @@ export const Carousel: React.FC<Props> = ({
 
           if (infinite
             && Math.abs(lengthMove) === totalWidth - totalFrameSize) {
-            lengthMove = 0;
-            list.style.transform = `translateX(${lengthMove}px)`;
+            setLengthMove(0);
             break;
           } else if (!infinite
             && Math.abs(lengthMove) === totalWidth - totalFrameSize) {
@@ -49,38 +50,33 @@ export const Carousel: React.FC<Props> = ({
             break;
           }
 
-          lengthMove -= totalStep;
+          setLengthMove(lengthMove - totalStep);
 
-          if (Math.abs(lengthMove) > totalWidth - totalFrameSize) {
-            lengthMove = -1 * (totalWidth - totalFrameSize);
+          if (Math.abs(lengthMove) > totalWidth - totalFrameSize * 2) {
+            setLengthMove(-1 * (totalWidth - totalFrameSize));
             buttonPrev.disabled = false;
-            list.style.transform = `translateX(${lengthMove}px)`;
           } else {
             buttonPrev.disabled = false;
-            list.style.transform = `translateX(${lengthMove}px)`;
           }
 
           break;
 
         case 'prev':
           if (infinite && lengthMove === 0) {
-            lengthMove = -1 * (totalWidth - totalFrameSize);
-            list.style.transform = `translateX(${lengthMove}px)`;
+            setLengthMove(-1 * (totalWidth - totalFrameSize));
             break;
           } else if (!infinite && lengthMove === 0) {
             buttonPrev.disabled = true;
             break;
           }
 
-          lengthMove += totalStep;
+          setLengthMove(lengthMove + totalStep);
 
-          if (lengthMove > 0) {
-            lengthMove = 0;
+          if ((lengthMove + totalFrameSize) > 0) {
+            setLengthMove(0);
             buttonNext.disabled = false;
-            list.style.transform = `translateX(${lengthMove}px)`;
           } else {
             buttonNext.disabled = false;
-            list.style.transform = `translateX(${lengthMove}px)`;
           }
 
           break;
@@ -108,6 +104,7 @@ export const Carousel: React.FC<Props> = ({
         <ul
           className="Carousel__list"
           style={{
+            transform: `translateX(${lengthMove}px)`,
             transition: `all ${animationDuration}ms`,
           }}
         >

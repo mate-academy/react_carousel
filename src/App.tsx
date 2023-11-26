@@ -17,6 +17,7 @@ const images: string[] = [
 ];
 
 export const App: React.FC = () => {
+  const [move, setMove] = useState(0);
   const [stepSize, setStepSize] = useState(3);
   const [frameVisible, setFrameVisible] = useState(3);
   const [itemSize, setItemSize] = useState(130);
@@ -31,20 +32,24 @@ export const App: React.FC = () => {
 
       <Form
         members={images.length}
+        lengthMove={move}
         pace={stepSize}
-        enteredStep={setStepSize}
         frame={frameVisible}
-        enteredFrame={setFrameVisible}
         size={itemSize}
-        enteredSize={setItemSize}
         speed={speedValue}
-        enteredSpeed={setSpeedValue}
         infinite={infinite}
+        setLengthMove={setMove}
+        enteredStep={setStepSize}
+        enteredFrame={setFrameVisible}
+        enteredSize={setItemSize}
+        enteredSpeed={setSpeedValue}
         setInfinite={setInfinite}
       />
 
       <Carousel
         images={images}
+        lengthMove={move}
+        setLengthMove={setMove}
         step={stepSize}
         frameSize={frameVisible}
         itemWidth={itemSize}
