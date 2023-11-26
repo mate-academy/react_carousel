@@ -1,0 +1,41 @@
+.Carousel {
+  &__list {
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 30px;
+    overflow: hidden;
+    list-style: none;
+    border: 2px solid #21765e;
+  }
+
+  &__img {
+    padding: 10px 0;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+  }
+
+  &__btn {
+    cursor: no-drop;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
+    color: #364843;
+    border-color: #364843;
+    background-color: transparent;
+
+    &--active {
+      color: #fff;
+      border: 2px solid #21765e;
+      cursor: pointer;
+
+      &:hover {
+        color: #00ffb7;
+        border-color: #00ffb7;
+      }
+    }
+  }
+}
