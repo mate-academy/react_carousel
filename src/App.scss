@@ -1,1 +1,37 @@
-// style go here
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__label {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+  }
+
+  &__input {
+    width: 100px;
+    font-size: 20px;
+    border: 3px solid darkgray;
+    border-radius: 10px;
+  }
+
+  &__bigInpute {
+    height: 25px;
+  }
+}
