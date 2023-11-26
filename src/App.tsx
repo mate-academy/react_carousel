@@ -65,16 +65,21 @@ class App extends React.Component<{}, State> {
           <label htmlFor="itemWidth">Item Width: </label>
           <input
             name="itemWidth"
+            type="number"
             value={itemWidth}
             onChange={(event) => this.handleInputChange(
               event, 'itemWidth',
             )}
+            min={50}
+            max={350}
           />
         </div>
 
         <div>
           <label htmlFor="frameSize">Frame Size: </label>
           <input
+            type="number"
+            min={1}
             name="frameSize"
             value={frameSize}
             onChange={(event) => this.handleInputChange(
@@ -87,6 +92,8 @@ class App extends React.Component<{}, State> {
           <label htmlFor="step">Step: </label>
           <input
             name="step"
+            type="number"
+            min={1}
             value={step}
             onChange={(event) => this.handleInputChange(
               event, 'step',
@@ -98,6 +105,8 @@ class App extends React.Component<{}, State> {
           <label htmlFor="animationDuration">Animation Duration: </label>
           <input
             name="animationDuration"
+            type="number"
+            min={50}
             value={animationDuration}
             onChange={(event) => this.handleInputChange(
               event, 'animationDuration',

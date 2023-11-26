@@ -19,41 +19,68 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const finalIndex = images.length - frameSize;
   const [transitionDuration, setTransitionDuration] = useState(0);
   const widthContainer = itemWidth * frameSize;
 
-  const handlePrevClick = () => {
-    const newIndex = currentIndex - step;
+  // const handlePrevClick = () => {
+  //   const newIndex = currentIndex - step;
 
-    if (infinite) {
-      setCurrentIndex(newIndex < 0 ? images.length + newIndex : newIndex);
+  //   if (infinite) {
+  //     setCurrentIndex(newIndex < 0 ? images.length + newIndex : newIndex);
+  //   } else {
+  //     setCurrentIndex(newIndex >= 0 ? newIndex : 0);
+  //   }
+
+  //   setTransitionDuration(animationDuration);
+  // };
+
+  function handlePrevClick() {
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => (
+        prev - step >= 0
+          ? prev - step
+          : 0
+      ));
     } else {
-      setCurrentIndex(newIndex >= 0 ? newIndex : 0);
+      setCurrentIndex(finalIndex);
     }
 
     setTransitionDuration(animationDuration);
-  };
+  }
 
-  const handleNextClick = () => {
-    const newIndex = currentIndex + step;
-
-    if (infinite) {
-      setCurrentIndex(newIndex >= images.length
-        ? newIndex - images.length
-        : newIndex);
+  function handleNextClick() {
+    if (currentIndex < finalIndex) {
+      setCurrentIndex(prev => (
+        prev + step <= finalIndex
+          ? prev + step
+          : finalIndex
+      ));
     } else {
-      setCurrentIndex(newIndex + frameSize <= images.length
-        ? newIndex
-        : images.length - frameSize);
+      setCurrentIndex(0);
     }
 
     setTransitionDuration(animationDuration);
-  };
+  }
+
+  // const handleNextClick = () => {
+  //   const newIndex = currentIndex + step;
+
+  //   if (infinite) {
+  //     setCurrentIndex(newIndex >= images.length
+  //       ? newIndex - images.length
+  //       : newIndex);
+  //   } else {
+  //     setCurrentIndex(newIndex + frameSize <= images.length
+  //       ? newIndex
+  //       : images.length - frameSize);
+  //   }
+
+  //   setTransitionDuration(animationDuration);
+  // };
 
   return (
     <div className="Carousel" style={{ width: widthContainer }}>
-      {/* <h1 data-cy="title">Carousel</h1> */}
-
       <div
         className="Carousel__wrapper"
         style={{
