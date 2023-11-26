@@ -9,7 +9,7 @@ type Props = {
   size: number;
   speed: number;
   infinite: boolean;
-  setLengthMove: (frame: number) => void;
+  setLengthMove: (lengthMove: number) => void;
   enteredStep: (pace: number) => void;
   enteredFrame: (frame: number) => void;
   enteredSize: (size: number) => void;
@@ -38,27 +38,42 @@ export const Form: React.FC<Props> = ({
     currentValue: number,
     startValue: number,
   ) => {
+    const buttonNext = document
+      .querySelector<HTMLButtonElement>('[data-cy=next]');
+    const buttonPrev = document
+      .querySelector<HTMLButtonElement>('[data-cy=prev]');
+
     if (+event.target.value && +event.target.value !== currentValue) {
       enteredFunction(+event.target.value);
     } else {
       enteredFunction(startValue);
     }
 
-    if (event.target.getAttribute('name') === 'size' && lengthMove < 0) {
-      const disp = (lengthMove / currentValue) * +event.target.value;
-
-      setLengthMove(disp);
-    }
-
+    const dispSize = (lengthMove / currentValue) * +event.target.value;
+    const dispFrame = (members - +event.target.value) * size * -1;
     const position = (-1 * lengthMove) + (size * frame);
 
-    if (event.target.getAttribute('name') === 'frame'
-      && lengthMove < 0
-      && position === members * size
-    ) {
-      const disp = (members - +event.target.value) * size * -1;
+    switch (event.target.getAttribute('name')) {
+      case 'size':
+        setLengthMove(dispSize);
+        break;
 
-      setLengthMove(disp);
+      case 'frame':
+        if (position === members * size) {
+          setLengthMove(dispFrame);
+        }
+
+        if (frame + 1 !== members
+          && buttonNext instanceof HTMLElement
+          && buttonPrev instanceof HTMLElement) {
+          buttonPrev.disabled = false;
+          buttonNext.disabled = false;
+        }
+
+        break;
+
+      default:
+        break;
     }
   };
 

@@ -3,7 +3,7 @@ import './Carousel.scss';
 
 type Props = {
   lengthMove: number;
-  setLengthMove: (frame: number) => void;
+  setLengthMove: (lengthMove: number) => void;
   images: string[];
   step: number;
   frameSize: number;
@@ -23,7 +23,6 @@ export const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const moveSlider = (event: React.MouseEvent<HTMLElement>) => {
-    const list = document.querySelector('.Carousel__list');
     const currentButton = event.target;
     const buttonNext = document
       .querySelector<HTMLButtonElement>('[data-cy=next]');
@@ -34,7 +33,6 @@ export const Carousel: React.FC<Props> = ({
     const totalStep = step * itemWidth;
 
     if (currentButton instanceof HTMLElement
-      && list instanceof HTMLElement
       && buttonNext instanceof HTMLElement
       && buttonPrev instanceof HTMLElement) {
       switch (currentButton.dataset.cy) {
