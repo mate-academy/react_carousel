@@ -1,1 +1,17 @@
-// style go here
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__input {
+    margin-left: 10px;
+    width: 70px;
+  }
+}
