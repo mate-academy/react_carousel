@@ -1,0 +1,26 @@
+.form {
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 24%;
+
+  &__label {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid burlywood;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 7px;
+  }
+
+  &__input {
+    border: 1px solid #bbb;
+    font-size: 16px;
+    border-radius: 10px;
+    width: 60px;
+  }
+}

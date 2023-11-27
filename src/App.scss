@@ -1,1 +1,23 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.App {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  color: rgb(54, 52, 52);
+  background-color: rgb(236, 232, 227);
+  height: 100vh;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+  color: rgb(54, 52, 52);
+}
