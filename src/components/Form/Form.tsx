@@ -32,17 +32,17 @@ export const Form: React.FC<Props> = ({
   enteredSpeed,
   setInfinite,
 }) => {
+  const buttonNext = document
+    .querySelector<HTMLButtonElement>('[data-cy=next]');
+  const buttonPrev = document
+    .querySelector<HTMLButtonElement>('[data-cy=prev]');
+
   const onChangeValue = (
     event: React.ChangeEvent<HTMLInputElement>,
     enteredFunction: (value: number) => void,
     currentValue: number,
     startValue: number,
   ) => {
-    const buttonNext = document
-      .querySelector<HTMLButtonElement>('[data-cy=next]');
-    const buttonPrev = document
-      .querySelector<HTMLButtonElement>('[data-cy=prev]');
-
     if (+event.target.value && +event.target.value !== currentValue) {
       enteredFunction(+event.target.value);
     } else {
@@ -77,6 +77,17 @@ export const Form: React.FC<Props> = ({
     }
   };
 
+  const changeInfinite = () => {
+    setInfinite(!infinite);
+
+    if (!infinite
+      && buttonNext instanceof HTMLElement
+      && buttonPrev instanceof HTMLElement) {
+      buttonPrev.disabled = false;
+      buttonNext.disabled = false;
+    }
+  };
+
   return (
     <form className="form">
       <label>
@@ -106,8 +117,8 @@ export const Form: React.FC<Props> = ({
           type="number"
           name="size"
           value={size}
-          min={50}
-          max={300}
+          min={30}
+          max={500}
           onChange={(event) => onChangeValue(event, enteredSize, size, 130)}
         />
       </label>
@@ -117,7 +128,7 @@ export const Form: React.FC<Props> = ({
           type="number"
           value={speed}
           min={0}
-          max={5000}
+          max={9000}
           onChange={(event) => onChangeValue(event, enteredSpeed, speed, 1000)}
         />
       </label>
@@ -125,9 +136,8 @@ export const Form: React.FC<Props> = ({
         Infinite:
         <input
           type="checkbox"
-          onChange={() => {
-            setInfinite(!infinite);
-          }}
+          name="infinite"
+          onChange={changeInfinite}
         />
       </label>
     </form>
