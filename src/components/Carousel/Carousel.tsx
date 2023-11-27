@@ -19,10 +19,6 @@ const changeSizeByFrameSize = (frameSize: number, inputWidth: number) => ({
   width: `${inputWidth * frameSize}px`,
 });
 
-const changeDuration = (animationD: number) => ({
-  transition: `transform ${animationD}ms`,
-});
-
 const Carousel: React.FC<ICarouselProps> = ({
   images,
   inputWidth,
@@ -65,19 +61,21 @@ const Carousel: React.FC<ICarouselProps> = ({
       }}
     >
       <ul className="Carousel__list">
-        {images.map(image => {
+        {images.map((image, index) => {
+          const isVisible = index >= moveItems && index < moveItems + frameSize;
+
           return (
             <li
               className="Carousel__item"
               key={image}
               style={{
-                transform: `translateX(-${moveItems * inputWidth}px)`,
-                ...changeDuration(animationD),
+                transition: `transform ${animationD}ms`,
+                display: isVisible ? 'block' : 'none',
               }}
             >
               <img
                 src={image}
-                alt={image}
+                alt={`${index + 1}`}
                 style={{ width: `${inputWidth}px`, height: `${inputWidth}px` }}
                 width={inputWidth}
               />

@@ -13,13 +13,14 @@ li {
 
 .Carousel {
   margin: 0 auto;
-  overflow: hidden;
   background-color: teal;
   border-radius: 5px;
+  display: block;
 
   &__list {
     display: flex;
     margin-bottom: 30px;
+    overflow: hidden;
   }
 
   &__item {
