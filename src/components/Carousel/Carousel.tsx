@@ -15,8 +15,11 @@ const changeSizeByinputWidth = (inputWidth: number) => ({
   width: `${inputWidth * 3}px`,
 });
 
-const changeSizeByFrameSize = (frameSize: number, inputWidth: number) => ({
-  width: `${inputWidth * frameSize}px`,
+const changeSizeByFrameSize = (
+  frameSize: number,
+  inputWidth: number,
+) => ({
+  width: `${inputWidth * frameSize + 1}px`,
 });
 
 const Carousel: React.FC<ICarouselProps> = ({
@@ -62,13 +65,17 @@ const Carousel: React.FC<ICarouselProps> = ({
     >
       <ul className="Carousel__list">
         {images.map((image, index) => {
-          const isVisible = index >= moveItems && index < moveItems + frameSize;
+          const isVisible = (
+            index >= moveItems && index < moveItems + frameSize
+          ) || ((index + images.length >= moveItems)
+            && (index + images.length < moveItems + frameSize));
 
           return (
             <li
               className="Carousel__item"
               key={image}
               style={{
+                // transform: `translateX(-${moveItems * inputWidth}px)`,
                 transition: `transform ${animationD}ms`,
                 display: isVisible ? 'block' : 'none',
               }}

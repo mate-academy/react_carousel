@@ -50,6 +50,7 @@ export const Form: React.FC<FormProps> = ({
           value={frameSize}
           step={1}
           min={1}
+          max={images.length}
           onChange={(e) => setFrameSize(Number(e.target.value))}
           className="form__input"
         />
