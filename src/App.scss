@@ -1,1 +1,26 @@
-// style go here
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+iframe {
+  display: none;
+}
+
+body {
+  font-family: monospace;
+}
+
+.App {
+  &__title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+}

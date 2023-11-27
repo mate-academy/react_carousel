@@ -1,0 +1,43 @@
+.Carousel {
+  margin: 0 auto;
+
+  &__wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 0 5px rgba(#000, 1);
+    margin-bottom: 5px;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btn {
+    font-size: 20px;
+    padding: 5px 15px;
+    background: #000;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+
+    &:disabled {
+      background: #999;
+      color: rgba(#fff, 0.5);
+      cursor: default;
+    }
+
+    &:first-child {
+      border-bottom-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 5px;
+    }
+  }
+}
