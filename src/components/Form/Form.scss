@@ -1,0 +1,28 @@
+.form {
+  background-color: teal;
+  width: 400px;
+  margin: 0 auto 100px;
+  padding: 10px 0;
+  color: white;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+
+  &__item {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__input {
+    width: 70px;
+    padding: 5px 10px 5px 5px;
+    border-radius: 5px;
+    border: none;
+  }
+}
