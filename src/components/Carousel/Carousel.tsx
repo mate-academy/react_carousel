@@ -60,10 +60,10 @@ export const Carousel: React.FC<Props> = ({
           break;
 
         case 'prev':
-          if (infinite && lengthMove === 0) {
+          if (infinite && !lengthMove) {
             setLengthMove(-1 * (totalWidth - totalFrameSize));
             break;
-          } else if (!infinite && lengthMove === 0) {
+          } else if (!infinite && !lengthMove) {
             buttonPrev.disabled = true;
             break;
           }
