@@ -1,1 +1,13 @@
-// style go here
+html {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
