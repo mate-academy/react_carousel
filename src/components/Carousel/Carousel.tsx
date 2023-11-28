@@ -67,6 +67,7 @@ export const Carousel: React.FC<Props> = ({
       <ul className="carousel__list">
         {images.map(image => (
           <li
+            key={image}
             style={{
               transition: `transform ${animationDuration}ms ease`,
               transform: `translateX(-${moveItems * imageSize}px)`,
@@ -100,7 +101,7 @@ export const Carousel: React.FC<Props> = ({
             transition: `${animationDuration}ms`,
           }}
         >
-          &#11176;
+          &#8592;
         </button>
 
         <button
@@ -115,7 +116,7 @@ export const Carousel: React.FC<Props> = ({
             transition: `${animationDuration}ms`,
           }}
         >
-          &#11177;
+          &#8594;
         </button>
       </div>
     </div>
