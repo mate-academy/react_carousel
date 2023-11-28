@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 
 import './Carousel.scss';
@@ -22,8 +22,13 @@ export const Carousel: React.FC<Props> = ({
 }) => {
   const carouselSize = imageSize * frameSize;
   const lastItem = images.length - frameSize;
-
   const [moveItems, setMoveItems] = useState(0);
+
+  useEffect(() => {
+    if (moveItems > lastItem) {
+      setMoveItems(lastItem);
+    }
+  }, [frameSize]);
 
   const handleMoveRight = () => {
     const remainingItems = images.length - (moveItems + frameSize);
