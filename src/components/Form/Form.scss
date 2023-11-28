@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  font-family: "Anton", sans-serif;
+  font-size: 20px;
+  margin-block: 25px;
+  width: 300px;
+  padding: 5px 25px;
+  border: 2px solid #d83f11;
+  border-radius: 20px;
+  gap: 10px;
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__block-lable {
+    cursor: pointer;
+  }
+
+  &__block-input {
+    cursor: pointer;
+    font-family: "Anton", sans-serif;
+    font-size: 15px;
+    padding-left: 10px;
+    border-color: #d83f11;
+    border-radius: 10px;
+    width: 100px;
+  }
+}
