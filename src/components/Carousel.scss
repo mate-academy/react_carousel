@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 3px solid gray;
+    border-radius: 15px;
+    background-color: lightgray;
+    list-style: none;
+  }
+
+  &__button {
+    border-radius: 20px;
+    width: 100px;
+    height: 300px;
+    background-color: lightgreen;
+    border: 3px solid lightgray;
+    cursor: pointer;
+
+    &--disabled {
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: green;
+    }
+  }
+}

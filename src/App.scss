@@ -1,1 +1,20 @@
-// style go here
+html {
+  background-color: beige;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__title {
+    font-size: 60px;
+  }
+
+  &__container {
+    margin-bottom: 60px;
+    display: flex;
+    gap: 10px;
+  }
+}
+
