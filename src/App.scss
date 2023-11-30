@@ -1,1 +1,25 @@
-// style go here
+html {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.app{
+  text-align: center;
+
+  &__label {
+    text-align-last: right;
+    display: grid;
+    grid-template-columns: 200px 150px;
+    grid-auto-rows: 25px;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  &__carousel {
+    margin: 0 auto 30px;
+  }
+}

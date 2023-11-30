@@ -1,1 +1,71 @@
-// style go here
+.carousel {
+  &__slider {
+    overflow: hidden;
+  }
+
+  &__list {
+    width: 1300px;
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+
+    gap: 20px;
+  }
+
+  &__button {
+    position: relative;
+    outline: none;
+    background: #292929;
+
+    width: 100px;
+    border-radius: 15px;
+    padding: 10px;
+    border: none;
+
+    color: #fff;
+    transition: transform 0.3s;
+
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    &:hover::before {
+      transform: scale(1.2) rotateZ(3deg);
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      border-radius: 10px;
+      inset: 0;
+      z-index: -1;
+    }
+
+    &::after {
+      background: #292929;
+    }
+
+    &::before {
+      background-image: linear-gradient(135deg, #aeffb9 0%, #a091ff 100%);
+      transition: transform 0.3s;
+    }
+
+    &--next {
+      &:hover::before {
+        transform: scale(1.2) rotateZ(3deg);
+      }
+    }
+
+    &--prev {
+      &:hover::before {
+        transform: scale(1.2) rotateZ(-3deg);
+      }
+    }
+  }
+}
