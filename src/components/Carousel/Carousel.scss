@@ -1,0 +1,27 @@
+.Carousel {
+  background-color: #f1f1f7;
+  border-radius: 10px;
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  &__button {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+}
