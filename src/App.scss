@@ -1,1 +1,36 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+
+  &__title {
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    color: #0075ff;
+  }
+}
+
+.form {
+  &__label {
+    display: flex;
+    gap: 12px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #0a0c22;
+    cursor: pointer;
+  }
+
+  &__input {
+    padding: 3px 0;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #0a0c22;
+  }
+}
