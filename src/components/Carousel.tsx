@@ -15,18 +15,12 @@ const Carousel: React.FC <CarouselProps> = ({
   const [moveItems, setMoveItems] = useState<number>(0);
 
   const CarouselStyle: React.CSSProperties = {
-    width: frameSize * itemWidth,
+    width: frameSize * (itemWidth - 1),
   };
 
   const CarouselItemStyle: React.CSSProperties = {
-
     transform: `translateX(${moveItems}px)`,
     transition: `transform ${animationDuration}ms ease-in-out`,
-  };
-
-  const imgStyle: React.CSSProperties = {
-    width: itemWidth,
-    height: itemWidth,
   };
 
   const prevItems = () => {
@@ -51,14 +45,14 @@ const Carousel: React.FC <CarouselProps> = ({
   };
 
   return (
-    <div className="Carousel" style={CarouselStyle}>
-      <ul className="Carousel__list">
+    <div className="Carousel">
+      <ul className="Carousel__list" style={CarouselStyle}>
         {images.map((img, index) => (
           <li style={CarouselItemStyle} key={img}>
             <img
               src={img}
               alt={(index + 1).toString()}
-              style={imgStyle}
+              width={itemWidth}
             />
           </li>
         ))}

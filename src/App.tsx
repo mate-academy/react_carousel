@@ -48,9 +48,10 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
         <div className="App__inputs">
-          <label className="App__inputs--item">
+          <label className="App__inputs--item" htmlFor="itemId">
             Item Width:
             <input
+              id="itemId"
               type="number"
               value={itemWidth}
               onChange={
@@ -58,9 +59,10 @@ class App extends React.Component<{}, State> {
               }
             />
           </label>
-          <label className="App__inputs--item">
+          <label className="App__inputs--item" htmlFor="frameId">
             Frame size:
             <input
+              id="frameId"
               type="number"
               value={frameSize}
               onChange={
@@ -68,9 +70,10 @@ class App extends React.Component<{}, State> {
               }
             />
           </label>
-          <label className="App__inputs--item">
+          <label className="App__inputs--item" htmlFor="stepId">
             Step:
             <input
+              id="stepId"
               type="number"
               value={step}
               onChange={
@@ -78,9 +81,10 @@ class App extends React.Component<{}, State> {
               }
             />
           </label>
-          <label className="App__inputs--item">
+          <label className="App__inputs--item" htmlFor="animationID">
             Animation Duration:
             <input
+              id="animationID"
               type="number"
               value={animationDuration}
               onChange={
