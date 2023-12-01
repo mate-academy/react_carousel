@@ -15,16 +15,16 @@ const Carousel: React.FC <CarouselProps> = ({
   const [moveItems, setMoveItems] = useState<number>(0);
 
   const CarouselStyle: React.CSSProperties = {
-    width: frameSize * (itemWidth - 1),
+    width: frameSize * itemWidth - 1,
   };
 
   const CarouselItemStyle: React.CSSProperties = {
-    transform: `translateX(${moveItems}px)`,
+    transform: `translateX(${moveItems}%)`,
     transition: `transform ${animationDuration}ms ease-in-out`,
   };
 
   const prevItems = () => {
-    const tmp = moveItems + step * itemWidth;
+    const tmp = moveItems + step * 100;
 
     if (tmp > 0) {
       setMoveItems(0);
@@ -34,8 +34,8 @@ const Carousel: React.FC <CarouselProps> = ({
   };
 
   const nextItems = () => {
-    const max = images.length * itemWidth - itemWidth * frameSize;
-    const tmp = moveItems - step * itemWidth;
+    const max = images.length * 100 - 100 * frameSize;
+    const tmp = moveItems - step * 100;
 
     if (tmp < -max) {
       setMoveItems(-max);
@@ -58,14 +58,16 @@ const Carousel: React.FC <CarouselProps> = ({
         ))}
       </ul>
 
-      <button type="button" onClick={prevItems}>Prev</button>
-      <button
-        type="button"
-        onClick={nextItems}
-        data-cy="next"
-      >
-        Next
-      </button>
+      <div className="Carousel__buttons">
+        <button type="button" onClick={prevItems}>Prev</button>
+        <button
+          type="button"
+          onClick={nextItems}
+          data-cy="next"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

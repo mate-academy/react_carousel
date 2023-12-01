@@ -8,4 +8,9 @@
     overflow: hidden;
     padding: 0;
   }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap:10px
+  }
 }

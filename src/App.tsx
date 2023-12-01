@@ -48,52 +48,141 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
         <div className="App__inputs">
-          <label className="App__inputs--item" htmlFor="itemId">
-            Item Width:
-            <input
-              id="itemId"
-              type="number"
-              value={itemWidth}
-              onChange={
-                (e) => this.setState({ itemWidth: Number(e.target.value) })
+          <div className="App__inputs--item-container">
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ itemWidth: itemWidth + 10 })
               }
-            />
-          </label>
-          <label className="App__inputs--item" htmlFor="frameId">
-            Frame size:
-            <input
-              id="frameId"
-              type="number"
-              value={frameSize}
-              onChange={
-                (e) => this.setState({ frameSize: Number(e.target.value) })
+            >
+              +
+            </button>
+            <label className="App__inputs--item" htmlFor="itemId">
+              Item Width:
+              <input
+                id="itemId"
+                type="number"
+                step={10}
+                value={itemWidth}
+                onChange={
+                  (e) => this.setState({ itemWidth: Number(e.target.value) })
+                }
+              />
+            </label>
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ itemWidth: itemWidth - 10 })
               }
-            />
-          </label>
-          <label className="App__inputs--item" htmlFor="stepId">
-            Step:
-            <input
-              id="stepId"
-              type="number"
-              value={step}
-              onChange={
-                (e) => this.setState({ step: Number(e.target.value) })
+            >
+              -
+            </button>
+          </div>
+
+          <div className="App__inputs--item-container">
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ frameSize: frameSize + 1 })
               }
-            />
-          </label>
-          <label className="App__inputs--item" htmlFor="animationID">
-            Animation Duration:
-            <input
-              id="animationID"
-              type="number"
-              value={animationDuration}
-              onChange={
-                (e) => this.setState({
-                  animationDuration: Number(e.target.value),
+            >
+              +
+            </button>
+            <label className="App__inputs--item" htmlFor="frameId">
+              Frame size:
+              <input
+                id="frameId"
+                type="number"
+                value={frameSize}
+                onChange={
+                  (e) => this.setState({ frameSize: Number(e.target.value) })
+                }
+              />
+            </label>
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ frameSize: frameSize - 1 })
+              }
+            >
+              -
+            </button>
+          </div>
+
+          <div className="App__inputs--item-container">
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ step: step + 1 })
+              }
+            >
+              +
+            </button>
+            <label className="App__inputs--item" htmlFor="stepId">
+              Step:
+              <input
+                id="stepId"
+                type="number"
+                value={step}
+                onChange={
+                  (e) => this.setState({ step: Number(e.target.value) })
+                }
+              />
+            </label>
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({ step: step - 1 })
+              }
+            >
+              -
+            </button>
+          </div>
+
+          <div className="App__inputs--item-container">
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({
+                  animationDuration: animationDuration + 100,
                 })
               }
-            />
-          </label>
+            >
+              +
+            </button>
+            <label className="App__inputs--item" htmlFor="animationID">
+              Animation Duration:
+              <input
+                id="animationID"
+                type="number"
+                step={100}
+                value={animationDuration}
+                onChange={
+                  (e) => this.setState({
+                    animationDuration: Number(e.target.value),
+                  })
+                }
+              />
+            </label>
+            <button
+              type="button"
+              className="App__inputs--item-button"
+              onClick={
+                () => this.setState({
+                  animationDuration: animationDuration - 100,
+                })
+              }
+            >
+              -
+            </button>
+          </div>
         </div>
       </div>
     );
