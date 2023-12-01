@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: number,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,77 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: 0,
   };
 
+  settings = [];
+
   render() {
-    const { images } = this.state;
+    const {
+      images, step, frameSize, itemWidth, animationDuration, infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <form action="">
+          <label className="Carousel__input">
+            Step
+            <input
+              type="text"
+              defaultValue={3}
+              onChange={(event) => {
+                this.setState({ step: +event.target.value });
+              }}
+            />
+          </label>
 
-        <Carousel />
+          <label className="Carousel__input">
+            Frame size
+            <input
+              type="text"
+              defaultValue={3}
+              onChange={(event) => {
+                this.setState({ frameSize: +event.target.value });
+              }}
+            />
+          </label>
+          <label className="Carousel__input">
+            Item width
+            <input
+              type="text"
+              defaultValue={130}
+              onChange={(event) => {
+                this.setState({ itemWidth: +event.target.value });
+              }}
+            />
+          </label>
+          <label className="Carousel__input">
+            Animation duration
+            <input
+              type="text"
+              defaultValue={1000}
+              className="Carousel__input"
+              onChange={(event) => {
+                this.setState({ animationDuration: +event.target.value });
+              }}
+            />
+          </label>
+        </form>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
