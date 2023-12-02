@@ -1,1 +1,17 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+  &__list {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    background-color: rgb(205, 122, 50);
+    border-radius: 20px;
+    border: solid black 2px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 40px;
+  }
+}
