@@ -71,6 +71,30 @@ class App extends React.Component<{}, State> {
       }));
     };
 
+    const changeItemWidth = (value: string) => {
+      const tmp = Number(value);
+
+      this.setState(() => ({ itemWidth: tmp }));
+    };
+
+    const changeFrameSize = (value: string) => {
+      const tmp = Number(value);
+
+      this.setState(() => ({ frameSize: tmp }));
+    };
+
+    const changeStep = (value: string) => {
+      const tmp = Number(value);
+
+      this.setState(() => ({ step: tmp }));
+    };
+
+    const changeAnimationDuration = (value: string) => {
+      const tmp = Number(value);
+
+      this.setState(() => ({ animationDuration: tmp }));
+    };
+
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
@@ -100,7 +124,7 @@ class App extends React.Component<{}, State> {
                 step={10}
                 value={itemWidth}
                 onChange={
-                  (e) => this.setState({ itemWidth: Number(e.target.value) })
+                  (e) => changeItemWidth(e.target.value)
                 }
               />
             </label>
@@ -127,9 +151,7 @@ class App extends React.Component<{}, State> {
                 id="frameId"
                 type="number"
                 value={frameSize}
-                onChange={
-                  (e) => this.setState({ frameSize: Number(e.target.value) })
-                }
+                onChange={(e) => changeFrameSize(e.target.value)}
               />
             </label>
             <button
@@ -155,9 +177,7 @@ class App extends React.Component<{}, State> {
                 id="stepId"
                 type="number"
                 value={step}
-                onChange={
-                  (e) => this.setState({ step: Number(e.target.value) })
-                }
+                onChange={(e) => changeStep(e.target.value)}
               />
             </label>
             <button
@@ -184,11 +204,7 @@ class App extends React.Component<{}, State> {
                 type="number"
                 step={100}
                 value={animationDuration}
-                onChange={
-                  (e) => this.setState({
-                    animationDuration: Number(e.target.value),
-                  })
-                }
+                onChange={(e) => changeAnimationDuration(e.target.value)}
               />
             </label>
             <button
