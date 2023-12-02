@@ -1,1 +1,108 @@
 // style go here
+.Carousel {
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 260px;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+}
+
+.Carousel__image {
+  width: 130px;
+}
+
+.Carousel__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  list-style: none;
+  padding: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}
+
+.settings {
+  margin: 0 auto;
+  margin-top: 50px;
+  max-width: max-content;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  border-radius: 30px;
+  padding: 50px;
+  background-color: rgba($color: #807e7e, $alpha: 0.3);
+}
+
+.setting__title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.settings__input {
+  width: 120px;
+  height: 15px;
+  padding: 4px;
+}
+
+.settings__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.settings__label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.carousel__button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.arrow-button {
+  font-size: 20px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+}
+
+.arrow-button:hover {
+  background-color: #ccc;
+  color: #000;
+}
+
+.arrow-button:disabled:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.carousel__nav {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.nav-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: gray;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.nav-button.active {
+  background-color: black;
+}
