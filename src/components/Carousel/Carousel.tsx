@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -22,8 +22,20 @@ const Carousel: React.FC<Props> = ({
 
   const preparedImages = images;
   const containerWidth = frameSize * itemWidth;
-
   const translate = itemWidth * step;
+
+  useEffect(() => {
+    setPosition(prevPosition => {
+      const maxPosition = -((images.length - frameSize) * itemWidth);
+      const minPosition = 0;
+
+      if (infinite && prevPosition === minPosition) {
+        return maxPosition;
+      }
+
+      return Math.min(minPosition, prevPosition + translate);
+    });
+  }, [itemWidth]);
 
   const handleNextButton = () => {
     setPosition(prevPosition => {
