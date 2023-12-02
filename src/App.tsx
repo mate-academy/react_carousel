@@ -35,6 +35,42 @@ class App extends React.Component<{}, State> {
       images, step, frameSize, itemWidth, animationDuration,
     } = this.state;
 
+    const increaseItemWidth = () => {
+      this.setState((prev) => ({ itemWidth: prev.itemWidth + 10 }));
+    };
+
+    const decreaseItemWidth = () => {
+      this.setState((prev) => ({ itemWidth: prev.itemWidth - 10 }));
+    };
+
+    const increaseFrameSize = () => {
+      this.setState((prev) => ({ frameSize: prev.frameSize + 1 }));
+    };
+
+    const decreaseFrameSize = () => {
+      this.setState((prev) => ({ frameSize: prev.frameSize - 1 }));
+    };
+
+    const increaseStep = () => {
+      this.setState((prev) => ({ step: prev.step + 1 }));
+    };
+
+    const decreaseStep = () => {
+      this.setState((prev) => ({ step: prev.step - 1 }));
+    };
+
+    const increaseAnimationDuration = () => {
+      this.setState((prev) => ({
+        animationDuration: prev.animationDuration + 100,
+      }));
+    };
+
+    const decreaseAnimationDuration = () => {
+      this.setState((prev) => ({
+        animationDuration: prev.animationDuration + 100,
+      }));
+    };
+
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
@@ -52,9 +88,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ itemWidth: itemWidth + 10 })
-              }
+              onClick={increaseItemWidth}
             >
               +
             </button>
@@ -73,9 +107,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ itemWidth: itemWidth - 10 })
-              }
+              onClick={decreaseItemWidth}
             >
               -
             </button>
@@ -85,9 +117,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ frameSize: frameSize + 1 })
-              }
+              onClick={increaseFrameSize}
             >
               +
             </button>
@@ -105,9 +135,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ frameSize: frameSize - 1 })
-              }
+              onClick={decreaseFrameSize}
             >
               -
             </button>
@@ -117,9 +145,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ step: step + 1 })
-              }
+              onClick={increaseStep}
             >
               +
             </button>
@@ -137,9 +163,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({ step: step - 1 })
-              }
+              onClick={decreaseStep}
             >
               -
             </button>
@@ -149,11 +173,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({
-                  animationDuration: animationDuration + 100,
-                })
-              }
+              onClick={increaseAnimationDuration}
             >
               +
             </button>
@@ -174,11 +194,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="App__inputs--item-button"
-              onClick={
-                () => this.setState({
-                  animationDuration: animationDuration - 100,
-                })
-              }
+              onClick={decreaseAnimationDuration}
             >
               -
             </button>
