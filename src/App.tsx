@@ -2,9 +2,8 @@ import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+import { Form } from './components/Form';
+import { FormData, State } from './types';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,17 +19,47 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  handleSubmit = (formData: FormData) => {
+    const {
+      itemWidth, frameSize, step, animationDuration,
+    } = formData;
+
+    this.setState({
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1  data-cy="title">Carousel</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
+        <Form onSubmit={this.handleSubmit} />
       </div>
     );
   }
