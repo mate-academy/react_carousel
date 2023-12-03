@@ -34,25 +34,12 @@ class App extends React.Component<{}, State> {
 
   handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    key: keyof State,
   ) => {
-    const { value } = e.target;
+    const { value, name, checked } = e.target;
 
     this.setState(prevState => ({
       ...prevState,
-      [key]: +value,
-    }));
-  };
-
-  handleCheckboxChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: keyof State,
-  ) => {
-    const { checked } = e.target;
-
-    this.setState(prevState => ({
-      ...prevState,
-      [key]: checked,
+      [name]: name === 'infinite' ? checked : +value,
     }));
   };
 
@@ -64,11 +51,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 data-cy="title" className="title">
-          Carousel with
-          {' '}
-          {images.length}
-          {' '}
-          images
+          {`Carousel with ${images.length} images`}
         </h1>
 
         <div className="settings">
@@ -84,7 +67,8 @@ class App extends React.Component<{}, State> {
               name="itemWidth"
               step={10}
               value={itemWidth}
-              onChange={(e) => this.handleInputChange(e, 'itemWidth')}
+              min={10}
+              onChange={this.handleInputChange}
             />
           </div>
 
@@ -97,7 +81,8 @@ class App extends React.Component<{}, State> {
               className="settings__input"
               name="frameSize"
               value={frameSize}
-              onChange={(e) => this.handleInputChange(e, 'frameSize')}
+              min={1}
+              onChange={this.handleInputChange}
             />
           </div>
 
@@ -110,7 +95,8 @@ class App extends React.Component<{}, State> {
               className="settings__input"
               name="step"
               value={step}
-              onChange={(e) => this.handleInputChange(e, 'step')}
+              min={1}
+              onChange={this.handleInputChange}
             />
           </div>
 
@@ -123,22 +109,22 @@ class App extends React.Component<{}, State> {
               className="settings__input"
               name="animationDuration"
               value={animationDuration}
-              step={10}
-              onChange={(e) => this.handleInputChange(e, 'animationDuration')}
+              min={10}
+              step={0}
+              onChange={this.handleInputChange}
             />
           </div>
 
           <div className="settings__wrapper">
             <label htmlFor="animationDuration" className="settings__label">
-              Animation duration:
+              Infinite:
             </label>
             <input
               type="checkbox"
               className="settings__input"
               name="infinite"
               checked={infinite}
-              step={10}
-              onChange={(e) => this.handleCheckboxChange(e, 'infinite')}
+              onChange={this.handleInputChange}
             />
           </div>
         </div>
