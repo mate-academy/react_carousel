@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -71,26 +71,26 @@ class App extends React.Component<{}, State> {
       }));
     };
 
-    const changeItemWidth = (value: string) => {
-      const tmp = Number(value);
+    const changeItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
+      const tmp = Number(event.target.value);
 
       this.setState(() => ({ itemWidth: tmp }));
     };
 
-    const changeFrameSize = (value: string) => {
-      const tmp = Number(value);
+    const changeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+      const tmp = Number(event.target.value);
 
       this.setState(() => ({ frameSize: tmp }));
     };
 
-    const changeStep = (value: string) => {
-      const tmp = Number(value);
+    const changeStep = (event: ChangeEvent<HTMLInputElement>) => {
+      const tmp = Number(event.target.value);
 
       this.setState(() => ({ step: tmp }));
     };
 
-    const changeAnimationDuration = (value: string) => {
-      const tmp = Number(value);
+    const changeAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
+      const tmp = Number(event.target.value);
 
       this.setState(() => ({ animationDuration: tmp }));
     };
@@ -123,9 +123,7 @@ class App extends React.Component<{}, State> {
                 type="number"
                 step={10}
                 value={itemWidth}
-                onChange={
-                  (e) => changeItemWidth(e.target.value)
-                }
+                onChange={changeItemWidth}
               />
             </label>
             <button
@@ -151,7 +149,7 @@ class App extends React.Component<{}, State> {
                 id="frameId"
                 type="number"
                 value={frameSize}
-                onChange={(e) => changeFrameSize(e.target.value)}
+                onChange={changeFrameSize}
               />
             </label>
             <button
@@ -177,7 +175,7 @@ class App extends React.Component<{}, State> {
                 id="stepId"
                 type="number"
                 value={step}
-                onChange={(e) => changeStep(e.target.value)}
+                onChange={changeStep}
               />
             </label>
             <button
@@ -204,7 +202,7 @@ class App extends React.Component<{}, State> {
                 type="number"
                 step={100}
                 value={animationDuration}
-                onChange={(e) => changeAnimationDuration(e.target.value)}
+                onChange={changeAnimationDuration}
               />
             </label>
             <button
