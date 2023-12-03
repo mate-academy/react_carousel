@@ -1,1 +1,31 @@
 // style go here
+.App {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  &__inputs {
+    margin-top: 25px;
+
+    h1 {
+      text-align: center;
+    }
+
+    &--item {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+
+      &-container {
+        display: flex;
+        gap: 5px;
+        align-items: flex-end;
+      }
+      &-button {
+        width: 25px;
+        height: 25px;
+
+      }
+    }
+  }
+}
