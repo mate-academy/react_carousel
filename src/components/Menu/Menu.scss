@@ -1,0 +1,27 @@
+.menu {
+  width: min-content;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 50px;
+  }
+
+  &__label:hover {
+    cursor: pointer;
+  }
+
+  &__button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
