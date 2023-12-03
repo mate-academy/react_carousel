@@ -1,1 +1,18 @@
-// style go here
+.carousel {
+  display: flex;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+
+  }
+}
+
+form {
+  margin-top: 20px;
+  input,
+  label {
+    margin-bottom: 15px;
+  }
+}

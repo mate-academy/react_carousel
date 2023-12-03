@@ -1,18 +1,111 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface CarouselProps {
+  images: string[];
+  imageWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const GAP = 25;
 
-export default Carousel;
+export const Carousel: React.FC<CarouselProps> = ({
+  images,
+  imageWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}) => {
+  const containerWidth = (imageWidth + GAP) * frameSize;
+  const totalWidth = (imageWidth + GAP) * images.length;
+  const maxOffset = -(totalWidth - containerWidth);
+
+  const [currentOffset, setCurrentOffset] = useState(0);
+
+  const moveLeft = () => {
+    let newOffset = currentOffset - (imageWidth + GAP) * step;
+
+    if (newOffset < maxOffset) {
+      if (infinite) {
+        newOffset = 0;
+      } else {
+        newOffset = maxOffset;
+      }
+    }
+
+    setCurrentOffset(newOffset);
+  };
+
+  const moveRight = () => {
+    let newOffset = currentOffset + (imageWidth + GAP) * step;
+
+    if (newOffset > 0) {
+      if (infinite) {
+        newOffset = maxOffset;
+      } else {
+        newOffset = 0;
+      }
+    }
+
+    setCurrentOffset(newOffset);
+  };
+
+  return (
+    <div className="CarouselWrapper">
+      <button
+        title="prevButton"
+        type="button"
+        onClick={() => {
+          if (currentOffset < 0) {
+            moveRight();
+          }
+        }}
+        disabled={currentOffset >= 0}
+      >
+        {' ← '}
+      </button>
+      {/* eslint-disable-next-line react/jsx-indent */}
+      <div className="Carousel" style={{ width: `${containerWidth}px` }}>
+
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${totalWidth}px`,
+            marginLeft: `${currentOffset}px`,
+            transition: `margin-left ${animationDuration / 1000}s ease-in-out`,
+          }}
+        >
+          {images.map((image, index) => (
+            <li key={image}>
+              <img
+                src={image}
+                alt={`Image ${index + 1}`}
+                style={{ width: `${imageWidth}px` }}
+                width={imageWidth}
+              />
+            </li>
+          ))}
+        </ul>
+
+      </div>
+      <button
+        data-cy="next"
+        title="nextButton"
+        type="button"
+        onClick={() => {
+          if (currentOffset > maxOffset) {
+            moveLeft();
+          }
+        }}
+        disabled={currentOffset <= maxOffset}
+      >
+        {' → '}
+      </button>
+    </div>
+  );
+};
