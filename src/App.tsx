@@ -2,14 +2,14 @@ import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
+type State = {
   images: string[];
   step: number;
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
-}
+};
 
 class App extends React.Component<{}, State> {
   state = {

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 import cn from 'classnames';
 
-interface CarouselProps {
+type CarouselProps = {
   images: string[],
   step: number,
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
   infinite: boolean,
-}
+};
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
