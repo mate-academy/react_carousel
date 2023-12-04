@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-
-import { Form } from './components/Form';
-import { FormData, State } from './types';
+// import { Form } from './components/Form';
+import { State } from './types';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -25,17 +24,23 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleSubmit = (formData: FormData) => {
-    const {
-      itemWidth, frameSize, step, animationDuration,
-    } = formData;
+  // handleSubmit = (formData: FormData) => {
+  //   const {
+  //     itemWidth, frameSize, step, animationDuration,
+  //   } = formData;
 
-    this.setState({
-      itemWidth,
-      frameSize,
-      step,
-      animationDuration,
-    });
+  //   this.setState({
+  //     itemWidth,
+  //     frameSize,
+  //     step,
+  //     animationDuration,
+  //   });
+  // };
+
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState((prevFormData) => ({ ...prevFormData, [name]: +value }));
   };
 
   render() {
@@ -59,7 +64,65 @@ class App extends React.Component<{}, State> {
           step={step}
           animationDuration={animationDuration}
         />
-        <Form onSubmit={this.handleSubmit} />
+        <div className="form">
+          <div className="form__field">
+            <label htmlFor="itemId">
+              Customize image width:
+            </label>
+            <input
+              className="form__input"
+              type="number"
+              name="itemWidth"
+              id="itemId"
+              value={this.state.itemWidth}
+              onChange={this.handleChange}
+              placeholder="Image width"
+            />
+          </div>
+          <div className="form__field">
+            <label htmlFor="frameId">
+              Number of images:
+            </label>
+            <input
+              className="form__input"
+              name="frameSize"
+              id="frameId"
+              value={this.state.frameSize}
+              onChange={this.handleChange}
+              placeholder="Frame size"
+              type="number"
+            />
+          </div>
+          <div className="form__field">
+            <label htmlFor="stepId">
+              Step images scrolled per click:
+            </label>
+            <input
+              className="form__input"
+              type="number"
+              name="step"
+              id="stepId"
+              value={this.state.step}
+              onChange={this.handleChange}
+              placeholder="Step"
+            />
+          </div>
+          <div className="form__field">
+            <label htmlFor="animationId">
+              Animation duration:
+            </label>
+            <input
+              className="form__input"
+              type="number"
+              name="animationDuration"
+              id="animationId"
+              value={this.state.animationDuration}
+              onChange={this.handleChange}
+              placeholder="Animation duration"
+            />
+          </div>
+        </div>
+        {/* <Form onSubmit={this.handleSubmit} /> */}
       </div>
     );
   }

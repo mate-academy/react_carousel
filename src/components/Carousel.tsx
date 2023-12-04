@@ -61,6 +61,7 @@ const Carousel = ({
                 src={image}
                 alt={image}
                 width={itemWidth}
+                className="carousel__image"
               />
             </li>
           );

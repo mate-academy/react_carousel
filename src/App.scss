@@ -13,3 +13,52 @@
   margin-top: 60px;
   gap: 40px;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+
+  &__field {
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    width: 100px;
+    margin-left: 10px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+
+  &__button {
+    margin-top: 10px;
+    align-self: center;
+    min-width: 130px;
+    height: 30px;
+    color: #353232;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background: #78ff66;
+    box-shadow: 0 5px #21ff19;
+
+    &:hover {
+      box-shadow: 0 3px #19ff4b;
+      top: 1px;
+    }
+
+    &:active {
+      box-shadow: 0 0 #21ff19;
+      top: 5px;
+    }
+  }
+}
