@@ -9,7 +9,7 @@ const Carousel = ({
 
   useEffect(() => {
     setSlideIndex(0);
-  }, [images, itemWidth, frameSize, step, animationDuration]);
+  }, [frameSize]);
 
   const firstSlideIndex = 0;
   const lastSlideIndex = images.length - frameSize;

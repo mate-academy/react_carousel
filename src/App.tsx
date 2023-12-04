@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-// import { Form } from './components/Form';
 import { State } from './types';
 
 class App extends React.Component<{}, State> {
@@ -23,19 +22,6 @@ class App extends React.Component<{}, State> {
     step: 3,
     animationDuration: 1000,
   };
-
-  // handleSubmit = (formData: FormData) => {
-  //   const {
-  //     itemWidth, frameSize, step, animationDuration,
-  //   } = formData;
-
-  //   this.setState({
-  //     itemWidth,
-  //     frameSize,
-  //     step,
-  //     animationDuration,
-  //   });
-  // };
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -122,7 +108,6 @@ class App extends React.Component<{}, State> {
             />
           </div>
         </div>
-        {/* <Form onSubmit={this.handleSubmit} /> */}
       </div>
     );
   }
