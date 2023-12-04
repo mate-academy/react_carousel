@@ -1,0 +1,36 @@
+.Carousel {
+  margin: 0 auto 20px;
+
+  &__list {
+    margin: 20px auto;
+    padding: 20px 0;
+    display: flex;
+    overflow: hidden;
+    border: 2px solid #000;
+    list-style-type: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    button {
+      padding: 10px;
+      border: 2px solid #000;
+
+      transition-duration: 300ms;
+
+      &:hover {
+        cursor: pointer;
+        color: #000;
+        background-color: #fff;
+      }
+
+      &:disabled {
+        cursor: no-drop;
+        color: #808080;
+      }
+    }
+  }
+}
