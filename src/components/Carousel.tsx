@@ -33,6 +33,14 @@ const Carousel: React.FC<CarouselProps> = ({
       newIndex = (newIndex + images.length) % images.length;
     }
 
+    if (newIndex <= 0) {
+      newIndex = 0;
+    }
+
+    if (newIndex >= images.length - frameSize) {
+      newIndex = images.length - frameSize;
+    }
+
     setStartIndex(newIndex);
   };
 
@@ -57,8 +65,8 @@ const Carousel: React.FC<CarouselProps> = ({
       <button
         type="button"
         onClick={() => moveImage(step)}
-        disabled={startIndex + frameSize >= images.length}
-        data-cy="next-button"
+        disabled={startIndex + frameSize > images.length}
+        data-cy="next"
       >
         Next
       </button>

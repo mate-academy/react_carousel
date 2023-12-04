@@ -52,7 +52,7 @@ class App extends React.Component<{}, CarouselProps> {
 
     return (
       <div className="App">
-        <h1 className="App__title">Carousel</h1>
+        <h1 className="App__title" data-cy="title">Carousel</h1>
 
         <Carousel
           images={images}
@@ -64,7 +64,10 @@ class App extends React.Component<{}, CarouselProps> {
         />
 
         <div className="App__controls">
-          <label className="label">
+          <label
+            className="label"
+            htmlFor="itemId"
+          >
             Item Width:
             <input
               type="number"
@@ -74,7 +77,10 @@ class App extends React.Component<{}, CarouselProps> {
               className="input"
             />
           </label>
-          <label className="label">
+          <label
+            className="label"
+            htmlFor="frameId"
+          >
             Frame Size:
             <input
               type="number"
@@ -84,7 +90,10 @@ class App extends React.Component<{}, CarouselProps> {
               className="input"
             />
           </label>
-          <label className="label">
+          <label
+            className="label"
+            htmlFor="stepId"
+          >
             Step:
             <input
               type="number"
