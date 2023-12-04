@@ -30,50 +30,54 @@ export const Form = ({ onSubmit }: FormProps) => {
       className="form"
       onSubmit={handleSubmit}
     >
-      <label className="form__label">
+      <label htmlFor="itemWidth">
         Customize image width:
-        <input
-          className="form__input"
-          type="number"
-          name="itemWidth"
-          value={formData.itemWidth}
-          onChange={handleChange}
-          placeholder="Image width"
-        />
       </label>
-      <label className="form__label">
+      <input
+        className="form__input"
+        type="number"
+        name="itemWidth"
+        id="itemWidth"
+        value={formData.itemWidth}
+        onChange={handleChange}
+        placeholder="Image width"
+      />
+      <label htmlFor="frameSize">
         Number of images:
-        <input
-          className="form__input"
-          name="frameSize"
-          value={formData.frameSize}
-          onChange={handleChange}
-          placeholder="Frame size"
-          type="number"
-        />
       </label>
-      <label className="form__label">
+      <input
+        className="form__input"
+        name="frameSize"
+        id="frameSize"
+        value={formData.frameSize}
+        onChange={handleChange}
+        placeholder="Frame size"
+        type="number"
+      />
+      <label htmlFor="step">
         Step images scrolled per click:
-        <input
-          className="form__input"
-          type="number"
-          name="step"
-          value={formData.step}
-          onChange={handleChange}
-          placeholder="Step"
-        />
       </label>
-      <label className="form__label">
+      <input
+        className="form__input"
+        type="number"
+        name="step"
+        id="step"
+        value={formData.step}
+        onChange={handleChange}
+        placeholder="Step"
+      />
+      <label htmlFor="animationDuration">
         Animation duration:
-        <input
-          className="form__input"
-          type="number"
-          name="animationDuration"
-          value={formData.animationDuration}
-          onChange={handleChange}
-          placeholder="Animation duration"
-        />
       </label>
+      <input
+        className="form__input"
+        type="number"
+        name="animationDuration"
+        id="animationDuration"
+        value={formData.animationDuration}
+        onChange={handleChange}
+        placeholder="Animation duration"
+      />
       <button className="form__button" type="submit">Submit</button>
     </form>
   );
