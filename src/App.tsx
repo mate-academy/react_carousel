@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,6 +25,22 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState((prevState) => {
+      const { name, value } = event.target;
+
+      return {
+        ...prevState,
+        [name]: Number(value),
+      };
+    });
   };
 
   render() {
@@ -28,9 +49,69 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <div className="App__inputs">
+          <label>
+            Item Width:
+            <br />
+            <input
+              name="itemWidth"
+              type="number"
+              value={this.state.itemWidth}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
+
+          <label>
+            Frame Size:
+            <br />
+            <input
+              name="frameSize"
+              type="number"
+              value={this.state.frameSize}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
+
+          <label>
+            Step:
+            <br />
+            <input
+              name="step"
+              type="number"
+              value={this.state.step}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+            <br />
+          </label>
+
+          <label>
+            Animation Duration (ms):
+            <br />
+            <input
+              name="animationDuration"
+              type="number"
+              value={this.state.animationDuration}
+              onChange={this.handleInputChange}
+              className="input"
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={this.state.images}
+          step={this.state.step}
+          frameSize={this.state.frameSize}
+          itemWidth={this.state.itemWidth}
+          animationDuration={this.state.animationDuration}
+          infinite={this.state.infinite}
+        />
       </div>
     );
   }
