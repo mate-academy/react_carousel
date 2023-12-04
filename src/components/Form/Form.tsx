@@ -30,50 +30,50 @@ export const Form = ({ onSubmit }: FormProps) => {
       className="form"
       onSubmit={handleSubmit}
     >
-      <label htmlFor="itemWidth">
+      <label htmlFor="itemId">
         Customize image width:
       </label>
       <input
         className="form__input"
         type="number"
         name="itemWidth"
-        id="itemWidth"
+        id="itemId"
         value={formData.itemWidth}
         onChange={handleChange}
         placeholder="Image width"
       />
-      <label htmlFor="frameSize">
+      <label htmlFor="frameId">
         Number of images:
       </label>
       <input
         className="form__input"
         name="frameSize"
-        id="frameSize"
+        id="frameId"
         value={formData.frameSize}
         onChange={handleChange}
         placeholder="Frame size"
         type="number"
       />
-      <label htmlFor="step">
+      <label htmlFor="stepId">
         Step images scrolled per click:
       </label>
       <input
         className="form__input"
         type="number"
         name="step"
-        id="step"
+        id="stepId"
         value={formData.step}
         onChange={handleChange}
         placeholder="Step"
       />
-      <label htmlFor="animationDuration">
+      <label htmlFor="animationId">
         Animation duration:
       </label>
       <input
         className="form__input"
         type="number"
         name="animationDuration"
-        id="animationDuration"
+        id="animationId"
         value={formData.animationDuration}
         onChange={handleChange}
         placeholder="Animation duration"
