@@ -1,1 +1,63 @@
-// style go here
+.carousel {
+  &__list {
+    margin: 0 auto;
+    display: flex;
+    padding: 30px 0;
+    overflow: hidden;
+    list-style: none;
+  }
+
+  &__item {
+    padding-right: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__image {
+    display: block;
+  }
+
+  &__buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+  }
+
+  &__button {
+    margin-top: 10px;
+    align-self: center;
+    min-width: 100px;
+    height: 30px;
+    color: #353232;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background: #ffe566;
+    box-shadow: 0 5px #ffd819;
+
+/* eslint-disable-next-line */
+// &:enabled:hover
+    &:hover {
+      box-shadow: 0 3px #ffd819;
+      top: 1px;
+    }
+
+    &:active {
+      box-shadow: 0 0 #ffd819;
+      top: 5px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
