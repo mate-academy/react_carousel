@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
-
-type CarouselProps = {
-  images: string[],
-  step: number,
-  frameSize: number,
-  itemWidth: number,
-  animationDuration: number,
-  infinite: boolean,
-};
+import { CarouselProps } from '../types/CarouselProps';
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
