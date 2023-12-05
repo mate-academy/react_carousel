@@ -35,7 +35,7 @@ const Carousel: React.FC<Props> = ({
 
       return Math.min(minPosition, prevPosition + translate);
     });
-  }, [itemWidth]);
+  }, [itemWidth, frameSize, infinite]);
 
   const handleNextButton = () => {
     setPosition(prevPosition => {
