@@ -81,6 +81,7 @@ const Carousel: React.FC<Props> = ({
               src={image}
               alt={`${index + 1}`}
               width={itemWidth}
+              style={{ width: `${itemWidth}px` }}
               className="Carousel__img"
             />
           </li>
