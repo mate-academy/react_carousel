@@ -1,0 +1,47 @@
+.Carousel {
+  margin: 0;
+  &__list {
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+    border: 2px solid black;
+    box-shadow: 2px 2px;
+    list-style: none;
+  }
+  &__button {
+    min-height: 30px;
+    min-width: 59px;
+    padding: 0 20px;
+    text-align:center;
+    background: #fff;
+    border: 1.5px solid #000;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Chicago_12;
+    cursor: pointer;
+    &:active {
+      background: #000;
+      color: #fff;
+      font-family: Chicago_12;
+    }
+    &:disabled {
+      text-align:center;
+      background: #fff;
+      border: 1.5 px solid #000;
+      color: gray;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      font-family: Chicago_12;
+    }
+  }
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+img {
+  filter: grayscale(100%);
+}
