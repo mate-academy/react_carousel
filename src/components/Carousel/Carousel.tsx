@@ -18,48 +18,46 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const { 0: position, 1: setPosition } = useState(0);
+  const [imgIndex, setImgIndex] = useState(0);
 
-  const preparedImages = images;
+  const minImgIndex = 0;
+  const maxImgIndex = images.length - frameSize;
+
   const containerWidth = frameSize * itemWidth;
-  const translate = itemWidth * step;
 
   useEffect(() => {
-    setPosition(prevPosition => {
-      const maxPosition = -((images.length - frameSize) * itemWidth);
-      const minPosition = 0;
+    if (imgIndex > maxImgIndex) {
+      setImgIndex(maxImgIndex);
+    }
 
-      if (infinite && prevPosition === minPosition) {
-        return maxPosition;
-      }
+    if (imgIndex < minImgIndex) {
+      setImgIndex(minImgIndex);
+    }
+  }, [frameSize]);
 
-      return Math.min(minPosition, prevPosition + translate);
-    });
-  }, [itemWidth, frameSize, infinite]);
+  const position = -(itemWidth * imgIndex);
 
   const handleNextButton = () => {
-    setPosition(prevPosition => {
-      const maxPosition = -((images.length - frameSize) * itemWidth);
-      const minPosition = 0;
-
-      if (infinite && prevPosition === maxPosition) {
-        return minPosition;
+    setImgIndex(prevIndex => {
+      if (infinite && prevIndex === maxImgIndex) {
+        return minImgIndex;
       }
 
-      return Math.max(maxPosition, prevPosition - translate);
+      const currentIndex = prevIndex + step;
+
+      return Math.min(maxImgIndex, currentIndex);
     });
   };
 
   const handlePrevButton = () => {
-    setPosition(prevPosition => {
-      const maxPosition = -((images.length - frameSize) * itemWidth);
-      const minPosition = 0;
-
-      if (infinite && prevPosition === minPosition) {
-        return maxPosition;
+    setImgIndex(prevIndex => {
+      if (infinite && prevIndex === minImgIndex) {
+        return maxImgIndex;
       }
 
-      return Math.min(minPosition, prevPosition + translate);
+      const currentIndex = prevIndex - step;
+
+      return Math.max(minImgIndex, currentIndex);
     });
   };
 
@@ -75,7 +73,7 @@ const Carousel: React.FC<Props> = ({
           transition: `${animationDuration}ms`,
         }}
       >
-        {preparedImages.map((image, index) => (
+        {images.map((image, index) => (
           <li key={image}>
             <img
               src={image}
