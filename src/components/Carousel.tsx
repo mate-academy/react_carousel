@@ -26,7 +26,7 @@ const Carousel: React.FC<CarouselProps> = ({
     }
   }, [startIndex, animationDuration, itemWidth, frameSize]);
 
-  const moveImage = (value: number) => {
+  const moveImage = (value: number) => () => {
     let newIndex = startIndex + value;
 
     if (infinite) {
@@ -56,7 +56,7 @@ const Carousel: React.FC<CarouselProps> = ({
 
       <button
         type="button"
-        onClick={() => moveImage(-step)}
+        onClick={moveImage(-step)}
         disabled={startIndex === 0}
         data-cy="prev-button"
       >
@@ -64,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({
       </button>
       <button
         type="button"
-        onClick={() => moveImage(step)}
+        onClick={moveImage(step)}
         disabled={startIndex + frameSize > images.length}
         data-cy="next"
       >

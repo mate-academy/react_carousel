@@ -24,6 +24,8 @@ class App extends React.Component<{}, CarouselProps> {
     infinite: false,
   };
 
+  debounceTimeout: NodeJS.Timeout | null = null;
+
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       name,
@@ -32,17 +34,33 @@ class App extends React.Component<{}, CarouselProps> {
       checked,
     } = event.target;
 
-    this.setState((prevState) => {
-      const partialState: Partial<CarouselProps> = {
-        [name]: type === 'checkbox' ? checked : Number(value),
-      };
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
 
-      if (name === 'images' && prevState.images) {
-        partialState.images = prevState.images;
-      }
+    this.debounceTimeout = setTimeout(() => {
+      this.setState((prevState) => {
+        let newValue;
 
-      return { ...prevState, ...partialState };
-    });
+        if (value.trim() === '') {
+          newValue = '';
+        } else if (type === 'number' && Number(value) === 0) {
+          newValue = 'Twoja własna wartość';
+        } else {
+          newValue = type === 'checkbox' ? checked : Number(value);
+        }
+
+        const partialState: Partial<CarouselProps> = {
+          [name]: newValue,
+        };
+
+        if (name === 'images' && prevState.images) {
+          partialState.images = prevState.images;
+        }
+
+        return { ...prevState, ...partialState };
+      });
+    }, 100);
   };
 
   render() {
@@ -121,6 +139,7 @@ class App extends React.Component<{}, CarouselProps> {
               checked={infinite}
               onChange={this.handleInputChange}
               className="input"
+              required
             />
           </label>
         </div>
