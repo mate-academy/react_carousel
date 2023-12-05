@@ -1,1 +1,71 @@
-// style go here
+@font-face {
+  font-family: "Chicago_12";
+  src: url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.woff2")format("woff2");
+  src: url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.woff")format("woff");
+}
+
+html {
+  font-family: "Chicago_12", sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  &__title {
+    font-family: "Chicago_12", sans-serif;
+    font-size: 3rem;
+  }
+  &__label {
+    width: 390px;
+    font-family: "Chicago_12", sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__input {
+    border: 1.5px solid #000;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    font-family: "Chicago_12", sans-serif;
+    font-size: 1rem;
+    &:focus {
+      outline: 2.5px double #000;
+    }
+  }
+  &__checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    transform: translateY(-1px);
+    display: grid;
+    place-content: center;
+    &::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      transform: scale(0);
+      transition: 500ms transform steps(2, jump-both);
+      box-shadow: inset 1em 1em #000;
+    }
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+}
