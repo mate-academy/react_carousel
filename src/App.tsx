@@ -41,7 +41,7 @@ export const App: React.FC = () => {
 
     setSettings(prevSettings => ({
       ...prevSettings,
-      [InputId[event.target.id]]: +event.target.value,
+      [InputId[event.target.id]]: event.target.value,
     }));
   }
 
