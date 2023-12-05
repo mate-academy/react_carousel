@@ -1,13 +1,13 @@
 @font-face {
-  font-family: Chicago_12;
+  font-family: "Chicago_12";
   src: url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.woff2")format("woff2");
   src: url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.woff")format("woff");
 }
 
 html {
-  font-family: "Inconsolata", Menlo, Chicago, Geneva;
+  font-family: "Chicago_12", sans-serif;
   font-size: 18px;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 
 body {
@@ -25,12 +25,12 @@ body {
     row-gap: 10px;
   }
   &__title {
-    font-family: Chicago_12;
+    font-family: "Chicago_12", sans-serif;
     font-size: 3rem;
   }
   &__label {
     width: 390px;
-    font-family: Chicago_12;
+    font-family: "Chicago_12", sans-serif;
     font-size: 1em;
     font-weight: normal;
     display: flex;
@@ -42,12 +42,10 @@ body {
     width: 60px;
     height: 30px;
     text-align: center;
-    font-family: Chicago_12;
+    font-family: "Chicago_12", sans-serif;
     font-size: 1rem;
     &:focus {
-      outline-color: #000;
-      outline-style: double;
-      outline-width: 2.5px;
+      outline: 2.5px double #000;
     }
   }
   &__checkbox {
