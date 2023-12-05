@@ -66,7 +66,7 @@ const Carousel: React.FC<Props> = ({
   return (
     <div
       className="Carousel"
-      style={{ width: containerWidth }}
+      style={{ width: `${containerWidth - 1}px` }}
     >
       <ul
         className="Carousel__list"
@@ -80,7 +80,8 @@ const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`${index + 1}`}
-              style={{ width: itemWidth }}
+              width={itemWidth}
+              className="Carousel__img"
             />
           </li>
         ))}

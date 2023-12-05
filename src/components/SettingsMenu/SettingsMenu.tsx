@@ -33,10 +33,11 @@ const SettingsMenu: React.FC<Props> = ({
 }) => (
   <form action="#" className="SettingsMenu">
     <div className="SettingsMenu__param">
-      <label className="SettingsMenu__label" htmlFor="step">Step:</label>
+      <label className="SettingsMenu__label" htmlFor="stepId">Step:</label>
       <input
         type="number"
         name="step"
+        id="stepId"
         className="SettingsMenu__input"
         value={step}
         onChange={(event: EventInput) => setStep(+event.target.value)}
@@ -44,12 +45,13 @@ const SettingsMenu: React.FC<Props> = ({
     </div>
 
     <div className="SettingsMenu__param">
-      <label className="SettingsMenu__label" htmlFor="frameSize">
+      <label className="SettingsMenu__label" htmlFor="frameId">
         Frame size:
       </label>
       <input
         type="number"
         name="frameSize"
+        id="frameId"
         className="SettingsMenu__input"
         value={frameSize}
         onChange={(event: EventInput) => setFrameSize(+event.target.value)}
@@ -57,25 +59,27 @@ const SettingsMenu: React.FC<Props> = ({
     </div>
 
     <div className="SettingsMenu__param">
-      <label className="SettingsMenu__label" htmlFor="itemWidth">
+      <label className="SettingsMenu__label" htmlFor="itemId">
         Item width:
       </label>
       <input
         type="number"
         name="itemWidth"
+        id="itemId"
         className="SettingsMenu__input"
         value={itemWidth}
         onChange={(event: EventInput) => setItemWidth(+event.target.value)}
       />
-
     </div>
+
     <div className="SettingsMenu__param">
-      <label className="SettingsMenu__label" htmlFor="animationDuration">
+      <label className="SettingsMenu__label" htmlFor="animationDurationId">
         Animation duration:
       </label>
       <input
         type="number"
         name="animationDuration"
+        id="animationDurationId"
         className="SettingsMenu__input"
         value={animationDuration}
         onChange={(event) => (setAnimationDuration(+event.target.value))}
@@ -83,12 +87,13 @@ const SettingsMenu: React.FC<Props> = ({
     </div>
 
     <div className="SettingsMenu__param">
-      <label className="SettingsMenu__label" htmlFor="infinite">
+      <label className="SettingsMenu__label" htmlFor="infiniteId">
         Infinity:
       </label>
       <input
         type="checkbox"
         name="infinite"
+        id="infiniteId"
         className="SettingsMenu__input"
         checked={infinite}
         onChange={(event: EventInput) => setInfinite(event.target.checked)}
