@@ -1,1 +1,26 @@
-// style go here
+
+:root {
+  --itemWidth: 130px;
+  --itemsLength: 10;
+  --carouselWidth: 1300px;
+}
+
+.Carousel {
+
+  &__list {
+    list-style-type: none;
+    width: var(--carouselWidth);
+    padding: 0;
+    line-height: 0;
+    background-color: tomato;
+  }
+
+  &__item {
+    width: var(--itemWidth);
+    height: var(--itemWidth);
+    box-sizing: border-box;
+    display: inline-block;
+    border: 3px solid blue;
+  }
+}
+
