@@ -1,0 +1,33 @@
+.Carousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__button {
+    border: 1px solid brown;
+    border-radius: 10px;
+    height: 50px;
+    background: #fbebb6;
+
+    margin-top: 50px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__container {
+    width: 390px;
+    overflow: hidden;
+
+    border: 1px solid brown;
+    border-radius: 10px;
+    background-color: bisque;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+  }
+}

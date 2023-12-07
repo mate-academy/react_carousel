@@ -1,1 +1,6 @@
-// style go here
+.App {
+  &__title {
+    text-align: center;
+    color: brown;
+  }
+}
