@@ -1,12 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { AppState } from './types';
+import { Form } from './components/Form';
 
-interface State {
-  images: string[];
-}
-
-class App extends React.Component<{}, State> {
+class App extends Component<{}, AppState> {
   state = {
     images: [
       './img/1.png',
@@ -20,6 +18,21 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 2,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleStepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name === 'infinite') {
+      this.setState(prev => ({ infinite: !prev.infinite }));
+    } else {
+      this.setState(prev => ({ ...prev, [name]: +value }));
+    }
   };
 
   render() {
@@ -28,9 +41,9 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <Carousel {...this.state} />
+        <Form images={images} handleStepChange={this.handleStepChange} />
       </div>
     );
   }
