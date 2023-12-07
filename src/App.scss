@@ -1,1 +1,12 @@
-// style go here
+body {
+  background-color: black;
+}
+
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  color: white;
+}

@@ -1,0 +1,22 @@
+form {
+  position: absolute;
+  top: 450px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 0.3rem;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+input {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  width: 4.5rem;
+}
