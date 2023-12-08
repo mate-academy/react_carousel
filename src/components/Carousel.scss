@@ -3,16 +3,22 @@
   --itemWidth: 130px;
   --itemsLength: 10;
   --carouselWidth: 1300px;
+  --containerWidth: 390px;
+  --currentPos: 0px;
 }
 
 .Carousel {
+  width: var(--containerWidth);
+  overflow-x: hidden;
 
   &__list {
     list-style-type: none;
     width: var(--carouselWidth);
     padding: 0;
     line-height: 0;
-    background-color: tomato;
+    transform: translateX(0px);
+    transition: transform 0.5s ease-in-out;
+    //background-color: tomato;
   }
 
   &__item {
@@ -21,6 +27,13 @@
     box-sizing: border-box;
     display: inline-block;
     border: 3px solid blue;
+  }
+
+  &__image {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 }
 
