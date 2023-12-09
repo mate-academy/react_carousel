@@ -5,6 +5,8 @@
   --carouselWidth: 1300px;
   --containerWidth: 390px;
   --currentPos: 0px;
+  --animationDuration: 1000ms;
+  --imageGap: 10px;
 }
 
 .Carousel {
@@ -16,9 +18,8 @@
     width: var(--carouselWidth);
     padding: 0;
     line-height: 0;
-    transform: translateX(0px);
-    transition: transform 0.5s ease-in-out;
-    //background-color: tomato;
+    transform: translateX(0);
+    transition: transform var(--animationDuration) ease-in-out;
   }
 
   &__item {
@@ -26,6 +27,7 @@
     height: var(--itemWidth);
     box-sizing: border-box;
     display: inline-block;
+    margin-right: var(--imageGap);
     border: 3px solid blue;
   }
 
@@ -34,6 +36,13 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  &__button {
+    &:disabled {
+      background-color: #fff;
+      cursor: not-allowed;
+    }
   }
 }
 

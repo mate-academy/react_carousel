@@ -5,14 +5,18 @@ type Props = {
   images: string[],
   step: number,
   itemWidth: number,
+  frameSize: number,
+  imageGap: number,
 };
 
-const Carousel: React.FC<Props> = ({ images, step, itemWidth }) => {
+const Carousel: React.FC<Props> = ({
+  images, step, itemWidth, frameSize, imageGap,
+}) => {
   const [currentPos, setCurrentPos] = useState(0);
 
   const imagesToLi = (
     images.map((picture, index) => (
-      <li className="Carousel__item">
+      <li className="Carousel__item" key={picture}>
         <img className="Carousel__image" src={picture} alt={index.toString()} />
       </li>
     ))
@@ -21,35 +25,54 @@ const Carousel: React.FC<Props> = ({ images, step, itemWidth }) => {
   const carouselList = document.querySelector<HTMLElement>('.Carousel__list');
 
   if (carouselList) {
-    carouselList.style.transform = `tranlateX(${currentPos * itemWidth}px)`;
+    carouselList.style.transform = `tranlateX(${currentPos * (itemWidth + imageGap)}px)`;
   }
 
   const moveForward = () => {
-    if (currentPos + step < images.length - 1) {
+    if (currentPos + frameSize + step < images.length) {
       setCurrentPos((prevPos) => prevPos + step);
+    } else {
+      setCurrentPos(images.length - frameSize);
     }
   };
 
   const moveBackward = () => {
-    if (currentPos > 0) {
+    if (currentPos - step > 0) {
       setCurrentPos((prevPos) => prevPos - step);
+    } else {
+      setCurrentPos(0);
     }
   };
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list" style={{ transform: `translateX(-${currentPos * itemWidth}px)` }}>
+      <ul className="Carousel__list" style={{ transform: `translateX(-${currentPos * (itemWidth + imageGap)}px)` }}>
         {imagesToLi}
       </ul>
-
+      <h1>
+        current position is
+        {` ${currentPos}`}
+      </h1>
+      <h5>
+        (☝️ X-axis of the left border of 1st image in visible frame)
+      </h5>
       <button
         type="button"
         disabled={currentPos === 0}
         onClick={moveBackward}
+        className="Carousel__button"
       >
         Prev
       </button>
-      <button type="button" onClick={moveForward}>Next</button>
+      <button
+        type="button"
+        onClick={moveForward}
+        disabled={currentPos + frameSize === images.length}
+        data-cy="next"
+        className="Carousel__button"
+      >
+        Next
+      </button>
     </div>
   );
 };
