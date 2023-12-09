@@ -1,18 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[];
+  frameWidth: number;
+  itemWidth: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  frameWidth,
+  itemWidth,
+  step,
+  animationDuration,
+  infinite,
+}) => {
+  const [position, setPosition] = useState(0);
+
+  const maxPosition = itemWidth * (images.length - frameWidth);
+
+  const nextButton = () => {
+    if (infinite || position < maxPosition) {
+      if (position + step * itemWidth > maxPosition && infinite) {
+        setPosition(0);
+      } else {
+        setPosition(position + step * itemWidth);
+      }
+    }
+  };
+
+  const prevButton = () => {
+    if (infinite || position > 0) {
+      if (position - step * itemWidth < 0 && infinite) {
+        setPosition(maxPosition);
+      } else {
+        setPosition(position - step * itemWidth);
+      }
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <ul
+        className="Carousel__list"
+        style={{
+          width: `${frameWidth * itemWidth}px`,
+        }}
+      >
+        {images.map((image, index) => (
+          <li
+            key={image}
+            className="Carousel__item"
+            style={{
+              transform: `translateX(-${position}px)`,
+              transition: `${animationDuration}ms`,
+            }}
+          >
+            <img
+              src={`${image}`}
+              style={{
+                width: `${itemWidth}px`,
+              }}
+              alt={`${index + 1}`}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        onClick={prevButton}
+      >
+        Prev
+      </button>
+      <button
+        data-cy="next"
+        type="button"
+        onClick={nextButton}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
