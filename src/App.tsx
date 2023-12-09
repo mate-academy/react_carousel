@@ -11,7 +11,7 @@ type StateProps = {
   imageGap: number,
 };
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const [state, setState] = useState<StateProps>({
     step: 3,
     frameSize: 3,
