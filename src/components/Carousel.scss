@@ -1,1 +1,35 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: min-content;
+
+  &__window {
+    width: 260px;
+    border: 1px solid black;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    transition-duration: 1000ms;
+  }
+  
+  &__element {
+    list-style: none;
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 130px;
+    height: 30px;
+  }
+}
