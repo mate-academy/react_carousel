@@ -7,6 +7,7 @@ interface CarouselProps {
   frameSize: number;
   step: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
@@ -15,29 +16,45 @@ export const Carousel: React.FC<CarouselProps> = ({
   frameSize,
   step,
   animationDuration,
+  infinite,
 }) => {
   const [listPosition, setListPosition] = useState(0);
 
   const handlePrev = () => {
     const newPosition = listPosition - itemWidth * step;
 
-    setListPosition(
-      newPosition < 0
-        ? (images.length - frameSize) * itemWidth
-        : newPosition,
-    );
+    if (infinite) {
+      setListPosition(
+        newPosition < 0
+          ? (images.length - frameSize) * itemWidth
+          : newPosition,
+      );
+    } else {
+      setListPosition(Math.max(newPosition, 0));
+    }
   };
 
   const handleNext = () => {
-    const remainingImages = images.length - Math.ceil(listPosition / itemWidth);
+    const remainingImages
+    = images.length - Math.ceil(listPosition / itemWidth);
     let newPosition;
 
-    if (remainingImages < step) {
-      newPosition = 0;
+    if (infinite) {
+      if (remainingImages < step) {
+        newPosition = 0;
+      } else {
+        newPosition = listPosition + itemWidth * step;
+        newPosition
+        = newPosition >= images.length * itemWidth
+            ? 0
+            : newPosition;
+      }
     } else {
       newPosition = listPosition + itemWidth * step;
-      newPosition = newPosition >= images.length
-      * itemWidth ? 0 : newPosition;
+      newPosition = Math.min(
+        newPosition,
+        (images.length - frameSize) * itemWidth,
+      );
     }
 
     setListPosition(newPosition);
@@ -77,11 +94,23 @@ export const Carousel: React.FC<CarouselProps> = ({
         </ul>
       </div>
 
-      <button type="button" onClick={handlePrev}>
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={!infinite && listPosition === 0}
+      >
         &lt; Prev
       </button>
-      <button type="button" onClick={handleNext} data-cy="next">
-        Next &gt;
+      <button
+        type="button"
+        onClick={handleNext}
+        data-cy="next"
+        disabled={
+          !infinite
+          && listPosition >= (itemWidth * (images.length - frameSize))
+        }
+      >
+        Next
       </button>
     </div>
   );
