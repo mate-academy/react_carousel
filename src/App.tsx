@@ -76,6 +76,12 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form action="#" className="carousel-form">
+          <label
+            htmlFor="itemId"
+            className="carousel-form__label"
+          >
+            Item ID
+          </label>
           <input
             type="number"
             id="itemId"
