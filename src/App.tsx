@@ -76,6 +76,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="itemId"
+            name="itemId"
             className="carousel-form__input"
             value={itemWidth}
             onChange={handleInputChange}
@@ -90,6 +91,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="frameId"
+            name="frameId"
             className="carousel-form__input"
             value={frameSize}
             onChange={handleInputChange}
@@ -104,6 +106,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="stepId"
+            name="stepId"
             className="carousel-form__input"
             value={step}
             onChange={handleInputChange}
@@ -118,6 +121,7 @@ class App extends React.Component<{}, State> {
           <input
             type="number"
             id="animationDuration"
+            name="animationDuration"
             className="carousel-form__input"
             value={animationDuration}
             onChange={handleInputChange}
