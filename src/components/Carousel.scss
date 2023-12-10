@@ -1,34 +1,15 @@
-
-:root {
-  --itemWidth: 130px;
-  --itemsLength: 10;
-  --carouselWidth: 1300px;
-  --containerWidth: 390px;
-  --currentPos: 0px;
-  --animationDuration: 1000ms;
-  --imageGap: 10px;
-}
-
 .Carousel {
-  width: var(--containerWidth);
   overflow-x: hidden;
 
   &__list {
     list-style-type: none;
-    width: var(--carouselWidth);
     padding: 0;
     line-height: 0;
-    transform: translateX(0);
-    transition: transform var(--animationDuration) ease-in-out;
   }
 
   &__item {
-    width: var(--itemWidth);
-    height: var(--itemWidth);
     box-sizing: border-box;
     display: inline-block;
-    margin-right: var(--imageGap);
-    border: 3px solid blue;
   }
 
   &__image {

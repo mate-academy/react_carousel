@@ -24,9 +24,9 @@ const App: React.FC = () => {
   const [pictures] = useState([
     './img/1.png',
     './img/2.png',
-    'https://media.glamourmagazine.co.uk/photos/64b6ae8fcd1ad7c51ecf045c/1:1/'
+    /*     'https://media.glamourmagazine.co.uk/photos/64b6ae8fcd1ad7c51ecf045c/1:1/'
     + 'w_1280,h_1280,c_limit/RYAN%20GOSLING%20EVA%20MENDES%20180723%20default'
-    + 'GettyImages-1527942629.jpg',
+    + 'GettyImages-1527942629.jpg', */
     './img/3.png',
     './img/4.png',
     './img/5.png',
@@ -36,12 +36,6 @@ const App: React.FC = () => {
     './img/9.png',
     './img/10.png',
   ]);
-
-  document.documentElement.style.setProperty('--itemLength', `${pictures.length}px`);
-  document.documentElement.style.setProperty('--carouselWidth', `${pictures.length * (state.itemWidth + state.imageGap)}px`);
-  document.documentElement.style.setProperty('--containerWidth', `${(state.itemWidth + state.imageGap) * (state.frameSize) - state.imageGap}px`);
-  document.documentElement.style.setProperty('--animationDuration', `${state.animationDuration}ms`);
-  document.documentElement.style.setProperty('--imageGap', `${state.imageGap}px`);
 
   const changeHadler = (value: number | boolean,
     key: keyof StateProps) => {
@@ -58,6 +52,7 @@ const App: React.FC = () => {
         itemWidth={state.itemWidth}
         frameSize={state.frameSize}
         imageGap={state.imageGap}
+        animationDuration={state.animationDuration}
       />
       <input
         type="number"
@@ -69,7 +64,6 @@ const App: React.FC = () => {
         step={10}
         onChange={e => {
           changeHadler(+e.target.value, e.target.name as keyof StateProps);
-          document.documentElement.style.setProperty('--itemWidth', `${+e.target.value}px`);
         }}
       />
       {'  - image size in pixels'}
@@ -84,7 +78,6 @@ const App: React.FC = () => {
         step={1}
         onChange={e => {
           changeHadler(+e.target.value, e.target.name as keyof StateProps);
-          document.documentElement.style.setProperty('--containerWidth', `${(state.itemWidth + state.imageGap) * state.frameSize - state.imageGap}px`);
         }}
       />
       {' - frame size (quantity of images visible)'}
@@ -113,7 +106,6 @@ const App: React.FC = () => {
         step={100}
         onChange={e => {
           changeHadler(+e.target.value, e.target.name as keyof StateProps);
-          document.documentElement.style.setProperty('--animationDuration', `${+e.target.value}ms`);
         }}
       />
       {' - (default 1000) - time in ms to show the new portion of images'}
@@ -128,7 +120,6 @@ const App: React.FC = () => {
         step={1}
         onChange={e => {
           changeHadler(+e.target.value, e.target.name as keyof StateProps);
-          document.documentElement.style.setProperty('--imageGap', `${+e.target.value}px`);
         }}
       />
       {' - horizontal spacing between the images in pixels'}

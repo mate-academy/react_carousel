@@ -7,26 +7,35 @@ type Props = {
   itemWidth: number,
   frameSize: number,
   imageGap: number,
+  animationDuration: number,
 };
 
 const Carousel: React.FC<Props> = ({
-  images, step, itemWidth, frameSize, imageGap,
+  images, step, itemWidth, frameSize, imageGap, animationDuration,
 }) => {
   const [currentPos, setCurrentPos] = useState(0);
 
   const imagesToLi = (
     images.map((picture, index) => (
-      <li className="Carousel__item" key={picture}>
+      <li
+        className="Carousel__item"
+        key={picture}
+        style={{
+          marginRight: `${imageGap}px`,
+          width: `${itemWidth}px`,
+          height: `${itemWidth}px`,
+        }}
+      >
         <img className="Carousel__image" src={picture} alt={index.toString()} />
       </li>
     ))
   );
 
-  const carouselList = document.querySelector<HTMLElement>('.Carousel__list');
+  /*   const carouselList = document.querySelector<HTMLElement>('.Carousel__list');
 
   if (carouselList) {
     carouselList.style.transform = `tranlateX(${currentPos * (itemWidth + imageGap)}px)`;
-  }
+  } */
 
   const moveForward = () => {
     if (currentPos + frameSize + step < images.length) {
@@ -45,8 +54,15 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div className="Carousel">
-      <ul className="Carousel__list" style={{ transform: `translateX(-${currentPos * (itemWidth + imageGap)}px)` }}>
+    <div className="Carousel" style={{ width: `${(itemWidth + imageGap) * (frameSize) - imageGap}px` }}>
+      <ul
+        className="Carousel__list"
+        style={{
+          transform: `translateX(-${currentPos * (itemWidth + imageGap)}px)`,
+          transition: `transform ${animationDuration}ms ease-in-out`,
+          width: `${images.length * (itemWidth + imageGap)}px`,
+        }}
+      >
         {imagesToLi}
       </ul>
       <h1>
