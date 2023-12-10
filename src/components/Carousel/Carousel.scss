@@ -1,0 +1,19 @@
+.Carousel {
+  margin-inline: auto;
+  position: relative;
+  overflow: hidden;
+
+  &__wrapper {
+    width: 260px;
+    overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    transition: transform 1s;
+    position: relative;
+    gap: 1px;
+  }
+}

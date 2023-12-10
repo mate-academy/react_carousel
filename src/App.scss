@@ -1,1 +1,26 @@
 // style go here
+.carousel-form {
+  display: flex;
+  width: 250px;
+  margin-inline: auto;
+  flex-direction: column;
+  gap: 5px;
+
+  &__label {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  &__input {
+    padding-inline: 10px;
+    border: 2px solid #cecdcd;
+    border-radius: 5px;
+    width: 220px;
+    height: 30px;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+  }
+}
