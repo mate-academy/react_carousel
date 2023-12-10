@@ -8,7 +8,6 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
-  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +28,6 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    infinite: false,
   };
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,12 +45,6 @@ class App extends React.Component<{}, State> {
         this.setState({ animationDuration: +event.target.value });
         break;
 
-      case 'infinite':
-        this.setState((prevState) => ({
-          infinite: !prevState.infinite,
-        }));
-        break;
-
       default:
         break;
     }
@@ -65,7 +57,6 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
-      infinite,
     } = this.state;
 
     const { handleInputChange } = this;
@@ -132,20 +123,6 @@ class App extends React.Component<{}, State> {
             onChange={handleInputChange}
           />
 
-          <label
-            htmlFor="infinite"
-            className="carousel-form__label"
-          >
-            Infinite
-            <input
-              type="checkbox"
-              id="infinite"
-              className="carousel-form__checkbox"
-              defaultChecked={infinite}
-              onChange={handleInputChange}
-            />
-          </label>
-
         </form>
 
         <Carousel
@@ -154,7 +131,6 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-          infinite={infinite}
         />
       </div>
     );
