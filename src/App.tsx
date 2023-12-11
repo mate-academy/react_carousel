@@ -21,10 +21,10 @@ const App: React.FC = () => {
     imageGap: 10,
   } as StateProps);
 
-  const [pictures] = useState([
+  const [pictures, setPictures] = useState([
     './img/1.png',
     './img/2.png',
-    /*     'https://media.glamourmagazine.co.uk/photos/64b6ae8fcd1ad7c51ecf045c/1:1/'
+    /*   'https://media.glamourmagazine.co.uk/photos/64b6ae8fcd1ad7c51ecf045c/1:1/'
     + 'w_1280,h_1280,c_limit/RYAN%20GOSLING%20EVA%20MENDES%20180723%20default'
     + 'GettyImages-1527942629.jpg', */
     './img/3.png',
@@ -37,9 +37,28 @@ const App: React.FC = () => {
     './img/10.png',
   ]);
 
+  const [newImage, setNewImage] = useState('');
+
   const changeHadler = (value: number | boolean,
     key: keyof StateProps) => {
     setState(prevState => ({ ...prevState, [key]: value }));
+  };
+
+  function isImage(url: string) {
+    return (/\.(jpg|jpeg|png|webp|avif|gif|svg)$/).test(url);
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && newImage.length > 0) {
+      if (isImage(newImage)) {
+        setPictures(oldPics => [newImage, ...oldPics]);
+        setNewImage('');
+      } else {
+        // eslint-disable-next-line no-alert
+        alert('image URL is invalid');
+        setNewImage('');
+      }
+    }
   };
 
   return (
@@ -54,48 +73,55 @@ const App: React.FC = () => {
         imageGap={state.imageGap}
         animationDuration={state.animationDuration}
       />
-      <input
-        type="number"
-        name="itemWidth"
-        id="itemWidth"
-        value={state.itemWidth}
-        min={50}
-        max={500}
-        step={10}
-        onChange={e => {
-          changeHadler(+e.target.value, e.target.name as keyof StateProps);
-        }}
-      />
-      {'  - image size in pixels'}
-      <br />
-      <input
-        type="number"
-        name="frameSize"
-        id="frameSize"
-        value={state.frameSize}
-        min={1}
-        max={10}
-        step={1}
-        onChange={e => {
-          changeHadler(+e.target.value, e.target.name as keyof StateProps);
-        }}
-      />
-      {' - frame size (quantity of images visible)'}
-      <br />
-      <input
-        type="number"
-        name="step"
-        id="step"
-        value={state.step}
-        min={1}
-        max={10}
-        step={1}
-        onChange={e => {
-          changeHadler(+e.target.value, e.target.name as keyof StateProps);
-        }}
-      />
-      {' - step size (number of images scrolled per click)'}
-      <br />
+      <label htmlFor="itemId">
+        <input
+          type="number"
+          name="itemWidth"
+          id="itemId"
+          value={state.itemWidth}
+          min={50}
+          max={500}
+          step={10}
+          onChange={e => {
+            changeHadler(+e.target.value, e.target.name as keyof StateProps);
+          }}
+        />
+        {'  - image size in pixels'}
+        <br />
+      </label>
+      <label htmlFor="frameId">
+        <input
+          type="number"
+          name="frameSize"
+          id="frameId"
+          value={state.frameSize}
+          min={1}
+          max={10}
+          step={1}
+          onChange={e => {
+            changeHadler(+e.target.value, e.target.name as keyof StateProps);
+          }}
+        />
+        {' - frame size (quantity of images visible)'}
+        <br />
+      </label>
+      <label htmlFor="stepId">
+        <input
+          type="number"
+          name="step"
+          id="stepId"
+          value={state.step}
+          min={1}
+          max={10}
+          step={1}
+          onChange={e => {
+            changeHadler(+e.target.value, e.target.name as keyof StateProps);
+          }}
+        />
+        {' - step size (number of images scrolled per click)'}
+        <br />
+      </label>
+
       <input
         type="number"
         name="animationDuration"
@@ -123,6 +149,18 @@ const App: React.FC = () => {
         }}
       />
       {' - horizontal spacing between the images in pixels'}
+      <br />
+      <input
+        type="text"
+        name="newImage"
+        id="newImage"
+        value={newImage}
+        onChange={e => {
+          setNewImage(e.target.value);
+        }}
+        onKeyDown={handleKeyDown}
+      />
+      {' - paste your image url here'}
     </div>
   );
 };

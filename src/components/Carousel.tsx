@@ -26,16 +26,16 @@ const Carousel: React.FC<Props> = ({
           height: `${itemWidth}px`,
         }}
       >
-        <img className="Carousel__image" src={picture} alt={index.toString()} />
+        <img
+          data-cy="itemId"
+          className="Carousel__image"
+          src={picture}
+          alt={index.toString()}
+          width={itemWidth} // REMOVE THIS TO MAKE PICTURES ADAPTIVE DESPITE PROPORTIONS!!!!
+        />
       </li>
     ))
   );
-
-  /*   const carouselList = document.querySelector<HTMLElement>('.Carousel__list');
-
-  if (carouselList) {
-    carouselList.style.transform = `tranlateX(${currentPos * (itemWidth + imageGap)}px)`;
-  } */
 
   const moveForward = () => {
     if (currentPos + frameSize + step < images.length) {
