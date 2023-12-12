@@ -1,1 +1,61 @@
-// style go here
+iframe {
+  display: none;
+}
+
+body {
+  background-color: #eae7dc;
+}
+
+.App {
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+}
+
+.settings {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+  gap: 20px;
+
+  &__input {
+    height: 35px;
+    text-align: center;
+    padding-inline: 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #557a95;
+    color: #fff;
+    font-size: 1.2rem;
+    outline-width: 0;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    font-size: 1.4rem;
+    white-space: nowrap;
+  }
+
+  & >:last-child {
+    margin-top: 40px;
+  }
+
+  &__checkbox {
+    margin: 0;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
