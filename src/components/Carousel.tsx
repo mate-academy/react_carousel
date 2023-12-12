@@ -1,18 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
+import cn from 'classnames';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  imageSize: number;
+  numberOfVisible: number;
+  step: number;
+  animationDuration: number;
+  isInfinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  imageSize,
+  numberOfVisible,
+  step,
+  animationDuration,
+  isInfinite,
+}) => {
+  const totalImages = images.length;
+
+  const positions = images
+    .map((_image, i) => -imageSize * (i))
+    .slice(0, totalImages - numberOfVisible + 1);
+
+  const [
+    positionIndex,
+    setPositionIndex,
+  ] = useState(0);
+
+  const currentPossition = positions[positionIndex];
+
+  function handleNextClick() {
+    if (positionIndex !== positions.length - 1) {
+      const newPositionIndex = positionIndex + step > positions.length - 1
+        ? positions.length - 1
+        : positionIndex + step;
+
+      setPositionIndex(newPositionIndex);
+    } else if (isInfinite) {
+      setPositionIndex(0);
+    }
+  }
+
+  function handlePrevClick() {
+    if (positionIndex !== 0) {
+      const newPositionIndex = positionIndex - step < 0
+        ? 0
+        : positionIndex - step;
+
+      setPositionIndex(newPositionIndex);
+    } else if (isInfinite) {
+      setPositionIndex(positions.length - 1);
+    }
+  }
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__wrapper"
+        style={{
+          width: `${imageSize * numberOfVisible}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${imageSize * images.length}px`,
+            transform: `translateX(${currentPossition}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map((image, i) => (
+            <li
+              key={images.indexOf(image)}
+            >
+              <img
+                src={image}
+                alt={String(i)}
+                style={{
+                  width: `${imageSize}px`,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="buttons">
+        <button
+          type="button"
+          className={cn('button', 'button--prev', {
+            'button--prev-disabled':
+            positionIndex === 0 && !isInfinite,
+          })}
+          onClick={handlePrevClick}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          data-cy="next"
+          className={cn('button', 'button--next', {
+            'button--next-disabled':
+            positionIndex === positions.length - 1 && !isInfinite,
+          })}
+          onClick={handleNextClick}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
