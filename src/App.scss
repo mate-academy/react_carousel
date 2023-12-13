@@ -1,1 +1,35 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Kanit', sans-serif;
+}
+
+.App {
+  text-align: center;
+  background-color: rgb(205, 122, 50);
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  &__container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      width: 250px;
+      text-align: left;
+    }
+
+    input {
+      width: 100px;
+      padding: 0 5px;
+    }
+  }
+}

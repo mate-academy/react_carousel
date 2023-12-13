@@ -1,1 +1,59 @@
-// style go here
+$button-text-color: white;
+$background-color: rgb(205, 122, 50);
+
+.Carousel {
+  margin: 0 auto;
+  background-color: $background-color;
+  overflow: hidden;
+  border: 2px solid black;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px;
+}
+
+button {
+  height: 40px;
+  width: 65px;
+  background-color: rgb(57, 53, 160);
+  border: 2px solid black;
+  border-radius: 20px;
+
+  &:hover {
+    background-color: rgb(57, 53, 190);
+    border: 2px solid rgb(57, 53, 160);
+  }
+
+  &:disabled {
+    background-color: rgb(175, 175, 197);
+  }
+}
+
+.button-63 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(144deg,#af40ff, #5b42f3 50%,#00ddeb);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: $button-text-color;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  width: 140px;
+  cursor: pointer;
+
+  &:disabled {
+    background-image: none;
+    background-color: gray;
+  }
+}

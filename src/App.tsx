@@ -1,39 +1,51 @@
-import React from 'react';
-import './App.scss';
+import { useState } from 'react';
+import imagesFromServer from './data/images.json';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
+import { Image } from './types/Image';
+import { Params } from './types/Parameters';
+
+import './App.scss';
+
+const base = {
+  firstImg: 1,
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
+function getPreparedImages(img: Image[], filterParams: Params): Image[] {
+  const firstImgIndex = img.findIndex(el => el.id === filterParams.firstImg);
+
+  return [...img].slice(firstImgIndex);
 }
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const App = () => {
+  const [params, setParams] = useState(base);
+  const images = getPreparedImages(imagesFromServer, params);
+  const changeParams = (key: string, value: number | boolean) => {
+    const validValue = value;
+
+    setParams(previousParams => {
+      return { ...previousParams, [key]: validValue };
+    });
   };
 
-  render() {
-    const { images } = this.state;
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <Carousel
+        images={images}
+        params={params}
+        changeCarousel={changeParams}
+      />
 
-        <Carousel />
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
