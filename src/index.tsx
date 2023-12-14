@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import ReactDOM from 'react-dom';
 import App from './App';
 
