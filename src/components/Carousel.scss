@@ -1,1 +1,21 @@
 // style go here
+.Carousel {
+  overflow-x: hidden;
+  
+  &__list {
+    list-style-type: none;
+    padding: 0;
+    line-height: 0;
+  }
+
+  &__item {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__image {
+    width: 130px;
+  }
+}
