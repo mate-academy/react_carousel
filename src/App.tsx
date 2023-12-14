@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
+export interface State {
   images: string[];
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
+  infinite: boolean,
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,135 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  hadleChangeSteps = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ step: Number(event.target.value) });
+  };
+
+  handleChangeFrameSize = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      frameSize: Number(event.target.value),
+    });
+  };
+
+  handleChangeItemWidth = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      itemWidth: Number(event.target.value),
+    });
+  };
+
+  handleChangeAnimationDuration = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: Number(event.target.value) * 1000,
+    });
+  };
+
+  handleChangeInfinite = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      infinite: Boolean(event.target.checked),
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images, step, frameSize, itemWidth, animationDuration, infinite,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+        <div className="containerOfInputs">
+          <label
+            htmlFor="stepId"
+            className="containerOfInputs__label"
+          >
+            Step:
+            <input
+              className="containerOfInputs__input"
+              onChange={this.hadleChangeSteps}
+              type="number"
+              id="stepId"
+              name="step"
+              value={step}
+            />
+          </label>
+
+          <label
+            htmlFor="frameId"
+            className="containerOfInputs__label"
+          >
+            FrameSize:
+            <input
+              className="containerOfInputs__input"
+              onChange={this.handleChangeFrameSize}
+              type="number"
+              id="frameId"
+              name="frame"
+              value={frameSize}
+            />
+          </label>
+
+          <label
+            htmlFor="itemId"
+            className="containerOfInputs__label"
+          >
+            Item Width:
+            <input
+              className="containerOfInputs__input"
+              onChange={this.handleChangeItemWidth}
+              type="number"
+              id="itemId"
+              name="item"
+              value={itemWidth}
+            />
+          </label>
+
+          <label
+            htmlFor="animationId"
+            className="containerOfInputs__label"
+          >
+            Animation Duration(seconds):
+            <input
+              className="containerOfInputs__input"
+              onChange={this.handleChangeAnimationDuration}
+              type="number"
+              id="animationId"
+              name="animation"
+              value={animationDuration / 1000}
+            />
+          </label>
+
+          <label
+            htmlFor="infiniteId"
+            className="containerOfInputs__label"
+          >
+            Animation Infinite:
+            <input
+              className="containerOfInputs__input"
+              onChange={this.handleChangeInfinite}
+              type="checkbox"
+              name="infinite"
+              id="infiniteId"
+            />
+
+          </label>
+        </div>
       </div>
     );
   }

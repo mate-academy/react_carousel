@@ -1,1 +1,21 @@
-// style go here
+.containerOfInputs {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    border: solid teal 2px;
+    color: teal;
+    font-size: 20px;
+    background: linear-gradient(to left, grey, white);
+  }
+
+  &__input {
+    color: teal;
+    font-size: 15px;
+  }
+}
