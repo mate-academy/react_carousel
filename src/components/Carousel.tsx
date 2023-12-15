@@ -24,19 +24,20 @@ const Carousel: React.FC<Props> = ({
   // const totalFrames = Math.ceil(totalImages / frameSize);
 
   const handleNext = () => {
-    if (currentIndex + frameSize < totalImages) {
-      setCurrentIndex(currentIndex + step);
-    } else if (infinite) {
-      setCurrentIndex(0);
-    }
+    const newIndex = currentIndex + step;
+    const maxIndex = totalImages - frameSize;
+
+    setCurrentIndex(infinite
+      ? newIndex % totalImages
+      : Math.min(newIndex, maxIndex));
   };
 
   const handlePrev = () => {
-    if (currentIndex - step >= 0) {
-      setCurrentIndex(currentIndex - step);
-    } else if (infinite) {
-      setCurrentIndex(totalImages - frameSize);
-    }
+    const newIndex = currentIndex - step;
+
+    setCurrentIndex(infinite
+      ? (newIndex + totalImages) % totalImages
+      : Math.max(newIndex, 0));
   };
 
   const containerStyle: React.CSSProperties = {
