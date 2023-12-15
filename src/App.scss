@@ -1,1 +1,15 @@
-// style go here
+label {
+  margin: 5px;
+  grid-column: 1, 2;
+}
+
+input {
+  margin: 5px;
+  width: 200px;
+  grid-column: 2, -1 ;
+}
+
+.inputs {
+  display: grid;
+  grid-template-columns: 2, auto;
+}
