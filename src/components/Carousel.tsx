@@ -1,18 +1,120 @@
-import React from 'react';
+import { Component } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinity: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+interface State {
+  itemIndex: number;
+}
+
+export class Carousel extends Component<Props, State> {
+  state = {
+    itemIndex: 0,
+  };
+
+  handleSwipeClick = (step: number) => () => {
+    const { images, frameSize, infinity } = this.props;
+    let { itemIndex } = this.state;
+
+    itemIndex += step;
+
+    if (infinity) {
+      const totalImages = images.length;
+      const lastIndex = totalImages - frameSize;
+
+      if (itemIndex < 0) {
+        itemIndex = lastIndex;
+      } else if (itemIndex > lastIndex) {
+        itemIndex = 0;
+      }
+    } else {
+      const firstIndex = 0;
+      const lastIndex = images.length - frameSize;
+
+      if (step > 0 && itemIndex > lastIndex) {
+        itemIndex = lastIndex;
+      }
+
+      if (step < 0 && itemIndex < firstIndex) {
+        itemIndex = firstIndex;
+      }
+    }
+
+    this.setState(() => ({
+      itemIndex,
+    }));
+  };
+
+  render() {
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinity,
+    } = this.props;
+
+    const { itemIndex } = this.state;
+    const prevDisabled = (itemIndex <= 0) && !infinity;
+    const nextDisabled = (itemIndex >= images.length - frameSize) && !infinity;
+
+    return (
+      <div
+        className="Carousel"
+        style={{
+          maxWidth: `${frameSize * itemWidth}px`,
+          width: `${frameSize * itemWidth}px`,
+          transition: `${animationDuration}ms`,
+        }}
+      >
+        <ul className="Carousel__list">
+          {images.map((image, index) => (
+            <li
+              className="Carousel_item"
+              key={image}
+              style={{
+                transform: `translateX(${-itemIndex * itemWidth}px)`,
+                transition: `${animationDuration}ms`,
+              }}
+            >
+              <img
+                src={image}
+                alt={`${index + 1}`}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="Carousel__button">
+          <button
+            className="Carousel__btn"
+            type="button"
+            disabled={prevDisabled}
+            onClick={this.handleSwipeClick(-step)}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            className="Carousel__btn"
+            data-cy="next"
+            disabled={nextDisabled}
+            onClick={this.handleSwipeClick(step)}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Carousel;

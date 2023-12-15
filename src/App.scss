@@ -1,1 +1,38 @@
-// style go here
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+
+}
+
+.App {
+  text-align: center;
+  padding: 30px;
+
+  &__input {
+    margin-left: 10px;
+    padding: 3px 0;
+    border-radius: 10px;
+    text-align: end;
+  }
+}
+
+.label {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding-right: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  font-size: 20px;
+  font-weight: 600;
+  color: #252424;
+  cursor: pointer;
+}
+
+input {
+  margin-left: 10px;
+  border: 2px solid #504e4e;
+  border-radius: 50px;
+  text-align: end;
+}
