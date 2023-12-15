@@ -21,38 +21,37 @@ const Carousel: React.FC<Props> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const totalImages = images.length;
-  // const totalFrames = Math.ceil(totalImages / frameSize);
 
   const handleNext = () => {
     const newIndex = currentIndex + step;
     const maxIndex = totalImages - frameSize;
 
-    setCurrentIndex(infinite
-      ? newIndex % totalImages
-      : Math.min(newIndex, maxIndex));
+    setCurrentIndex(
+      infinite ? newIndex % totalImages : Math.min(newIndex, maxIndex),
+    );
   };
 
   const handlePrev = () => {
     const newIndex = currentIndex - step;
 
-    setCurrentIndex(infinite
-      ? (newIndex + totalImages) % totalImages
-      : Math.max(newIndex, 0));
+    setCurrentIndex(
+      infinite ? (newIndex + totalImages) % totalImages : Math.max(newIndex, 0),
+    );
   };
 
   const containerStyle: React.CSSProperties = {
-    width: itemWidth * frameSize,
+    width: itemWidth * frameSize + (frameSize - 1) * 10,
   };
 
   const listStyle: React.CSSProperties = {
     transition: `transform ${animationDuration}ms ease-in-out`,
-    transform: `translateX(-${currentIndex * itemWidth}px)`,
+    transform: `translateX(-${currentIndex * (itemWidth + 10)}px)`,
   };
 
   return (
-    <div className="Carousel">
-      <div className="Carousel__container" style={containerStyle}>
-        <ul className="Carousel__container-list" style={listStyle}>
+    <>
+      <div className="Carousel" style={containerStyle}>
+        <ul className="Carousel__list" style={listStyle}>
           {images.map((image, index) => (
             <li key={image} style={{ width: itemWidth, marginRight: 10 }}>
               <img
@@ -82,7 +81,7 @@ const Carousel: React.FC<Props> = ({
       >
         Next
       </button>
-    </div>
+    </>
   );
 };
 
