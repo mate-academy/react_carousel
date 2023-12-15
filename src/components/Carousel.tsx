@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[],
-  step?: number,
-  frameSize?: number,
-  itemWidth?: number,
-  animationDuration?: number,
-  infinite?: boolean,
+  images: string[];
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -20,58 +20,56 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const styleWidth = {
-    width: `${itemWidth}px`,
-  };
+  const totalImages = images.length;
+  // const totalFrames = Math.ceil(totalImages / frameSize);
 
-  useEffect(() => {
-    const interval = infinite
-      ? setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + step) % images.length);
-      }, animationDuration)
-      : undefined;
-
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [currentIndex, images.length, step, animationDuration, infinite]);
-
-  const renderImage = () => {
-    const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
-
-    return visibleImages.map((imgUrl, index) => (
-      <li key={imgUrl} className="Carousel__list-img">
-        <img
-          src={imgUrl}
-          alt={`${index + 1}`}
-          className="image"
-          style={styleWidth}
-        />
-      </li>
-    ));
+  const handleNext = () => {
+    if (currentIndex + frameSize < totalImages) {
+      setCurrentIndex(currentIndex + step);
+    } else if (infinite) {
+      setCurrentIndex(0);
+    }
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => {
-      return (prevIndex - step + images.length) % images.length;
-    });
+    if (currentIndex - step >= 0) {
+      setCurrentIndex(currentIndex - step);
+    } else if (infinite) {
+      setCurrentIndex(totalImages - frameSize);
+    }
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + step) % images.length);
+  const containerStyle: React.CSSProperties = {
+    width: itemWidth * frameSize,
+  };
+
+  const listStyle: React.CSSProperties = {
+    transition: `transform ${animationDuration}ms ease-in-out`,
+    transform: `translateX(-${currentIndex * itemWidth}px)`,
   };
 
   return (
     <div className="Carousel">
-      <ul className="Carousel__list">
-        {renderImage()}
-      </ul>
+      <div className="Carousel__container" style={containerStyle}>
+        <ul className="Carousel__container-list" style={listStyle}>
+          {images.map((image, index) => (
+            <li key={image} style={{ width: itemWidth, marginRight: 10 }}>
+              <img
+                src={image}
+                alt={`img-${index}`}
+                width={itemWidth}
+                height={130}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <button
+        data-cy="prev"
         type="button"
         onClick={handlePrev}
+        disabled={currentIndex === 0}
       >
         Prev
       </button>
@@ -79,6 +77,7 @@ const Carousel: React.FC<Props> = ({
         data-cy="next"
         type="button"
         onClick={handleNext}
+        disabled={currentIndex + frameSize >= totalImages}
       >
         Next
       </button>
