@@ -44,7 +44,7 @@ const Carousel: React.FC<Props> = (
       container.style.transition = `transform ${currentanimationDuration}ms ease-in-out`;
       container.style.transform = `translateX(-${currentIndex * currentitemWidth}px)`;
     }
-  }, [currentIndex, currentitemWidth, currentanimationDuration]);
+  }, [currentIndex, currentitemWidth, currentanimationDuration, currentStep]);
 
   return (
     <>
@@ -74,6 +74,7 @@ const Carousel: React.FC<Props> = (
                 key={+index}
                 style={{
                   width: `${currentitemWidth}px`,
+                  height: `${currentitemWidth}px`,
                 }}
               >
                 <img
@@ -84,12 +85,6 @@ const Carousel: React.FC<Props> = (
                   alt={`${index}`}
                   width={currentitemWidth}
                   height={currentitemWidth}
-                  style={{
-                    visibility: index
-                    >= currentIndex
-                    && index < currentIndex + currentframeSize
-                      ? 'visible' : 'hidden',
-                  }}
                 />
               </li>
             ))
