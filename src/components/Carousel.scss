@@ -1,14 +1,20 @@
 .Carousel {
   display: flex;
-  overflow: hidden;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 
-  &_AllButton {
+  &__list {
     display: flex;
+    list-style: none;
+    padding: 0;
+    border: 5px solid black;
+    border-radius: 20px;
+    overflow: hidden;
   }
 
-  &_button {
-    width: 50px;
-    height: 30px;
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
   }
 }
-

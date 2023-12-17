@@ -60,10 +60,11 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div className="App__container">
-          <label>
+          <label htmlFor="itemId">
             Item Width:
             <input
               className="App__input"
+              id="itemId"
               type="number"
               min={50}
               max={390}
@@ -73,10 +74,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
+          <label htmlFor="frameId">
             Frame Size:
             <input
               className="App__input"
+              id="frameId"
               type="number"
               min={1}
               max={images.length}
@@ -85,10 +87,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
+          <label htmlFor="stepId">
             Step:
             <input
               className="App__input"
+              id="stepId"
               type="number"
               min={1}
               max={10}
@@ -97,10 +100,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
+          <label htmlFor="animationDurationId">
             Animation Duration:
             <input
               className="App__input"
+              id="animationDurationId"
               type="number"
               min={100}
               step={100}
@@ -120,5 +124,4 @@ class App extends React.Component<{}, State> {
     );
   }
 }
-
 export default App;

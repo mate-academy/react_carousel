@@ -2,70 +2,75 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
+  images: string[],
+  itemWidth: number,
+  frameSize: number,
+  step: number,
+  animationDuration: number,
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  step,
-  frameSize,
   itemWidth,
+  frameSize,
+  step,
   animationDuration,
 }) => {
   const [offsetX, setOffsetX] = useState(0);
-  const maxOffSet = images.length * itemWidth * -1 + frameSize * itemWidth;
+
+  const maxOffSet = images.length - frameSize;
   const isDisabledButtonPre = offsetX === 0;
   const isDisabledButtonNext = offsetX === maxOffSet;
-  const movieNext = () => {
-    const nextOffSet = offsetX - step * itemWidth;
-
-    if (nextOffSet > maxOffSet) {
-      setOffsetX(nextOffSet);
-    } else {
-      setOffsetX(maxOffSet);
-    }
-  };
 
   const moviePrevious = () => {
-    const prevOffSet = offsetX + itemWidth * step;
-
-    if (prevOffSet <= 0) {
-      setOffsetX(prevOffSet);
+    if (offsetX - step > 0) {
+      setOffsetX(offsetX - step);
     } else {
       setOffsetX(0);
     }
   };
 
+  const movieNext = () => {
+    if (offsetX + step < maxOffSet) {
+      setOffsetX(offsetX + step);
+    } else {
+      setOffsetX(maxOffSet);
+    }
+  };
+
   return (
-    <>
-      <div
-        className="Carousel"
-        style={{
-          width: `${itemWidth * frameSize}px`,
-        }}
+    <div
+      className="Carousel"
+      style={{
+        width: `${itemWidth * frameSize}px`,
+        transition: `${animationDuration}ms`,
+      }}
+    >
+      <ul
+        className="Carousel__list"
       >
-        {images.map((image: string) => (
-          <img
-            src={image}
-            alt="qwe"
+        {images.map((image, index) => (
+          <li
             key={image}
             style={{
-              width: `${itemWidth}px`,
-              height: `${itemWidth}px`,
-              transform: `translate(${offsetX}px, 0px)`,
-              transition: `transform ${animationDuration}ms ease-in-out`,
+              transform: `translateX(${-offsetX * itemWidth}px)`,
+              transition: `${animationDuration}ms`,
             }}
-          />
+          >
+            <img
+              src={image}
+              alt={`${index}`}
+              width={itemWidth}
+              style={{
+                transition: `${animationDuration}ms`,
+              }}
+            />
+          </li>
         ))}
+      </ul>
 
-      </div>
-      <div className="Carousel_AllButton">
+      <div className="Carousel__buttons">
         <button
-          className="Carousel_button"
           type="button"
           onClick={moviePrevious}
           disabled={isDisabledButtonPre}
@@ -73,7 +78,6 @@ const Carousel: React.FC<Props> = ({
           Prev
         </button>
         <button
-          className="Carousel_button"
           data-cy="next"
           type="button"
           onClick={movieNext}
@@ -81,9 +85,8 @@ const Carousel: React.FC<Props> = ({
         >
           Next
         </button>
-
       </div>
-    </>
+    </div>
   );
 };
 
