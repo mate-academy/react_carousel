@@ -1,20 +1,36 @@
 // style go here
 .Carousel {
-  overflow: hidden;
+  margin-inline: auto;
 
   &__title {
     text-align: center;
   }
 
+  &__inputs {
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
   &__list-wrapper {
-    height: 162px;
+    margin: 0 auto;
+    height: 130px;
+
     position: relative;
+
+    border: 3px solid black;
+    border-radius: 15px;
+    overflow: hidden;
   }
 
   &__list {
     display: flex;
 
     padding: 0;
+    margin: 0;
 
     position: absolute;
   }
@@ -24,6 +40,8 @@
   }
 
   &__button-wrapper {
+    margin-top: 20px;
+
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -34,4 +52,8 @@
     border-radius: 5px;
     cursor: pointer;
   }
+}
+
+.input {
+  width: 50px;
 }

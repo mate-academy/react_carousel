@@ -17,13 +17,36 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration,
 }) => {
   const [position, setPosition] = useState(0);
-  const widthFrame = itemWidth * frameSize;
-  const widthList = itemWidth * images.length - widthFrame;
+  const [chooseStep, setChooseStep] = useState(step);
+  const [chooseItemWidth, setChooseItemWidth] = useState(itemWidth);
+  const [widthFrame, setWidthFrame] = useState(chooseItemWidth * frameSize);
+  const widthList = chooseItemWidth * images.length - widthFrame;
+
+  const handleInputStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+
+    setChooseStep(value);
+  };
+
+  const handleInputWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+
+    setChooseItemWidth(value);
+    setWidthFrame(value * frameSize);
+  };
+
+  const handleInputFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10) * chooseItemWidth;
+
+    setWidthFrame(value);
+  };
 
   const moveRight = () => {
     if (position !== -widthList
         && widthList - Math.abs(position) >= widthFrame) {
-      setPosition((currentPosition) => currentPosition - itemWidth * step);
+      setPosition(
+        currentPosition => currentPosition - chooseItemWidth * chooseStep,
+      );
     } else {
       setPosition(-widthList);
     }
@@ -31,7 +54,9 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const moveLeft = () => {
     if (position !== 0 && Math.abs(position) >= widthFrame) {
-      setPosition((currentPosition) => currentPosition + itemWidth * step);
+      setPosition(
+        currentPosition => currentPosition + chooseItemWidth * chooseStep,
+      );
     } else {
       setPosition(0);
     }
@@ -46,7 +71,7 @@ const Carousel: React.FC<CarouselProps> = ({
       <img
         src={img}
         alt={img}
-        style={{ width: `${itemWidth}px` }}
+        style={{ width: `${chooseItemWidth}px` }}
       />
     </li>
   ));
@@ -54,14 +79,75 @@ const Carousel: React.FC<CarouselProps> = ({
   return (
     <div
       className="Carousel"
-      style={{ width: `${widthFrame}px` }}
+      style={{
+        transition: `all ${animationDuration}ms ease`,
+      }}
     >
       <h1 className="Carousel__title" data-cy="title">
         {/* eslint-disable-next-line */}
         Carousel with {images.length} images
       </h1>
 
-      <div className="Carousel__list-wrapper">
+      <div className="Carousel__inputs inputs">
+        <div>
+          Step:&nbsp;
+          <input
+            className="input input-number"
+            type="number"
+            name="step"
+            min={1}
+            max={10}
+            defaultValue={step}
+            onChange={handleInputStep}
+          />
+        </div>
+
+        <div>
+          Frame size:&nbsp;
+          <input
+            className="input input-frameSize"
+            type="number"
+            name="frameSize"
+            min={1}
+            max={10}
+            defaultValue={frameSize}
+            onChange={handleInputFrameSize}
+          />
+        </div>
+
+        <div>
+          Item width:&nbsp;
+          <input
+            className="input input-itemWidth"
+            type="number"
+            name="itemWidth"
+            step={10}
+            min={50}
+            defaultValue={chooseItemWidth}
+            onChange={handleInputWidth}
+          />
+        </div>
+
+        <div>
+          Animation duration:&nbsp;
+          <input
+            className="input input-animationDuration"
+            type="number"
+            name="animationDuration"
+            step={100}
+            defaultValue={animationDuration}
+          />
+        </div>
+      </div>
+
+      <div
+        className="Carousel__list-wrapper"
+        style={{
+          width: `${widthFrame}px`,
+          height: `${chooseItemWidth}px`,
+          transition: `all ${animationDuration}ms ease`,
+        }}
+      >
         <ul
           className="Carousel__list"
           style={{
