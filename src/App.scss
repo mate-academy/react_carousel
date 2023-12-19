@@ -1,1 +1,11 @@
-// style go here
+.title {
+  text-align: center;
+}
+
+.inputs {
+  max-width: 150px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

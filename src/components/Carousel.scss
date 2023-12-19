@@ -1,1 +1,87 @@
-// style go here
+$arrow-color: #2d2727;
+$arrow-disabled-color: grey;
+
+.Carousel {
+  position: relative;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  &__button {
+    width: 25px;
+    height: 8px;
+
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    color: transparent;
+
+    background-color: $arrow-color;
+    opacity: 0.8;
+
+    transition: transform 0.2s ease;
+
+    &--disabled {
+      background-color: $arrow-disabled-color;
+
+      pointer-events: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      transform: translateY(-50%) scale(110%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 50%;
+
+      display: inline-block;
+
+      padding: 7px;
+
+      border: solid $arrow-color;
+      border-width: 0 7px 7px 0;
+      outline: none;
+    }
+
+    &--disabled::after {
+      border-color: $arrow-disabled-color;
+    }
+
+    &--next {
+      right: 0;
+
+      margin-right: 15px;
+
+      &::after {
+        transform: translate(-15%, 50%) rotate(-45deg);
+      }
+    }
+
+    &--prev {
+      margin-left: 15px;
+
+      &::after {
+        left: 0;
+        transform: translate(-20%, 50%) rotate(135deg);
+      }
+    }
+  }
+}
