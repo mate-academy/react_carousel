@@ -1,1 +1,59 @@
-// style go here
+.Carousel {
+  margin: 0 auto 50px;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 20px auto;
+    border: 2px solid rgb(95, 7, 95);
+    border-radius: 50px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+  }
+
+  & > div {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &__btn {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__button {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: purple;
+    background-color: rgb(251, 251, 251);
+    width: 70px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+
+    &:hover {
+      transform: scale(1.02);
+      background-color: rgb(255, 127, 212);
+      border: 1px solid purple;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      background-color: rgb(255, 127, 165);
+      border: 1px solid purple;
+    }
+  }
+}
