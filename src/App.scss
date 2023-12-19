@@ -1,1 +1,22 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  background: #a7c2e8;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 30px;
+    font-style: italic;
+    color: #000;
+    border-radius: 20px;
+  }
+}
