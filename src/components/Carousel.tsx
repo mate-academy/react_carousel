@@ -92,28 +92,29 @@ const Carousel: React.FC<Props> = ({
             </li>
           ))}
         </ul>
-        <div className="Carousel__btns">
-          <button
-            className="Carousel__btn"
-            type="button"
-            onClick={handlePrevClick}
-            disabled={!infinite && currentPosition === 0}
-          >
-            &lt;
-          </button>
-          <button
-            className="Carousel__btn"
-            type="button"
-            onClick={handleNextClick}
-            data-cy="next"
-            disabled={
-              !infinite
-                && currentPosition >= (itemWidth * (images.length - frameSize))
-            }
-          >
-            &gt;
-          </button>
-        </div>
+      </div>
+
+      <div className="Carousel__btns">
+        <button
+          className="Carousel__btn"
+          type="button"
+          onClick={handlePrevClick}
+          disabled={!infinite && currentPosition === 0}
+        >
+          &lt;
+        </button>
+        <button
+          className="Carousel__btn"
+          type="button"
+          onClick={handleNextClick}
+          data-cy="next"
+          disabled={
+            !infinite
+              && currentPosition >= (itemWidth * (images.length - frameSize))
+          }
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );
