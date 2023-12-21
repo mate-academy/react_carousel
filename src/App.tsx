@@ -23,7 +23,7 @@ class App extends React.Component<{}, State> {
       './img/7.png',
       './img/8.png',
       './img/9.png',
-      './img/10.pn',
+      './img/10.png',
     ],
     itemWidth: 130,
     frameSize: 3,
