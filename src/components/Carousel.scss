@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+    display: flex;
+    flex-direction: column;
+  
+    &__list {
+      padding: 0;
+      list-style: none;
+  
+      overflow: hidden;
+  
+      display: flex;
+      align-items: center;
+      border: 1px solid rgb(188, 185, 185);
+    }
+  
+    &__item {
+  
+      img {
+        display: block;
+      }
+    }
+  
+    &__buttons {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
