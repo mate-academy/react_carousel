@@ -1,20 +1,5 @@
 // style go here
 .Carousel {
-  margin-inline: auto;
-
-  &__title {
-    text-align: center;
-  }
-
-  &__inputs {
-    margin: 10px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
   &__list-wrapper {
     margin: 0 auto;
     height: 130px;
@@ -52,8 +37,4 @@
     border-radius: 5px;
     cursor: pointer;
   }
-}
-
-.input {
-  width: 50px;
 }

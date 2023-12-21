@@ -17,49 +17,41 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration,
 }) => {
   const [position, setPosition] = useState(0);
-  const [chooseStep, setChooseStep] = useState(step);
-  const [chooseItemWidth, setChooseItemWidth] = useState(itemWidth);
-  const [widthFrame, setWidthFrame] = useState(chooseItemWidth * frameSize);
-  const widthList = chooseItemWidth * images.length - widthFrame;
-
-  const handleInputStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
-
-    setChooseStep(value);
-  };
-
-  const handleInputWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
-
-    setChooseItemWidth(value);
-    setWidthFrame(value * frameSize);
-  };
-
-  const handleInputFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10) * chooseItemWidth;
-
-    setWidthFrame(value);
-  };
+  const frameWidth = frameSize * itemWidth;
 
   const moveRight = () => {
-    if (position !== -widthList
-        && widthList - Math.abs(position) >= widthFrame) {
-      setPosition(
-        currentPosition => currentPosition - chooseItemWidth * chooseStep,
-      );
-    } else {
-      setPosition(-widthList);
-    }
+    setPosition((currentPosition) => {
+      const newPosittion = currentPosition - (step * itemWidth);
+
+      return newPosittion;
+    });
+    // if (position !== -widthList
+    //     && widthList - Math.abs(position) >= widthFrame) {
+    //   setPosition(
+    //     currentPosition => currentPosition - chooseItemWidth * chooseStep,
+    //   );
+    // } else {
+    //   setPosition(-widthList);
+    // }
   };
 
   const moveLeft = () => {
-    if (position !== 0 && Math.abs(position) >= widthFrame) {
-      setPosition(
-        currentPosition => currentPosition + chooseItemWidth * chooseStep,
-      );
-    } else {
-      setPosition(0);
-    }
+    setPosition((currentPosition) => {
+      if (currentPosition !== 0) {
+        const newPosittion = currentPosition + (step * itemWidth);
+
+        return newPosittion;
+      }
+
+      return currentPosition;
+    });
+  //   if (position !== 0 && Math.abs(position) >= widthFrame) {
+  //     setPosition(
+  //       currentPosition => currentPosition + chooseItemWidth * chooseStep,
+  //     );
+  //   } else {
+  //     setPosition(0);
+  //   }
   };
 
   const items = images.map(img => (
@@ -71,7 +63,10 @@ const Carousel: React.FC<CarouselProps> = ({
       <img
         src={img}
         alt={img}
-        style={{ width: `${chooseItemWidth}px` }}
+        style={{
+          width: `${itemWidth}px`,
+          transition: `width ${animationDuration}ms ease`,
+        }}
       />
     </li>
   ));
@@ -83,68 +78,11 @@ const Carousel: React.FC<CarouselProps> = ({
         transition: `all ${animationDuration}ms ease`,
       }}
     >
-      <h1 className="Carousel__title" data-cy="title">
-        {/* eslint-disable-next-line */}
-        Carousel with {images.length} images
-      </h1>
-
-      <div className="Carousel__inputs inputs">
-        <div>
-          Step:&nbsp;
-          <input
-            className="input input-number"
-            type="number"
-            name="step"
-            min={1}
-            max={10}
-            defaultValue={step}
-            onChange={handleInputStep}
-          />
-        </div>
-
-        <div>
-          Frame size:&nbsp;
-          <input
-            className="input input-frameSize"
-            type="number"
-            name="frameSize"
-            min={1}
-            max={10}
-            defaultValue={frameSize}
-            onChange={handleInputFrameSize}
-          />
-        </div>
-
-        <div>
-          Item width:&nbsp;
-          <input
-            className="input input-itemWidth"
-            type="number"
-            name="itemWidth"
-            step={10}
-            min={50}
-            defaultValue={chooseItemWidth}
-            onChange={handleInputWidth}
-          />
-        </div>
-
-        <div>
-          Animation duration:&nbsp;
-          <input
-            className="input input-animationDuration"
-            type="number"
-            name="animationDuration"
-            step={100}
-            defaultValue={animationDuration}
-          />
-        </div>
-      </div>
-
       <div
         className="Carousel__list-wrapper"
         style={{
-          width: `${widthFrame}px`,
-          height: `${chooseItemWidth}px`,
+          width: `${frameWidth}px`,
+          height: `${itemWidth}px`,
           transition: `all ${animationDuration}ms ease`,
         }}
       >
