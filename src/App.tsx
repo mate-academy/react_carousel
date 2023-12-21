@@ -60,8 +60,11 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div className="App__container">
-          <label htmlFor="itemId">
-            Item Width:
+          <div className="App__input-container">
+            <label htmlFor="itemId">
+              Item Width:
+            </label>
+
             <input
               className="App__input"
               id="itemId"
@@ -72,10 +75,12 @@ class App extends React.Component<{}, State> {
               onChange={handleItemWidth}
               value={itemWidth}
             />
-          </label>
+          </div>
+          <div className="App__input-container">
+            <label htmlFor="frameId">
+              Frame Size:
+            </label>
 
-          <label htmlFor="frameId">
-            Frame Size:
             <input
               className="App__input"
               id="frameId"
@@ -85,10 +90,12 @@ class App extends React.Component<{}, State> {
               value={frameSize}
               onChange={handleFrameSize}
             />
-          </label>
+          </div>
+          <div className="App__input-container">
+            <label htmlFor="stepId">
+              Step:
+            </label>
 
-          <label htmlFor="stepId">
-            Step:
             <input
               className="App__input"
               id="stepId"
@@ -98,10 +105,12 @@ class App extends React.Component<{}, State> {
               value={step}
               onChange={handleStep}
             />
-          </label>
+          </div>
+          <div className="App__input-container">
+            <label htmlFor="animationDurationId">
+              Animation Duration:
+            </label>
 
-          <label htmlFor="animationDurationId">
-            Animation Duration:
             <input
               className="App__input"
               id="animationDurationId"
@@ -111,7 +120,7 @@ class App extends React.Component<{}, State> {
               value={animationDuration}
               onChange={handleDuration}
             />
-          </label>
+          </div>
         </div>
         <Carousel
           images={images}

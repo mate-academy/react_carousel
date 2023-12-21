@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -16,27 +16,36 @@ const Carousel: React.FC<Props> = ({
   step,
   animationDuration,
 }) => {
-  const [offsetX, setOffsetX] = useState(0);
+  const [position, setPosition] = useState(0);
 
-  const maxOffSet = images.length - frameSize;
-  const isDisabledButtonPre = offsetX === 0;
-  const isDisabledButtonNext = offsetX === maxOffSet;
+  const maxPosition = images.length - frameSize;
+  const isDisabledButtonPre = position === 0;
+  const isDisabledButtonNext = position === maxPosition;
+  const prevFrameSizeRef = useRef<number>(frameSize);
 
   const moviePrevious = () => {
-    if (offsetX - step > 0) {
-      setOffsetX(offsetX - step);
+    if (position - step > 0) {
+      setPosition(position - step);
     } else {
-      setOffsetX(0);
+      setPosition(0);
     }
   };
 
   const movieNext = () => {
-    if (offsetX + step < maxOffSet) {
-      setOffsetX(offsetX + step);
+    if (position + step < maxPosition) {
+      setPosition(position + step);
     } else {
-      setOffsetX(maxOffSet);
+      setPosition(maxPosition);
     }
   };
+
+  useEffect(() => {
+    if (frameSize > prevFrameSizeRef.current && position > maxPosition) {
+      setPosition(prevPosition => prevPosition - 1);
+    }
+
+    prevFrameSizeRef.current = frameSize;
+  }, [frameSize, position, maxPosition]);
 
   return (
     <div
@@ -53,7 +62,7 @@ const Carousel: React.FC<Props> = ({
           <li
             key={image}
             style={{
-              transform: `translateX(${-offsetX * itemWidth}px)`,
+              transform: `translateX(${-position * itemWidth}px)`,
               transition: `${animationDuration}ms`,
             }}
           >

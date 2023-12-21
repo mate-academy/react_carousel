@@ -6,6 +6,20 @@
   &__container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 300px;
+  }
+
+  &__input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 25px;
+    margin: 5px 0;
+    padding: 2px;
+  }
+
+  &__input {
+    width: 35%;
   }
 }
+
