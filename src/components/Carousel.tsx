@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -18,47 +18,42 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [currentPosition, setCurrentPosition] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
+
+  useEffect(() => {
+    if (!infinite) {
+      const maxStartIndex = images.length - frameSize;
+
+      setStartIndex(Math.min(startIndex, maxStartIndex));
+    }
+  }, [frameSize, images, infinite, startIndex]);
 
   const handlePrevClick = () => {
-    const newPosition = currentPosition - itemWidth * step;
+    const newStartIndex = startIndex - step;
 
     if (infinite) {
-      setCurrentPosition(
-        newPosition < 0
-          ? (images.length - frameSize) * itemWidth
-          : newPosition,
+      setStartIndex(
+        newStartIndex < 0
+          ? images.length - frameSize
+          : newStartIndex,
       );
     } else {
-      setCurrentPosition(Math.max(newPosition, 0));
+      setStartIndex(Math.max(newStartIndex, 0));
     }
   };
 
   const handleNextClick = () => {
-    const remainingImages = images.length
-    - Math.ceil(currentPosition / itemWidth);
-
-    let newPosition;
+    let newStartIndex;
 
     if (infinite) {
-      if (remainingImages < step) {
-        newPosition = 0;
-      } else {
-        newPosition = currentPosition + itemWidth * step;
-        newPosition
-        = newPosition >= images.length * itemWidth
-            ? 0
-            : newPosition;
-      }
+      newStartIndex = (startIndex + step) % images.length;
     } else {
-      newPosition = currentPosition + itemWidth * step;
-      newPosition = Math.min(
-        newPosition,
-        (images.length - frameSize) * itemWidth,
-      );
+      const maxStartIndex = images.length - frameSize;
+
+      newStartIndex = Math.min(startIndex + step, maxStartIndex);
     }
 
-    setCurrentPosition(newPosition);
+    setStartIndex(newStartIndex);
   };
 
   const carouselContainerStyles = {
@@ -70,36 +65,30 @@ const Carousel: React.FC<Props> = ({
     width: `${itemWidth * images.length}px`,
     height: `${itemWidth}px`,
     transitionDuration: `${animationDuration}ms`,
-    transform: `translateX(-${currentPosition}px)`,
-  };
-
-  const carouselWrapperStyles = {
-    width: `${itemWidth * frameSize}px`,
+    transform: `translateX(-${startIndex * itemWidth}px)`,
   };
 
   return (
     <div className="Carousel" style={carouselContainerStyles}>
-      <div className="Carousel__wrapper" style={carouselWrapperStyles}>
-        <ul className="Carousel__list" style={carouselListStyles}>
-          {images.map((image: string, index: number) => (
-            <li key={image} className="Carousel__item">
-              <img
-                src={image}
-                alt={`${index}`}
-                width={itemWidth}
-                className="Carousel__image"
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="Carousel__list" style={carouselListStyles}>
+        {images.map((image: string, index: number) => (
+          <li key={image} className="Carousel__item">
+            <img
+              src={image}
+              alt={`${index}`}
+              width={itemWidth}
+              className="Carousel__image"
+            />
+          </li>
+        ))}
+      </ul>
 
       <div className="Carousel__btns">
         <button
           className="Carousel__btn"
           type="button"
           onClick={handlePrevClick}
-          disabled={!infinite && currentPosition === 0}
+          disabled={!infinite && startIndex === 0}
         >
           &lt;
         </button>
@@ -110,7 +99,7 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           disabled={
             !infinite
-              && currentPosition >= (itemWidth * (images.length - frameSize))
+              && startIndex >= (itemWidth * (images.length - frameSize))
           }
         >
           &gt;
