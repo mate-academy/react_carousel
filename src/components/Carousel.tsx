@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 interface CarouselProps {
@@ -18,40 +18,26 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [position, setPosition] = useState(0);
   const frameWidth = frameSize * itemWidth;
+  const slide = step * itemWidth;
+  const boundary = (itemWidth * images.length) - (frameSize * itemWidth);
+  // const maxPosition = (itemWidth * images.length) - frameWidth;
+
+  useEffect(() => {
+    setPosition(currentPosition => Math.max(currentPosition, -boundary));
+  }, [boundary]);
 
   const moveRight = () => {
-    setPosition((currentPosition) => {
-      const newPosittion = currentPosition - (step * itemWidth);
-
-      return newPosittion;
-    });
-    // if (position !== -widthList
-    //     && widthList - Math.abs(position) >= widthFrame) {
-    //   setPosition(
-    //     currentPosition => currentPosition - chooseItemWidth * chooseStep,
-    //   );
-    // } else {
-    //   setPosition(-widthList);
-    // }
+    if (position !== -boundary) {
+      setPosition(
+        currentPosition => Math.max(currentPosition - slide, -boundary),
+      );
+    }
   };
 
   const moveLeft = () => {
-    setPosition((currentPosition) => {
-      if (currentPosition !== 0) {
-        const newPosittion = currentPosition + (step * itemWidth);
-
-        return newPosittion;
-      }
-
-      return currentPosition;
-    });
-  //   if (position !== 0 && Math.abs(position) >= widthFrame) {
-  //     setPosition(
-  //       currentPosition => currentPosition + chooseItemWidth * chooseStep,
-  //     );
-  //   } else {
-  //     setPosition(0);
-  //   }
+    if (position !== 0) {
+      setPosition(currentPosition => Math.min(currentPosition + slide, 0));
+    }
   };
 
   const items = images.map(img => (
@@ -63,10 +49,8 @@ const Carousel: React.FC<CarouselProps> = ({
       <img
         src={img}
         alt={img}
-        style={{
-          width: `${itemWidth}px`,
-          transition: `width ${animationDuration}ms ease`,
-        }}
+        width={itemWidth}
+        style={{ transition: `width ${animationDuration}ms ease` }}
       />
     </li>
   ));
@@ -81,8 +65,8 @@ const Carousel: React.FC<CarouselProps> = ({
       <div
         className="Carousel__list-wrapper"
         style={{
-          width: `${frameWidth}px`,
-          height: `${itemWidth}px`,
+          width: frameWidth,
+          height: itemWidth,
           transition: `all ${animationDuration}ms ease`,
         }}
       >
