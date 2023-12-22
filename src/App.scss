@@ -1,1 +1,42 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-family: "Rubik Doodle Shadow", sans-serif;
+  letter-spacing: 2px;
+}
+
+.title {
+  color: white;
+  font-size: 40px;
+  text-shadow: 1px 1px 2px black,
+    0 0 25px rgb(71, 64, 107),
+    0 0 5px rgb(0, 19, 65);
+}
+
+.form {
+  padding: 10px;
+  width: 400px;
+  color: white;
+  font-size: 18px;
+  background-color: rgb(34, 41, 58);
+  border-radius: 5px;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__input {
+    padding: 5px;
+    width: 30%;
+    font-family: "Rubik Doodle Shadow", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+}
