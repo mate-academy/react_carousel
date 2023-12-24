@@ -42,21 +42,6 @@ const Carousel: React.FC<CarouselProps> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemWidth, imgPosition, frameSize]);
 
-  const items = images.map(img => (
-    <li
-      className="Carousel__list-img"
-      key={img}
-      style={{ listStyle: 'none' }}
-    >
-      <img
-        src={img}
-        alt={img}
-        width={itemWidth}
-        style={{ transition: `width ${animationDuration}ms ease` }}
-      />
-    </li>
-  ));
-
   return (
     <>
       <div
@@ -80,7 +65,20 @@ const Carousel: React.FC<CarouselProps> = ({
               transition: `left ${animationDuration}ms ease`,
             }}
           >
-            {items}
+            {images.map(img => (
+              <li
+                className="Carousel__list-img"
+                key={img}
+                style={{ listStyle: 'none' }}
+              >
+                <img
+                  src={img}
+                  alt={img}
+                  width={itemWidth}
+                  style={{ transition: `width ${animationDuration}ms ease` }}
+                />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
