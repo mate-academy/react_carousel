@@ -73,10 +73,10 @@ class App extends React.Component<{}, State> {
         </h1>
 
         <div className="App__inputs inputs">
-          <div>
-            Step:&nbsp;
+          <div className="input-block">
+            <span>Step:&nbsp;</span>
             <input
-              className="input input-number"
+              className="input"
               type="number"
               name="step"
               min={1}
@@ -86,10 +86,10 @@ class App extends React.Component<{}, State> {
             />
           </div>
 
-          <div>
-            Frame size:&nbsp;
+          <div className="input-block">
+            <span>Frame size:&nbsp;</span>
             <input
-              className="input input-frameSize"
+              className="input"
               type="number"
               name="frameSize"
               min={1}
@@ -99,10 +99,10 @@ class App extends React.Component<{}, State> {
             />
           </div>
 
-          <div>
-            Item width:&nbsp;
+          <div className="input-block">
+            <span>Item width:&nbsp;</span>
             <input
-              className="input input-itemWidth"
+              className="input"
               type="number"
               name="itemWidth"
               step={10}
@@ -112,10 +112,10 @@ class App extends React.Component<{}, State> {
             />
           </div>
 
-          <div>
-            Animation duration:&nbsp;
+          <div className="input-block">
+            <span>Animation duration:&nbsp;</span>
             <input
-              className="input input-animationDuration"
+              className="input"
               type="number"
               name="animationDuration"
               step={100}

@@ -1,9 +1,9 @@
 // style go here
 .Carousel {
-  &__list-wrapper {
-    margin: 0 auto;
-    height: 130px;
+  display: flex;
+  justify-content: center;
 
+  &__list-wrapper {
     position: relative;
 
     border: 3px solid black;

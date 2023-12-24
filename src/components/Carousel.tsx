@@ -17,28 +17,30 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration,
 }) => {
   const [position, setPosition] = useState(0);
-  const frameWidth = frameSize * itemWidth;
-  const slide = step * itemWidth;
+  const [imgPosition, setImgPosition] = useState(0);
+  const maxPosition = images.length - frameSize;
   const boundary = (itemWidth * images.length) - (frameSize * itemWidth);
-  // const maxPosition = (itemWidth * images.length) - frameWidth;
-
-  useEffect(() => {
-    setPosition(currentPosition => Math.max(currentPosition, -boundary));
-  }, [boundary]);
 
   const moveRight = () => {
-    if (position !== -boundary) {
-      setPosition(
-        currentPosition => Math.max(currentPosition - slide, -boundary),
-      );
+    if (imgPosition !== maxPosition) {
+      setImgPosition(currentImg => Math.min(currentImg + step, maxPosition));
     }
   };
 
   const moveLeft = () => {
-    if (position !== 0) {
-      setPosition(currentPosition => Math.min(currentPosition + slide, 0));
+    if (imgPosition !== 0) {
+      setImgPosition(currentImg => Math.max(currentImg - step, 0));
     }
   };
+
+  useEffect(() => {
+    setPosition(() => {
+      const newPosition = itemWidth * imgPosition;
+
+      return Math.max(-newPosition, -boundary);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemWidth, imgPosition, frameSize]);
 
   const items = images.map(img => (
     <li
@@ -56,29 +58,31 @@ const Carousel: React.FC<CarouselProps> = ({
   ));
 
   return (
-    <div
-      className="Carousel"
-      style={{
-        transition: `all ${animationDuration}ms ease`,
-      }}
-    >
+    <>
       <div
-        className="Carousel__list-wrapper"
+        className="Carousel"
         style={{
-          width: frameWidth,
-          height: itemWidth,
           transition: `all ${animationDuration}ms ease`,
         }}
       >
-        <ul
-          className="Carousel__list"
+        <div
+          className="Carousel__list-wrapper"
           style={{
-            left: `${position}px`,
-            transition: `left ${animationDuration}ms ease`,
+            width: frameSize * itemWidth,
+            height: itemWidth,
+            transition: `all ${animationDuration}ms ease`,
           }}
         >
-          {items}
-        </ul>
+          <ul
+            className="Carousel__list"
+            style={{
+              left: `${position}px`,
+              transition: `left ${animationDuration}ms ease`,
+            }}
+          >
+            {items}
+          </ul>
+        </div>
       </div>
 
       <div className="Carousel__button-wrapper">
@@ -100,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({
           Next
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -16,6 +16,13 @@
   }
 }
 
+.input-block {
+  width: 210px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 .input {
   width: 50px;
 }
