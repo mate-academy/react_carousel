@@ -42,7 +42,7 @@ const Carousel: React.FC<Props> = (
       setShift(-maxShift);
     }
 
-    if (frameSize < prevFrameSizeRef.current && position < maxPosition) {
+    if (position < maxPosition) {
       setPosition(position + 1);
     }
   };
@@ -56,7 +56,7 @@ const Carousel: React.FC<Props> = (
       setShift(0);
     }
 
-    if (frameSize < prevFrameSizeRef.current && position > maxPosition) {
+    if (position > 0) {
       setPosition(position - 1);
     }
   };
@@ -117,7 +117,6 @@ const Carousel: React.FC<Props> = (
             Next
           </button>
         </div>
-
       </div>
     </div>
   );
