@@ -1,1 +1,33 @@
-// style go here
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  &__title {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  &__container {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__element {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  &__input {
+    width: 130px;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
