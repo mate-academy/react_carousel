@@ -1,7 +1,6 @@
 import React from 'react';
 import './Form.scss';
 import '../Input/Input.scss';
-
 import { Input } from '../Input';
 
 type Props = {
