@@ -1,18 +1,12 @@
 import React from 'react';
 import './App.scss';
-import { Carousel } from './components/Carousel';
-import { Form } from './components/Form';
+import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
 }
 
-export class App extends React.Component<{}, State> {
+class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -26,65 +20,20 @@ export class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
-    infinite: false,
-  };
-
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState(state => ({
-      ...state,
-      [event.target.name]: Number(event.target.value),
-    }));
-  };
-
-  hadleInfinite = () => {
-    this.setState(state => ({
-      infinite: !state.infinite,
-    }));
   };
 
   render() {
-    const {
-      images,
-      step,
-      frameSize,
-      itemWidth,
-      animationDuration,
-      infinite,
-    } = this.state;
+    const { images } = this.state;
 
     return (
       <div className="App">
-        <h1
-          data-cy="title"
-          className="App__title"
-        >
-          {`Carousel with ${images.length} images`}
-        </h1>
+        {/* eslint-disable-next-line */}
+        <h1>Carousel with {images.length} images</h1>
 
-        <Carousel
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
-        />
-
-        <Form
-          images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={infinite}
-          hadleInfinite={this.hadleInfinite}
-          handleChange={this.handleChange}
-        />
+        <Carousel />
       </div>
     );
   }
 }
+
+export default App;
