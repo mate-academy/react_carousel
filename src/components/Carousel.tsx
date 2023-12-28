@@ -22,6 +22,7 @@ const Carousel: React.FC<Props> = (
   const totalImagesWidth = images.length * itemWidth;
   const maxShift = totalImagesWidth - itemWidth * frameSize;
   const prevFrameSizeRef = useRef<number>(frameSize);
+  const prevItemWidthRef = useRef<number>(itemWidth);
 
   useEffect(() => {
     if (frameSize > prevFrameSizeRef.current
@@ -32,6 +33,19 @@ const Carousel: React.FC<Props> = (
 
     prevFrameSizeRef.current = frameSize;
   }, [frameSize, maxShift, shift, itemWidth]);
+
+  useEffect(() => {
+    const widthDifference = itemWidth - prevItemWidthRef.current;
+
+    if (widthDifference > 0) {
+      const visibleItems = Math.abs(shift / prevItemWidthRef.current);
+      const newShift = visibleItems * itemWidth;
+
+      setShift(-newShift);
+    }
+
+    prevItemWidthRef.current = itemWidth;
+  }, [itemWidth, shift]);
 
   const handleNext = () => {
     const nextShift = shift - step * itemWidth;
@@ -66,14 +80,20 @@ const Carousel: React.FC<Props> = (
         >
           {images.map((image) => {
             return (
-              <li key={image}>
+              <li
+                key={image}
+                style={{
+                  transform: `translateX(${shift}px)`,
+                  transition: `transform ${animationDuration}ms ease-in-out`,
+                }}
+              >
+                {shift}
                 <img
                   src={image}
                   alt={`Item with ID ${image}`}
                   style={{
                     width: `${itemWidth}px`,
-                    transform: `translateX(${shift}px)`,
-                    transition: `transform ${animationDuration}ms ease-in-out`,
+                    transition: `${animationDuration}ms ease-in-out`,
                   }}
                 />
               </li>
