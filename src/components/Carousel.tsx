@@ -22,16 +22,16 @@ const Carousel: React.FC<Props> = (
   const totalImagesWidth = images.length * itemWidth;
   const maxShift = totalImagesWidth - itemWidth * frameSize;
   const prevFrameSizeRef = useRef<number>(frameSize);
-  const [position, setPosition] = useState(0);
-  const maxPosition = images.length - frameSize;
 
   useEffect(() => {
-    if (frameSize > prevFrameSizeRef.current && position > maxPosition) {
-      setPosition(prevPosition => prevPosition - 1);
+    if (frameSize > prevFrameSizeRef.current
+      && shift <= maxShift * -1
+      && shift !== 0) {
+      setShift(prevShift => prevShift + itemWidth);
     }
 
     prevFrameSizeRef.current = frameSize;
-  }, [frameSize, position, maxPosition]);
+  }, [frameSize, maxShift, shift, itemWidth]);
 
   const handleNext = () => {
     const nextShift = shift - step * itemWidth;
@@ -40,10 +40,6 @@ const Carousel: React.FC<Props> = (
       setShift(nextShift);
     } else {
       setShift(-maxShift);
-    }
-
-    if (position < maxPosition) {
-      setPosition(position + 1);
     }
   };
 
@@ -54,10 +50,6 @@ const Carousel: React.FC<Props> = (
       setShift(prevShift);
     } else {
       setShift(0);
-    }
-
-    if (position > 0) {
-      setPosition(position - 1);
     }
   };
 
@@ -73,13 +65,11 @@ const Carousel: React.FC<Props> = (
           className="Carousel__list"
         >
           {images.map((image) => {
-            const id = parseInt(image, 10);
-
             return (
-              <li key={id}>
+              <li key={image}>
                 <img
                   src={image}
-                  alt={`Item with ID ${id}`}
+                  alt={`Item with ID ${image}`}
                   style={{
                     width: `${itemWidth}px`,
                     transform: `translateX(${shift}px)`,
