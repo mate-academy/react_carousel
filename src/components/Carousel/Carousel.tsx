@@ -19,47 +19,54 @@ export const Carousel: React.FC<Props> = ({ images }) => {
   const [rightButtonDisabled, setRightButtonDisabled] = useState(false);
 
   const frameSizeWidth = itemWidth * frameSize;
+  const maxTransform = -(images.length - frameSize) * itemWidth;
 
   const handleLeft = () => {
-    let newTransform = transform + itemWidth * step;
+    setRightButtonDisabled(false);
 
-    if (isInfinite) {
+    if (isInfinite && transform === 0) {
+      setTransform(maxTransform);
+      setLeftButtonDisabled(false);
+    }
+
+    if (transform < 0) {
+      let newTransform = transform + itemWidth * step;
+
       if (newTransform > 0) {
-        newTransform = -itemWidth * (images.length - frameSize);
-      }
-
-      setRightButtonDisabled(false);
-    } else {
-      if (newTransform >= 0) {
         newTransform = 0;
         setLeftButtonDisabled(true);
       }
 
-      setRightButtonDisabled(false);
-    }
+      if (isInfinite) {
+        setLeftButtonDisabled(false);
+      }
 
-    setTransform(newTransform);
+      setTransform(newTransform);
+    }
   };
 
   const handleRight = () => {
-    let newTransform = transform - itemWidth * step;
+    setLeftButtonDisabled(false);
 
-    if (isInfinite) {
-      if (newTransform < -itemWidth * (images.length - frameSize)) {
-        newTransform = 0;
-      }
+    if (transform > maxTransform) {
+      let newTransform = transform - itemWidth * step;
 
-      setLeftButtonDisabled(false);
-    } else {
-      if (newTransform <= -itemWidth * (images.length - frameSize)) {
-        newTransform = -itemWidth * (images.length - frameSize);
+      if (newTransform < maxTransform) {
+        newTransform = maxTransform;
         setRightButtonDisabled(true);
       }
 
-      setLeftButtonDisabled(false);
+      if (isInfinite) {
+        setRightButtonDisabled(false);
+      }
+
+      setTransform(newTransform);
     }
 
-    setTransform(newTransform);
+    if (isInfinite && transform === maxTransform) {
+      setTransform(0);
+      setRightButtonDisabled(false);
+    }
   };
 
   const handleCheckboxChange = () => {
