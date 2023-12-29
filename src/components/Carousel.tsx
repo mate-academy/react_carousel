@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+const Carousel: React.FC = () => {
+  const [currentImg, setCurrentImg] = useState(1);
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  return (
+    <div className="Carousel">
+      <ul className="Carousel__list">
+        <li><img src={`./img/${currentImg}.png`} alt={`${currentImg}`} /></li>
+      </ul>
+
+      <ul className="Carousel__list">
+        <button
+          type="button"
+          className="Carousel__btn"
+          onClick={() => currentImg > 1 && setCurrentImg(currentImg - 1)}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          className="Carousel__btn"
+          onClick={() => currentImg < 10 && setCurrentImg(currentImg + 1)}
+        >
+          Next
+        </button>
+      </ul>
+    </div>
+  );
+};
 
 export default Carousel;
