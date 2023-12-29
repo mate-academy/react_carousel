@@ -87,7 +87,7 @@ const Carousel: React.FC<Props> = (
                   transition: `transform ${animationDuration}ms ease-in-out`,
                 }}
               >
-                {shift}
+
                 <img
                   src={image}
                   alt={`Item with ID ${image}`}
