@@ -1,1 +1,12 @@
 // style go here
+.Carousel {
+  margin: 0 auto;
+  margin-bottom: 40px;
+  overflow: hidden;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}
