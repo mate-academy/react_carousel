@@ -1,0 +1,17 @@
+.input {
+  width: 100px;
+  font-size: inherit;
+  font-weight: normal;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.checkbox {
+  height: 20px;
+  width: 20px;
+}
