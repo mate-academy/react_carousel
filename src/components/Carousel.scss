@@ -1,1 +1,47 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    border: 5px solid rgb(68, 11, 68);
+    border-radius: 25px;
+    padding-left: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__button {
+    width: 80px;
+    height: 30px;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgb(68, 11, 68);
+    border: 1px solid rgb(112, 3, 92);
+    border-radius: 20px;
+    cursor: pointer;
+  }
+}
+
+.disabled-button {
+  background-color: #a29a9f;
+  color:rgb(68, 11, 68);
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+
+
+
+
