@@ -47,6 +47,13 @@ export const App: React.FC = () => {
     }));
   }
 
+  const handleInputChange = (key: keyof State, value: number) => {
+    setState(currentState => ({
+      ...currentState,
+      [key]: value,
+    }));
+  };
+
   return (
     <div className="App">
       <h1 data-cy="title">
@@ -64,10 +71,7 @@ export const App: React.FC = () => {
             max={390}
             step={5}
             value={itemWidth}
-            onChange={(e) => setState(currentState => ({
-              ...currentState,
-              itemWidth: +e.target.value,
-            }))}
+            onChange={(e) => handleInputChange('itemWidth', +e.target.value)}
           />
         </label>
 
@@ -80,10 +84,7 @@ export const App: React.FC = () => {
             min={1}
             max={images.length}
             value={frameSize}
-            onChange={(e) => setState(currentState => ({
-              ...currentState,
-              frameSize: +e.target.value,
-            }))}
+            onChange={(e) => handleInputChange('frameSize', +e.target.value)}
           />
         </label>
 
@@ -97,10 +98,7 @@ export const App: React.FC = () => {
             max={3}
             step={1}
             value={step}
-            onChange={(e) => setState(currentState => ({
-              ...currentState,
-              step: +e.target.value,
-            }))}
+            onChange={(e) => handleInputChange('step', +e.target.value)}
           />
         </label>
 
@@ -113,10 +111,10 @@ export const App: React.FC = () => {
             min={500}
             max={3000}
             value={animationDuration}
-            onChange={(e) => setState(currentState => ({
-              ...currentState,
-              animationDuration: +e.target.value,
-            }))}
+            onChange={(e) => handleInputChange(
+              'animationDuration',
+              +e.target.value,
+            )}
           />
         </label>
 
