@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  width: 1300px;
+
+  &__window {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+
+    transition: 500ms ease-in-out;
+  }
+}
+
+.Buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.SettingsCarousel {
+  display: flex;
+  flex-direction: column;
+
+  &__field {
+    width: 50px;
+    margin-bottom: 5px;
+  }
+
+  &__submit {
+    width: 100px;
+  }
+}
