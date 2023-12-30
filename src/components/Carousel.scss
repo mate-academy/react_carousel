@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  &__list {
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 30px;
+    list-style: none;
+  }
+
+  &__image {
+    display: block;
+    box-sizing: border-box;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+  }
+
+  &__button {
+    width: 100px;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 100%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 30px;
+
+    
+    &:hover {
+      cursor: pointer;;
+    }
+  }
+}
