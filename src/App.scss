@@ -1,1 +1,28 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__label {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &__input {
+    width: 30%;
+    padding: 3px 5px;
+    font-weight: 700;
+  }
+}
