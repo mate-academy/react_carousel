@@ -54,6 +54,11 @@ export const App: React.FC = () => {
     }));
   };
 
+  const handleAnimationDurationChange
+    = (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleInputChange('animationDuration', +e.target.value);
+    };
+
   return (
     <div className="App">
       <h1 data-cy="title">
@@ -111,10 +116,7 @@ export const App: React.FC = () => {
             min={500}
             max={3000}
             value={animationDuration}
-            onChange={(e) => handleInputChange(
-              'animationDuration',
-              +e.target.value,
-            )}
+            onChange={handleAnimationDurationChange}
           />
         </label>
 
