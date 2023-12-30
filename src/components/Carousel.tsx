@@ -52,7 +52,10 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className="Carousel__btn"
-          onClick={() => currentImg < 10 && setCurrentImg(currentImg + step)}
+          onClick={
+            () => currentImg <= images.length
+              && setCurrentImg(currentImg + step)
+          }
           data-cy="next"
         >
           Next
