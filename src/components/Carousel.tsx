@@ -1,18 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  itemWidth: number;
+  images: string[];
+  frameSize: number;
+  animationDuration: number;
+  step: number;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  itemWidth,
+  images,
+  frameSize,
+  animationDuration,
+  step,
+}) => {
+  const visibleImages = itemWidth * frameSize;
+  const stepImages = itemWidth * step;
+  const imagesWidth = itemWidth * 10;
+  const imagenWidthVisble = imagesWidth - visibleImages;
+  const [transform, setTransform] = useState(0);
+
+  const carouselMovementForward = () => {
+    const goodStep = imagenWidthVisble - transform;
+    const stepElse = goodStep + transform;
+    const stepImg = stepImages + transform;
+
+    if (imagenWidthVisble >= stepImg) {
+      setTransform(stepImg);
+    } else {
+      setTransform(stepElse);
+    }
+  };
+
+  const carouselMovementBack = () => {
+    const steps = transform - stepImages;
+    const zero = 0;
+
+    if (zero <= steps) {
+      setTransform(steps);
+    } else {
+      setTransform(zero);
+    }
+  };
+
+  return (
+    <div className="container">
+      <div
+        className="Carousel"
+        style={{
+          width: `${visibleImages}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(-${transform}px)`,
+            transition: `transform ${animationDuration}ms ease-in-out`,
+          }}
+        >
+          {images.map((element, i) => (
+            <li key={element} style={{ height: itemWidth }}>
+              <img src={`${element}`} alt={`${i + 1}`} width={itemWidth} />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="container-button">
+        <button
+          type="button"
+          disabled={transform === 0}
+          onClick={() => carouselMovementBack()}
+        >
+          Prev
+        </button>
+        <button
+          data-cy="next"
+          type="button"
+          disabled={(transform + visibleImages) === imagesWidth}
+          onClick={() => carouselMovementForward()}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
