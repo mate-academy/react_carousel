@@ -11,6 +11,8 @@ interface State {
   infinite: boolean,
 }
 
+const INFINITE = 'infinite';
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -35,7 +37,7 @@ class App extends React.Component<{}, State> {
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    if (name === 'infinite') {
+    if (name === INFINITE) {
       this.setState((prevState) => ({ infinite: !prevState.infinite }));
 
       return;
@@ -134,7 +136,7 @@ class App extends React.Component<{}, State> {
             <input
               type="checkbox"
               className="form__input form__input_checkbox"
-              name="infinite"
+              name={INFINITE}
               id="infiniteId"
               checked={infinite}
               onChange={this.handleInputChange}
