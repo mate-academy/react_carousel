@@ -1,1 +1,52 @@
-// style go here
+.Carousel {
+
+  &__list{
+    display: flex;
+    width: 260px;
+    padding: 0;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  &__item{
+    list-style: none;
+    position: relative;
+    transition: all 1000ms ease-in-out;
+
+    &:nth-child(even) {
+      background-color:rgba(153, 150, 150, 0.13);
+    }
+  }
+
+  &__button{
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    transition: opacity 0.5s ease-in;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover{
+      background-color: rgba(102, 101, 101, 0.8);
+    }
+
+    &--prev{
+      left: 0;
+    }
+
+    &--next{
+      right: 0;
+    }
+
+    &:disabled{
+      opacity: 0;
+    }
+  }
+}
