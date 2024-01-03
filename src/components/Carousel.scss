@@ -1,1 +1,57 @@
-// style go here
+.Carousel {
+  box-sizing: content-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fff;
+  border-radius: 15px;
+
+  &__list {
+    list-style: none;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    border: 1px solid #001;
+    border-radius: 15px;
+  }
+
+  &__item {
+    img {
+      display: block;
+      border-radius: 8px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  &__input {
+    padding: 3px;
+    font-size: 18px;
+    font-weight: 700;
+
+    &_checkbox {
+      height: 20px;
+    }
+  }
+}
