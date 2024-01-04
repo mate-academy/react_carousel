@@ -1,0 +1,14 @@
+.Carousel {
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+}
+
+.Carousel__buttons {
+  text-align: center;
+}/*# sourceMappingURL=Carousel.css.map */
