@@ -31,6 +31,8 @@ class App extends React.Component<{}, State> {
         <h1 data-cy='title'>Carousel with {images.length} images</h1>
         <Carousel
           images={images}
+          // itemWidth={260}
+          // step={1}
         />
       </div>
     );

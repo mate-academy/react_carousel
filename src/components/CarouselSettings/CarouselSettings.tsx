@@ -23,30 +23,30 @@ const CarouselSettings:React.FC<Props> = ({
 }) => {
   return (
     <div className="Carousel__settings">
-      <label htmlFor="itemWidth">Item Width:</label>
+      <label htmlFor="itemId">Item Width:</label>
       <input
         type="text"
-        name="itemWidth"
+        id="itemId"
         value={itemWidthState}
         onChange={e => {
           setItemWidthState(+e.target.value);
         }}
       />
       <br />
-      <label htmlFor="frameSize">Frame Size:</label>
+      <label htmlFor="frameId">Frame Size:</label>
       <input
         type="text"
-        name="frameSize"
+        id="frameId"
         value={frameSizeState}
         onChange={e => {
           setFrameSizeState(+e.target.value);
         }}
       />
       <br />
-      <label htmlFor="step">Step:</label>
+      <label htmlFor="stepId">Step:</label>
       <input
         type="text"
-        name="step"
+        id="stepId"
         value={stepState}
         onChange={e => {
           setStepState(+e.target.value);
@@ -56,7 +56,7 @@ const CarouselSettings:React.FC<Props> = ({
       <label htmlFor="animationDuration">Animation Duration:</label>
       <input
         type="text"
-        name="animationDuration"
+        id="animationDuration"
         value={animationDurationState}
         onChange={e => {
           setAnimationDurationState(+e.target.value);

@@ -46,35 +46,39 @@ const Carousel: React.FC<Props> = ({
     }
   }
 
-  return (
-    <div className="Carousel">
-      <ul className="Carousel__list" style={{ width: `${frameSizeState * itemWidthState}px` }}>
-        {images.map((img) => {
-          const itemStyle = {
-            left: `${offset}px`,
-            transition: `all ${animationDurationState}ms ease-in-out`,
-          };
-          const imageStyle = {
-            width: `${itemWidthState}px`,
-            height: `${itemWidthState}px`,
-          };
+  const carouselStyle = {
+    width: `${frameSizeState * itemWidthState}px`,
+  };
 
-          return (
-            <li
-              className="Carousel__item"
-              key={img}
-              style={itemStyle}
-            >
-              <img src={img} alt={img} style={imageStyle} />
-            </li>
-          );
-        })}
+  return (
+    <>
+      <div className="Carousel" style={carouselStyle}>
+        <ul className="Carousel__list" style={{ width: `${frameSizeState * itemWidthState}px` }}>
+          {images.map((img) => {
+            const itemStyle = {
+              left: `${offset}px`,
+              transition: `all ${animationDurationState}ms ease-in-out`,
+            };
+
+            return (
+              <li
+                className="Carousel__item"
+                key={img}
+                style={itemStyle}
+              >
+                <img src={img} alt={img} width={itemWidthState} />
+              </li>
+            );
+          })}
+        </ul>
+
         <button
           className="Carousel__button Carousel__button--prev"
           type="button"
           onClick={prevBTN}
           disabled={offset === 0}
         >
+          {/* {'<-'} */}
           <img src={LeftArrow} alt="next" width="50px" height="50px" />
         </button>
         <button
@@ -84,9 +88,11 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           disabled={offset === -1300 + itemWidthState * frameSizeState}
         >
+          {/* -&gt; */}
           <img src={RightArrow} alt="next" width="50px" height="50px" />
         </button>
-      </ul>
+      </div>
+
       <CarouselSettings
         itemWidthState={itemWidthState}
         setItemWidthState={setItemWidthState}
@@ -97,7 +103,7 @@ const Carousel: React.FC<Props> = ({
         animationDurationState={animationDurationState}
         setAnimationDurationState={setAnimationDurationState}
       />
-    </div>
+    </>
   );
 };
 
