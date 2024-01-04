@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -17,6 +17,10 @@ const Carousel: React.FC<Props> = (
 ) => {
   const [position, setPosition] = useState(0);
   const lastPosition = images.length - frameSize;
+
+  useEffect(() => {
+    setPosition(0);
+  }, [frameSize]);
 
   const handleNextClick = () => {
     if (position + step < lastPosition) {
