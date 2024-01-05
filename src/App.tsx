@@ -3,12 +3,24 @@ import './App.scss';
 import Carousel from './components/Carousel';
 import { images } from './images';
 
+const initialOptionsState = {
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 export const App = () => {
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [options, setOptions] = useState(initialOptionsState);
+
+  const handleOptionChange = (key: string, value: number | boolean) => {
+    setOptions(prevOptions => ({ ...prevOptions, [key]: value }));
+  };
+
+  const {
+    step, frameSize, itemWidth, animationDuration, infinite,
+  } = options;
 
   return (
     <div className="App">
@@ -27,7 +39,7 @@ export const App = () => {
             min={1}
             max={10}
             value={step}
-            onChange={(e) => setStep(+e.target.value)}
+            onChange={(e) => handleOptionChange('step', +e.target.value)}
           />
         </label>
 
@@ -38,7 +50,9 @@ export const App = () => {
             min={1}
             max={10}
             value={frameSize}
-            onChange={(e) => setFrameSize(+e.target.value)}
+            onChange={(e) => handleOptionChange(
+              'frameSize', +e.target.value,
+            )}
           />
         </label>
 
@@ -50,7 +64,9 @@ export const App = () => {
             step={10}
             max={200}
             value={itemWidth}
-            onChange={(e) => setItemWidth(+e.target.value)}
+            onChange={(e) => handleOptionChange(
+              'itemWidth', +e.target.value,
+            )}
           />
         </label>
 
@@ -62,7 +78,9 @@ export const App = () => {
             max={5000}
             step={1000}
             value={animationDuration}
-            onChange={(e) => setAnimationDuration(+e.target.value)}
+            onChange={(e) => handleOptionChange(
+              'animationDuration', +e.target.value,
+            )}
           />
         </label>
 
@@ -71,7 +89,9 @@ export const App = () => {
           <input
             type="checkbox"
             checked={infinite}
-            onChange={(e) => setInfinite(e.target.checked)}
+            onChange={(e) => handleOptionChange(
+              'infinite', e.target.checked,
+            )}
           />
         </label>
       </div>

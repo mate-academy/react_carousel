@@ -23,11 +23,9 @@ const Carousel: React.FC<Props> = (
   }, [frameSize]);
 
   const handleNextClick = () => {
-    if (position + step < lastPosition) {
-      setPosition(position + step);
-    } else {
-      setPosition(lastPosition);
-    }
+    setPosition(position + step < lastPosition
+      ? position + step
+      : lastPosition);
 
     if (infinite && position === lastPosition) {
       setPosition(0);
@@ -35,11 +33,7 @@ const Carousel: React.FC<Props> = (
   };
 
   const handlePrevClick = () => {
-    if (position - step < 0) {
-      setPosition(0);
-    } else {
-      setPosition(position - step);
-    }
+    setPosition(position - step < 0 ? 0 : position - step);
 
     if (infinite && position === 0) {
       setPosition(lastPosition);

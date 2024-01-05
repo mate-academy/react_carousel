@@ -8,11 +8,23 @@
   &__labels {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 4px solid rgb(234, 255, 191);
+    border-radius: 20px;
     font-size: 16px;
+    font-weight: bold;
     gap: 20px;
+
+    & label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     & input {
-      margin-left: 10px;
+      width: 50px;
       text-align: center;
       font-weight: bold;
       padding: 5px;
@@ -20,6 +32,7 @@
       color: rgb(69, 75, 75);
       border: 1px solid black;
     }
+    
     & .infinite {
       display: flex;
     }
