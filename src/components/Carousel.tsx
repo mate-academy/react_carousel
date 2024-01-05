@@ -24,6 +24,8 @@ const Carousel: React.FC<Props> = ({
     setAnimationDurationState,
   ] = useState(animationDuration || 1000);
 
+  const maxItemsWidth = images.length * itemWidthState * -1;
+
   function prevBTN() {
     if (offset < 0) {
       setOffset((prev) => {
@@ -39,7 +41,7 @@ const Carousel: React.FC<Props> = ({
      - (images.length * itemWidthState)) {
       setOffset((prev) => {
         const newOffset = prev - itemWidthState * stepState;
-        const offsetLimit = -1300 + itemWidthState * frameSizeState;
+        const offsetLimit = maxItemsWidth + itemWidthState * frameSizeState;
 
         return newOffset >= offsetLimit ? newOffset : offsetLimit;
       });
@@ -52,8 +54,8 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <>
-      <div className="Carousel" style={carouselStyle}>
-        <ul className="Carousel__list" style={{ width: `${frameSizeState * itemWidthState}px` }}>
+      <div className="carousel" style={carouselStyle}>
+        <ul className="carouselList" style={{ width: `${frameSizeState * itemWidthState}px` }}>
           {images.map((img) => {
             const itemStyle = {
               left: `${offset}px`,
@@ -62,7 +64,7 @@ const Carousel: React.FC<Props> = ({
 
             return (
               <li
-                className="Carousel__item"
+                className="carouselItem"
                 key={img}
                 style={itemStyle}
               >
@@ -73,22 +75,20 @@ const Carousel: React.FC<Props> = ({
         </ul>
 
         <button
-          className="Carousel__button Carousel__button--prev"
+          className="carouselBtn carouselBtn--prev"
           type="button"
           onClick={prevBTN}
           disabled={offset === 0}
         >
-          {/* {'<-'} */}
           <img src={LeftArrow} alt="next" width="50px" height="50px" />
         </button>
         <button
-          className="Carousel__button Carousel__button--next"
+          className="carouselBtn carouselBtn--next"
           type="button"
           onClick={nextBTN}
           data-cy="next"
-          disabled={offset === -1300 + itemWidthState * frameSizeState}
+          disabled={offset === maxItemsWidth + itemWidthState * frameSizeState}
         >
-          {/* -&gt; */}
           <img src={RightArrow} alt="next" width="50px" height="50px" />
         </button>
       </div>

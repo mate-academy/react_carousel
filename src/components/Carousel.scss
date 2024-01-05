@@ -1,8 +1,8 @@
-.Carousel {
+.carousel {
   position: relative;
   margin: 0 auto;
 
-  &__list{
+  &List{
     display: flex;
     width: 260px;
     padding: 0;
@@ -11,20 +11,13 @@
     position: relative;
   }
 
-  &__item{
+  &Item{
     list-style: none;
     position: relative;
     transition: all 1000ms ease-in-out;
-    width: 130px;
-    height: 130px;
-
-    img {
-      width: 130px;
-      height: 130px;
-    }
   }
 
-  &__button{
+  &Btn{
     border: none;
     border-radius: 50%;
     color: white;

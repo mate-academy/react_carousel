@@ -22,7 +22,7 @@ const CarouselSettings:React.FC<Props> = ({
   setAnimationDurationState,
 }) => {
   return (
-    <div className="Carousel__settings">
+    <>
       <label htmlFor="itemId">Item Width:</label>
       <input
         type="text"
@@ -62,7 +62,7 @@ const CarouselSettings:React.FC<Props> = ({
           setAnimationDurationState(+e.target.value);
         }}
       />
-    </div>
+    </>
   );
 };
 
