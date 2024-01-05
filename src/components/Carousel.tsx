@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 import CarouselSettings from './CarouselSettings/CarouselSettings';
 import RightArrow from '../arrows/arrow-right.svg';
@@ -23,6 +23,10 @@ const Carousel: React.FC<Props> = ({
     animationDurationState,
     setAnimationDurationState,
   ] = useState(animationDuration || 1000);
+
+  useEffect(() => {
+    setOffset(0);
+  }, [itemWidthState, frameSizeState, stepState]);
 
   const maxItemsWidth = images.length * itemWidthState * -1;
 

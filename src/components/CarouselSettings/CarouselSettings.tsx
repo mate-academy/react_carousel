@@ -1,4 +1,5 @@
 import React from 'react';
+import './CarouselSettings.scss';
 
 type Props = {
   itemWidthState: number;
@@ -22,10 +23,10 @@ const CarouselSettings:React.FC<Props> = ({
   setAnimationDurationState,
 }) => {
   return (
-    <>
-      <label htmlFor="itemId">Item Width:</label>
+    <div className="carouselSettings">
+      <label className="settingName" htmlFor="itemId">Item Width:</label>
       <input
-        type="text"
+        type="number"
         id="itemId"
         value={itemWidthState}
         onChange={e => {
@@ -33,9 +34,9 @@ const CarouselSettings:React.FC<Props> = ({
         }}
       />
       <br />
-      <label htmlFor="frameId">Frame Size:</label>
+      <label className="settingName" htmlFor="frameId">Frame Size:</label>
       <input
-        type="text"
+        type="number"
         id="frameId"
         value={frameSizeState}
         onChange={e => {
@@ -43,9 +44,9 @@ const CarouselSettings:React.FC<Props> = ({
         }}
       />
       <br />
-      <label htmlFor="stepId">Step:</label>
+      <label className="settingName" htmlFor="stepId">Step:</label>
       <input
-        type="text"
+        type="number"
         id="stepId"
         value={stepState}
         onChange={e => {
@@ -53,16 +54,21 @@ const CarouselSettings:React.FC<Props> = ({
         }}
       />
       <br />
-      <label htmlFor="animationDuration">Animation Duration:</label>
+      <label
+        className="settingName"
+        htmlFor="animationDuration"
+      >
+        Animation Duration:
+      </label>
       <input
-        type="text"
+        type="number"
         id="animationDuration"
         value={animationDurationState}
         onChange={e => {
           setAnimationDurationState(+e.target.value);
         }}
       />
-    </>
+    </div>
   );
 };
 
