@@ -14,8 +14,15 @@ const initialOptionsState = {
 export const App = () => {
   const [options, setOptions] = useState(initialOptionsState);
 
-  const handleOptionChange = (key: string, value: number | boolean) => {
-    setOptions(prevOptions => ({ ...prevOptions, [key]: value }));
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name, value, type, checked,
+    } = event.target;
+
+    setOptions(prevOptions => ({
+      ...prevOptions,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const {
@@ -35,63 +42,60 @@ export const App = () => {
         <label>
           Step:
           <input
+            name="step"
             type="number"
-            min={1}
+            min={3}
             max={10}
             value={step}
-            onChange={(e) => handleOptionChange('step', +e.target.value)}
+            onChange={handleOptionChange}
           />
         </label>
 
         <label>
           Frame size:
           <input
+            name="frameSize"
             type="number"
-            min={1}
+            min={3}
             max={10}
             value={frameSize}
-            onChange={(e) => handleOptionChange(
-              'frameSize', +e.target.value,
-            )}
+            onChange={handleOptionChange}
           />
         </label>
 
         <label>
           Item width:
           <input
+            name="itemWidth"
             type="number"
             min={130}
             step={10}
             max={200}
             value={itemWidth}
-            onChange={(e) => handleOptionChange(
-              'itemWidth', +e.target.value,
-            )}
+            onChange={handleOptionChange}
           />
         </label>
 
         <label>
           Animation duration:
           <input
+            name="animationDuration"
             type="number"
             min={1000}
             max={5000}
             step={1000}
             value={animationDuration}
-            onChange={(e) => handleOptionChange(
-              'animationDuration', +e.target.value,
-            )}
+            onChange={handleOptionChange}
           />
         </label>
 
         <label className="infinite">
           Infinite:
           <input
+            name="infinite"
             type="checkbox"
             checked={infinite}
-            onChange={(e) => handleOptionChange(
-              'infinite', e.target.checked,
-            )}
+            onChange={handleOptionChange}
           />
         </label>
       </div>
