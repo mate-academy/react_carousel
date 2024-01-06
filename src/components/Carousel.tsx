@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -19,9 +19,9 @@ const Carousel: React.FC <Props> = ({
   infinite,
 }) => {
   const [position, setPosition] = useState(0);
-  const carouselWidth = frameSize * itemWidth;
   const listSize = itemWidth * images.length;
   const lastPosition = -(images.length - frameSize);
+  const carouselWidth = frameSize * itemWidth;
   const isNextDisabled = position === lastPosition && !infinite;
   const isPrevDisabled = position === 0 && !infinite;
 
@@ -52,6 +52,8 @@ const Carousel: React.FC <Props> = ({
 
     setPosition(0);
   };
+
+  useEffect(() => setPosition(0), [frameSize]);
 
   return (
     <div
