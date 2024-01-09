@@ -1,1 +1,41 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+
+  &__frame {
+    overflow: hidden;
+    border-radius: 30px;
+    border: 1px solid;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+.Button {
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+
+  &__left,
+  &__right{
+    font-size: 40px;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+}
