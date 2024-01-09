@@ -5,7 +5,6 @@
     overflow: hidden;
     border-radius: 30px;
     border: 1px solid;
-    margin: 0 auto;
   }
 
   &__list {
@@ -13,8 +12,6 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-
-    transition: transform 0.5s ease-in-out;
   }
 }
 

@@ -44,7 +44,7 @@ const Carousel: React.FC<CarouselType> = ({
     setScrollPosition(newScrollPosition);
   };
 
-  const universalChange = (
+  const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     // eslint-disable-next-line max-len
     setFunction: { (value: React.SetStateAction<number>): void; (value: React.SetStateAction<number>): void; (value: React.SetStateAction<number>): void; (value: React.SetStateAction<number>): void; (arg0: number): void; },
@@ -55,19 +55,19 @@ const Carousel: React.FC<CarouselType> = ({
   };
 
   const changeItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    universalChange(event, setItemWidth);
+    handleChange(event, setItemWidth);
   };
 
   const changeFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    universalChange(event, setFrameSize);
+    handleChange(event, setFrameSize);
   };
 
   const changeSteps = (event: React.ChangeEvent<HTMLInputElement>) => {
-    universalChange(event, setStep);
+    handleChange(event, setStep);
   };
 
   const changeDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    universalChange(event, setAnimationDuration);
+    handleChange(event, setAnimationDuration);
   };
 
   return (
