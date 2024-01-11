@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  // infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,94 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    // infinite: false,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      // infinite,
+    } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1
+          className="App__title"
+          data-cy="title"
+        >
+          {`Carousel with ${images.length} images`}
+        </h1>
 
-        <Carousel />
+        <div className="App__labels">
+          <label className="App__input">
+            Item Width:
+            <input
+              type="number"
+              value={itemWidth}
+              onChange={(e) => {
+                const newValue = Number(e.target.value);
+
+                this.setState({ itemWidth: newValue });
+              }}
+            />
+          </label>
+
+          <label className="App__input">
+            Frame Size:
+            <input
+              type="number"
+              value={frameSize}
+              onChange={(e) => {
+                const newSize = Number(e.target.value);
+
+                this.setState({ frameSize: newSize });
+              }}
+            />
+          </label>
+
+          <label className="App__input">
+            Step:
+            <input
+              type="number"
+              value={step}
+              onChange={(e) => {
+                const newStep = Number(e.target.value);
+
+                this.setState({ step: newStep });
+              }}
+            />
+          </label>
+
+          <label className="App__input">
+            Animation Duration:
+            <input
+              type="number"
+              value={animationDuration}
+              onChange={(e) => {
+                const newAnime = Number(e.target.value);
+
+                this.setState({ animationDuration: newAnime });
+              }}
+            />
+          </label>
+        </div>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          // frameSize={frameSize}
+          // step={step}
+          animationDuration={animationDuration}
+          // infinite={infinite}
+        />
       </div>
     );
   }

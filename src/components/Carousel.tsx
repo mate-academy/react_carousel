@@ -1,18 +1,104 @@
-import React from 'react';
+import React, {
+  useState,
+} from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  // step: number;
+  // frameSize: number;
+  animationDuration: number;
+  // infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  // frameSize = 3,
+  // step = 3,
+  animationDuration = 1000,
+  // infinite = false,
+}) => {
+  const [indexImage, setIndexImage] = useState<number>(0);
+
+  const handlePrev = () => {
+    return setIndexImage((currentImage) => {
+      if (currentImage === 0) {
+        return images.length - 1;
+      }
+
+      return (currentImage - 1);
+    });
+  };
+
+  const handleNext = () => {
+    return setIndexImage((currentImage) => {
+      if (currentImage === images.length - 1) {
+        return 0;
+      }
+
+      return (currentImage + 1);
+    });
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__wrapper"
+        style={{
+          width: `${itemWidth * 2}px`,
+          overflow: 'hidden',
+          margin: '0 auto',
+        }}
+      >
+        <ul
+          className="Carousel__list"
+        >
+          {images.map((image, index) => (
+            <li
+              key={image}
+              style={{
+                width: `${itemWidth}px`,
+                marginRight: '10px',
+                transform: `translateX(-${indexImage * itemWidth}px)`,
+                transition: `transform ${animationDuration}ms ease-in-out`,
+              }}
+            >
+              <img
+                src={image}
+                alt={`${index}`}
+                style={{
+                  height: '130px',
+                  width: '130px',
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__container-buttons">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={handlePrev}
+        >
+          Prev
+        </button>
+        {indexImage}
+
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={handleNext}
+          data-cy="next"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;

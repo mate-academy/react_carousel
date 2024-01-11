@@ -1,1 +1,48 @@
-// style go here
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+%centerChild {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Carousel {
+  width: 1300px;
+  margin: 0 auto;
+
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    height: 100%;
+    @extend %centerChild;
+  }
+
+  &__img {
+    // @include square(130px);
+  }
+
+  &__container-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  &__button {
+  }
+}
+
+.active {
+  transform: translateX(0);
+}
