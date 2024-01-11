@@ -3,12 +3,6 @@
   height: $size;
 }
 
-%centerChild {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .Carousel {
   width: 1300px;
   margin: 0 auto;
@@ -26,20 +20,14 @@
     margin: 0;
 
     height: 100%;
-    @extend %centerChild;
-  }
-
-  &__img {
-    // @include square(130px);
+    display: flex;
+    align-items: center;
   }
 
   &__container-buttons {
     display: flex;
     gap: 30px;
     justify-content: center;
-  }
-
-  &__button {
   }
 }
 

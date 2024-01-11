@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   useState,
 } from 'react';
 import './Carousel.scss';
@@ -6,8 +7,8 @@ import './Carousel.scss';
 interface Props {
   images: string[];
   itemWidth: number;
-  // step: number;
-  // frameSize: number;
+  step: number;
+  frameSize: number;
   animationDuration: number;
   // infinite: boolean;
 }
@@ -15,8 +16,8 @@ interface Props {
 const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
-  // frameSize = 3,
-  // step = 3,
+  frameSize = 3,
+  step = 3,
   animationDuration = 1000,
   // infinite = false,
 }) => {
@@ -28,7 +29,7 @@ const Carousel: React.FC<Props> = ({
         return images.length - 1;
       }
 
-      return (currentImage - 1);
+      return (currentImage - step);
     });
   };
 
@@ -38,16 +39,24 @@ const Carousel: React.FC<Props> = ({
         return 0;
       }
 
-      return (currentImage + 1);
+      return (currentImage + step);
     });
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  });
 
   return (
     <div className="Carousel">
       <div
         className="Carousel__wrapper"
         style={{
-          width: `${itemWidth * 2}px`,
+          width: `${itemWidth * frameSize}px`,
           overflow: 'hidden',
           margin: '0 auto',
         }}
@@ -59,8 +68,6 @@ const Carousel: React.FC<Props> = ({
             <li
               key={image}
               style={{
-                width: `${itemWidth}px`,
-                marginRight: '10px',
                 transform: `translateX(-${indexImage * itemWidth}px)`,
                 transition: `transform ${animationDuration}ms ease-in-out`,
               }}
