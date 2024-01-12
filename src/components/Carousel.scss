@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+
+  &__wrapper {
+    width: 100%;
+    min-height: 100px;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__container-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+  }
+}

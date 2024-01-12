@@ -1,1 +1,23 @@
-// style go here
+.App {
+  width: 1300px;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__labels {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  &__input {
+    margin: 15px 0;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: column;
+  }
+}
