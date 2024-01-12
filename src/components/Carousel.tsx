@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -10,7 +11,7 @@ interface Props {
   step: number;
   frameSize: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -19,29 +20,38 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
-  // infinite = false,
+  infinite = false,
 }) => {
   const [indexImage, setIndexImage] = useState<number>(0);
 
-  const handlePrev = () => {
-    return setIndexImage((currentImage) => {
-      if (currentImage === 0) {
-        return images.length - 1;
+  const handleNext = useCallback(() => {
+    setIndexImage((currentImage) => {
+      const newIndex = currentImage + step;
+      const remainingImages = images.length - newIndex;
+
+      if (infinite) {
+        return newIndex % images.length;
       }
 
-      return (currentImage - step);
-    });
-  };
-
-  const handleNext = () => {
-    return setIndexImage((currentImage) => {
-      if (currentImage === images.length - 1) {
-        return 0;
+      if (remainingImages >= frameSize) {
+        return newIndex;
       }
 
-      return (currentImage + step);
+      return remainingImages > 0 ? currentImage + 1 : 0;
     });
-  };
+  }, [infinite, setIndexImage, step, images, frameSize]);
+
+  const handlePrev = useCallback(() => {
+    setIndexImage((currentImage) => {
+      const newIndex = currentImage - step;
+
+      if (infinite) {
+        return (newIndex + images.length) % images.length;
+      }
+
+      return newIndex < 0 ? images.length - frameSize : newIndex;
+    });
+  }, [infinite, setIndexImage, step, images, frameSize]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,7 +59,7 @@ const Carousel: React.FC<Props> = ({
     }, 3000);
 
     return () => clearInterval(interval);
-  });
+  }, [handleNext, images]);
 
   return (
     <div className="Carousel">
@@ -76,8 +86,8 @@ const Carousel: React.FC<Props> = ({
                 src={image}
                 alt={`${index}`}
                 style={{
-                  height: '130px',
-                  width: '130px',
+                  height: `${itemWidth}`,
+                  width: `${itemWidth}`,
                 }}
               />
             </li>
@@ -93,7 +103,6 @@ const Carousel: React.FC<Props> = ({
         >
           Prev
         </button>
-        {indexImage}
 
         <button
           type="button"

@@ -8,7 +8,7 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  // infinite: boolean;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    // infinite: false,
+    infinite: false,
   };
 
   render() {
@@ -39,8 +39,32 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
-      // infinite,
+      infinite,
     } = this.state;
+
+    const changeWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = Number(e.target.value);
+
+      this.setState({ itemWidth: newValue });
+    };
+
+    const changeFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = Number(e.target.value);
+
+      this.setState({ frameSize: newValue });
+    };
+
+    const changeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newStep = Number(e.target.value);
+
+      this.setState({ step: newStep });
+    };
+
+    const changeAnimation = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newAnime = Number(e.target.value);
+
+      this.setState({ animationDuration: newAnime });
+    };
 
     return (
       <div className="App">
@@ -57,10 +81,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               value={itemWidth}
-              onChange={(e) => {
-                const newValue = Number(e.target.value);
-
-                this.setState({ itemWidth: newValue });
+              onChange={changeWidth}
+              style={{
+                marginTop: '10px',
               }}
             />
           </label>
@@ -70,10 +93,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               value={frameSize}
-              onChange={(e) => {
-                const newSize = Number(e.target.value);
-
-                this.setState({ frameSize: newSize });
+              onChange={changeFrameSize}
+              style={{
+                marginTop: '10px',
               }}
             />
           </label>
@@ -83,10 +105,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               value={step}
-              onChange={(e) => {
-                const newStep = Number(e.target.value);
-
-                this.setState({ step: newStep });
+              onChange={changeStep}
+              style={{
+                marginTop: '10px',
               }}
             />
           </label>
@@ -96,10 +117,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               value={animationDuration}
-              onChange={(e) => {
-                const newAnime = Number(e.target.value);
-
-                this.setState({ animationDuration: newAnime });
+              onChange={changeAnimation}
+              style={{
+                marginTop: '10px',
               }}
             />
           </label>
@@ -111,7 +131,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-          // infinite={infinite}
+          infinite={infinite}
         />
       </div>
     );
