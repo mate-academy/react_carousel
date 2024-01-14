@@ -1,1 +1,25 @@
-// style go here
+iframe {
+  display: none;
+}
+
+h1 {
+  margin: 0 auto;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+}
+
+.labels-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
