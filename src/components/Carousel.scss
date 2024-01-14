@@ -2,21 +2,40 @@
   display: flex;
   flex-direction: column;
 
-  overflow: hidden;
+
+  &__frame {
+    overflow: hidden;
+    margin-bottom: 50px;
+    border-radius: 50px;
+    background-color: #e6d7e2;
+    box-shadow: 0 0 7px #e6d7e2,
+    0 0 10px #e6d7e2,
+    0 0 21px #e6d7e2,
+    0 0 42px #ebdce7,
+    0 0 82px #f7e8f3,
+    0 0 92px #f7e8f3;
+  }
 
   &__list {
     display: flex;
-    list-style: none;
-    padding: 0;
-    width: 1300px;
-  }
-
-  &__img {
-    height: 130px;
-    width: 130px;
   }
 
   &__buttons {
     align-self: center;
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    color: #f7e8f3;
+    background-color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+      color: #e6d7e25d;
+    }
   }
 }
