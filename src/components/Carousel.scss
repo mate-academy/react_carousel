@@ -1,1 +1,57 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1300px;
+
+  &__list {
+    border: 1px solid #000;
+    border-radius: 8px;
+    display: flex;
+    overflow: hidden;
+    margin: auto;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    width: 25%;
+    background-color: black;
+    border-radius: 8px;
+    border-style: 1px solid white;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+
+    &:hover {
+      background-color: #fff;
+      border: 1px solid black;
+      color: black;
+      transition-duration: 0.5s;
+    }
+  }
+}
