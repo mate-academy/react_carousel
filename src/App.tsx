@@ -60,7 +60,7 @@ const App: React.FC = () => {
             type="number"
             id="itemId"
             value={itemWidth}
-            min={130}
+            min={0}
             max={260}
             step={10}
             onChange={(event) => setItemWidth(+event.target.value)}
