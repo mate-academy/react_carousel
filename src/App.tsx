@@ -45,9 +45,10 @@ export const App = () => {
       </h1>
 
       <div className="App__controls">
-        <label className="App__control">
+        <label className="App__control" htmlFor="itemId">
           Item width:
           <input
+            id="itemId"
             type="number"
             className="App__input"
             value={controls.itemWidth}
@@ -58,9 +59,10 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__control">
+        <label className="App__control" htmlFor="frameId">
           Frame size:
           <input
+            id="frameId"
             type="number"
             className="App__input"
             value={controls.frameSize}
@@ -72,9 +74,10 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__control">
+        <label className="App__control" htmlFor="stepId">
           Step:
           <input
+            id="stepId"
             type="number"
             className="App__input"
             value={controls.step}
