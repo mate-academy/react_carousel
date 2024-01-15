@@ -1,34 +1,4 @@
-iframe {
-  display: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-}
-
-h1 {
-  margin: 0;
-}
-
-ul {
-  padding: 0;
-  list-style: none;
-  margin: 0;
-}
-
-img {
-  display: block;
-}
-
-button, input {
-  padding: 0;
-  border: 0;
-}
+@import "./normalize";
 
 .App {
   display: grid;
@@ -42,15 +12,15 @@ button, input {
   font-family: 'Gill Sans MT', sans-serif;
   color: #f7e8f3;
 
+  ::selection {
+    background-color: #f7e8f3;
+    color: #b19dab;
+  }
+
   &__title {
     width: fit-content;
     margin-bottom: 50px;
     font-size: 48px;
-
-    &::selection {
-      background-color: #f7e8f3;
-      color: #b19dab;
-    }
   }
 
   &__controls {
@@ -60,11 +30,40 @@ button, input {
 
   &__control {
     display: flex;
-    justify-content: space-between;
     gap: 50px;
+    justify-content: space-between;
     align-items: center;
+
+    cursor: pointer;
     margin-bottom: 10px;
     font-size: 28px;
+
+    &--checkbox {
+      position: relative;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        padding: 3px;
+        border-radius: 20px;
+        background-color: #f7e8f3;
+
+        position: absolute;
+        right: 0;
+
+        color: #8b7b87;
+        font-weight: bold;
+        line-height: 100%;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      &:has(> input:checked)::before {
+        content: "\2713";
+      }
+    }
   }
 
   &__input {
@@ -72,15 +71,17 @@ button, input {
     width: 60px;
     padding: 5px;
     border-radius: 10px;
+    background-color: #f7e8f3;
+
+    color: #8b7b87;
+    font-weight: bold;
 
     &:focus {
       outline-color: #b19dab;
     }
   }
 
-  &__check {
-    margin: 0 20px 0 0;
-    height: 20px;
-    width: 20px;
+  &__checkbox {
+    display: none;
   }
 }

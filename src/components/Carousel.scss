@@ -27,12 +27,13 @@
   }
 
   &__button {
+    cursor: pointer;
     width: 40px;
     height: 40px;
+    background-color: inherit;
+
     font-size: 30px;
     color: #f7e8f3;
-    background-color: inherit;
-    cursor: pointer;
 
     &:disabled {
       color: #e6d7e25d;

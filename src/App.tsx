@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 import type { Controls } from './types/Controls';
 
 const defaultControls: Controls = {
@@ -40,7 +40,7 @@ export const App = () => {
 
   return (
     <div className="App">
-      <h1 className="App__title">
+      <h1 className="App__title" data-cy="title">
         {`Carousel with ${images.length} images`}
       </h1>
 
@@ -100,11 +100,11 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__control">
+        <label className="App__control App__control--checkbox">
           Infinite:
           <input
             type="checkbox"
-            className="App__check"
+            className="App__checkbox"
             checked={controls.isInfinite}
             onClick={toggleInfiniteCheckbox}
           />
@@ -117,6 +117,7 @@ export const App = () => {
         frameSize={controls.frameSize}
         itemWidth={controls.itemWidth}
         animationDuration={controls.animationDuration}
+        isInfinite={controls.isInfinite}
       />
     </div>
   );

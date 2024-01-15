@@ -1,52 +1,53 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
+import { Controls } from '../types/Controls';
 
-interface Props {
+interface Props extends Controls {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
 }
 
-const Carousel: React.FC<Props> = (props) => {
+export const Carousel: React.FC<Props> = (props) => {
   const {
     images,
     step,
     frameSize,
     itemWidth,
     animationDuration,
+    isInfinite,
   } = props;
 
-  const [translate, setTranslate] = useState(0);
+  const [shift, setShift] = useState(0);
 
-  const translateStep = step * itemWidth;
   const carouselWidth = frameSize * itemWidth;
-  const maxTranslate = (images.length - frameSize) * itemWidth;
+  const maxShift = images.length - frameSize;
 
   const handlePrevClick = () => {
-    setTranslate(currentTranslate => {
-      return currentTranslate - translateStep > 0
-        ? currentTranslate - translateStep
+    setShift(currentTranslate => {
+      return currentTranslate - step > 0
+        ? currentTranslate - step
         : 0;
     });
   };
 
   const handleNextClick = () => {
-    setTranslate(current => {
-      return current + translateStep < maxTranslate
-        ? current + translateStep
-        : maxTranslate;
+    setShift(currentShift => {
+      if (currentShift === maxShift && isInfinite) {
+        return 0;
+      }
+
+      return currentShift + step < maxShift
+        ? currentShift + step
+        : maxShift;
     });
   };
 
   return (
-    <div className="Carousel" style={{ width: `${carouselWidth}px` }}>
-      <div className="Carousel__frame">
+    <div className="Carousel">
+      <div className="Carousel__frame" style={{ width: `${carouselWidth}px` }}>
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${translate}px)`,
+            transform: `translateX(-${shift * itemWidth}px)`,
             transition: `${animationDuration}ms transform`,
           }}
         >
@@ -68,7 +69,7 @@ const Carousel: React.FC<Props> = (props) => {
           type="button"
           className="Carousel__button"
           onClick={handlePrevClick}
-          disabled={!translate}
+          disabled={!shift}
         >
           {'<'}
         </button>
@@ -77,7 +78,8 @@ const Carousel: React.FC<Props> = (props) => {
           type="button"
           className="Carousel__button"
           onClick={handleNextClick}
-          disabled={translate === maxTranslate}
+          disabled={!isInfinite && shift === maxShift}
+          data-cy="next"
         >
           {'>'}
         </button>
@@ -85,5 +87,3 @@ const Carousel: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-export default Carousel;
