@@ -18,7 +18,8 @@ export const Carousel: React.FC<Props> = (props) => {
 
   const [shift, setShift] = useState(0);
 
-  const frameWidth = frameSize * itemWidth;
+  const gap = 5;
+  const frameWidth = frameSize * (itemWidth + gap);
   const maxShift = images.length - frameSize;
 
   const handlePrevClick = () => {
@@ -51,7 +52,7 @@ export const Carousel: React.FC<Props> = (props) => {
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${shift * itemWidth}px)`,
+            transform: `translateX(-${shift * (itemWidth + gap)}px)`,
             transition: `${animationDuration}ms transform`,
           }}
         >

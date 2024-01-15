@@ -18,6 +18,8 @@
 
   &__list {
     display: flex;
+    gap: 5px;
+    padding-inline: 2.5px;
   }
 
   &__buttons {
