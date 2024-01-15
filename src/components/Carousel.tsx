@@ -18,13 +18,17 @@ export const Carousel: React.FC<Props> = (props) => {
 
   const [shift, setShift] = useState(0);
 
-  const carouselWidth = frameSize * itemWidth;
+  const frameWidth = frameSize * itemWidth;
   const maxShift = images.length - frameSize;
 
   const handlePrevClick = () => {
-    setShift(currentTranslate => {
-      return currentTranslate - step > 0
-        ? currentTranslate - step
+    setShift(currentShift => {
+      if (currentShift === 0 && isInfinite) {
+        return maxShift;
+      }
+
+      return currentShift - step > 0
+        ? currentShift - step
         : 0;
     });
   };
@@ -43,7 +47,7 @@ export const Carousel: React.FC<Props> = (props) => {
 
   return (
     <div className="Carousel">
-      <div className="Carousel__frame" style={{ width: `${carouselWidth}px` }}>
+      <div className="Carousel__frame" style={{ width: `${frameWidth}px` }}>
         <ul
           className="Carousel__list"
           style={{
@@ -69,7 +73,7 @@ export const Carousel: React.FC<Props> = (props) => {
           type="button"
           className="Carousel__button"
           onClick={handlePrevClick}
-          disabled={!shift}
+          disabled={!shift && !isInfinite}
         >
           {'<'}
         </button>
