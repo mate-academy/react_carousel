@@ -1,1 +1,28 @@
 // style go here
+.App {
+  margin-inline: auto;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__inputs {
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.input-block {
+  width: 210px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  width: 50px;
+}
