@@ -1,1 +1,87 @@
-// style go here
+@import "./normalize";
+
+.App {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #b19dab;
+
+  font-family: 'Gill Sans MT', sans-serif;
+  color: #f7e8f3;
+
+  ::selection {
+    background-color: #f7e8f3;
+    color: #b19dab;
+  }
+
+  &__title {
+    width: fit-content;
+    margin-bottom: 50px;
+    font-size: 48px;
+  }
+
+  &__controls {
+    display: grid;
+    margin-bottom: 50px;
+  }
+
+  &__control {
+    display: flex;
+    gap: 50px;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 28px;
+
+    &--checkbox {
+      position: relative;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        padding: 3px;
+        border-radius: 20px;
+        background-color: #f7e8f3;
+
+        position: absolute;
+        right: 0;
+
+        color: #8b7b87;
+        font-weight: bold;
+        line-height: 100%;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      &:has(> input:checked)::before {
+        content: "\2713";
+      }
+    }
+  }
+
+  &__input {
+    height: 32px;
+    width: 60px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #f7e8f3;
+
+    color: #8b7b87;
+    font-weight: bold;
+
+    &:focus {
+      outline-color: #b19dab;
+    }
+  }
+
+  &__checkbox {
+    display: none;
+  }
+}

@@ -1,1 +1,44 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+
+  &__frame {
+    overflow: hidden;
+    margin-bottom: 50px;
+    border-radius: 50px;
+    background-color: #e6d7e2;
+    box-shadow: 0 0 7px #e6d7e2,
+    0 0 10px #e6d7e2,
+    0 0 21px #e6d7e2,
+    0 0 42px #ebdce7,
+    0 0 82px #f7e8f3,
+    0 0 92px #f7e8f3;
+  }
+
+  &__list {
+    display: flex;
+    gap: 5px;
+    padding-inline: 2.5px;
+  }
+
+  &__buttons {
+    align-self: center;
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: inherit;
+
+    font-size: 30px;
+    color: #f7e8f3;
+
+    &:disabled {
+      color: #e6d7e25d;
+    }
+  }
+}

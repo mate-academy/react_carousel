@@ -1,39 +1,127 @@
-import React from 'react';
+import { useState } from 'react';
+
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import type { Controls } from './types/Controls';
 
-interface State {
-  images: string[];
-}
+const defaultControls: Controls = {
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  isInfinite: false,
+};
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+export const App = () => {
+  const [controls, setControls] = useState<Controls>(defaultControls);
+
+  const images = [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ];
+
+  const handleInputChange = (control: keyof Controls, value: number) => {
+    setControls(currentControls => ({ ...currentControls, [control]: value }));
   };
 
-  render() {
-    const { images } = this.state;
+  const toggleInfiniteCheckbox = () => {
+    setControls(currentControls => ({
+      ...currentControls, isInfinite: !currentControls.isInfinite,
+    }));
+  };
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1 className="App__title" data-cy="title">
+        {`Carousel with ${images.length} images`}
+      </h1>
 
-        <Carousel />
+      <div className="App__controls">
+        <label className="App__control" htmlFor="itemId">
+          Item width:
+          <input
+            id="itemId"
+            type="number"
+            className="App__input"
+            value={controls.itemWidth}
+            onChange={(event) => {
+              handleInputChange('itemWidth', +event.target.value);
+            }}
+            step={10}
+          />
+        </label>
+
+        <label className="App__control" htmlFor="frameId">
+          Frame size:
+          <input
+            id="frameId"
+            type="number"
+            className="App__input"
+            value={controls.frameSize}
+            min={1}
+            max={images.length}
+            onChange={(event) => {
+              handleInputChange('frameSize', +event.target.value);
+            }}
+          />
+        </label>
+
+        <label className="App__control" htmlFor="stepId">
+          Step:
+          <input
+            id="stepId"
+            type="number"
+            className="App__input"
+            value={controls.step}
+            min={1}
+            max={images.length}
+            onChange={(event) => {
+              handleInputChange('step', +event.target.value);
+            }}
+          />
+        </label>
+
+        <label className="App__control">
+          Animation duration:
+          <input
+            type="number"
+            className="App__input"
+            value={controls.animationDuration}
+            min={0}
+            step={100}
+            onChange={(event) => {
+              handleInputChange('animationDuration', +event.target.value);
+            }}
+          />
+        </label>
+
+        <label className="App__control App__control--checkbox">
+          Infinite:
+          <input
+            type="checkbox"
+            className="App__checkbox"
+            checked={controls.isInfinite}
+            onChange={toggleInfiniteCheckbox}
+          />
+        </label>
       </div>
-    );
-  }
-}
 
-export default App;
+      <Carousel
+        images={images}
+        step={controls.step}
+        frameSize={controls.frameSize}
+        itemWidth={controls.itemWidth}
+        animationDuration={controls.animationDuration}
+        isInfinite={controls.isInfinite}
+      />
+    </div>
+  );
+};
