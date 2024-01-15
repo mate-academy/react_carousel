@@ -39,8 +39,14 @@ const Carousel: React.FC<CarouselProps> = ({
 
       return Math.max(-newPosition, -boundary);
     });
+  }, [itemWidth, imgPosition, frameSize, boundary]);
+
+  useEffect(() => {
+    if (maxPosition < imgPosition) {
+      setImgPosition(maxPosition);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemWidth, imgPosition, frameSize]);
+  }, [maxPosition]);
 
   return (
     <>
