@@ -74,7 +74,7 @@ class App extends React.Component<{}, State> {
               className="Options__input"
               placeholder="Item Width"
               type="number"
-              min={65}
+              min={130}
               value={this.state.itemWidth}
               onChange={(e) => {
                 this.handleInputChange('itemWidth', +e.target.value);
@@ -89,6 +89,7 @@ class App extends React.Component<{}, State> {
               placeholder="Animation Duration"
               type="number"
               min={0}
+              step={500}
               value={this.state.animationDuration}
               onChange={(e) => {
                 this.handleInputChange('animationDuration', +e.target.value);

@@ -48,7 +48,7 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <div
         className="Carousel__container"
-        style={{ width: `${frameSize * itemWidth}px` }}
+        style={{ width: frameSize * itemWidth + 2 * (frameSize - 1) }}
       >
         <ul
           className="Carousel__list"
@@ -62,7 +62,9 @@ const Carousel: React.FC<Props> = ({
               <img
                 src={image}
                 alt={`${index + 1}`}
-                style={{ width: itemWidth, height: itemWidth }}
+                className="Carousel__image"
+                width={itemWidth}
+                height={itemWidth}
               />
             </li>
           ))}
@@ -73,7 +75,6 @@ const Carousel: React.FC<Props> = ({
         style={{ width: `${frameSize * itemWidth}px` }}
       >
         <button
-          data-cy="next"
           type="button"
           className="Carousel__button"
           disabled={position === 0}
@@ -82,6 +83,7 @@ const Carousel: React.FC<Props> = ({
           &lt;
         </button>
         <button
+          data-cy="next"
           type="button"
           className="Carousel__button"
           disabled={isNextButtonDisabled}
