@@ -109,7 +109,7 @@ export const App = () => {
             type="checkbox"
             className="App__checkbox"
             checked={controls.isInfinite}
-            onClick={toggleInfiniteCheckbox}
+            onChange={toggleInfiniteCheckbox}
           />
         </label>
       </div>
