@@ -4,9 +4,13 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
-class App extends React.Component<{}, State> {
+class App extends React.Component<{}, Partial<State>> {
   state = {
     step: 3,
     frameSize: 3,
@@ -27,14 +31,17 @@ class App extends React.Component<{}, State> {
   };
 
   handleInputChange(key: string, value: number) {
-    this.setState(prev => ({
-      ...prev,
-      [key]: value,
-    }));
+    this.setState({ [key]: value });
   }
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
@@ -53,6 +60,7 @@ class App extends React.Component<{}, State> {
               onChange={(e) => this.handleInputChange('step', +e.target.value)}
             />
           </div>
+
           <div className="Options__item">
             <label htmlFor="frameId">Frame Size</label>
             <input
@@ -67,6 +75,7 @@ class App extends React.Component<{}, State> {
               }}
             />
           </div>
+
           <div className="Options__item">
             <label htmlFor="itemId">Item Width (px)</label>
             <input
@@ -81,6 +90,7 @@ class App extends React.Component<{}, State> {
               }}
             />
           </div>
+
           <div className="Options__item">
             <label htmlFor="duration">Animation Duration (ms)</label>
             <input
@@ -100,10 +110,10 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           images={images}
-          step={this.state.step}
-          frameSize={this.state.frameSize}
-          itemWidth={this.state.itemWidth}
-          animationDuration={this.state.animationDuration}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
         />
       </div>
     );

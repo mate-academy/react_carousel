@@ -21,7 +21,7 @@ const Carousel: React.FC<Props> = ({
   const isNextButtonDisabled = itemWidth * images.length
     === Math.abs(position) + frameSize * itemWidth;
 
-  const showNextTwoImages = () => {
+  const showNextImages = () => {
     const slideNumber = Math.ceil(Math.abs(position / (step * itemWidth)));
     const restItems = (images.length - step * slideNumber) - frameSize;
 
@@ -34,7 +34,7 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const showPrevTwoImages = () => {
+  const showPrevImages = () => {
     if (Math.abs(position) >= itemWidth * step) {
       setPosition((prevPosition) => {
         return prevPosition + step * itemWidth;
@@ -44,11 +44,14 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
+  const gap = 2;
+  const gapsInFrameCount = frameSize - 1;
+
   return (
     <div className="Carousel">
       <div
         className="Carousel__container"
-        style={{ width: frameSize * itemWidth + 2 * (frameSize - 1) }}
+        style={{ width: frameSize * itemWidth + gap * gapsInFrameCount }}
       >
         <ul
           className="Carousel__list"
@@ -70,6 +73,7 @@ const Carousel: React.FC<Props> = ({
           ))}
         </ul>
       </div>
+
       <div
         className="Carousel__buttons-wrapper"
         style={{ width: `${frameSize * itemWidth}px` }}
@@ -78,7 +82,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           disabled={position === 0}
-          onClick={showPrevTwoImages}
+          onClick={showPrevImages}
         >
           &lt;
         </button>
@@ -87,7 +91,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           disabled={isNextButtonDisabled}
-          onClick={showNextTwoImages}
+          onClick={showNextImages}
         >
           &gt;
         </button>
