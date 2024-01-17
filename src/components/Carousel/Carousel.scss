@@ -1,0 +1,25 @@
+.Carousel {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    flex-shrink: 0;
+    height: 130px;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    display: inline;
+  }
+
+  &__button {
+    &--next {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+
