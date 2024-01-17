@@ -1,1 +1,20 @@
-// style go here
+.Options {
+  display: flex;
+  gap: 24px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__input {
+    padding: 12px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    line-height: 16px;
+    color: #666;
+  }
+}

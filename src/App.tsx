@@ -4,10 +4,18 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
-class App extends React.Component<{}, State> {
+class App extends React.Component<{}, Partial<State>> {
   state = {
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,15 +30,91 @@ class App extends React.Component<{}, State> {
     ],
   };
 
+  handleInputChange(key: string, value: number) {
+    this.setState({ [key]: value });
+  }
+
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy='title'>Carousel with {images.length} images</h1>
+        <div className="Options">
+          <div className="Options__item">
+            <label htmlFor="stepId">Step</label>
+            <input
+              id="stepId"
+              className="Options__input"
+              placeholder="Step"
+              type="number"
+              min={1}
+              value={this.state.step}
+              onChange={(e) => this.handleInputChange('step', +e.target.value)}
+            />
+          </div>
 
-        <Carousel />
+          <div className="Options__item">
+            <label htmlFor="frameId">Frame Size</label>
+            <input
+              id="frameId"
+              className="Options__input"
+              placeholder="Frame Size"
+              type="number"
+              min={1}
+              value={this.state.frameSize}
+              onChange={(e) => {
+                this.handleInputChange('frameSize', +e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="Options__item">
+            <label htmlFor="itemId">Item Width (px)</label>
+            <input
+              id="itemId"
+              className="Options__input"
+              placeholder="Item Width"
+              type="number"
+              min={130}
+              value={this.state.itemWidth}
+              onChange={(e) => {
+                this.handleInputChange('itemWidth', +e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="Options__item">
+            <label htmlFor="duration">Animation Duration (ms)</label>
+            <input
+              id="duration"
+              className="Options__input"
+              placeholder="Animation Duration"
+              type="number"
+              min={0}
+              step={500}
+              value={this.state.animationDuration}
+              onChange={(e) => {
+                this.handleInputChange('animationDuration', +e.target.value);
+              }}
+            />
+          </div>
+        </div>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
