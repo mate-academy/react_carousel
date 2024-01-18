@@ -1,1 +1,11 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}

@@ -1,0 +1,22 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+
+
+  &__label {
+    font-size: 15px;
+    font-weight: bold;
+    
+  }
+
+  &__input {
+    font-size: 15px;
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+
+
+}
