@@ -21,8 +21,17 @@ const Carousel: React.FC<Props> = ({
   const [index, setIndex] = useState(0);
 
   const maxIndex = images.length - frameSize;
-  const atStart = index === 0 && !infinite;
+  const atStart = !index && !infinite;
   const atEnd = index === images.length - frameSize && !infinite;
+
+  const carouselStyle = {
+    width: `${width * frameSize}px`,
+  };
+
+  const imageStyle = {
+    transition: `transform ${animationDuration}ms ease-in-out`,
+    transform: `translateX(-${index * width}px)`,
+  };
 
   const handleNext = () => {
     if (index < maxIndex) {
@@ -46,34 +55,21 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
-      <div className="Carousel__frame" style={{ width: width * frameSize }}>
+      <div className="Carousel__frame" style={carouselStyle}>
         <ul className="Carousel__list">
-          {images.map((image, i) => {
-            const isVisible = i >= index && i + 1 <= (1 + index) * frameSize;
-
-            return (
-              <li
-                key={image}
-                className="Carousel__item"
-                style={{
-                  transition: `transform ${animationDuration}ms ease-in-out`,
-                  transform: `translateX(-${index * width}px)`,
-                }}
-              >
-                <img
-                  src={image}
-                  alt={`Carousel item ${image}`}
-                  style={{
-                    width,
-                    height: width,
-                    opacity: isVisible ? 1 : 0,
-                    transition: `opacity ${animationDuration}ms ease-in-out`,
-                  }}
-                  width={width.toString()}
-                />
-              </li>
-            );
-          })}
+          {images.map((image) => (
+            <li
+              key={image}
+              className="Carousel__item"
+              style={imageStyle}
+            >
+              <img
+                src={image}
+                alt={`Carousel item ${image}`}
+                width={width}
+              />
+            </li>
+          ))}
         </ul>
 
         <div className="buttons">

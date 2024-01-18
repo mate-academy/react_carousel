@@ -1,13 +1,11 @@
 .Carousel {
   display: flex;
   flex-direction: column;
-  width: 1360px;
-  overflow: hidden;
 
   &__frame {
     width: 100%;
     justify-content: center;
-    overflow: hidden;
+
   }
 
   &__list {
@@ -15,6 +13,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+  }
+
+  img {
+    display: block;
   }
 }
 
