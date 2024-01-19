@@ -1,1 +1,33 @@
-// style go here
+.Carousel{
+  max-width: 1300px;
+  background-color: red;
+  overflow: hidden;
+
+  &__container {
+    width: 390px;
+    overflow: hidden;
+    background-color: blue;
+
+    &__list {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      &__item {
+
+      }
+
+      &__img {
+        width: 130px;
+        height: 130px;
+      }
+    }
+
+    &__button {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+  }
+}
