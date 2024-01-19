@@ -1,1 +1,16 @@
-// style go here
+body {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.App {
+  &__form {
+    margin: 50px auto;
+    width: 400px;
+  }
+}
