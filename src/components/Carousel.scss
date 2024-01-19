@@ -1,12 +1,10 @@
 .Carousel{
   max-width: 1300px;
-  background-color: red;
-  overflow: hidden;
+  margin: 20px auto;
 
   &__container {
-    width: 390px;
+    margin: auto;
     overflow: hidden;
-    background-color: blue;
 
     &__list {
       display: flex;
@@ -14,20 +12,30 @@
       padding: 0;
       margin: 0;
 
-      &__item {
-
-      }
-
       &__img {
         width: 130px;
         height: 130px;
       }
     }
 
-    &__button {
+    &__block {
       display: flex;
       justify-content: space-between;
       padding: 0 10px;
+
+      &__button {
+        border-radius: 50px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: grey;
+        }
+
+        &:disabled {
+          background-color: #fff;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 }

@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,115 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      step,
+      frameSize,
+      itemWidth,
+      animationDuration,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy='title' className="App__title">Carousel with {images.length} images</h1>
+        <div className="App__controls">
 
-        <Carousel images={images} />
+          <div className="App__controls__control">
+            <label
+              className="App__controls__control__label"
+              htmlFor="stepId"
+            >
+              STEP:
+            </label>
+            <input
+              className="App__controls__control__input"
+              id="stepId"
+              type="number"
+              min={1}
+              value={step}
+              onChange={(e) => this.setState({
+                step: Number(e.target.value),
+              })}
+            />
+          </div>
+
+          <div className="App__controls__control">
+            <label
+              className="App__controls__control__label"
+              htmlFor="frameId"
+            >
+              FRAME SIZE:
+            </label>
+            <input
+              className="App__controls__control__input"
+              id="frameId"
+              type="number"
+              min={1}
+              max={images.length}
+              value={frameSize}
+              onChange={(e) => this.setState({
+                frameSize: Number(e.target.value),
+              })}
+            />
+          </div>
+
+          <div className="App__controls__control">
+            <label
+              className="App__controls__control__label"
+              htmlFor="itemId"
+            >
+              ITEM WIDTH:
+            </label>
+            <input
+              className="App__controls__control__input"
+              id="itemId"
+              type="number"
+              max={300}
+              min={0}
+              step={10}
+              value={itemWidth}
+              onChange={(e) => this.setState({
+                itemWidth: Number(e.target.value),
+              })}
+            />
+          </div>
+
+          <div className="App__controls__control">
+            <label
+              className="App__controls__control__label"
+              htmlFor="animationId"
+            >
+              ANIMATION DURATION:
+            </label>
+            <input
+              className="App__controls__control__input"
+              id="animationId"
+              type="number"
+              min={0}
+              step={10}
+              value={animationDuration}
+              onChange={(e) => this.setState({
+                animationDuration: Number(e.target.value),
+              })}
+            />
+          </div>
+        </div>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }

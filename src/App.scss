@@ -1,1 +1,26 @@
-// style go here
+.App {
+
+  &__title {
+    text-align: center;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    margin-inline: auto;
+    margin-block: 50px;
+    gap: 10px;
+
+    &__control {
+      display: flex;
+      justify-content: space-between;
+
+      &__input {
+        width: 100px;
+        text-align: center;
+        border-radius: 50px;
+      }
+    }
+  }
+}
