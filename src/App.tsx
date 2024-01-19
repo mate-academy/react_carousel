@@ -4,10 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  frameSize: number;
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,20 +21,64 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    frameSize: 3,
+  };
+
+  handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFrameSize = parseInt(event.target.value, 10);
+
+    this.setState((prevState) => ({
+      frameSize: Number.isNaN(newFrameSize)
+        ? prevState.frameSize : newFrameSize,
+    }));
+  };
+
+  handleIncrementFrameSize = () => {
+    this.setState((prevState) => ({ frameSize: prevState.frameSize + 1 }));
+  };
+
+  handleDecrementFrameSize = () => {
+    this.setState((prevState) => ({
+      frameSize: Math.max(prevState.frameSize - 1, 1),
+    }));
+  };
+
+  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Backspace') {
+      event.preventDefault();
+
+      this.setState({ frameSize: 0 });
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const { images, frameSize } = this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 data-cy="title">
+          Carousel with
+          {images.length}
+          images
+        </h1>
+
+        <div className="FrameSizeForm">
+          <label>
+            Images to Display:
+            <input
+              type="number"
+              value={frameSize === 0 ? '' : frameSize}
+              onChange={this.handleFrameSizeChange}
+              onKeyDown={this.handleKeyDown}
+            />
+          </label>
+        </div>
 
         <Carousel
           images={images}
           itemWidth={130}
           animationDuration={1000}
+          frameSize={frameSize === 0 ? 3 : frameSize}
         />
       </div>
     );
