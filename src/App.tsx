@@ -4,6 +4,7 @@ import './App.scss';
 import Carousel from './components/Carousel/Carousel';
 import { CarouselRules } from './types/CarouselRules';
 import { CarouselRulesForm } from './components/CarouselRulesForm';
+import { initialCarouselRules } from './constants/InitialCarouselRules';
 
 interface State {
   images: string[];
@@ -25,20 +26,11 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
 
-    carouselRules: {
-      step: 3,
-      frameSize: 3,
-      itemWidth: 130,
-      animationDuration: 1000,
-      infinite: false,
-    },
+    carouselRules: initialCarouselRules,
   };
 
   updateCarouselRules = (newRules: CarouselRules) => {
-    this.setState((currentState) => ({
-      carouselRules: { ...newRules },
-      images: currentState.images,
-    }));
+    this.setState({ carouselRules: newRules });
   };
 
   render() {
@@ -58,6 +50,7 @@ class App extends React.Component<{}, State> {
 
         <CarouselRulesForm
           onSubmit={this.updateCarouselRules}
+          initialCarouselRules={carouselRules}
         />
       </div>
     );

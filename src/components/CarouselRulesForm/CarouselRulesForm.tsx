@@ -2,30 +2,41 @@ import React, { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { CarouselRules } from '../../types/CarouselRules';
 
-const INITIAL_NEW_CAROUSEL_RULES: CarouselRules = {
-  step: 0,
-  frameSize: 0,
+type Props = {
+  initialCarouselRules: CarouselRules
+  onSubmit: (newRules: CarouselRules) => void,
+};
+
+type CarouselRulesFormErrors = {
+  hasItemWidthError: boolean,
+  hasFrameSizeError: boolean,
+  hasStepError: boolean,
+  hasAnimationDurationError: boolean,
+};
+
+const defaultCarouselRulesFormErrors: CarouselRulesFormErrors = {
+  hasItemWidthError: false,
+  hasFrameSizeError: false,
+  hasStepError: false,
+  hasAnimationDurationError: false,
+};
+
+const resetedCarouselRules: CarouselRules = {
   itemWidth: 0,
+  frameSize: 0,
+  step: 0,
   animationDuration: 0,
   infinite: false,
 };
 
-type Props = {
-  onSubmit: (newRules: CarouselRules) => void,
-};
-
 export const CarouselRulesForm: React.FC<Props> = ({
   onSubmit,
+  initialCarouselRules,
 }) => {
   const [newCarouselRules, setNewCarouselRules]
-    = useState(INITIAL_NEW_CAROUSEL_RULES);
+    = useState(initialCarouselRules);
   const [formState, setFormState] = useState(0);
-
-  const [hasItemWidthError, setHasItemWidthError] = useState(false);
-  const [hasFrameSizeError, setHasFrameSizeError] = useState(false);
-  const [hasStepError, setHasStepError] = useState(false);
-  const [hasAnimationDurationError, setHasAnimationDurationError]
-    = useState(false);
+  const [errors, setErrors] = useState(defaultCarouselRulesFormErrors);
 
   const handleFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name;
@@ -40,16 +51,18 @@ export const CarouselRulesForm: React.FC<Props> = ({
 
   const handleReset = () => {
     setFormState(currentState => currentState + 1);
-    setNewCarouselRules(INITIAL_NEW_CAROUSEL_RULES);
+    setNewCarouselRules(resetedCarouselRules);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setHasAnimationDurationError(!(newCarouselRules.animationDuration > 0));
-    setHasFrameSizeError(!(newCarouselRules.frameSize > 0));
-    setHasItemWidthError(!(newCarouselRules.itemWidth > 0));
-    setHasStepError(!(newCarouselRules.step > 0));
+    setErrors({
+      hasItemWidthError: !(newCarouselRules.itemWidth > 0),
+      hasAnimationDurationError: !(newCarouselRules.animationDuration > 0),
+      hasFrameSizeError: !(newCarouselRules.frameSize > 0),
+      hasStepError: !(newCarouselRules.step > 0),
+    });
 
     if (newCarouselRules.animationDuration > 0
       && newCarouselRules.frameSize > 0
@@ -74,38 +87,42 @@ export const CarouselRulesForm: React.FC<Props> = ({
       className="box App__form"
       key={formState}
       onReset={handleReset}
-      onSubmit={(event) => handleSubmit(event)}
+      onSubmit={handleSubmit}
     >
 
       <TextInput
+        inputInitialValue={newCarouselRules.itemWidth}
         inputName="itemWidth"
         placeholder="Enter item width"
         labelText="Item width"
-        hasError={hasItemWidthError}
+        hasError={errors.hasItemWidthError}
         onChange={handleFieldChanged}
       />
 
       <TextInput
+        inputInitialValue={newCarouselRules.frameSize}
         inputName="frameSize"
         placeholder="Enter frame size"
         labelText="Frame size"
-        hasError={hasFrameSizeError}
+        hasError={errors.hasFrameSizeError}
         onChange={handleFieldChanged}
       />
 
       <TextInput
+        inputInitialValue={newCarouselRules.step}
         inputName="step"
         placeholder="Enter step"
         labelText="Step"
-        hasError={hasStepError}
+        hasError={errors.hasStepError}
         onChange={handleFieldChanged}
       />
 
       <TextInput
+        inputInitialValue={newCarouselRules.animationDuration}
         inputName="animationDuration"
         placeholder="Enter animation duration"
         labelText="Animation duration"
-        hasError={hasAnimationDurationError}
+        hasError={errors.hasAnimationDurationError}
         onChange={handleFieldChanged}
       />
 

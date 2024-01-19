@@ -33,6 +33,8 @@ const Carousel: React.FC<Props> = ({
     setTranslateXValue(newTranslateXValue);
   };
 
+  const maxTranslationXValue = (images.length - frameSize) * itemWidth;
+
   return (
     <div
       className="Carousel"
@@ -77,7 +79,7 @@ const Carousel: React.FC<Props> = ({
         data-cy="next"
         className="button is-info Carousel__button--next"
         type="button"
-        disabled={translateXValue === (images.length - frameSize) * itemWidth}
+        disabled={translateXValue === maxTranslationXValue}
       >
         Next
       </button>
