@@ -3,10 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
-  height: 500px;
+  padding: 30px;
+  border-radius: 20px;
   background-color: #a9fcfc;
-  border-radius: 50%;
 
   &__list {
     display: flex;
@@ -18,9 +17,12 @@
 
   &__options {
     display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  &__item {
+    display: flex;
+    gap: 5px;
   }
 
   &__btn {

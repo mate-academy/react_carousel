@@ -30,7 +30,13 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel images={this.state.images} />
+        <Carousel
+          images={this.state.images}
+          step={3}
+          frameSize={3}
+          itemWidth={130}
+          animationDuration={1000}
+        />
       </div>
     );
   }
