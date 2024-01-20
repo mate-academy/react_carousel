@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -24,36 +24,25 @@ const Carousel: React.FC<Props> = ({
   const [itemWidthNum, setItemWidthNum] = useState(itemWidth);
   const [durationNum, setDurationNum] = useState(animationDuration);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentImg(prevImg => (
-        prevImg < images.length - stepNum ? prevImg + stepNum : 1
-      ));
-    }, durationNum);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  });
-
   return (
     <>
       <div className="Carousel">
         <ul className="Carousel__list">
           {images.map((image, index) => (
-            (index > currentImg - 1 && index < frameSizeNum + currentImg)
-            && (
-              <li>
-                <img
-                  src={`${image}`}
-                  alt={`${currentImg}`}
-                  style={{
-                    width: itemWidthNum,
-                    height: itemWidthNum,
-                  }}
-                />
-              </li>
-            )))}
+            <li
+              key={image}
+              style={{
+                display: `${index >= currentImg && index < currentImg + frameSizeNum ? 'block' : 'none'}`,
+                transition: `all ${durationNum}ms`,
+                width: `${itemWidthNum}px`,
+              }}
+            >
+              <img
+                src={`${image}`}
+                alt={`${index + 1}`}
+              />
+            </li>
+          ))}
         </ul>
 
         <ul className="Carousel__list">
@@ -71,7 +60,7 @@ const Carousel: React.FC<Props> = ({
             type="button"
             className="Carousel__btn"
             onClick={
-              () => currentImg + stepNum < (images.length - 1)
+              () => currentImg + stepNum <= (images.length - 1)
                 && setCurrentImg(prevImg => prevImg + stepNum)
             }
             data-cy="next"
