@@ -7,7 +7,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
-  // infinite?: boolean,
+  infinite?: boolean,
 };
 
 const Carousel: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   itemWidth = 130,
   animationDuration = 1000,
-  // infinite = false,
+  infinite = false,
 }) => {
   const [currentImg, setCurrentImg] = useState(0);
   const [stepNum, setStepNum] = useState(step);
@@ -27,42 +27,56 @@ const Carousel: React.FC<Props> = ({
   return (
     <>
       <div className="Carousel">
-        <ul className="Carousel__list">
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${itemWidthNum * frameSizeNum}px`,
+          }}
+        >
           {images.map((image, index) => (
             <li
+              className="Carousel__item"
               key={image}
               style={{
-                display: `${index >= currentImg && index < currentImg + frameSizeNum ? 'block' : 'none'}`,
-                transition: `all ${durationNum}ms`,
-                width: `${itemWidthNum}px`,
+                transition: `all ${durationNum}ms linear`,
+                transform: `translateX(${
+                  currentImg <= images.length - 2
+                    ? -itemWidthNum * currentImg
+                    : -itemWidthNum * (images.length - 3)
+                }px)`,
               }}
             >
               <img
                 src={`${image}`}
                 alt={`${index + 1}`}
+                style={{
+                  width: `${itemWidthNum}px`,
+                }}
               />
             </li>
           ))}
         </ul>
 
-        <ul className="Carousel__list">
+        <ul className="Carousel__group">
           <button
             type="button"
             className="Carousel__btn"
-            onClick={
-              () => currentImg > 0
-                && setCurrentImg(prevImg => prevImg - stepNum)
-            }
+            onClick={() => {
+              return currentImg > 0
+                ? setCurrentImg(prevImg => prevImg - stepNum)
+                : infinite && setCurrentImg(images.length);
+            }}
           >
             Prev
           </button>
           <button
             type="button"
             className="Carousel__btn"
-            onClick={
-              () => currentImg + stepNum <= (images.length - 1)
-                && setCurrentImg(prevImg => prevImg + stepNum)
-            }
+            onClick={() => {
+              return currentImg + stepNum <= (images.length - 1)
+                ? setCurrentImg(prevImg => prevImg + stepNum)
+                : infinite && setCurrentImg(0);
+            }}
             data-cy="next"
           >
             Next

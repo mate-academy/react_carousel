@@ -9,10 +9,17 @@
 
   &__list {
     display: flex;
-    gap: 2px;
     margin-bottom: 10px;
     padding: 0;
     list-style: none;
+    overflow: hidden;
+  }
+
+  &__group {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
   }
 
   &__options {
@@ -29,8 +36,9 @@
     width: 100px;
     height: 40px;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
     background-color: #a32045;
     color: #fff;
-    border-radius: 5px;
   }
 }
