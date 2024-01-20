@@ -48,7 +48,7 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const handelNex = () => {
+  const handleNex = () => {
     const maxMove = getMaxMove();
 
     if (infinite && move <= -maxMove) {
@@ -98,7 +98,7 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="next"
-        onClick={handelNex}
+        onClick={handleNex}
       >
         Next
       </button>

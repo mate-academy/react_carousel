@@ -4,10 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  step: string,
-  frameSize: string,
-  itemWidth: string,
-  animationDuration: string,
+  step: number,
+  frameSize: number,
+  itemWidth: number,
+  animationDuration: number,
 }
 
 class App extends React.Component<{}, State> {
@@ -24,10 +24,10 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: '3',
-    frameSize: '3',
-    itemWidth: '130',
-    animationDuration: '1000',
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
   };
 
   render() {
@@ -48,12 +48,13 @@ class App extends React.Component<{}, State> {
         </label>
 
         <input
-          type="text"
+          type="number"
           name="itemWidth"
           id="itemId"
           placeholder="item width"
+          value={itemWidth}
           onChange={(e) => {
-            this.setState({ itemWidth: e.target.value });
+            this.setState({ itemWidth: +e.target.value });
           }}
         />
 
@@ -62,12 +63,13 @@ class App extends React.Component<{}, State> {
         </label>
 
         <input
-          type="text"
+          type="number"
           name="frameSize"
           id="frameId"
           placeholder="frame size"
+          value={frameSize}
           onChange={(e) => {
-            this.setState({ frameSize: e.target.value });
+            this.setState({ frameSize: +e.target.value });
           }}
         />
 
@@ -76,12 +78,13 @@ class App extends React.Component<{}, State> {
         </label>
 
         <input
-          type="text"
+          type="number"
           name="step"
           placeholder="step"
           id="stepId"
+          value={step}
           onChange={(e) => {
-            this.setState({ step: e.target.value });
+            this.setState({ step: +e.target.value });
           }}
         />
 
@@ -90,12 +93,13 @@ class App extends React.Component<{}, State> {
         </label>
 
         <input
-          type="text"
+          type="number"
           name="animationDuration"
           id="animationDurationID"
           placeholder="animation duration ms"
+          value={animationDuration}
           onChange={(e) => {
-            this.setState({ animationDuration: e.target.value });
+            this.setState({ animationDuration: +e.target.value });
           }}
         />
 
