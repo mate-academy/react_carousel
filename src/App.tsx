@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
-
-interface State {
-  images: string[];
-}
+import { Carousel } from './components/Carousel';
+import { Info } from './components/Info';
+import { State } from './types/State';
 
 class App extends React.Component<{}, State> {
   state = {
@@ -20,17 +18,59 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinity: false,
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: +value,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      step,
+      animationDuration,
+      infinity,
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1
+          data-cy="title"
+          className="App__title"
+        >
+          Carousel
+        </h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinity={infinity}
+        />
+
+        <Info
+          onHandleChange={this.handleChange}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          imagesLength={images.length}
+        />
       </div>
     );
   }
