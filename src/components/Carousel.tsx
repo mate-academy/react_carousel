@@ -24,11 +24,20 @@ const Carousel: React.FC<Props> = ({
   const [itemWidthNum, setItemWidthNum] = useState(itemWidth);
   const [durationNum, setDurationNum] = useState(animationDuration);
 
-  // eslint-disable-next-line
-  console.log(frameSizeNum, itemWidthNum, durationNum);
+  setTimeout(() => {
+    setCurrentImg(prevImg => (
+      prevImg < images.length - 1 ? prevImg + stepNum : 1
+    ));
+  }, durationNum);
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={{
+        width: frameSizeNum * 150,
+        height: frameSizeNum * 150,
+      }}
+    >
       <ul className="Carousel__list">
         {images.find((_images, index) => index === currentImg) && (
           <li>
@@ -36,6 +45,7 @@ const Carousel: React.FC<Props> = ({
               src={`${images[currentImg]}`}
               alt={`${currentImg}`}
               width={itemWidth}
+              style={{ width: itemWidthNum }}
             />
           </li>
         )}
@@ -45,7 +55,10 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className="Carousel__btn"
-          onClick={() => currentImg > 1 && setCurrentImg(currentImg - step)}
+          onClick={
+            () => currentImg + stepNum > 1
+              && setCurrentImg(currentImg - stepNum)
+          }
         >
           Prev
         </button>
@@ -53,8 +66,8 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__btn"
           onClick={
-            () => currentImg < (images.length - 1)
-              && setCurrentImg(currentImg + step)
+            () => currentImg + stepNum < (images.length - 1)
+              && setCurrentImg(currentImg + stepNum)
           }
           data-cy="next"
         >
