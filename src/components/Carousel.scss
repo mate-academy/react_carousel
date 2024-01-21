@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #a9fcfc;
+
+  &__list {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  &__group {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__options {
+    display: flex;
+    gap: 20px;
+    padding: 20px 50px;
+    border-radius: 20px;
+    background-color: #a9fcfc;
+  }
+
+  &__item {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__btn {
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #a32045;
+    color: #fff;
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
