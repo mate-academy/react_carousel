@@ -25,6 +25,11 @@ const Carousel: React.FC<Props> = ({
   const [durationNum, setDurationNum] = useState(animationDuration);
   const [infiniteType, setInifiniteType] = useState(infinite);
 
+  window.addEventListener('load', () => {
+    (document.querySelectorAll('.Carousel__btn')[0] as HTMLButtonElement)
+      .disabled = true;
+  });
+
   return (
     <>
       <div className="Carousel">
@@ -41,9 +46,9 @@ const Carousel: React.FC<Props> = ({
               style={{
                 transition: `all ${durationNum}ms linear`,
                 transform: `translateX(${
-                  currentImg <= images.length - 2
+                  currentImg <= images.length - frameSizeNum - 1
                     ? -itemWidthNum * currentImg
-                    : -itemWidthNum * (images.length - 3)
+                    : -itemWidthNum * (images.length - frameSizeNum)
                 }px)`,
               }}
             >
@@ -63,6 +68,15 @@ const Carousel: React.FC<Props> = ({
             type="button"
             className="Carousel__btn"
             onClick={() => {
+              const btnPrev = document.querySelectorAll('.Carousel__btn')[0] as
+                HTMLButtonElement;
+              const btnNext = document.querySelectorAll('.Carousel__btn')[1] as
+                HTMLButtonElement;
+
+              btnPrev.disabled = currentImg - stepNum <= 0
+                && !infiniteType;
+              btnNext.disabled = false;
+
               return currentImg > 0
                 ? setCurrentImg(prevImg => prevImg - stepNum)
                 : infiniteType && setCurrentImg(images.length);
@@ -74,6 +88,15 @@ const Carousel: React.FC<Props> = ({
             type="button"
             className="Carousel__btn"
             onClick={() => {
+              const btnPrev = document.querySelectorAll('.Carousel__btn')[0] as
+                HTMLButtonElement;
+              const btnNext = document.querySelectorAll('.Carousel__btn')[1] as
+                HTMLButtonElement;
+
+              btnNext.disabled = currentImg + stepNum >= (images.length - 1)
+                && !infiniteType;
+              btnPrev.disabled = false;
+
               return currentImg + stepNum <= (images.length - 1)
                 ? setCurrentImg(prevImg => prevImg + stepNum)
                 : infiniteType && setCurrentImg(0);

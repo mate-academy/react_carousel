@@ -43,5 +43,9 @@
     font-size: 20px;
     background-color: #a32045;
     color: #fff;
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
   }
 }
