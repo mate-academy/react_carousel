@@ -23,6 +23,7 @@ const Carousel: React.FC<Props> = ({
   const [frameSizeNum, setFrameSizeNum] = useState(frameSize);
   const [itemWidthNum, setItemWidthNum] = useState(itemWidth);
   const [durationNum, setDurationNum] = useState(animationDuration);
+  const [infiniteType, setInifiniteType] = useState(infinite);
 
   return (
     <>
@@ -64,7 +65,7 @@ const Carousel: React.FC<Props> = ({
             onClick={() => {
               return currentImg > 0
                 ? setCurrentImg(prevImg => prevImg - stepNum)
-                : infinite && setCurrentImg(images.length);
+                : infiniteType && setCurrentImg(images.length);
             }}
           >
             Prev
@@ -75,7 +76,7 @@ const Carousel: React.FC<Props> = ({
             onClick={() => {
               return currentImg + stepNum <= (images.length - 1)
                 ? setCurrentImg(prevImg => prevImg + stepNum)
-                : infinite && setCurrentImg(0);
+                : infiniteType && setCurrentImg(0);
             }}
             data-cy="next"
           >
@@ -135,6 +136,17 @@ const Carousel: React.FC<Props> = ({
             max={10000}
             step={100}
             onChange={(e) => setDurationNum(+e.target.value)}
+          />
+        </div>
+
+        <div className="Carousel__item">
+          <label htmlFor="infinite">Is infinite:</label>
+          <input
+            type="checkbox"
+            className="Carousel__inp"
+            name="infinite"
+            defaultChecked={infinite}
+            onChange={(e) => setInifiniteType(e.target.checked)}
           />
         </div>
       </ul>
