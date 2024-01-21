@@ -45,11 +45,7 @@ const Carousel: React.FC<Props> = ({
               key={image}
               style={{
                 transition: `all ${durationNum}ms linear`,
-                transform: `translateX(${
-                  currentImg <= images.length - frameSizeNum - 1
-                    ? -itemWidthNum * currentImg
-                    : -itemWidthNum * (images.length - frameSizeNum)
-                }px)`,
+                transform: `translateX(${-itemWidthNum * currentImg}px)`,
               }}
             >
               <img
@@ -67,40 +63,28 @@ const Carousel: React.FC<Props> = ({
           <button
             type="button"
             className="Carousel__btn"
-            onClick={() => {
-              const btnPrev = document.querySelectorAll('.Carousel__btn')[0] as
-                HTMLButtonElement;
-              const btnNext = document.querySelectorAll('.Carousel__btn')[1] as
-                HTMLButtonElement;
-
-              btnPrev.disabled = currentImg - stepNum <= 0
-                && !infiniteType;
-              btnNext.disabled = false;
-
-              return currentImg > 0
+            disabled={
+              currentImg - stepNum <= 0 && !infiniteType
+            }
+            onClick={() => (
+              currentImg > 0
                 ? setCurrentImg(prevImg => prevImg - stepNum)
-                : infiniteType && setCurrentImg(images.length);
-            }}
+                : infiniteType && setCurrentImg(images.length - 1)
+            )}
           >
             Prev
           </button>
           <button
             type="button"
             className="Carousel__btn"
-            onClick={() => {
-              const btnPrev = document.querySelectorAll('.Carousel__btn')[0] as
-                HTMLButtonElement;
-              const btnNext = document.querySelectorAll('.Carousel__btn')[1] as
-                HTMLButtonElement;
-
-              btnNext.disabled = currentImg + stepNum >= (images.length - 1)
-                && !infiniteType;
-              btnPrev.disabled = false;
-
-              return currentImg + stepNum <= (images.length - 1)
+            disabled={
+              currentImg + stepNum >= images.length && !infiniteType
+            }
+            onClick={() => (
+              currentImg + stepNum <= (images.length - 1)
                 ? setCurrentImg(prevImg => prevImg + stepNum)
-                : infiniteType && setCurrentImg(0);
-            }}
+                : infiniteType && setCurrentImg(0)
+            )}
             data-cy="next"
           >
             Next
@@ -170,10 +154,6 @@ const Carousel: React.FC<Props> = ({
             name="infinite"
             defaultChecked={infinite}
             onChange={(e) => {
-              (document.querySelectorAll('.Carousel__btn')[0] as
-                HTMLButtonElement).disabled = false;
-              (document.querySelectorAll('.Carousel__btn')[1] as
-                HTMLButtonElement).disabled = false;
               setInifiniteType(e.target.checked);
             }}
           />
