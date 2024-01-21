@@ -169,7 +169,13 @@ const Carousel: React.FC<Props> = ({
             className="Carousel__inp"
             name="infinite"
             defaultChecked={infinite}
-            onChange={(e) => setInifiniteType(e.target.checked)}
+            onChange={(e) => {
+              (document.querySelectorAll('.Carousel__btn')[0] as
+                HTMLButtonElement).disabled = false;
+              (document.querySelectorAll('.Carousel__btn')[1] as
+                HTMLButtonElement).disabled = false;
+              setInifiniteType(e.target.checked);
+            }}
           />
         </div>
       </ul>
