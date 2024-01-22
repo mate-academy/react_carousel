@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
+const GAP_IMG = 10;
+
 type Props = {
   images: string[],
   step: number,
@@ -18,7 +20,25 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [startImage, setStartImage] = useState(0);
   const endIndexImage = startImage + frameSize;
-  const translateXValue = startImage * itemWidth;
+
+  const widthContainer = frameSize * itemWidth + GAP_IMG * (frameSize);
+  let translateXValue = startImage * (itemWidth + GAP_IMG);
+
+  if (startImage === 0) {
+    translateXValue = 0;
+  }
+
+  const prevButton = () => setStartImage(
+    startImage > step
+      ? startImage - step
+      : 0,
+  );
+
+  const nextButton = () => setStartImage(
+    endIndexImage + step < images.length
+      ? startImage + step
+      : images.length - frameSize,
+  );
 
   useEffect(() => {
     setStartImage(0);
@@ -28,11 +48,12 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <div
         className="Carousel__container"
-        style={{ width: frameSize * itemWidth }}
+        style={{ width: widthContainer }}
       >
         <ul
           className="Carousel__container__list"
           style={{
+            gap: GAP_IMG,
             transition: `transform ${animationDuration}ms`,
             transform: `translateX(${-(translateXValue)}px)`,
           }}
@@ -46,7 +67,7 @@ const Carousel: React.FC<Props> = ({
                 className="Carousel__container__list__img"
                 src={imageUrl}
                 alt={`${index + 1}`}
-                style={{ width: itemWidth, height: itemWidth }}
+                width={itemWidth}
               />
             </li>
           ))}
@@ -54,11 +75,7 @@ const Carousel: React.FC<Props> = ({
         <div className="Carousel__container__block">
           <button
             className="Carousel__container__block__button"
-            onClick={() => setStartImage(
-              startImage > step
-                ? startImage - step
-                : 0,
-            )}
+            onClick={prevButton}
             type="button"
             disabled={startImage === 0}
           >
@@ -66,11 +83,7 @@ const Carousel: React.FC<Props> = ({
           </button>
           <button
             className="Carousel__container__block__button"
-            onClick={() => setStartImage(
-              endIndexImage + step < images.length
-                ? startImage + step
-                : images.length - frameSize,
-            )}
+            onClick={nextButton}
             type="button"
             data-cy="next"
             disabled={images.length - frameSize === startImage}

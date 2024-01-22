@@ -95,7 +95,6 @@ class App extends React.Component<{}, State> {
               className="App__controls__control__input"
               id="itemId"
               type="number"
-              max={300}
               min={0}
               step={10}
               value={itemWidth}
