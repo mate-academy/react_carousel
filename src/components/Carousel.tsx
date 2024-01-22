@@ -9,6 +9,7 @@ type Props = {
   frameSize: number,
   itemWidth: number,
   animationDuration: number,
+  infinite: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -17,28 +18,41 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
+  infinite,
 }) => {
   const [startImage, setStartImage] = useState(0);
   const endIndexImage = startImage + frameSize;
 
-  const widthContainer = frameSize * itemWidth + GAP_IMG * (frameSize);
+  const widthContainer = frameSize * itemWidth + GAP_IMG * frameSize;
   let translateXValue = startImage * (itemWidth + GAP_IMG);
 
   if (startImage === 0) {
     translateXValue = 0;
   }
 
-  const prevButton = () => setStartImage(
-    startImage > step
-      ? startImage - step
-      : 0,
-  );
+  const prevButton = () => {
+    if (infinite && startImage === 0) {
+      setStartImage(images.length - frameSize);
+    } else {
+      setStartImage(
+        startImage > step
+          ? startImage - step
+          : 0,
+      );
+    }
+  };
 
-  const nextButton = () => setStartImage(
-    endIndexImage + step < images.length
-      ? startImage + step
-      : images.length - frameSize,
-  );
+  const nextButton = () => {
+    if (infinite && endIndexImage === images.length) {
+      setStartImage(0);
+    } else {
+      setStartImage(
+        endIndexImage + step < images.length
+          ? startImage + step
+          : images.length - frameSize,
+      );
+    }
+  };
 
   useEffect(() => {
     setStartImage(0);
@@ -77,7 +91,7 @@ const Carousel: React.FC<Props> = ({
             className="Carousel__container__block__button"
             onClick={prevButton}
             type="button"
-            disabled={startImage === 0}
+            disabled={!infinite && startImage === 0}
           >
             Prev
           </button>
@@ -86,7 +100,7 @@ const Carousel: React.FC<Props> = ({
             onClick={nextButton}
             type="button"
             data-cy="next"
-            disabled={images.length - frameSize === startImage}
+            disabled={!infinite && images.length - frameSize === startImage}
           >
             Next
           </button>

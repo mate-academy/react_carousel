@@ -8,6 +8,7 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -28,6 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
+    infinite: false,
   };
 
   render() {
@@ -37,6 +39,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       itemWidth,
       animationDuration,
+      infinite,
     } = this.state;
 
     return (
@@ -123,6 +126,24 @@ class App extends React.Component<{}, State> {
               })}
             />
           </div>
+
+          <div className="App__controls__control">
+            <label
+              className="App__controls__control__label"
+              htmlFor="infiniteId"
+            >
+              INFINITE:
+            </label>
+            <input
+              className="App__controls__control__input"
+              id="infiniteId"
+              type="checkbox"
+              checked={infinite}
+              onChange={(e) => this.setState({
+                infinite: e.target.checked,
+              })}
+            />
+          </div>
         </div>
 
         <Carousel
@@ -131,6 +152,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );
