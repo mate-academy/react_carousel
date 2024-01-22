@@ -24,13 +24,11 @@ const Carousel: React.FC<Props> = ({
   const endIndexImage = startImage + frameSize;
 
   const widthContainer = frameSize * itemWidth + GAP_IMG * frameSize;
-  let translateXValue = startImage * (itemWidth + GAP_IMG);
+  const translateXValue = startImage === 0
+    ? 0
+    : startImage * (itemWidth + GAP_IMG);
 
-  if (startImage === 0) {
-    translateXValue = 0;
-  }
-
-  const prevButton = () => {
+  const handlePrevClick = () => {
     if (infinite && startImage === 0) {
       setStartImage(images.length - frameSize);
     } else {
@@ -42,7 +40,7 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const nextButton = () => {
+  const handleNextClick = () => {
     if (infinite && endIndexImage === images.length) {
       setStartImage(0);
     } else {
@@ -89,7 +87,7 @@ const Carousel: React.FC<Props> = ({
         <div className="Carousel__container__block">
           <button
             className="Carousel__container__block__button"
-            onClick={prevButton}
+            onClick={handlePrevClick}
             type="button"
             disabled={!infinite && startImage === 0}
           >
@@ -97,7 +95,7 @@ const Carousel: React.FC<Props> = ({
           </button>
           <button
             className="Carousel__container__block__button"
-            onClick={nextButton}
+            onClick={handleNextClick}
             type="button"
             data-cy="next"
             disabled={!infinite && images.length - frameSize === startImage}
