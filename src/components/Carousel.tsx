@@ -1,18 +1,72 @@
-import React from 'react';
+import { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: string;
+  frameSize: number;
+  step: number;
+  // animationDuration: number;
+  // infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = '130px',
+  frameSize,
+  step,
+}) => {
+  const [firstImg, setFirstImg] = useState(0);
+  const imageStyles = {
+    width: itemWidth,
+  };
+
+  function visibleImgs() {
+    return images.slice(firstImg, (firstImg + frameSize));
+  }
+
+  const handleNext = () => {
+    if ((firstImg + step) < images.length) {
+      setFirstImg(firstImg + step);
+    }
+  };
+
+  const handleBack = () => {
+    if ((firstImg - step) >= 0) {
+      setFirstImg(firstImg - step);
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <ul className="Carousel__list">
+        {visibleImgs().map((image: string, index: number) => (
+          <li key={image}>
+            <img
+              src={image}
+              alt={String(index + 1)}
+              style={imageStyles}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        onClick={handleBack}
+      >
+        Prev
+      </button>
+
+      <button
+        type="button"
+        data-cy="next"
+        onClick={handleNext}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
