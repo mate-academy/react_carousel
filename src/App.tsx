@@ -1,39 +1,124 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
 import Carousel from './components/Carousel';
+import { images } from './constants';
+
+import './App.scss';
 
 interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const App: React.FC = () => {
+  const state: State = {
+    images,
   };
 
-  render() {
-    const { images } = this.state;
+  const [input, setInput] = useState({
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  });
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
+    const newValue = type === 'checkbox' ? checked : +value;
 
-        <Carousel />
+    setInput((prev) => {
+      return { ...prev, [name]: newValue };
+    });
+  };
+
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+        <h1 data-cy="title" className='App_title'>Carousel with {images.length} images</h1>
+
+      <Carousel
+        images={state.images}
+        step={input.step}
+        frameSize={input.frameSize}
+        itemWidth={input.itemWidth}
+        animationDuration={input.animationDuration}
+        infinite={input.infinite}
+      />
+
+      <div className="App_inputs">
+        <label htmlFor="itemWidth">
+          Item Width:
+          <input
+            type="number"
+            id="itemWidth"
+            name="itemWidth"
+            value={input.itemWidth}
+            min={130}
+            max={260}
+            step={5}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label htmlFor="frameSize">
+          Frame Size:
+          <input
+            type="number"
+            id="frameSize"
+            name="frameSize"
+            value={input.frameSize}
+            min={1}
+            max={state.images.length}
+            step={1}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label htmlFor="step">
+          Step:
+          <input
+            type="number"
+            id="step"
+            name="step"
+            value={input.step}
+            min={1}
+            max={state.images.length}
+            step={1}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label htmlFor="animationDuration">
+          Animation Duration:
+          <input
+            type="number"
+            id="animationDuration"
+            name="animationDuration"
+            value={input.animationDuration}
+            min={500}
+            max={3000}
+            step={500}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label htmlFor="infinite">
+          Infinite:
+          <input
+            id="infinite"
+            name="infinite"
+            type="checkbox"
+            checked={input.infinite}
+            onChange={handleChange}
+          />
+        </label>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

@@ -1,1 +1,57 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+
+  &_list {
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+    margin: 20px auto;
+    padding: 20px 0;
+    border: 5px solid black;
+    border-radius: 10px;
+    background-color: rgb(185, 151, 151);
+  }
+
+  &_item {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_image {
+    width: 130px;
+    height: 130px;
+  }
+
+  &_buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  &_button {
+    width: 70px;
+    height: 50px;
+    background-color: rgba(219, 181, 181, 0.7);
+    border-radius: 10px;
+    border: 2px solid black;
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(190, 62, 115);
+      background-color: rosybrown;
+    }
+
+    &--disabled {
+      background-color: #9c9999;
+      color: rgb(17, 17, 17);
+      border-color: black;
+
+      &:hover {
+        background-color: #9c9999;
+        color: rgb(17, 17, 17);
+        border-color: black;
+        cursor: default;
+      }
+    }
+  }
+}
