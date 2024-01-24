@@ -4,7 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
   frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -21,64 +25,96 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
     frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
   };
 
-  handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFrameSize = parseInt(event.target.value, 10);
-
-    this.setState((prevState) => ({
-      frameSize: Number.isNaN(newFrameSize)
-        ? prevState.frameSize : newFrameSize,
-    }));
-  };
-
-  handleIncrementFrameSize = () => {
-    this.setState((prevState) => ({ frameSize: prevState.frameSize + 1 }));
-  };
-
-  handleDecrementFrameSize = () => {
-    this.setState((prevState) => ({
-      frameSize: Math.max(prevState.frameSize - 1, 1),
-    }));
-  };
-
-  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Backspace') {
-      event.preventDefault();
-
-      this.setState({ frameSize: 0 });
-    }
+  handleInputChange = (key: keyof State, value: number | boolean) => {
+    this.setState({ [key]: value } as unknown as Pick<State, keyof State>);
   };
 
   render() {
-    const { images, frameSize } = this.state;
+    const {
+      images, itemWidth, frameSize, step, animationDuration, infinite,
+    } = this.state;
 
     return (
       <div className="App">
         <h1 data-cy="title">
           Carousel with
+          {' '}
           {images.length}
+          {' '}
           images
         </h1>
 
-        <div className="FrameSizeForm">
+        <div className="InputForm">
           <label>
-            Images to Display:
+            Item Width:
             <input
               type="number"
-              value={frameSize === 0 ? '' : frameSize}
-              onChange={this.handleFrameSizeChange}
-              onKeyDown={this.handleKeyDown}
+              value={itemWidth}
+              onChange={(e) => this.handleInputChange(
+                'itemWidth', parseInt(e.target.value, 10),
+              )}
+            />
+          </label>
+
+          <label>
+            Frame Size:
+            <input
+              type="number"
+              value={frameSize}
+              onChange={(e) => this.handleInputChange(
+                'frameSize', parseInt(e.target.value, 10),
+              )}
+            />
+          </label>
+
+          <label>
+            Step:
+            <input
+              type="number"
+              value={step}
+              onChange={(e) => this.handleInputChange(
+                'step', parseInt(e.target.value, 10),
+              )}
+            />
+          </label>
+
+          <label>
+            Animation Duration (ms):
+            <input
+              type="number"
+              value={animationDuration}
+              onChange={(e) => this.handleInputChange(
+                'animationDuration', parseInt(e.target.value, 10),
+              )}
+            />
+          </label>
+
+          <label>
+            Infinite:
+            <input
+              type="checkbox"
+              checked={infinite}
+              onChange={(e) => this.handleInputChange(
+                'infinite', e.target.checked,
+              )}
             />
           </label>
         </div>
 
         <Carousel
           images={images}
-          itemWidth={130}
-          animationDuration={1000}
-          frameSize={frameSize === 0 ? 3 : frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          frameSize={frameSize}
+          step={step}
+          infinite={infinite}
         />
       </div>
     );
