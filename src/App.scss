@@ -1,1 +1,24 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__carousel__controler {
+    margin-bottom: 15px;
+    text-align: justify;
+
+    &__input {
+      margin-left: 7px;
+      padding-inline: 5px;
+
+      border: 1px solid gray;
+      border-radius: 20px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
