@@ -1,24 +1,35 @@
+iframe {
+  display: none;
+}
+
 .App {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
-  &__carousel__controler {
-    margin-bottom: 15px;
-    text-align: justify;
-
-    &__input {
-      margin-left: 7px;
-      padding-inline: 5px;
-
-      border: 1px solid gray;
-      border-radius: 20px;
-    }
-  }
+  align-items: center;
+  gap: 40px;
 }
 
-.container {
+form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+input {
+  width: 100px;
+}
+
+.label {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }

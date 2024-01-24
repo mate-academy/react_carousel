@@ -1,29 +1,41 @@
 .Carousel {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 1300px;
-
-  margin-bottom: 20px;
+  overflow: hidden;
 
   &__list {
-    list-style: none;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    list-style: none;
     padding: 0;
-    gap: 10px;
-    & > li {
-      display: flex;
-    }
+  }
+
+  &__item {
+    margin: 0 10px;
+  }
+
+  &__img {
+    display: block;
+    object-position: center;
   }
 
   &__buttons {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    justify-content: space-around;
   }
-}
 
-.Carousel__container {
-  overflow: hidden;
+  &__button {
+    padding: 5px 15px;
+    border: 1px solid #d7d8d9;
+    border-radius: 2px;
+    transition: 0.2s;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover:not(&:disabled) {
+      background-color: #d7d8d9;
+    }
+  }
 }

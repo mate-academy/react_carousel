@@ -3,99 +3,108 @@ import './Carousel.scss';
 
 type Props = {
   images: string[],
-  itemWidth: number,
   frameSize: number,
+  itemWidth: number,
   step: number,
-  animationDuration: number;
-  infinite: boolean;
+  animationDuration: number,
 };
 
-export const Carousel: React.FC<Props> = ({
+const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
   frameSize,
+  itemWidth,
   step,
   animationDuration,
-  infinite,
 }) => {
-  const [startImage, setStartImage] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
 
-  const carouselWidth = (frameSize * itemWidth) + ((frameSize - 1) * 10);
-  const endImgIndex = startImage + frameSize;
-  const translateX = startImage === 0
-    ? 0
-    : startImage * (itemWidth + 10);
+  const margin = 20;
+  const imageWidth = itemWidth + margin;
+  const containerWidth = images.length * imageWidth;
+  const startOffset = 0;
+  const scrollWidth = step * imageWidth;
+  const isPrevDisabled = translateX === startOffset;
+  const isNextDisabled
+  = -translateX === containerWidth - (frameSize * imageWidth);
 
-  const handleNextChange = () => {
-    if (infinite && endImgIndex === images.length) {
-      setStartImage(0);
+  const handlePrevClick = () => {
+    const imagesLeft = (-translateX) / imageWidth;
+
+    if (imagesLeft - step < 0) {
+      setTranslateX(prev => prev + imagesLeft * imageWidth);
     } else {
-      setStartImage(
-        endImgIndex + step < images.length
-          ? startImage + step
-          : images.length - frameSize,
-      );
+      setTranslateX(prev => prev + scrollWidth);
     }
   };
 
-  const handlePrevChange = () => {
-    if (infinite && startImage === 0) {
-      setStartImage(images.length - frameSize);
+  const handleNextClick = () => {
+    const imagesRight = (containerWidth + translateX) / imageWidth;
+
+    if (imagesRight - frameSize < step) {
+      setTranslateX(prev => prev - (imagesRight - frameSize) * imageWidth);
     } else {
-      setStartImage(
-        startImage > step
-          ? startImage - step
-          : 0,
-      );
+      setTranslateX(prev => prev - scrollWidth);
     }
   };
 
   return (
     <div
       className="Carousel"
+      style={
+        {
+          width: `${frameSize * (itemWidth + margin)}px`,
+        }
+      }
     >
-      <div
-        className="Carousel__container"
+      <ul
+        className="Carousel__list"
+        style={
+          {
+            transform: `translateX(${translateX}px)`,
+            transition: `all ${animationDuration}ms`,
+          }
+        }
       >
-        <ul
-          className="Carousel__list"
-          style={{
-            transition: `transform ${animationDuration}ms`,
-            transform: `translateX(${-(translateX)}px)`,
-            width: carouselWidth,
-          }}
-        >
-          {images.map((imgUrl) => (
-            <li className="Carousel__list__item" key={imgUrl}>
+        {
+          images.map((image, i) => (
+            <li
+              className="Carousel__item"
+              key={image}
+            >
               <img
-                className="Carousel__list__item__img"
-                src={imgUrl}
-                alt="smile"
+                src={image}
+                alt={String(i + 1)}
+                className="Carousel__img"
                 width={itemWidth}
+                height={itemWidth}
               />
             </li>
-          ))}
-        </ul>
-      </div>
+          ))
+        }
+      </ul>
 
       <div className="Carousel__buttons">
         <button
           type="button"
-          onClick={handlePrevChange}
-          disabled={!infinite && startImage === 0}
+          disabled={isPrevDisabled}
+          onClick={handlePrevClick}
+          className="Carousel__button"
         >
-          {'<<'}
+          Prev
         </button>
 
         <button
-          data-cy="next"
           type="button"
-          onClick={handleNextChange}
-          disabled={!infinite && images.length - frameSize === startImage}
+          disabled={isNextDisabled}
+          onClick={handleNextClick}
+          data-cy="next"
+          className="Carousel__button"
         >
-          {'>>'}
+          Next
         </button>
       </div>
     </div>
   );
 };
+
+export default Carousel;
