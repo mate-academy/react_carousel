@@ -1,1 +1,43 @@
-// style go here
+.Carousel {
+  position: relative;
+  height: 30vh;
+
+  &__list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    pointer-events: none;
+    background-color: #FECE87;
+    display: flex;
+    padding: 0;
+    list-style: none;
+    overflow:hidden;
+    border: 1rem ridge #CD8309;
+  }
+
+  &__item {
+    width: 130px;
+    height: 130px;
+  }
+
+  &__buttons-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__button {
+    background-color: #FECE87;
+    font-size: 15px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: 3px solid #CD8309;
+  }
+}
