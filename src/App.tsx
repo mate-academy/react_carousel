@@ -16,13 +16,16 @@ const images: string[] = [
 ];
 
 export const App = () => {
-  const [itemWidth, setItemWidth] = useState('130px');
-  const [imgOnPage, setImgOnPage] = useState(10);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [imgOnPage, setImgOnPage] = useState(3);
   const [imgForChange, setImgForChange] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
 
   function handleChangeWidth(query: React.ChangeEvent<HTMLInputElement>) {
-    if (query.target.value.length > 2) {
-      setItemWidth(`${query.target.value}px`);
+    if (+query.target.value > 50) {
+      setItemWidth(+query.target.value);
+    } else {
+      setItemWidth(130);
     }
   }
 
@@ -32,6 +35,10 @@ export const App = () => {
 
   function handleChangeStep(step: React.ChangeEvent<HTMLInputElement>) {
     setImgForChange(+(step.target.value));
+  }
+
+  function handleAnimationChange(time: React.ChangeEvent<HTMLInputElement>) {
+    setAnimationDuration(+(time.target.value));
   }
 
   return (
@@ -54,12 +61,17 @@ export const App = () => {
         onChange={handleChangeStep}
       />
 
+      <input
+        name="animation"
+        onChange={handleAnimationChange}
+      />
+
       <Carousel
         images={images}
         itemWidth={itemWidth}
         frameSize={imgOnPage}
         step={imgForChange}
-      // animationDuration={1000}
+        animationDuration={animationDuration}
       // infinite={false}
       />
     </div>

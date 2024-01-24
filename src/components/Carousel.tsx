@@ -3,22 +3,23 @@ import './Carousel.scss';
 
 interface Props {
   images: string[];
-  itemWidth: string;
+  itemWidth: number;
   frameSize: number;
   step: number;
-  // animationDuration: number;
+  animationDuration: number;
   // infinite: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth = '130px',
-  frameSize,
-  step,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration,
 }) => {
   const [firstImg, setFirstImg] = useState(0);
   const imageStyles = {
-    width: itemWidth,
+    width: `${itemWidth}px`,
   };
 
   function visibleImgs() {
@@ -26,15 +27,19 @@ const Carousel: React.FC<Props> = ({
   }
 
   const handleNext = () => {
-    if ((firstImg + step) < images.length) {
-      setFirstImg(firstImg + step);
-    }
+    setTimeout(() => {
+      if ((firstImg + step) < images.length) {
+        setFirstImg(firstImg + step);
+      }
+    }, animationDuration);
   };
 
   const handleBack = () => {
-    if ((firstImg - step) >= 0) {
-      setFirstImg(firstImg - step);
-    }
+    setTimeout(() => {
+      if ((firstImg - step) >= 0) {
+        setFirstImg(firstImg - step);
+      }
+    }, animationDuration);
   };
 
   return (
