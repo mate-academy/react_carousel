@@ -41,6 +41,34 @@ export const App: React.FC = () => {
     }
   };
 
+  const eventChangeStep = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    moveCarouselItemToPosition(0);
+    setStep(Number(event.target.value));
+  };
+
+  const eventChangeItemWidth = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    moveCarouselItemToPosition(0);
+    setItemWidth(Number(event.target.value));
+  };
+
+  const eventChangeAnimationDuration = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    moveCarouselItemToPosition(0);
+    setAnimationDuration(Number(event.target.value));
+  };
+
+  const eventChangeInfinite = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    moveCarouselItemToPosition(0);
+    setInfinite(event.target.checked);
+  };
+
   return (
     <div className="App">
       <h1 data-cy="title">
@@ -71,10 +99,7 @@ export const App: React.FC = () => {
             value={step}
             min="1"
             max={frameSize}
-            onChange={(event) => {
-              moveCarouselItemToPosition(0);
-              setStep(Number(event.target.value));
-            }}
+            onChange={eventChangeStep}
           />
         </article>
         <article className="input-section__article">
@@ -109,10 +134,7 @@ export const App: React.FC = () => {
             min="100"
             max={MAX_ITEM_WIDTH}
             step={10}
-            onChange={(event) => {
-              moveCarouselItemToPosition(0);
-              setItemWidth(Number(event.target.value));
-            }}
+            onChange={eventChangeItemWidth}
           />
         </article>
         <article className="input-section__article">
@@ -130,10 +152,7 @@ export const App: React.FC = () => {
             min="100"
             max={MAX_ANIMATION_DURATION}
             step={100}
-            onChange={(event) => {
-              moveCarouselItemToPosition(0);
-              setAnimationDuration(Number(event.target.value));
-            }}
+            onChange={eventChangeAnimationDuration}
           />
         </article>
         <article className="input-section__article">
@@ -148,10 +167,7 @@ export const App: React.FC = () => {
             id="infinite"
             className="input-section__input"
             checked={infinite}
-            onChange={(event) => {
-              moveCarouselItemToPosition(0);
-              setInfinite(event.target.checked);
-            }}
+            onChange={eventChangeInfinite}
           />
         </article>
       </section>
