@@ -1,57 +1,29 @@
-$border-color: #151b54;
-$hover-color: #fdd017;
-
 .Carousel {
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1300px;
+
+  margin-bottom: 20px;
 
   &__list {
-    margin: 20px auto;
-    padding: 20px 0;
+    list-style: none;
     display: flex;
-    overflow: hidden;
-    border: 3px solid $border-color;
-    border-radius: 50px;
-    list-style-type: none;
-  }
-
-  &__item {
-    display: flex;
-    justify-content: center;
-  }
-
-  & > div {
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  &__button {
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__btn {
-    padding: 0 10px;
-    background-color: #98afc7;
-    border: 2px solid #616d7e;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 1s;
-
-    &:hover {
-      transform: scale(1.2);
-      opacity: 0.5;
-      background-color: $hover-color;
-      border: 1px solid $hover-color;
-    }
-
-    &:disabled {
-      background-color: #c1e5c1;
-      border: none;
-      transform: scale(0.8);
-      opacity: 0.5;
-      cursor: not-allowed;
+    flex-direction: row;
+    padding: 0;
+    gap: 10px;
+    & > li {
+      display: flex;
     }
   }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}
+
+.Carousel__container {
+  overflow: hidden;
 }

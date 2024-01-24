@@ -1,34 +1,24 @@
-$background: #fff;
-$border-color: #151b54;
-
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  background-color: $background;
-}
-
 .App {
-  text-align: center;
-  background-color: $background;
-  padding: 20px;
-}
-
-.label {
-  margin: 0 auto;
-  padding-right: 15px;
-  color: $border-color;
-  cursor: pointer;
-  font-size: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
 
+  &__carousel__controler {
+    margin-bottom: 15px;
+    text-align: justify;
+
+    &__input {
+      margin-left: 7px;
+      padding-inline: 5px;
+
+      border: 1px solid gray;
+      border-radius: 20px;
+    }
+  }
 }
 
-.App input {
-  margin-left: 10px;
-  padding: 3px 0;
-  border-radius: 10px;
-  text-align: end;
+.container {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,115 +1,101 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
-  images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
+  images: string[],
+  itemWidth: number,
+  frameSize: number,
+  step: number,
   animationDuration: number;
-  infinity: boolean;
+  infinite: boolean;
 };
 
-type State = {
+export const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}) => {
+  const [startImage, setStartImage] = useState(0);
 
-  itemIndex: number;
-};
+  const carouselWidth = (frameSize * itemWidth) + ((frameSize - 1) * 10);
+  const endImgIndex = startImage + frameSize;
+  const translateX = startImage === 0
+    ? 0
+    : startImage * (itemWidth + 10);
 
-export class Carousel extends Component<Props, State> {
-  state = {
-    itemIndex: 0,
-  };
-
-  handleSwipeClick = (step: number) => () => {
-    const { images, frameSize, infinity } = this.props;
-    const { itemIndex } = this.state;
-
-    let nextInd = itemIndex + step;
-
-    if (infinity) {
-      const totalImages = images.length;
-
-      if (nextInd < 0) {
-        nextInd %= totalImages;
-        nextInd += totalImages;
-      } else if (nextInd >= totalImages) {
-        nextInd %= totalImages;
-      }
+  const handleNextChange = () => {
+    if (infinite && endImgIndex === images.length) {
+      setStartImage(0);
     } else {
-      const lastInd = images.length - frameSize;
-
-      if (nextInd < 0) {
-        nextInd = 0;
-      } else if (nextInd > lastInd) {
-        nextInd = lastInd;
-      }
+      setStartImage(
+        endImgIndex + step < images.length
+          ? startImage + step
+          : images.length - frameSize,
+      );
     }
-
-    this.setState(() => ({
-      itemIndex: nextInd,
-    }));
   };
 
-  render() {
-    const {
-      images,
-      step,
-      itemWidth,
-      frameSize,
-      animationDuration,
-      infinity,
-    } = this.props;
+  const handlePrevChange = () => {
+    if (infinite && startImage === 0) {
+      setStartImage(images.length - frameSize);
+    } else {
+      setStartImage(
+        startImage > step
+          ? startImage - step
+          : 0,
+      );
+    }
+  };
 
-    const { itemIndex } = this.state;
-    const prevDisabled = (itemIndex <= 0) && !infinity;
-    const nextDisabled = (itemIndex >= images.length - frameSize) && !infinity;
-
-    return (
+  return (
+    <div
+      className="Carousel"
+    >
       <div
-        className="Carousel"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-          transition: `${animationDuration}ms`,
-        }}
+        className="Carousel__container"
       >
-        <ul className="Carousel__list">
-          {images.map((img, ind) => (
-            <li
-              key={img}
-              className="Carusel__item"
-              style={{
-                transform: `translateX(${-itemIndex * itemWidth}px)`,
-                transition: `${animationDuration}ms`,
-              }}
-            >
-              <img src={img} alt={`${ind + 1}`} width={itemWidth} />
+        <ul
+          className="Carousel__list"
+          style={{
+            transition: `transform ${animationDuration}ms`,
+            transform: `translateX(${-(translateX)}px)`,
+            width: carouselWidth,
+          }}
+        >
+          {images.map((imgUrl) => (
+            <li className="Carousel__list__item" key={imgUrl}>
+              <img
+                className="Carousel__list__item__img"
+                src={imgUrl}
+                alt="smile"
+                width={itemWidth}
+              />
             </li>
           ))}
         </ul>
-
-        <div className="Carousel__button">
-          <button
-            type="button"
-            className="Carousel__btn"
-            disabled={prevDisabled}
-            onClick={this.handleSwipeClick(-step)}
-          >
-            &#8678;
-          </button>
-
-          <button
-            type="button"
-            data-cy="next"
-            className="Carousel__btn"
-            disabled={nextDisabled}
-            onClick={this.handleSwipeClick(step)}
-          >
-            &#8680;
-          </button>
-        </div>
       </div>
-    );
-  }
-}
 
-export default Carousel;
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          onClick={handlePrevChange}
+          disabled={!infinite && startImage === 0}
+        >
+          {'<<'}
+        </button>
+
+        <button
+          data-cy="next"
+          type="button"
+          onClick={handleNextChange}
+          disabled={!infinite && images.length - frameSize === startImage}
+        >
+          {'>>'}
+        </button>
+      </div>
+    </div>
+  );
+};
