@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -26,6 +26,16 @@ const Carousel: React.FC<Props> = ({
   const isPrevDisabled = translateX === startOffset;
   const isNextDisabled
   = -translateX === containerWidth - (frameSize * imageWidth);
+
+  useEffect(() => {
+    const maxTranslateX = -(containerWidth - frameSize * imageWidth);
+
+    if (translateX < maxTranslateX) {
+      setTranslateX(maxTranslateX);
+    } else if (translateX > 0) {
+      setTranslateX(0);
+    }
+  }, [itemWidth, images.length, frameSize, containerWidth]);
 
   const handlePrevClick = () => {
     const imagesLeft = (-translateX) / imageWidth;
