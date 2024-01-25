@@ -23,29 +23,32 @@ const Carousel: React.FC<CarouselProps> = ({
   const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex + step;
-      const remainingIndex = images.length - newIndex;
 
-      if (infinite) {
-        return newIndex % images.length;
+      if (newIndex >= images.length && infinite) {
+        return 0;
       }
 
-      if (remainingIndex >= frameSize) {
+      if (newIndex < images.length - frameSize) {
         return newIndex;
       }
 
-      return remainingIndex > 0 ? currentIndex + 1 : 0;
+      return infinite ? newIndex % images.length : prevIndex;
     });
-  }, [infinite, setCurrentIndex, step, images, frameSize, currentIndex]);
+  }, [infinite, setCurrentIndex, step, images, frameSize]);
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex - step;
 
-      if (infinite) {
-        return (newIndex + images.length) % images.length;
+      if (newIndex < 0 && infinite) {
+        return images.length - frameSize;
       }
 
-      return newIndex < 0 ? images.length - frameSize : newIndex;
+      if (newIndex >= 0) {
+        return newIndex;
+      }
+
+      return infinite ? images.length - frameSize : prevIndex;
     });
   }, [infinite, setCurrentIndex, step, images, frameSize]);
 
@@ -86,7 +89,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex === 0 ? 'disabled' : ''}`}
             type="button"
             onClick={prevSlide}
-            disabled={currentIndex === 0}
+            // disabled={currentIndex === 0}
           >
             Prev
           </button>
@@ -94,7 +97,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex + step >= images.length ? 'disabled' : ''}`}
             type="button"
             onClick={nextSlide}
-            disabled={currentIndex + step >= images.length}
+            // disabled={currentIndex + step >= images.length}
             data-cy="next"
           >
             Next

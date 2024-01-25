@@ -124,6 +124,12 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
+          <input
+            className="App__infinite"
+            type="checkbox"
+            checked={infinite}
+          />
+
         </div>
 
         <Carousel
