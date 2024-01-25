@@ -1,1 +1,64 @@
 // style go here
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: darkmagenta;
+  color: wheat;
+  font-family: 'Dancing Script', cursive;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+}
+
+.InputForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__option {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--name {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    &--frame {
+      margin: 0;
+      width: 100px;
+      height: 20px;
+      border: 2px solid wheat;
+      border-radius: 5px;
+      background-color: darkmagenta;
+      color: wheat;
+      transition: border-color 0.3s, box-shadow 0.3s;
+
+      &:hover,
+      &:focus {
+        border-color: #ff8c00;
+        box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+        outline: none;
+      }
+    }
+
+    &--checkbox {
+      margin: 0 45px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

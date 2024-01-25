@@ -25,6 +25,7 @@ class Carousel extends React.Component<Props, State> {
       images, frameSize, step, infinite,
     } = this.props;
     const lastIndex = images.length - 1;
+
     let newIndex = currentIndex + step;
 
     if (infinite) {
@@ -39,6 +40,7 @@ class Carousel extends React.Component<Props, State> {
   handleDecrement = () => {
     const { currentIndex } = this.state;
     const { step, infinite } = this.props;
+
     let newIndex = currentIndex - step;
 
     if (infinite) {
@@ -51,24 +53,34 @@ class Carousel extends React.Component<Props, State> {
   };
 
   render() {
-    const { images, itemWidth, animationDuration } = this.props;
+    const {
+      images, itemWidth, animationDuration, frameSize,
+    } = this.props;
     const { currentIndex } = this.state;
 
+    const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+
     const frameStyle = {
-      width: `${itemWidth * images.length}px`,
+      width: `${itemWidth * frameSize}px`,
       transition: `transform ${animationDuration}ms ease-in-out`,
-      transform: `translateX(-${currentIndex * itemWidth}px)`,
     };
 
     return (
       <div className="Carousel">
-        <div className="Frame" style={frameStyle}>
-          {images.map((image, index) => (
-            <img key={image} src={image} alt={`Slide ${index + 1}`} style={{ width: `${itemWidth}px` }} />
+        <div className="Carousel__frame" style={frameStyle}>
+          {visibleImages.map((image, index) => (
+            <img
+              className="Carousel__frame--img"
+              key={image}
+              src={image}
+              alt={`Slide ${currentIndex + index + 1}`}
+              style={{ width: `${itemWidth}px` }}
+            />
           ))}
         </div>
 
         <button
+          className="Carousel__button Carousel__button--prev"
           type="button"
           onClick={this.handleDecrement}
         >
@@ -76,6 +88,7 @@ class Carousel extends React.Component<Props, State> {
         </button>
 
         <button
+          className="Carousel__button Carousel__button-next"
           type="button"
           onClick={this.handleIncrement}
           data-cy="next-button"

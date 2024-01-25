@@ -43,7 +43,10 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 data-cy="title">
+        <h1
+          data-cy="title"
+          className="App__title"
+        >
           Carousel with
           {' '}
           {images.length}
@@ -52,9 +55,14 @@ class App extends React.Component<{}, State> {
         </h1>
 
         <div className="InputForm">
-          <label>
-            Item Width:
+          <label
+            className="InputForm__option"
+          >
+            <p className="InputForm__option--name">
+              Item Width:
+            </p>
             <input
+              className="InputForm__option--frame"
               type="number"
               value={itemWidth}
               onChange={(e) => this.handleInputChange(
@@ -63,9 +71,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
-            Frame Size:
+          <label
+            className="InputForm__option"
+          >
+            <p className="InputForm__option--name">
+              Frame Size:
+            </p>
+
             <input
+              className="InputForm__option--frame"
               type="number"
               value={frameSize}
               onChange={(e) => this.handleInputChange(
@@ -74,9 +88,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
-            Step:
+          <label
+            className="InputForm__option"
+          >
+            <p className="InputForm__option--name">
+              Step:
+            </p>
+
             <input
+              className="InputForm__option--frame"
               type="number"
               value={step}
               onChange={(e) => this.handleInputChange(
@@ -85,9 +105,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
-            Animation Duration (ms):
+          <label
+            className="InputForm__option"
+          >
+            <p className="InputForm__option--name">
+              Animation Duration (ms):
+            </p>
+
             <input
+              className="InputForm__option--frame"
               type="number"
               value={animationDuration}
               onChange={(e) => this.handleInputChange(
@@ -96,9 +122,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <label>
-            Infinite:
+          <label
+            className="InputForm__option"
+          >
+            <p className="InputForm__option--name">
+              Infinite:
+            </p>
+
             <input
+              className="InputForm__option--checkbox"
               type="checkbox"
               checked={infinite}
               onChange={(e) => this.handleInputChange(
