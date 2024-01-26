@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -10,22 +10,18 @@ interface Props {
   infinite: boolean;
 }
 
-interface State {
-  currentIndex: number;
-}
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}: Props) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-class Carousel extends React.Component<Props, State> {
-  state: State = {
-    currentIndex: 0,
-  };
-
-  handleIncrement = () => {
-    const { currentIndex } = this.state;
-    const {
-      images, frameSize, step, infinite,
-    } = this.props;
+  const handleIncrement = () => {
     const lastIndex = images.length - 1;
-
     let newIndex = currentIndex + step;
 
     if (infinite) {
@@ -34,13 +30,10 @@ class Carousel extends React.Component<Props, State> {
       newIndex = Math.min(newIndex, lastIndex - frameSize + 1);
     }
 
-    this.setState({ currentIndex: newIndex });
+    setCurrentIndex(newIndex);
   };
 
-  handleDecrement = () => {
-    const { currentIndex } = this.state;
-    const { step, infinite } = this.props;
-
+  const handleDecrement = () => {
     let newIndex = currentIndex - step;
 
     if (infinite) {
@@ -49,55 +42,48 @@ class Carousel extends React.Component<Props, State> {
       newIndex = Math.max(newIndex, 0);
     }
 
-    this.setState({ currentIndex: newIndex });
+    setCurrentIndex(newIndex);
   };
 
-  render() {
-    const {
-      images, itemWidth, animationDuration, frameSize,
-    } = this.props;
-    const { currentIndex } = this.state;
+  const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
 
-    const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+  const frameStyle = {
+    width: `${itemWidth * frameSize}px`,
+    transition: `transform ${animationDuration}ms ease-in-out`,
+  };
 
-    const frameStyle = {
-      width: `${itemWidth * frameSize}px`,
-      transition: `transform ${animationDuration}ms ease-in-out`,
-    };
-
-    return (
-      <div className="Carousel">
-        <div className="Carousel__frame" style={frameStyle}>
-          {visibleImages.map((image, index) => (
-            <img
-              className="Carousel__frame--img"
-              key={image}
-              src={image}
-              alt={`Slide ${currentIndex + index + 1}`}
-              style={{ width: `${itemWidth}px` }}
-            />
-          ))}
-        </div>
-
-        <button
-          className="Carousel__button Carousel__button--prev"
-          type="button"
-          onClick={this.handleDecrement}
-        >
-          Prev
-        </button>
-
-        <button
-          className="Carousel__button Carousel__button-next"
-          type="button"
-          onClick={this.handleIncrement}
-          data-cy="next-button"
-        >
-          Next
-        </button>
+  return (
+    <div className="Carousel">
+      <div className="Carousel__frame" style={frameStyle}>
+        {visibleImages.map((image, index) => (
+          <img
+            className="Carousel__frame--img"
+            key={image}
+            src={image}
+            alt={`Slide ${currentIndex + index + 1}`}
+            style={{ width: `${itemWidth}px` }}
+          />
+        ))}
       </div>
-    );
-  }
-}
+
+      <button
+        className="Carousel__button Carousel__button--prev"
+        type="button"
+        onClick={handleDecrement}
+      >
+        Prev
+      </button>
+
+      <button
+        className="Carousel__button Carousel__button-next"
+        type="button"
+        onClick={handleIncrement}
+        data-cy="next-button"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;

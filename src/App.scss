@@ -54,11 +54,35 @@ body {
         outline: none;
       }
     }
+  }
+}
 
-    &--checkbox {
-      margin: 0 45px;
-      width: 20px;
-      height: 20px;
-    }
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  margin: 0 45px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid wheat;
+  border-radius: 5px;
+  color: wheat;
+
+  &::before {
+    content: "✔";
+    position: absolute;
+    font-size: 1.5em;
+    right: -1px;
+    top: -0.3em;
+    visibility: hidden;
+  }
+
+  &:checked::before {
+    visibility: visible;
+  }
+
+  &:hover {
+    border-color: #ff8c00;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+    outline: none;
   }
 }
