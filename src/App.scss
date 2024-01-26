@@ -20,8 +20,10 @@
     justify-content: center;
   }
 
-  &__infinite {
-    display: none;
+  &__checkbox {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
   }
 }
 

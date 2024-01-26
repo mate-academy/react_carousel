@@ -74,6 +74,16 @@ class App extends React.Component<{}, State> {
       }));
     };
 
+    const changeInfinite
+      = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = Number(event.target.checked);
+
+        this.setState((prevState) => ({
+          ...prevState,
+          infinite: newValue,
+        }));
+      };
+
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
@@ -116,7 +126,7 @@ class App extends React.Component<{}, State> {
           </label>
 
           <label className="App__input">
-            <b className="App__margin">Fnimation Duration:</b>
+            <b className="App__margin">Animation Duration:</b>
             <input
               type="number"
               value={animationDuration}
@@ -124,11 +134,15 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          <input
-            className="App__infinite"
-            type="checkbox"
-            checked={infinite}
-          />
+          <label className="App__checkbox">
+            <b className="App__margin"> Infinite:</b>
+            <input
+              type="checkbox"
+              checked={infinite}
+              defaultChecked
+              onChange={changeInfinite}
+            />
+          </label>
 
         </div>
 

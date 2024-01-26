@@ -89,7 +89,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex === 0 ? 'disabled' : ''}`}
             type="button"
             onClick={prevSlide}
-            // disabled={currentIndex === 0}
+            disabled={currentIndex === 0}
           >
             Prev
           </button>
@@ -97,7 +97,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex + step >= images.length ? 'disabled' : ''}`}
             type="button"
             onClick={nextSlide}
-            // disabled={currentIndex + step >= images.length}
+            disabled={currentIndex + step >= images.length}
             data-cy="next"
           >
             Next
