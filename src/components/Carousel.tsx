@@ -1,18 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}: Props) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleIncrement = () => {
+    const lastIndex = images.length - 1;
+    let newIndex = currentIndex + step;
+
+    if (infinite) {
+      newIndex = newIndex > lastIndex ? 0 : newIndex;
+    } else {
+      newIndex = Math.min(newIndex, lastIndex - frameSize + 1);
+    }
+
+    setCurrentIndex(newIndex);
+  };
+
+  const handleDecrement = () => {
+    let newIndex = currentIndex - step;
+
+    if (infinite) {
+      newIndex = newIndex < 0 ? 0 : newIndex;
+    } else {
+      newIndex = Math.max(newIndex, 0);
+    }
+
+    setCurrentIndex(newIndex);
+  };
+
+  const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
+
+  const frameStyle = {
+    width: `${itemWidth * frameSize}px`,
+    transition: `transform ${animationDuration}ms ease-in-out`,
+  };
+
+  return (
+    <div className="Carousel">
+      <div className="Carousel__frame" style={frameStyle}>
+        {visibleImages.map((image, index) => (
+          <img
+            className="Carousel__frame--img"
+            key={image}
+            src={image}
+            alt={`Slide ${currentIndex + index + 1}`}
+            style={{ width: `${itemWidth}px` }}
+          />
+        ))}
+      </div>
+
+      <button
+        className="Carousel__button Carousel__button--prev"
+        type="button"
+        onClick={handleDecrement}
+      >
+        Prev
+      </button>
+
+      <button
+        className="Carousel__button Carousel__button-next"
+        type="button"
+        onClick={handleIncrement}
+        data-cy="next-button"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
