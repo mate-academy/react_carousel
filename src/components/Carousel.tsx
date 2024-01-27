@@ -28,13 +28,15 @@ const Carousel: React.FC<CarouselProps> = ({
         return 0;
       }
 
-      if (newIndex < images.length - frameSize) {
+      if (newIndex <= images.length - frameSize
+       || currentIndex + step >= images.length - 1
+        || images.length > step) {
         return newIndex;
       }
 
-      return infinite ? newIndex % images.length : prevIndex;
+      return infinite ? newIndex % (images.length - step + 1) : prevIndex;
     });
-  }, [infinite, setCurrentIndex, step, images, frameSize]);
+  }, [infinite, setCurrentIndex, step, images, frameSize, currentIndex]);
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => {
@@ -89,7 +91,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex === 0 ? 'disabled' : ''}`}
             type="button"
             onClick={prevSlide}
-            disabled={currentIndex === 0}
+            disabled={currentIndex === 0 && !infinite}
           >
             Prev
           </button>
@@ -97,7 +99,8 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`Carousel__button ${currentIndex + step >= images.length ? 'disabled' : ''}`}
             type="button"
             onClick={nextSlide}
-            disabled={currentIndex + step >= images.length}
+            disabled={currentIndex + step >= images.length
+              && !infinite}
             data-cy="next"
           >
             Next
