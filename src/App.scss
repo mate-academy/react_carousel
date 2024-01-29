@@ -1,1 +1,36 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  width: 1300px;
+}
+
+.App__header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.App__form {
+  display: flex;
+  margin-inline: auto;
+  margin-bottom: 50px;
+}
+
+.App__label {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.App__input {
+  display: block;
+  width: 150px;
+}
+
+.App__checkbox {
+  display: block;
+  cursor: pointer;
+  margin-inline: 0;
+  width: 100%;
+}

@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  margin-inline: auto;
+}
+
+.Carousel__list {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+
+  margin-inline: auto;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #000;
+}
+
+.Carousel__buttons {
+  width: 1300px;
+  text-align: center;
+}
+
+.button {
+  cursor: pointer;
+  width: 60px;
+}
+
+.button__next {
+  margin-left: 10px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
