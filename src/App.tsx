@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
+const DEFAULT_STEP = 3;
+const DEFAULT_FRAME_SIZE = 3;
+const DEFAULT_ITEM_WIDTH = 130;
+const DEFAULT_ANIMATION = 1000;
+
 const images = [
   './img/1.png',
   './img/2.png',
@@ -16,10 +21,10 @@ const images = [
 ];
 
 const App: React.FC = () => {
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [step, setStep] = useState(DEFAULT_STEP);
+  const [frameSize, setFrameSize] = useState(DEFAULT_FRAME_SIZE);
+  const [itemWidth, setItemWidth] = useState(DEFAULT_ITEM_WIDTH);
+  const [animationDuration, setAnimationDuration] = useState(DEFAULT_ANIMATION);
   const [infinite, setInfinite] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
