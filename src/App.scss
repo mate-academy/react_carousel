@@ -1,1 +1,25 @@
 // style go here
+.App{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &_label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 20px;
+    font-size: 20px;
+  }
+
+  &_value {
+    width: 150px;
+    margin-left:10px;
+  }
+}
