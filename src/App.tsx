@@ -45,7 +45,7 @@ export const App = () => {
       </h1>
 
       <form className="App__form" action="#" method="post">
-        <label className="App__label" htmlFor="itemWidth">
+        <label className="App__label">
           Width:
           <input
             type="number"
@@ -60,7 +60,7 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__label" htmlFor="frameSize">
+        <label className="App__label">
           On page:
           <input
             type="number"
@@ -74,7 +74,7 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__label" htmlFor="step">
+        <label className="App__label">
           Step:
           <input
             type="number"
@@ -88,7 +88,7 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__label" htmlFor="animationDuration">
+        <label className="App__label">
           Animation speed:
           <input
             type="number"
@@ -103,7 +103,7 @@ export const App = () => {
           />
         </label>
 
-        <label className="App__label" htmlFor="infinite">
+        <label className="App__label">
           Infinite:
           <input
             type="checkbox"

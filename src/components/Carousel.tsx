@@ -47,6 +47,10 @@ const Carousel: React.FC<Props> = ({
     return imageStyles;
   };
 
+  if (frameSize > (images.length) - firstImg) {
+    setFirstImg((images.length) - frameSize);
+  }
+
   const handleNext = () => {
     if ((firstImg + step + frameSize) <= (images.length - 1)) {
       setFirstImg(firstImg + step);
