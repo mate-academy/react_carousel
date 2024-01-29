@@ -29,7 +29,7 @@
    - `itemWidth`
    - `frameSize`
    - `step`
-   - `fnimationDuration`
+   - `animationDuration`
 3. Add data-cy attributes:
    - `title` inside h1 tag
    - `next` to the "Next" button

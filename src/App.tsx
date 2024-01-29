@@ -20,6 +20,7 @@ export const App = () => {
   const [imgOnPage, setImgOnPage] = useState(3);
   const [imgForChange, setImgForChange] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
   function handleChangeWidth(query: React.ChangeEvent<HTMLInputElement>) {
     if (+query.target.value > 50) {
@@ -43,28 +44,79 @@ export const App = () => {
 
   return (
     <div className="App">
-      <h1 data-cy="title">
+      <h1 className="App__header" data-cy="title">
         {`Carousel with ${images.length} images`}
       </h1>
-      <input
-        name="ItemWidth"
-        onChange={handleChangeWidth}
-      />
 
-      <input
-        name="ImgOnPage"
-        onChange={handleChangeFrame}
-      />
+      <form className="App__form" action="#" method="post">
+        <label className="App__label" htmlFor="itemWidth">
+          Width:
+          <input
+            type="number"
+            min="50"
+            max="300"
+            step="10"
+            id="timer1"
+            className="App__input"
+            name="itemWidth"
+            value={String(itemWidth)}
+            onChange={handleChangeWidth}
+          />
+        </label>
 
-      <input
-        name="ImgForChange"
-        onChange={handleChangeStep}
-      />
+        <label className="App__label" htmlFor="frameSize">
+          On page:
+          <input
+            type="number"
+            min="3"
+            max="10"
+            id="timer2"
+            className="App__input"
+            name="frameSize"
+            value={String(imgOnPage)}
+            onChange={handleChangeFrame}
+          />
+        </label>
 
-      <input
-        name="animation"
-        onChange={handleAnimationChange}
-      />
+        <label className="App__label" htmlFor="step">
+          Step:
+          <input
+            type="number"
+            min="1"
+            max="10"
+            id="timer3"
+            className="App__input"
+            name="step"
+            value={String(imgForChange)}
+            onChange={handleChangeStep}
+          />
+        </label>
+
+        <label className="App__label" htmlFor="animationDuration">
+          Animation speed:
+          <input
+            type="number"
+            min="0"
+            max="10000"
+            step="100"
+            id="timer4"
+            className="App__input"
+            name="animationDuration"
+            value={String(animationDuration)}
+            onChange={handleAnimationChange}
+          />
+        </label>
+
+        <label className="App__label" htmlFor="infinite">
+          Infinite:
+          <input
+            type="checkbox"
+            className="App__checkbox"
+            name="infinite"
+            onChange={() => setInfinite(!infinite)}
+          />
+        </label>
+      </form>
 
       <Carousel
         images={images}
@@ -72,7 +124,7 @@ export const App = () => {
         frameSize={imgOnPage}
         step={imgForChange}
         animationDuration={animationDuration}
-      // infinite={false}
+        infinite={infinite}
       />
     </div>
   );
