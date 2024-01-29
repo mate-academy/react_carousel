@@ -80,14 +80,14 @@ class App extends React.Component<{}, State> {
           <div className="App__carousel__controler">
             <label
               className="App__carousel__controler__label"
-              htmlFor="widthId"
+              htmlFor="itemId"
             >
               Item width:
             </label>
             <input
               className="App__carousel__controler__input"
               type="number"
-              id="widthId"
+              id="itemId"
               min={0}
               step={10}
               value={itemWidth}
