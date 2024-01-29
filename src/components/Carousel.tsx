@@ -22,21 +22,30 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
 }) => {
   const [firstImg, setFirstImg] = useState(0);
-  const carouselStyles: CarouselStyles = {
-    width: `${frameSize * itemWidth}px`,
-  };
-  const imageStyles: ImageStyles = {
-    width: `${itemWidth}px`,
-    transition: `transform ${animationDuration}ms ease 0s`,
+  const addCarouselStyles = (): CarouselStyles => {
+    const carouselStyles: CarouselStyles = {
+      width: `${frameSize * itemWidth}px`,
+    };
+
+    if ((frameSize * itemWidth) > 1300) {
+      carouselStyles.transform = `translateX(-${(frameSize * itemWidth - 1300) / 2}px)`;
+    }
+
+    return carouselStyles;
   };
 
-  if ((frameSize * itemWidth) > 1300) {
-    carouselStyles.transform = `translateX(-${(frameSize * itemWidth - 1300) / 2}px)`;
-  }
+  const addImgStyles = (): ImageStyles => {
+    const imageStyles: ImageStyles = {
+      width: `${itemWidth}px`,
+      transition: `transform ${animationDuration}ms ease 0s`,
+    };
 
-  if (firstImg > 0) {
-    imageStyles.transform = `translateX(-${itemWidth * firstImg}px)`;
-  }
+    if (firstImg > 0) {
+      imageStyles.transform = `translateX(-${itemWidth * firstImg}px)`;
+    }
+
+    return imageStyles;
+  };
 
   const handleNext = () => {
     if ((firstImg + step + frameSize) <= (images.length - 1)) {
@@ -64,7 +73,7 @@ const Carousel: React.FC<Props> = ({
     >
       <ul
         className="Carousel__list"
-        style={carouselStyles}
+        style={addCarouselStyles()}
       >
         {images.map((
           image: string,
@@ -74,7 +83,7 @@ const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={`Img_${String(index + 1)}`}
-              style={imageStyles}
+              style={addImgStyles()}
             />
           </li>
         ))}

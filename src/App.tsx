@@ -23,11 +23,7 @@ export const App = () => {
   const [infinite, setInfinite] = useState(false);
 
   function handleChangeWidth(query: React.ChangeEvent<HTMLInputElement>) {
-    if (+query.target.value > 50) {
-      setItemWidth(+query.target.value);
-    } else {
-      setItemWidth(130);
-    }
+    setItemWidth(+query.target.value);
   }
 
   function handleChangeFrame(qty: React.ChangeEvent<HTMLInputElement>) {
