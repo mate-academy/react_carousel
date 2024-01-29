@@ -124,7 +124,7 @@ const App: React.FC = () => {
         animationDuration={animationDuration}
         infinite={infinite}
         currentImage={currentImage}
-        setCurrentImage={(v) => setCurrentImage(v)}
+        setCurrentImage={setCurrentImage}
       />
     </div>
   );
