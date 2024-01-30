@@ -67,15 +67,6 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel
-          images={images}
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
-          animationDuration={animationDuration}
-          infinite={infinite}
-        />
-
         <div className="container">
           <div className="App__carousel__controler">
             <label
@@ -107,7 +98,7 @@ class App extends React.Component<{}, State> {
               type="number"
               id="frameId"
               min={1}
-              max={10}
+              max={images.length}
               value={frameSize}
               onChange={handleFrameSizeChange}
             />
@@ -164,6 +155,15 @@ class App extends React.Component<{}, State> {
             />
           </div>
         </div>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }

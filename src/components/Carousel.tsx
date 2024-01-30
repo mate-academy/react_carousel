@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -20,8 +20,11 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [startImage, setStartImage] = useState(0);
 
+  useEffect(() => {
+    setStartImage(0);
+  }, [frameSize, images]);
+
   const endImageIndex = startImage + frameSize;
-  const carouselWidth = (frameSize * itemWidth) + ((frameSize - 1) * 10);
   const translateX = startImage === 0
     ? 0
     : startImage * (itemWidth + 10);
@@ -38,6 +41,9 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
+  const carouselWidth = (frameSize * itemWidth)
+  + ((frameSize - 1) * 10);
+
   const handlePrevChange = () => {
     if (infinite && startImage === 0) {
       setStartImage(images.length - frameSize);
@@ -52,6 +58,27 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={handlePrevChange}
+          disabled={!infinite && startImage === 0}
+        >
+          { '<<<' }
+        </button>
+
+        <button
+          data-cy="next"
+          type="button"
+          className="Carousel__button"
+          onClick={handleNextChange}
+          disabled={!infinite && images.length - frameSize === startImage}
+        >
+          { '>>>' }
+        </button>
+      </div>
+
       <div className="Carousel__container">
         <ul
           className="Carousel__list"
@@ -72,27 +99,6 @@ const Carousel: React.FC<Props> = ({
             </li>
           ))}
         </ul>
-      </div>
-
-      <div className="Carousel__buttons">
-        <button
-          type="button"
-          className="Carousel__button"
-          onClick={handlePrevChange}
-          disabled={!infinite && startImage === 0}
-        >
-          { '<<<' }
-        </button>
-
-        <button
-          data-cy="next"
-          type="button"
-          className="Carousel__button"
-          onClick={handleNextChange}
-          disabled={!infinite && images.length - frameSize === startImage}
-        >
-          { '>>>' }
-        </button>
       </div>
     </div>
   );
