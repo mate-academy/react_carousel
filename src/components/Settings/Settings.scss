@@ -1,0 +1,48 @@
+.SettingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 20px auto 0;
+  padding: 20px;
+
+  border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0, rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+
+  &__label {
+    display: block;
+    margin: 0 0 10px;
+    color: #178acb;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+  }
+
+  &__input {
+    margin-left: 20px;
+    outline: none;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    background: none;
+    border: 2px solid #707070;
+    border-radius: 5px;
+    color: #707070;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 700;
+    line-height: inherit;
+
+    &:focus {
+      color: #178acb;
+      border-color: #178acb;
+    }
+  }
+}
