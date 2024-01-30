@@ -1,1 +1,42 @@
-// style go here
+* {box-sizing:border-box}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width:1300px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    overflow: hidden;
+    flex-direction: row;
+    padding: 0;
+    border: 3px solid #000;
+    border-radius: 20px;
+  }
+
+  &__list li {
+    display: flex;
+    width: 130px;
+    height: 130px;
+    background: #ccc;
+  }
+
+  &_button{
+    display: flex;
+    gap:30px;
+    flex-direction: row;
+    align-items: center;
+  }
+  &_prev, &_next {
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &_prev:hover, &_next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+}
+
