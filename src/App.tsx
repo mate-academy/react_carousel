@@ -30,9 +30,9 @@ const App: React.FC = () => {
         className="App__title"
         data-cy="title"
       >
-        Carousel with
-        {images.length}
-        images
+        {`Carousel with
+         ${images.length}
+        images`}
       </h1>
 
       <Settings
