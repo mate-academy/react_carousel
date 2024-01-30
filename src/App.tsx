@@ -14,13 +14,23 @@ const images = [
   './img/9.png',
   './img/10.png',
 ];
+const initialSettingsState = {
+  itemWidth: 130,
+  size: 3,
+  step: 3,
+  duration: 1000,
+  infinite: false,
+};
 
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(130);
-  const [size, setSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [duration, setDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [settings, setSettings] = useState(initialSettingsState);
+  const {
+    itemWidth,
+    size,
+    step,
+    duration,
+    infinite,
+  } = settings;
 
   return (
     <div className="App">
@@ -35,69 +45,76 @@ const App: React.FC = () => {
         infinite={infinite}
       />
       <div className="input">
-        <label htmlFor="ItemWidth" className="input_label">
+        <label className="input_label">
           Item width:
           <input
             className="input_value"
             type="number"
-            id="ItemWidth"
-            min={0}
+            min={130}
             max={400}
             step={15}
             value={itemWidth}
-            onChange={(event) => setItemWidth(+Number(event.target.value))}
+            onChange={event => setSettings(prevState => ({
+              ...prevState,
+              itemWidth: Number(event.target.value),
+            }))}
           />
         </label>
-        <label htmlFor="FrameSize" className="input_label">
+        <label className="input_label">
           Frame Size:
           <input
             className="input_value"
             type="number"
-            id="FrameSize"
-            min={0}
+            min={1}
             max={10}
             step={1}
             value={size}
-            onChange={(event) => setSize(+Number(event.target.value))}
+            onChange={event => setSettings(prevState => ({
+              ...prevState,
+              size: Number(event.target.value),
+            }))}
           />
         </label>
-        <label htmlFor="Steps" className="input_label">
+        <label className="input_label">
           Step:
           <input
             className="input_value"
             type="number"
-            id="Steps"
-            min={0}
+            min={1}
             max={10}
             step={1}
             value={step}
-            onChange={(event) => setStep(+Number(event.target.value))}
+            onChange={event => setSettings(prevState => ({
+              ...prevState,
+              step: Number(event.target.value),
+            }))}
           />
         </label>
-        <label htmlFor="AnimationDuration" className="input_label">
+        <label className="input_label">
           Animation Duration:
           <input
             className="input_value"
             type="number"
-            id="AnimationDuration"
             min={0}
             step={100}
             value={duration}
-            onChange={(event) => setDuration(
-              +Number(event.target.value),
-            )}
+            onChange={event => setSettings(prevState => ({
+              ...prevState,
+              duration: Number(event.target.value),
+            }))}
           />
         </label>
         <label
-          htmlFor="infinite"
           className="input_label"
         >
           Infinite:
           <input
             className="input_value"
             type="checkbox"
-            id="infinite"
-            onChange={() => setInfinite(!infinite)}
+            onChange={() => setSettings(prevState => ({
+              ...prevState,
+              infinite: !infinite,
+            }))}
           />
         </label>
       </div>

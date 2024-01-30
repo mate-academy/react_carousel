@@ -12,3 +12,5 @@
 [0129/161503.559:ERROR:persistent_memory_allocator.cc(777)] Corruption detected in shared-memory segment.
 [0129/161503.586:ERROR:crash_report_database_win.cc(426)] unexpected header
 [0129/200934.679:ERROR:crash_report_database_win.cc(426)] unexpected header
+[0130/123848.828:ERROR:persistent_memory_allocator.cc(777)] Corruption detected in shared-memory segment.
+[0130/123848.871:ERROR:crash_report_database_win.cc(426)] unexpected header

@@ -24,21 +24,17 @@ const Carousel: React.FC <CarouselProps> = ({
   const disableAction = !infinite && currentImage === 0;
   const disableActionNext = !infinite && currentImage === maxImages;
 
-  const prevItems = () => {
-    if (currentImage === 0) {
-      setCurrentImage(maxImages);
-    } else {
-      setCurrentImage(prev => Math.max((prev - step), 0));
-    }
-  };
+  const prevItems = () => (
+    currentImage === 0
+      ? setCurrentImage(maxImages)
+      : setCurrentImage(prev => Math.max((prev - step), 0))
+  );
 
-  const nextItems = () => {
-    if (currentImage !== maxImages) {
-      setCurrentImage(prev => Math.min(prev + step, maxImages));
-    } else {
-      setCurrentImage(0);
-    }
-  };
+  const nextItems = () => (
+    currentImage !== maxImages
+      ? setCurrentImage(prev => Math.min(prev + step, maxImages))
+      : setCurrentImage(0)
+  );
 
   return (
     <div
@@ -52,6 +48,7 @@ const Carousel: React.FC <CarouselProps> = ({
         className="Carousel__list"
         style={{
           width: `${carouselWidth}px`,
+          transition: `${animationDuration}ms`,
         }}
       >
         {images.map((img, index) => (
@@ -61,7 +58,7 @@ const Carousel: React.FC <CarouselProps> = ({
               width: `${itemWidth}px`,
               height: `${itemWidth}px`,
               transform: `translateX(${-currentImage * 100}%)`,
-              transition: `transform ${animationDuration}ms ease-in-out`,
+              transition: `${animationDuration}ms`,
             }}
           >
             <img
@@ -70,6 +67,7 @@ const Carousel: React.FC <CarouselProps> = ({
               style={{
                 width: `${itemWidth}px`,
                 height: `${itemWidth}px`,
+                transition: `${animationDuration}ms`,
               }}
             />
           </li>
