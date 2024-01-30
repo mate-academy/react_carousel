@@ -1,1 +1,46 @@
-// style go here
+.Carousel {
+  &__list {
+    display: flex;
+    padding-top: 15px;
+    overflow: hidden;
+    list-style: none;
+    border: 2px solid orange;
+    border-radius: 150px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 25px;
+  }
+
+  &__btn {
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    font-size: 16px;
+    color: brown;
+    border: 2px brown solid;
+    background-color: grey;
+    border-radius: 50px;
+    transition: 300ms, opacity 1000ms;
+
+    &--active {
+      &:hover {
+        color: orange;
+        border: 3px orange solid;
+      }
+
+      &:active {
+        color: red;
+        border: 3px red solid;
+      }
+    }
+
+    &--disabled {
+      opacity: 0.4;
+      cursor: no-drop;
+    }
+  }
+}

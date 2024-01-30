@@ -1,1 +1,28 @@
-// style go here
+body {
+  background: silver;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin: 0 0 15px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px 10px 5px;
+    border: 2px orange solid;
+    border-radius: 50px;
+  }
+}
