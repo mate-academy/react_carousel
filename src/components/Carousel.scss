@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1300px;
+  margin-bottom: 20px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    gap: 10px;
+
+    &>li {
+      display: flex;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 10px;
+    gap: 20px;
+  }
+
+  &__button {
+    cursor: pointer;
+  }
+}
+
+.Carousel__container {
+  overflow: hidden;
+
+  background-color: #e6d7e2;
+}

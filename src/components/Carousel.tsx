@@ -1,18 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li><img src="./img/1.png" alt="1" /></li>
-      <li><img src="./img/1.png" alt="2" /></li>
-      <li><img src="./img/1.png" alt="3" /></li>
-      <li><img src="./img/1.png" alt="4" /></li>
-    </ul>
+type Props = {
+  images: string[],
+  itemWidth: number,
+  frameSize: number,
+  step: number,
+  animationDuration: number,
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}) => {
+  const [startImage, setStartImage] = useState(0);
+
+  useEffect(() => {
+    setStartImage(0);
+  }, [frameSize, images]);
+
+  const endImageIndex = startImage + frameSize;
+  const translateX = startImage === 0
+    ? 0
+    : startImage * (itemWidth + 10);
+
+  const handleNextChange = () => {
+    if (infinite && endImageIndex === images.length) {
+      setStartImage(0);
+    } else {
+      setStartImage(
+        endImageIndex + step < images.length
+          ? startImage + step
+          : images.length - frameSize,
+      );
+    }
+  };
+
+  const carouselWidth = (frameSize * itemWidth)
+  + ((frameSize - 1) * 10);
+
+  const handlePrevChange = () => {
+    if (infinite && startImage === 0) {
+      setStartImage(images.length - frameSize);
+    } else {
+      setStartImage(
+        startImage > step
+          ? startImage - step
+          : 0,
+      );
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={handlePrevChange}
+          disabled={!infinite && startImage === 0}
+        >
+          { '<<<' }
+        </button>
+
+        <button
+          data-cy="next"
+          type="button"
+          className="Carousel__button"
+          onClick={handleNextChange}
+          disabled={!infinite && images.length - frameSize === startImage}
+        >
+          { '>>>' }
+        </button>
+      </div>
+
+      <div className="Carousel__container">
+        <ul
+          className="Carousel__list"
+          style={{
+            transition: `transform ${animationDuration}ms`,
+            transform: `translateX(${-(translateX)}px)`,
+            width: carouselWidth,
+          }}
+        >
+          {images.map((imageUrl) => (
+            <li className="Carousel__lis__item" key={imageUrl}>
+              <img
+                className="Carousel__lis__item__img"
+                src={imageUrl}
+                alt="funy Face"
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
