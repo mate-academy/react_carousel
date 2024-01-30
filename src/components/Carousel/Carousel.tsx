@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Carousel.scss';
 
 interface CarouselProps {
@@ -8,6 +8,8 @@ interface CarouselProps {
   itemWidth: number
   animationDuration: number
   infinite: boolean
+  position: number
+  setPosition: (newPosition: number) => void
 }
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -17,9 +19,9 @@ const Carousel: React.FC<CarouselProps> = ({
   itemWidth,
   animationDuration,
   infinite,
+  position,
+  setPosition,
 }) => {
-  const [position, setPosition] = useState(0);
-
   const isLastPosition = images.length - frameSize;
   const isDisabledButtonPrev = (infinite && frameSize === images.length)
     || (position === 0 && !infinite);

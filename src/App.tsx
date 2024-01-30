@@ -22,6 +22,7 @@ const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
+  const [position, setPosition] = useState(0);
 
   return (
     <div className="App">
@@ -46,6 +47,7 @@ const App: React.FC = () => {
         setAnimationDuration={setAnimationDuration}
         infinite={infinite}
         setInfinite={setInfinite}
+        setPosition={setPosition}
       />
 
       <Carousel
@@ -55,6 +57,8 @@ const App: React.FC = () => {
         itemWidth={itemWidth}
         animationDuration={animationDuration}
         infinite={infinite}
+        position={position}
+        setPosition={setPosition}
       />
     </div>
   );

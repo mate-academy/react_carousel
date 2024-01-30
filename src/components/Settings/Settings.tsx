@@ -16,6 +16,7 @@ interface SettingsStateProps extends SettingsProps {
   setItemWidth: (newItemWidth: number) => void,
   setAnimationDuration: (newAnimationDuration: number) => void,
   setInfinite: (newInfinite: boolean) => void,
+  setPosition: (newPosition: number) => void,
 }
 
 const Settings: React.FC<SettingsStateProps> = ({
@@ -30,6 +31,7 @@ const Settings: React.FC<SettingsStateProps> = ({
   setAnimationDuration,
   infinite,
   setInfinite,
+  setPosition,
 }) => {
   return (
     <form
@@ -46,7 +48,10 @@ const Settings: React.FC<SettingsStateProps> = ({
           min={1}
           max={images.length - frameSize}
           value={step}
-          onChange={(event) => setStep(+event.currentTarget.value)}
+          onChange={(event) => {
+            setStep(+event.currentTarget.value);
+            setPosition(0);
+          }}
         />
       </label>
       <label htmlFor="frameSizeId" className="SettingForm__label">
@@ -58,7 +63,10 @@ const Settings: React.FC<SettingsStateProps> = ({
           min={1}
           max={images.length}
           value={frameSize}
-          onChange={(event) => setFrameSize(+event.currentTarget.value)}
+          onChange={(event) => {
+            setFrameSize(+event.currentTarget.value);
+            setPosition(0);
+          }}
         />
       </label>
       <label htmlFor="itemWidthId" className="SettingForm__label">
@@ -70,7 +78,10 @@ const Settings: React.FC<SettingsStateProps> = ({
           min={50}
           step={5}
           value={itemWidth}
-          onChange={(event) => setItemWidth(+event.currentTarget.value)}
+          onChange={(event) => {
+            setItemWidth(+event.currentTarget.value);
+            setPosition(0);
+          }}
         />
       </label>
       <label htmlFor="animationDurationId" className="SettingForm__label">
@@ -82,7 +93,10 @@ const Settings: React.FC<SettingsStateProps> = ({
           min={0}
           step={100}
           value={animationDuration}
-          onChange={(event) => setAnimationDuration(+event.currentTarget.value)}
+          onChange={(event) => {
+            setAnimationDuration(+event.currentTarget.value);
+            setPosition(0);
+          }}
         />
       </label>
 
@@ -93,7 +107,10 @@ const Settings: React.FC<SettingsStateProps> = ({
           type="checkbox"
           className="SettingForm__checkbox"
           checked={infinite}
-          onChange={(event) => setInfinite(event.target.checked)}
+          onChange={(event) => {
+            setInfinite(event.target.checked);
+            setPosition(0);
+          }}
         />
       </label>
     </form>
