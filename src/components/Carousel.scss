@@ -1,11 +1,11 @@
 .Carousel {
   &__list {
     display: flex;
-    padding-top: 15px;
+    padding: 10px 15px 5px 0;
     overflow: hidden;
     list-style: none;
     border: 2px solid orange;
-    border-radius: 150px;
+    border-radius: 30px;
   }
 
   &__buttons {

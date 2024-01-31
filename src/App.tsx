@@ -13,26 +13,31 @@ const images = [
   './img/8.png',
   './img/9.png',
   './img/10.png',
-]
+];
 
-enum DefaultValues {
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animDur = 1000,
-}
+const DEFAULT_VALUES = {
+  itemWidth: 130,
+  frameSize: 3,
+  step: 3,
+  animDur: 1000,
+};
 
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(DefaultValues.itemWidth);
-  const [frameSize, setFrameSize] = useState(DefaultValues.frameSize);
-  const [step, setStep] = useState(DefaultValues.step);
-  const [animDur, setAnimDur] = useState(DefaultValues.animDur);
+  const [itemWidth, setItemWidth] = useState(DEFAULT_VALUES.itemWidth);
+  const [frameSize, setFrameSize] = useState(DEFAULT_VALUES.frameSize);
+  const [step, setStep] = useState(DEFAULT_VALUES.step);
+  const [animDur, setAnimDur] = useState(DEFAULT_VALUES.animDur);
   const [infinite, setInfinite] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
   return (
     <div className="App">
-      <h1 data-cy="title" className="App__title">Carousel with {images.length} images</h1>
+      <h1 data-cy="title" className="App__title">
+        Carousel with
+        {images.length}
+        {' '}
+        images
+      </h1>
       <div className="App__fields">
         <label htmlFor="itemId" className="App__label">
           {'Item Width: '}
@@ -125,6 +130,6 @@ const App: React.FC = () => {
       />
     </div>
   );
-}
+};
 
 export default App;

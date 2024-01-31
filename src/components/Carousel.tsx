@@ -10,7 +10,7 @@ type Props = {
   infinite: boolean
   currentImage: number;
   setCurrentImage: (value: number) => void;
-}
+};
 
 const Carousel: React.FC<Props> = ({
   images,
@@ -35,7 +35,9 @@ const Carousel: React.FC<Props> = ({
   function goNext() {
     return (
       currentImage !== imagesLeft
-        ? setCurrentImage(currentImage + step <= imagesLeft ? currentImage + step : imagesLeft)
+        ? setCurrentImage(
+          currentImage + step <= imagesLeft ? currentImage + step : imagesLeft,
+        )
         : setCurrentImage(0)
     );
   }
@@ -44,18 +46,29 @@ const Carousel: React.FC<Props> = ({
   const nextDisabled = (currentImage === imagesLeft) && !infinite;
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={{
+        width: `${frameSize * itemWidth}px`,
+        transition: `${animDur}ms`,
+      }}
+    >
       <ul className="Carousel__list">
         {images.map((image, i) => (
           <li
-            className='Carousel__image'
+            className="Carousel__image"
+            key={image}
+            style={{
+              transform: `translateX(${-(currentImage * itemWidth)}px)`,
+              transition: `transform ${animDur}ms`,
+            }}
           >
             <img
               src={image}
-              alt={`${i + 1}`}
+              alt={`Emoji img ${i + 1}`}
               width={itemWidth}
             />
-            </li>
+          </li>
         ))}
       </ul>
       <div className="Carousel__buttons">
@@ -87,6 +100,6 @@ const Carousel: React.FC<Props> = ({
       </div>
     </div>
   );
-}
+};
 
 export default Carousel;
