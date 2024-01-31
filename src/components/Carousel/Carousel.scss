@@ -1,0 +1,18 @@
+.Carousel {
+  max-width: 1300px;
+
+  &__list {
+    width: 260px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    gap: 8px;
+  }
+
+  &__items {
+    list-style-type: none;
+  }
+  &__image {
+    display: block;
+  }
+}
