@@ -16,12 +16,26 @@ const images: string[] = [
   './img/10.png',
 ];
 
+export type ValuesImgType = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
+
+const defaultValues: ValuesImgType = {
+  images,
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 export const App: React.FC = () => {
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [animation, setAnimation] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [valuesImage, setValuesImage] = useState(defaultValues);
 
   return (
     <div className="App section">
@@ -29,24 +43,11 @@ export const App: React.FC = () => {
       <h1 data-cy='title' className="title">Carousel with {images.length} images</h1>
 
       <Carousel
-        images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animation}
-        infinite={infinite}
+        valuesImage={valuesImage}
       />
       <Form
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animation}
-        infinite={infinite}
-        setStep={(value) => setStep(value)}
-        setFrameSize={(value) => setFrameSize(value)}
-        setItemWidth={(value) => setItemWidth(value)}
-        setAnimation={(value) => setAnimation(value)}
-        setInfinite={(value) => setInfinite(value)}
+        valuesImage={valuesImage}
+        setValuesImage={(value) => setValuesImage(value)}
       />
     </div>
   );

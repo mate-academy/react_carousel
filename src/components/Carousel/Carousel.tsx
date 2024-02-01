@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
+import { ValuesImgType } from '../../App';
 
 type Props = {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
+  valuesImage: ValuesImgType;
 };
 
-export const Carousel: React.FC<Props> = ({
-  images,
-  step,
-  frameSize,
-  itemWidth,
-  animationDuration,
-  infinite,
-}) => {
+export const Carousel: React.FC<Props> = ({ valuesImage }) => {
+  const {
+    images,
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+    infinite,
+  } = valuesImage;
   const [transform, setTransform] = useState(0);
   const isLastPosition = images.length - frameSize;
 
