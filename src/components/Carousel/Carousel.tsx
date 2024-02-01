@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
-import { ValuesImgType } from '../../App';
+import { ValuesImgType } from '../../types/Types';
 
 type Props = {
   valuesImage: ValuesImgType;

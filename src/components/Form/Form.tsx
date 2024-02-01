@@ -1,6 +1,6 @@
 import React from 'react';
 import './Form.scss';
-import { ValuesImgType } from '../../App';
+import { ValuesImgType } from '../../types/Types';
 
 interface Props {
   valuesImage: ValuesImgType;

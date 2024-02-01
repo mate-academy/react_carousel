@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 import { Form } from './components/Form';
+import { ValuesImgType } from './types/Types';
 
 const images: string[] = [
   './img/1.png',
@@ -15,15 +16,6 @@ const images: string[] = [
   './img/9.png',
   './img/10.png',
 ];
-
-export type ValuesImgType = {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
-};
 
 const defaultValues: ValuesImgType = {
   images,
