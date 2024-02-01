@@ -19,24 +19,23 @@ const DEFAULT_VALUES = {
   itemWidth: 130,
   frameSize: 3,
   step: 3,
-  animDur: 1000,
+  animationDuration: 1000,
 };
 
 const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(DEFAULT_VALUES.itemWidth);
   const [frameSize, setFrameSize] = useState(DEFAULT_VALUES.frameSize);
   const [step, setStep] = useState(DEFAULT_VALUES.step);
-  const [animDur, setAnimDur] = useState(DEFAULT_VALUES.animDur);
+  const [animationDuration, setAnimationDuration] = useState(
+    DEFAULT_VALUES.animationDuration,
+  );
   const [infinite, setInfinite] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
   return (
     <div className="App">
       <h1 data-cy="title" className="App__title">
-        Carousel with
-        {images.length}
-        {' '}
-        images
+        {`Carousel with ${images.length} images`}
       </h1>
       <div className="App__fields">
         <label htmlFor="itemId" className="App__label">
@@ -96,12 +95,12 @@ const App: React.FC = () => {
             type="number"
             id="animDur"
             className="inpt"
-            value={animDur}
+            value={animationDuration}
             min={500}
             max={3000}
             step={250}
             onChange={(event) => {
-              setAnimDur(+event.target.value);
+              setAnimationDuration(+event.target.value);
               setCurrentImage(0);
             }}
           />
@@ -121,7 +120,7 @@ const App: React.FC = () => {
       <Carousel
         images={images}
         step={step}
-        animDur={animDur}
+        animationDuration={animationDuration}
         frameSize={frameSize}
         itemWidth={itemWidth}
         infinite={infinite}

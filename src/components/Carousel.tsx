@@ -4,7 +4,7 @@ import './Carousel.scss';
 type Props = {
   images: string[];
   step: number;
-  animDur: number;
+  animationDuration: number;
   frameSize: number;
   itemWidth: number;
   infinite: boolean
@@ -15,7 +15,7 @@ type Props = {
 const Carousel: React.FC<Props> = ({
   images,
   step,
-  animDur,
+  animationDuration,
   frameSize,
   itemWidth,
   infinite,
@@ -27,7 +27,9 @@ const Carousel: React.FC<Props> = ({
   function goPrev() {
     return (
       currentImage !== 0
-        ? setCurrentImage(currentImage - step >= 0 ? currentImage - step : 0)
+        ? setCurrentImage(currentImage - step >= 0
+          ? currentImage - step
+          : 0)
         : setCurrentImage(imagesLeft)
     );
   }
@@ -36,7 +38,9 @@ const Carousel: React.FC<Props> = ({
     return (
       currentImage !== imagesLeft
         ? setCurrentImage(
-          currentImage + step <= imagesLeft ? currentImage + step : imagesLeft,
+          currentImage + step <= imagesLeft
+            ? currentImage + step
+            : imagesLeft,
         )
         : setCurrentImage(0)
     );
@@ -50,7 +54,7 @@ const Carousel: React.FC<Props> = ({
       className="Carousel"
       style={{
         width: `${frameSize * itemWidth}px`,
-        transition: `${animDur}ms`,
+        transition: `${animationDuration}ms`,
       }}
     >
       <ul className="Carousel__list">
@@ -60,7 +64,7 @@ const Carousel: React.FC<Props> = ({
             key={image}
             style={{
               transform: `translateX(${-(currentImage * itemWidth)}px)`,
-              transition: `transform ${animDur}ms`,
+              transition: `transform ${animationDuration}ms`,
             }}
           >
             <img
@@ -76,8 +80,8 @@ const Carousel: React.FC<Props> = ({
           type="button"
           className={
             prevDisabled
-              ? 'Carousel__btn Carousel__btn--disabled'
-              : 'Carousel__btn Carousel__btn--active'
+              ? 'Carousel__button Carousel__button--disabled'
+              : 'Carousel__button Carousel__button--active'
           }
           onClick={goPrev}
           disabled={prevDisabled}
@@ -89,8 +93,8 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           className={
             nextDisabled
-              ? 'Carousel__btn Carousel__btn--disabled'
-              : 'Carousel__btn Carousel__btn--active'
+              ? 'Carousel__button Carousel__button--disabled'
+              : 'Carousel__button Carousel__button--active'
           }
           onClick={goNext}
           disabled={nextDisabled}
