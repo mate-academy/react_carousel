@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { Carousel } from './components/Carousel/Carousel';
-import { Form } from './components/Form/Form';
+import { Carousel } from './components/Carousel';
+import { Form } from './components/Form';
 
 const images: string[] = [
   './img/1.png',
@@ -18,12 +18,10 @@ const images: string[] = [
 
 export const App: React.FC = () => {
   const [step, setStep] = useState(3);
-  const [frameSize, useFrameSize] = useState(3);
-  const [itemWidth, iseItemWidth] = useState(130);
-  const [animation, useAnimation] = useState(1000);
-  const [infinite, useInfinite] = useState(false);
-
-  console.log(step, frameSize, itemWidth, animation, infinite);
+  const [frameSize, setFrameSize] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [animation, setAnimation] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
   return (
     <div className="App section">
@@ -45,10 +43,10 @@ export const App: React.FC = () => {
         animationDuration={animation}
         infinite={infinite}
         setStep={(value) => setStep(value)}
-        useFrameSize={(value) => useFrameSize(value)}
-        iseItemWidth={(value) => iseItemWidth(value)}
-        useAnimation={(value) => useAnimation(value)}
-        useInfinite={(value) => useInfinite(value)}
+        setFrameSize={(value) => setFrameSize(value)}
+        setItemWidth={(value) => setItemWidth(value)}
+        setAnimation={(value) => setAnimation(value)}
+        setInfinite={(value) => setInfinite(value)}
       />
     </div>
   );

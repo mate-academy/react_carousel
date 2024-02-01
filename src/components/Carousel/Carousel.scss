@@ -1,18 +1,33 @@
-.Carousel {
-  max-width: 1300px;
-
+.carousel {
   &__list {
-    width: 260px;
+    max-width: 1300px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     overflow: hidden;
-    gap: 8px;
+    background: #a4a2a2;
+    border-radius: 20px;
   }
 
   &__items {
     list-style-type: none;
+
   }
   &__image {
     display: block;
+    max-width: none;
   }
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+
+.disablet-btn {
+  pointer-events: none;
+  background-color: #8fcae7;
+  color: #666;
+  cursor: not-allowed;
 }

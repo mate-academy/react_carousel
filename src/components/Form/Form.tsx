@@ -11,10 +11,10 @@ type Props = {
 
 interface FormProps extends Props {
   setStep: (value: number) => void
-  useFrameSize: (value: number) => void
-  iseItemWidth: (value: number) => void
-  useAnimation: (value: number) => void
-  useInfinite: (value: boolean) => void
+  setFrameSize: (value: number) => void
+  setItemWidth: (value: number) => void
+  setAnimation: (value: number) => void
+  setInfinite: (value: boolean) => void
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -24,27 +24,13 @@ export const Form: React.FC<FormProps> = ({
   animationDuration,
   infinite,
   setStep,
-  useFrameSize,
-  iseItemWidth,
-  useAnimation,
-  useInfinite,
+  setFrameSize,
+  setItemWidth,
+  setAnimation,
+  setInfinite,
 }) => {
   return (
     <form action="/my-handling-form-page" method="get">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Next
-        </button>
-      </div>
       <ul>
         <li>
           <label
@@ -61,7 +47,7 @@ export const Form: React.FC<FormProps> = ({
             id="step"
             name="user_name"
             min="1"
-            max="8"
+            max="10"
           />
         </li>
         <li>
@@ -72,7 +58,7 @@ export const Form: React.FC<FormProps> = ({
             Frame Size:
           </label>
           <input
-            onChange={(e) => useFrameSize(+e.target.value)}
+            onChange={(e) => setFrameSize(+e.target.value)}
             value={frameSize}
             className="input is-primary"
             type="number"
@@ -90,15 +76,15 @@ export const Form: React.FC<FormProps> = ({
             Picture Width:
           </label>
           <input
-            onChange={(e) => iseItemWidth(+e.target.value)}
+            onChange={(e) => setItemWidth(+e.target.value)}
             value={itemWidth}
             className="input is-primary"
             type="number"
             id="itemWidth"
             name="user_email"
             min="130"
-            max="520"
-            step="10"
+            max="260"
+            step="5"
           />
         </li>
         <li>
@@ -109,15 +95,15 @@ export const Form: React.FC<FormProps> = ({
             Animation Duration:
           </label>
           <input
-            onChange={(e) => useAnimation(+e.target.value)}
+            onChange={(e) => setAnimation(+e.target.value)}
             value={animationDuration}
             className="input is-primary"
             type="number"
             id="animationDuration"
             name="user_email"
             min="0"
-            max="1500"
-            step="10"
+            max="2000"
+            step="50"
           />
         </li>
         <li className="checkboxItems">
@@ -129,7 +115,7 @@ export const Form: React.FC<FormProps> = ({
             Infinity scroll
           </label>
           <input
-            onChange={(e) => useInfinite(e.target.checked)}
+            onChange={(e) => setInfinite(e.target.checked)}
             checked={infinite}
             id="accepted"
             type="checkbox"
