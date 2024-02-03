@@ -40,7 +40,7 @@ class App extends React.Component<{}, State> {
 
     this.setState(prevState => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : +value,
     }));
   };
 
