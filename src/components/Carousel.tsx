@@ -28,13 +28,17 @@ const Carousel: React.FC<CarouselProps> = ({
         return 0;
       }
 
+      if (newIndex > images.length - frameSize && !infinite) {
+        return images.length - frameSize;
+      }
+
       if (newIndex <= images.length - frameSize
-       || currentIndex + step >= images.length - 1
-        || images.length > step) {
+        || currentIndex + step >= images.length - 1
+        || images.length < step) {
         return newIndex;
       }
 
-      return infinite ? newIndex % (images.length - step + 1) : prevIndex;
+      return infinite ? newIndex % (images.length - step) : prevIndex;
     });
   }, [infinite, setCurrentIndex, step, images, frameSize, currentIndex]);
 
