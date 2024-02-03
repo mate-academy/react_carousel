@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 import { ValuesImgType } from '../../types/Types';
 
 type Props = {
   valuesImage: ValuesImgType;
+  transform: number;
+  setTransform: (value: number) => void;
 };
 
-export const Carousel: React.FC<Props> = ({ valuesImage }) => {
+export const Carousel: React.FC<Props> = ({
+  valuesImage,
+  transform,
+  setTransform,
+}) => {
   const {
     images,
     step,
@@ -16,19 +21,22 @@ export const Carousel: React.FC<Props> = ({ valuesImage }) => {
     animationDuration,
     infinite,
   } = valuesImage;
-  const [transform, setTransform] = useState(0);
-  const isLastPosition = images.length - frameSize;
+  const lastPosition = images.length - frameSize;
 
   function transitionNext() {
-    if (transform + step < isLastPosition) {
+    if (transform + step < lastPosition) {
       setTransform(transform + step);
     } else {
-      setTransform(isLastPosition);
+      setTransform(lastPosition);
     }
 
-    if (infinite && transform === isLastPosition) {
+    if (infinite && transform === lastPosition) {
       setTransform(0);
     }
+  }
+
+  if (transform > images.length - frameSize && !infinite) {
+    setTransform(images.length - frameSize);
   }
 
   function transitionPrev() {
@@ -39,7 +47,7 @@ export const Carousel: React.FC<Props> = ({ valuesImage }) => {
     }
 
     if (infinite && transform === 0) {
-      setTransform(isLastPosition);
+      setTransform(lastPosition);
     }
   }
 
@@ -48,7 +56,7 @@ export const Carousel: React.FC<Props> = ({ valuesImage }) => {
       <div className="carousel">
         <ul
           className="carousel__list"
-          style={{ width: `${(itemWidth * frameSize)}px` }}
+          style={{ width: `${itemWidth * frameSize}px` }}
         >
           {images.map(image => {
             return (
@@ -92,9 +100,9 @@ export const Carousel: React.FC<Props> = ({ valuesImage }) => {
           className={cn(
             'button',
             {
-              'is-success': infinite || transform !== isLastPosition,
-              'is-light': infinite || transform !== isLastPosition,
-              'disablet-btn': !infinite && transform === isLastPosition,
+              'is-success': infinite || transform !== lastPosition,
+              'is-light': infinite || transform !== lastPosition,
+              'disablet-btn': !infinite && transform === lastPosition,
             },
           )}
           onClick={transitionNext}

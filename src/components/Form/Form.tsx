@@ -7,7 +7,10 @@ interface Props {
   setValuesImage: React.Dispatch<React.SetStateAction<ValuesImgType>>;
 }
 
-export const Form: React.FC<Props> = ({ valuesImage, setValuesImage }) => (
+export const Form: React.FC<Props> = ({
+  valuesImage,
+  setValuesImage,
+}) => (
   <form action="/my-handling-form-page" method="get">
     <ul>
       <li>
@@ -25,7 +28,7 @@ export const Form: React.FC<Props> = ({ valuesImage, setValuesImage }) => (
           className="input is-primary"
           type="number"
           id="step"
-          name="user_name"
+          name="step"
           min="1"
           max="10"
         />
@@ -45,7 +48,7 @@ export const Form: React.FC<Props> = ({ valuesImage, setValuesImage }) => (
           className="input is-primary"
           type="number"
           id="frameSize"
-          name="user_email"
+          name="frameSize"
           min="1"
           max="10"
         />
@@ -65,7 +68,7 @@ export const Form: React.FC<Props> = ({ valuesImage, setValuesImage }) => (
           className="input is-primary"
           type="number"
           id="itemWidth"
-          name="user_email"
+          name="itemWidth"
           min="130"
           max="260"
           step="5"

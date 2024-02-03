@@ -28,6 +28,7 @@ const defaultValues: ValuesImgType = {
 
 export const App: React.FC = () => {
   const [valuesImage, setValuesImage] = useState(defaultValues);
+  const [transform, setTransform] = useState(0);
 
   return (
     <div className="App section">
@@ -36,6 +37,8 @@ export const App: React.FC = () => {
 
       <Carousel
         valuesImage={valuesImage}
+        transform={transform}
+        setTransform={(value) => setTransform(value)}
       />
       <Form
         valuesImage={valuesImage}
