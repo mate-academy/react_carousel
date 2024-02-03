@@ -1,1 +1,35 @@
-// style go here
+.App {
+  &__labels {
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  &__margin {
+    align-items: right;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__checkbox {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+}
+
+
+
+
+
+
