@@ -1,1 +1,33 @@
 // style go here
+.Carousel {
+  margin: 0 auto;
+
+  &__list {
+    overflow: hidden;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    margin: 0 auto;
+    border: 1px solid black;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 20px;
+    margin: 20px auto;
+    width: fit-content;
+
+  }
+
+  &__btn {
+    cursor: pointer;
+    width: 100px;
+    padding-block: 10px;
+  }
+}
+
+
