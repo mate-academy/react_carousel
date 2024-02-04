@@ -1,1 +1,22 @@
 // style go here
+.App {
+
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  &__input {
+    margin-left: 10px;
+  }
+
+  &__title {
+    text-align: center;
+  }
+}
