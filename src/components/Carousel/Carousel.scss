@@ -1,0 +1,28 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    background-color: rgb(132, 130, 238);
+    border-radius: 30px;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__image {
+    display: block;
+    max-width: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-block: 20px 30px;
+  }
+}
