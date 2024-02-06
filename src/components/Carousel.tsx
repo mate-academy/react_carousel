@@ -27,6 +27,10 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const [currentValue, setCurrentValue] = useState(0);
 
+  if (extremeTranslatePoint > currentValue) {
+    setCurrentValue(extremeTranslatePoint);
+  }
+
   const handlePrev = () => {
     setCurrentValue((prevPos) => (prevPos + newTranslateValue
       >= 0 ? 0 : prevPos + newTranslateValue));
