@@ -44,7 +44,6 @@ class App extends React.Component<{}, State> {
             images
           </h1>
           <div className="App__inputs-container">
-
             <label htmlFor="stepId">Step</label>
             <input
               type="text"
