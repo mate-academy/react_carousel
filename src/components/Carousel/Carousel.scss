@@ -1,0 +1,46 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.CarouselWrapper {
+  overflow: hidden;
+}
+
+.CarouselList {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  width: 1300px;
+}
+
+
+.button {
+  width: 100px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: italic;
+  background-color: lightblue;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 30px;
+}
+
+
+
