@@ -7,6 +7,7 @@ interface State {
   currentStep: number;
   currentItemWidth: number;
   currentFrameWidth: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -27,6 +28,7 @@ class App extends React.Component<{}, State> {
     currentStep: 3,
     currentItemWidth: 130,
     currentFrameWidth: 3,
+    animationDuration: 1000,
   };
 
   render() {
@@ -34,6 +36,7 @@ class App extends React.Component<{}, State> {
     const { currentStep } = this.state;
     const { currentItemWidth } = this.state;
     const { currentFrameWidth } = this.state;
+    const { animationDuration } = this.state;
 
     return (
       <div className="App">
@@ -80,6 +83,19 @@ class App extends React.Component<{}, State> {
                 )
               }
             />
+
+            <label htmlFor="animationDuration">Duration</label>
+            <input
+              type="text"
+              className="App__input"
+              id="animationDuration"
+              defaultValue={animationDuration}
+              onChange={
+                (event) => this.setState(
+                  { animationDuration: +event.target.value },
+                )
+              }
+            />
           </div>
 
         </div>
@@ -89,7 +105,7 @@ class App extends React.Component<{}, State> {
           step={currentStep}
           frameSize={currentFrameWidth}
           itemWidth={currentItemWidth}
-          animationDuration={1000}
+          animationDuration={animationDuration}
           infinite={false}
         />
       </div>

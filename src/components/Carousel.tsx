@@ -44,7 +44,6 @@ const Carousel: React.FC<Props> = ({
 
   const handelUpCurrentPosition = () => {
     if (currentPosition < (images.length - frameSize) * itemWidth) {
-
       if (scrolProgress >= frameWidth) {
         setCurrentPosition(currentPosition + stepWidth);
       } else {
