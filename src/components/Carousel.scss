@@ -1,1 +1,49 @@
-// style go here
+li {
+  list-style-type: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  justify-content: center;
+  border: 3px solid rgba(4, 61, 7, 0.09);
+  border-radius: 70px;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 7px 10px rgba(0, 255, 13, 0.37);
+}
+
+.Carousel {
+  max-width: 1440px;
+}
+
+.Carousel__list {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid red;
+  box-shadow: 1px 1px 7px 10px rgba(255, 0, 0, 0.85);
+  border-radius: 70px;
+  overflow: hidden;
+  background-color: #f00;
+  transition: 1000ms;
+}
+
+.button_container {
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  max-width: 1440px;
+}
+
+.move_button {
+  background-color: #fe9191;
+  font-size: 14px;
+  border-radius: 45%;
+  border: 0;
+}
+
+.move_button:hover {
+  transform: scale(1.5, 1.5);
+  transition: 500ms;
+}
