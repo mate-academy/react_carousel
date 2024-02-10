@@ -1,0 +1,22 @@
+.form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 30px;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 20px;
+  }
+
+  &__input {
+    margin-left: 10px;
+    width: 50px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
