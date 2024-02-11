@@ -1,1 +1,25 @@
 // style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  font-size: 17px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  width: 390px;
+  height: 30px;
+  background-color: lightgrey;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: inherit;
+  padding: 20px;
+}

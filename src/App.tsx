@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -6,8 +6,8 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+const App: React.FC = () => {
+  const state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,18 +22,86 @@ class App extends React.Component<{}, State> {
     ],
   };
 
-  render() {
-    const { images } = this.state;
+  const { images } = state;
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  const [step, setStep] = useState<number>(3);
+  const [frameSize, setFrameSize] = useState<number>(3);
+  const [itemWidth, setItemWidth] = useState<number>(130);
+  const [animationDuration, setAnimationDuration] = useState<number>(1000);
 
-        <Carousel />
+  return (
+    <div className="App">
+      <h1 data-cy="title">{`Carousel with ${images.length} images`}</h1>
+
+      <Carousel
+        images={images}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+      />
+
+      <div className="inputs">
+        <label htmlFor="stepId">Enter number of steps here &darr;</label>
+        <input
+          id="stepId"
+          className="input"
+          type="number"
+          step={1}
+          min={1}
+          max={images.length}
+          name="step"
+          placeholder="Step"
+          value={step}
+          onChange={(event) => setStep(+event.target.value)}
+        />
+
+        <label htmlFor="frameId">Enter frame size here &darr;</label>
+        <input
+          id="frameId"
+          className="input"
+          type="number"
+          step={1}
+          min={1}
+          max={images.length}
+          name="frameSize"
+          placeholder="Frame Size"
+          value={frameSize}
+          onChange={(event) => setFrameSize(+event.target.value)}
+        />
+
+        <label htmlFor="itemId">Enter item width here &darr;</label>
+        <input
+          id="itemId"
+          className="input"
+          type="number"
+          step={10}
+          min={50}
+          max={1300}
+          name="itemWidth"
+          placeholder="Item Width"
+          value={itemWidth}
+          onChange={(event) => setItemWidth(+event.target.value)}
+        />
+
+        <label htmlFor="animationDurationId">
+          Enter animation duration here &darr;
+        </label>
+        <input
+          id="animationDurationId"
+          className="input"
+          type="number"
+          step={100}
+          min={0}
+          max={10000}
+          name="animationDuration"
+          placeholder="Animation Duration"
+          value={animationDuration}
+          onChange={(event) => setAnimationDuration(+event.target.value)}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
