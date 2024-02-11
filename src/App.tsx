@@ -52,6 +52,7 @@ const App: React.FC = () => {
           max={images.length}
           name="step"
           placeholder="Step"
+          value={step}
           onChange={(event) => setStep(+event.target.value)}
         />
 
@@ -65,6 +66,7 @@ const App: React.FC = () => {
           max={images.length}
           name="frameSize"
           placeholder="Frame Size"
+          value={frameSize}
           onChange={(event) => setFrameSize(+event.target.value)}
         />
 
@@ -78,6 +80,7 @@ const App: React.FC = () => {
           max={1300}
           name="itemWidth"
           placeholder="Item Width"
+          value={itemWidth}
           onChange={(event) => setItemWidth(+event.target.value)}
         />
 
@@ -93,6 +96,7 @@ const App: React.FC = () => {
           max={10000}
           name="animationDuration"
           placeholder="Animation Duration"
+          value={animationDuration}
           onChange={(event) => setAnimationDuration(+event.target.value)}
         />
       </div>
