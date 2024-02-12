@@ -1,1 +1,59 @@
-// style go here
+.container {
+  width: 1300px;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 390px;
+  overflow: hidden;
+}
+
+.Carousel {
+  display: flex;
+  gap: 20px;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transition: transform 0.3s ease-in-out;
+  }
+  &__image {
+    width: 130px;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+
+    &::after {
+      content: "";
+      display: block;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 30px;
+    }
+
+    &--prev {
+      &::after {
+        background-image: url("../images/left.svg");
+      }
+    }
+
+    &--next {
+      &::after {
+        background-image: url("../images/right.svg");
+      }
+    }
+  }
+}
+
+.disabled {
+  opacity: 50%;
+
+}
