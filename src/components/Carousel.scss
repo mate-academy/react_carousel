@@ -1,1 +1,76 @@
-// style go here
+.Carousel {
+  &__properties {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+    justify-content: center;
+    margin-left: 65px;
+    margin-bottom: 10px;
+  }
+
+  &__property {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 130px;
+
+    &--title {
+      font-weight: bold;
+    }
+
+    &--input {
+      border-radius: 20px;
+      text-align: center;
+      height: 30px;
+      width: 70px;
+    }
+  }
+
+  &__list {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    list-style: none;
+    width: 1300px;
+  }
+
+  &__images {
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 390px;
+    height: 130px;
+    border: 3px solid rgb(228, 224, 7);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__button {
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+@keyframes carousel-movement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-3000%);
+  }
+}
