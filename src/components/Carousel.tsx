@@ -160,7 +160,7 @@ const Carousel: React.FC<Props> = ({
           {
             imagesState.map((image, i) => (
               <li
-                key={image}
+                key={`${image + i}`}
                 style={{
                   transform: `translateX(${stepPerClick * (-100)}%)`,
                   transitionDuration: `${transition}ms`,
@@ -169,7 +169,7 @@ const Carousel: React.FC<Props> = ({
                 <img
                   src={image}
                   alt={`${i}`}
-                  key={image}
+                  key={`${image + i}`}
                   style={{
                     width: `${width}px`,
                   }}
