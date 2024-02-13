@@ -1,1 +1,82 @@
-// style go here
+$grey-color: #cfe1eda3;
+$light-green-color: #8ec0b9;
+$white-color: #fff;
+
+
+html,
+body,
+input {
+  margin: 0;
+}
+
+body {
+  background-color: $grey-color;
+}
+
+h1 {
+  text-align: center;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    background-color: $white-color;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -4px;
+    background-color: $light-green-color;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 10px;
+  }
+
+  &::-moz-range-track {
+    background-color: $white-color;
+    border-radius: 0.5rem;
+    width: 10px;
+  }
+
+  &::-moz-range-thumb {
+    background-color: $light-green-color;
+    border: none;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 5px;
+  }
+}
+
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  border: none;
+  outline: none;
+  accent-color: $light-green-color;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+iframe {
+  display: none;
+}
