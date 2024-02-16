@@ -101,7 +101,7 @@ class App extends React.Component<{}, State> {
               name="frameSize"
               id="frameSize"
               min={1}
-              max={images.length / 2}
+              max={images.length}
               step={1}
               value={frameSize}
               onChange={this.setFrameSize}

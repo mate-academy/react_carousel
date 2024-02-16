@@ -13,11 +13,13 @@ interface Props {
 
 interface State {
   position: number;
+  currentFrameSize: number;
 }
 
 class Carousel extends React.Component<Props, State> {
   state: State = {
     position: 0,
+    currentFrameSize: 0,
   };
 
   handlePrevButton = () => {
@@ -30,7 +32,7 @@ class Carousel extends React.Component<Props, State> {
       prevPosition = lastPosition;
     }
 
-    if (prevPosition <= 0) {
+    if (prevPosition < 0) {
       prevPosition = 0;
     }
 
@@ -51,7 +53,10 @@ class Carousel extends React.Component<Props, State> {
       nextPosition = lastPosition;
     }
 
-    this.setState({ position: nextPosition });
+    this.setState({
+      position: nextPosition,
+      currentFrameSize: frameSize,
+    });
   };
 
   render() {
@@ -63,9 +68,16 @@ class Carousel extends React.Component<Props, State> {
       infinite,
       // eslint-disable-next-line
     } = this.props;
-    const { position } = this.state;
+    const { position, currentFrameSize } = this.state;
     const isPrevDisabled = position <= 0 && !infinite;
     const isNextDisabled = position >= images.length - frameSize && !infinite;
+
+    if (frameSize > currentFrameSize) {
+      this.setState({
+        position: images.length - frameSize,
+        currentFrameSize: frameSize,
+      });
+    }
 
     return (
       <>
