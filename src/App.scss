@@ -1,1 +1,21 @@
-// style go here
+.app {
+
+  &__fields {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid #00b2f2;
+
+    background-color: white;
+  }
+}
+
+.input {
+  border: 1.5px solid #00b2f2;
+  height: 20px;
+  border-radius: 4px;
+}
