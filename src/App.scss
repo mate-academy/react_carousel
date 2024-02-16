@@ -1,1 +1,33 @@
-// style go here
+.App {
+  min-width: 500px;
+  text-align: center;
+  background: rgb(255, 250, 235);
+  color: #946c00;
+  box-shadow: 0 4px 10px rgba(71, 56, 61, 0.5);
+  font-style: italic;
+  margin: 0 auto;
+
+  &__form__input {
+    max-width: 50%;
+    margin: 0 20px 20px;
+    font-weight: 500;
+    color: #946c00;
+    text-align: center;
+    border: 1px solid rgb(102, 0, 34);
+    border: 1px solid rgba(71, 56, 61, 0.5);
+    box-shadow: 0 2px 6px rgba(71, 56, 61, 0.5);
+    background: rgb(255, 250, 235);
+  }
+
+  &__form__label {
+    display: block;
+    line-height: 2.5;
+    font-weight: bold;
+    text-align: end;
+  }
+
+  h1 {
+    color: #2b2404;
+    font-style: italic;
+  }
+}
