@@ -1,6 +1,6 @@
-import React from "react";
-import "bulma";
-import "./Carousel.scss";
+import React from 'react';
+import 'bulma';
+import './Carousel.scss';
 
 interface Props {
   images: string[];
@@ -19,7 +19,7 @@ interface State {
 class Carousel extends React.Component<Props, State> {
   state: State = {
     position: 0,
-    currentFrameSize: 0,
+    currentFrameSize: 3,
   };
 
   handlePrevButton = () => {
@@ -89,7 +89,7 @@ class Carousel extends React.Component<Props, State> {
           }}
         >
           <ul className="Carousel__list">
-            {images.map((image) => (
+            {images.map(image => (
               <li className="Carousel__item" key={`${image.slice(-5, -4)}`}>
                 <img
                   src={`${image}`}
