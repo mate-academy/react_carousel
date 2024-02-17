@@ -1,1 +1,24 @@
-// style go here
+.App {
+  text-align: center;
+}
+
+.App__title {
+  margin-bottom: 60px;
+}
+
+.App__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.App__input {
+  margin-left: 10px;
+  width: 300px;
+}
+
+.App__input--checkbox {
+  margin-left: 10px;
+  width: fit-content;
+}
