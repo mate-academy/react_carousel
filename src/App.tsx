@@ -33,24 +33,20 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  setStep = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ step: +e.target.value });
-  };
+  handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const property: string = e.target.name;
 
-  setItemWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +e.target.value });
-  };
+    if (property === 'infinite') {
+      this.setState({
+        [property]: e.target.checked,
+      });
 
-  setFrameSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ frameSize: +e.target.value });
-  };
+      return;
+    }
 
-  setAnimationDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ animationDuration: +e.target.value });
-  };
-
-  setInfinite = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinite: e.target.checked });
+    this.setState({
+      [property]: +e.target.value,
+    } as any);
   };
 
   render() {
@@ -89,7 +85,7 @@ class App extends React.Component<{}, State> {
               max="250"
               step="5"
               value={itemWidth}
-              onChange={this.setItemWidth}
+              onChange={this.handlerOnChange}
             />
           </label>
 
@@ -104,7 +100,7 @@ class App extends React.Component<{}, State> {
               max={images.length}
               step={1}
               value={frameSize}
-              onChange={this.setFrameSize}
+              onChange={this.handlerOnChange}
             />
           </label>
 
@@ -118,7 +114,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={images.length}
               value={step}
-              onChange={this.setStep}
+              onChange={this.handlerOnChange}
             />
           </label>
 
@@ -133,7 +129,7 @@ class App extends React.Component<{}, State> {
               max={5000}
               step={250}
               value={animationDuration}
-              onChange={this.setAnimationDuration}
+              onChange={this.handlerOnChange}
             />
           </label>
 
@@ -145,7 +141,7 @@ class App extends React.Component<{}, State> {
               name="infinite"
               id="infinite"
               checked={infinite}
-              onChange={this.setInfinite}
+              onChange={this.handlerOnChange}
             />
           </label>
         </form>
