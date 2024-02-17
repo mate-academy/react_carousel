@@ -90,10 +90,10 @@ class Carousel extends React.Component<Props, State> {
         >
           <ul className="Carousel__list">
             {images.map(image => (
-              <li className="Carousel__item" key={`${image.slice(-5, -4)}`}>
+              <li className="Carousel__item" key={image}>
                 <img
-                  src={`${image}`}
-                  alt={`${image.slice(-5, -4)}`}
+                  src={image}
+                  alt={image}
                   width={itemWidth}
                   style={{
                     transform: `translateX(${-position * itemWidth}px)`,
