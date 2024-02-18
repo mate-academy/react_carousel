@@ -1,1 +1,31 @@
 // style go here
+.Carousel {
+  display: grid;
+  grid-auto-flow: column;
+  background-color: cadetblue;
+  border-radius: 20px;
+  border: 2px solid black;
+
+  &__list {
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    overflow: hidden;
+    list-style-type: none;
+  }
+
+  &__button {
+    align-self: center;
+    padding: 10px;
+    margin: 0 10px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: bisque;
+
+    &--disabled {
+      color: gray;
+      border: 1px solid gray;
+    }
+  }
+}

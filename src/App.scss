@@ -1,1 +1,36 @@
 // style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: rgb(145, 205, 207);
+  min-height: 100vh;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: cadetblue;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 20px;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 100px;
+    background-color: bisque;
+    text-align: end;
+    outline: none;
+
+    &--checkbox {
+      margin-left: 150px;
+    }
+  }
+}
