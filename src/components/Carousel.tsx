@@ -30,6 +30,8 @@ const Carousel: React.FC<Props> = ({
     } else {
       setCurrentIndex(currentIndex - 1);
     }
+
+    // console.log(currentIndex);
   };
 
   const next = () => {
@@ -42,6 +44,8 @@ const Carousel: React.FC<Props> = ({
     } else {
       setCurrentIndex(currentIndex + 1);
     }
+
+    // console.log(currentIndex);
   };
 
   return (
