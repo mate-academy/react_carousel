@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__buttonContainer {
+    display: flex;
+    justify-content: space-around;
+
+    &__button {
+      margin-top: 30px;
+      background-color: rgb(0, 0, 0);
+      border: 2px dotted rgb(255, 255, 255);
+      border-radius: 50px;
+      color: rgb(2, 255, 44);
+      font-weight: bold;
+
+      &:disabled {
+        border: none;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightgray;
+    border: 5px double rgb(0, 255, 17);
+    margin: 30px auto 0;
+    border-radius: 50px;
+
+    &__item {
+      list-style-type: none;
+    }
+  }
+}
