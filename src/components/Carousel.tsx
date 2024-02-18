@@ -63,7 +63,7 @@ const Carousel: React.FC<State> = ({
 
       <div className="Carousel__buttonContainer">
         <button
-          className="Carousel__button"
+          className="Carousel__buttonContainer__button"
           type="button"
           onClick={handlenPrevChange}
           disabled={!infinite && startImg === 0}

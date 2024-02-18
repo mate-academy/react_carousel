@@ -40,8 +40,8 @@ class App extends React.Component<{}, State> {
     this.setState({ infinite: el.target.checked });
 
   render() {
-    const { images, step, frameSize, itemWidth, animationDuration, infinite }
-    = this.state;
+    /* eslint-disable */
+    const { images, step, frameSize, itemWidth, animationDuration, infinite } = this.state;
 
     return (
       <div className="App">
