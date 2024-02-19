@@ -22,13 +22,13 @@ const Carousel: React.FC<Props> = ({
 
   const prev = () => {
     if (infinite) {
-      if (currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
+      if (currentIndex !== 0) {
+        setCurrentIndex(currentIndex - step);
       } else {
-        setCurrentIndex(Math.ceil(images.length / frameSize - 1));
+        setCurrentIndex(images.length - 1);
       }
     } else {
-      setCurrentIndex(currentIndex - 1);
+      setCurrentIndex(currentIndex === 1 ? 0 : currentIndex - step);
     }
 
     // console.log(currentIndex);
@@ -36,13 +36,17 @@ const Carousel: React.FC<Props> = ({
 
   const next = () => {
     if (infinite) {
-      if (currentIndex + 1 <= images.length / frameSize) {
-        setCurrentIndex(currentIndex + 1);
+      if (currentIndex + step < images.length) {
+        setCurrentIndex(currentIndex + step);
       } else {
         setCurrentIndex(0);
       }
     } else {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex(
+        currentIndex + step >= images.length
+          ? images.length - frameSize
+          : currentIndex + step,
+      );
     }
 
     // console.log(currentIndex);
@@ -53,7 +57,7 @@ const Carousel: React.FC<Props> = ({
       <ul
         className="Carousel__list"
         style={{
-          transform: `translateX(-${currentIndex * step * itemWidth}px)`,
+          transform: `translateX(-${currentIndex * itemWidth}px)`,
           transition: `transform ${animationDuration}ms`,
         }}
       >
@@ -79,7 +83,7 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="next"
-        disabled={!infinite && currentIndex + 1 >= images.length / frameSize}
+        disabled={!infinite && currentIndex + step >= images.length}
         onClick={next}
       >
         Next
