@@ -23,33 +23,29 @@ const Carousel: React.FC<Props> = ({
   const prev = () => {
     if (infinite) {
       if (currentIndex !== 0) {
-        setCurrentIndex(currentIndex - step);
-      } else {
-        setCurrentIndex(images.length - 1);
+        return setCurrentIndex(currentIndex - step);
       }
-    } else {
-      setCurrentIndex(currentIndex === 1 ? 0 : currentIndex - step);
+
+      return setCurrentIndex(images.length - 1);
     }
 
-    // console.log(currentIndex);
+    return setCurrentIndex(currentIndex === 1 ? 0 : currentIndex - step);
   };
 
   const next = () => {
     if (infinite) {
       if (currentIndex + step < images.length) {
-        setCurrentIndex(currentIndex + step);
-      } else {
-        setCurrentIndex(0);
+        return setCurrentIndex(currentIndex + step);
       }
-    } else {
-      setCurrentIndex(
-        currentIndex + step >= images.length
-          ? images.length - frameSize
-          : currentIndex + step,
-      );
+
+      return setCurrentIndex(0);
     }
 
-    // console.log(currentIndex);
+    return setCurrentIndex(
+      currentIndex + step >= images.length
+        ? images.length - frameSize
+        : currentIndex + step,
+    );
   };
 
   return (

@@ -16,10 +16,26 @@ const App: React.FC = () => {
     "./img/10.png",
   ];
 
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const initialSettingsState = {
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  const [settings, setSettings] = useState(initialSettingsState);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setSettings((prevSettings) => ({ ...prevSettings, [name]: value }));
+  };
+
+  // const [itemWidth, setItemWidth] = useState(130);
+  // const [frameSize, setFrameSize] = useState(3);
+  // const [step, setStep] = useState(3);
+  // const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
   return (
@@ -34,12 +50,14 @@ const App: React.FC = () => {
           <input
             className="App__input"
             id="itemId"
-            onChange={(event) => {
-              setItemWidth(parseInt(event.target.value, 10));
-            }}
+            name="itemWidth"
+            value={settings.itemWidth}
+            onChange={handleInputChange}
             type="number"
             placeholder="Type item width"
             min={130}
+            step={10}
+            max={500}
           />
         </label>
         <label htmlFor="frameId">
@@ -47,9 +65,9 @@ const App: React.FC = () => {
           <input
             className="App__input"
             id="frameId"
-            onChange={(event) => {
-              setFrameSize(parseInt(event.target.value, 10));
-            }}
+            name="frameSize"
+            value={settings.frameSize}
+            onChange={handleInputChange}
             type="number"
             placeholder="Type frame size"
             min={1}
@@ -61,24 +79,26 @@ const App: React.FC = () => {
           <input
             className="App__input"
             id="stepId"
-            onChange={(event) => {
-              setStep(parseInt(event.target.value, 10));
-            }}
+            name="step"
+            value={settings.step}
+            onChange={handleInputChange}
             type="number"
             placeholder="Type step"
-            min={3}
+            min={1}
+            max={9}
           />
         </label>
         <label>
           Duration
           <input
             className="App__input"
-            onChange={(event) => {
-              setAnimationDuration(parseInt(event.target.value, 10));
-            }}
+            value={settings.animationDuration}
+            name="animationDuration"
+            onChange={handleInputChange}
             type="number"
             placeholder="Type step"
             min={1000}
+            step={500}
           />
         </label>
         <label>
@@ -96,10 +116,10 @@ const App: React.FC = () => {
 
       <Carousel
         images={images}
-        itemWidth={itemWidth}
-        frameSize={frameSize}
-        step={step}
-        animationDuration={animationDuration}
+        itemWidth={settings.itemWidth}
+        frameSize={settings.frameSize}
+        step={settings.step}
+        animationDuration={settings.animationDuration}
         infinite={infinite}
       />
     </div>
