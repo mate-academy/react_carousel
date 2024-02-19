@@ -25,18 +25,13 @@ const App: React.FC = () => {
   };
 
   const [settings, setSettings] = useState(initialSettingsState);
+  const [infinite, setInfinite] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setSettings((prevSettings) => ({ ...prevSettings, [name]: value }));
   };
-
-  // const [itemWidth, setItemWidth] = useState(130);
-  // const [frameSize, setFrameSize] = useState(3);
-  // const [step, setStep] = useState(3);
-  // const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
 
   return (
     <div className="App">
