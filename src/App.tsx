@@ -25,12 +25,14 @@ const App: React.FC = () => {
   };
 
   const [settings, setSettings] = useState(initialSettingsState);
-  const [infinite, setInfinite] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    setSettings((prevSettings) => ({ ...prevSettings, [name]: value }));
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      [name]: parseInt(value, 10),
+    }));
   };
 
   return (
@@ -100,11 +102,14 @@ const App: React.FC = () => {
           Infinite
           <input
             className="App__input App__input--checkbox"
-            onChange={() => {
-              setInfinite(!infinite);
-            }}
+            onChange={() =>
+              setSettings((prevSettings) => ({
+                ...prevSettings,
+                infinite: !prevSettings.infinite,
+              }))
+            }
             type="checkbox"
-            checked={infinite}
+            checked={settings.infinite}
           />
         </label>
       </div>
@@ -115,7 +120,7 @@ const App: React.FC = () => {
         frameSize={settings.frameSize}
         step={settings.step}
         animationDuration={settings.animationDuration}
-        infinite={infinite}
+        infinite={settings.infinite}
       />
     </div>
   );
