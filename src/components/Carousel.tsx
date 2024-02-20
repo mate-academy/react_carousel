@@ -64,13 +64,13 @@ export const Carousel: React.FC<Props> = ({
 
       setPosition(position - step);
     } else {
-      if (position === 1) {
+      if (position === firstPosition) {
         setPosition(lastPosition);
 
         return;
       }
 
-      if ((position - step) < 1) {
+      if ((position - step) < firstPosition) {
         setPosition(1);
 
         return;
