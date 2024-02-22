@@ -28,7 +28,6 @@
     &--prev {
       position: absolute;
       top: 50px;
-      left: 0px;
       font-size: 30px;
     }
   }
@@ -42,7 +41,7 @@
 
 @keyframes cyclic {
   from {
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 
   to {
