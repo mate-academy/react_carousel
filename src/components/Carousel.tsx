@@ -80,7 +80,6 @@ const Carousel: React.FC<Props> = ({
             max={images.length}
             onChange={(event) => {
               setNewState({ step: +event.currentTarget.value });
-              setCurrentIndex(0);
             }}
           />
         </label>
@@ -96,7 +95,6 @@ const Carousel: React.FC<Props> = ({
             max={images.length}
             onChange={(event) => {
               setNewState({ frameSize: +event.currentTarget.value });
-              setCurrentIndex(0);
             }}
           />
         </label>
@@ -113,7 +111,6 @@ const Carousel: React.FC<Props> = ({
             step="10"
             onChange={(event) => {
               setNewState({ itemWidth: +event.currentTarget.value });
-              setCurrentIndex(0);
             }}
           />
         </label>
@@ -127,7 +124,6 @@ const Carousel: React.FC<Props> = ({
             step="50"
             onChange={(event) => {
               setNewState({ animationDuration: +event.currentTarget.value });
-              setCurrentIndex(0);
             }}
           />
         </label>
@@ -140,7 +136,6 @@ const Carousel: React.FC<Props> = ({
             defaultValue={`${infinite}`}
             onChange={(event) => {
               setNewState({ infinite: event.currentTarget.checked });
-              setCurrentIndex(0);
             }}
           />
         </label>
