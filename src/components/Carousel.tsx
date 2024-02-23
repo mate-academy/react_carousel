@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -40,11 +40,15 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const stylesForLi = {
-    animation: `${infinite && '5s linear 2s infinite alternate cyclic'}`,
-    transform: `translateX(-${generalWidth - currentWidth < itemWidth * step ? generalWidth - itemWidth * step : states * itemWidth * step}px)`,
-    transition: `transform ${animationDuration}ms ease`,
-  };
+  const stylesForLi = useMemo(
+    () => ({
+      animation: `${infinite && '5s linear 2s infinite alternate cyclic'}`,
+      transform: `translateX(-${generalWidth - currentWidth < itemWidth * step ? generalWidth - itemWidth * step : states * itemWidth * step}px)`,
+      transition: `transform ${animationDuration}ms ease`,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [states],
+  );
 
   return (
     <div className="Carousel">
