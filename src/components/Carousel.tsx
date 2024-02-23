@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -27,7 +27,6 @@ const Carousel: React.FC<Props> = ({
   const handleCountNext = () => {
     if (currentWidth < generalWidth - frameSize * itemWidth) {
       setState(prevState => prevState + 1);
-      setClick(false);
     } else {
       setClick(true);
     }
@@ -49,6 +48,10 @@ const Carousel: React.FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [states],
   );
+
+  useEffect(() => {
+    setClick(false); // Після кожного оновлення states скидаємо click до false
+  }, [states]);
 
   return (
     <div className="Carousel">
