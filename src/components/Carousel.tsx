@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -33,12 +33,12 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (states > 0) {
       setState(prevState => prevState - 1);
       setClick(false);
     }
-  };
+  }, [states]);
 
   const stylesForLi = useMemo(
     () => ({
