@@ -81,7 +81,7 @@ class App extends React.Component<{}, State> {
             <input
               defaultValue={animDuration}
               type="number"
-              name="animationDuration"
+              name="animDuration"
               onChange={this.handleInputChange}
             />
           </label>

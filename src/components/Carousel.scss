@@ -3,10 +3,10 @@
   width: 1300px;
   padding-inline: 80px;
   &__list {
+    overflow: hidden;
     padding: 0;
     margin: 0;
     display: flex;
-    overflow: hidden;
     list-style: none;
   }
 

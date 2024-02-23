@@ -19,12 +19,11 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [state, setState] = useState(0);
+  const [states, setState] = useState(0);
   const [click, setClick] = useState(false);
   const indexs = images.length;
   const generalWidth = indexs * itemWidth;
-  const currentWidth = state * itemWidth * step;
-
+  const currentWidth = states * itemWidth * step;
   const handleCountNext = () => {
     if (currentWidth < generalWidth - frameSize * itemWidth) {
       setState(prevState => prevState + 1);
@@ -35,10 +34,16 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrev = () => {
-    if (state > 0) {
+    if (states > 0) {
       setState(prevState => prevState - 1);
       setClick(false);
     }
+  };
+
+  const stylesForLi = {
+    animation: `${infinite && '5s linear 2s infinite alternate cyclic'}`,
+    transform: `translateX(-${generalWidth - currentWidth < itemWidth * step ? generalWidth - itemWidth * step : states * itemWidth * step}px)`,
+    transition: `transform ${animationDuration}ms ease`,
   };
 
   return (
@@ -50,14 +55,7 @@ const Carousel: React.FC<Props> = ({
         }}
       >
         {images.map(img => (
-          <li
-            key={img}
-            style={{
-              animation: `${infinite && '5s linear 2s infinite alternate cyclic'}`,
-              transform: `translateX(-${generalWidth - currentWidth < itemWidth * step ? generalWidth - itemWidth * step : state * itemWidth * step}px)`,
-              transition: `transform ${animationDuration}ms ease`,
-            }}
-          >
+          <li key={img} style={stylesForLi}>
             <img style={{ width: `${itemWidth}px` }} src={img} alt={img} />
           </li>
         ))}
@@ -65,7 +63,7 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         className={cn('Carousel__сlick Carousel__сlick--prev', {
-          Disabled: state === 0,
+          Disabled: states === 0,
         })}
         onClick={handlePrev}
       >
