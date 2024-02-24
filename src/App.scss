@@ -1,1 +1,23 @@
-// style go here
+.App {
+  &__form {
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    color: darkslategrey;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-top: 20px;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 4px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding-left: 100px;
+    clear: both;
+  }
+
+  &__title {
+    display: flex;
+    padding-left: 50px;
+  }
+}

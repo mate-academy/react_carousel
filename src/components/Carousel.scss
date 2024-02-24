@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  position: relative;
+  width: 1300px;
+  padding-inline: 80px;
+  &__list {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style: none;
+  }
+
+  &__сlick {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background: white;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &--next {
+      position: absolute;
+      top: 50px;
+      left: 500px;
+      font-size: 30px;
+    }
+
+    &--prev {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      font-size: 30px;
+    }
+  }
+}
+
+.Disabled {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+
+@keyframes cyclic {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-910px)
+  }
+}
