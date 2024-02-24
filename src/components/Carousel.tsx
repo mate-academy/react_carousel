@@ -50,7 +50,7 @@ const Carousel: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    setClick(false); // Після кожного оновлення states скидаємо click до false
+    setClick(false);
   }, [states]);
 
   return (
@@ -63,7 +63,12 @@ const Carousel: React.FC<Props> = ({
       >
         {images.map(img => (
           <li key={img} style={stylesForLi}>
-            <img style={{ width: `${itemWidth}px` }} src={img} alt={img} />
+            <img
+              width={itemWidth}
+              // style={{ width: `${itemWidth}px` }}
+              src={img}
+              alt={img}
+            />
           </li>
         ))}
       </ul>
