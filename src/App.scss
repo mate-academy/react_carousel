@@ -1,1 +1,18 @@
-// style go here
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  &__filds {
+    padding-top: 20px;
+    width: 370px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px black solid;
+    border-radius: 3px;
+    gap: 10px;
+  }
+}
