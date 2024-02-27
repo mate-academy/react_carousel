@@ -77,6 +77,7 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
       <div className="Carousel__buttons">
+        {/* eslint-disable-next-line */}
         <button
           disabled={isPrevButtonDisabled}
           className="Carousel__button"
@@ -85,7 +86,7 @@ const Carousel: React.FC<Props> = ({
         >
           <FaArrowLeft className="Carousel__button-icon" />
         </button>
-
+        {/* eslint-disable-next-line */}
         <button
           data-cy="next"
           disabled={isNextButtonDisabled}

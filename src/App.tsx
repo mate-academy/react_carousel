@@ -34,8 +34,8 @@ class App extends React.Component<{}, State> {
     const { name, value } = event.target;
 
     this.setState({ [name]: Number(value) } as unknown as Pick<
-    State,
-    keyof State
+      State,
+      keyof State
     >);
   };
 
