@@ -28,12 +28,12 @@ const Carousel: React.FC<Props> = ({
   const isPrevButtonDisabled = currentIndex === 0 && !infinite;
   const isNextButtonDisabled = currentIndex >= maxShiftOrder && !infinite;
 
-  const enum moveTo {
+  const enum MoveTo {
     forward = 'forward',
     back = 'back',
   }
 
-  const move = (direction: moveTo): void => {
+  const move = (direction: MoveTo): void => {
     switch (direction) {
       case 'forward':
         if (!isNextButtonDisabled) {
@@ -45,6 +45,7 @@ const Carousel: React.FC<Props> = ({
         if (infinite && currentIndex === maxShiftOrder) {
           setCurrentIndex(0);
         }
+
         break;
       case 'back':
         if (!isPrevButtonDisabled) {
@@ -54,9 +55,9 @@ const Carousel: React.FC<Props> = ({
         if (infinite && currentIndex === 0) {
           setCurrentIndex(maxShiftOrder);
         }
+
         break;
       default:
-        return;
     }
   };
 
@@ -80,7 +81,7 @@ const Carousel: React.FC<Props> = ({
           disabled={isPrevButtonDisabled}
           className="Carousel__button"
           type="button"
-          onClick={() => move(moveTo.back)}
+          onClick={() => move(MoveTo.back)}
         >
           <FaArrowLeft className="Carousel__button-icon" />
         </button>
@@ -90,7 +91,7 @@ const Carousel: React.FC<Props> = ({
           disabled={isNextButtonDisabled}
           className="Carousel__button"
           type="button"
-          onClick={() => move(moveTo.forward)}
+          onClick={() => move(MoveTo.forward)}
         >
           <FaArrowRight className="Carousel__button-icon" />
         </button>
