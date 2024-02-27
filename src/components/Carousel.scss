@@ -1,1 +1,54 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  justify-content: center;
+  display: flex;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.title {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+}
+
+.button {
+  border-radius: 30px;
+  font-size: 30px;
+  width: 50px;
+  color: yellow;
+  background-color: #a03939;
+}
+
+.button:hover {
+  background-color: #1f5f19;
+}
+
+.inputBlock {
+  width: fit-content;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.inputWrapper {
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.inputField {
+  width: 60px;
+  text-align: center;
+  border-radius: 20px;
+}
