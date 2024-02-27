@@ -1,1 +1,36 @@
 // style go here
+
+.Carousel {
+  width: 100%;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    padding: 0;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  &__button {
+    background: initial;
+    border: initial;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: initial;
+    }
+  }
+
+  &__button-icon {
+    height: 20px;
+    width: 30px;
+  }
+}
