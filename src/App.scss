@@ -1,12 +1,13 @@
-.title {
+.App {
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .app {
   &__filds {
-    padding-top: 20px;
+    padding: 20px;
     width: 370px;
     display: flex;
     justify-content: center;

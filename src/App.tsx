@@ -59,7 +59,6 @@ const App: React.FC = () => {
             value={itemWidth}
             onChange={event => {
               setItemWidth(+event.target.value);
-              setCurrentImg(0);
             }}
           />
         </label>
@@ -76,7 +75,6 @@ const App: React.FC = () => {
             value={frameSize}
             onChange={event => {
               setFrameSize(+event.target.value);
-              setCurrentImg(0);
             }}
           />
         </label>
@@ -92,7 +90,6 @@ const App: React.FC = () => {
             value={step}
             onChange={event => {
               setStep(+event.target.value);
-              setCurrentImg(0);
             }}
           />
         </label>
@@ -109,7 +106,6 @@ const App: React.FC = () => {
             value={animationDuration}
             onChange={event => {
               setAnimationDuration(+event.target.value);
-              setCurrentImg(0);
             }}
           />
         </label>
