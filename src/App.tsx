@@ -34,18 +34,6 @@ const App: React.FC = () => {
     <div className="App">
       {/* eslint-disable-next-line */}
       <h1 className='title'>Carousel with {images.length} images</h1>
-
-      <Carousel
-        images={images}
-        currentImg={currentImg}
-        itemWidth={itemWidth}
-        frameSize={frameSize}
-        step={step}
-        animationDuration={animationDuration}
-        infinite={infinite}
-        setCurrentImg={setCurrentImg}
-      />
-
       <div className="app__filds">
         <label htmlFor="itemId">
           {'Item width: '}
@@ -119,6 +107,16 @@ const App: React.FC = () => {
           />
         </label>
       </div>
+        <Carousel
+        images={images}
+        currentImg={currentImg}
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={infinite}
+        setCurrentImg={setCurrentImg}
+      />
     </div>
   );
 };
