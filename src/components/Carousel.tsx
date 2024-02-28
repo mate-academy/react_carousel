@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import './Carousel.scss';
 
 interface CarouselProps {
@@ -44,6 +44,51 @@ const Carousel: React.FC<CarouselProps> = ({
     images.length,
   ]);
 
+  const handleStep = (e: ChangeEvent<HTMLInputElement>) => {
+    setStepValue(Number(e.target.value));
+  };
+
+  const handleFrameSize = (e: ChangeEvent<HTMLInputElement>) => {
+    if (Number(e.target.value) <= images.length) {
+      setframeSizeValue(Number(e.target.value));
+    }
+  };
+
+  const handleItemWidth = (e: ChangeEvent<HTMLInputElement>) => {
+    setItemWidthValue(Number(e.target.value));
+  };
+
+  const handleAnimationDuration = (e: ChangeEvent<HTMLInputElement>) => {
+    setAnimDurValue(Number(e.target.value));
+  };
+
+  const handleIsChecked = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const handleButtonLeft = () => {
+    if (slide >= 0 && isChecked) {
+      setSlide((totalWidth - containerSize) * -1);
+    } else if (slide * -1 < itemWidthValue * stepValue) {
+      setSlide(0);
+    } else {
+      setSlide(slide - -(stepValue * itemWidthValue));
+    }
+  };
+
+  const handleButtonRight = () => {
+    if (slide <= (totalWidth - containerSize) * -1 && isChecked) {
+      setSlide(0);
+    } else if (
+      totalWidth - Math.abs(slide) - containerSize <
+      stepValue * itemWidthValue
+    ) {
+      setSlide((totalWidth - containerSize) * -1);
+    } else {
+      setSlide(slide - stepValue * itemWidthValue);
+    }
+  };
+
   return (
     <>
       <div className="inputBlock">
@@ -54,7 +99,7 @@ const Carousel: React.FC<CarouselProps> = ({
             placeholder="scroll per cklick"
             type="number"
             value={stepValue}
-            onChange={e => setStepValue(Number(e.target.value))}
+            onChange={handleStep}
           />
           <p>{'\u21E6'} scroll per cklick</p>
         </div>
@@ -65,11 +110,7 @@ const Carousel: React.FC<CarouselProps> = ({
             placeholder="emojis on the screen"
             type="number"
             value={frameSizeValue}
-            onChange={e => {
-              if (Number(e.target.value) <= images.length) {
-                setframeSizeValue(Number(e.target.value));
-              }
-            }}
+            onChange={handleFrameSize}
           />
           <p>{'\u21E6'} emojis in frame</p>
         </div>
@@ -81,7 +122,7 @@ const Carousel: React.FC<CarouselProps> = ({
             placeholder="emojies size"
             type="number"
             value={itemWidthValue}
-            onChange={e => setItemWidthValue(Number(e.target.value))}
+            onChange={handleItemWidth}
           />
           <p>{'\u21E6'} emojis size</p>
         </div>
@@ -93,7 +134,7 @@ const Carousel: React.FC<CarouselProps> = ({
             placeholder="how fast to scroll? (ms)"
             type="number"
             value={animDurValue}
-            onChange={e => setAnimDurValue(Number(e.target.value))}
+            onChange={handleAnimationDuration}
           />
           <p>{'\u21E6'} scrolling speed (ms)</p>
         </div>
@@ -103,7 +144,7 @@ const Carousel: React.FC<CarouselProps> = ({
             style={{ display: 'block' }}
             type="checkbox"
             checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
+            onChange={handleIsChecked}
           />
           <p>{'\u21E6'} infinity scrolling</p>
         </div>
@@ -113,15 +154,7 @@ const Carousel: React.FC<CarouselProps> = ({
         <button
           aria-disabled={!!(slide >= 0 && !isChecked)}
           className={`button ${slide >= 0 && !isChecked && 'disabled '}`}
-          onClick={() => {
-            if (slide >= 0 && isChecked) {
-              setSlide((totalWidth - containerSize) * -1);
-            } else if (slide * -1 < itemWidthValue * stepValue) {
-              setSlide(0);
-            } else {
-              setSlide(slide - -(stepValue * itemWidthValue));
-            }
-          }}
+          onClick={handleButtonLeft}
           type="button"
         >
           {'\u21E6'}
@@ -155,18 +188,7 @@ const Carousel: React.FC<CarouselProps> = ({
             !!(slide <= (totalWidth - containerSize) * -1 && !isChecked)
           }
           className={`button ${slide <= (totalWidth - containerSize) * -1 && !isChecked && 'disabled '}`}
-          onClick={() => {
-            if (slide <= (totalWidth - containerSize) * -1 && isChecked) {
-              setSlide(0);
-            } else if (
-              totalWidth - Math.abs(slide) - containerSize <
-              stepValue * itemWidthValue
-            ) {
-              setSlide((totalWidth - containerSize) * -1);
-            } else {
-              setSlide(slide - stepValue * itemWidthValue);
-            }
-          }}
+          onClick={handleButtonRight}
           type="button"
           data-cy="next"
         >
