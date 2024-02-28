@@ -58,6 +58,7 @@ const Carousel: React.FC<Props> = ({
 
         break;
       default:
+        throw new Error('Wrong direction type');
     }
   };
 
@@ -77,8 +78,8 @@ const Carousel: React.FC<Props> = ({
         ))}
       </ul>
       <div className="Carousel__buttons">
-        {/* eslint-disable-next-line */}
         <button
+          aria-label="Previous"
           disabled={isPrevButtonDisabled}
           className="Carousel__button"
           type="button"
@@ -86,9 +87,9 @@ const Carousel: React.FC<Props> = ({
         >
           <FaArrowLeft className="Carousel__button-icon" />
         </button>
-        {/* eslint-disable-next-line */}
         <button
           data-cy="next"
+          aria-label="Next"
           disabled={isNextButtonDisabled}
           className="Carousel__button"
           type="button"
