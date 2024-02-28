@@ -45,8 +45,8 @@ const Carousel: React.FC<Props> = ({
         if (infinite && currentIndex === maxShiftOrder) {
           setCurrentIndex(0);
         }
-
         break;
+
       case 'back':
         if (!isPrevButtonDisabled) {
           setCurrentIndex(prevIndex => Math.max(prevIndex - step, 0));
@@ -55,8 +55,8 @@ const Carousel: React.FC<Props> = ({
         if (infinite && currentIndex === 0) {
           setCurrentIndex(maxShiftOrder);
         }
-
         break;
+
       default:
         throw new Error('Wrong direction type');
     }
