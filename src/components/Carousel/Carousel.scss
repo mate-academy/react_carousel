@@ -1,0 +1,30 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__image {
+    display: block;
+    max-width: none;
+  }
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+
+    background-color: aquamarine;
+    border-radius: 20px;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 25px;
+  }
+}
+
+

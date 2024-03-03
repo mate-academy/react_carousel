@@ -1,1 +1,9 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

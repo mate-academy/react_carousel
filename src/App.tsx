@@ -1,39 +1,54 @@
-import React from 'react';
+import 'bulma';
+import { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { DefaultImgValues } from './types/DefaultImgValues';
+import { Carousel } from './components/Carousel';
+import { Form } from './components/Form';
 
-interface State {
-  images: string[];
-}
+const images: string[] = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+const defaultImgValues: DefaultImgValues = {
+  images,
+  step: 3,
+  frameSize: 3,
+  itemWidth: 130,
+  animationDuration: 1000,
+  infinite: false,
+};
 
-  render() {
-    const { images } = this.state;
+export const App: React.FC = () => {
+  const [imgValues, setImgValues] = useState(defaultImgValues);
+  const [transform, setTransform] = useState(0);
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1
+        className="title"
+        data-cy="title"
+      >
+        {`Carousel with ${images.length} images`}
+      </h1>
+      <Carousel
+        imgValues={imgValues}
+        transform={transform}
+        setTransform={setTransform}
+      />
 
-        <Carousel />
-      </div>
-    );
-  }
-}
-
-export default App;
+      <Form
+        imgValues={imgValues}
+        setImgValues={setImgValues}
+      />
+    </div>
+  );
+};
