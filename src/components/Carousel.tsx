@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './Carousel.scss';
 import { Setting } from './setting/Setting';
 import { SettingInfinite } from './setting/SettingInfinite';
@@ -72,33 +72,42 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  const isInfinite = () => {
-    if (infinite) {
-      const moveNext = () => {
-        setTimeout(handleChangeNext, animationDuration);
-      };
-
-      const movePrev = () => {
-        setTimeout(handleChangePrev, animationDuration);
-      };
-
-      if (nextScroll) {
-        moveNext();
-        setNextScroll(scroll !== maxScroll);
-        setPrevScroll(scroll === maxScroll);
-      }
-
-      if (prevScroll) {
-        movePrev();
-        setPrevScroll(scroll !== 0);
-        setNextScroll(scroll === 0);
-      }
-    }
-  };
-
   useEffect(() => {
+    const isInfinite = () => {
+      if (infinite) {
+        const moveNext = () => {
+          setTimeout(handleChangeNext, animationDuration);
+        };
+
+        const movePrev = () => {
+          setTimeout(handleChangePrev, animationDuration);
+        };
+
+        if (nextScroll) {
+          moveNext();
+          setNextScroll(scroll !== maxScroll);
+          setPrevScroll(scroll === maxScroll);
+        }
+
+        if (prevScroll) {
+          movePrev();
+          setPrevScroll(scroll !== 0);
+          setNextScroll(scroll === 0);
+        }
+      }
+    };
+
     isInfinite();
-  }, [infinite, scroll, prevScroll, nextScroll]);
+  }, [
+    infinite,
+    scroll,
+    prevScroll,
+    nextScroll,
+    animationDuration,
+    handleChangeNext,
+    handleChangePrev,
+    maxScroll,
+  ]);
 
   return (
     <>
