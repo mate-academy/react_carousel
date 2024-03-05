@@ -1,1 +1,46 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+height: 100%;
+  &__container {
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(159, 159, 159, 0.2);
+    background-color: #f9f9f9;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  &__button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(9, 151, 222);
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background-color:rgb(11, 132, 193);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      background-color: #ccc;
+      color: rgb(54, 123, 158);
+      transform: none;
+    }
+  }
+}
