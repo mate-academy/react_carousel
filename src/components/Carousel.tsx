@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
 import './Carousel.scss';
 import { Setting } from './setting/Setting';
 import { SettingInfinite } from './setting/SettingInfinite';
@@ -33,8 +32,6 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const maxScroll = itemWidth * (10 - frameSize);
   const [scroll, setScroll] = useState(0);
-  const [nextScroll, setNextScroll] = useState(scroll < maxScroll);
-  const [prevScroll, setPrevScroll] = useState(scroll === maxScroll);
 
   const handleStepScroll = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeSettingsStep(Number(event.target.value));
@@ -56,58 +53,35 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handleChangeNext = () => {
-    const stepOfScroll = scroll + itemWidth * step;
 
-    if (scroll < maxScroll) {
-      setScroll(stepOfScroll > maxScroll ? maxScroll : stepOfScroll);
+    if (infinite && scroll < maxScroll) {
+      setScroll(maxScroll);
+    } else if (infinite && scroll === maxScroll) {
+      setScroll(0);
+    } else if (!infinite) {
+      const stepOfScroll = scroll + itemWidth * step;
+
+      if (scroll < maxScroll) {
+        setScroll(stepOfScroll > maxScroll ? maxScroll : stepOfScroll);
+      }
     }
   };
 
   const handleChangePrev = () => {
-    const minScroll = 0;
-    const stepOfScroll = scroll - itemWidth * step;
 
-    if (scroll > minScroll) {
-      setScroll(stepOfScroll < minScroll ? minScroll : stepOfScroll);
+    if (infinite && scroll > 0) {
+      setScroll(0);
+    } else if (infinite && scroll === 0) {
+      setScroll(maxScroll);
+    } else if (!infinite) {
+      const minScroll = 0;
+      const stepOfScroll = scroll - itemWidth * step;
+
+      if (scroll > minScroll) {
+        setScroll(stepOfScroll < minScroll ? minScroll : stepOfScroll);
+      }
     }
   };
-
-  useEffect(() => {
-    const isInfinite = () => {
-      if (infinite) {
-        const moveNext = () => {
-          setTimeout(handleChangeNext, animationDuration);
-        };
-
-        const movePrev = () => {
-          setTimeout(handleChangePrev, animationDuration);
-        };
-
-        if (nextScroll) {
-          moveNext();
-          setNextScroll(scroll !== maxScroll);
-          setPrevScroll(scroll === maxScroll);
-        }
-
-        if (prevScroll) {
-          movePrev();
-          setPrevScroll(scroll !== 0);
-          setNextScroll(scroll === 0);
-        }
-      }
-    };
-
-    isInfinite();
-  }, [
-    infinite,
-    scroll,
-    prevScroll,
-    nextScroll,
-    animationDuration,
-    handleChangeNext,
-    handleChangePrev,
-    maxScroll,
-  ]);
 
   return (
     <>
@@ -151,7 +125,7 @@ const Carousel: React.FC<Props> = ({
             type="button"
             className="Carousel__button btn btn-outline-secondary"
             onClick={handleChangePrev}
-            disabled={scroll === 0}
+            disabled={scroll === 0 && !infinite}
           >
             Prev
           </button>
@@ -159,7 +133,7 @@ const Carousel: React.FC<Props> = ({
             type="button"
             className="Carousel__button btn btn-outline-secondary"
             onClick={handleChangeNext}
-            disabled={scroll === maxScroll}
+            disabled={scroll === maxScroll && !infinite}
           >
             Next
           </button>
