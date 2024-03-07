@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 import { Setting } from './setting/Setting';
 import { SettingInfinite } from './setting/SettingInfinite';
@@ -32,8 +32,6 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const maxScroll = itemWidth * (10 - frameSize);
   const [scroll, setScroll] = useState(0);
-  const [nextButClicked, setNextButClicked] = useState(false);
-  const [prevButClicked, setPrevButClicked] = useState(false);
 
   const handleStepScroll = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeSettingsStep(Number(event.target.value));
@@ -59,7 +57,7 @@ const Carousel: React.FC<Props> = ({
 
     if (scroll < maxScroll) {
       setScroll(stepOfScroll > maxScroll ? maxScroll : stepOfScroll);
-    } else if (infinite && scroll === maxScroll) {
+    } else if (scroll === maxScroll && infinite) {
       setScroll(0);
     }
   };
@@ -70,34 +68,10 @@ const Carousel: React.FC<Props> = ({
 
     if (scroll > minScroll) {
       setScroll(stepOfScroll < minScroll ? minScroll : stepOfScroll);
-    } else if (infinite && scroll === 0) {
+    } else if (scroll === 0 && infinite) {
       setScroll(maxScroll);
     }
   };
-
-  useEffect(() => {
-    const infiniteModeFunc = () => {
-      if (infinite && scroll < maxScroll && nextButClicked) {
-        handleChangeNext();
-      } else if (infinite && scroll > 0 && prevButClicked) {
-        handleChangePrev();
-      }
-    }
-
-    setTimeout(() => { infiniteModeFunc() }, animationDuration);
-  }, [scroll, maxScroll, infinite, nextButClicked, prevButClicked]);
-
-  const pressPrevButton = () => {
-    handleChangePrev();
-    setPrevButClicked(true);
-    setNextButClicked(false);
-  }
-
-  const pressNextButton = () => {
-    handleChangeNext();
-    setPrevButClicked(false);
-    setNextButClicked(true);
-  }
 
   return (
     <>
@@ -140,7 +114,7 @@ const Carousel: React.FC<Props> = ({
           <button
             type="button"
             className="Carousel__button btn btn-outline-secondary"
-            onClick={pressPrevButton}
+            onClick={handleChangePrev}
             disabled={scroll === 0 && !infinite}
           >
             Prev
@@ -148,7 +122,7 @@ const Carousel: React.FC<Props> = ({
           <button
             type="button"
             className="Carousel__button btn btn-outline-secondary"
-            onClick={pressNextButton}
+            onClick={handleChangeNext}
             disabled={scroll === maxScroll && !infinite}
           >
             Next

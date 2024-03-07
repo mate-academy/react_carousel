@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-
 const App: React.FC = () => {
   const [images] = useState<string[]>([
     './img/1.png',
