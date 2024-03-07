@@ -1,1 +1,32 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 4px;
+  }
+
+  &__lable {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    margin-left: 30px;
+    padding: 4px;
+    width: 75px;
+    border-radius: 3px;
+    border: 1px solid grey;
+
+    &[type="checkbox"] {
+      width: auto;
+    }
+  }
+}
