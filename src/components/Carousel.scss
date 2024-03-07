@@ -21,13 +21,16 @@
     font-style: normal;
     text-shadow: 2px 2px 4px #888;
   }
+
   &__settings--property {
     font-size: 14px;
   }
+
   &__settings--checkbox {
     border-color: gray;
     box-shadow: none !important;
   }
+
   &__settings--checkbox:checked {
     background-color: black;
   }
@@ -48,8 +51,6 @@
     margin-left: 30px;
   }
 }
-
-
 
 li {
   list-style-type: none;
