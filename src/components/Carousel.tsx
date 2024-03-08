@@ -36,7 +36,7 @@ const Carousel: React.FC<State> = ({
     }
 
     setStartImage(prevImg =>
-      Math.max(images.length - frameSize, prevImg + step),
+      Math.min(prevImg + step, images.length - frameSize),
     );
   };
 
