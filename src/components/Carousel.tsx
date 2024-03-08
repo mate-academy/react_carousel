@@ -15,6 +15,8 @@ const Carousel: React.FC<State> = ({
   const [startImage, setStartImage] = useState(0);
   const carouselWidth = frameSize * itemWidth + (frameSize - 1) * GAP;
   const translateX = startImage * (itemWidth + GAP);
+  const isPrevDisabled = !infinite && startImage === 0;
+  const isNextDisabled = !infinite && startImage >= images.length - frameSize;
 
   const slideLeft = () => {
     if (infinite && startImage === 0) {
@@ -55,7 +57,7 @@ const Carousel: React.FC<State> = ({
           }}
         >
           {images.map((img, inx) => (
-            <li className="Carousel__item">
+            <li className="Carousel__item" key={img}>
               <img src={img} alt={`${inx + 1}`} width={itemWidth} />
             </li>
           ))}
@@ -67,7 +69,7 @@ const Carousel: React.FC<State> = ({
           className="Carousel__button"
           type="button"
           onClick={slideLeft}
-          disabled={!infinite && startImage === 0}
+          disabled={isPrevDisabled}
         >
           Prev
         </button>
@@ -77,7 +79,7 @@ const Carousel: React.FC<State> = ({
           className="Carousel__button"
           type="button"
           onClick={slideRight}
-          disabled={!infinite && startImage >= images.length - frameSize}
+          disabled={isNextDisabled}
         >
           Next
         </button>

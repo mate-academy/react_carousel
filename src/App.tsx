@@ -1,5 +1,5 @@
 import './App.scss';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import Carousel from './components/Carousel';
 import { State } from './types/Static';
 
@@ -28,6 +28,21 @@ class App extends React.Component<{}, State> {
     const { images, step, frameSize, itemWidth, animationDuration, infinite } =
       this.state;
 
+    const alterItemWidth = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ itemWidth: +e.target.value });
+
+    const alterFrameSize = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ frameSize: +e.target.value });
+
+    const alterStep = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ step: +e.target.value });
+
+    const alterAnimationDuration = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ animationDuration: +e.target.value });
+
+    const alterInfinite = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ infinite: e.target.checked });
+
     return (
       <div className="App">
         <h1 data-cy="title"> Carousel with {images.length} images</h1>
@@ -51,7 +66,7 @@ class App extends React.Component<{}, State> {
               value={itemWidth}
               min={0}
               step={10}
-              onChange={e => this.setState({ itemWidth: +e.target.value })}
+              onChange={alterItemWidth}
             />
           </label>
 
@@ -64,7 +79,7 @@ class App extends React.Component<{}, State> {
               value={frameSize}
               min={1}
               max={images.length}
-              onChange={e => this.setState({ frameSize: +e.target.value })}
+              onChange={alterFrameSize}
             />
           </label>
 
@@ -76,7 +91,7 @@ class App extends React.Component<{}, State> {
               type="number"
               value={step}
               min={1}
-              onChange={e => this.setState({ step: +e.target.value })}
+              onChange={alterStep}
             />
           </label>
 
@@ -88,9 +103,7 @@ class App extends React.Component<{}, State> {
               type="number"
               value={animationDuration}
               step={100}
-              onChange={e =>
-                this.setState({ animationDuration: +e.target.value })
-              }
+              onChange={alterAnimationDuration}
             />
           </label>
 
@@ -101,7 +114,7 @@ class App extends React.Component<{}, State> {
               id="infiniteId"
               type="checkbox"
               checked={infinite}
-              onChange={e => this.setState({ infinite: e.target.checked })}
+              onChange={alterInfinite}
             />
           </label>
         </div>
