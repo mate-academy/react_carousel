@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
+import cn from 'classnames';
 
 type Props = {
   img: string[];
@@ -7,7 +8,10 @@ type Props = {
   duration: number;
   step: number;
   frameSize: number;
+  isChecked: boolean;
 };
+
+const ITEMGAP = 5;
 
 const Carousel: React.FC<Props> = ({
   img,
@@ -15,23 +19,32 @@ const Carousel: React.FC<Props> = ({
   duration,
   step,
   frameSize,
+  isChecked,
 }) => {
   const [currentPx, setCurrentPx] = useState(0);
 
-  const numberShowImg = (frameSize + 3) * itemWidth;
-  const stepScrolImg = step * itemWidth;
-  const maxWidth = -(itemWidth * (img.length - 3 - frameSize));
+  const itemWidthWithGap = itemWidth + ITEMGAP;
+  const maxValueFrame = frameSize > img.length ? img.length : frameSize;
+  const numberShowImg = maxValueFrame * itemWidthWithGap;
+  const stepScrolImg = step * itemWidthWithGap;
+  const maxWidth = -(itemWidthWithGap * (img.length - maxValueFrame));
 
   const goToNext = () => {
     setCurrentPx(
-      currentPx - stepScrolImg <= maxWidth
-        ? maxWidth
-        : currentPx - stepScrolImg,
+      currentPx - stepScrolImg > maxWidth ? currentPx - stepScrolImg : maxWidth,
     );
+
+    if (currentPx === maxWidth && isChecked) {
+      setCurrentPx(0);
+    }
   };
 
   const goToPrev = () => {
-    setCurrentPx(currentPx + stepScrolImg >= 0 ? 0 : currentPx + stepScrolImg);
+    setCurrentPx(currentPx + stepScrolImg <= 0 ? currentPx + stepScrolImg : 0);
+
+    if (currentPx === 0 && isChecked) {
+      setCurrentPx(maxWidth);
+    }
   };
 
   return (
@@ -46,7 +59,8 @@ const Carousel: React.FC<Props> = ({
             style={{
               transform: `translateX(${currentPx}px)`,
               transition: `transform ${duration}ms ease-in-out`,
-              animation: 'infinite',
+              gap: ITEMGAP,
+              width: 'max-content',
             }}
           >
             {img.map((url, index) => (
@@ -57,7 +71,13 @@ const Carousel: React.FC<Props> = ({
           </ul>
         </div>
         <div className="Carousel__button-position">
-          <button className="Carousel__button" type="button" onClick={goToPrev}>
+          <button
+            className={cn('Carousel__button', {
+              'Carousel__button-active': currentPx < 0 || isChecked,
+            })}
+            type="button"
+            onClick={goToPrev}
+          >
             <img
               className="Carousel__arr-left"
               src="./img/arr-left.png"
@@ -65,7 +85,9 @@ const Carousel: React.FC<Props> = ({
             />
           </button>
           <button
-            className="Carousel__button"
+            className={cn('Carousel__button', {
+              'Carousel__button-active': currentPx > maxWidth || isChecked,
+            })}
             data-cy="next"
             type="button"
             onClick={goToNext}

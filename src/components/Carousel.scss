@@ -5,8 +5,8 @@
   }
 
   &__container {
-    display: flex;
-    width: 1300px;
+    width: max-content;
+    justify-content: center;
   }
 
   &__list {
@@ -22,10 +22,15 @@
   }
 
   &__button {
+    cursor: pointer;
     margin: 0;
     padding: 0;
     border: none;
     background-color: #fff;
+  }
+
+  &__button-active:active {
+    background-color: #aaa;
   }
 
 

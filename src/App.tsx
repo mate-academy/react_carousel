@@ -8,6 +8,7 @@ interface State {
   step: number;
   aDuration: number;
   frameSize: number;
+  isChecked: boolean;
 }
 
 type Element = React.ChangeEvent<HTMLInputElement>;
@@ -30,10 +31,12 @@ class App extends React.Component<{}, State> {
     aDuration: 1000,
     step: 3,
     frameSize: 3,
+    isChecked: false,
   };
 
   render() {
-    const { images, itemWidth, aDuration, step, frameSize } = this.state;
+    const { images, itemWidth, aDuration, step, frameSize, isChecked } =
+      this.state;
 
     return (
       <div className="App">
@@ -41,36 +44,62 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <div className="App__container-configuration">
-          Item width
+          Item width:
           <input
             className="App__input"
             defaultValue={130}
+            min={0}
+            max={500}
+            step={10}
+            type="number"
             onChange={(e: Element) =>
               this.setState({ itemWidth: +e.target.value })
             }
           />
-          Animation Duration
+          Animation Duration:
           <input
             className="App__input"
+            type="number"
+            min={0}
+            step={100}
             defaultValue={1000}
             onChange={(e: Element) =>
               this.setState({ aDuration: +e.target.value })
             }
           />
-          Frame size
+          Frame size:
           <input
             className="App__input"
             defaultValue={3}
+            min={0}
+            max={images.length}
+            step={1}
+            type="number"
             onChange={(e: Element) =>
               this.setState({ frameSize: +e.target.value })
             }
           />
-          Step
+          Step:
           <input
             className="App__input"
+            type="number"
+            min={1}
+            max={images.length - frameSize}
+            step={1}
             defaultValue={3}
             onChange={(e: Element) => this.setState({ step: +e.target.value })}
           />
+          <label className="Carousel_field">
+            <input
+              className="App__input"
+              type="checkbox"
+              checked={isChecked}
+              onChange={(e: Element) =>
+                this.setState({ isChecked: e.target.checked })
+              }
+            />
+            Infinite
+          </label>
         </div>
 
         <Carousel
@@ -79,6 +108,7 @@ class App extends React.Component<{}, State> {
           duration={aDuration}
           step={step}
           frameSize={frameSize}
+          isChecked={isChecked}
         />
       </div>
     );
