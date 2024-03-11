@@ -1,1 +1,17 @@
 // style go here
+.App {
+  margin-left: 10px;
+
+  &__container-configuration {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+
+  &__input {
+    margin-bottom: 10px;
+    width: max-content;
+    cursor: pointer;
+  }
+}

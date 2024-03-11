@@ -1,1 +1,48 @@
 // style go here
+.Carousel {
+  &__main-container {
+    overflow: hidden;
+  }
+
+  &__container {
+    width: max-content;
+    justify-content: center;
+  }
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button-position{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: #fff;
+  }
+
+  &__button-active:active {
+    background-color: #aaa;
+  }
+
+
+  &__arr-left {
+    width: 50px;
+  }
+
+  &__arr-right {
+    width: 50px;
+  }
+}
+
+
+
+
