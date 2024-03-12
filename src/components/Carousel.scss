@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  text-align: center;
+
+  &__container {
+    margin-inline: auto;
+    background-color: #f1ba22;
+    overflow: hidden;
+    border-radius: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    list-style-type: none;
+    padding: 0;
+    margin: none;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  &__item {
+    width: 70px;
+    height: 35px;
+    background-color:  #f1ba22;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+}

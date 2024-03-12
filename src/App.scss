@@ -1,1 +1,26 @@
-// style go here
+.App {
+  text-align: center;
+}
+
+.customize {
+  align-items: center;
+  width: 300px;
+  background-color: #f1ba22;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: black;
+  margin-top: 20px;
+  margin-inline: auto;
+  border-radius: 10px;
+
+  &__label {
+    display: flex;
+    position: relative;
+    margin: 5px;
+  }
+
+  &__input {
+    width: 60px;
+  }
+}
