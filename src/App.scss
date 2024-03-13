@@ -1,1 +1,43 @@
-// style go here
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.App {
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+
+  &__title {
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    font-size: 32px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &__label {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 5px;
+    width: fit-content;
+  }
+
+  input {
+    width: fit-content;
+    text-align: center;
+  }
+}
+
+
