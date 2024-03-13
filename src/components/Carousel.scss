@@ -3,9 +3,7 @@
   flex-direction: column;
   align-items: center;
 
-  &__list {
-    display: flex;
-    list-style: none;
+  &__container {
     overflow: hidden;
     background-color: rgb(233, 233, 199);
     border-radius: 5px;
@@ -19,7 +17,15 @@
       1;
   }
 
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
   &__buttons {
+    margin-top: 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;

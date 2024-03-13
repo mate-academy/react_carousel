@@ -18,19 +18,23 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [currentImage, setCurrentImage] = useState(1);
-  const possibleImage = images.length - frameSize + 1;
+  const [currentImage, setCurrentImage] = useState(0);
+  const possibleImage = images.length - frameSize;
 
-  const start = currentImage === 1;
+  const start = currentImage === 0;
   const end = currentImage === possibleImage;
 
   const handleNext = () => {
     if (!end) {
       const nextIndex = currentImage + step;
 
-      setCurrentImage(nextIndex > possibleImage ? possibleImage : nextIndex);
+      setCurrentImage(
+        infinite
+          ? nextIndex % images.length
+          : Math.min(nextIndex, possibleImage),
+      );
     } else if (infinite) {
-      setCurrentImage(1);
+      setCurrentImage(0);
     }
   };
 
@@ -38,7 +42,11 @@ const Carousel: React.FC<Props> = ({
     if (!start) {
       const nextIndex = currentImage - step;
 
-      setCurrentImage(nextIndex < 1 ? 1 : nextIndex);
+      setCurrentImage(
+        infinite
+          ? (nextIndex + images.length) % images.length
+          : Math.max(nextIndex, 0),
+      );
     } else if (infinite) {
       setCurrentImage(possibleImage);
     }
@@ -46,30 +54,26 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
-      <ul
-        className="Carousel__list"
+      <div
+        className="Carousel__container"
         style={{
-          width: `${itemWidth * frameSize}px`,
+          width: `${itemWidth * frameSize + (frameSize - 1)}px`,
         }}
       >
-        {images.map(image => (
-          <li
-            key={image}
-            style={{
-              transform: `translateX(-${(currentImage - 1) * itemWidth}px)`,
-              transition: `${animationDuration}ms`,
-            }}
-          >
-            <img
-              src={image}
-              alt={image}
-              style={{
-                width: `${itemWidth}px`,
-              }}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(-${currentImage * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms ease`,
+          }}
+        >
+          {images.map(image => (
+            <li key={image}>
+              <img src={image} alt={image} width={itemWidth} />
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="Carousel__buttons">
         <button
           type="button"
