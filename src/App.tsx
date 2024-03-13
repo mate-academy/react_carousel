@@ -49,9 +49,7 @@ class App extends React.Component<{}, State> {
             id="stepId"
             value={step}
             min={1}
-            onChange={e =>
-              this.setState({ step: parseInt(e.target.value, 10) })
-            }
+            onChange={e => this.setState({ step: Number(e.target.value) })}
           />
 
           <label htmlFor="frameId">Frame size:</label>
@@ -61,9 +59,7 @@ class App extends React.Component<{}, State> {
             value={frameSize}
             min={1}
             max={images.length}
-            onChange={e =>
-              this.setState({ frameSize: parseInt(e.target.value, 10) })
-            }
+            onChange={e => this.setState({ frameSize: Number(e.target.value) })}
           />
 
           <label htmlFor="itemId">Item width:</label>
@@ -71,9 +67,7 @@ class App extends React.Component<{}, State> {
             type="number"
             id="itemId"
             value={itemWidth}
-            onChange={e =>
-              this.setState({ itemWidth: parseInt(e.target.value, 10) })
-            }
+            onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
           />
 
           <label htmlFor="animationDuration">Animation duration:</label>
@@ -82,7 +76,7 @@ class App extends React.Component<{}, State> {
             value={animationDuration}
             id="animationDuration"
             onChange={e =>
-              this.setState({ animationDuration: parseInt(e.target.value, 10) })
+              this.setState({ animationDuration: Number(e.target.value) })
             }
           />
 
