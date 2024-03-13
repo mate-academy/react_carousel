@@ -26,6 +26,7 @@ const Carousel: React.FC<Props> = ({
   const rightMove = () => {
     if (infinite && currentImage >= images.length - frameSize + 1) {
       setCurrentImage(1);
+
       return;
     }
 
@@ -39,6 +40,7 @@ const Carousel: React.FC<Props> = ({
   const leftMove = () => {
     if (infinite && currentImage === 1) {
       setCurrentImage(images.length - frameSize + 1);
+
       return;
     }
 
@@ -51,6 +53,7 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
+      {currentImage}
       <div
         className="Carousel__container"
         style={{
@@ -86,19 +89,19 @@ const Carousel: React.FC<Props> = ({
           className={
             currentImage === 1 && !infinite
               ? 'buttons__item'
-              : 'buttons__item button-active'
+              : 'buttons__item buttons-active'
           }
         >
           Prev
         </button>
         <button
-          data-cy='next'
+          data-cy="next"
           type="button"
           onClick={rightMove}
           className={
             currentImage === images.length - frameSize + 1 && !infinite
               ? 'buttons__item'
-              : 'buttons__item button-active'
+              : 'buttons__item buttons-active'
           }
         >
           Next

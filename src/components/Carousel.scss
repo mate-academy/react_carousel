@@ -18,6 +18,11 @@
     padding: 0;
     margin: none;
   }
+
+  &__image {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .buttons {
@@ -33,5 +38,10 @@
     border: none;
     border-radius: 4px;
     text-transform: uppercase;
+    opacity: 0.3
+  }
+
+  &-active {
+    opacity: 1;
   }
 }
