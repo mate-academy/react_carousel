@@ -41,19 +41,20 @@ const Carousel: React.FC<Props> = ({
       <div
         className="Carousel__container"
         style={{
-          width: `${itemWidth * frameSize + (frameSize - 1)}px`,
+          width: `${itemWidth * frameSize + (frameSize - 1) * 20}px`,
         }}
       >
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${currentImage * itemWidth}px)`,
+            gap: 20,
+            transform: `translateX(-${currentImage * (itemWidth + 20)}px)`,
             transition: `transform ${animationDuration}ms ease`,
           }}
         >
-          {images.map((image, index) => (
+          {images.map(image => (
             <li key={image}>
-              <img src={image} alt={`${index + 1}`} width={itemWidth} />
+              <img src={image} alt={image} width={itemWidth} />
             </li>
           ))}
         </ul>
