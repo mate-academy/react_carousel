@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
 
         <Carousel
           {...inputs}
-          key={Object.values(inputs).join('')}
+          key={inputs.frameSize}
           className="App__carousel"
           images={images}
           containerSize={CAROUSEL_CONTAINER_SIZE}
