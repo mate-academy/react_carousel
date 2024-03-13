@@ -43,10 +43,10 @@ class App extends React.Component<{}, State> {
         </h1>
 
         <div className="App_inputs">
-          <label htmlFor="step">Step:</label>
+          <label htmlFor="stepId">Step:</label>
           <input
             type="number"
-            id="step"
+            id="stepId"
             value={step}
             min={1}
             onChange={e =>
@@ -54,10 +54,10 @@ class App extends React.Component<{}, State> {
             }
           />
 
-          <label htmlFor="frameSize">Frame size:</label>
+          <label htmlFor="frameId">Frame size:</label>
           <input
             type="number"
-            id="frameSize"
+            id="frameId"
             value={frameSize}
             min={1}
             max={images.length}
@@ -66,10 +66,10 @@ class App extends React.Component<{}, State> {
             }
           />
 
-          <label htmlFor="itemWidth">Item width:</label>
+          <label htmlFor="itemId">Item width:</label>
           <input
             type="number"
-            id="itemWidth"
+            id="itemId"
             value={itemWidth}
             onChange={e =>
               this.setState({ itemWidth: parseInt(e.target.value, 10) })
