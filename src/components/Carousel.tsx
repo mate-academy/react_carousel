@@ -19,36 +19,20 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const possibleImage = images.length - frameSize;
 
-  const start = currentImage === 0;
-  const end = currentImage === possibleImage;
-
-  const handleNext = () => {
-    if (!end) {
-      const nextIndex = currentImage + step;
-
-      setCurrentImage(
-        infinite
-          ? nextIndex % images.length
-          : Math.min(nextIndex, possibleImage),
-      );
-    } else if (infinite) {
-      setCurrentImage(0);
+  const handlePrev = () => {
+    if (infinite && currentImage === 0) {
+      setCurrentImage(images.length - frameSize);
+    } else {
+      setCurrentImage(prev => Math.max(0, prev - step));
     }
   };
 
-  const handlePrev = () => {
-    if (!start) {
-      const nextIndex = currentImage - step;
-
-      setCurrentImage(
-        infinite
-          ? (nextIndex + images.length) % images.length
-          : Math.max(nextIndex, 0),
-      );
-    } else if (infinite) {
-      setCurrentImage(possibleImage);
+  const handleNext = () => {
+    if (infinite && currentImage >= images.length - frameSize) {
+      setCurrentImage(0);
+    } else {
+      setCurrentImage(prev => Math.min(prev + step, images.length - frameSize));
     }
   };
 
@@ -67,9 +51,9 @@ const Carousel: React.FC<Props> = ({
             transition: `transform ${animationDuration}ms ease`,
           }}
         >
-          {images.map(image => (
+          {images.map((image, index) => (
             <li key={image}>
-              <img src={image} alt={image} width={itemWidth} />
+              <img src={image} alt={`${index + 1}`} width={itemWidth} />
             </li>
           ))}
         </ul>
@@ -77,14 +61,14 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__buttons">
         <button
           type="button"
-          className={`Carousel__button ${start && !infinite ? 'Carousel__button--off' : ''}`}
+          className={`Carousel__button ${!infinite && currentImage === 0 ? 'Carousel__button--off' : ''}`}
           onClick={() => handlePrev()}
         >
           {'<<<'}
         </button>
         <button
           type="button"
-          className={`Carousel__button ${end && !infinite ? 'Carousel__button--off' : ''}`}
+          className={`Carousel__button ${!infinite && currentImage >= images.length - frameSize ? 'Carousel__button--off' : ''}`}
           data-cy="next"
           onClick={() => handleNext()}
         >
