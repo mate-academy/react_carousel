@@ -1,0 +1,22 @@
+.Form {
+  max-width: 400px;
+  width: 100%;
+  margin-inline: auto;
+
+  &__input-group {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 200px;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+  }
+
+  &__input,
+  &__label {
+    width: fit-content;
+  }
+}
+

@@ -1,9 +1,14 @@
 import React from 'react';
+import { Carousel } from './components/Carousel';
+import { Form } from './components/Form';
+import { CarouselConfig as GlobalCarouselConfig } from './types';
 import './App.scss';
-import Carousel from './components/Carousel';
+
+type CarouselConfig = Omit<GlobalCarouselConfig, 'containerSize'>;
 
 interface State {
   images: string[];
+  inputs: CarouselConfig;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,51 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    inputs: {
+      step: 3,
+      frameSize: 3,
+      itemWidth: 130,
+      animationDuration: 1000,
+      infinite: false,
+    },
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked, type } = event.target;
+
+    this.setState(({ inputs, ...rest }) => ({
+      ...rest,
+      inputs: {
+        ...inputs,
+        [name]: type === 'checkbox' ? checked : parseInt(value, 10),
+      },
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, inputs } = this.state;
+    const CAROUSEL_CONTAINER_SIZE = 1300;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__title" data-cy="title">
+          Carousel with {images.length} images
+        </h1>
 
-        <Carousel />
+        <Carousel
+          {...inputs}
+          key={Object.values(inputs).join('')}
+          className="App__carousel"
+          images={images}
+          containerSize={CAROUSEL_CONTAINER_SIZE}
+        />
+
+        <Form
+          {...inputs}
+          containerSize={CAROUSEL_CONTAINER_SIZE}
+          handleChange={this.handleChange}
+          imagesCount={images.length}
+        />
       </div>
     );
   }
