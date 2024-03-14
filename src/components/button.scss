@@ -1,0 +1,26 @@
+.buttons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+
+  &__item {
+    width: 80px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    opacity: 0.6;
+
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+}
+
+.button-active {
+  opacity: 1;
+  cursor: pointer;
+}
