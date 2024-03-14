@@ -5,9 +5,8 @@
     margin-inline: auto;
     background-color: #f1ba22;
     overflow: hidden;
-    border-radius: 15px;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
+    border-radius: 20px;
+    margin-block: 20px;
   }
 
   &__list {
@@ -16,12 +15,7 @@
     justify-content: left;
     list-style-type: none;
     padding: 0;
-    margin: none;
-  }
-
-  &__image {
     margin: 0;
-    padding: 0;
   }
 }
 

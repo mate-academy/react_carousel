@@ -34,6 +34,7 @@ const Carousel: React.FC<Props> = ({
 
     if (currentImage + step >= images.length - frameSize + 1) {
       setCurrentImage(images.length - frameSize + 1);
+      return;
     }
   };
 
@@ -53,7 +54,7 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
-      {currentImage}
+      
       <div
         className="Carousel__container"
         style={{
