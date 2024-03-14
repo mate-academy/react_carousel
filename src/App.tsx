@@ -2,40 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Carousel } from './components/Carousel';
 
-// interface State {
-//   images: string[];
-// }
-
-// class App extends React.Component<{}, State> {
-//   state = {
-//     images: [
-//       './img/1.png',
-//       './img/2.png',
-//       './img/3.png',
-//       './img/4.png',
-//       './img/5.png',
-//       './img/6.png',
-//       './img/7.png',
-//       './img/8.png',
-//       './img/9.png',
-//       './img/10.png',
-//     ],
-//   };
-
-//   render() {
-//     const { images } = this.state;
-
-//     return (
-//       <div className="App">
-//         {/* eslint-disable-next-line */}
-//         <h1>Carousel with {images.length} images</h1>
-
-//         <Carousel images={images} />
-//       </div>
-//     );
-//   }
-// }
-
 interface State {
   itemWidth: number;
   frameSize: number;
@@ -105,7 +71,6 @@ const App: React.FC = () => {
           <label htmlFor="itemId" className="App__input-title">
             Item width
           </label>
-          {/* <p className="App__input-title">Item width</p> */}
           <input
             className="App__input"
             id="itemId"
@@ -114,7 +79,7 @@ const App: React.FC = () => {
             value={state.itemWidth}
             onChange={handleInputChange}
             min={130}
-            max={500}
+            max={200}
             step={10}
           />
         </div>
@@ -123,7 +88,6 @@ const App: React.FC = () => {
           <label htmlFor="frameId" className="App__input-title">
             Frame size
           </label>
-          {/* <p className="App__input-title">Frame size</p> */}
           <input
             className="App__input"
             id="frameId"
@@ -141,7 +105,6 @@ const App: React.FC = () => {
           <label htmlFor="stepId" className="App__input-title">
             Step
           </label>
-          {/* <p className="App__input-title">Step</p> */}
           <input
             className="App__input"
             id="stepId"

@@ -20,45 +20,31 @@ export const Carousel: React.FC<Props> = ({
 }) => {
   const [current, setCurrent] = useState(0);
 
+  const carouselWidth = frameSize * itemWidth + (frameSize - 1);
+
   const prevButton = () => {
-    if (infinite) {
-      if (current !== 0) {
-        return setCurrent(current - step);
-      }
-
-      return setCurrent(images.length - 1);
+    if (infinite && current === 0) {
+      setCurrent(images.length - frameSize);
+    } else {
+      setCurrent(prevCurrent => Math.max(0, prevCurrent - step));
     }
-
-    return setCurrent(current === 1 ? 0 : current - step);
   };
 
   const nextButton = () => {
-    if (infinite) {
-      if (current + step < images.length) {
-        return setCurrent(current + step);
-      }
-
-      return setCurrent(0);
+    if (infinite && current >= images.length - frameSize) {
+      setCurrent(0);
+    } else {
+      setCurrent(prevCurren =>
+        Math.min(images.length - frameSize, prevCurren + step),
+      );
     }
-
-    // return setCurrent(
-    //   current + step >= images.length
-    //     ? images.length - frameSize
-    //     : current + step,
-    // );
-    return setCurrent(
-      current + step >= images.length - step
-        ? current + (images.length - current - step)
-        : current + step,
-    );
   };
 
   return (
     <div className="Carousel">
-      <p>{current}</p>
       <div
         className="Carousel__container"
-        style={{ width: `${itemWidth * frameSize}px` }}
+        style={{ width: `${carouselWidth}px` }}
       >
         <ul
           className="Carousel__list"
@@ -94,7 +80,6 @@ export const Carousel: React.FC<Props> = ({
           data-cy="next"
           type="button"
           className="Carousel__button"
-          // disabled={!infinite && current + step >= images.length}
           disabled={!infinite && current + frameSize >= images.length}
           onClick={nextButton}
         >
