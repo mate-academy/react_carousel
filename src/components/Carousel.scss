@@ -1,1 +1,23 @@
 // style go here
+.Carousel {
+  text-align: center;
+
+  &__container {
+    margin-inline: auto;
+    margin-block: 20px;
+    border-radius: 20px;
+    background-color: black;
+    overflow: hidden;
+
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+  }
+}
