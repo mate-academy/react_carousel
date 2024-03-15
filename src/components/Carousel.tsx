@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 import { State } from '../utils/types';
 
@@ -11,6 +11,12 @@ const Carousel: React.FC<State> = ({
   infinite,
 }: State) => {
   const [numberOfImage, setNumberOfImage] = useState(0);
+
+  useEffect(() => {
+    if (numberOfImage + frameSize > images.length) {
+      setNumberOfImage(images.length - frameSize);
+    }
+  }, [frameSize]);
 
   const prevCallback = () => {
     if (numberOfImage - step <= 0) {
