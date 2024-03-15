@@ -6,6 +6,72 @@
     <title>Carousel</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="App">
+        <h1 data-cy="title">Carousel with 10 images</h1>
+        <div class="App__indicator">
+          <label for="itemId" class="App__indicator--text">
+            Item width:
+            <input class="App__indicator--number">
+          </label>
+          <label for="frameId" class="App__indicator--text">
+            Frame size:
+            <input class="App__indicator--number">
+          </label>
+          <label for="stepId" class="App__indicator--text">
+            Step:
+            <input class="App__indicator--number">
+          </label>
+          <label for="animationDuration" class="App__indicator--text">
+            Animation duration:
+            <input class="App__indicator--number">
+          </label>
+          <label for="infinite" class="App__indicator--text">
+            Infinite:
+            <input class="App__indicator--number">
+          </label>
+        </div>
+        <div class="Carousel">
+          <div class="Carousel__container">
+            <ul class="Carousel__list">
+              <li>
+                <img src="img/1.jpg" alt="Image 1">
+              </li>
+              <li>
+                <img src="img/2.jpg" alt="Image 2">
+              </li>
+              <li>
+                <img src="img/3.jpg" alt="Image 3">
+              </li>
+              <li>
+                <img src="img/4.jpg" alt="Image 4">
+              </li>
+              <li>
+                <img src="img/5.jpg" alt="Image 5">
+              </li>
+              <li>
+                <img src="img/6.jpg" alt="Image 6">
+              </li>
+              <li>
+                <img src="img/7.jpg" alt="Image 7">
+              </li>
+              <li>
+                <img src="img/8.jpg" alt="Image 8">
+              </li>
+              <li>
+                <img src="img/9.jpg" alt="Image 9">
+              </li>
+              <li>
+                <img src="img/10.jpg" alt="Image 10">
+              </li>
+            </ul>
+          </div>
+          <div class="Carousel__buttons">
+            <button type="button" class="Carousel__button">Prev</button>
+            <button type="button" class="Carousel__button" data-cy="next" disabled>Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
