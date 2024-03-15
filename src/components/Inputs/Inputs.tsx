@@ -21,7 +21,7 @@ export const Inputs: React.FC<Props> = ({
   return (
     <div className="Inputs">
       <>
-        <label className="input-container">
+        <label className="input-container" htmlFor="itemId">
           <p className="input-text">The width of item:</p>
           <input
             type="number"
@@ -34,7 +34,7 @@ export const Inputs: React.FC<Props> = ({
           />
         </label>
 
-        <label className="input-container">
+        <label className="input-container" htmlFor="frameId">
           <p className="input-text">
             Number of images displayed at the same time:
           </p>
@@ -49,7 +49,7 @@ export const Inputs: React.FC<Props> = ({
           />
         </label>
 
-        <label className="input-container">
+        <label className="input-container" htmlFor="stepId">
           <p className="input-text">Number of images scrolled per click:</p>
           <input
             type="number"

@@ -26,7 +26,9 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1 className="App__header" data-cy="title">Carousel with {images.length} images</h1>
+      <h1 className="App__header" data-cy="title">
+        Carousel with {images.length} images
+      </h1>
 
       <Inputs
         setStep={setStep}

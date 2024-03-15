@@ -1,13 +1,31 @@
+interface Image {
+  link: string;
+  isVisible: boolean;
+}
+
 type GetImg = (
   images: string[],
   startIndex: number,
   frameSize: number,
-) => string[];
+  infinite: boolean,
+) => Image[];
 
-export const GetImgs: GetImg = (images, startIndex, frameSize) => {
-  const endIndex = startIndex + frameSize;
+export const getImgs: GetImg = (images, startIndex, frameSize, infinite) => {
+  const visibleImages = images.map((img, index) => {
+    const indexOfLastEl = startIndex + frameSize;
+    let isVisible = index < indexOfLastEl;
 
-  return images.slice(startIndex, endIndex);
+    if (infinite) {
+      isVisible = true;
+    }
+
+    return {
+      link: img,
+      isVisible,
+    };
+  });
+
+  return visibleImages;
 };
 
 export const HandleClick = (

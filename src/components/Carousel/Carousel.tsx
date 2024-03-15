@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
 import cn from 'classnames';
+import { getImgs } from '../utils';
 
 interface Props {
   images: string[];
@@ -20,6 +21,7 @@ export const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
+  const visibleImages = getImgs(images, startIndex, frameSize, infinite);
   const translateX =
     startIndex + step > images.length ? images.length - step : startIndex;
 
@@ -31,25 +33,28 @@ export const Carousel: React.FC<Props> = ({
           width: itemWidth * frameSize,
         }}
       >
-        {images.map((img, index) => (
-          <li className="Carousel__img">
-            <img
-              src={img}
-              alt={`${index + 1}`}
-              width={itemWidth}
-              style={{
-                width: itemWidth,
-                height: itemWidth,
-                transform: !infinite
-                  ? `translateX(${-1 * itemWidth * translateX}px)`
-                  : `translateX(${-1 * itemWidth * (images.length - step)}px)`,
-                transition: !infinite
-                  ? `transform ${animationDuration}ms ease-in-out`
-                  : `transform ${animationDuration}ms ease-in-out`,
-              }}
-            />
-          </li>
-        ))}
+        {visibleImages.map(({ link, isVisible }, index) => {
+          return (
+            <li className="Carousel__img" key={link}>
+              <img
+                src={link}
+                alt={`${index + 1}`}
+                width={itemWidth}
+                style={{
+                  visibility: isVisible ? 'initial' : 'hidden',
+                  width: itemWidth,
+                  height: itemWidth,
+                  transform: !infinite
+                    ? `translateX(${-1 * itemWidth * translateX}px)`
+                    : `translateX(${-1 * itemWidth * (images.length - step)}px)`,
+                  transition: !infinite
+                    ? `transform ${animationDuration}ms ease-in-out`
+                    : `transform ${animationDuration}ms ease-in-out`,
+                }}
+              />
+            </li>
+          );
+        })}
       </ul>
 
       <button
