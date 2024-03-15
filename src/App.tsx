@@ -32,7 +32,7 @@ class App extends React.Component<{}, State> {
       (property: keyof State) => (event: ChangeEvent<HTMLInputElement>) =>
         this.setState(prevState => ({
           ...prevState,
-          [property]: event.target.value,
+          [property]: Number(event.target.value),
         }));
 
     return (
