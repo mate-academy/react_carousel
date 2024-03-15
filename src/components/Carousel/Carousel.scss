@@ -1,0 +1,42 @@
+// style go here
+.Carousel{
+  &__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    list-style: none;
+    overflow: hidden;
+    border: 3px solid orange;
+    border-radius: 30px;
+    padding: 0;
+
+  }
+
+  &__img {
+    position: relative;
+  }
+
+  &__button {
+    background-color: orange;
+    border: 1px solid black;
+    cursor: pointer;
+    margin-right: 30px;
+    height: 40px;
+    width: 60px;
+    font-size: 18px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: darkorange;
+      font-weight: bold;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      background-color: lightgray;
+
+    }
+  }
+}
+
