@@ -11,12 +11,17 @@ export interface CarouselProps {
   infinite: boolean;
 }
 
+const DEFAULT_ITEM_WIDTH = 130;
+const DEFAULT_FRAME_SIZE = 3;
+const DEFAULT_STEP = 3;
+const DEFAULT_ANIMATION_DURATION = 1000;
+
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animationDuration = 1000,
+  itemWidth = DEFAULT_ITEM_WIDTH,
+  frameSize = DEFAULT_FRAME_SIZE,
+  step = DEFAULT_STEP,
+  animationDuration = DEFAULT_ANIMATION_DURATION,
   infinite = false,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
@@ -79,7 +84,7 @@ const Carousel: React.FC<CarouselProps> = ({
           type="button"
           onClick={handleNext}
           className={cn('Carousel__button')}
-          disabled={startIndex + frameSize >= images.length}
+          disabled={!infinite && startIndex >= images.length - frameSize}
           data-cy="next"
         >
           »
