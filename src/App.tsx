@@ -30,10 +30,11 @@ class App extends React.Component<{}, State> {
 
     const setValue =
       (property: keyof State) => (event: ChangeEvent<HTMLInputElement>) =>
-        this.setState(prevState => ({
-          ...prevState,
-          [property]: Number(event.target.value),
-        }));
+        this.setState(prevState =>
+          Number(event.target.value) > 0
+            ? { ...prevState, [property]: Number(event.target.value) }
+            : { ...prevState, [property]: 0 },
+        );
 
     return (
       <div className="App">

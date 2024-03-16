@@ -18,7 +18,7 @@ const Carousel: React.FC<State> = ({
     }
   }, [frameSize]);
 
-  const prevCallback = () => {
+  const prevSlide = () => {
     if (numberOfImage - step <= 0) {
       setNumberOfImage(0);
     } else {
@@ -30,7 +30,7 @@ const Carousel: React.FC<State> = ({
     }
   };
 
-  const nextCallback = () => {
+  const nextSlide = () => {
     if (numberOfImage + step > images.length - frameSize) {
       setNumberOfImage(images.length - frameSize);
     } else {
@@ -70,7 +70,7 @@ const Carousel: React.FC<State> = ({
       <button
         className="Carousel__button"
         type="button"
-        onClick={prevCallback}
+        onClick={prevSlide}
         disabled={numberOfImage <= 0 && !infinite}
         style={{ order: '-1' }}
       >
@@ -79,7 +79,7 @@ const Carousel: React.FC<State> = ({
       <button
         className="Carousel__button"
         type="button"
-        onClick={nextCallback}
+        onClick={nextSlide}
         disabled={numberOfImage >= images.length - frameSize && !infinite}
         data-cy="next"
       >
