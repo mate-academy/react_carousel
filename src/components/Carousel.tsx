@@ -9,6 +9,8 @@ type Props = {
   animationDuration: number;
 };
 
+const GAP = 10;
+
 const Carousel: React.FC<Props> = ({
   images,
   step,
@@ -16,7 +18,7 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   animationDuration,
 }) => {
-  const carouselWidth = frameSize * itemWidth;
+  const carouselWidth = frameSize * itemWidth + (frameSize - 1) * GAP;
   const [firstIndex, setFirstIndex] = useState(0);
   const [transition, setTransition] = useState('transform 1000ms ease-in-out');
 
@@ -37,7 +39,8 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel-container" style={{ width: carouselWidth }}>
         <ul
           style={{
-            transform: `translateX(-${firstIndex * itemWidth}px)`,
+            transform: `translateX(-${firstIndex * (itemWidth + GAP)}px)`,
+            gap: GAP,
             transition,
           }}
           className="Carousel__list"
