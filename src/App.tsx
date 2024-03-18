@@ -67,9 +67,9 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy='title'>Carousel with {this.state.images.length} images</h1>
         <div className="inputs">
-          <label htmlFor="itemWidth">Item width:</label>
+          <label htmlFor="itemId">Item width:</label>
           <input
-            id="itemWidth"
+            id="itemId"
             type="number"
             min="130"
             max="300"
@@ -77,18 +77,18 @@ class App extends React.Component<{}, State> {
             value={itemWidth}
             onChange={this.handleWidthChange}
           />
-          <label htmlFor="frameSize">Frame size:</label>
+          <label htmlFor="frameId">Frame size:</label>
           <input
-            id="frameSize"
+            id="frameId"
             type="number"
             min="3"
             max="10"
             value={frameSize}
             onChange={this.handleFrameSize}
           />
-          <label htmlFor="step">Step:</label>
+          <label htmlFor="stepId">Step:</label>
           <input
-            id="step"
+            id="stepId"
             type="number"
             min="1"
             max="10"
