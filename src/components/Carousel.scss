@@ -1,1 +1,47 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    border: 5px darkgray solid;
+    border-radius: 20px;
+  }
+
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__buttons {
+    align-self: center;
+  }
+
+  .button {
+    width: 100px;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-color: darkgrey;
+    color: grey;
+
+    &-active {
+      width: 100px;
+      border: 2px solid darkgray;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px;
+      background-color: grey;
+      color: darkgrey;
+    }
+
+  }
+}

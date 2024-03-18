@@ -1,1 +1,51 @@
 // style go here
+body{
+  background-color: grey;
+}
+
+.App {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    // background-color: blue;
+    align-items: center;
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: darkgrey;
+  }
+}
+
+.Options {
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px;
+  border: 5px solid darkgrey;
+  border-radius: 20px;
+  width: 300px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  font-weight: 700;
+  color: darkgray;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    text-decoration: underline;
+
+  }
+
+  &__form-control {
+    display: flex;
+    background-color: grey;
+    border: 2px solid darkgrey;
+    border-radius: 5px;
+    width: 50px;
+    color: darkgrey;
+  }
+}
+
