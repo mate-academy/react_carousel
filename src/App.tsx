@@ -67,7 +67,7 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy='title'>Carousel with {this.state.images.length} images</h1>
         <div className="inputs">
-          <label htmlFor="#itemWidth">Item width:</label>
+          <label htmlFor="itemWidth">Item width:</label>
           <input
             id="itemWidth"
             type="number"
@@ -77,7 +77,7 @@ class App extends React.Component<{}, State> {
             value={itemWidth}
             onChange={this.handleWidthChange}
           />
-          <label htmlFor="#frameSize">Frame size:</label>
+          <label htmlFor="frameSize">Frame size:</label>
           <input
             id="frameSize"
             type="number"
@@ -86,7 +86,7 @@ class App extends React.Component<{}, State> {
             value={frameSize}
             onChange={this.handleFrameSize}
           />
-          <label htmlFor="#step">Step:</label>
+          <label htmlFor="step">Step:</label>
           <input
             id="step"
             type="number"
@@ -95,7 +95,7 @@ class App extends React.Component<{}, State> {
             value={step}
             onChange={this.handleStepChange}
           />
-          <label htmlFor="#animationDuration">Animation duration:</label>
+          <label htmlFor="animationDuration">Animation duration:</label>
           <input
             id="animationDuration"
             type="number"
