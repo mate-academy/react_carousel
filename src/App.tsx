@@ -1,39 +1,71 @@
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import Inputs from './components/Inputs/Inputs';
 
-interface State {
-  images: string[];
-}
+const imagesLinks = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const App: React.FC = () => {
+  const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [step, setStep] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    switch (name) {
+      case 'itemWidth':
+        setItemWidth(Number(value));
+        break;
+      case 'frameSize':
+        setFrameSize(Number(value));
+        break;
+      case 'step':
+        setStep(Number(value));
+        break;
+      case 'animationDuration':
+        setAnimationDuration(Number(value));
+        break;
+      default:
+        break;
+    }
   };
 
-  render() {
-    const { images } = this.state;
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {imagesLinks.length} images</h1>
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <Inputs
+        images={imagesLinks}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        setChange={handleInputChange}
+      />
 
-        <Carousel />
-      </div>
-    );
-  }
-}
+      <Carousel
+        images={imagesLinks}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+      />
+    </div>
+  );
+};
 
 export default App;

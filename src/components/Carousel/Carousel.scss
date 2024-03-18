@@ -1,0 +1,30 @@
+.Carousel {
+  &__list {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    list-style-type: none;
+    padding: 0;
+    border: 2px solid #ffd700;
+  }
+
+  &__button {
+    background-color: white;
+    border: 1px solid #ffd700;
+    cursor: pointer;
+    margin-right: 30px;
+    height: 40px;
+    width: 60px;
+    font-size: 20px;
+
+    &:hover {
+      background-color: orange;
+      font-weight: bold;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      background-color: lightgray;
+    }
+  }
+}
