@@ -34,10 +34,9 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
-      <div className="Carousel-container">
+      <div className="Carousel-container" style={{ width: carouselWidth }}>
         <ul
           style={{
-            width: carouselWidth,
             transform: `translateX(-${firstIndex * itemWidth}px)`,
             transition,
           }}
@@ -46,11 +45,7 @@ const Carousel: React.FC<Props> = ({
           {images.map((image, index) => {
             return (
               <li className="Carousel__list-item" key={image}>
-                <img
-                  src={image}
-                  alt={`${images[index]}`}
-                  width={`${itemWidth}px`}
-                />
+                <img src={image} alt={`${images[index]}`} width={itemWidth} />
               </li>
             );
           })}
