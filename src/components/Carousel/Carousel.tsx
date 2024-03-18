@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 import { CarouselProps } from '../../types/Setting';
+import cn from 'classnames';
+
+enum Direction {
+  PREV = 'prev',
+  NEXT = 'next',
+}
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
@@ -24,16 +30,12 @@ const Carousel: React.FC<CarouselProps> = ({
   const isAtStart = scrollPosition === 0;
   const isAtEnd = scrollPosition >= images.length - frameSize;
 
-  const handleScrollClick = (direction: 'Prev' | 'Next') => () => {
-    if (direction === 'Prev') {
-      setScrollPosition(prevScrollPosition =>
-        Math.max(prevScrollPosition - step, 0),
-      );
-    } else if (direction === 'Next') {
-      setScrollPosition(prevScrollPosition =>
-        Math.min(prevScrollPosition + step, images.length - frameSize),
-      );
-    }
+  const handleScrollClick = (direction: Direction) => () => {
+    setScrollPosition(prevPosition =>
+      direction === Direction.PREV
+        ? Math.max(prevPosition - step, 0)
+        : Math.min(prevPosition + step, images.length - frameSize),
+    );
   };
 
   return (
@@ -66,17 +68,21 @@ const Carousel: React.FC<CarouselProps> = ({
       </ul>
 
       <button
-        className={`Carousel__button ${isAtStart ? 'Carousel__button--disabled' : ''}`}
+        className={cn('Carousel__button', {
+          'Carousel__button--disabled': isAtStart,
+        })}
         type="button"
-        onClick={handleScrollClick('Prev')}
+        onClick={handleScrollClick(Direction.PREV)}
       >
         Prev
       </button>
       <button
-        className={`Carousel__button ${isAtEnd ? 'Carousel__button--disabled' : ''}`}
+        className={cn('Carousel__button', {
+          'Carousel__button--disabled': isAtEnd,
+        })}
         data-cy="next"
         type="button"
-        onClick={handleScrollClick('Next')}
+        onClick={handleScrollClick(Direction.NEXT)}
       >
         Next
       </button>

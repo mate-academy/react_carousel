@@ -16,31 +16,20 @@ const imagesLinks = [
   './img/10.png',
 ];
 
+const initialSettingsState = {
+  itemWidth: 130,
+  frameSize: 3,
+  step: 3,
+  animationDuration: 1000,
+};
+
 const App: React.FC = () => {
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [settings, setSettings] = useState(initialSettingsState);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-    switch (name) {
-      case 'itemWidth':
-        setItemWidth(Number(value));
-        break;
-      case 'frameSize':
-        setFrameSize(Number(value));
-        break;
-      case 'step':
-        setStep(Number(value));
-        break;
-      case 'animationDuration':
-        setAnimationDuration(Number(value));
-        break;
-      default:
-        break;
-    }
+    setSettings(prevSettings => ({ ...prevSettings, [name]: value }));
   };
 
   return (
@@ -50,19 +39,19 @@ const App: React.FC = () => {
 
       <Inputs
         images={imagesLinks}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
+        step={settings.step}
+        frameSize={settings.frameSize}
+        itemWidth={settings.itemWidth}
+        animationDuration={settings.animationDuration}
         setChange={handleInputChange}
       />
 
       <Carousel
         images={imagesLinks}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={animationDuration}
+        step={settings.step}
+        frameSize={settings.frameSize}
+        itemWidth={settings.itemWidth}
+        animationDuration={settings.animationDuration}
       />
     </div>
   );
