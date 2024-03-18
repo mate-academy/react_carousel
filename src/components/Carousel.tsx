@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 import cn from 'classnames';
 
@@ -26,6 +26,12 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [startIndex, setStartIndex] = useState(0);
   const containerWidth = frameSize * itemWidth + (frameSize - 1) * 10;
+
+  useEffect(() => {
+    setStartIndex(prevStartIndex =>
+      Math.min(prevStartIndex, images.length - frameSize),
+    );
+  }, [frameSize, images.length]);
 
   const handlePrev = () => {
     if (infinite && startIndex === 0) {
