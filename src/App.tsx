@@ -58,13 +58,6 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  handleInfinite = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState(prevState => ({
-      ...prevState,
-      infinite: event.target.checked,
-    }));
-  };
-
   render() {
     const { images, step, frameSize, itemWidth, animationDuration } =
       this.state;
