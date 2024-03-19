@@ -20,7 +20,6 @@ export const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [position, setPosition] = useState(0);
-  // const [visibleImg, setVisibleImg] = useState(frameSize);
 
   const prevClick = () => {
     setPosition(position - step);
@@ -50,18 +49,23 @@ export const Carousel: React.FC<Props> = ({
         <div
           className="Carousel__container"
           style={{
-            transition: `transform ${animationDuration}ms`,
+            width: `${frameSize * itemWidth}px`,
           }}
         >
-          <ul className="Carousel__list">
-            {images
-              .slice(position, position + frameSize)
-              .map((image, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <li className="Carousel__item" key={index}>
-                  <img src={image} alt={`${index}`} width={itemWidth} />
-                </li>
-              ))}
+          <ul
+            className="Carousel__list"
+            style={{
+              width: `${frameSize * itemWidth}px`,
+              transform: `translateX(-${position * itemWidth}px)`,
+              transition: `transform ${animationDuration}ms ease`,
+            }}
+          >
+            {images.map((image, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li className="Carousel__item" key={index}>
+                <img src={image} alt={`${index + 1}`} width={itemWidth} />
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -77,6 +81,7 @@ export const Carousel: React.FC<Props> = ({
             Prev
           </button>
           <button
+            data-cy="next"
             className={
               position === images.length - frameSize && infinite === false
                 ? 'button'

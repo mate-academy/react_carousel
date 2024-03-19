@@ -12,21 +12,7 @@ interface State {
   infinite: boolean;
 }
 
-// class App extends React.Component<{}, State> {
 const App: React.FC<State> = () => {
-  // state = {
-  //   images: [
-  //     './img/1.png',
-  //     './img/2.png',
-  //     './img/3.png',
-  //     './img/4.png',
-  //     './img/5.png',
-  //     './img/6.png',
-  //     './img/7.png',
-  //     './img/8.png',
-  //     './img/9.png',
-  //     './img/10.png',
-  //   ],
   const [images] = useState([
     './img/1.png',
     './img/2.png',
@@ -45,13 +31,10 @@ const App: React.FC<State> = () => {
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
-  // render() {
-  //   const { images } = this.state;
-
   return (
     <div className="App">
       {/* eslint-disable-next-line */}
-      <h1 className='App__title'>Carousel with {images.length} images</h1>
+      <h1 data-cy="title" className="App__title">Carousel with {images.length} images</h1>
 
       <Carousel
         images={images}
@@ -64,11 +47,11 @@ const App: React.FC<State> = () => {
 
       <div className="Options">
         <div className="stepSelector">
-          <label className="Options__label">
-            Step
+          <label htmlFor="stepId" className="Options__label">
+            Step:
             <input
               type="number"
-              id="stepSelector"
+              id="stepId"
               className="Options__form-control"
               min={1}
               max={10}
@@ -79,11 +62,11 @@ const App: React.FC<State> = () => {
         </div>
 
         <div className="frameSizeSelector">
-          <label className="Options__label">
-            Frame Size
+          <label htmlFor="frameId" className="Options__label">
+            Frame Size:
             <input
               type="number"
-              id="frameSizeSelector"
+              id="frameId"
               className="Options__form-control"
               min={1}
               max={10}
@@ -93,11 +76,11 @@ const App: React.FC<State> = () => {
           </label>
         </div>
         <div className="widthSelector">
-          <label className="Options__label">
-            Item width
+          <label htmlFor="itemId" className="Options__label">
+            Item width:
             <input
               type="number"
-              id="widthSelector"
+              id="itemId"
               className="Options__form-control"
               min={130}
               max={260}
@@ -108,11 +91,11 @@ const App: React.FC<State> = () => {
           </label>
         </div>
         <div className="animationDurationSelector">
-          <label className="Options__label">
-            Animation Duration
+          <label htmlFor="animationId" className="Options__label">
+            Animation Duration:
             <input
               type="number"
-              id="animationDurationSelector"
+              id="animationId"
               className="Options__form-control"
               min={100}
               max={5000}
@@ -125,11 +108,11 @@ const App: React.FC<State> = () => {
           </label>
         </div>
         <div className="infiniteSelector">
-          <label className="Options__label">
-            Infinite
+          <label htmlFor="infiniteId" className="Options__label">
+            Infinite:
             <input
               type="checkbox"
-              id="infiniteSelector"
+              id="infiniteId"
               className="Options__form-control"
               checked={infinite}
               onChange={event => setInfinite(event.target.checked)}
@@ -140,6 +123,5 @@ const App: React.FC<State> = () => {
     </div>
   );
 };
-// }
 
 export default App;

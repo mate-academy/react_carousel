@@ -4,20 +4,16 @@
   flex-direction: column;
 
   &__container {
-    display: flex;
     overflow: hidden;
-    flex-direction: column;
     border: 5px darkgray solid;
     border-radius: 20px;
+
   }
 
   &__list {
     display: flex;
-  }
-
-  &__item {
-    display: flex;
-    flex-direction: row;
+    list-style: none;
+    padding: 0;
   }
 
   &__buttons {
