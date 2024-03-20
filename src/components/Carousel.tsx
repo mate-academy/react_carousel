@@ -33,7 +33,6 @@ const Carousel: React.FC<CarouselProps> = ({
         }}
         key={i}
       >
-        {i + 1}
         <img
           className="Carousel__list-img"
           style={{ width: `${itemWidth}px` }}
