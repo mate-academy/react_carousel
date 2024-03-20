@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
-  images: string[],
-  frameSize: number,
-  itemWidth: number,
-  step: number
-  animationDuration: number,
-};
+  images: string[];
+  frameSize: number;
+  itemWidth: number;
+  step: number;
+  animationDuration: number;
+}
 
 const GAP = 10;
 
@@ -48,11 +48,7 @@ const Carousel: React.FC<Props> = ({
           {images.map((image, index) => {
             return (
               <li className="Carousel__list-item" key={image}>
-                <img
-                  src={image}
-                  alt={`${image[index]}`}
-                  width={itemWidth}
-                />
+                <img src={image} alt={`${image[index]}`} width={itemWidth} />
               </li>
             );
           })}

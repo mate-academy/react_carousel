@@ -4,10 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  step?: number,
-  frameSize?: number,
-  itemWidth?: number,
-  animationDuration?: number,
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -59,12 +59,13 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { images, step, frameSize, itemWidth, animationDuration } = this.state;
+    const { images, step, frameSize, itemWidth, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 data-cy='title'>Carousel with {this.state.images.length} images</h1>
+        <h1 data-cy="title">Carousel with {this.state.images.length} images</h1>
         <div className="inputs">
           <label htmlFor="itemId">Item width:</label>
           <input
