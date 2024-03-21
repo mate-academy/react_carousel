@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -6,8 +6,8 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+const App: React.FC = () => {
+  const [data] = useState<State>({
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,20 +20,23 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-  };
+  });
 
-  render() {
-    const { images } = this.state;
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {data.images.length} images</h1>
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
-      </div>
-    );
-  }
-}
+      <Carousel
+        images={data.images}
+        step={3}
+        frameSize={3}
+        itemWidth={130}
+        animationDuration={300}
+        infinite={false}
+      />
+    </div>
+  );
+};
 
 export default App;

@@ -1,1 +1,22 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &__item {
+    display: block;
+  }
+
+  &__img {
+    display: block;
+    min-width: 130px;
+    min-height: 130px;
+  }
+}
