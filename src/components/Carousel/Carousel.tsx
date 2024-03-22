@@ -12,7 +12,7 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration = 1000,
   infinite = false,
 }) => {
-  const [currentPos, setPos] = useState(0);
+  const [currentPos, setPos] = useState<number>(0);
 
   const containerStyles = {
     width: `${frameSize * (itemWidth + GAP) - GAP}px`,

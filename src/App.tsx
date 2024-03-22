@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
-import { CarouselProps } from './components/types';
+import Carousel from './components/Carousel/Carousel';
+import { CarouselProps } from './components/Carousel/types';
 import { FormProps } from './components/Form/types';
 import { Form } from './components/Form/Form';
 
@@ -78,8 +78,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {carouselProps.images.length} images</h1>
+        <h1 data-cy="title">
+          Carousel with {carouselProps.images.length} images
+        </h1>
         <Form {...formProps} />
 
         <Carousel {...carouselProps} />
