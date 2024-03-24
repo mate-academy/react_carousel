@@ -1,1 +1,58 @@
-// style go here
+body {
+  font-family: monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  &__label {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    padding-left: 15px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    border: 1px solid rgb(53, 53, 56);
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(27, 27, 27, 0.8);
+
+    &:hover {
+      box-shadow: 0 2px 6px rgba(236, 3, 3, 0.9);
+    }
+  }
+
+  &__input {
+    width: 40px;
+    margin-right: 15px;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 100%;
+    border: 3px solid darkgray;
+    border-radius: 30px;
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.8);
+
+    &::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  &__switch {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+  }
+}
