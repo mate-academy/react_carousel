@@ -20,3 +20,12 @@
     min-height: 130px;
   }
 }
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 150px;
+  padding-bottom: 20px;
+}
