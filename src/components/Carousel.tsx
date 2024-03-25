@@ -7,6 +7,7 @@ type Props = {
   step: number;
   frameSize: number;
   animationDuration: number;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -15,17 +16,20 @@ const Carousel: React.FC<Props> = ({
   step,
   frameSize,
   animationDuration,
+  infinite,
 }) => {
+  const [imagesState, setImagesState] = useState(images);
   const [itemWidthState, setItemWidthState] = useState(itemWidth);
   const [stepState, setStepState] = useState(step);
   const [frameSizeState, setFrameSizeState] = useState(frameSize);
   const [animationDurationState, setAnimationDurationState] =
     useState(animationDuration);
+  const [infiniteState, setInfiniteState] = useState(infinite);
   const [translate, setTranslate] = useState(0);
 
   const gap = 10;
   const minTranslate =
-    -(images.length - frameSizeState) * (itemWidthState + gap);
+    -(imagesState.length - frameSizeState) * (itemWidthState + gap);
 
   return (
     <div className="Carousel">
@@ -108,6 +112,23 @@ const Carousel: React.FC<Props> = ({
             }}
           />
         </div>
+        <div className="Carousel__form-item">
+          <label className="Carousel__form-label" htmlFor="infiniteId">
+            Infinite:
+          </label>
+          <input
+            className="Carousel__form-input"
+            type="checkbox"
+            name="infinite"
+            id="infiniteId"
+            defaultChecked={false}
+            onChange={event => {
+              setInfiniteState(event.target.checked);
+              setTranslate(0);
+              setImagesState(images);
+            }}
+          />
+        </div>
       </form>
       <ul
         className="Carousel__list"
@@ -116,7 +137,7 @@ const Carousel: React.FC<Props> = ({
           gap: `${gap}px`,
         }}
       >
-        {images.map((image, index) => (
+        {imagesState.map((image, index) => (
           <li className="Carousel__item" key={index}>
             <img
               className="Carousel__img"
@@ -158,11 +179,28 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           onClick={() =>
             setTranslate(current => {
-              if (current - stepState * (itemWidthState + gap) > minTranslate) {
-                return current - stepState * (itemWidthState + gap);
-              }
+              if (infiniteState) {
+                if (
+                  current - stepState * (itemWidthState + gap) >
+                  minTranslate
+                ) {
+                  setImagesState(currentImages => [
+                    ...currentImages,
+                    ...images,
+                  ]);
+                }
 
-              return minTranslate;
+                return current - stepState * (itemWidthState + gap);
+              } else {
+                if (
+                  current - stepState * (itemWidthState + gap) >
+                  minTranslate
+                ) {
+                  return current - stepState * (itemWidthState + gap);
+                }
+
+                return minTranslate;
+              }
             })
           }
           style={{

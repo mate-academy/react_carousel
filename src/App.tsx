@@ -38,6 +38,7 @@ class App extends React.Component<{}, State> {
           step={3}
           frameSize={3}
           animationDuration={1000}
+          infinite={false}
         />
       </div>
     );
