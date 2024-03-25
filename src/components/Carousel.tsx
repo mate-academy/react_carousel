@@ -26,12 +26,12 @@ const Carousel: React.FC<Props> = ({
     setFirstIndex(firstInd =>
       Math.min(firstInd + step, images.length - frameSize),
     );
-    setTransition(`Transform ${animationDuration} ease-in-out`);
+    setTransition(`transform ${animationDuration}ms ease-in-out`);
   };
 
   const handlePrev = () => {
     setFirstIndex(firstInd => Math.max(0, firstInd - step));
-    setTransition(`Transform ${animationDuration} ease-in-out`);
+    setTransition(`transform ${animationDuration}ms ease-in-out`);
   };
 
   return (
@@ -45,13 +45,11 @@ const Carousel: React.FC<Props> = ({
             transition,
           }}
         >
-          {images.map((image, index) => {
-            return (
-              <li className="Carousel__list-item" key={image}>
-                <img src={image} alt={`${image[index]}`} width={itemWidth} />
-              </li>
-            );
-          })}
+          {images.map((image, index) => 
+            <li className="Carousel__list-item" key={image}>
+              <img src={image} alt={`${image[index]}`} width={itemWidth} />
+            </li>
+          )}
         </ul>
       </div>
 
