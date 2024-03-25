@@ -87,7 +87,7 @@ class App extends React.Component<{}, State> {
             max="10000"
             value={animationDuration}
             onChange={event =>
-              this.handleInputChange(event, "animationDuration")
+              this.handleInputChange(event, 'animationDuration')
             }
           />
         </div>
