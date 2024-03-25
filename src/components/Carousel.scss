@@ -5,10 +5,7 @@
 
     &-container {
         overflow: hidden;
-
         position: relative;
-        height: 162px;
-
     }
 
     &__list {
@@ -41,4 +38,12 @@
 
 .disabled {
     border-color: rgb(246, 242, 242);
+}
+
+.inputs {
+    margin-bottom: 20px;
+}
+
+.input {
+    padding: 0 10px;
 }
