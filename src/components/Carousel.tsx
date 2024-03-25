@@ -41,6 +41,7 @@ const Carousel: React.FC<Props> = ({
             id="itemId"
             step={50}
             min={100}
+            defaultValue={itemWidth}
             onChange={event => {
               if (+event.target.value >= 100) {
                 setItemWidthState(+event.target.value);
@@ -58,6 +59,7 @@ const Carousel: React.FC<Props> = ({
             type="number"
             name="step"
             min={1}
+            defaultValue={step}
             id="stepId"
             onChange={event => {
               if (+event.target.value > 0) {
@@ -75,6 +77,7 @@ const Carousel: React.FC<Props> = ({
             className="Carousel__form-input"
             type="number"
             name="frameSize"
+            defaultValue={frameSize}
             id="frameId"
             min={1}
             onChange={event => {
@@ -94,6 +97,7 @@ const Carousel: React.FC<Props> = ({
             type="number"
             name="animationDuration"
             id="animationDurationId"
+            defaultValue={animationDuration}
             min={100}
             step={100}
             onChange={event => {
@@ -142,10 +146,12 @@ const Carousel: React.FC<Props> = ({
             })
           }
           style={{
-            bottom: `${itemWidthState / 2 + 20}px`,
-            right: `${(itemWidthState * frameSizeState + (frameSizeState - 1) * gap) / 2 + 10}px`,
+            bottom: `${itemWidthState / 2 + 15}px`,
+            right: `${(itemWidthState * frameSizeState + (frameSizeState - 1) * gap) / 2 + 15}px`,
           }}
-        ></button>
+        >
+          <div className="Carousel__btn-el"></div>
+        </button>
         <button
           className="Carousel__btn Carousel__btn--next"
           type="button"
@@ -160,10 +166,12 @@ const Carousel: React.FC<Props> = ({
             })
           }
           style={{
-            bottom: `${itemWidthState / 2 + 20}px`,
-            left: `${(itemWidthState * frameSizeState + (frameSizeState - 1) * gap) / 2 + 10}px`,
+            bottom: `${itemWidthState / 2 + 15}px`,
+            left: `${(itemWidthState * frameSizeState + (frameSizeState - 1) * gap) / 2 + 15}px`,
           }}
-        ></button>
+        >
+          <div className="Carousel__btn-el"></div>
+        </button>
       </div>
     </div>
   );

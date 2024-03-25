@@ -46,16 +46,12 @@
   }
 
   &__btn {
+    box-sizing: border-box;
     position: absolute;
     background-color: grey;
-    padding: 10px;
-    border: solid black;
-    border-width: 0 3px 3px 0;
+    padding: 20px;
     display: inline-block;
-
-    &:hover {
-      border-color: aliceblue;
-    }
+    border: 0;
 
     &--prev {
       transform: rotate(135deg);
@@ -63,6 +59,18 @@
 
     &--next {
       transform: rotate(-45deg);
+    }
+
+    &-el {
+      padding: 10px;
+
+      box-sizing: border-box;
+      border: solid black;
+      border-width: 0 3px 3px 0;
+    }
+
+    &:hover &-el {
+      border-color: aliceblue;
     }
   }
 }
