@@ -40,6 +40,7 @@ const Carousel: React.FC<Props> = ({
       ></button>
       <div
         className="Carousel-container"
+        /* eslint-disable-next-line */
         style={{
           width: carouselWidth + frameSize * (gap * 2),
           height: itemWidth,

@@ -104,8 +104,8 @@ class App extends React.Component<{}, State> {
           <input
             id="stepId"
             type="number"
-            min="1"
-            max="10"
+            min="0"
+            max={this.state.images.length - this.state.frameSize}
             value={step}
             onChange={this.handleStepChange}
           />
