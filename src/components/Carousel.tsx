@@ -40,8 +40,6 @@ const Carousel: React.FC<ImageCollection> = ({
   };
 
   const onNextBtn = (num: number) => {
-    const perPage = step;
-
     const styleStr: string = styleList.transform;
 
     const border: number = styleStr.indexOf('(');
@@ -57,36 +55,17 @@ const Carousel: React.FC<ImageCollection> = ({
     }
 
     const waste = images.length % frameSize;
-    const div = Math.floor(images.length / frameSize);
 
     returnClickability();
 
-    finalNum += num * perPage * itemWidth;
+    finalNum += num * step * itemWidth;
 
-    if (waste > 0 && (div - 1) * (itemWidth * frameSize) < Math.abs(finalNum)) {
-      finalNum += (perPage - waste) * itemWidth;
-    }
+    const maxMove =
+      (images.length - (frameSize + waste)) * itemWidth + waste * itemWidth;
 
-    if (finalNum > 0 && waste > 0) {
-      finalNum -= (perPage - waste) * itemWidth;
-    }
+    if (finalNum <= 0 && Math.abs(finalNum) >= maxMove) {
+      finalNum = -1 * maxMove;
 
-    if (finalNum === 0) {
-      setDisabledBtn(prev => {
-        return {
-          ...prev,
-          prevBtn: true,
-        };
-      });
-    }
-
-    const isWasteNullable =
-      (div - 1) * (itemWidth * frameSize) === Math.abs(finalNum) && waste === 0;
-
-    if (
-      (div - 1) * (itemWidth * frameSize) < Math.abs(finalNum) ||
-      isWasteNullable
-    ) {
       setDisabledBtn(prev => {
         return {
           ...prev,
@@ -95,17 +74,21 @@ const Carousel: React.FC<ImageCollection> = ({
       });
     }
 
-    const calculativeDiff = waste > 0 ? (perPage - waste) * itemWidth : 0;
+    if (finalNum >= 0) {
+      finalNum = 0;
 
-    if (
-      finalNum <= 0 &&
-      finalNum > -(itemWidth * images.length) + calculativeDiff
-    ) {
-      setStyleList({
-        ...styleList,
-        transform: `translateX(${finalNum}px)`,
+      setDisabledBtn(prev => {
+        return {
+          ...prev,
+          prevBtn: true,
+        };
       });
     }
+
+    setStyleList({
+      ...styleList,
+      transform: `translateX(${finalNum}px)`,
+    });
   };
 
   useEffect(() => {
@@ -127,6 +110,13 @@ const Carousel: React.FC<ImageCollection> = ({
     }
   }, [styleList]);
 
+  useEffect(() => {
+    setStyleList({
+      ...styleList,
+      transition: `transform ${animationDuration / 1000}s ease-in-out`,
+    });
+  }, [animationDuration]);
+
   return (
     <div
       className="Carousel"
@@ -138,32 +128,36 @@ const Carousel: React.FC<ImageCollection> = ({
         {images.map((img, index) => {
           return (
             <li key={img} className="Carousel__item">
-              <img src={img} alt={index.toString()} className="Carousel__img" />
+              <img
+                src={img}
+                alt={index.toString()}
+                className="Carousel__img"
+                style={{
+                  minWidth: itemWidth,
+                  minHeight: itemWidth,
+                }}
+              />
             </li>
           );
         })}
       </ul>
 
-      {!infinite && (
-        <>
-          <button
-            disabled={disabledBtn.prevBtn}
-            type="button"
-            onClick={() => onNextBtn(1)}
-          >
-            Prev
-          </button>
+      <button
+        disabled={disabledBtn.prevBtn}
+        type="button"
+        onClick={() => onNextBtn(1)}
+      >
+        Prev
+      </button>
 
-          <button
-            disabled={disabledBtn.nextBtn}
-            type="button"
-            onClick={() => onNextBtn(-1)}
-            data-cy="Next"
-          >
-            Next
-          </button>
-        </>
-      )}
+      <button
+        disabled={disabledBtn.nextBtn}
+        type="button"
+        onClick={() => onNextBtn(-1)}
+        data-cy="Next"
+      >
+        Next
+      </button>
     </div>
   );
 };

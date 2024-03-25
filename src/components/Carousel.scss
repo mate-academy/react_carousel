@@ -1,4 +1,11 @@
 // style go here
+.root {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .Carousel {
   overflow: hidden;
 
@@ -16,9 +23,18 @@
 
   &__img {
     display: block;
-    min-width: 130px;
-    min-height: 130px;
   }
+}
+
+.App {
+  position: absolute;
+  display: block;
+  padding: 30px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 1px solid black;
 }
 
 .form-input {

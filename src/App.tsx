@@ -43,11 +43,12 @@ const App: React.FC = () => {
 
       <div className="form-inputs">
         <div className="form-input">
-          <label htmlFor="step">Step</label>
+          <label htmlFor="stepId">Step</label>
 
           <input
             type="number"
-            name="step"
+            name="stepId"
+            id="stepId"
             value={form.step}
             onChange={e =>
               setForm({
@@ -59,11 +60,12 @@ const App: React.FC = () => {
         </div>
 
         <div className="form-input">
-          <label htmlFor="frameSize">Frame Size</label>
+          <label htmlFor="frameId">Frame Size</label>
 
           <input
             type="number"
-            name="frameSize"
+            name="frameId"
+            id="frameId"
             value={form.frameSize}
             onChange={e =>
               setForm({
@@ -75,11 +77,12 @@ const App: React.FC = () => {
         </div>
 
         <div className="form-input">
-          <label htmlFor="itemWidth">Item Width</label>
+          <label htmlFor="itemId">Item Width</label>
 
           <input
             type="number"
-            name="itemWidth"
+            name="itemId"
+            id="itemId"
             value={form.itemWidth}
             onChange={e =>
               setForm({
