@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 import cn from 'classnames';
 
@@ -8,7 +8,6 @@ type Props = {
   itemWidth: number;
   step: number;
   animationDuration: number;
-  setStep: (value: number) => void;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -16,26 +15,35 @@ const Carousel: React.FC<Props> = ({
   step,
   itemWidth,
   frameSize,
-  setStep,
   animationDuration,
 }) => {
+  const [currentPosition, setCurrentPosition] = useState(0);
   const gap = 5;
   const carouselWidth = frameSize * itemWidth;
-  const left = -step * (itemWidth + gap * 2);
-  const stepSize = frameSize;
+  const left = -currentPosition * (itemWidth + gap * 2);
+  const stepSize = step;
+  const minPosition = 0;
+  const maxPosition = images.length - frameSize;
+
+  useEffect(() => {
+    if (currentPosition > maxPosition) {
+      setCurrentPosition(maxPosition);
+    }
+  }, [currentPosition, maxPosition]);
 
   return (
     <div className="Carousel">
       <button
         type="button"
         className={cn('Carousel__btn Carousel__btn--prev', {
-          disabled: step <= 0,
+          disabled: currentPosition <= 0,
         })}
         onClick={() => {
-          const nextStep = step - stepSize;
-          const minStep = 0;
+          const nextPosition = currentPosition - stepSize;
 
-          setStep(nextStep >= minStep ? nextStep : minStep);
+          setCurrentPosition(
+            nextPosition >= minPosition ? nextPosition : minPosition,
+          );
         }}
       ></button>
       <div
@@ -69,14 +77,15 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         className={cn('Carousel__btn Carousel__btn--next', {
-          disabled: step >= images.length - frameSize,
+          disabled: currentPosition >= images.length - frameSize,
         })}
         data-cy="next"
         onClick={() => {
-          const nextStep = step + stepSize;
-          const maxStep = images.length - frameSize;
+          const nextPosition = currentPosition + stepSize;
 
-          setStep(nextStep > maxStep ? maxStep : nextStep);
+          setCurrentPosition(
+            nextPosition > maxPosition ? maxPosition : nextPosition,
+          );
         }}
       ></button>
     </div>

@@ -30,12 +30,6 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  setStep = (value: number) => {
-    this.setState({
-      step: value,
-    });
-  };
-
   handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(prevState => ({
       ...prevState,
@@ -92,8 +86,8 @@ class App extends React.Component<{}, State> {
           <input
             id="frameId"
             type="number"
-            min="3"
-            max="10"
+            min="1"
+            max={this.state.images.length}
             value={frameSize}
             onChange={this.handleFrameSize}
           />
@@ -104,8 +98,8 @@ class App extends React.Component<{}, State> {
           <input
             id="stepId"
             type="number"
-            min="0"
-            max={this.state.images.length - this.state.frameSize}
+            min="1"
+            max={this.state.images.length}
             value={step}
             onChange={this.handleStepChange}
           />
@@ -129,7 +123,6 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          setStep={this.setStep}
         />
       </div>
     );
