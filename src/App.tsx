@@ -30,7 +30,9 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, inputField: string) => {
+  handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>, inputField: string
+  ) => {
     const { value } = event.target;
     
     this.setState(prevState => ({
