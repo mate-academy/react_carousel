@@ -31,10 +31,11 @@ class App extends React.Component<{}, State> {
   };
 
   handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>, inputField: string
+    event: React.ChangeEvent<HTMLInputElement>,
+    inputField: string,
   ) => {
     const { value } = event.target;
-    
+
     this.setState(prevState => ({
       ...prevState,
       [inputField]: +value,
@@ -58,7 +59,7 @@ class App extends React.Component<{}, State> {
             max="300"
             step="10"
             value={itemWidth}
-            onChange={(event) => this.handleInputChange(event, "itemWidth")}
+            onChange={(event) => this.handleInputChange(event, 'itemWidth')}
           />
           <label htmlFor="frameId">Frame size:</label>
           <input
@@ -67,7 +68,7 @@ class App extends React.Component<{}, State> {
             min="3"
             max="10"
             value={frameSize}
-            onChange={(event) => this.handleInputChange(event, "frameSize")}
+            onChange={(event) => this.handleInputChange(event, 'frameSize')}
           />
           <label htmlFor="stepId">Step:</label>
           <input
@@ -76,7 +77,7 @@ class App extends React.Component<{}, State> {
             min="1"
             max="10"
             value={step}
-            onChange={(event) => this.handleInputChange(event, "step")}
+            onChange={(event) => this.handleInputChange(event, 'step')}
           />
           <label htmlFor="animationDuration">Animation duration:</label>
           <input
@@ -85,7 +86,9 @@ class App extends React.Component<{}, State> {
             min="1000"
             max="10000"
             value={animationDuration}
-            onChange={(event) => this.handleInputChange(event, "animationDuration")}
+            onChange={
+              (event) => this.handleInputChange(event, "animationDuration")
+            }
           />
         </div>
         <Carousel
