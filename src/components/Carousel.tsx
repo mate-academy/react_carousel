@@ -14,8 +14,8 @@ const GAP = 10;
 const Carousel: React.FC<Props> = ({
   images,
   frameSize,
-  itemWidth: itemWidth,
   step,
+  itemWidth,
   animationDuration,
 }) => {
   const carouselWidth = frameSize * itemWidth + (frameSize - 1) * GAP;
@@ -40,7 +40,7 @@ const Carousel: React.FC<Props> = ({
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${firstIndex * (itemWidth - GAP)}px)`,
+            transform: `translateX(-${firstIndex * (itemWidth + GAP)}px)`,
             gap: GAP,
             transition,
           }}
