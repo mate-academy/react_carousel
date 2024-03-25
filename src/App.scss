@@ -1,1 +1,11 @@
 // style go here
+html {
+  background-color: grey;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  &__title {
+    text-align: center;
+  }
+}
