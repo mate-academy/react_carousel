@@ -16,6 +16,8 @@ const Carousel: React.FC<States> = ({
 
   const [picture, setPicture] = useState(0);
   const carouselWidth = frameSize * itemWidth + (frameSize - 1) * Gap;
+  const disabledLeft = !infinite && picture === 0;
+  const disabledRight = !infinite && picture >= images.length - frameSize;
 
   const goLeft = () => {
     if (infinite && picture === 0) {
@@ -65,20 +67,24 @@ const Carousel: React.FC<States> = ({
           </ul>
         </div>
 
-        <button
-          type="button"
-          onClick={goLeft}
-          className="carousel__button--prev"
-        >
-          Prev
-        </button>
-        <button
-          type="button"
-          onClick={goRight}
-          className="carousel__button--next"
-        >
-          Next
-        </button>
+        <div className="carousel__buttons">
+          <button
+            type="button"
+            onClick={goLeft}
+            className="carousel__button--prev"
+            disabled={disabledLeft}
+          >
+            Prev
+          </button>
+          <button
+            type="button"
+            onClick={goRight}
+            className="carousel__button--next"
+            disabled={disabledRight}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

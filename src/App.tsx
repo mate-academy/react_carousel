@@ -18,9 +18,9 @@ export class App extends React.Component<{}, States> {
       './img/10.png',
     ],
     itemWidth: 130,
-    frameSize: 2,
-    step: 1,
-    animationDuration: 300,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
     infinite: false,
   };
 
@@ -52,11 +52,8 @@ export class App extends React.Component<{}, States> {
     }));
   };
 
-  adjustInfinite = () => {
-    this.setState(allStates => ({
-      ...allStates,
-      infinite: !allStates.infinite,
-    }));
+  adjustInfinite = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: e.target.checked });
   };
 
   render() {
@@ -69,7 +66,9 @@ export class App extends React.Component<{}, States> {
           {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         </div>
-        <label htmlFor="itemId">Item width: </label>
+        <label htmlFor="itemId" className="App__label">
+          {'       '}Item width:{' '}
+        </label>
         <input
           type="number"
           name="itemWidthInput"
@@ -77,11 +76,14 @@ export class App extends React.Component<{}, States> {
           min="130"
           max="300"
           step="10"
+          className="App__input"
           value={itemWidth}
           onChange={this.adjustItemWidth}
         />
 
-        <label htmlFor="frameId">Frame Size: </label>
+        <label htmlFor="frameId" className="App__label">
+          {'       '}Frame Size:{' '}
+        </label>
         <input
           type="number"
           name="frameSizeInput"
@@ -89,10 +91,13 @@ export class App extends React.Component<{}, States> {
           min="3"
           max="10"
           value={frameSize}
+          className="App__input"
           onChange={this.adjustFrameSize}
         />
 
-        <label htmlFor="stepId">Step: </label>
+        <label htmlFor="stepId" className="App__label">
+          {'       '}Step:{' '}
+        </label>
         <input
           type="number"
           name="stepInput"
@@ -100,10 +105,13 @@ export class App extends React.Component<{}, States> {
           min="1"
           max="10"
           value={step}
+          className="App__input"
           onChange={this.adjustStep}
         />
 
-        <label htmlFor="animationDurationId">Animation Duration: </label>
+        <label htmlFor="animationDurationId" className="App__label">
+          {'       '}Animation Duration:{' '}
+        </label>
         <input
           type="number"
           name="animationDurationInput"
@@ -111,7 +119,20 @@ export class App extends React.Component<{}, States> {
           min="1000"
           max="10000"
           value={animationDuration}
+          className="App__input"
           onChange={this.adjustAnimationDuration}
+        />
+
+        <label htmlFor="infiniteId" className="App__label">
+          {'       '}Infinite:{' '}
+        </label>
+        <input
+          type="checkbox"
+          name="infiniteCheckbox"
+          id="infiniteId"
+          onChange={this.adjustInfinite}
+          className="App__input"
+          checked={infinite}
         />
         <Carousel
           images={images}
