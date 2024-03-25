@@ -1,1 +1,44 @@
-// style go here
+.Carousel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-container {
+        overflow: hidden;
+
+        position: relative;
+        height: 162px;
+
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        position: absolute;
+        left: 0;
+    }
+
+    &__btn {
+        background-color: white;
+        padding: 10px;
+        border-width: 0 4px 4px 0;
+
+        &:hover {
+            border-color: rgb(233, 233, 204);
+        }
+
+        &--prev {
+            transform: rotate(135deg);
+        }
+
+        &--next {
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+.disabled {
+    border-color: rgb(246, 242, 242);
+}
