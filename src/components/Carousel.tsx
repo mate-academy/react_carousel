@@ -18,6 +18,8 @@ const Carousel: React.FC<ImageCollection> = ({
   animationDuration,
   infinite,
 }) => {
+  const [previousWidth, setPreviousWidth] = useState<number>(itemWidth);
+
   const [styleList, setStyleList] = useState({
     transform: 'translateX(0)',
     transition: `transform ${animationDuration / 1000}s ease-in-out`,
@@ -28,18 +30,7 @@ const Carousel: React.FC<ImageCollection> = ({
     prevBtn: true,
   });
 
-  const returnClickability = () => {
-    if (Object.values(disabledBtn).includes(true)) {
-      setDisabledBtn(() => {
-        return {
-          nextBtn: false,
-          prevBtn: false,
-        };
-      });
-    }
-  };
-
-  const onNextBtn = (num: number) => {
+  const getCurrentTransform = (): number => {
     const styleStr: string = styleList.transform;
 
     const border: number = styleStr.indexOf('(');
@@ -53,6 +44,35 @@ const Carousel: React.FC<ImageCollection> = ({
     } else {
       finalNum = parseInt(transformProp);
     }
+
+    return finalNum;
+  };
+
+  const returnClickability = () => {
+    if (Object.values(disabledBtn).includes(true)) {
+      setDisabledBtn(() => {
+        return {
+          nextBtn: false,
+          prevBtn: false,
+        };
+      });
+    }
+  };
+
+  const getOpacityStatus = (index: number): number => {
+    const finalNum = getCurrentTransform();
+
+    const actives = Math.abs(finalNum / itemWidth - frameSize);
+
+    if (index < actives && actives - frameSize <= index) {
+      return 1;
+    }
+
+    return 0;
+  };
+
+  const onNextBtn = (num: number) => {
+    let finalNum = getCurrentTransform();
 
     const waste = images.length % frameSize;
 
@@ -92,6 +112,21 @@ const Carousel: React.FC<ImageCollection> = ({
   };
 
   useEffect(() => {
+    if (previousWidth !== itemWidth) {
+      const prev = previousWidth;
+      const finalNum = getCurrentTransform();
+
+      const s = finalNum / prev;
+
+      setStyleList({
+        ...styleList,
+        transform: `translateX(${s * itemWidth}px)`,
+      });
+      setPreviousWidth(itemWidth);
+    }
+  }, [itemWidth]);
+
+  useEffect(() => {
     if (infinite) {
       setInterval(() => {
         if (
@@ -117,11 +152,22 @@ const Carousel: React.FC<ImageCollection> = ({
     });
   }, [animationDuration]);
 
+  useEffect(() => {
+    const s = getCurrentTransform();
+
+    if (s < 0) {
+      setStyleList({
+        ...styleList,
+        transform: `translateX(${s + itemWidth}px)`,
+      });
+    }
+  }, [frameSize]);
+
   return (
     <div
       className="Carousel"
       style={{
-        width: `${itemWidth * frameSize}px`,
+        maxWidth: `${itemWidth * frameSize}px`,
       }}
     >
       <ul className="Carousel__list" style={styleList}>
@@ -132,9 +178,10 @@ const Carousel: React.FC<ImageCollection> = ({
                 src={img}
                 alt={index.toString()}
                 className="Carousel__img"
+                width={itemWidth}
+                height={itemWidth}
                 style={{
-                  minWidth: itemWidth,
-                  minHeight: itemWidth,
+                  opacity: getOpacityStatus(index),
                 }}
               />
             </li>
@@ -154,7 +201,7 @@ const Carousel: React.FC<ImageCollection> = ({
         disabled={disabledBtn.nextBtn}
         type="button"
         onClick={() => onNextBtn(-1)}
-        data-cy="Next"
+        data-cy="next"
       >
         Next
       </button>

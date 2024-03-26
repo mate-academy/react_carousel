@@ -1,4 +1,10 @@
 // style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .root {
   position: relative;
   display: block;
@@ -17,12 +23,8 @@
     transition: transform 0.3s ease-in-out;
   }
 
-  &__item {
-    display: block;
-  }
-
   &__img {
-    display: block;
+    transition: opacity 0.3s ease-in-out
   }
 }
 
