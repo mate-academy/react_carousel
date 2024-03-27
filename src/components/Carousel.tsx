@@ -128,22 +128,29 @@ const Carousel: React.FC<ImageCollection> = ({
 
   useEffect(() => {
     if (infinite) {
-      setInterval(() => {
-        if (
-          styleList.transform.includes(
-            (-itemWidth * images.length + itemWidth * frameSize).toString(),
-          )
-        ) {
-          setStyleList({
-            ...styleList,
-            transform: 'translateX(0)',
-          });
-        }
+      const finalNum = getCurrentTransform();
 
-        onNextBtn(-1);
+      const waste = images.length % frameSize;
+
+      setTimeout(() => {
+        if (
+          Math.abs(finalNum) >=
+          (images.length - (frameSize - waste)) * itemWidth - itemWidth
+        ) {
+          setStyleList(prev => {
+            return {
+              ...prev,
+              transform: 'translateX(0)',
+            };
+          });
+        } else {
+          onNextBtn(-1);
+        }
       }, 1000);
     }
-  }, [styleList]);
+
+    return;
+  }, [styleList, infinite]);
 
   useEffect(() => {
     setStyleList({
@@ -189,22 +196,26 @@ const Carousel: React.FC<ImageCollection> = ({
         })}
       </ul>
 
-      <button
-        disabled={disabledBtn.prevBtn}
-        type="button"
-        onClick={() => onNextBtn(1)}
-      >
-        Prev
-      </button>
+      {!infinite && (
+        <>
+          <button
+            disabled={disabledBtn.prevBtn}
+            type="button"
+            onClick={() => onNextBtn(1)}
+          >
+            Prev
+          </button>
 
-      <button
-        disabled={disabledBtn.nextBtn}
-        type="button"
-        onClick={() => onNextBtn(-1)}
-        data-cy="next"
-      >
-        Next
-      </button>
+          <button
+            disabled={disabledBtn.nextBtn}
+            type="button"
+            onClick={() => onNextBtn(-1)}
+            data-cy="next"
+          >
+            Next
+          </button>
+        </>
+      )}
     </div>
   );
 };

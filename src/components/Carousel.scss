@@ -46,4 +46,8 @@
 
   max-width: 150px;
   padding-bottom: 20px;
+
+  &--check {
+    flex-direction: row;
+  }
 }

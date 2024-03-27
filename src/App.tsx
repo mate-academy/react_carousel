@@ -11,6 +11,7 @@ interface FormStyle {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinity: boolean;
 }
 
 const App: React.FC = () => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 300,
+    infinity: false,
   });
 
   return (
@@ -108,6 +110,22 @@ const App: React.FC = () => {
             }
           />
         </div>
+
+        <div className="form-input form-input--check">
+          <label htmlFor="infinity">Infinity</label>
+
+          <input
+            type="checkbox"
+            name="infinity"
+            checked={form.infinity}
+            onChange={e =>
+              setForm({
+                ...form,
+                infinity: e.target.checked,
+              })
+            }
+          />
+        </div>
       </div>
 
       <Carousel
@@ -116,7 +134,7 @@ const App: React.FC = () => {
         frameSize={form.frameSize}
         itemWidth={form.itemWidth}
         animationDuration={form.animationDuration}
-        infinite={false}
+        infinite={form.infinity}
       />
     </div>
   );
