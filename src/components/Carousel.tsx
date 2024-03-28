@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import './Carousel.scss';
 
 interface ImageCollection {
@@ -21,32 +21,14 @@ const Carousel: React.FC<ImageCollection> = ({
   const [previousWidth, setPreviousWidth] = useState<number>(itemWidth);
 
   const [styleList, setStyleList] = useState({
-    transform: 'translateX(0)',
-    transition: `transform ${animationDuration / 1000}s ease-in-out`,
+    transform: 0,
+    transition: animationDuration / 1000,
   });
 
   const [disabledBtn, setDisabledBtn] = useState({
     nextBtn: false,
     prevBtn: true,
   });
-
-  const getCurrentTransform = (): number => {
-    const styleStr: string = styleList.transform;
-
-    const border: number = styleStr.indexOf('(');
-
-    const transformProp = styleStr.slice(border + 1, -1);
-
-    let finalNum = 0;
-
-    if (transformProp.endsWith('px')) {
-      finalNum = parseInt(transformProp.slice(0, -2));
-    } else {
-      finalNum = parseInt(transformProp);
-    }
-
-    return finalNum;
-  };
 
   const returnClickability = () => {
     if (Object.values(disabledBtn).includes(true)) {
@@ -60,7 +42,7 @@ const Carousel: React.FC<ImageCollection> = ({
   };
 
   const getOpacityStatus = (index: number): number => {
-    const finalNum = getCurrentTransform();
+    const finalNum = styleList.transform;
 
     const actives = Math.abs(finalNum / itemWidth - frameSize);
 
@@ -72,7 +54,7 @@ const Carousel: React.FC<ImageCollection> = ({
   };
 
   const onNextBtn = (num: number) => {
-    let finalNum = getCurrentTransform();
+    let finalNum = styleList.transform;
 
     const waste = images.length % frameSize;
 
@@ -107,20 +89,20 @@ const Carousel: React.FC<ImageCollection> = ({
 
     setStyleList({
       ...styleList,
-      transform: `translateX(${finalNum}px)`,
+      transform: finalNum,
     });
   };
 
   useEffect(() => {
     if (previousWidth !== itemWidth) {
       const prev = previousWidth;
-      const finalNum = getCurrentTransform();
+      const finalNum = styleList.transform;
 
       const s = finalNum / prev;
 
       setStyleList({
         ...styleList,
-        transform: `translateX(${s * itemWidth}px)`,
+        transform: s * itemWidth,
       });
       setPreviousWidth(itemWidth);
     }
@@ -128,7 +110,7 @@ const Carousel: React.FC<ImageCollection> = ({
 
   useEffect(() => {
     if (infinite) {
-      const finalNum = getCurrentTransform();
+      const finalNum = styleList.transform;
 
       const waste = images.length % frameSize;
 
@@ -140,7 +122,7 @@ const Carousel: React.FC<ImageCollection> = ({
           setStyleList(prev => {
             return {
               ...prev,
-              transform: 'translateX(0)',
+              transform: 0,
             };
           });
         } else {
@@ -155,20 +137,25 @@ const Carousel: React.FC<ImageCollection> = ({
   useEffect(() => {
     setStyleList({
       ...styleList,
-      transition: `transform ${animationDuration / 1000}s ease-in-out`,
+      transition: animationDuration / 1000,
     });
   }, [animationDuration]);
 
   useEffect(() => {
-    const s = getCurrentTransform();
+    const s = styleList.transform;
 
     if (s < 0) {
       setStyleList({
         ...styleList,
-        transform: `translateX(${s + itemWidth}px)`,
+        transform: s + itemWidth,
       });
     }
   }, [frameSize]);
+
+  const providedUlStlyes: CSSProperties = {
+    transform: `translateX(${styleList.transform}px)`,
+    transition: `transform ${styleList.transition}s ease-in-out`,
+  };
 
   return (
     <div
@@ -177,7 +164,7 @@ const Carousel: React.FC<ImageCollection> = ({
         maxWidth: `${itemWidth * frameSize}px`,
       }}
     >
-      <ul className="Carousel__list" style={styleList}>
+      <ul className="Carousel__list" style={providedUlStlyes}>
         {images.map((img, index) => {
           return (
             <li key={img} className="Carousel__item">
