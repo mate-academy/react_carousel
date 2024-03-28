@@ -1,1 +1,53 @@
 // style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.root {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &__img {
+    transition: opacity 0.3s ease-in-out
+  }
+}
+
+.App {
+  position: absolute;
+  display: block;
+  padding: 30px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 1px solid black;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 150px;
+  padding-bottom: 20px;
+
+  &--check {
+    flex-direction: row;
+  }
+}
