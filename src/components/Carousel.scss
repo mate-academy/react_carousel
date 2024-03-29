@@ -1,1 +1,43 @@
-// style go here
+.container {
+  width: 1260px;
+}
+
+.flex {
+  display: flex;
+}
+
+.paddings {
+  padding-top: 30px;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  background-color: black;
+  color: gold;
+  font-weight: bold;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.buttons-container {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list {
+  display: flex;
+  padding: 0;
+}
+
+span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+input {
+  font-weight: bold;
+}

@@ -1,1 +1,8 @@
-// style go here
+.toCenter {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
