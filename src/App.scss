@@ -1,1 +1,10 @@
-// style go here
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.App {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
