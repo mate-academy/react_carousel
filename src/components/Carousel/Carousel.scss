@@ -1,0 +1,40 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.Handle-carousel{
+  display: flex;
+  justify-content: center;
+}
+
+.Carousel {
+  display: block;
+  overflow: hidden;
+  justify-self: center;
+
+  &__list {
+    position: absolute;
+    top: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    list-style: none;
+
+  }
+
+}
+
+button{
+  position: relative;
+  left: calc(50% - 31px);
+}
+
+button:disabled {
+  /* Apply styles for disabled state */
+  opacity: 0.5; /* For example, reduce opacity */
+  cursor: not-allowed; /* Disable pointer events */
+  /* Add any other styles you want for disabled buttons */
+}
