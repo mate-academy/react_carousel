@@ -23,18 +23,16 @@ export function OptionForCarousel({
     setPrev(1);
   };
 
-  const handleOnChangeFrame = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFrameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFrameSize(+event.target.value);
     setPrev(1);
   };
 
-  const handleOnChangeWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemWidth(+event.target.value);
   };
 
-  const handleOnChangeDuration = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnimationDuration(+event.target.value);
   };
 
@@ -50,7 +48,7 @@ export function OptionForCarousel({
       </select>
       Frame Size
       <select
-        onChange={handleOnChangeFrame}
+        onChange={handleFrameChange}
         defaultValue={frameSize}
         name="number"
         id="numberSelect"
@@ -63,7 +61,7 @@ export function OptionForCarousel({
       </select>
       Item Width
       <input
-        onInput={handleOnChangeWidth}
+        onChange={handleWidthChange}
         type="number"
         defaultValue={130}
         max={500}
@@ -73,7 +71,7 @@ export function OptionForCarousel({
       />
       Duration
       <input
-        onInput={handleOnChangeDuration}
+        onChange={handleDurationChange}
         type="number"
         defaultValue={1000}
         max={5000}

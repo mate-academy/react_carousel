@@ -20,23 +20,22 @@ const Carousel: React.FC<Props> = ({
   itemWidth,
   animationDuration,
 }) => {
+  const rightPosition = itemWidth * prev * step - itemWidth * step;
   const getValueForNext = (frameCount: number) => {
-    if (frameCount) {
-      switch (frameCount) {
-        case 1:
-          return 9;
-        case 2:
-          return 8;
-        case 3:
-          return 7;
-        case 4:
-          return 6;
-        case 5:
-          return 5;
-      }
+    switch (frameCount) {
+      case 1:
+        return 9;
+      case 2:
+        return 8;
+      case 3:
+        return 7;
+      case 4:
+        return 6;
+      case 5:
+        return 5;
+      default:
+        return 0;
     }
-
-    return 0;
   };
 
   const handleOnClickNext = () => {
@@ -56,7 +55,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={{
           transition: `right ${animationDuration / 1000}s ease-in-out`,
-          right: `calc(${itemWidth}px * ${prev} * ${step} - ${itemWidth}px * ${step} )`,
+          right: `${rightPosition}px`,
         }}
       >
         {images.map((image, index) => (
