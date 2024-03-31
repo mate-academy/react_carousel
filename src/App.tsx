@@ -28,17 +28,24 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     itemWidth: 130,
     animationDuration: 1000,
+    infinite: false,
   };
 
-  updateState = (name: keyof State, value: number) => {
+  updateState = (name: keyof State, value: number | boolean) => {
     this.setState(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  handleInput = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.updateState(event.target.name as keyof State, +event.target.value);
+
+  handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.updateState(event.target.name as keyof State, event.target.checked);
+
   render() {
-    const { images, step, frameSize, itemWidth, animationDuration } =
+    const { images, step, frameSize, itemWidth, animationDuration, infinite } =
       this.state;
 
     return (
@@ -47,50 +54,59 @@ class App extends React.Component<{}, State> {
         <div className="page__inputs">
           <label htmlFor="itemId">Item width</label>
           <input
+            name={'itemWidth' as keyof State}
             type="number"
             id="itemId"
             min="50"
             max="300"
             value={itemWidth}
-            onChange={event =>
-              this.updateState('itemWidth', +event.target.value)
-            }
+            onChange={this.handleInput}
           />
 
           <label htmlFor="frameId">Frame size</label>
           <input
+            name={'frameSize' as keyof State}
             type="number"
             id="frameId"
             min="1"
             max={images.length}
             value={frameSize}
-            onChange={event =>
-              this.updateState('frameSize', +event.target.value)
-            }
+            onChange={this.handleInput}
           />
 
           <label htmlFor="stepId">Step</label>
           <input
+            name={'step' as keyof State}
             type="number"
             id="stepId"
             min="1"
             max={images.length}
             value={step}
-            onChange={event => this.updateState('step', +event.target.value)}
+            onChange={this.handleInput}
           />
 
           <label htmlFor="animationDuration">Animation duration</label>
           <input
+            name={'animationDuration' as keyof State}
             type="number"
             id="animationDuration"
             min="0"
             max="5000"
             step="100"
             value={animationDuration}
-            onChange={event =>
-              this.updateState('animationDuration', +event.target.value)
-            }
+            onChange={this.handleInput}
           />
+
+          <label htmlFor="infiniteScroll">
+            Infinite scroll
+            <input
+              name={'infinite' as keyof State}
+              type="checkbox"
+              id="infiniteScroll"
+              checked={infinite}
+              onChange={this.handleCheckbox}
+            />
+          </label>
         </div>
 
         <Carousel
@@ -99,7 +115,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={true}
+          infinite={infinite}
         />
       </div>
     );

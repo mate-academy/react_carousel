@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import './Carousel.scss';
 
 interface Props {
@@ -21,13 +22,13 @@ const Carousel: React.FC<Props> = ({
   const [scrollCount, setScrollCount] = useState(0);
 
   const changeScrollCount = (scroll: number) => {
-    if (scroll < 0 || (scroll === images.length && infinite)) {
+    if ((scroll < 0 && !infinite) || (scroll === images.length && infinite)) {
       setScrollCount(0);
 
       return;
     }
 
-    if (scroll > images.length - frameSize) {
+    if (scroll > images.length - frameSize || (scroll < 0 && infinite)) {
       setScrollCount(images.length - frameSize);
 
       return;
@@ -62,14 +63,23 @@ const Carousel: React.FC<Props> = ({
       </div>
 
       <button
+        className={classNames('Carousel__button', {
+          'Carousel__button--disabled': scrollCount === 0 && !infinite,
+        })}
         type="button"
+        aria-disabled={scrollCount === 0 && !infinite}
         onClick={() => changeScrollCount(scrollCount - step)}
       >
         Prev
       </button>
       <button
-        data-cy="next"
+        className={classNames('Carousel__button', {
+          'Carousel__button--disabled':
+            scrollCount >= images.length - frameSize && !infinite,
+        })}
         type="button"
+        aria-disabled={scrollCount >= images.length - frameSize && !infinite}
+        data-cy="next"
         onClick={() => changeScrollCount(scrollCount + step)}
       >
         Next

@@ -11,4 +11,9 @@
   &__container {
     overflow: hidden;
   }
+
+  &__button--disabled {
+    color: gray;
+    pointer-events: none;
+  }
 }
