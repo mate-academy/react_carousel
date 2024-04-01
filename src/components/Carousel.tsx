@@ -1,26 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  animationDuration?: number;
+  step?: number;
+  infinite?: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [carouselList, setCarouselList] = useState(0);
+
+  const previous = () =>
+    -carouselList + step < 0
+      ? setCarouselList(carouselList - step)
+      : setCarouselList(0);
+
+  const next = () =>
+    carouselList + step < images.length - step
+      ? setCarouselList(carouselList + step)
+      : setCarouselList(images.length - step);
+
+  if (infinite) {
+    setInterval(() => {
+      if (carouselList + step < images.length - step) {
+        setCarouselList(carouselList + step);
+      } else if (carouselList < images.length - step) {
+        setCarouselList(images.length - step);
+      } else {
+        setCarouselList(0);
+      }
+    }, 3000);
+  }
+
+  return (
+    <div style={{ width: itemWidth * images.length }} className="Carousel">
+      <div
+        style={{ width: itemWidth * frameSize }}
+        className="Carousel__visible"
+      >
+        <ul
+          style={{
+            height: itemWidth,
+            right: carouselList * itemWidth,
+            transition: `all ${animationDuration}ms`,
+          }}
+          className="Carousel__list"
+        >
+          {images.map((image, index) => (
+            <img
+              key={`${index}-${image}`}
+              src={image}
+              alt={String(index)}
+            ></img>
+          ))}
+        </ul>
+      </div>
+
+      <button onClick={previous} data-cy="next" type="button">
+        Prev
+      </button>
+      <button onClick={next} type="button">
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
