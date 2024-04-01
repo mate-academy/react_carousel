@@ -9,4 +9,20 @@
     position: relative;
     display: flex;
   }
+
+  &__input-box {
+    padding: 50px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 300px;
+    align-items: start;
+  }
+
+  &__input {
+    outline: none;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 10px;
+  }
 }
