@@ -66,10 +66,10 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button onClick={previous} data-cy="next" type="button">
+      <button onClick={previous} type="button">
         Prev
       </button>
-      <button onClick={next} type="button">
+      <button onClick={next} data-cy="next" type="button">
         Next
       </button>
     </div>
