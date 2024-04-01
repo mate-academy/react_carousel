@@ -5,8 +5,8 @@ type Props = {
   images: string[];
   itemWidth?: number;
   frameSize?: number;
-  animationDuration?: number;
   step?: number;
+  animationDuration?: number;
   infinite?: boolean;
 };
 
@@ -19,40 +19,50 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [carouselList, setCarouselList] = useState(0);
+  const [stepState, setStepState] = useState(step);
+  const [frameSizeState, setFrameSizeState] = useState(frameSize);
+  const [itemWidthState, setItemWidthState] = useState(itemWidth);
+  const [animationDurationState, setAnimationDurationState] =
+    useState(animationDuration);
+  const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
   const previous = () =>
-    -carouselList + step < 0
-      ? setCarouselList(carouselList - step)
+    -carouselList + stepState < 0
+      ? setCarouselList(carouselList - stepState)
       : setCarouselList(0);
 
   const next = () =>
-    carouselList + step < images.length - step
-      ? setCarouselList(carouselList + step)
-      : setCarouselList(images.length - step);
+    carouselList + stepState < images.length - stepState
+      ? setCarouselList(carouselList + stepState)
+      : setCarouselList(images.length - stepState);
 
-  if (infinite) {
-    setInterval(() => {
-      if (carouselList + step < images.length - step) {
-        setCarouselList(carouselList + step);
-      } else if (carouselList < images.length - step) {
-        setCarouselList(images.length - step);
-      } else {
-        setCarouselList(0);
-      }
-    }, 3000);
+  const reapet = () => {
+    if (carouselList + stepState < images.length - stepState) {
+      setCarouselList(carouselList + stepState);
+    } else if (carouselList < images.length - stepState) {
+      setCarouselList(images.length - stepState);
+    } else {
+      setCarouselList(0);
+    }
+  };
+
+  let infiniteInterval: NodeJS.Timer;
+
+  if (isInfiniteState) {
+    infiniteInterval = setInterval(reapet, 3000);
   }
 
   return (
-    <div style={{ width: itemWidth * images.length }} className="Carousel">
+    <div style={{ width: itemWidthState * images.length }} className="Carousel">
       <div
-        style={{ width: itemWidth * frameSize }}
+        style={{ width: itemWidthState * frameSizeState }}
         className="Carousel__visible"
       >
         <ul
           style={{
-            height: itemWidth,
-            right: carouselList * itemWidth,
-            transition: `all ${animationDuration}ms`,
+            height: itemWidthState,
+            right: carouselList * itemWidthState,
+            transition: `all ${animationDurationState}ms`,
           }}
           className="Carousel__list"
         >
@@ -72,6 +82,47 @@ const Carousel: React.FC<Props> = ({
       <button onClick={next} data-cy="next" type="button">
         Next
       </button>
+      <div className="Carousel__input-box">
+        <p>Item Width</p>
+        <input
+          className="Carousel__input"
+          type="text"
+          onChange={e => setItemWidthState(Number(e.target.value))}
+          value={itemWidthState}
+        />
+        <p>Step</p>
+        <input
+          className="Carousel__input"
+          type="text"
+          onChange={e => setStepState(Number(e.target.value))}
+          value={step}
+        />
+        <p>Frame Size</p>
+        <input
+          className="Carousel__input"
+          type="text"
+          onChange={e => setFrameSizeState(Number(e.target.value))}
+          value={frameSizeState}
+        />
+        <p>Animation Duration</p>
+        <input
+          className="Carousel__input"
+          type="text"
+          onChange={e => setAnimationDurationState(Number(e.target.value))}
+          value={animationDurationState}
+        />
+        <p>Infinite</p>
+        <input
+          className="Carousel__input"
+          type="checkbox"
+          onChange={() => {
+            setIsInfiniteState(!isInfiniteState);
+            if (!isInfiniteState) {
+              clearInterval(infiniteInterval);
+            }
+          }}
+        />
+      </div>
     </div>
   );
 };
