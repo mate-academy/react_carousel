@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -36,21 +36,28 @@ const Carousel: React.FC<Props> = ({
       ? setCarouselList(carouselList + stepState)
       : setCarouselList(images.length - stepState);
 
-  const reapet = () => {
-    if (carouselList + stepState < images.length - stepState) {
-      setCarouselList(carouselList + stepState);
-    } else if (carouselList < images.length - stepState) {
-      setCarouselList(images.length - stepState);
-    } else {
-      setCarouselList(0);
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    const repeat = () => {
+      if (carouselList + stepState < images.length - stepState) {
+        setCarouselList(carouselList + stepState);
+      } else if (carouselList < images.length - stepState) {
+        setCarouselList(images.length - stepState);
+      } else {
+        setCarouselList(0);
+      }
+
+      if (isInfiniteState) {
+        timeoutId = setTimeout(repeat, 3000);
+      }
+    };
+
+    if (isInfiniteState) {
+      timeoutId = setTimeout(repeat, 3000);
     }
-  };
 
-  let infiniteInterval: NodeJS.Timer;
-
-  if (isInfiniteState) {
-    infiniteInterval = setInterval(reapet, 3000);
-  }
+    return () => clearTimeout(timeoutId);
+  }, [carouselList, images.length, isInfiniteState, stepState]);
 
   return (
     <div style={{ width: itemWidthState * images.length }} className="Carousel">
@@ -94,6 +101,9 @@ const Carousel: React.FC<Props> = ({
         <input
           className="Carousel__input"
           type="number"
+          min={50}
+          max={300}
+          step={10}
           onChange={e => setItemWidthState(Number(e.target.value))}
           value={itemWidthState}
         />
@@ -101,15 +111,17 @@ const Carousel: React.FC<Props> = ({
         <input
           className="Carousel__input"
           type="number"
+          min={1}
+          step={1}
           onChange={e => setStepState(Number(e.target.value))}
-          value={step}
+          value={stepState}
         />
         <p>Frame Size</p>
         <input
           className="Carousel__input"
-          min={50}
-          max={300}
           type="number"
+          min={1}
+          step={1}
           onChange={e => setFrameSizeState(Number(e.target.value))}
           value={frameSizeState}
         />
@@ -117,6 +129,8 @@ const Carousel: React.FC<Props> = ({
         <input
           className="Carousel__input"
           type="number"
+          min={1}
+          step={100}
           onChange={e => setAnimationDurationState(Number(e.target.value))}
           value={animationDurationState}
         />
@@ -126,9 +140,6 @@ const Carousel: React.FC<Props> = ({
           type="checkbox"
           onChange={() => {
             setIsInfiniteState(!isInfiniteState);
-            if (!isInfiniteState) {
-              clearInterval(infiniteInterval);
-            }
           }}
         />
       </div>
