@@ -1,1 +1,10 @@
-// style go here
+.App {
+  margin: 0 50px;
+
+  &__inputs {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
