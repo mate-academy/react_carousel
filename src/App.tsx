@@ -6,7 +6,14 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
+type Props = {
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+};
+
+class App extends React.Component<Props, State> {
   state = {
     images: [
       './img/1.png',
@@ -24,6 +31,12 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { images } = this.state;
+    const {
+      itemWidth = 130,
+      frameSize = 3,
+      step = 3,
+      animationDuration = 1000,
+    } = this.props;
 
     return (
       <div className="App">
@@ -31,7 +44,13 @@ class App extends React.Component<{}, State> {
           Carousel with {images.length} images
         </h1>
 
-        <Carousel images={images} />
+        <Carousel
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          images={images}
+        />
       </div>
     );
   }

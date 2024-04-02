@@ -3,10 +3,10 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  itemWidth?: number;
-  frameSize?: number;
-  step?: number;
-  animationDuration?: number;
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
   infinite?: boolean;
 };
 
@@ -27,10 +27,10 @@ const Carousel: React.FC<Props> = ({
   const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
   const previous = () => {
-    if (-carouselList + stepState < 0) {
+    if (stepState - carouselList < 0) {
       setCarouselList(carouselList - stepState);
     } else {
-      if (carouselList === 0 && infinite) {
+      if (carouselList === 0 && isInfiniteState) {
         setCarouselList(images.length - frameSizeState);
       } else {
         setCarouselList(0);
@@ -42,7 +42,7 @@ const Carousel: React.FC<Props> = ({
     if (carouselList + stepState < images.length - step) {
       setCarouselList(carouselList + stepState);
     } else {
-      if (carouselList >= images.length - frameSizeState && infinite) {
+      if (carouselList >= images.length - frameSizeState && isInfiniteState) {
         setCarouselList(0);
       } else {
         setCarouselList(images.length - frameSizeState);
@@ -87,7 +87,8 @@ const Carousel: React.FC<Props> = ({
           className="Carousel__button"
           onClick={() => next()}
           disabled={
-            isInfiniteState === false && carouselList === images.length - 1
+            isInfiniteState === false &&
+            carouselList >= images.length - stepState
           }
           data-cy="next"
           type="button"

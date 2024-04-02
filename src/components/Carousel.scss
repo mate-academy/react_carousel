@@ -48,5 +48,11 @@
       background-color: red;
       color: black;
     }
+
+    &:disabled {
+      background: none;
+      color: darkgray;
+      border: none;
+    }
   }
 }
