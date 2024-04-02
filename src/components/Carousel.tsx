@@ -43,8 +43,8 @@ const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <>
+      <h1 className="Carousel__title">DIABLO |||</h1>
       <div className="Carousel" style={dynamicStyles}>
-        <h1 className="Carousel__title">DIABLO |||</h1>
         <ul className="Carousel__list">
           {images.map((image, i) => (
             <li key={i} className="Carousel__item">
