@@ -20,10 +20,6 @@
 
     cursor: pointer;
     transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   &__list {
@@ -31,7 +27,6 @@
     padding: 0;
     list-style: none;
     display: flex;
-    gap: 4px;
     transition: transform var(--carousel-animation-duration);
     transform: translateX(var(--carousel-translate-x));
   }
