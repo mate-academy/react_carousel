@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -26,38 +26,29 @@ const Carousel: React.FC<Props> = ({
     useState(animationDuration);
   const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
-  const previous = () =>
-    -carouselList + stepState < 0
-      ? setCarouselList(carouselList - stepState)
-      : setCarouselList(0);
-
-  const next = () =>
-    carouselList + stepState < images.length - stepState
-      ? setCarouselList(carouselList + stepState)
-      : setCarouselList(images.length - 1);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const repeat = () => {
-      if (carouselList + stepState < images.length - stepState) {
-        setCarouselList(carouselList + stepState);
-      } else if (carouselList < images.length - stepState) {
-        setCarouselList(images.length - stepState);
+  const previous = () => {
+    if (-carouselList + stepState < 0) {
+      setCarouselList(carouselList - stepState);
+    } else {
+      if (carouselList === 0) {
+        setCarouselList(images.length - 1);
       } else {
         setCarouselList(0);
       }
-
-      if (isInfiniteState) {
-        timeoutId = setTimeout(repeat, 3000);
-      }
-    };
-
-    if (isInfiniteState) {
-      timeoutId = setTimeout(repeat, 3000);
     }
+  };
 
-    return () => clearTimeout(timeoutId);
-  }, [carouselList, images.length, isInfiniteState, stepState]);
+  const next = () => {
+    if (carouselList + stepState < images.length - stepState) {
+      setCarouselList(carouselList + stepState);
+    } else {
+      if (carouselList === images.length - 1) {
+        setCarouselList(0);
+      } else {
+        setCarouselList(images.length - 1);
+      }
+    }
+  };
 
   return (
     <div style={{ width: itemWidthState * images.length }} className="Carousel">
@@ -86,20 +77,18 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__buttons">
         <button
           className="Carousel__button"
-          onClick={() => {
-            previous();
-            setIsInfiniteState(false);
-          }}
+          onClick={() => previous()}
+          disabled={isInfiniteState === false && carouselList === 0}
           type="button"
         >
           Prev
         </button>
         <button
           className="Carousel__button"
-          onClick={() => {
-            next();
-            setIsInfiniteState(false);
-          }}
+          onClick={() => next()}
+          disabled={
+            isInfiniteState === false && carouselList === images.length - 1
+          }
           data-cy="next"
           type="button"
         >
