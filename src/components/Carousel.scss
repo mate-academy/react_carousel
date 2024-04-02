@@ -1,1 +1,60 @@
 // style go here
+.Carousel {
+  margin: 0 auto;
+  width: var(--carousel-window-width);
+  overflow: hidden;
+  &__title {
+    text-align: center;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 5px;
+    transition: transform var(--carousel-animation-duration);
+    transform: translateX(var(--carousel-translate-x));
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: var(--carousel-item-width);
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+  }
+}
+
+.Buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+
+  &__left {
+    background-image: url(../../public/img/arrow-left.png);
+  }
+
+  &__rigth {
+    background-image: url(../../public/img/arrow-right.jpg);
+  }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
