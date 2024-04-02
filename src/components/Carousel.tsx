@@ -34,7 +34,7 @@ const Carousel: React.FC<Props> = ({
   const next = () =>
     carouselList + stepState < images.length - stepState
       ? setCarouselList(carouselList + stepState)
-      : setCarouselList(images.length - stepState);
+      : setCarouselList(images.length - 1);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
