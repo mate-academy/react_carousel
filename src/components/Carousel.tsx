@@ -38,8 +38,8 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const dynamicStyles: React.CSSProperties = {
     '--carousel-item-width': `${itemWidth}px`,
-    '--carousel-window-width': `${frameSize * itemWidth}px`,
-    '--carousel-translate-x': `-${currentImgIndex * itemWidth}px`,
+    '--carousel-window-width': `${frameSize * (itemWidth)}px`,
+    '--carousel-translate-x': `-${currentImgIndex * (itemWidth + 10) - (currentImgIndex > 0 ? 10 : 0)}px`,
     '--carousel-animation-duration': `${animationDuration}ms`,
   } as React.CSSProperties;
 
