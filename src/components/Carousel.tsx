@@ -3,28 +3,32 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite?: boolean;
+  itemWidthState: number;
+  setItemWidthState: (a: number) => void;
+  frameSizeState: number;
+  setFrameSizeState: (a: number) => void;
+  stepState: number;
+  setStepState: (a: number) => void;
+  animationDurationState: number;
+  setAnimationDurationState: (a: number) => void;
+  isInfiniteState: boolean;
+  setIsInfiniteState: () => void;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animationDuration = 1000,
-  infinite = false,
+  itemWidthState,
+  frameSizeState,
+  stepState,
+  animationDurationState,
+  isInfiniteState,
+  setAnimationDurationState,
+  setFrameSizeState,
+  setIsInfiniteState,
+  setItemWidthState,
+  setStepState,
 }) => {
   const [carouselList, setCarouselList] = useState(0);
-  const [stepState, setStepState] = useState(step);
-  const [frameSizeState, setFrameSizeState] = useState(frameSize);
-  const [itemWidthState, setItemWidthState] = useState(itemWidth);
-  const [animationDurationState, setAnimationDurationState] =
-    useState(animationDuration);
-  const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
   const previous = () => {
     if (stepState - carouselList < 0) {
@@ -39,7 +43,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   const next = () => {
-    if (carouselList + stepState < images.length - step) {
+    if (carouselList + stepState < images.length - stepState) {
       setCarouselList(carouselList + stepState);
     } else {
       if (carouselList >= images.length - frameSizeState && isInfiniteState) {
@@ -157,9 +161,9 @@ const Carousel: React.FC<Props> = ({
         <p>Infinite</p>
         <input
           className="Carousel__input"
-          checked={isInfiniteState ? true : false}
+          checked={isInfiniteState}
           type="checkbox"
-          onChange={() => setIsInfiniteState(!isInfiniteState)}
+          onChange={() => setIsInfiniteState()}
         />
       </div>
     </div>

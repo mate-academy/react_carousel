@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidthState: number;
+  frameSizeState: number;
+  stepState: number;
+  animationDurationState: number;
+  isInfiniteState: boolean;
 }
 
 type Props = {
@@ -14,7 +19,7 @@ type Props = {
 };
 
 class App extends React.Component<Props, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -27,16 +32,44 @@ class App extends React.Component<Props, State> {
       './img/9.png',
       './img/10.png',
     ],
+    stepState: this.props.step || 3,
+    frameSizeState: this.props.frameSize || 3,
+    itemWidthState: this.props.itemWidth || 130,
+    animationDurationState: this.props.animationDuration || 1000,
+    isInfiniteState: false,
+  };
+
+  setStepState = (newStep: number) => {
+    this.setState({ stepState: newStep });
+  };
+
+  setFrameSizeState = (newFrameSize: number) => {
+    this.setState({ frameSizeState: newFrameSize });
+  };
+
+  setItemWidthState = (newItemWidth: number) => {
+    this.setState({ itemWidthState: newItemWidth });
+  };
+
+  setAnimationDurationState = (newDuration: number) => {
+    this.setState({ animationDurationState: newDuration });
+  };
+
+  setIsInfiniteState = () => {
+    this.setState(prevState => ({
+      isInfiniteState: !prevState.isInfiniteState,
+    }));
   };
 
   render() {
-    const { images } = this.state;
     const {
-      itemWidth = 130,
-      frameSize = 3,
-      step = 3,
-      animationDuration = 1000,
-    } = this.props;
+      images,
+      itemWidthState,
+      frameSizeState,
+      stepState,
+      animationDurationState,
+      isInfiniteState,
+    } = this.state;
 
     return (
       <div className="App">
@@ -45,11 +78,17 @@ class App extends React.Component<Props, State> {
         </h1>
 
         <Carousel
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
-          animationDuration={animationDuration}
+          itemWidthState={itemWidthState}
+          frameSizeState={frameSizeState}
+          stepState={stepState}
+          animationDurationState={animationDurationState}
+          isInfiniteState={isInfiniteState}
           images={images}
+          setAnimationDurationState={this.setAnimationDurationState}
+          setFrameSizeState={this.setFrameSizeState}
+          setItemWidthState={this.setItemWidthState}
+          setStepState={this.setStepState}
+          setIsInfiniteState={this.setIsInfiniteState}
         />
       </div>
     );
