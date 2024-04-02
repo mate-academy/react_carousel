@@ -2,11 +2,14 @@
   width: 1300px;
   position: relative;
 
+  &__container {
+    overflow: hidden;
+  }
+
   &__list {
     padding: 0;
     display: flex;
     list-style: none;
-    overflow: hidden;
   }
 
   &__button {

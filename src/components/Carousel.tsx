@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -20,11 +20,11 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // useEffect(() => {
-  //   if (currentIndex + frameSize > images.length) {
-  //     setCurrentIndex(images.length - frameSize);
-  //   }
-  // }, [frameSize]);
+  useEffect(() => {
+    if (currentIndex + frameSize > images.length) {
+      setCurrentIndex(images.length - frameSize);
+    }
+  }, [frameSize]);
 
   const changeScrollCount = (scroll: number) => {
     if ((scroll < 0 && !infinite) || (scroll === images.length && infinite)) {
