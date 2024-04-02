@@ -42,15 +42,17 @@ const Carousel: React.FC<CarouselProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="Carousel" style={dynamicStyles}>
-      <h1 className="Carousel__title">DIABLO 3</h1>
-      <ul className="Carousel__list">
-        {images.map((image, i) => (
-          <li key={i} className="Carousel__item">
-            <img src={image} alt={`${i}`} className="Carousel__image" />
-          </li>
-        ))}
-      </ul>
+    <>
+      <div className="Carousel" style={dynamicStyles}>
+        <h1 className="Carousel__title">DIABLO |||</h1>
+        <ul className="Carousel__list">
+          {images.map((image, i) => (
+            <li key={i} className="Carousel__item">
+              <img src={image} alt={`${i}`} className="Carousel__image" />
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="Buttons">
         <button
           className="Buttons__left"
@@ -67,7 +69,7 @@ const Carousel: React.FC<CarouselProps> = ({
           data-cy
         ></button>
       </div>
-    </div>
+    </>
   );
 };
 

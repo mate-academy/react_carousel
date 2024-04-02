@@ -1,7 +1,7 @@
-module.exports = {
-  extends: [
-    '@mate-academy/eslint-config-react-typescript',
-    'plugin:cypress/recommended',
-  ],
-  rules: {},
-};
+// module.exports = {
+//   extends: [
+//     '@mate-academy/eslint-config-react-typescript',
+//     'plugin:cypress/recommended',
+//   ],
+//   rules: {},
+// };
