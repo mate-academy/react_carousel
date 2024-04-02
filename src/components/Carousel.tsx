@@ -76,38 +76,47 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button onClick={previous} type="button">
-        Prev
-      </button>
-      <button onClick={next} data-cy="next" type="button">
-        Next
-      </button>
+      <div className="Carousel__buttons">
+        <button className="Carousel__button" onClick={previous} type="button">
+          Prev
+        </button>
+        <button
+          className="Carousel__button"
+          onClick={next}
+          data-cy="next"
+          type="button"
+        >
+          Next
+        </button>
+      </div>
       <div className="Carousel__input-box">
         <p>Item Width</p>
         <input
           className="Carousel__input"
-          type="text"
+          type="number"
           onChange={e => setItemWidthState(Number(e.target.value))}
           value={itemWidthState}
         />
         <p>Step</p>
         <input
           className="Carousel__input"
-          type="text"
+          type="number"
           onChange={e => setStepState(Number(e.target.value))}
           value={step}
         />
         <p>Frame Size</p>
         <input
           className="Carousel__input"
-          type="text"
+          min={50}
+          max={300}
+          type="number"
           onChange={e => setFrameSizeState(Number(e.target.value))}
           value={frameSizeState}
         />
         <p>Animation Duration</p>
         <input
           className="Carousel__input"
-          type="text"
+          type="number"
           onChange={e => setAnimationDurationState(Number(e.target.value))}
           value={animationDurationState}
         />
