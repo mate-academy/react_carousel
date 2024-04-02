@@ -1,7 +1,11 @@
-@keyframes stroke-offset{
-  100% {stroke-dashoffset: -35%;}
+@keyframes pulse {
+  0%, 20%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.1);
+  }
 }
-
 .Carousel {
   margin: 0 auto;
   width: var(--carousel-window-width);
@@ -12,6 +16,7 @@
     font-family: 'MyGothicFont';
     font-size: 65px;
     color: rgb(0, 0, 0);
+    animation: pulse 2s infinite ease-in-out;
 
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -26,7 +31,7 @@
     padding: 0;
     list-style: none;
     display: flex;
-    gap: 10px;
+    gap: 4px;
     transition: transform var(--carousel-animation-duration);
     transform: translateX(var(--carousel-translate-x));
   }
@@ -45,7 +50,7 @@
     transition: transform 0.3s ease;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
   }
 }
