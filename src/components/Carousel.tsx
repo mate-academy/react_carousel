@@ -19,10 +19,12 @@ const Carousel: React.FC<CarouselProps> = ({
   const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
 
   const hendlerNextClick = () => {
-    setCurrentImgIndex(prevIndx => {
-      const newIndx = prevIndx + step;
+    setCurrentImgIndex(prevIndex => {
+      const maxIndex = images.length - frameSize;
 
-      return newIndx > images.length ? images.length - frameSize : newIndx;
+      const nextIndex = prevIndex + step;
+
+      return nextIndex >= maxIndex ? maxIndex : nextIndex;
     });
   };
 
