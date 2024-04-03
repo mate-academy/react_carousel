@@ -2,19 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 1300px;
   margin: 0;
   padding: 0;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+}
+
+.Carousel__list--wrapper {
   width: 390px;
   overflow: hidden;
 
-  &__list {
-    padding: 0;
-    display: grid;
-    grid-auto-flow: column;
-  }
-  
-  &__item {
-    display: flex;
-    list-style: none;
-   }
+}
+
+.Carousel__item {
+  display: flex;
+  list-style: none;
 }

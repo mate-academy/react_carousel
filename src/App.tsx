@@ -65,7 +65,8 @@ class App extends React.Component<{}, State> {
             id="itemId"
             value={itemWidth}
             min={50}
-            max={1000}
+            max={340}
+            step={10}
             onChange={handleItemWidth}
           />
 
@@ -99,6 +100,7 @@ class App extends React.Component<{}, State> {
             value={animationDuration}
             min={0}
             max={3000}
+            step={100}
             onChange={handleAnimationDuration}
           />
         </div>

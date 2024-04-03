@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Carousel.scss';
-import { State } from '../types/State';
+
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+};
 
 let value = 0;
 
-const Carousel: React.FC<State> = ({
+const Carousel: React.FC<Props> = ({
   images,
   itemWidth,
   frameSize,
@@ -39,9 +46,12 @@ const Carousel: React.FC<State> = ({
   };
 
   const carouselListWrapperStyle = {
+    width: `${itemWidth * frameSize}px`,
+  };
+
+  const carouselListStyle = {
     transition: `transform ${animationDuration}ms linear`,
     transform: `translateX(${scroll}px)`,
-    width: `${itemWidth * frameSize}px`,
   };
 
   const imageStyle = {
@@ -51,7 +61,7 @@ const Carousel: React.FC<State> = ({
 
   useEffect(() => {
     if (itemWidth !== itemWidthPrev.current) {
-      setScroll(scrollStep);
+      setScroll(scrollMin);
     }
 
     itemWidthPrev.current = itemWidth;
@@ -60,7 +70,7 @@ const Carousel: React.FC<State> = ({
   return (
     <div className="Carousel">
       <div className="Carousel__list--wrapper" style={carouselListWrapperStyle}>
-        <ul className="Carousel__list">
+        <ul className="Carousel__list" style={carouselListStyle}>
           {images.map(image => {
             value++;
 
@@ -77,12 +87,7 @@ const Carousel: React.FC<State> = ({
         <button type="button" onClick={scrollPrev} disabled={disabledPrev}>
           Prev
         </button>
-        <button
-          type="button"
-          onClick={scrollNext}
-          disabled={disabledNext}
-          data-cy="next"
-        >
+        <button type="button" onClick={scrollNext} disabled={disabledNext}>
           Next
         </button>
       </div>
