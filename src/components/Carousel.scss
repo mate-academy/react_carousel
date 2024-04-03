@@ -1,1 +1,97 @@
-// style go here
+@keyframes pulse {
+  0%, 20%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.1);
+  }
+}
+.Carousel {
+  margin: 0 auto;
+  padding: 20px;
+  width: var(--carousel-window-width);
+  overflow: hidden;
+  &__title {
+    margin: 48px;
+    text-align: center;
+    font-family: 'MyGothicFont';
+    font-size: 65px;
+    color: rgb(0, 0, 0);
+    animation: pulse 2s infinite ease-in-out;
+
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    transition: transform var(--carousel-animation-duration);
+    transform: translateX(var(--carousel-translate-x));
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: var(--carousel-item-width);
+    transition: width 0.8s ease-in-out;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.Buttons {
+  margin: 20px auto;
+  width: 80%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+
+  &__left {
+    background-image: url(../../public/img/arrow-left.png);
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__rigth {
+    background-image: url(../../public/img/arrow-left.png);
+    transform: scaleX(-1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scaleX(-1) scale(1.1);
+    }
+  }
+}
+button {
+  cursor: pointer;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}

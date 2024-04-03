@@ -1,36 +1,114 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
+interface AppState {
+  itemWidth: number | undefined;
+  frameSize: number | undefined;
+  step: number | undefined;
+  animationDuration: number | undefined;
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+class App extends React.Component<{}, AppState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      itemWidth: 290,
+      frameSize: 3,
+      step: 3,
+      animationDuration: 1000,
+      images: [
+        './img/2.png',
+        './img/1.jpg',
+        './img/9.jpg',
+        './img/4.png',
+        './img/6.jpg',
+        './img/8.jpg',
+        './img/3.jpg',
+        './img/5.jpg',
+        './img/7.jpg',
+        './img/10.jpg',
+      ],
+    };
+  }
+
+  handleChange =
+    (key: keyof AppState) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value === '' ? '' : Number(event.target.value);
+
+      this.setState(prevState => ({
+        ...prevState,
+        [key]: value,
+      }));
+    };
+
+  handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    event.target.value = '';
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <div className="settings">
+          <label>
+            Item Width:
+            <input
+              type="number"
+              value={itemWidth}
+              onChange={this.handleChange('itemWidth')}
+              onFocus={this.handleFocus}
+              placeholder="type the value.."
+            />
+          </label>
+          <label>
+            Frame Size:
+            <input
+              type="number"
+              value={frameSize}
+              onChange={this.handleChange('frameSize')}
+              onFocus={this.handleFocus}
+              placeholder="type the value.."
+            />
+          </label>
+          <label>
+            Step:
+            <input
+              type="number"
+              value={step}
+              max='10'
+              onChange={this.handleChange('step')}
+              onFocus={this.handleFocus}
+              placeholder="type the value.."
+            />
+          </label>
+          <label>
+            Animation Duration:
+            <input
+              type="number"
+              value={animationDuration}
+              onChange={this.handleChange('animationDuration')}
+              onFocus={this.handleFocus}
+              placeholder="type the value.."
+            />
+          </label>
+        </div>
 
-        <Carousel />
+        <h1 className="title" data-cy>
+          Carousel with {images.length} images
+        </h1>
+
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
