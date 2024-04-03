@@ -9,22 +9,19 @@ interface CarouselProps {
   animationDuration?: number;
 }
 
-enum CarouselConfig {
-  Step = 3,
-  FrameSize = 3,
-  ItemWidth = 130,
-  AnimationDuration = 1000
-}
+const INIT_STEP = 3;
+const INIT_FRAME_SIZE = 3;
+const INIT_WIDTH = 130;
+const INIT_ANIMATION_DURATION = 1000;
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  step = CarouselConfig.Step,
-  frameSize = CarouselConfig.FrameSize,
-  itemWidth = CarouselConfig.ItemWidth,
-  animationDuration = CarouselConfig.AnimationDuration,
+  step = INIT_STEP,
+  frameSize = INIT_FRAME_SIZE,
+  itemWidth = INIT_WIDTH,
+  animationDuration = INIT_ANIMATION_DURATION,
 }) => {
   const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
-  console.log(currentImgIndex)
 
   const hendlerNextClick = () => {
     setCurrentImgIndex(prevIndex => {

@@ -8,6 +8,7 @@
 }
 .Carousel {
   margin: 0 auto;
+  padding: 20px;
   width: var(--carousel-window-width);
   overflow: hidden;
   &__title {
@@ -35,6 +36,7 @@
   &__item {
     flex-shrink: 0;
     width: var(--carousel-item-width);
+    transition: width 0.8s ease-in-out;
   }
 
   &__image {

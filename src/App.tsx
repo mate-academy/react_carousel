@@ -80,6 +80,7 @@ class App extends React.Component<{}, AppState> {
             <input
               type="number"
               value={step}
+              max='10'
               onChange={this.handleChange('step')}
               onFocus={this.handleFocus}
               placeholder="type the value.."
