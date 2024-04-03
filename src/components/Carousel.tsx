@@ -3,28 +3,22 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite: boolean;
+  itemWidthState: number;
+  frameSizeState: number;
+  stepState: number;
+  animationDurationState: number;
+  isInfiniteState: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
-  infinite,
+  itemWidthState,
+  frameSizeState,
+  stepState,
+  animationDurationState,
+  isInfiniteState,
 }) => {
   const [carouselList, setCarouselList] = useState(0);
-  const [itemWidthState, setItemWidthState] = useState(itemWidth);
-  const [frameSizeState, setFrameSizeState] = useState(frameSize);
-  const [stepState, setStepState] = useState(step);
-  const [animationDurationState, setAnimationDurationState] =
-    useState(animationDuration);
-  const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
   const previous = () => {
     if (stepState - carouselList < 0) {
@@ -150,72 +144,6 @@ const Carousel: React.FC<Props> = ({
         >
           Next
         </button>
-      </div>
-      <div className="Carousel__input-box">
-        <p>Item Width</p>
-        <input
-          className="Carousel__input"
-          type="number"
-          min={50}
-          max={300}
-          step={10}
-          onChange={e => setItemWidthState(Number(e.target.value))}
-          value={itemWidthState}
-        />
-        <p>Step</p>
-        <input
-          className="Carousel__input"
-          type="number"
-          min={0}
-          max={images.length}
-          step={1}
-          onChange={e => {
-            if (
-              Number(e.target.value) > images.length ||
-              Number(e.target.value) < 0
-            ) {
-              setStepState(1);
-            } else {
-              setStepState(Number(e.target.value));
-            }
-          }}
-          value={stepState}
-        />
-        <p>Frame Size</p>
-        <input
-          className="Carousel__input"
-          type="number"
-          min={0}
-          max={images.length}
-          step={1}
-          onChange={e => {
-            if (
-              Number(e.target.value) > images.length ||
-              Number(e.target.value) < 0
-            ) {
-              setFrameSizeState(3);
-            } else {
-              setFrameSizeState(Number(e.target.value));
-            }
-          }}
-          value={frameSizeState}
-        />
-        <p>Animation Duration</p>
-        <input
-          className="Carousel__input"
-          type="number"
-          min={0}
-          step={100}
-          onChange={e => setAnimationDurationState(Number(e.target.value))}
-          value={animationDurationState}
-        />
-        <p>Infinite</p>
-        <input
-          className="Carousel__input"
-          checked={isInfiniteState}
-          type="checkbox"
-          onChange={() => setIsInfiniteState(!infinite)}
-        />
       </div>
     </div>
   );

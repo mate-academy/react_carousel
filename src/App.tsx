@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidthState: number;
+  frameSizeState: number;
+  stepState: number;
+  animationDurationState: number;
+  isInfiniteState: boolean;
 }
 
 type Props = {
@@ -27,16 +32,44 @@ class App extends React.Component<Props, State> {
       './img/9.png',
       './img/10.png',
     ],
+    stepState: this.props.step || 3,
+    frameSizeState: this.props.frameSize || 3,
+    itemWidthState: this.props.itemWidth || 130,
+    animationDurationState: this.props.animationDuration || 1000,
+    isInfiniteState: false,
+  };
+
+  setStepState = (newStep: number) => {
+    this.setState({ stepState: newStep });
+  };
+
+  setFrameSizeState = (newFrameSize: number) => {
+    this.setState({ frameSizeState: newFrameSize });
+  };
+
+  setItemWidthState = (newItemWidth: number) => {
+    this.setState({ itemWidthState: newItemWidth });
+  };
+
+  setAnimationDurationState = (newDuration: number) => {
+    this.setState({ animationDurationState: newDuration });
+  };
+
+  setIsInfiniteState = () => {
+    this.setState(prevState => ({
+      isInfiniteState: !prevState.isInfiniteState,
+    }));
   };
 
   render() {
-    const { images } = this.state;
     const {
-      itemWidth = 130,
-      frameSize = 3,
-      step = 3,
-      animationDuration = 1000,
-    } = this.props;
+      images,
+      itemWidthState,
+      frameSizeState,
+      stepState,
+      animationDurationState,
+      isInfiniteState,
+    } = this.state;
 
     return (
       <div className="App">
@@ -45,13 +78,82 @@ class App extends React.Component<Props, State> {
         </h1>
 
         <Carousel
+          itemWidthState={itemWidthState}
+          frameSizeState={frameSizeState}
+          stepState={stepState}
+          animationDurationState={animationDurationState}
+          isInfiniteState={isInfiniteState}
           images={images}
-          step={step}
-          frameSize={frameSize}
-          itemWidth={itemWidth}
-          animationDuration={animationDuration}
-          infinite={false}
         />
+
+        <div className="Carousel__input-box">
+          <p>Item Width</p>
+          <input
+            className="Carousel__input"
+            type="number"
+            min={50}
+            max={300}
+            step={10}
+            onChange={e => this.setItemWidthState(Number(e.target.value))}
+            value={itemWidthState}
+          />
+          <p>Step</p>
+          <input
+            className="Carousel__input"
+            type="number"
+            min={0}
+            max={images.length}
+            step={1}
+            onChange={e => {
+              if (
+                Number(e.target.value) > images.length ||
+                Number(e.target.value) < 0
+              ) {
+                this.setStepState(1);
+              } else {
+                this.setStepState(Number(e.target.value));
+              }
+            }}
+            value={stepState}
+          />
+          <p>Frame Size</p>
+          <input
+            className="Carousel__input"
+            type="number"
+            min={0}
+            max={images.length}
+            step={1}
+            onChange={e => {
+              if (
+                Number(e.target.value) > images.length ||
+                Number(e.target.value) < 0
+              ) {
+                this.setFrameSizeState(3);
+              } else {
+                this.setFrameSizeState(Number(e.target.value));
+              }
+            }}
+            value={frameSizeState}
+          />
+          <p>Animation Duration</p>
+          <input
+            className="Carousel__input"
+            type="number"
+            min={0}
+            step={100}
+            onChange={e =>
+              this.setAnimationDurationState(Number(e.target.value))
+            }
+            value={animationDurationState}
+          />
+          <p>Infinite</p>
+          <input
+            className="Carousel__input"
+            checked={isInfiniteState}
+            type="checkbox"
+            onChange={() => this.setIsInfiniteState()}
+          />
+        </div>
       </div>
     );
   }
