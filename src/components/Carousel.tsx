@@ -9,14 +9,22 @@ interface CarouselProps {
   animationDuration?: number;
 }
 
+enum CarouselConfig {
+  Step = 3,
+  FrameSize = 3,
+  ItemWidth = 130,
+  AnimationDuration = 1000
+}
+
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
+  step = CarouselConfig.Step,
+  frameSize = CarouselConfig.FrameSize,
+  itemWidth = CarouselConfig.ItemWidth,
+  animationDuration = CarouselConfig.AnimationDuration,
 }) => {
   const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
+  console.log(currentImgIndex)
 
   const hendlerNextClick = () => {
     setCurrentImgIndex(prevIndex => {
@@ -38,8 +46,8 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const dynamicStyles: React.CSSProperties = {
     '--carousel-item-width': `${itemWidth}px`,
-    '--carousel-window-width': `${frameSize * (itemWidth + 2)}px`,
-    '--carousel-translate-x': `-${currentImgIndex * (itemWidth + 10) - (currentImgIndex > 0 ? 10 : 0)}px`,
+    '--carousel-window-width': `${frameSize * (itemWidth + 7)}px`,
+    '--carousel-translate-x': `-${currentImgIndex * (itemWidth + 8)}px`,
     '--carousel-animation-duration': `${animationDuration}ms`,
   } as React.CSSProperties;
 
@@ -49,7 +57,7 @@ const Carousel: React.FC<CarouselProps> = ({
       <div className="Carousel" style={dynamicStyles}>
         <ul className="Carousel__list">
           {images.map((image, i) => (
-            <li key={i} className="Carousel__item">
+            <li key={image} className="Carousel__item">
               <img src={image} alt={`${i}`} className="Carousel__image" />
             </li>
           ))}
