@@ -33,9 +33,17 @@ const Carousel: React.FC<Props> = ({
   };
 
   const next = () => {
-    setCarouselList((firstIndex: number) =>
-      Math.min(firstIndex + stepState, images.length - frameSizeState),
-    );
+    setCarouselList((firstIndex: number) => {
+      if (
+        isInfiniteState &&
+        (carouselList === images.length - stepState ||
+          carouselList === images.length - frameSizeState)
+      ) {
+        return 0;
+      } else {
+        return Math.min(firstIndex + stepState, images.length - frameSizeState);
+      }
+    });
   };
 
   return (
