@@ -33,70 +33,9 @@ const Carousel: React.FC<Props> = ({
   };
 
   const next = () => {
-    if (carouselList + stepState < images.length - stepState) {
-      if (
-        frameSizeState > stepState &&
-        carouselList + stepState > images.length - frameSizeState
-      ) {
-        if (
-          carouselList === images.length - frameSizeState &&
-          isInfiniteState
-        ) {
-          setCarouselList(0);
-        } else {
-          setCarouselList(images.length - frameSizeState);
-        }
-      } else {
-        setCarouselList(carouselList + stepState);
-      }
-    } else {
-      if (!(carouselList >= images.length - stepState && isInfiniteState)) {
-        if (
-          stepState > frameSizeState &&
-          carouselList === images.length - stepState
-        ) {
-          setCarouselList(images.length - frameSizeState);
-        } else {
-          if (
-            stepState > images.length / 2 &&
-            carouselList > images.length / 2
-          ) {
-            setCarouselList(images.length - frameSizeState);
-          } else {
-            if (stepState > frameSizeState) {
-              if (images.length - stepState < frameSizeState) {
-                setCarouselList(images.length - frameSizeState);
-              } else {
-                setCarouselList(stepState);
-              }
-            } else {
-              setCarouselList(images.length - stepState);
-            }
-          }
-        }
-      } else if (isInfiniteState) {
-        if (
-          stepState > frameSizeState &&
-          carouselList < images.length - stepState
-        ) {
-          setCarouselList(images.length - stepState);
-        } else if (
-          frameSizeState > stepState &&
-          carouselList < images.length - frameSizeState
-        ) {
-          setCarouselList(images.length - frameSizeState);
-        } else {
-          if (
-            carouselList === images.length - frameSizeState ||
-            carouselList === images.length - stepState
-          ) {
-            setCarouselList(0);
-          } else {
-            setCarouselList(images.length - frameSizeState);
-          }
-        }
-      }
-    }
+    setCarouselList((firstIndex: number) =>
+      Math.min(firstIndex + stepState, images.length - frameSizeState),
+    );
   };
 
   return (
