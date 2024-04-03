@@ -1,1 +1,29 @@
-// style go here
+.parametersForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+  }
+
+  &__input-field {
+    display: block;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #888;
+    font-size: 20px;
+
+    &:focus,
+    &:active {
+      border-color: #000;
+    }
+
+    &:invalid {
+      border-color: red;
+    }
+  }
+}
