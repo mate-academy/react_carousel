@@ -114,11 +114,7 @@ const Carousel: React.FC<Props> = ({
           className="Carousel__list"
         >
           {images.map((image, index) => (
-            <img
-              key={`${index}-${image}`}
-              src={image}
-              alt={String(index)}
-            ></img>
+            <img key={`${index}-${image}`} src={image} alt={String(index)} />
           ))}
         </ul>
       </div>
@@ -126,7 +122,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__buttons">
         <button
           className="Carousel__button"
-          onClick={() => previous()}
+          onClick={previous}
           disabled={isInfiniteState === false && carouselList === 0}
           type="button"
         >
@@ -134,7 +130,7 @@ const Carousel: React.FC<Props> = ({
         </button>
         <button
           className="Carousel__button"
-          onClick={() => next()}
+          onClick={next}
           disabled={
             isInfiniteState === false &&
             carouselList >= images.length - frameSizeState
