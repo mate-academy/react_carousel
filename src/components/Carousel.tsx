@@ -44,12 +44,37 @@ const Carousel: React.FC<Props> = ({
 
   const next = () => {
     if (carouselList + stepState < images.length - stepState) {
-      setCarouselList(carouselList + stepState);
-    } else {
-      if (carouselList >= images.length - frameSizeState && isInfiniteState) {
-        setCarouselList(0);
-      } else {
+      if (
+        frameSizeState > stepState &&
+        carouselList + stepState > images.length - frameSizeState
+      ) {
         setCarouselList(images.length - frameSizeState);
+      } else {
+        setCarouselList(carouselList + stepState);
+      }
+    } else {
+      if (!(carouselList >= images.length - stepState && isInfiniteState)) {
+        if (
+          stepState > frameSizeState &&
+          carouselList === images.length - stepState
+        ) {
+          setCarouselList(images.length - frameSizeState);
+        } else {
+          if (
+            stepState > images.length / 2 &&
+            carouselList > images.length / 2
+          ) {
+            setCarouselList(images.length - frameSizeState);
+          } else {
+            if (stepState > frameSizeState) {
+              setCarouselList(stepState);
+            } else {
+              setCarouselList(images.length - stepState);
+            }
+          }
+        }
+      } else {
+        setCarouselList(0);
       }
     }
   };
@@ -92,7 +117,7 @@ const Carousel: React.FC<Props> = ({
           onClick={() => next()}
           disabled={
             isInfiniteState === false &&
-            carouselList >= images.length - stepState
+            carouselList >= images.length - frameSizeState
           }
           data-cy="next"
           type="button"
