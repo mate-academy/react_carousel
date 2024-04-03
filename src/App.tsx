@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { FormInput } from './components/FormInput';
+
 import { DefaultParameters } from './DefaultParameters';
 
 interface State {
@@ -52,70 +54,50 @@ class App extends React.Component<{}, State> {
         <h2>Choose other parameters:</h2>
 
         <form className="parametersForm">
-          <label className="parametersForm__input">
-            Item Width:
-            <input
-              type="number"
-              name="carouselParams"
-              id="itemWidth"
-              className="parametersForm__input-field"
-              min={50}
-              onChange={event => {
-                this.setState({
-                  itemWidth: +event.target.value || DefaultParameters.ItemWidth,
-                });
-              }}
-            />
-          </label>
+          <FormInput
+            title="Item Width:"
+            id="itemWidth"
+            startValue={`${DefaultParameters.ItemWidth}`}
+            onChange={event => {
+              this.setState({
+                itemWidth: +event.target.value || DefaultParameters.ItemWidth,
+              });
+            }}
+          />
 
-          <label className="parametersForm__input">
-            Frame Size:
-            <input
-              type="number"
-              name="carouselParams"
-              id="frameSize"
-              className="parametersForm__input-field"
-              min={1}
-              onChange={event => {
-                this.setState({
-                  frameSize: +event.target.value || DefaultParameters.FrameSize,
-                });
-              }}
-            />
-          </label>
+          <FormInput
+            title="Frame Size:"
+            id="frameSize"
+            startValue={`${DefaultParameters.FrameSize}`}
+            onChange={event => {
+              this.setState({
+                frameSize: +event.target.value || DefaultParameters.FrameSize,
+              });
+            }}
+          />
 
-          <label className="parametersForm__input">
-            Step:
-            <input
-              type="number"
-              name="carouselParams"
-              className="parametersForm__input-field"
-              id="step"
-              min={1}
-              onChange={event => {
-                this.setState({
-                  step: +event.target.value || DefaultParameters.Step,
-                });
-              }}
-            />
-          </label>
+          <FormInput
+            title="Step"
+            id="step"
+            startValue={`${DefaultParameters.Step}`}
+            onChange={event => {
+              this.setState({
+                step: +event.target.value || DefaultParameters.Step,
+              });
+            }}
+          />
 
-          <label className="parametersForm__input">
-            Animation Duration:
-            <input
-              type="number"
-              name="carouselParams"
-              className="parametersForm__input-field"
-              id="animationDuration"
-              min={1000}
-              onChange={event => {
-                this.setState({
-                  animationDuration:
-                    +event.target.value || DefaultParameters.AnimationDuration,
-                });
-              }}
-            />
-          </label>
+          <FormInput
+            title="Animation Duration"
+            id="animationDuration"
+            startValue={`${DefaultParameters.AnimationDuration}`}
+            onChange={event => {
+              this.setState({
+                animationDuration:
+                  +event.target.value || DefaultParameters.AnimationDuration,
+              });
+            }}
+          />
         </form>
       </div>
     );

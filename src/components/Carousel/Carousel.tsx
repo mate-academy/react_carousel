@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { DefaultParameters } from '../DefaultParameters';
+import { DefaultParameters } from '../../DefaultParameters';
+
 import './Carousel.scss';
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
   infinite: boolean;
 };
 
-const Carousel: React.FC<Props> = ({
+export const Carousel: React.FC<Props> = ({
   images,
   step = DefaultParameters.Step,
   frameSize = DefaultParameters.FrameSize,
@@ -61,7 +62,7 @@ const Carousel: React.FC<Props> = ({
             gap: `${itemsGap}px`,
             width: containerWidth,
             transform: `translateX(${currentScroll}px)`,
-            translate: `transform ${animationDuration}`,
+            transition: `transform ${animationDuration}ms`,
           }}
         >
           {images.map(image => (

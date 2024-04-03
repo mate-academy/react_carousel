@@ -29,7 +29,7 @@
     padding: 0;
 
     &--prev {
-      background-image: url(../../public/circle-chevron-left-solid.svg);
+      background-image: url(../../../public/circle-chevron-left-solid.svg);
 
       &:hover {
         box-shadow: -2px 2px 7px 0.5px rgba(0, 0, 0, 0.75);
@@ -37,7 +37,7 @@
     }
 
     &--next {
-      background-image: url(../../public/circle-chevron-right-solid.svg);
+      background-image: url(../../../public/circle-chevron-right-solid.svg);
 
       &:hover {
         box-shadow: 2px 2px 7px 0.5px rgba(0, 0, 0, 0.75);
