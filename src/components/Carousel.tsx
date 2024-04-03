@@ -3,32 +3,28 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
-  itemWidthState: number;
-  setItemWidthState: (a: number) => void;
-  frameSizeState: number;
-  setFrameSizeState: (a: number) => void;
-  stepState: number;
-  setStepState: (a: number) => void;
-  animationDurationState: number;
-  setAnimationDurationState: (a: number) => void;
-  isInfiniteState: boolean;
-  setIsInfiniteState: () => void;
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidthState,
-  frameSizeState,
-  stepState,
-  animationDurationState,
-  isInfiniteState,
-  setAnimationDurationState,
-  setFrameSizeState,
-  setIsInfiniteState,
-  setItemWidthState,
-  setStepState,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
 }) => {
   const [carouselList, setCarouselList] = useState(0);
+  const [itemWidthState, setItemWidthState] = useState(itemWidth);
+  const [frameSizeState, setFrameSizeState] = useState(frameSize);
+  const [stepState, setStepState] = useState(step);
+  const [animationDurationState, setAnimationDurationState] =
+    useState(animationDuration);
+  const [isInfiniteState, setIsInfiniteState] = useState(infinite);
 
   const previous = () => {
     if (stepState - carouselList < 0) {
@@ -48,7 +44,14 @@ const Carousel: React.FC<Props> = ({
         frameSizeState > stepState &&
         carouselList + stepState > images.length - frameSizeState
       ) {
-        setCarouselList(images.length - frameSizeState);
+        if (
+          carouselList === images.length - frameSizeState &&
+          isInfiniteState
+        ) {
+          setCarouselList(0);
+        } else {
+          setCarouselList(images.length - frameSizeState);
+        }
       } else {
         setCarouselList(carouselList + stepState);
       }
@@ -67,14 +70,37 @@ const Carousel: React.FC<Props> = ({
             setCarouselList(images.length - frameSizeState);
           } else {
             if (stepState > frameSizeState) {
-              setCarouselList(stepState);
+              if (images.length - stepState < frameSizeState) {
+                setCarouselList(images.length - frameSizeState);
+              } else {
+                setCarouselList(stepState);
+              }
             } else {
               setCarouselList(images.length - stepState);
             }
           }
         }
-      } else {
-        setCarouselList(0);
+      } else if (isInfiniteState) {
+        if (
+          stepState > frameSizeState &&
+          carouselList < images.length - stepState
+        ) {
+          setCarouselList(images.length - stepState);
+        } else if (
+          frameSizeState > stepState &&
+          carouselList < images.length - frameSizeState
+        ) {
+          setCarouselList(images.length - frameSizeState);
+        } else {
+          if (
+            carouselList === images.length - frameSizeState ||
+            carouselList === images.length - stepState
+          ) {
+            setCarouselList(0);
+          } else {
+            setCarouselList(images.length - frameSizeState);
+          }
+        }
       }
     }
   };
@@ -188,7 +214,7 @@ const Carousel: React.FC<Props> = ({
           className="Carousel__input"
           checked={isInfiniteState}
           type="checkbox"
-          onChange={() => setIsInfiniteState()}
+          onChange={() => setIsInfiniteState(!infinite)}
         />
       </div>
     </div>
