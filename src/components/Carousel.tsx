@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type CarouselProps = {
@@ -32,7 +32,16 @@ const Carousel: React.FC<CarouselProps> = ({
     transform: `translateX(-${currentIndex * (itemWidth + GAP)}px)`,
     transition: `transform ${animationDuration}ms ease-out`,
     gap: `${GAP}px`,
+    width: `${frameWidth}px`,
   };
+
+  useEffect(() => {
+    const maxIndex = images.length - frameSize;
+
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [frameSize, images.length, currentIndex]);
 
   return (
     <>
@@ -62,7 +71,7 @@ const Carousel: React.FC<CarouselProps> = ({
           className="button"
           type="button"
           onClick={handleNext}
-          disabled={currentIndex >= images.length - 3}
+          disabled={currentIndex >= images.length - frameSize}
         >
           Next
         </button>
