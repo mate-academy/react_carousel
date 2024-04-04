@@ -44,39 +44,34 @@ const Carousel: React.FC<CarouselProps> = ({
   }, [frameSize, images.length, currentIndex]);
 
   return (
-    <>
-      <div className="carousel">
-        <button
-          className="button"
-          type="button"
-          onClick={handlePrevious}
-          disabled={currentIndex === 0}
-        >
-          Prev
-        </button>
-        <div
-          className="carousel__container"
-          style={{ width: `${frameWidth}px` }}
-        >
-          <ul className="carousel__list" style={containerStyle}>
-            {images.map((image: string, index: number) => (
-              <li key={index}>
-                <img src={image} alt={image} width={itemWidth} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <button
-          data-cy="next"
-          className="button"
-          type="button"
-          onClick={handleNext}
-          disabled={currentIndex >= images.length - frameSize}
-        >
-          Next
-        </button>
+    <div className="carousel">
+      <button
+        className="button"
+        type="button"
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+      >
+        Prev
+      </button>
+      <div className="carousel__container" style={{ width: `${frameWidth}px` }}>
+        <ul className="carousel__list" style={containerStyle}>
+          {images.map((image: string, index: number) => (
+            <li key={index}>
+              <img src={image} alt={image} width={itemWidth} />
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+      <button
+        data-cy="next"
+        className="button"
+        type="button"
+        onClick={handleNext}
+        disabled={currentIndex >= images.length - frameSize}
+      >
+        Next
+      </button>
+    </div>
   );
 };
 

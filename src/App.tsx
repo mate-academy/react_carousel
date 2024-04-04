@@ -30,33 +30,12 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState(prevState => ({
-      ...prevState,
-      itemWidth: +event.target.value,
-    }));
-  };
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-  handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(prevState => ({
       ...prevState,
-      frameSize: +event.target.value,
-    }));
-  };
-
-  handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState(prevState => ({
-      ...prevState,
-      step: +event.target.value,
-    }));
-  };
-
-  handleAnimationDurationChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    this.setState(prevState => ({
-      ...prevState,
-      animationDuration: +event.target.value,
+      [name]: +value,
     }));
   };
 
@@ -82,9 +61,10 @@ class App extends React.Component<{}, State> {
             Item Width:{' '}
             <input
               type="number"
-              id="itemId"
+              id="itemWidth"
+              name="itemWidth"
               value={itemWidth}
-              onChange={this.handleItemWidthChange}
+              onChange={this.handleInputChange}
               placeholder="Item Width"
             />
           </label>
@@ -92,9 +72,10 @@ class App extends React.Component<{}, State> {
             Frame Size:{' '}
             <input
               type="number"
-              id="frameId"
+              id="frameSize"
+              name="frameSize"
               value={frameSize}
-              onChange={this.handleFrameSizeChange}
+              onChange={this.handleInputChange}
               placeholder="Frame Size"
             />
           </label>
@@ -102,9 +83,10 @@ class App extends React.Component<{}, State> {
             Step:{' '}
             <input
               type="number"
-              id="stepId"
+              id="step"
+              name="step"
               value={step}
-              onChange={this.handleStepChange}
+              onChange={this.handleInputChange}
               placeholder="Step"
             />
           </label>
@@ -113,8 +95,9 @@ class App extends React.Component<{}, State> {
             <input
               type="number"
               id="animationDuration"
+              name="animationDuration"
               value={animationDuration}
-              onChange={this.handleAnimationDurationChange}
+              onChange={this.handleInputChange}
               placeholder="Animation Duration"
             />
           </label>
