@@ -18,8 +18,9 @@
   &__item {
     display: flex;
 
-    &.hidden {
-      display: none;
+    &-hidden {
+      // display: none;
+      opacity: 0;
     }
   }
 

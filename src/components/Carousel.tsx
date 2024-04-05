@@ -85,9 +85,9 @@ const Carousel: React.FC<Props> = ({
         >
           {images.map((img, index) => (
             <li
-              className={`Carousel__item ${
+              className={`Carousel__item${
                 index < orderIndex || index >= orderIndex + frameSize
-                  ? 'hidden'
+                  ? '-hidden'
                   : ''
               }`}
               key={index}
