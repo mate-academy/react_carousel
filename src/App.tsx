@@ -74,6 +74,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="itemId" className="form__label">
             ItemWidth:
             <input
+              id='itemId'
               name="itemWidth"
               type="number"
               className="form__input"
@@ -87,6 +88,7 @@ class App extends React.Component<{}, State> {
           <label htmlFor="frameId" className="form__label">
             FrameSize:
             <input
+              id='frameId'
               name="frameSize"
               type="number"
               className="form__input"

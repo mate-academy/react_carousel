@@ -33,14 +33,20 @@ const Carousel: React.FC<State> = ({
     type: 'button',
   };
 
-  const nextButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+  const nextButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    'data-cy': string;
+  } = {
     ...commonButtonProps,
+    'data-cy': 'next',
     onClick: handleNext,
     disabled: currentIndex >= images.length - frameSize,
   };
 
-  const previousButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+  const previousButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    'data-cy': string;
+  } = {
     ...commonButtonProps,
+    'data-cy': 'prev',
     onClick: handlePrevious,
     disabled: currentIndex === 0,
   };
