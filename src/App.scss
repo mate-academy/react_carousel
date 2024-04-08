@@ -1,1 +1,35 @@
-// style go here
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__edit {
+    border: 1px solid #9e9e9e;
+    color: #000000;
+    padding: 3px;
+    margin: 2px 0px 2px 5px;
+    font-size: 12px;
+    font-family: Verdana;
+    background: #fff;
+    border-radius: 3px;
+  }
+}
