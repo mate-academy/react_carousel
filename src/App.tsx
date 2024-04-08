@@ -6,7 +6,7 @@ interface State {
   images: string[];
   frameSize: number;
   itemWidth: number;
-  step: number,
+  step: number;
   animationDuration: number;
 }
 
@@ -30,7 +30,6 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const newValue = +value < 1 ? 1 : +value;
@@ -38,8 +37,8 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({
       ...prevState,
       [name]: +newValue,
-    }))
-  }
+    }));
+  };
 
   render() {
     const { images, step, frameSize, itemWidth, animationDuration } =
@@ -48,7 +47,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 className='title' data-cy='title'>Carousel with {images.length} images</h1>
+        <h1 className="title" data-cy="title">Carousel with {images.length} images</h1>
         <Carousel
           images={images}
           step={step}
@@ -57,42 +56,48 @@ class App extends React.Component<{}, State> {
           animationDuration={animationDuration}
         />
 
-        <form action="#" className='form'>
-          <label htmlFor="itemId" className='form__label'>ItemWidth:
+        <form action="#" className="form">
+          <label htmlFor="itemId" className="form__label">
+            ItemWidth:
             <input
-              name='itemWidth'
+              name="itemWidth"
               type="number"
-              className='form__input'
+              className="form__input"
               value={this.state.itemWidth}
               onChange={this.handleInputChange}
               min={1}
             />
           </label>
-          <label htmlFor="frameId" className='form__label'>FrameSize:
+
+          <label htmlFor="frameId" className="form__label">
+            FrameSize:
             <input
-              name='frameSize'
+              name="frameSize"
               type="number"
-              className='form__input'
+              className="form__input"
               value={this.state.frameSize}
               onChange={this.handleInputChange}
               min={1}
             />
           </label>
-          <label htmlFor="stepId" className='form__label'>Step:
+          <label htmlFor="stepId" className="form__label">
+            Step:
             <input
-              name='step'
+              name="step"
               type="number"
-              className='form__input'
+              className="form__input"
               value={this.state.step}
               onChange={this.handleInputChange}
               min={1}
             />
           </label>
-          <label htmlFor="animationDurationId" className='form__label'>AnimationDuration:
+
+          <label htmlFor="animationDurationId" className="form__label">
+            AnimationDuration:
             <input
-              name='animationDuration'
+              name="animationDuration"
               type="number"
-              className='form__input'
+              className="form__input"
               value={this.state.animationDuration}
               onChange={this.handleInputChange}
               min={0}
