@@ -48,7 +48,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 className='title'>Carousel with {images.length} images</h1>
+        <h1 className='title' data-cy='title'>Carousel with {images.length} images</h1>
         <Carousel
           images={images}
           step={step}
@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
         />
 
         <form action="#" className='form'>
-          <label htmlFor="itemWidth" className='form__label'>ItemWidth:
+          <label htmlFor="itemId" className='form__label'>ItemWidth:
             <input
               name='itemWidth'
               type="number"
@@ -68,7 +68,7 @@ class App extends React.Component<{}, State> {
               min={1}
             />
           </label>
-          <label htmlFor="frameSize" className='form__label'>FrameSize:
+          <label htmlFor="frameId" className='form__label'>FrameSize:
             <input
               name='frameSize'
               type="number"
@@ -78,7 +78,7 @@ class App extends React.Component<{}, State> {
               min={1}
             />
           </label>
-          <label htmlFor="step" className='form__label'>Step:
+          <label htmlFor="stepId" className='form__label'>Step:
             <input
               name='step'
               type="number"
@@ -88,7 +88,7 @@ class App extends React.Component<{}, State> {
               min={1}
             />
           </label>
-          <label htmlFor="animationDuration" className='form__label'>AnimationDuration:
+          <label htmlFor="animationDurationId" className='form__label'>AnimationDuration:
             <input
               name='animationDuration'
               type="number"
