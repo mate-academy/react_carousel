@@ -17,8 +17,8 @@ const Carousel: React.FC<State> = ({
   animationDuration,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const GAP = 10;
-  const frameWidth = frameSize * itemWidth + (frameSize - 1) * GAP;
+  const gap = 10;
+  const frameWidth = frameSize * itemWidth + (frameSize - 1) * gap;
 
   const handleNext = () => {
     setCurrentIndex(Math.min(currentIndex + step, images.length - frameSize));
@@ -28,10 +28,27 @@ const Carousel: React.FC<State> = ({
     setCurrentIndex(Math.max(currentIndex - step, 0));
   };
 
+  const commonButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+    className: 'button',
+    type: 'button',
+  };
+
+  const nextButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+    ...commonButtonProps,
+    onClick: handleNext,
+    disabled: currentIndex >= images.length - frameSize,
+  };
+
+  const previousButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
+    ...commonButtonProps,
+    onClick: handlePrevious,
+    disabled: currentIndex === 0,
+  };
+
   const containerStyle = {
-    transform: `translateX(-${currentIndex * (itemWidth + GAP)}px)`,
+    transform: `translateX(-${currentIndex * (itemWidth + gap)}px)`,
     transition: `transform ${animationDuration}ms ease-out`,
-    gap: `${GAP}px`,
+    gap: `${gap}px`,
     width: `${frameWidth}px`,
   };
 
@@ -45,14 +62,8 @@ const Carousel: React.FC<State> = ({
 
   return (
     <div className="carousel">
-      <button
-        className="button"
-        type="button"
-        onClick={handlePrevious}
-        disabled={currentIndex === 0}
-      >
-        Prev
-      </button>
+      <button {...previousButtonProps}>Prev</button>
+
       <div className="carousel__container" style={{ width: `${frameWidth}px` }}>
         <ul className="carousel__list" style={containerStyle}>
           {images.map((image, i) => (
@@ -67,15 +78,8 @@ const Carousel: React.FC<State> = ({
           ))}
         </ul>
       </div>
-      <button
-        data-cy="next"
-        className="button"
-        type="button"
-        onClick={handleNext}
-        disabled={currentIndex >= images.length - frameSize}
-      >
-        Next
-      </button>
+
+      <button {...nextButtonProps}>Next</button>
     </div>
   );
 };

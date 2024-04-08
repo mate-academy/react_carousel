@@ -32,7 +32,19 @@ class App extends React.Component<{}, State> {
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const newValue = +value < 1 ? 1 : +value;
+    let newValue: number;
+
+    if (+value < 1) {
+      newValue = 1;
+    } else if (name === 'itemWidth' && +value > 300) {
+      newValue = 300;
+    } else if (name === 'frameSize' && +value > 4) {
+      newValue = 4;
+    } else if (name === 'step' && +value > 5) {
+      newValue = 5;
+    } else {
+      newValue = +value;
+    }
 
     this.setState(prevState => ({
       ...prevState,
@@ -47,7 +59,9 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 className="title" data-cy="title">Carousel with {images.length} images</h1>
+        <h1 className="title" data-cy="title">
+          Carousel with {images.length} images
+        </h1>
         <Carousel
           images={images}
           step={step}
@@ -65,7 +79,8 @@ class App extends React.Component<{}, State> {
               className="form__input"
               value={this.state.itemWidth}
               onChange={this.handleInputChange}
-              min={1}
+              min={130}
+              max={300}
             />
           </label>
 
@@ -78,6 +93,7 @@ class App extends React.Component<{}, State> {
               value={this.state.frameSize}
               onChange={this.handleInputChange}
               min={1}
+              max={4}
             />
           </label>
           <label htmlFor="stepId" className="form__label">
@@ -89,6 +105,7 @@ class App extends React.Component<{}, State> {
               value={this.state.step}
               onChange={this.handleInputChange}
               min={1}
+              max={10}
             />
           </label>
 
