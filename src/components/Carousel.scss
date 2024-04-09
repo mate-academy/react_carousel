@@ -1,1 +1,16 @@
 // style go here
+$container-size: 390px;
+
+.Carousel {
+  display: flex;
+  justify-content: space-around;
+  min-width: 100vw;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+  }
+}
