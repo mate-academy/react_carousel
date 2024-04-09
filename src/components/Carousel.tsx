@@ -19,25 +19,23 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [swipeCarousel, setSwipeCarousel] = useState(0);
-  const handleSwipeCarousel = (who: string) => {
-    if (who === 'next' && (swipeCarousel < images.length || infinite)) {
-      if (swipeCarousel + step < images.length - frameSize) {
-        setSwipeCarousel(prew => prew + step);
-      } else if (swipeCarousel + frameSize < images.length) {
-        setSwipeCarousel(
-          prew => prew + (images.length - swipeCarousel - frameSize),
-        );
-      } else if (infinite) {
-        setSwipeCarousel(0);
-      }
-    } else if (who === 'prew' && (swipeCarousel || infinite)) {
-      if (swipeCarousel > step) {
-        setSwipeCarousel(prew => prew - step);
-      } else if (swipeCarousel) {
-        setSwipeCarousel(0);
-      } else if (infinite) {
-        setSwipeCarousel(images.length - frameSize);
-      }
+  const handleSwipeNext = () => {
+    if (swipeCarousel + step < images.length - frameSize) {
+      setSwipeCarousel(prew => prew + step);
+    } else if (swipeCarousel + frameSize < images.length) {
+      setSwipeCarousel(images.length - frameSize);
+    } else if (infinite) {
+      setSwipeCarousel(0);
+    }
+  };
+
+  const handleSwipePrew = () => {
+    if (swipeCarousel > step) {
+      setSwipeCarousel(prew => prew - step);
+    } else if (swipeCarousel) {
+      setSwipeCarousel(0);
+    } else if (infinite) {
+      setSwipeCarousel(images.length - frameSize);
     }
   };
 
@@ -59,7 +57,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel">
         <button
           type="button"
-          onClick={() => handleSwipeCarousel('prew')}
+          onClick={() => handleSwipePrew()}
           disabled={disablePrew}
         >
           {'<'}
@@ -78,7 +76,7 @@ const Carousel: React.FC<Props> = ({
         </ul>
         <button
           type="button"
-          onClick={() => handleSwipeCarousel('next')}
+          onClick={() => handleSwipeNext()}
           disabled={disabletNext}
           data-cy="next"
         >
