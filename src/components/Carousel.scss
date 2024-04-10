@@ -1,1 +1,31 @@
-// style go here
+.Carousel {
+  position: relative;
+
+  &__wrapper {
+    width: 260px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__list {
+    width: 1300px;
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+
+  &__images {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+.button {
+
+  &__prev, &__next {
+    cursor: pointer;
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
@@ -24,13 +24,20 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { images } = this.state;
+    const imageWidth = 130;
+    const visibleImages = 3;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          step={visibleImages}
+          itemWidth={imageWidth}
+          animationDuration={5000}
+          infinite={false}
+        />
       </div>
     );
   }
