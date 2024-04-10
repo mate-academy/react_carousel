@@ -1,1 +1,47 @@
-// style go here
+.Carousel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &-wrapper {
+    overflow: hidden;
+  }
+
+  &__list {
+    width: 1300px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: transform 0.7s ease;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: center;
+  }
+
+  &__button {
+    border-radius: 50%;
+    border: 1px solid gray;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+
+    &-wrapper {
+      position: absolute;
+      &--prev {
+        top: 40px;
+        right: 390px;
+      }
+
+      &--next {
+        top: 40px;
+        left: 390px;
+      }
+    }
+  }
+}
