@@ -34,13 +34,13 @@
     &-wrapper {
       position: absolute;
       &--prev {
-        top: 40px;
-        right: 390px;
+        top: 100px;
+        left: -50px;
       }
 
       &--next {
-        top: 40px;
-        left: 390px;
+        top: 100px;
+        right: -50px;
       }
     }
   }
