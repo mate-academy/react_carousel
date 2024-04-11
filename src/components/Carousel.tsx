@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 interface CarouselProps {
   images: string[];
   step: number;
+  frameSize: number;
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
@@ -12,9 +13,10 @@ interface CarouselProps {
 export const Carousel: React.FC<CarouselProps> = ({
   images,
   step,
+  frameSize,
   itemWidth,
   animationDuration,
-  infinite,
+  // infinite,
 }) => {
   const [position, setPosition] = useState<number>(0);
 
@@ -30,14 +32,24 @@ export const Carousel: React.FC<CarouselProps> = ({
     }
   };
 
+  useEffect(() => {
+    // Effect logic here
+  }, [step, frameSize, itemWidth, animationDuration]);
+
   return (
     <div className="Carousel">
-      <div className="Carousel__wrapper">
+      <div
+        className="Carousel__wrapper"
+        style={{
+          width: `${frameSize * itemWidth}px`,
+          height: `${itemWidth}px`,
+        }}
+      >
         <ul
           className="Carousel__list"
           style={{
             transform: `translateX(${position}px)`,
-            animation: `${animationDuration / 1000}s ease-in ${infinite && 'infinite'}`,
+            transition: `all ${animationDuration / 1000}s`,
           }}
         >
           {images.map((src, index) => {
@@ -45,9 +57,9 @@ export const Carousel: React.FC<CarouselProps> = ({
               <li key={index}>
                 <img
                   src={src}
-                  alt={`${index}`}
-                  width={130}
-                  height={130}
+                  alt={`Photo ${index}`}
+                  width={itemWidth}
+                  height={itemWidth}
                   className="Carousel__images"
                 />
               </li>
