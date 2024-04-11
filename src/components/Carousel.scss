@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  position: relative;
+
+  &__wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__list {
+    width: 1300px;
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.button {
+
+  &__prev, &__next {
+    cursor: pointer;
+  }
+}
