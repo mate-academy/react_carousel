@@ -1,1 +1,66 @@
-// style go here
+html {
+  background-color: #999;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__infinite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &-button {
+      &:disabled {
+        background-color: grey;
+        color: #444;
+        border: 2px solid grey;
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  background-color: #444;
+  border-radius: 20px;
+  text-align: center;
+  border: 3px solid aquamarine;;
+
+  &__title {
+    color: aquamarine;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+    color: white;
+    font-size: 20px;
+  }
+
+
+  &__input {
+    border: none;
+    background-color: #999;
+    width: 50px;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 15px;
+    color: aquamarine;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    display: none;
+  }
+}
