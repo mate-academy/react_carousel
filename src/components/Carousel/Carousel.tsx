@@ -1,64 +1,77 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Carousel.scss';
-import { CarouselProps } from './types';
+import { useEffect, useState } from 'react';
 
-const GAP = 10;
+type Props = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+};
 
-const Carousel: React.FC<CarouselProps> = ({
+const Carousel: React.FC<Props> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
-  infinite = false,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
 }) => {
-  const [currentPos, setPos] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const GAP = 10;
+  const frameWidth = frameSize * itemWidth + (frameSize - 1) * GAP;
 
-  const containerStyles = {
-    width: `${frameSize * (itemWidth + GAP) - GAP}px`,
+  const handleNext = () => {
+    setCurrentIndex(Math.min(currentIndex + step, images.length - frameSize));
   };
 
-  const listStyles = {
-    transform: `translateX(${-currentPos * (itemWidth + GAP)}px)`,
-    transition: `transform ${animationDuration}ms`,
+  const handlePrevious = () => {
+    setCurrentIndex(Math.max(currentIndex - step, 0));
   };
 
-  const changePos = (isInrease: boolean) => {
-    let newPos = isInrease ? currentPos + step : currentPos - step;
+  const containerStyle = {
+    transform: `translateX(-${currentIndex * (itemWidth + GAP)}px)`,
+    transition: `transform ${animationDuration}ms ease-out`,
+    gap: `${GAP}px`,
+    width: `${frameWidth}px`,
+  };
 
-    if (infinite) {
-      newPos = newPos < 0 ? images.length - newPos : newPos % images.length;
-    } else if (newPos < 0) {
-      newPos = 0;
-    } else if (newPos >= images.length) {
-      newPos = images.length - 1;
+  useEffect(() => {
+    const maxIndex = images.length - frameSize;
+
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
     }
-
-    setPos(newPos);
-  };
-
-  const nextHandler = () => changePos(true);
-  const previousHandler = () => changePos(false);
+  }, [frameSize, images.length, currentIndex]);
 
   return (
-    <div className="Carousel">
-      <div className="Carousel__container" style={containerStyles}>
-        <ul className="Carousel__list" style={listStyles}>
-          {images.map(image => (
-            <li key={image}>
-              <img src={image} width={itemWidth} />
+    <div className="carousel">
+      <button
+        className="button"
+        type="button"
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+      >
+        Prev
+      </button>
+      <div className="carousel__container" style={{ width: `${frameWidth}px` }}>
+        <ul className="carousel__list" style={containerStyle}>
+          {images.map((image: string, index: number) => (
+            <li key={index}>
+              <img src={image} alt={image} width={itemWidth} />
             </li>
           ))}
         </ul>
       </div>
-      <div>
-        <button type="button" onClick={previousHandler}>
-          Prev
-        </button>
-        <button data-cy="next" type="button" onClick={nextHandler}>
-          Next
-        </button>
-      </div>
+      <button
+        data-cy="next"
+        className="button"
+        type="button"
+        onClick={handleNext}
+        disabled={currentIndex >= images.length - frameSize}
+      >
+        Next
+      </button>
     </div>
   );
 };

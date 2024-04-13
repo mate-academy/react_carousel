@@ -1,88 +1,106 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel/Carousel';
-import { CarouselProps } from './components/Carousel/types';
-import { FormProps } from './components/Form/types';
-import { Form } from './components/Form/Form';
 
 interface State {
-  carouselProps: CarouselProps;
-  formProps: FormProps;
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
-  changeCarouselProps = (key: string, value: number) => {
-    const { carouselProps } = this.state;
-
-    if (key in carouselProps && value > 0) {
-      this.setState({
-        ...this.state,
-        carouselProps: { ...carouselProps, [key]: value },
-      });
-    }
+  state = {
+    images: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
   };
 
-  state = {
-    carouselProps: {
-      images: [
-        './img/1.png',
-        './img/2.png',
-        './img/3.png',
-        './img/4.png',
-        './img/5.png',
-        './img/6.png',
-        './img/7.png',
-        './img/8.png',
-        './img/9.png',
-        './img/10.png',
-      ],
-      step: 3,
-      frameSize: 3,
-      itemWidth: 130,
-      animationDuration: 1000,
-      infinite: false,
-    },
-    formProps: {
-      onChange: this.changeCarouselProps,
-      inputs: [
-        {
-          label: 'Image Width',
-          id: 'itemId',
-          name: 'itemWidth',
-          defaultValue: 130,
-        },
-        {
-          label: 'Frame Size',
-          id: 'frameId',
-          name: 'frameSize',
-          defaultValue: 3,
-        },
-        {
-          label: 'Step',
-          id: 'stepId',
-          name: 'step',
-          defaultValue: 3,
-        },
-        {
-          label: 'Animation Time',
-          id: 'animationId',
-          name: 'animationDuration',
-          defaultValue: 1000,
-        },
-      ],
-    },
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: +value,
+    }));
   };
 
   render() {
-    const { carouselProps, formProps } = this.state;
+    const { images, step, frameSize, itemWidth, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
-        <h1 data-cy="title">
-          Carousel with {carouselProps.images.length} images
-        </h1>
-        <Form {...formProps} />
-        <Carousel {...carouselProps} />
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+        <form className="form">
+          <label htmlFor="itemId" className="form__input">
+            Item Width:{' '}
+            <input
+              type="number"
+              id="itemWidth"
+              name="itemWidth"
+              value={itemWidth}
+              onChange={this.handleInputChange}
+              placeholder="Item Width"
+            />
+          </label>
+          <label htmlFor="frameId" className="form__input">
+            Frame Size:{' '}
+            <input
+              type="number"
+              id="frameSize"
+              name="frameSize"
+              value={frameSize}
+              onChange={this.handleInputChange}
+              placeholder="Frame Size"
+            />
+          </label>
+          <label htmlFor="stepId" className="form__input">
+            Step:{' '}
+            <input
+              type="number"
+              id="step"
+              name="step"
+              value={step}
+              onChange={this.handleInputChange}
+              placeholder="Step"
+            />
+          </label>
+          <label htmlFor="animationDuration" className="form__input">
+            Animation Duration:{' '}
+            <input
+              type="number"
+              id="animationDuration"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleInputChange}
+              placeholder="Animation Duration"
+            />
+          </label>
+
+          <Carousel
+            images={images}
+            step={step}
+            frameSize={frameSize}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+          />
+        </form>
       </div>
     );
   }
