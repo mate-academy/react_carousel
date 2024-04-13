@@ -55,6 +55,7 @@ class App extends React.Component<{}, State> {
               id="itemWidth"
               name="itemWidth"
               value={itemWidth}
+              min={1}
               onChange={this.handleInputChange}
               placeholder="Item Width"
             />
@@ -66,6 +67,7 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               name="frameSize"
               value={frameSize}
+              min={1}
               onChange={this.handleInputChange}
               placeholder="Frame Size"
             />
@@ -77,6 +79,7 @@ class App extends React.Component<{}, State> {
               id="step"
               name="step"
               value={step}
+              min={1}
               onChange={this.handleInputChange}
               placeholder="Step"
             />
@@ -88,6 +91,7 @@ class App extends React.Component<{}, State> {
               id="animationDuration"
               name="animationDuration"
               value={animationDuration}
+              min={1}
               onChange={this.handleInputChange}
               placeholder="Animation Duration"
             />
