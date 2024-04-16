@@ -23,15 +23,21 @@ type Inputs = {
   infinite: boolean;
 };
 
+const defaultProp: Inputs = {
+  itemWidth: 130,
+  frameSize: 3,
+  step: 3,
+  animationDuration: 1000,
+  infinite: false,
+};
+
 const App: React.FC = () => {
   // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [inputs, setInputs] = useState<Inputs>({
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    infinite: false,
-  });
+  const [inputs, setInputs] = useState(defaultProp);
+  const [position, setPosition] = useState(0);
+  const [maxPosition, setMaxPosition] = useState(
+    -images.length + defaultProp.frameSize,
+  );
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'infinite') {
@@ -39,6 +45,17 @@ const App: React.FC = () => {
         ...prevState,
         [event.target.name]: event.target.checked,
       }));
+    } else if (event.target.name === 'frameSize') {
+      const newFrameSize = +event.target.value;
+
+      setInputs((prevState: Inputs) => ({
+        ...prevState,
+        [event.target.name]: event.target.value,
+      }));
+      setMaxPosition(-images.length + newFrameSize);
+      if (position === maxPosition) {
+        setPosition(-images.length + newFrameSize);
+      }
     } else {
       setInputs((prevState: Inputs) => ({
         ...prevState,
@@ -128,6 +145,9 @@ const App: React.FC = () => {
         step={inputs.step}
         animationDuration={inputs.animationDuration}
         infinite={inputs.infinite}
+        position={position}
+        maxPosition={maxPosition}
+        setPosition={setPosition}
       />
     </div>
   );

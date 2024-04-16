@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -8,6 +7,9 @@ type Props = {
   step: number;
   animationDuration: number;
   infinite: boolean;
+  position: number;
+  maxPosition: number;
+  setPosition: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -17,9 +19,10 @@ const Carousel: React.FC<Props> = ({
   step,
   animationDuration,
   infinite,
+  position,
+  maxPosition,
+  setPosition,
 }) => {
-  const [position, setPosition] = useState(0);
-  const maxPosition = -(images.length - frameSize);
   const nextDisabled = position === maxPosition && !infinite;
   const prevDisabled = position === 0 && !infinite;
 
