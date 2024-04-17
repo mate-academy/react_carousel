@@ -1,0 +1,32 @@
+$white-color: rgb(255, 255, 255);
+$gray-color: rgb(235, 235, 235);
+
+.Carousel-settings {
+  width: 290px;
+  height: 350px;
+  padding: 41px 55px 8px 39px;
+  box-sizing: border-box;
+  border: 1px solid $gray-color;
+  border-radius: 12px;
+  box-shadow: 0px 2.31px 8.67px 0px $white-color;
+  background: $white-color;
+  font-weight: 400;
+  font-size: 17px;
+  transition: all 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 2.31px 8.67px 0px $gray-color;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+  }
+}
