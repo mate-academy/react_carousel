@@ -37,12 +37,16 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrevPosition = () => {
-    if (position < 0) {
-      setPosition(prevPosition =>
-        prevPosition + step < 0 ? prevPosition + step : 0,
-      );
-    } else {
+    if (position === 0) {
       setPosition(maxPosition);
+    }
+
+    if (position < 0) {
+      if (position + step <= 0) {
+        setPosition(position + step);
+      } else {
+        setPosition(0);
+      }
     }
   };
 

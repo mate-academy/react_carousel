@@ -50,7 +50,7 @@ const App: React.FC = () => {
 
       setInputs((prevState: Inputs) => ({
         ...prevState,
-        [event.target.name]: event.target.value,
+        [event.target.name]: +event.target.value,
       }));
       setMaxPosition(-images.length + newFrameSize);
       if (position === maxPosition) {
@@ -59,7 +59,7 @@ const App: React.FC = () => {
     } else {
       setInputs((prevState: Inputs) => ({
         ...prevState,
-        [event.target.name]: event.target.value,
+        [event.target.name]: +event.target.value,
       }));
     }
   };
