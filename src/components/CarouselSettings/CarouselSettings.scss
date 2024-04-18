@@ -2,8 +2,8 @@ $white-color: rgb(255, 255, 255);
 $gray-color: rgb(235, 235, 235);
 
 .Carousel-settings {
-  width: 290px;
-  height: 350px;
+  width: 350px;
+  height: 380px;
   padding: 41px 55px 8px 39px;
   box-sizing: border-box;
   border: 1px solid $gray-color;
@@ -21,6 +21,18 @@ $gray-color: rgb(235, 235, 235);
 
   &__title {
     font-weight: 600;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 10px;
+  }
+
+  &__input {
+    width: 100px;
+    height: 20px;
+    padding: 5px;
   }
 
   &__content {

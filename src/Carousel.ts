@@ -3,5 +3,6 @@ export type CarouselProps = {
   step: number,
   frameSize: number,
   itemWidth: number,
-  animationDuration: number
+  animationDuration: number,
+  onChangeSettings: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

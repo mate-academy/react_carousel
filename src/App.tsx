@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel/Carousel';
+import { Carousel } from './components/Carousel';
 
 interface State {
   images: string[];
@@ -20,10 +20,24 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 2,
+    frameSize: 2,
+    itemWidth: 130,
+    animationDuration: 1000,
+  };
+
+  handlerChangeSettings = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    this.setState(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, step, frameSize, itemWidth, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
@@ -31,11 +45,12 @@ class App extends React.Component<{}, State> {
         <h1>Carousel with {images.length} images</h1>
 
         <Carousel
+          onChangeSettings={this.handlerChangeSettings}
           images={images}
-          step={2}
-          frameSize={2}
-          itemWidth={130}
-          animationDuration={1000}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
         />
       </div>
     );

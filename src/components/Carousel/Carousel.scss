@@ -9,7 +9,6 @@
     align-items: center;
   }
 
-
   &__inner {
     overflow: hidden;
     margin: 10px;
@@ -23,10 +22,10 @@
     padding: 0;
   }
 
-  &__picture {
-    width: 130px;
-    height: 130px;
-  }
+  // &__picture {
+  //   width: 130px;
+  //   height: 130px;
+  // }
 
   &__button {
     width: 90px;
@@ -36,5 +35,4 @@
     border-radius: 10px;
     cursor: pointer;
   }
-
 }

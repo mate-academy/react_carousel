@@ -7,6 +7,7 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
   frameSize,
   itemWidth,
   animationDuration,
+  onChangeSettings,
 }) => {
   return (
     <div className="Carousel-settings">
@@ -15,12 +16,54 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
         <p className="Carousel-settings__text">
           Images length - {images.length}
         </p>
-        <p className="Carousel-settings__text">Step - {step}</p>
-        <p className="Carousel-settings__text">frameSize - {frameSize}</p>
-        <p className="Carousel-settings__text">itemWidth - {itemWidth}</p>
-        <p className="Carousel-settings__text">
+        <label className="Carousel-settings__label">
+          Step - {step}
+          <input
+            onChange={event => onChangeSettings(event)}
+            name="step"
+            value={step}
+            min={0}
+            placeholder="Step"
+            className="Carousel-settings__input"
+            type="number"
+          />
+        </label>
+        <label className="Carousel-settings__label">
+          frameSize - {frameSize}
+          <input
+            onChange={event => onChangeSettings(event)}
+            name="frameSize"
+            value={frameSize}
+            placeholder="Size"
+            min={0}
+            className="Carousel-settings__input"
+            type="number"
+          />
+        </label>
+        <label className="Carousel-settings__label">
+          itemWidth - {itemWidth}
+          <input
+            name="itemWidth"
+            onChange={event => onChangeSettings(event)}
+            value={itemWidth}
+            placeholder="Width"
+            min={0}
+            className="Carousel-settings__input"
+            type="number"
+          />
+        </label>
+        <label className="Carousel-settings__label">
           animationDuration - {animationDuration}
-        </p>
+          <input
+            onChange={event => onChangeSettings(event)}
+            value={animationDuration}
+            name="animationDuration"
+            placeholder="Animation"
+            min={0}
+            className="Carousel-settings__input"
+            type="number"
+          />
+        </label>
       </div>
     </div>
   );

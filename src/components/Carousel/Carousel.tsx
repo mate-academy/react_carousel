@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 
 import { CarouselProps } from '../../Carousel';
-import { CarouselSettings } from '../CarouselSettings/CarouselSettings';
+import { CarouselSettings } from '../CarouselSettings';
 
 const defaultValue = 0;
 
-const Carousel: React.FC<CarouselProps> = ({
+export const Carousel: React.FC<CarouselProps> = ({
   images,
   step,
   frameSize,
   itemWidth,
   animationDuration,
+  onChangeSettings,
 }) => {
   const carouselWidthInner = itemWidth * frameSize;
   const [carouselWidthList, setCarouselWidthList] = useState(defaultValue);
@@ -50,7 +51,15 @@ const Carousel: React.FC<CarouselProps> = ({
           >
             {images.map((image: string) => (
               <li key={image} className="Carousel__item">
-                <img className="Carousel__picture" src={image} alt="1" />
+                <img
+                  style={{
+                    width: `${itemWidth}px`,
+                    height: `${itemWidth}px`,
+                  }}
+                  className="Carousel__picture"
+                  src={image}
+                  alt="1"
+                />
               </li>
             ))}
           </ul>
@@ -73,9 +82,8 @@ const Carousel: React.FC<CarouselProps> = ({
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
+        onChangeSettings={onChangeSettings}
       />
     </div>
   );
 };
-
-export default Carousel;
