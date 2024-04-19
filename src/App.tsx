@@ -1,6 +1,13 @@
 import React from 'react';
 import './App.scss';
+
 import { Carousel } from './components/Carousel';
+import {
+  defaultStep,
+  defaultFrameSize,
+  defaultItemWidth,
+  defaultAnimationDuration,
+} from './utils';
 
 interface State {
   images: string[];
@@ -20,10 +27,10 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 1,
-    frameSize: 3,
-    itemWidth: 130,
-    animationDuration: 1000,
+    step: defaultStep,
+    frameSize: defaultFrameSize,
+    itemWidth: defaultItemWidth,
+    animationDuration: defaultAnimationDuration,
   };
 
   handlerChangeSettings = (e: React.ChangeEvent<HTMLInputElement>) => {

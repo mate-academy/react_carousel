@@ -5,6 +5,7 @@ import { CarouselProps } from '../../Carousel';
 import { CarouselSettings } from '../CarouselSettings';
 
 const defaultValue = 0;
+const defaultIndex = 1;
 
 export const Carousel: React.FC<CarouselProps> = ({
   images,
@@ -15,21 +16,29 @@ export const Carousel: React.FC<CarouselProps> = ({
   onChangeSettings,
 }) => {
   const carouselWidthInner = itemWidth * frameSize;
-  const [carouselWidthList, setCarouselWidthList] = useState(defaultValue);
+  const [carouselWidthList, setCarouselWidthList] =
+    useState<number>(defaultValue);
+  const [indexSlide, setIndexSlide] = useState<number>(defaultIndex);
 
   const nextSlide = () => {
     setCarouselWidthList(value => value + itemWidth * step);
+    setIndexSlide(
+      currentIndex => currentIndex + Number(step) * frameSize * itemWidth,
+    );
   };
 
   const prevSlide = () => {
     setCarouselWidthList(value => value - itemWidth * step);
+    setIndexSlide(
+      currentIndex => currentIndex - Number(step) * frameSize * itemWidth,
+    );
   };
 
   return (
     <div className="Carousel__wrapper">
       <div className="Carousel">
         <button
-          disabled={carouselWidthList === defaultValue}
+          disabled={indexSlide === defaultIndex}
           className="Carousel__button"
           onClick={prevSlide}
           type="button"
@@ -66,9 +75,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         </div>
         <button
           className="Carousel__button"
-          disabled={
-            carouselWidthList + itemWidth * step === images.length * itemWidth
-          }
+          disabled={!images[indexSlide - 1]}
           onClick={nextSlide}
           type="button"
         >

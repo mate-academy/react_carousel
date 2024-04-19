@@ -9,6 +9,10 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
   animationDuration,
   onChangeSettings,
 }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChangeSettings(event);
+  };
+
   return (
     <div className="Carousel-settings">
       <p className="Carousel-settings__title">Carousel Settings</p>
@@ -19,7 +23,7 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
         <label className="Carousel-settings__label">
           Step - {step}
           <input
-            onChange={event => onChangeSettings(event)}
+            onChange={event => handleChange(event)}
             name="step"
             value={step}
             min={0}
@@ -31,7 +35,7 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
         <label className="Carousel-settings__label">
           frameSize - {frameSize}
           <input
-            onChange={event => onChangeSettings(event)}
+            onChange={event => handleChange(event)}
             name="frameSize"
             value={frameSize}
             placeholder="Size"
@@ -44,7 +48,7 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
           itemWidth - {itemWidth}
           <input
             name="itemWidth"
-            onChange={event => onChangeSettings(event)}
+            onChange={event => handleChange(event)}
             value={itemWidth}
             placeholder="Width"
             min={0}
@@ -55,7 +59,7 @@ export const CarouselSettings: React.FC<CarouselProps> = ({
         <label className="Carousel-settings__label">
           animationDuration - {animationDuration}
           <input
-            onChange={event => onChangeSettings(event)}
+            onChange={event => handleChange(event)}
             value={animationDuration}
             name="animationDuration"
             placeholder="Animation"
