@@ -1,5 +1,5 @@
-const defaultStep = 2;
-const defaultFrameSize = 2;
+const defaultStep = 3;
+const defaultFrameSize = 3;
 const defaultItemWidth = 130;
 const defaultAnimationDuration = 1000;
 
