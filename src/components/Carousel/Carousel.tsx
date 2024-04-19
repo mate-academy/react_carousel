@@ -22,16 +22,12 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   const nextSlide = () => {
     setCarouselWidthList(value => value + itemWidth * step);
-    setIndexSlide(
-      currentIndex => currentIndex + Number(step) * frameSize * itemWidth,
-    );
+    setIndexSlide(currentIndex => currentIndex + Number(step) * frameSize);
   };
 
   const prevSlide = () => {
     setCarouselWidthList(value => value - itemWidth * step);
-    setIndexSlide(
-      currentIndex => currentIndex - Number(step) * frameSize * itemWidth,
-    );
+    setIndexSlide(currentIndex => currentIndex - Number(step) * frameSize);
   };
 
   return (
