@@ -4,8 +4,7 @@ import './Carousel.scss';
 import { CarouselProps } from '../../Carousel';
 import { CarouselSettings } from '../CarouselSettings';
 
-const defaultValue = 0;
-const defaultIndex = 1;
+import { defaultIndex } from '../../utils';
 
 export const Carousel: React.FC<CarouselProps> = ({
   images,
@@ -15,19 +14,30 @@ export const Carousel: React.FC<CarouselProps> = ({
   animationDuration,
   onChangeSettings,
 }) => {
-  const carouselWidthInner = itemWidth * frameSize;
-  const [carouselWidthList, setCarouselWidthList] =
-    useState<number>(defaultValue);
   const [indexSlide, setIndexSlide] = useState<number>(defaultIndex);
+  const maxIndex = images.length - frameSize;
+
+  const WrapperWidth = itemWidth * frameSize;
+  const ContentWidth = indexSlide * itemWidth;
 
   const nextSlide = () => {
-    setCarouselWidthList(value => value + itemWidth * step);
-    setIndexSlide(currentIndex => currentIndex + Number(step) * frameSize);
+    const newIndex = indexSlide + Number(step);
+
+    if (newIndex <= maxIndex) {
+      setIndexSlide(newIndex);
+    } else {
+      setIndexSlide(maxIndex);
+    }
   };
 
   const prevSlide = () => {
-    setCarouselWidthList(value => value - itemWidth * step);
-    setIndexSlide(currentIndex => currentIndex - Number(step) * frameSize);
+    const newIndex = indexSlide - Number(step);
+
+    if (newIndex <= defaultIndex) {
+      setIndexSlide(defaultIndex);
+    } else {
+      setIndexSlide(newIndex);
+    }
   };
 
   return (
@@ -43,13 +53,13 @@ export const Carousel: React.FC<CarouselProps> = ({
         </button>
         <div
           style={{
-            width: `${carouselWidthInner}px`,
+            width: `${WrapperWidth}px`,
           }}
           className="Carousel__inner"
         >
           <ul
             style={{
-              transform: `translateX(-${carouselWidthList}px)`,
+              transform: `translateX(-${ContentWidth}px)`,
               transition: `transform ${animationDuration}ms`,
             }}
             className="Carousel__list"
@@ -71,7 +81,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         </div>
         <button
           className="Carousel__button"
-          disabled={!images[indexSlide - 1]}
+          disabled={indexSlide === maxIndex}
           onClick={nextSlide}
           type="button"
         >
