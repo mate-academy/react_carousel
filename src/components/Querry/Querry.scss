@@ -1,0 +1,58 @@
+.control-panel {
+  width: 260px;
+  margin: 0 auto;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__input {
+    border: none;
+    background-color: #f5df86;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    padding: 5px 15px;
+
+    &--frame {
+      background-color: #f586d2;
+    }
+
+    &--step {
+      background-color: #86e8f5;
+    }
+
+    &--animation {
+      background-color: #f5ce86;
+    }
+  }
+
+  &__input::placeholder {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &__input:focus {
+    outline: none;
+  }
+
+  &__input::-webkit-inner-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &__btn {
+    background-color: #86f5c7;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+}

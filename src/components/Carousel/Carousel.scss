@@ -1,0 +1,47 @@
+.Carousel {
+  display: grid;
+  justify-content: center;
+
+  &__wrapper {
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-bottom: 30px;
+  }
+
+  &__img {
+    height: 100%;
+  }
+
+  &__buttons {
+    min-width: 260px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+.button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-color: #86f5c7;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button:active {
+  background-color: #6cc49f;
+}
+
+.button:disabled {
+  background-color: #86f5c7;
+  pointer-events: none;
+}

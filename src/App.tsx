@@ -1,39 +1,51 @@
-import React from 'react';
+import { useState } from 'react';
+import Carousel from './components/Carousel/Carousel';
+import { imagesData } from './imagesData';
+
 import './App.scss';
-import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+import Querry from './components/Querry/Querry';
+import { Querries } from './types/Queries';
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const App = () => {
+  const [width, setWidth] = useState(130);
+  const [frame, setFrame] = useState(3);
+  const [step, setStep] = useState(3);
+  const [animation, setAnimation] = useState(1000);
+
+  const handleQuerry = (num: number, querry: string) => {
+    if (querry === Querries.itemWidth) {
+      setWidth(num);
+    }
+
+    if (querry === Querries.frameSize) {
+      setFrame(num);
+    }
+
+    if (querry === Querries.step) {
+      setStep(num);
+    }
+
+    if (querry === Querries.animationDuration) {
+      setAnimation(num);
+    }
   };
 
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {imagesData.length} images</h1>
+      <Querry onChange={handleQuerry} />
+      <Carousel
+        images={imagesData}
+        step={step}
+        frameSize={frame}
+        itemWidth={width}
+        animationDuration={animation}
+        infinite={false}
+      />
+    </div>
+  );
+};
 
 export default App;
