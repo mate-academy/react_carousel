@@ -36,7 +36,7 @@ const Carousel: React.FC<State> = ({
     setLastLeftSlide(false);
     setLastRightSlide(false);
     setTransform(0);
-  }, [step]);
+  }, [step, itemWidth, animationDuration, infinite, frameSize]);
 
   const handleNextMove = () => {
     if (infinite && transform === (CONTAINER_WIDTH - OVERFLOW_WIDTH) * -1) {
@@ -94,11 +94,11 @@ const Carousel: React.FC<State> = ({
               className="Carousel__item"
               style={{
                 height: `${itemWidth}px`,
-                width: `${itemWidth}px`,
               }}
             >
               <img
                 src={image.src}
+                width={itemWidth}
                 className="Carousel__img"
                 alt={`The image number ${image.id + 1}`}
               />

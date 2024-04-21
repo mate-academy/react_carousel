@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    position: relative;
   }
 
   &__input {
@@ -27,6 +28,11 @@
     &--animation {
       background-color: #f5ce86;
     }
+  }
+
+  &__input-label {
+    opacity: 0;
+    position: absolute;
   }
 
   &__input::placeholder {

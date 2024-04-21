@@ -61,9 +61,13 @@ const Querry: React.FC<Props> = ({ onChange }) => {
         className="control-panel__item"
         onSubmit={event => handleSubmit(event, Querries.itemWidth)}
       >
+        <label className="control-panel__input-label" htmlFor="itemId">
+          Item Width
+        </label>
         <input
           className="control-panel__input"
           type="number"
+          id="itemId"
           name={Querries.itemWidth}
           ref={itemWidthInput}
           placeholder="Please match item width"
@@ -75,9 +79,13 @@ const Querry: React.FC<Props> = ({ onChange }) => {
         className="control-panel__item"
         onSubmit={event => handleSubmit(event, Querries.frameSize)}
       >
+        <label htmlFor="frameId" className="control-panel__input-label">
+          Frame
+        </label>
         <input
           className="control-panel__input control-panel__input--frame"
           type="number"
+          id="frameId"
           name={Querries.frameSize}
           ref={frameSizeInput}
           placeholder="Please match frame size"
@@ -89,9 +97,13 @@ const Querry: React.FC<Props> = ({ onChange }) => {
         className="control-panel__item"
         onSubmit={event => handleSubmit(event, Querries.step)}
       >
+        <label className="control-panel__input-label" htmlFor="stepId">
+          Steps
+        </label>
         <input
           className="control-panel__input control-panel__input--step"
           type="number"
+          id="stepId"
           name={Querries.step}
           ref={stepSizeInput}
           placeholder="Please match step"
