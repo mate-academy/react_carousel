@@ -12,22 +12,29 @@ const App = () => {
   const [frame, setFrame] = useState(3);
   const [step, setStep] = useState(3);
   const [animation, setAnimation] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
-  const handleQuerry = (num: number, querry: string) => {
+  const handleQuerry = (value: number, querry: string) => {
     if (querry === Querries.itemWidth) {
-      setWidth(num);
+      setWidth(value);
     }
 
     if (querry === Querries.frameSize) {
-      setFrame(num);
+      setFrame(value);
     }
 
     if (querry === Querries.step) {
-      setStep(num);
+      setStep(value);
     }
 
     if (querry === Querries.animationDuration) {
-      setAnimation(num);
+      setAnimation(value);
+    }
+
+    if (querry === Querries.infinite) {
+      const boolState = value ? true : false;
+
+      setInfinite(boolState);
     }
   };
 
@@ -42,7 +49,7 @@ const App = () => {
         frameSize={frame}
         itemWidth={width}
         animationDuration={animation}
-        infinite={false}
+        infinite={infinite}
       />
     </div>
   );

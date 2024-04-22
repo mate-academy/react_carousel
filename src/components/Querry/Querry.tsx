@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from 'react';
+import React from 'react';
 import './Querry.scss';
 import { Querries } from '../../types/Queries';
 
@@ -7,45 +7,6 @@ type Props = {
 };
 
 const Querry: React.FC<Props> = ({ onChange }) => {
-  const frameSizeInput = useRef<HTMLInputElement>(null);
-  const stepSizeInput = useRef<HTMLInputElement>(null);
-  const animationDurationInput = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (
-    event: FormEvent<HTMLFormElement>,
-    querry: Querries,
-  ) => {
-    event.preventDefault();
-
-    let value;
-
-    if (frameSizeInput.current?.value) {
-      value = frameSizeInput.current.value;
-      onChange(+value, querry);
-      frameSizeInput.current.value = '';
-
-      return;
-    }
-
-    if (stepSizeInput.current?.value) {
-      value = stepSizeInput.current.value;
-      onChange(+value, querry);
-      stepSizeInput.current.value = '';
-
-      return;
-    }
-
-    if (animationDurationInput.current?.value) {
-      value = animationDurationInput.current.value;
-      onChange(+value, querry);
-      animationDurationInput.current.value = '';
-
-      return;
-    }
-
-    throw new Error('Something went wrong. Please try again later)');
-  };
-
   return (
     <section className="control-panel">
       <form className="control-panel__item">
@@ -62,10 +23,7 @@ const Querry: React.FC<Props> = ({ onChange }) => {
         />
       </form>
 
-      <form
-        className="control-panel__item"
-        onSubmit={event => handleSubmit(event, Querries.frameSize)}
-      >
+      <form className="control-panel__item">
         <label htmlFor="frameId" className="control-panel__input-label">
           Frame
         </label>
@@ -74,16 +32,12 @@ const Querry: React.FC<Props> = ({ onChange }) => {
           type="number"
           id="frameId"
           name={Querries.frameSize}
-          ref={frameSizeInput}
+          onChange={e => onChange(+e.target.value, Querries.frameSize)}
           placeholder="Please match frame size"
         />
-        <input className="control-panel__btn" type="submit" value="OK" />
       </form>
 
-      <form
-        className="control-panel__item"
-        onSubmit={event => handleSubmit(event, Querries.step)}
-      >
+      <form className="control-panel__item">
         <label className="control-panel__input-label" htmlFor="stepId">
           Steps
         </label>
@@ -92,24 +46,41 @@ const Querry: React.FC<Props> = ({ onChange }) => {
           type="number"
           id="stepId"
           name={Querries.step}
-          ref={stepSizeInput}
+          onChange={e => onChange(+e.target.value, Querries.step)}
           placeholder="Please match step"
         />
-        <input className="control-panel__btn" type="submit" value="OK" />
       </form>
 
-      <form
-        className="control-panel__item"
-        onSubmit={event => handleSubmit(event, Querries.animationDuration)}
-      >
+      <form className="control-panel__item">
+        <label className="control-panel__input-label" htmlFor="animation">
+          Animation duration
+        </label>
         <input
           className="control-panel__input control-panel__input--animation"
           type="number"
+          id="animation"
           name={Querries.animationDuration}
-          ref={animationDurationInput}
+          onChange={e => onChange(+e.target.value, Querries.animationDuration)}
           placeholder="Animation duration"
         />
-        <input className="control-panel__btn" type="submit" value="OK" />
+      </form>
+
+      <form className="control-panel__item">
+        <label className="control-panel__infinite-label" htmlFor="infinite">
+          Infinite
+        </label>
+        <input
+          className="control-panel__input control-panel__input--animation"
+          type="checkbox"
+          id="infinite"
+          name={Querries.infinite}
+          onChange={e => {
+            const value = e.target.checked ? 1 : 0;
+
+            onChange(value, Querries.infinite);
+          }}
+          placeholder="Animation duration"
+        />
       </form>
     </section>
   );

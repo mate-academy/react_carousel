@@ -11,6 +11,7 @@
 
   &__input {
     border: none;
+    width: 100%;
     background-color: #f5df86;
     color: #fff;
     height: 30px;
@@ -33,6 +34,14 @@
   &__input-label {
     opacity: 0;
     position: absolute;
+  }
+
+  &__infinite-label {
+    position: absolute;
+    right: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+
   }
 
   &__input::placeholder {

@@ -3,4 +3,5 @@ export enum Querries {
   frameSize = 'frameSize',
   step = 'step',
   animationDuration = 'animationDuration',
+  infinite = 'infinite',
 }

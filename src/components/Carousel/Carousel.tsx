@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import './Carousel.scss';
 
@@ -32,13 +32,6 @@ const Carousel: React.FC<State> = ({
   const TRANSFORM = step * itemWidth;
   const LEFT_LAST_SLIDE = transform + TRANSFORM < 0;
   const RIGHT_LAST_SLIDE = imagesLeft - step < 0;
-
-  useEffect(() => {
-    setLastLeftSlide(false);
-    setLastRightSlide(false);
-    setTransform(0);
-    setImagesLeft(images.length - step);
-  }, [step, itemWidth, animationDuration, infinite, frameSize, images.length]);
 
   const handleNextMove = () => {
     if (lastLeftSlide) {
@@ -80,29 +73,18 @@ const Carousel: React.FC<State> = ({
     }
   };
 
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-
-    if (animationDuration) {
-      interval = setTimeout(() => {
-        handleNextMove();
-      }, animationDuration);
-    }
-
-    return () => clearTimeout(interval);
-  });
-
   return (
     <div className="Carousel">
       <div
         className="Carousel__wrapper"
-        style={{ width: `${OVERFLOW_WIDTH}px` }}
+        style={{ width: `${OVERFLOW_WIDTH - 1}px` }}
       >
         <ul
           className="Carousel__list"
           style={{
             transform: `translateX(${transform}px)`,
             width: `${CONTAINER_WIDTH}px`,
+            transition: `${animationDuration}ms`,
           }}
         >
           {images.map(image => (
@@ -138,7 +120,7 @@ const Carousel: React.FC<State> = ({
           data-cy="next"
           type="button"
           onClick={handleNextMove}
-          {...(lastRightSlide && { disabled: true })}
+          {...(lastRightSlide && !infinite && { disabled: true })}
         >
           Next
         </button>
