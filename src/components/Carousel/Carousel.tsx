@@ -22,47 +22,57 @@ const Carousel: React.FC<State> = ({
   infinite,
 }) => {
   const [transform, setTransform] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
   const [lastRightSlide, setLastRightSlide] = useState(false);
   const [lastLeftSlide, setLastLeftSlide] = useState(false);
 
   const IMAGE_QTY = images.length;
+  const PAGES_QTY = Math.ceil(IMAGE_QTY / step);
   const OVERFLOW_WIDTH = itemWidth * frameSize;
   const CONTAINER_WIDTH = itemWidth * IMAGE_QTY;
   const TRANSFORM = step * itemWidth;
-  const LEFT_LAST_SLIDE = transform + TRANSFORM < 0;
-  const RIGHT_LAST_SLIDE = transform * -1 + TRANSFORM * 2 < CONTAINER_WIDTH;
+  const LEFT_LAST_SLIDE = pageNum === 1;
+  const RIGHT_LAST_SLIDE = pageNum === PAGES_QTY - 1 || pageNum > PAGES_QTY;
+  let interval: ReturnType<typeof setInterval> = setInterval(() => {});
+
+  clearInterval(interval);
 
   useEffect(() => {
     setLastLeftSlide(false);
     setLastRightSlide(false);
     setTransform(0);
+    setPageNum(1);
   }, [step, itemWidth, animationDuration, infinite, frameSize]);
 
   const handleNextMove = () => {
-    if (infinite && transform === (CONTAINER_WIDTH - OVERFLOW_WIDTH) * -1) {
+    if (lastLeftSlide) {
+      setLastLeftSlide(false);
+    }
+
+    if (infinite && lastRightSlide) {
       setTransform(0);
       setLastRightSlide(false);
 
       return;
     }
 
-    if (RIGHT_LAST_SLIDE) {
+    if (!RIGHT_LAST_SLIDE) {
       setTransform(prevState => prevState - TRANSFORM);
-      if (lastLeftSlide) {
-        setLastLeftSlide(false);
-      }
+      setPageNum(prevState => prevState + 1);
     } else {
-      setTransform((CONTAINER_WIDTH - OVERFLOW_WIDTH) * -1);
+      setTransform(CONTAINER_WIDTH - PAGES_QTY * itemWidth * -1);
       setLastRightSlide(true);
     }
   };
 
   const handleBackMove = () => {
-    if (LEFT_LAST_SLIDE) {
+    if (lastRightSlide) {
+      setLastRightSlide(false);
+    }
+
+    if (!LEFT_LAST_SLIDE) {
       setTransform(prevState => prevState + TRANSFORM);
-      if (lastRightSlide) {
-        setLastRightSlide(false);
-      }
+      setPageNum(prevState => prevState - 1);
     } else {
       setTransform(0);
       setLastLeftSlide(true);
@@ -70,7 +80,7 @@ const Carousel: React.FC<State> = ({
   };
 
   if (animationDuration) {
-    setTimeout(() => {
+    interval = setTimeout(() => {
       handleNextMove();
     }, animationDuration);
   }
