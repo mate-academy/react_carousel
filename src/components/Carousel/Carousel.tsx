@@ -22,65 +22,74 @@ const Carousel: React.FC<State> = ({
   infinite,
 }) => {
   const [transform, setTransform] = useState(0);
-  const [pageNum, setPageNum] = useState(1);
   const [lastRightSlide, setLastRightSlide] = useState(false);
   const [lastLeftSlide, setLastLeftSlide] = useState(false);
+  const [imagesLeft, setImagesLeft] = useState(images.length - step);
 
   const IMAGE_QTY = images.length;
-  const PAGES_QTY = Math.ceil(IMAGE_QTY / step);
   const OVERFLOW_WIDTH = itemWidth * frameSize;
   const CONTAINER_WIDTH = itemWidth * IMAGE_QTY;
   const TRANSFORM = step * itemWidth;
-  const LEFT_LAST_SLIDE = pageNum === 1;
-  const RIGHT_LAST_SLIDE = pageNum === PAGES_QTY - 1 || pageNum > PAGES_QTY;
-  let interval: ReturnType<typeof setInterval> = setInterval(() => {});
-
-  clearInterval(interval);
+  const LEFT_LAST_SLIDE = transform + TRANSFORM < 0;
+  const RIGHT_LAST_SLIDE = imagesLeft - step < 0;
+  const interval: ReturnType<typeof setInterval> = setInterval(() => {});
 
   useEffect(() => {
     setLastLeftSlide(false);
     setLastRightSlide(false);
     setTransform(0);
-    setPageNum(1);
-  }, [step, itemWidth, animationDuration, infinite, frameSize]);
+    setImagesLeft(images.length - step);
+  }, [step, itemWidth, animationDuration, infinite, frameSize, images.length]);
+
+  clearInterval(interval);
 
   const handleNextMove = () => {
+    clearInterval(interval);
+
     if (lastLeftSlide) {
       setLastLeftSlide(false);
     }
 
-    if (infinite && lastRightSlide) {
+    if (infinite && imagesLeft === 0) {
       setTransform(0);
       setLastRightSlide(false);
+      setImagesLeft(images.length - step);
 
       return;
     }
 
-    if (!RIGHT_LAST_SLIDE) {
-      setTransform(prevState => prevState - TRANSFORM);
-      setPageNum(prevState => prevState + 1);
-    } else {
-      setTransform(CONTAINER_WIDTH - PAGES_QTY * itemWidth * -1);
+    if (RIGHT_LAST_SLIDE) {
+      clearInterval(interval);
+      setTransform(prevState => prevState - imagesLeft * itemWidth);
       setLastRightSlide(true);
+      setImagesLeft(0);
+
+      return;
     }
+
+    setTransform(prevState => prevState - TRANSFORM);
+    setImagesLeft(prevState => prevState - step);
   };
 
   const handleBackMove = () => {
+    clearInterval(interval);
+
     if (lastRightSlide) {
       setLastRightSlide(false);
     }
 
-    if (!LEFT_LAST_SLIDE) {
+    if (LEFT_LAST_SLIDE) {
       setTransform(prevState => prevState + TRANSFORM);
-      setPageNum(prevState => prevState - 1);
+      setImagesLeft(prevState => prevState + step);
     } else {
       setTransform(0);
       setLastLeftSlide(true);
+      setImagesLeft(images.length - step);
     }
   };
 
-  if (animationDuration) {
-    interval = setTimeout(() => {
+  if (animationDuration && !lastRightSlide) {
+    setTimeout(() => {
       handleNextMove();
     }, animationDuration);
   }

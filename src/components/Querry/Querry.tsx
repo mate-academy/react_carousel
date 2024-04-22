@@ -7,7 +7,6 @@ type Props = {
 };
 
 const Querry: React.FC<Props> = ({ onChange }) => {
-  const itemWidthInput = useRef<HTMLInputElement>(null);
   const frameSizeInput = useRef<HTMLInputElement>(null);
   const stepSizeInput = useRef<HTMLInputElement>(null);
   const animationDurationInput = useRef<HTMLInputElement>(null);
@@ -19,14 +18,6 @@ const Querry: React.FC<Props> = ({ onChange }) => {
     event.preventDefault();
 
     let value;
-
-    if (itemWidthInput.current?.value) {
-      value = itemWidthInput.current.value;
-      onChange(+value, querry);
-      itemWidthInput.current.value = '';
-
-      return;
-    }
 
     if (frameSizeInput.current?.value) {
       value = frameSizeInput.current.value;
@@ -57,10 +48,7 @@ const Querry: React.FC<Props> = ({ onChange }) => {
 
   return (
     <section className="control-panel">
-      <form
-        className="control-panel__item"
-        onSubmit={event => handleSubmit(event, Querries.itemWidth)}
-      >
+      <form className="control-panel__item">
         <label className="control-panel__input-label" htmlFor="itemId">
           Item Width
         </label>
@@ -69,10 +57,9 @@ const Querry: React.FC<Props> = ({ onChange }) => {
           type="number"
           id="itemId"
           name={Querries.itemWidth}
-          ref={itemWidthInput}
+          onChange={e => onChange(+e.target.value, Querries.itemWidth)}
           placeholder="Please match item width"
         />
-        <input className="control-panel__btn" type="submit" value="OK" />
       </form>
 
       <form
