@@ -32,7 +32,6 @@ const Carousel: React.FC<State> = ({
   const TRANSFORM = step * itemWidth;
   const LEFT_LAST_SLIDE = transform + TRANSFORM < 0;
   const RIGHT_LAST_SLIDE = imagesLeft - step < 0;
-  const interval: ReturnType<typeof setInterval> = setInterval(() => {});
 
   useEffect(() => {
     setLastLeftSlide(false);
@@ -41,11 +40,7 @@ const Carousel: React.FC<State> = ({
     setImagesLeft(images.length - step);
   }, [step, itemWidth, animationDuration, infinite, frameSize, images.length]);
 
-  clearInterval(interval);
-
   const handleNextMove = () => {
-    clearInterval(interval);
-
     if (lastLeftSlide) {
       setLastLeftSlide(false);
     }
@@ -59,7 +54,6 @@ const Carousel: React.FC<State> = ({
     }
 
     if (RIGHT_LAST_SLIDE) {
-      clearInterval(interval);
       setTransform(prevState => prevState - imagesLeft * itemWidth);
       setLastRightSlide(true);
       setImagesLeft(0);
@@ -72,8 +66,6 @@ const Carousel: React.FC<State> = ({
   };
 
   const handleBackMove = () => {
-    clearInterval(interval);
-
     if (lastRightSlide) {
       setLastRightSlide(false);
     }
@@ -88,11 +80,17 @@ const Carousel: React.FC<State> = ({
     }
   };
 
-  if (animationDuration && !lastRightSlide) {
-    setTimeout(() => {
-      handleNextMove();
-    }, animationDuration);
-  }
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+
+    if (animationDuration) {
+      interval = setTimeout(() => {
+        handleNextMove();
+      }, animationDuration);
+    }
+
+    return () => clearTimeout(interval);
+  });
 
   return (
     <div className="Carousel">
