@@ -7,50 +7,38 @@ const Carousel: React.FC<{
   step: number;
   frameSize: number;
   itemWidth: number;
-}> = ({
-  images,
-  animationDuration = 1000,
-  itemWidth = 130,
-  step = 3,
-  frameSize = 3,
-}) => {
-  const [translate, setTranslate] = useState(0);
-  const [currentStep, setCurrentStep] = useState(1);
+}> = ({ images, animationDuration, itemWidth, step, frameSize }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const translate = currentIndex * itemWidth * -1;
   const lengthOfList = images.length * itemWidth;
   const lengthOfWrap = frameSize * itemWidth;
-  const stepLength = step * itemWidth;
-  const maxFullSteps = Math.floor(lengthOfList / stepLength);
+  const lastIndex = images.length - (images.length % frameSize);
 
   const showNext = () => {
-    if (currentStep < maxFullSteps) {
-      setTranslate(prevTranslate => prevTranslate - stepLength);
-      setCurrentStep(prev => prev + 1);
-    } else if (currentStep === maxFullSteps) {
-      if (maxFullSteps * stepLength !== lengthOfList) {
-        setTranslate(
-          prevTranslate =>
-            prevTranslate - (lengthOfList - maxFullSteps * stepLength),
-        );
-        setCurrentStep(prev => prev + 1);
-      }
+    if (currentIndex + frameSize < lastIndex) {
+      setCurrentIndex(prev => prev + step);
+    } else if (currentIndex + frameSize === lastIndex) {
+      setCurrentIndex(prev => prev + (images.length % frameSize));
     }
   };
 
   const showPrevious = () => {
-    if (currentStep > maxFullSteps) {
-      setTranslate(
-        prevTranslate =>
-          prevTranslate + (lengthOfList - maxFullSteps * stepLength),
-      );
-      setCurrentStep(prev => prev - 1);
-    } else if (currentStep > 1) {
-      setTranslate(prevTranslate => prevTranslate + stepLength);
-      setCurrentStep(prev => prev - 1);
+    if (currentIndex - frameSize >= 0) {
+      setCurrentIndex(prev => prev - step);
+    } else if (currentIndex > 0 && currentIndex < step) {
+      setCurrentIndex(prev => prev - (images.length % frameSize));
     }
   };
 
   return (
     <div className="Carousel" style={{ width: `${lengthOfList}px` }}>
+      <button
+        type="button"
+        onClick={() => showPrevious()}
+        disabled={currentIndex === 0}
+      >
+        Prev
+      </button>
       <div className="Carousel__wrap" style={{ width: `${lengthOfWrap}px` }}>
         <ul
           className="Carousel__list"
@@ -64,24 +52,30 @@ const Carousel: React.FC<{
               className="list__item"
               key={images.indexOf(item)}
               style={{
-                width: `${lengthOfWrap}px`,
-                height: `${lengthOfWrap}px`,
+                width: `${itemWidth}px`,
+                height: `${itemWidth}px`,
               }}
             >
-              <img src={item} alt={item} />
+              <img
+                src={item}
+                alt={item}
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                }}
+              />
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="cover">
-        <button type="button" onClick={() => showPrevious()}>
-          Prev
-        </button>
-        <button type="button" onClick={() => showNext()}>
-          Next
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => showNext()}
+        disabled={currentIndex + frameSize === images.length}
+      >
+        Next
+      </button>
     </div>
   );
 };
