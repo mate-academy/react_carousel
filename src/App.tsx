@@ -40,7 +40,6 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
       <h1 data-cy="title">Carousel with {images.length} images</h1>
 
       <form className="App__form" action="#" method="post">
@@ -51,7 +50,7 @@ const App: React.FC = () => {
             className="App__input"
             id="itemId"
             name="itemWidth"
-            min={initialOptions.itemWidth}
+            min="1"
             step="10"
             value={itemWidth}
             onChange={handleInputChange}
@@ -65,7 +64,7 @@ const App: React.FC = () => {
             className="App__input"
             id="frameId"
             name="frameSize"
-            min={initialOptions.frameSize}
+            min="1"
             step="1"
             value={frameSize}
             onChange={handleInputChange}
@@ -79,7 +78,7 @@ const App: React.FC = () => {
             className="App__input"
             id="stepId"
             name="step"
-            min={initialOptions.step}
+            min="1"
             step="1"
             value={step}
             onChange={handleInputChange}
@@ -93,7 +92,7 @@ const App: React.FC = () => {
             className="App__input"
             id="animationDurationId"
             name="animationDuration"
-            min={initialOptions.animationDuration}
+            min="1"
             step="100"
             value={animationDuration}
             onChange={handleInputChange}
