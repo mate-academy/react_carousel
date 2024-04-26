@@ -70,6 +70,7 @@ const Carousel: React.FC<{
       </div>
 
       <button
+        data-cy="next"
         type="button"
         onClick={() => showNext()}
         disabled={currentIndex + frameSize === images.length}
