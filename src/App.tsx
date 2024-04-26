@@ -50,7 +50,7 @@ const App: React.FC = () => {
             className="App__input"
             id="itemId"
             name="itemWidth"
-            min="1"
+            min="0"
             step="10"
             value={itemWidth}
             onChange={handleInputChange}
@@ -92,7 +92,7 @@ const App: React.FC = () => {
             className="App__input"
             id="animationDurationId"
             name="animationDuration"
-            min="1"
+            min="0"
             step="100"
             value={animationDuration}
             onChange={handleInputChange}
