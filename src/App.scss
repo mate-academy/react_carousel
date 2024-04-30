@@ -1,1 +1,70 @@
-// style go here
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  outline: none;
+
+}
+
+.App {
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(171,22,148);
+  background: linear-gradient(98deg, rgb(237 126 220) 23%, rgb(98 170 184) 76%);
+
+
+  &__title {
+    padding: 35px 0;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-weight: 700;
+
+  }
+
+  &__label {
+    align-items: center;
+    display: flex;
+    font-weight: 700;
+    gap: 10px;
+  }
+
+  &__input {
+    border: 1px solid black;
+    border-radius: 18px;
+    padding-left: 6px;
+    background-color: transparent;
+    font-weight: 700;
+    transition: all 0.3s;
+
+    &:focus {
+      box-shadow: 0 2px 15px #00000080;
+    }
+
+    &--checkbox {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid #999;
+      border-radius: 4px;
+      outline: none;
+      transition: all 0.3s;
+
+      &:checked {
+        background-color: #c72050;
+      }
+    }
+  }
+}
