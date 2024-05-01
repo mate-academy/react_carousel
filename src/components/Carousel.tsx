@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 interface CarouselProps {
@@ -20,6 +20,7 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const frameWidth = frameSize * itemWidth;
   const [position, setPosition] = useState(0);
+  const [prevFrameSize, setPrevFrameSize] = useState(frameWidth);
 
   function firstDisabled() {
     if (infinite) {
@@ -47,7 +48,16 @@ const Carousel: React.FC<CarouselProps> = ({
 
   const isFirstDisabled = firstDisabled();
   const isSecondDisabled = secondDisabled();
-  const lastPosition = Math.max(0, (images.length - stepSize) * itemWidth);
+  const lastPosition = (images.length - frameSize) * itemWidth;
+
+  useEffect(() => {
+    if (frameWidth > prevFrameSize) {
+      setPosition(0);
+    }
+
+    setPrevFrameSize(frameWidth);
+  }, [frameSize, prevFrameSize, frameWidth]);
+
   const prevPosition = () => {
     if (infinite && position === 0) {
       setPosition(-lastPosition);
