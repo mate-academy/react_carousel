@@ -20,7 +20,7 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const widthContainer = itemWidth * frameSize;
+  const widthContainer = (itemWidth - 1) * frameSize;
   const widthList = itemWidth * images.length;
   const endIndex = images.length - frameSize;
 
@@ -43,8 +43,8 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div className="Carousel" style={{ width: widthContainer }}>
-      <div className="Carousel__wrapper">
+    <div className="Carousel">
+      <div className="Carousel__wrapper" style={{ width: widthContainer }}>
         <div
           className="Carousel__container"
           style={{ width: widthContainer, height: itemWidth }}
@@ -67,7 +67,7 @@ const Carousel: React.FC<Props> = ({
         </div>
         <div className="Carousel__button-container">
           <button
-            className={cn('Carousel__button', 'Carousel__button--left', {
+            className={cn('Carousel__button', {
               disabled: !infinite && currentIndex === 0,
             })}
             type="button"
@@ -79,7 +79,7 @@ const Carousel: React.FC<Props> = ({
             </svg>
           </button>
           <button
-            className={cn('Carousel__button', 'Carousel__button--right', {
+            className={cn('Carousel__button', {
               disabled: currentIndex + frameSize >= images.length && !infinite,
             })}
             type="button"

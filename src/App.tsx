@@ -87,7 +87,7 @@ export const App: React.FC = () => {
             min="50"
             max="350"
             onChange={handleItemWidth}
-            value={itemWidth}
+            defaultValue={itemWidth}
             className="App__container-input"
           />
         </div>
@@ -102,7 +102,7 @@ export const App: React.FC = () => {
             min="1"
             max={state.images.length}
             onChange={handleFrameSize}
-            value={frameSize}
+            defaultValue={frameSize}
             className="App__container-input"
           />
         </div>
@@ -117,7 +117,7 @@ export const App: React.FC = () => {
             min="1"
             max={state.images.length}
             onChange={handleStep}
-            value={step}
+            defaultValue={step}
             className="App__container-input"
           />
         </div>
@@ -133,7 +133,7 @@ export const App: React.FC = () => {
             step="100"
             max="3000"
             onChange={handleAnimationDuration}
-            value={animationDuration}
+            defaultValue={animationDuration}
             className="App__container-input"
           />
         </div>
