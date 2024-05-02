@@ -1,1 +1,43 @@
-// style go here
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__inputContainer {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+  }
+
+  &__checkbox-label {
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    &--frame_size,
+    &--step,
+    &--image_width,
+    &--duration {
+      box-sizing: border-box;
+      outline: none;
+
+      border-radius: 5px;
+
+      padding-left: 10px;
+      margin-bottom: 20px;
+
+      width: 300px;
+      height: 40px;
+    }
+
+    &--checkbox {
+      box-sizing: border-box;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

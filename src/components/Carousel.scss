@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  &__viewport {
+    margin: 0 auto;
+  }
+
+  &__list {
+    box-sizing: border-box;
+    padding: 0;
+
+    border: 2px solid black;
+    border-radius: 10px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    display: flex;
+
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+
+    button {
+      width: 100px;
+      height: 40px;
+    }
+  }
+}
