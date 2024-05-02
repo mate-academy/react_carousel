@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -20,9 +20,19 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [frame, setFrame] = useState(frameSize);
   const widthContainer = (itemWidth - 1) * frameSize;
   const widthList = itemWidth * images.length;
-  const endIndex = images.length - frameSize;
+  const endIndex = images.length - frame;
+
+  useEffect(() => {
+    if (frameSize !== frame) {
+      setFrame(frameSize);
+      const newEndIndex = images.length - frameSize;
+
+      setCurrentIndex(prev => (prev <= newEndIndex ? prev : newEndIndex));
+    }
+  }, [frameSize, frame, endIndex, images.length]);
 
   const handleNextTransform = () => {
     if (currentIndex < endIndex) {
