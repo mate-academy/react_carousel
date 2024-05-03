@@ -16,7 +16,6 @@ const images = [
 ];
 
 export const App: React.FC = () => {
-  const [currentImage, setCurrentImage] = useState(0);
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
@@ -35,11 +34,10 @@ export const App: React.FC = () => {
             type="number"
             id="itemId"
             min={30}
-            max={300}
+            max={260}
             step={10}
             onChange={(event) => {
               setItemWidth(+event.target.value);
-              setCurrentImage(0);
             }}
             value={itemWidth}
           />
@@ -55,7 +53,6 @@ export const App: React.FC = () => {
             step={1}
             onChange={(event) => {
               setFrameSize(+event.target.value);
-              setCurrentImage(0);
             }}
             value={frameSize}
           />
@@ -71,7 +68,6 @@ export const App: React.FC = () => {
             step={1}
             onChange={(event) => {
               setStep(+event.target.value);
-              setCurrentImage(0);
             }}
             value={step}
           />
@@ -86,7 +82,6 @@ export const App: React.FC = () => {
             step={100}
             onChange={(event) => {
               setAnimationDuration(+event.target.value);
-              setCurrentImage(0);
             }}
             value={animationDuration}
           />
@@ -109,8 +104,6 @@ export const App: React.FC = () => {
         itemWidth={itemWidth}
         animationDuration={animationDuration}
         infinite={infinite}
-        currentImageIndex={currentImage}
-        setCurrentImageIndex={setCurrentImage}
       />
     </div>
   );

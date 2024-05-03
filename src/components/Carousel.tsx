@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -8,8 +8,6 @@ type Props = {
   itemWidth: number;
   animationDuration: number;
   infinite: boolean;
-  currentImageIndex: number;
-  setCurrentImageIndex: (value: number) => void;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -19,9 +17,9 @@ const Carousel: React.FC<Props> = ({
   itemWidth,
   animationDuration,
   infinite,
-  currentImageIndex,
-  setCurrentImageIndex,
 }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const maxImages = images.length - frameSize;
   const isDisabledPrev = currentImageIndex === 0 && !infinite;
   const isDisabledNext = currentImageIndex === maxImages && !infinite;
@@ -85,7 +83,7 @@ const Carousel: React.FC<Props> = ({
               ? 'Carousel__button Carousel__button--disabled'
               : 'Carousel__button Carousel__button--active'
           }
-          onClick={() => movePrev()}
+          onClick={movePrev}
         >
           &larr;
         </button>
@@ -98,7 +96,7 @@ const Carousel: React.FC<Props> = ({
               ? 'Carousel__button Carousel__button--disabled'
               : 'Carousel__button Carousel__button--active'
           }
-          onClick={() => moveNext()}
+          onClick={moveNext}
         >
           &rarr;
         </button>

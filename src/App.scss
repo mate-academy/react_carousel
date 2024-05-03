@@ -14,7 +14,6 @@ h1 {
   align-items: center;
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 
-
   &__settings {
     display: flex;
     width: 400px;
@@ -39,12 +38,12 @@ input {
   margin: auto 0;
   height: 20px;
   padding: 4px 8px;
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 18px;
   font-weight: 520;
   text-align: center;
   color: rgb(252, 248, 248);
-  background-color: #8091a8 ;
+  background-color: #8091a8;
   border: 2px solid #414851;
   border-radius: 20px;
   outline: none;
@@ -57,5 +56,3 @@ input[type="checkbox"] {
   height: 25px;
   accent-color: #8091a8;
 }
-
-
