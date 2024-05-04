@@ -1,0 +1,31 @@
+.Form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+
+  &__input {
+    height: 30px;
+    font-size: 12px;
+    padding: 7px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #5b5b5b;
+    border-radius: 5px;
+  }
+
+  &__label {
+    display: inline-block;
+    line-height: 100%;
+
+    :hover, :focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      outline: none;
+    }
+
+
+
+  }
+}

@@ -1,19 +1,29 @@
 * {
   padding:0;
   margin:0;
+  box-sizing: border-box;
 }
 
-
 .Carousel {
-  &__container {
-    overflow: hidden;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+
   &__list {
     display: flex;
     flex-direction: row;
+    list-style-type: none;
   }
 
-  &__list li {
-    list-style-type: none;
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+
+    &--middle {
+      width: 100px;
+      height: 20px;
+    }
   }
 }

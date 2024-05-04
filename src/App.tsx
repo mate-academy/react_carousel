@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import Form from './components/Form';
 
-// interface State {
-//   images: string[];
-// }
 const images = [
   './img/1.png',
   './img/2.png',
@@ -19,65 +17,41 @@ const images = [
 ];
 
 export const App: React.FC = () => {
+  const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
-  const [imageSize, setImageSize] = useState(130);
   const [stepSize, setStepSize] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
   return (
     <div className="App">
-      <h1>Carousel with {images.length} images</h1>
-      <div className="app__container">
-        <label htmlFor="itemId" className="App__label">
-          {' '}
-          <input
-            id="itemId"
-            className="App__input--image_width"
-            type="text"
-            placeholder="step size"
-            onChange={e => setStepSize(+e.target.value)}
+      <h1 data-cy={'title'}>Carousel with {images.length} images</h1>
+      <div className="App__container">
+        <div className="App__form">
+          <Form
+            stepSize={step => setStepSize(step)}
+            frameSize={size => setFrameSize(size)}
+            imageSize={width => {
+              if (width > 50 && width < 450) {
+                setItemWidth(width);
+              } else {
+                setItemWidth(130);
+              }
+            }}
+            animationDuration={(duration: number) =>
+              setAnimationDuration(duration)
+            }
+            infinite={result => setInfinite(result)}
           />
-        </label>
-
-        <label htmlFor="itemId" className="App__label">
-          {' '}
-          <input
-            id="itemId"
-            className="App__input--image_width"
-            type="text"
-            placeholder="frame size"
-            onChange={e => setFrameSize(+e.target.value)}
-          />
-        </label>
-
-        <label htmlFor="itemId" className="App__label">
-          {' '}
-          <input
-            id="itemId"
-            className="App__input--image_width"
-            type="text"
-            placeholder="image size"
-            onChange={e => setImageSize(+e.target.value)}
-          />
-        </label>
-
-        <label htmlFor="itemId" className="App__label">
-          {' '}
-          <input
-            id="itemId"
-            className="App__input--image_width"
-            type="text"
-            placeholder="animation duration"
-            onChange={e => setAnimationDuration(+e.target.value)}
-          />
-        </label>
+        </div>
       </div>
       <Carousel
         images={images}
-        frameSize={frameSize}
-        imageSize={imageSize}
         step={stepSize}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
         animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );

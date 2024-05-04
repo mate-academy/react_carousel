@@ -4,21 +4,21 @@ import './Carousel.scss';
 type Props = {
   images: string[];
   frameSize: number;
-  imageSize: number;
+  itemWidth: number;
   step: number;
   animationDuration: number;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
   frameSize,
-  imageSize,
+  itemWidth,
   step,
   animationDuration,
+  infinite = false,
 }) => {
-  // const [currentImages, setCurrentImages] = useState(images);
   const [currentSlide, setCurrentSlide] = useState(0);
-
   const handlePrev = () => {
     setCurrentSlide(prevSlide => Math.max(0, prevSlide - step));
   };
@@ -28,19 +28,20 @@ const Carousel: React.FC<Props> = ({
       Math.min(images.length - frameSize, prevSlide + step),
     );
 
-    // const lastSlide = images.length - frameSize;
-    //
-    // if (currentSlide === lastSlide && isInfinite) {
-    //   setCurrentSlide(0);
-    // }
+    const endOfSlides = images.length - frameSize;
+
+    if (currentSlide === endOfSlides && infinite) {
+      setCurrentSlide(0);
+    }
   };
 
   return (
-    <div className="Carousel">
+    <>
       <div
-        className="Carousel__container"
+        className="Carousel"
         style={{
-          width: frameSize * imageSize,
+          width: `${itemWidth * frameSize}px`,
+          transition: `${animationDuration}ms}`,
         }}
       >
         <ul className="Carousel__list">
@@ -48,22 +49,37 @@ const Carousel: React.FC<Props> = ({
             <li
               key={index}
               style={{
-                transform: `translateX(-${currentSlide * imageSize}px)`,
-                transition: `transform ${animationDuration}ms ease`,
+                transform: `translateX(-${currentSlide * itemWidth}px)`,
+                transition: `transform ${animationDuration}ms ease-out`,
               }}
             >
-              <img src={`${image}`} alt="1" style={{ width: imageSize }} />
+              <img width={itemWidth} src={image} alt={`${index + 1}}`} />
             </li>
           ))}
         </ul>
+
+        <div className="Carousel__buttons">
+          <button
+            className="Carousel__buttons--middle"
+            type="button"
+            onClick={handlePrev}
+            disabled={currentSlide === 0}
+          >
+            Prev
+          </button>
+
+          <button
+            data-cy={'next'}
+            className="Carousel__buttons--middle"
+            type="button"
+            onClick={handleNext}
+            disabled={currentSlide >= images.length - frameSize && !infinite}
+          >
+            Next
+          </button>
+        </div>
       </div>
-      <button type="button" onClick={handlePrev}>
-        Prev
-      </button>
-      <button type="button" onClick={handleNext}>
-        Next
-      </button>
-    </div>
+    </>
   );
 };
 
