@@ -16,12 +16,44 @@ const images = [
   './img/10.png',
 ];
 
+export type DefaultInputs = {
+  itemWidth: number;
+  frameSize: number;
+  stepSize: number;
+  animationDuration: number;
+  infinite: boolean;
+};
+
 export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [stepSize, setStepSize] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
+
+  const params: DefaultInputs = {
+    itemWidth: itemWidth,
+    frameSize: frameSize,
+    stepSize: stepSize,
+    animationDuration: animationDuration,
+    infinite: infinite,
+  };
+
+  const handleItemWidth = (width: number) => {
+    if (width >= 50 && width < 500) {
+      setItemWidth(width);
+    } else {
+      return;
+    }
+  };
+
+  const handleFrameSize = (size: number) => {
+    if (size >= 1 && size <= 10) {
+      setFrameSize(size);
+    } else {
+      return;
+    }
+  };
 
   return (
     <div className="App">
@@ -30,18 +62,13 @@ export const App: React.FC = () => {
         <div className="App__form">
           <Form
             stepSize={step => setStepSize(step)}
-            frameSize={size => setFrameSize(size)}
-            imageSize={width => {
-              if (width > 50 && width < 450) {
-                setItemWidth(width);
-              } else {
-                setItemWidth(130);
-              }
-            }}
+            frameSize={size => handleFrameSize(size)}
+            imageSize={size => handleItemWidth(size)}
             animationDuration={(duration: number) =>
               setAnimationDuration(duration)
             }
             infinite={result => setInfinite(result)}
+            params={params}
           />
         </div>
       </div>
