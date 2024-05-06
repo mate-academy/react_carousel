@@ -53,12 +53,7 @@ const Carousel: React.FC<Props> = ({
                 transition: `transform ${animationDuration}ms ease-out`,
               }}
             >
-              <img
-                width={itemWidth}
-                height={itemWidth}
-                src={image}
-                alt={`${index + 1}}`}
-              />
+              <img width={itemWidth} src={image} alt={`${index + 1}}`} />
             </li>
           ))}
         </ul>

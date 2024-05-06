@@ -1,6 +1,5 @@
 import './Form.scss';
 import { DefaultInputs } from '../App';
-import 'bulma';
 
 type Props = {
   stepSize: (step: number) => void;
