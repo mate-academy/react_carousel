@@ -1,0 +1,41 @@
+.Form {
+  margin-top: 10px;
+  margin-bottom:20px;
+
+  &__input {
+    height: 30px;
+    font-size: 12px;
+    padding: 7px;
+    margin-bottom: 10px;
+    border: 1px solid #5b5b5b;
+    border-radius: 5px;
+  }
+
+  &__label {
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    line-height: 40px;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+input {
+  width: 70px;
+  height: 20px;
+  padding: 4px 8px;
+  font-weight: 520;
+  text-align: center;
+  border: 1px solid #414851;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.22);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+}
