@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -7,6 +7,7 @@ type Props = {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
+  infinite: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -15,37 +16,33 @@ const Carousel: React.FC<Props> = ({
   frameSize,
   itemWidth,
   animationDuration,
+  infinite,
 }) => {
-  const [position, setPosition] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const lastPosition = -(images.length - frameSize);
-
-  const isPrevDisabled = !position;
-  const isNextDisabled = position === lastPosition;
-
-  const handleNextClick = () => {
-    if (position > lastPosition) {
-      setPosition(prevPosition =>
-        prevPosition - step > lastPosition ? prevPosition - step : lastPosition,
-      );
-
-      return;
+  const handleNext = () => {
+    if (currentIndex < images.length - step) {
+      setCurrentIndex(currentIndex + step);
+    } else if (infinite) {
+      setCurrentIndex((currentIndex + step) % images.length);
     }
-
-    setPosition(0);
   };
 
-  const handlePrevClick = () => {
-    if (position < 0) {
-      setPosition(prevPosition =>
-        prevPosition + step < 0 ? prevPosition + step : 0,
-      );
-
-      return;
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - step);
+    } else if (infinite) {
+      setCurrentIndex(images.length - step);
     }
-
-    setPosition(0);
   };
+
+  useEffect(() => {
+    const maxIndex = images.length - frameSize;
+
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [frameSize, images.length, currentIndex]);
 
   return (
     <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
@@ -53,7 +50,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={{
           width: `${frameSize * itemWidth}px`,
-          transform: `translateX(${position * itemWidth}px)`,
+          transform: `translateX(-${currentIndex * itemWidth}px)`,
           transition: `transform ${animationDuration}ms ease-in-out`,
         }}
       >
@@ -75,8 +72,8 @@ const Carousel: React.FC<Props> = ({
         <button
           className="Carousel__button"
           type="button"
-          disabled={isPrevDisabled}
-          onClick={handlePrevClick}
+          disabled={!infinite && currentIndex === 0}
+          onClick={handlePrev}
         >
           Prev
         </button>
@@ -85,8 +82,8 @@ const Carousel: React.FC<Props> = ({
           data-cy="next"
           className="Carousel__button"
           type="button"
-          disabled={isNextDisabled}
-          onClick={handleNextClick}
+          disabled={!infinite && currentIndex >= images.length - frameSize}
+          onClick={handleNext}
         >
           Next
         </button>

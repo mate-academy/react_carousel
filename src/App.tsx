@@ -20,6 +20,7 @@ const App = () => {
   const [frameSize, setFrameSize] = useState(3);
   const [itemWidth, setItemWidth] = useState(130);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infifnite, setInfifnite] = useState(false);
 
   const handleItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemWidth(+event.target.value > 0 ? +event.target.value : 1);
@@ -57,6 +58,8 @@ const App = () => {
           className="App__settings--params"
           value={frameSize}
           onChange={handleFrameSize}
+          min={1}
+          max={10}
         />
 
         <p className="App__settings--title">Step</p>
@@ -65,6 +68,8 @@ const App = () => {
           className="App__settings--params"
           value={step}
           onChange={handleStep}
+          min={1}
+          max={10}
         />
 
         <p className="App__settings--title">Animation Duration</p>
@@ -74,6 +79,16 @@ const App = () => {
           value={animationDuration}
           onChange={handleDuration}
         />
+
+        <p className="App__settings--title App__settings--title-infinite">
+          Infifnite
+        </p>
+        <input
+          type="checkbox"
+          checked={infifnite}
+          className="App__settings--params App__settings--params-infinite"
+          onChange={() => setInfifnite(!infifnite)}
+        />
       </div>
 
       <Carousel
@@ -82,6 +97,7 @@ const App = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
+        infinite={infifnite}
       />
     </div>
   );

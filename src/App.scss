@@ -17,7 +17,15 @@ iframe {
       font-size: 18px;
       margin: 0;
       margin-bottom: 5px;
+
+      &-infinite {
+        width: 530px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
+
 
     &--params {
       width: 100%;
@@ -27,6 +35,10 @@ iframe {
       border-radius: 20px;
       padding: 10px;
       font-size: 16px;
+
+      &-infinite {
+        width: 524px;
+      }
     }
   }
 }
