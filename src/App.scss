@@ -1,1 +1,44 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__settings {
+    width: 500px;
+
+    &--title {
+      font-size: 18px;
+      margin: 0;
+      margin-bottom: 5px;
+
+      &-infinite {
+        width: 530px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+
+    &--params {
+      width: 100%;
+
+      margin-bottom: 20px;
+
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 16px;
+
+      &-infinite {
+        width: 524px;
+      }
+    }
+  }
+}
