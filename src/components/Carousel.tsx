@@ -55,12 +55,11 @@ const Carousel: React.FC<Props> = ({
         }}
       >
         {images.map(image => (
-          <li>
+          <li key={image}>
             <img
               style={{
                 width: `${itemWidth}px`,
               }}
-              key={image}
               src={image}
               alt={`${image.slice(6, 7)}`}
             />
