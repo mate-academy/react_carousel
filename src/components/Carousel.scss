@@ -1,1 +1,53 @@
-// style go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &__container {
+    display: flex;
+    overflow: hidden;
+    border: solid transparent;
+  }
+
+  &__list {
+    display: flex;
+    position: relative;
+    padding: 0;
+    list-style-type: none;
+    &--animated {
+      animation: slide-images var(--animation-duration) linear infinite alternate;
+    }
+  }
+
+  &__item {
+    display: block;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__button-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 5px 15px;
+  }
+}
+
+@keyframes slide-images {
+ 0% {
+   transform: translateX(0);
+ }
+ 100% {
+   transform: translateX(var(--shift));
+ }
+}
