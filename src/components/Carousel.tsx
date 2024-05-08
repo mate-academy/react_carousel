@@ -1,26 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Props } from '../types/Props';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+export const Carousel: React.FC<Props> = ({
+  images,
+  step = 3,
+  frameSize = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [currentShift, setCurrentShift] = useState<number>(0);
+  const maxShift = images.length - frameSize;
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+  if (currentShift > maxShift) {
+    setCurrentShift(maxShift);
+  }
 
-export default Carousel;
+  const fullShift = `-${itemWidth * maxShift}px`;
+
+  document.documentElement.style.setProperty('--shift', fullShift);
+  document.documentElement.style.setProperty(
+    '--animation-duration',
+    `${animationDuration}ms`,
+  );
+
+  const showNext = () => {
+    setCurrentShift(prev => Math.min(prev + step, maxShift));
+  };
+
+  const showPrev = () => {
+    setCurrentShift(prev => Math.max(0, prev - step));
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{
+          width: `${itemWidth * frameSize}px`,
+        }}
+      >
+        <ul
+          className={`Carousel__list ${infinite ? 'Carousel__list--animated' : ''}`}
+          style={{
+            transition: `all 100ms ease`,
+            transform: `translateX(-${currentShift * itemWidth}px)`,
+          }}
+        >
+          {images.map((image, index) => (
+            <li className="Carousel__item" key={index}>
+              <img
+                className="Carousel__img"
+                src={image}
+                alt={`${index + 1}`}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__button-group">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={showPrev}
+          disabled={infinite}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={showNext}
+          disabled={infinite}
+          data-cy="next"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
