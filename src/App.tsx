@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import './App.scss';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number,
+  animationDuration: number,
+  infinite: boolean
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +26,106 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } = this.state;
+
+    const alterItemWidth = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ itemWidth: +e.target.value });
+
+    const alterFrameSize = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ frameSize: +e.target.value });
+
+    const alterStep = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ step: +e.target.value });
+
+    const alterAnimationDuration = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ animationDuration: +e.target.value });
+
+    const alterInfinite = (e: ChangeEvent<HTMLInputElement>) =>
+      this.setState({ infinite: e.target.checked });
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel 
+          images={this.state.images}
+          itemWidth={this.state.itemWidth}
+          frameSize={this.state.frameSize}
+          step={this.state.step}
+          animationDuration={this.state.animationDuration}
+          infinite={this.state.infinite}
+        />
+
+        <div className="App__form">
+          <label className="App__lable" htmlFor="itemId">
+            Item width:
+            <input
+              className="App__input"
+              id="itemId"
+              type="number"
+              value={itemWidth}
+              min={0}
+              step={10}
+              onChange={alterItemWidth}
+            />
+          </label>
+
+          <label className="App__lable" htmlFor="frameId">
+            Frame size:
+            <input
+              className="App__input"
+              id="frameId"
+              type="number"
+              value={frameSize}
+              min={1}
+              max={images.length}
+              onChange={alterFrameSize}
+            />
+          </label>
+
+          <label className="App__lable" htmlFor="stepId">
+            Step:
+            <input
+              className="App__input"
+              id="stepId"
+              type="number"
+              value={step}
+              min={1}
+              onChange={alterStep}
+            />
+          </label>
+
+          <label className="App__lable" htmlFor="animationDurationId">
+            Animation duration:
+            <input
+              className="App__input"
+              id="animationDurationId"
+              type="number"
+              value={animationDuration}
+              step={100}
+              onChange={alterAnimationDuration}
+            />
+          </label>
+          <label className="App__lable" htmlFor="infiniteId">
+            Infinite:
+            <input
+              className="App__input"
+              id="infiniteId"
+              type="checkbox"
+              checked={infinite}
+              onChange={alterInfinite}
+            />
+          </label>
+        </div>
       </div>
     );
   }

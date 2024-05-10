@@ -1,1 +1,46 @@
-// style go here
+$color-primary: #333;
+$padding: 10px;
+
+body {
+  background-color: #006691;
+}
+
+@mixin input-style {
+  padding: $padding / 2;
+  border-radius: 3px;
+  border: 1px solid gray;
+  width: 75px;
+  margin-left: 30px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
+  &__form {
+    display: grid;
+    grid-gap: 10px;
+    padding: $padding;
+    margin: 30px;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
+
+  &__label {
+    display: flex;
+    align-items: left;
+    margin-bottom: $padding / 2;
+  }
+
+  &__input {
+    display: flex;
+
+    @include input-style;
+
+    &[type="checkbox"] {
+      width: auto;
+    }
+  }
+}
