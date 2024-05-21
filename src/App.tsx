@@ -46,7 +46,7 @@ class App extends React.Component<{}, State> {
         <input
           id="step"
           type="text"
-          value={3}
+          value={this.state.stepImage}
           onChange={e => this.setState({ stepImage: parseInt(e.target.value) })}
         />
 
@@ -54,7 +54,7 @@ class App extends React.Component<{}, State> {
         <input
           id="frame"
           type="text"
-          value={3}
+          value={this.state.frameSize}
           onChange={e => this.setState({ frameSize: parseInt(e.target.value) })}
         />
 
@@ -62,7 +62,7 @@ class App extends React.Component<{}, State> {
         <input
           id="width"
           type="text"
-          value={130}
+          value={this.state.itemWidth}
           onChange={e => this.setState({ itemWidth: parseInt(e.target.value) })}
         />
 
@@ -70,7 +70,7 @@ class App extends React.Component<{}, State> {
         <input
           id="animation"
           type="number"
-          value={1000}
+          value={this.state.animationDuration}
           onChange={e =>
             this.setState({ animationDuration: parseInt(e.target.value) })
           }
@@ -80,7 +80,7 @@ class App extends React.Component<{}, State> {
         <input
           id="infinite"
           type="checkbox"
-          value={'false'}
+          value={this.state.infinite ? 'true' : 'false'}
           onChange={e => this.setState({ infinite: e.target.checked })}
         />
 
@@ -90,7 +90,7 @@ class App extends React.Component<{}, State> {
           frameSize={this.state.frameSize}
           itemWidth={this.state.itemWidth}
           animationDuration={this.state.animationDuration}
-          infinite={false}
+          infinite={this.state.infinite}
         />
       </div>
     );

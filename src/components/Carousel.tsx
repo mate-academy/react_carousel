@@ -59,6 +59,9 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
+  // console.log(currentIndex);
+  // console.log(infinite);
+
   return (
     <div className="Carousel" style={{ width: frameSize * itemWidth + 25 }}>
       <ul
