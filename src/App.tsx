@@ -46,6 +46,7 @@ class App extends React.Component<{}, State> {
         <input
           id="step"
           type="text"
+          value={3}
           onChange={e => this.setState({ stepImage: parseInt(e.target.value) })}
         />
 
@@ -53,6 +54,7 @@ class App extends React.Component<{}, State> {
         <input
           id="frame"
           type="text"
+          value={3}
           onChange={e => this.setState({ frameSize: parseInt(e.target.value) })}
         />
 
@@ -60,6 +62,7 @@ class App extends React.Component<{}, State> {
         <input
           id="width"
           type="text"
+          value={130}
           onChange={e => this.setState({ itemWidth: parseInt(e.target.value) })}
         />
 
@@ -67,6 +70,7 @@ class App extends React.Component<{}, State> {
         <input
           id="animation"
           type="number"
+          value={1000}
           onChange={e =>
             this.setState({ animationDuration: parseInt(e.target.value) })
           }
@@ -76,6 +80,7 @@ class App extends React.Component<{}, State> {
         <input
           id="infinite"
           type="checkbox"
+          value={'false'}
           onChange={e => this.setState({ infinite: e.target.checked })}
         />
 
