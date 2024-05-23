@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import './Carousel.scss';
-// import { transform } from 'cypress/types/lodash';
 
 type Props = {
   images: string[];
@@ -63,7 +62,10 @@ const Carousel: React.FC<Props> = ({
   // console.log(infinite);
 
   return (
-    <div className="Carousel" style={{ width: frameSize * itemWidth + 25 }}>
+    <div className="Carousel" style={{ width: (frameSize * itemWidth + 25) +"px" }}>
+    {/* <div className="Carousel" width={frameSize * itemWidth + 25}> */}
+    {/* <div className="Carousel" style={{ width: frameSize * itemWidth + 25 }}> */}
+    {/* // <div className="Carousel" style={{ width: (frameSize * itemWidth)+ 25 +"px" }}> */}
       <ul
         className="Carousel__list"
         style={{ transform: transform, transition: transition }}
@@ -79,9 +81,6 @@ const Carousel: React.FC<Props> = ({
                 className="Carousel__image"
                 width={itemWidth}
                 height={itemWidth}
-                // width={`${itemWidth} px`}
-                // height={`${itemWidth} px`}
-                // style={{ width: `${itemWidth}px`, height: `${itemWidth}px`}}
               />
             </li>
           );

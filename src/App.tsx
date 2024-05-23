@@ -45,7 +45,7 @@ class App extends React.Component<{}, State> {
         <label htmlFor="stepId">stepImage</label>
         <input
           id="stepId"
-          type="text"
+          type="number"
           value={this.state.stepImage}
           onChange={e => this.setState({ stepImage: parseInt(e.target.value) })}
         />
@@ -53,7 +53,7 @@ class App extends React.Component<{}, State> {
         <label htmlFor="frameId">frameSize</label>
         <input
           id="frameId"
-          type="text"
+          type="number"
           value={this.state.frameSize}
           onChange={e => this.setState({ frameSize: parseInt(e.target.value) })}
         />
@@ -61,7 +61,7 @@ class App extends React.Component<{}, State> {
         <label htmlFor="itemId">itemWidth</label>
         <input
           id="itemId"
-          type="text"
+          type="number"
           value={this.state.itemWidth}
           onChange={e => this.setState({ itemWidth: parseInt(e.target.value) })}
         />
