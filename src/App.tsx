@@ -63,6 +63,8 @@ class App extends React.Component<{}, State> {
           id="itemId"
           type="number"
           value={this.state.itemWidth}
+          min="130"
+          max="500"
           onChange={e => this.setState({ itemWidth: parseInt(e.target.value) })}
         />
 

@@ -60,12 +60,17 @@ const Carousel: React.FC<Props> = ({
 
   // console.log(currentIndex);
   // console.log(infinite);
+  const gap = 10;
 
   return (
-    <div className="Carousel" style={{ width: (frameSize * itemWidth + 25) +"px" }}>
-    {/* <div className="Carousel" width={frameSize * itemWidth + 25}> */}
-    {/* <div className="Carousel" style={{ width: frameSize * itemWidth + 25 }}> */}
-    {/* // <div className="Carousel" style={{ width: (frameSize * itemWidth)+ 25 +"px" }}> */}
+    <div
+      className="Carousel"
+      style={{ width: (frameSize * itemWidth + (gap * (frameSize - 1))) +"px" }}
+      
+    >
+      {/* <div className="Carousel" width={frameSize * itemWidth + 25}> */}
+      {/* <div className="Carousel" style={{ width: frameSize * itemWidth + 25 }}> */}
+      {/* // <div className="Carousel" style={{ width: (frameSize * itemWidth)+ 25 +"px" }}> */}
       <ul
         className="Carousel__list"
         style={{ transform: transform, transition: transition }}
