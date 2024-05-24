@@ -12,12 +12,12 @@
     padding-inline-start: 0;
   }
 
-  // &__image {
-  //   min-width: 130px !important;
-  //   min-height: 130px !important;
-  //   max-height: 500px !important;
-  //   max-width: 500px !important;
-  // }
+  &__image {
+    min-width: 130px !important;
+    min-height: 130px !important;
+    max-height: 500px !important;
+    max-width: 500px !important;
+  }
 
   &__button {
     display: flex;

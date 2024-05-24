@@ -13,7 +13,6 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  // state: Readonly<State> = {
   state = {
     images: [
       './img/1.png',
@@ -34,6 +33,31 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let v = +event.target.value;
+    if ( v < 1) {
+      v = 1
+    }
+    if ( v > 10 ) {
+      v = 10
+    }
+    this.setState({stepImage: v});
+    this.setState({frameSize: v});
+  }
+
+  handleInputChangeItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let v = +event.target.value;
+    if ( v < 130) {
+      v = 130
+    }
+    if ( v > 500 ) {
+      v = 500
+    }
+    this.setState({itemWidth: v});
+  }
+ 
+
+
   render() {
     const { images } = this.state;
 
@@ -47,7 +71,9 @@ class App extends React.Component<{}, State> {
           id="stepId"
           type="number"
           value={this.state.stepImage}
-          onChange={e => this.setState({ stepImage: parseInt(e.target.value) })}
+          min='1'
+          max='10'
+          onChange={this.handleInputChange}
         />
 
         <label htmlFor="frameId">frameSize</label>
@@ -55,7 +81,9 @@ class App extends React.Component<{}, State> {
           id="frameId"
           type="number"
           value={this.state.frameSize}
-          onChange={e => this.setState({ frameSize: parseInt(e.target.value) })}
+          min='1'
+          max='10'
+          onChange={this.handleInputChange}
         />
 
         <label htmlFor="itemId">itemWidth</label>
@@ -65,7 +93,7 @@ class App extends React.Component<{}, State> {
           value={this.state.itemWidth}
           min="130"
           max="500"
-          onChange={e => this.setState({ itemWidth: parseInt(e.target.value) })}
+          onChange={this.handleInputChangeItemWidth}
         />
 
         <label htmlFor="animation">animationDuration</label>
