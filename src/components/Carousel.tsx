@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import './Carousel.scss';
 
+
 type Props = {
   images: string[];
   step: number;
@@ -19,24 +20,21 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   infinite,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(infinite ? step : 0);
+  // const [currentImages, setCurrentImages] = useState(images);
   const transform = `translateX(${-currentIndex * itemWidth + -currentIndex * 10}px)`;
   const transition = `transform ${animationDuration}ms ease-in-out`;
 
-  const imagesCopy = [...images];
+  // const imagesCopy = [...images];
 
-  if (infinite) {
-    imagesCopy.unshift(...images.slice(-step));
-    imagesCopy.push(...images.slice(0, step));
-  }
+  // if (infinite) {
+  //   imagesCopy.unshift(...images.slice(-step));
+  //   imagesCopy.push(...images.slice(0, step));
+  // }
 
   const handleNext = () => {
     if (infinite) {
-      setCurrentIndex(
-        currentIndex + 2 * step > imagesCopy.length
-          ? imagesCopy.length - currentIndex + 2 * step
-          : currentIndex + step,
-      );
+      setCurrentIndex(currentIndex + step > images.length ? step : currentIndex + step);
     } else {
       setCurrentIndex(
         currentIndex + 2 * step > images.length
@@ -46,20 +44,17 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
+  console.log(currentIndex);
+
   const handlePrev = () => {
     if (infinite) {
-      setCurrentIndex(
-        currentIndex - step < 0
-          ? imagesCopy.length - step
-          : currentIndex - step,
-      );
+      setCurrentIndex(currentIndex === 0 || currentIndex === -2 ? images.length - step : currentIndex - step);
     } else {
       setCurrentIndex(currentIndex - step < 0 ? 0 : currentIndex - step);
     }
   };
 
   const gap = 10;
-
   return (
     <div
       className="Carousel"
