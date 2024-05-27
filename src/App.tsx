@@ -44,7 +44,7 @@ class App extends React.Component<{}, State> {
   //   }
   //   this.setState({stepImage: v});
   //   this.setState({frameSize: v})
-  // } 
+  // }
 
   render() {
     const { images } = this.state;
@@ -59,8 +59,8 @@ class App extends React.Component<{}, State> {
           id="stepId"
           type="number"
           value={this.state.stepImage}
-          min='1'
-          max='10'
+          min="1"
+          max="10"
           onChange={e => this.setState({ stepImage: parseInt(e.target.value) })}
 
           // onChange={this.handleInputChange}
@@ -71,8 +71,8 @@ class App extends React.Component<{}, State> {
           id="frameId"
           type="number"
           value={this.state.frameSize}
-          min='1'
-          max='10'
+          min="1"
+          max="10"
           onChange={e => this.setState({ frameSize: parseInt(e.target.value) })}
 
           // onChange={this.handleInputChange}

@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import './Carousel.scss';
 
-
 type Props = {
   images: string[];
   step: number;
@@ -34,7 +33,9 @@ const Carousel: React.FC<Props> = ({
 
   const handleNext = () => {
     if (infinite) {
-      setCurrentIndex(currentIndex + step > images.length ? step : currentIndex + step);
+      setCurrentIndex(
+        currentIndex + step > images.length ? step : currentIndex + step,
+      );
     } else {
       setCurrentIndex(
         currentIndex + 2 * step > images.length
@@ -44,17 +45,20 @@ const Carousel: React.FC<Props> = ({
     }
   };
 
-  console.log(currentIndex);
-
   const handlePrev = () => {
     if (infinite) {
-      setCurrentIndex(currentIndex === 0 || currentIndex === -2 ? images.length - step : currentIndex - step);
+      setCurrentIndex(
+        currentIndex === 0 || currentIndex === -2
+          ? images.length - step
+          : currentIndex - step,
+      );
     } else {
       setCurrentIndex(currentIndex - step < 0 ? 0 : currentIndex - step);
     }
   };
 
   const gap = 10;
+
   return (
     <div
       className="Carousel"
