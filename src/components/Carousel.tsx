@@ -28,8 +28,8 @@ const Carousel: React.FC<Props> = ({
     //   currentIndex + frameSize === images.length)
     if (
       infinite &&
-      currentIndex === images.length - (step < frameSize ? frameSize : step - 1)
-    ) {
+      currentIndex === images.length - (step < frameSize ? frameSize : step))
+    {
       setCurrentIndex(0);
 
       return;
@@ -38,15 +38,18 @@ const Carousel: React.FC<Props> = ({
     setCurrentIndex(
       currentIndex + step + frameSize > images.length
         ? images.length -
-            (step < frameSize || frameSize === 1 ? frameSize : step - 1)
+            (step < frameSize || frameSize === 1 ? frameSize : step)
         : currentIndex + step,
     );
   };
 
+  console.log(currentIndex);
+
+
   const handlePrev = () => {
     if (infinite && currentIndex === 0 && frameSize !== 10) {
       setCurrentIndex(
-        step > frameSize ? images.length - step + 1 : images.length - frameSize,
+        step > frameSize ? images.length - step : images.length - frameSize,
       );
 
       return;
