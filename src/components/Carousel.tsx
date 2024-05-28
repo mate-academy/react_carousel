@@ -24,10 +24,10 @@ const Carousel: React.FC<Props> = ({
   const transition = `transform ${animationDuration}ms ease-in-out`;
 
   const handleNext = () => {
-    if (
-      (infinite && currentIndex === images.length - step) ||
-      currentIndex + frameSize === images.length
-    ) {
+    // if (infinite && currentIndex === images.length - step ||
+    //   currentIndex + frameSize === images.length) 
+    if (infinite && currentIndex === images.length - (step < frameSize ? frameSize : step - 1)) 
+     {
       setCurrentIndex(0);
 
       return;
@@ -36,15 +36,30 @@ const Carousel: React.FC<Props> = ({
     setCurrentIndex(
       currentIndex + step + frameSize > images.length
         ? images.length -
-            (step < frameSize || frameSize === 1 ? frameSize : step)
+            (step < frameSize || frameSize === 1 ? frameSize : step - 1)
         : currentIndex + step,
     );
   };
 
+  console.log(currentIndex)
+
+  // const handleNext = () => {
+  //   if (infinite && currentIndex === images.length - step) {
+  //     setCurrentIndex(0);
+  //   return;
+  //   }
+  
+  //   setCurrentIndex(
+  //     currentIndex + 2 * step > images.length
+  //       ? images.length - step
+  //       : currentIndex + step,
+  //   );    
+  // };
+
   const handlePrev = () => {
     if (infinite && currentIndex === 0 && frameSize !== 10) {
       setCurrentIndex(
-        step > frameSize ? images.length - step : images.length - frameSize,
+        step > frameSize ? images.length - step + 1 : images.length - frameSize,
       );
 
       return;
