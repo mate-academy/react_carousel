@@ -1,0 +1,28 @@
+.Carousel {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+
+  &__list {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__image {
+    display: flex;
+  }
+
+  &__prev-button {
+    cursor: pointer;
+    grid-column: 2 / 3;
+  }
+  &__next-button {
+    cursor: pointer;
+    grid-column: 3 / 4;
+  }
+}
