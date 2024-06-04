@@ -48,45 +48,52 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div className="inputfields">
-          <label>
+          <label htmlFor="itemId">
             Item Width:
             <input
+              id="itemId"
               type="number"
               name="itemWidth"
               value={itemWidth}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+          <label htmlFor="frameId">
             Frame Size:
             <input
+              id="frameId"
               type="number"
               name="frameSize"
+              step={1}
               value={frameSize}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+          <label htmlFor="stepId">
             Step:
             <input
+              id="stepId"
               type="number"
               name="step"
+              step={1}
               value={step}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+          <label htmlFor="animationDurationId">
             Animation Duration:
             <input
+              id="animationDurationId"
               type="number"
               name="animationDuration"
               value={animationDuration}
               onChange={this.handleInputChange}
             />
           </label>
-          <label>
+          <label htmlFor="infiniteId">
             Infinite:
             <input
+              id="infiniteId"
               type="checkbox"
               name="infinite"
               checked={infinite}
