@@ -86,6 +86,7 @@ const Carousel: React.FC<CarouselProps> = ({
           className="Button-next"
           onClick={nextBtn}
           disabled={!infinite && currentIndex >= maxIndex}
+          data-cy="next"
         >
           <div className="Button-next-label">NEXT</div>
         </button>
