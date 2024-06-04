@@ -1,6 +1,11 @@
 .Carousel {
-  margin: 0 auto;
-  overflow: hidden;
+
+
+
+  &__frame{
+    margin: 0 auto;
+    overflow: hidden;
+  }
 
     &__list {
     display: flex;
@@ -13,10 +18,11 @@
   &__item {
     display: inline-block;
 
-    img {
-      display: block;
-      height: auto;
-    }
+  }
+
+  &__img {
+    display: block;
+    height: auto;
   }
 
   &__buttons {

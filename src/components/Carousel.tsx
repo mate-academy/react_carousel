@@ -20,48 +20,54 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const widthFrame = itemWidth * frameSize;
 
-  const handlePrev = () => {
-    const newIndex = currentIndex - step;
-
-    if (newIndex >= 0) {
-      setCurrentIndex(newIndex);
-    } else if (newIndex >= 0 - step) {
-      setCurrentIndex(0);
-    } else if (infinite) {
-      setCurrentIndex(images.length - frameSize);
-    }
-  };
+  const hidden = itemWidth * (images.length - frameSize);
 
   const handleNext = () => {
-    const newIndex = currentIndex + step;
+    setCurrentIndex(prevOffset => {
+      const newSet = prevOffset + itemWidth * step;
 
-    if (newIndex + frameSize < images.length) {
-      setCurrentIndex(newIndex);
-    } else if (newIndex < images.length) {
-      setCurrentIndex(images.length - frameSize);
-    } else if (infinite) {
-      setCurrentIndex(0);
-    }
+      if (newSet > hidden && currentIndex < hidden) {
+        return hidden;
+      } else if (newSet > hidden) {
+        return infinite ? 0 : hidden;
+      }
+
+      return newSet;
+    });
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex(prevOffset => {
+      const newSet = prevOffset - itemWidth * step;
+
+      if (newSet < 0 && currentIndex > 0) {
+        return 0;
+      } else if (newSet < 0) {
+        return infinite ? hidden : 0;
+      }
+
+      return newSet;
+    });
   };
 
   const isPrevDisabled = !infinite && currentIndex === 0;
-  const isNextDisabled = !infinite && currentIndex + step >= images.length;
+  const isNextDisabled = !infinite && currentIndex >= hidden;
 
   return (
-    <div className="Carousel" style={{ width: widthFrame }}>
-      <div className="Carousel__frame">
+    <div className="Carousel">
+      <div className="Carousel__frame" style={{ width: itemWidth * frameSize }}>
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${currentIndex * itemWidth}px)`,
+            transform: `translateX(-${currentIndex}px)`,
             transition: `transform ${animationDuration}ms`,
           }}
         >
           {images.map((img, index) => (
             <li key={img} className="Carousel__item">
               <img
+                className="Carusel__img"
                 src={img}
                 alt={`Slide ${index + 1}`}
                 style={{ width: itemWidth }}
