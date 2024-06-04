@@ -1,1 +1,97 @@
-// style go here
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+  }
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    gap: 5px;
+  }
+}
+
+
+:root {
+  --button-border: darkgray;
+  --button-border-width: 1px;
+  --button-background: white;
+  --button-padding: 0.85rem;
+  --button-arrow-width: 1rem;
+}
+
+.Button-next {
+  background-color: var(--button-border);
+  clip-path: polygon(
+    calc(100% - var(--button-arrow-width)) 20%,
+    100% 50%,
+    calc(100% - var(--button-arrow-width)) 80%,
+    0% 80%,
+    0 20%
+  );
+  padding: var(--button-border-width);
+  border: none;
+
+  &-label {
+    background-color: var(--button-background);
+    clip-path: inherit;
+    padding: var(--button-padding);
+    padding-right: calc(var(--button-padding) * 1.75);
+
+  }
+}
+
+.Button-prev {
+  background-color: var(--button-border);
+  clip-path: polygon(
+    0 50%,
+    calc(var(--button-arrow-width)) 20%,
+    100% 20%,
+    100% 80%,
+    calc(var(--button-arrow-width)) 80%
+  );
+  padding: var(--button-border-width);
+  border: none;
+
+  &-label {
+    background-color: var(--button-background);
+    clip-path: inherit;
+    padding: var(--button-padding);
+    padding-left: calc(var(--button-padding) * 1.75);
+  }
+}
+
+.Button-prev-label:hover,
+.Button-next-label:hover {
+  --button-border: #e5e5e5;
+  --button-background: #e5e5e5;
+}
