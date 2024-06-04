@@ -45,10 +45,15 @@ class App extends React.Component<{}, State> {
   };
 
   handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFrameSize = parseInt(event.target.value);
-    const fullSize = this.state.images.length;
+    let newFrameSize = parseInt(event.target.value);
+    const { images, infinite } = this.state;
+    const listSize = images.length;
 
-    if (this.isNumberPositive(newFrameSize) && newFrameSize <= fullSize) {
+    if (this.isNumberPositive(newFrameSize)) {
+      if (!infinite && newFrameSize > listSize) {
+        newFrameSize = listSize;
+      }
+
       this.setState({ frameSize: newFrameSize });
     }
   };
@@ -56,7 +61,7 @@ class App extends React.Component<{}, State> {
   handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newStep = parseInt(event.target.value);
 
-    if (this.isNumberPositive(newStep) && newStep <= this.state.images.length) {
+    if (this.isNumberPositive(newStep)) {
       this.setState({ step: newStep });
     }
   };
@@ -65,21 +70,25 @@ class App extends React.Component<{}, State> {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newAnimationDuration = parseInt(event.target.value);
-    const animationDurationLimit = 10000;
 
-    if (
-      this.isNumberPositive(newAnimationDuration) &&
-      newAnimationDuration <= animationDurationLimit
-    ) {
+    if (this.isNumberPositive(newAnimationDuration)) {
       this.setState({ animationDuration: newAnimationDuration });
     }
   };
 
   handleInfiniteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ infinite: event.target.checked });
+    const { images, infinite } = this.state;
+    let { frameSize } = this.state;
+    const listSize = images.length;
+
+    if (infinite && frameSize > listSize) {
+      frameSize = listSize;
+    }
+
+    this.setState({ frameSize, infinite: event.target.checked });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
 
@@ -89,67 +98,67 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form>
-          <label>
-            <input
-              name="itemWidth"
-              type="number"
-              value={itemWidth}
-              required
-              onChange={this.handleItemWidthChange}
-            ></input>
-            Item width
-          </label>
+          <label htmlFor="itemId">Item width</label>
+
+          <input
+            id="itemId"
+            name="itemWidth"
+            type="number"
+            value={itemWidth}
+            required
+            onChange={this.handleItemWidthChange}
+          ></input>
 
           <br />
 
-          <label>
-            <input
-              name="frameSize"
-              type="number"
-              value={frameSize}
-              required
-              onChange={this.handleFrameSizeChange}
-            ></input>
-            Frame size
-          </label>
+          <label htmlFor="frameId">Frame size</label>
+
+          <input
+            id="frameId"
+            name="frameSize"
+            type="number"
+            value={frameSize}
+            required
+            onChange={this.handleFrameSizeChange}
+          ></input>
 
           <br />
 
-          <label>
-            <input
-              name="step"
-              type="number"
-              value={step}
-              required
-              onChange={this.handleStepChange}
-            ></input>
-            Step
-          </label>
+          <label htmlFor="stepId">Step</label>
+
+          <input
+            id="stepId"
+            name="step"
+            type="number"
+            value={step}
+            required
+            onChange={this.handleStepChange}
+          ></input>
 
           <br />
 
-          <label>
-            <input
-              name="animationDuration"
-              type="number"
-              value={animationDuration}
-              required
-              onChange={this.handleAnimationDurationChange}
-            ></input>
-            Animation Duration
-          </label>
+          <label htmlFor="animationId">Animation Duration</label>
+
+          <input
+            id="animationId"
+            name="animationDuration"
+            type="number"
+            value={animationDuration}
+            required
+            onChange={this.handleAnimationDurationChange}
+          ></input>
 
           <br />
 
-          <label>
-            <input
-              name="infinite"
-              type="checkbox"
-              checked={infinite}
-              onChange={this.handleInfiniteChange}
-            ></input>
-            Infinite
-          </label>
+          <label htmlFor="infiniteId">Infinite</label>
+
+          <input
+            id="infiniteId"
+            name="infinite"
+            type="checkbox"
+            checked={infinite}
+            onChange={this.handleInfiniteChange}
+          ></input>
         </form>
 
         <Carousel

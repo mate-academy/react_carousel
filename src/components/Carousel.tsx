@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -12,11 +12,13 @@ type Props = {
 
 type State = {
   position: number;
+  duringAnimation: boolean;
 };
 
 class Carousel extends React.Component<Props, State> {
   state: Readonly<State> = {
     position: 0,
+    duringAnimation: false,
   };
 
   static defaultProps = {
@@ -31,13 +33,13 @@ class Carousel extends React.Component<Props, State> {
     return this.props.itemWidth * 0.25;
   }
 
-  get buttonStyle() {
+  get buttonStyle(): CSSProperties {
     const { itemWidth } = this.props;
 
     return { borderWidth: `${itemWidth / 2}px ${itemWidth}px` };
   }
 
-  get wrapperStyle() {
+  get wrapperStyle(): CSSProperties {
     const { itemWidth, frameSize } = this.props;
 
     return {
@@ -45,45 +47,46 @@ class Carousel extends React.Component<Props, State> {
     };
   }
 
-  get listStyle() {
-    const { itemWidth, animationDuration } = this.props;
-
-    return {
+  get listStyle(): CSSProperties {
+    const { itemWidth, animationDuration, infinite } = this.props;
+    const listStyle: CSSProperties = {
       gap: `${this.gap}px`,
       width: `${this.listSize * (itemWidth + this.gap) - this.gap}px`,
-      transition: `transform ${animationDuration / 1000}s linear 0s`,
+      transition: 'none',
+      position: 'static',
     };
-  }
 
-  get imageStyle() {
-    const { itemWidth } = this.props;
+    if (this.state.duringAnimation) {
+      listStyle.transition = `transform ${animationDuration / 1000}s linear 0s`;
+    }
 
-    return {
-      width: `${itemWidth}px`,
-      height: `${itemWidth}px`,
-    };
-  }
+    if (infinite) {
+      listStyle.position = 'absolute';
+    }
 
-  get additionalSpaceForAnimations(): number {
-    const { step, animationDuration } = this.props;
-    const clicksPerSecondRecord = 15;
-
-    return step * clicksPerSecondRecord * (animationDuration / 1000);
+    return listStyle;
   }
 
   get listSize(): number {
     return this.props.images.length;
   }
 
-  get beginningIndexOfCurrentList(): number {
-    return this.getListIndexByPosition(this.state.position) * this.listSize;
+  get positionInMainList(): number {
+    const { frameSize } = this.props;
+    let { position } = this.state;
+
+    if (position <= -frameSize) {
+      position = (this.listSize + (position % this.listSize)) % this.listSize;
+    }
+
+    if (position >= this.listSize) {
+      position = position % this.listSize;
+    }
+
+    return position;
   }
 
-  get endIndexOfCurrentList(): number {
-    return this.beginningIndexOfCurrentList + this.listSize - 1;
-  }
-
-  getListTranslation = (listIndex: number) => {
+  getListTranslation = (listIndex: number): CSSProperties => {
     const { itemWidth } = this.props;
     const { position } = this.state;
 
@@ -100,31 +103,37 @@ class Carousel extends React.Component<Props, State> {
     return Math.floor(position / this.listSize);
   };
 
-  getLists = () => {
-    const { images, frameSize } = this.props;
+  getLists = (): JSX.Element[] => {
+    const { itemWidth, images, frameSize, step, infinite } = this.props;
     const { position } = this.state;
     const lists: JSX.Element[] = [];
+    let firstListIndex = 0;
+    let lastListIndex = 0;
 
-    const firstListIndex = this.getListIndexByPosition(
-      position - this.additionalSpaceForAnimations,
-    );
+    if (infinite) {
+      firstListIndex = this.getListIndexByPosition(position - step);
 
-    const lastListIndex = this.getListIndexByPosition(
-      position + frameSize - 1 + this.additionalSpaceForAnimations,
-    );
+      lastListIndex = this.getListIndexByPosition(
+        position + frameSize - 1 + step,
+      );
+    }
 
     for (let i = firstListIndex; i <= lastListIndex; i++) {
       lists.push(
         <ul
           className="Carousel__list"
-          style={{ ...this.listStyle, ...this.getListTranslation(i) }}
+          style={{
+            ...this.listStyle,
+            ...this.getListTranslation(i),
+          }}
           key={i}
         >
           {images.map((image, index) => (
             <li key={image}>
               <img
                 className="Carousel__image"
-                style={this.imageStyle}
+                width={itemWidth}
+                height={itemWidth}
                 src={image}
                 alt={'' + index}
               />
@@ -138,22 +147,22 @@ class Carousel extends React.Component<Props, State> {
   };
 
   isPositionBeforeRange = (position: number): boolean => {
-    return !this.props.infinite && position < this.beginningIndexOfCurrentList;
+    return !this.props.infinite && position < 0;
   };
 
   isPositionBehindRange = (position: number): boolean => {
     const { frameSize, infinite } = this.props;
 
-    return !infinite && position + frameSize - 1 > this.endIndexOfCurrentList;
+    return !infinite && position + frameSize - 1 >= this.listSize;
   };
 
   correctPosition = (position: number): number => {
     let correctPosition = position;
 
     if (this.isPositionBeforeRange(correctPosition)) {
-      correctPosition = this.beginningIndexOfCurrentList;
+      correctPosition = 0;
     } else if (this.isPositionBehindRange(correctPosition)) {
-      correctPosition = this.endIndexOfCurrentList - this.props.frameSize + 1;
+      correctPosition = this.listSize - this.props.frameSize;
     }
 
     return correctPosition;
@@ -162,7 +171,15 @@ class Carousel extends React.Component<Props, State> {
   rotate = (step: number) => {
     this.setState({
       position: this.correctPosition(this.state.position + step),
+      duringAnimation: true,
     });
+
+    setTimeout(() => {
+      this.setState({
+        position: this.positionInMainList,
+        duringAnimation: false,
+      });
+    }, this.props.animationDuration);
   };
 
   handleNext = () => {
@@ -173,14 +190,16 @@ class Carousel extends React.Component<Props, State> {
     this.rotate(-1 * this.props.step);
   };
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
+  componentDidUpdate(prevProps: Readonly<Props>) {
     if (prevProps !== this.props) {
-      this.setState({ position: this.correctPosition(this.state.position) });
+      this.setState({
+        position: this.correctPosition(this.positionInMainList),
+      });
     }
   }
 
   render(): React.ReactNode {
-    const { position } = this.state;
+    const { position, duringAnimation } = this.state;
 
     return (
       <div className="Carousel">
@@ -189,7 +208,7 @@ class Carousel extends React.Component<Props, State> {
             this.isPositionBeforeRange(position - 1)
               ? ' Carousel__button--disabled'
               : ''
-          }`}
+          }${duringAnimation ? ' Carousel__button--locked' : ''}`}
           style={this.buttonStyle}
           type="button"
           onClick={this.handlePrev}
@@ -204,7 +223,7 @@ class Carousel extends React.Component<Props, State> {
             this.isPositionBehindRange(position + 1)
               ? ' Carousel__button--disabled'
               : ''
-          }`}
+          }${duringAnimation ? ' Carousel__button--locked' : ''}`}
           style={this.buttonStyle}
           type="button"
           onClick={this.handleNext}
