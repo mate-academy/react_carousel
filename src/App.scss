@@ -1,26 +1,38 @@
-.App {
-  display: flex;
-  background-color: gray;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  padding: 15px;
-  height: 100vh;
+iframe {
+  display: none;
 }
 
-.inputGroup {
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+form {
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  font-weight: bolder;
-  padding: 10px;
+  padding: 20px;
 
-  & label {
-    display: flex;
-    gap: 15px;
-    justify-content: space-between;
-    &:last-child {
-      justify-content: flex-start;
-    }
-  }
+
+}
+
+input {
+  width: 100px;
+}
+
+.label {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }

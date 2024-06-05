@@ -1,97 +1,95 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
 
-export type Props = {
+type Props = {
   images: string[];
-  step?: number;
-  frameSize?: number;
-  itemWidth?: number;
-  animationDuration?: number;
-  infinite?: boolean;
+  frameSize: number;
+  itemWidth: number;
+  step: number;
+  animationDuration: number;
 };
 
-export const Carousel: React.FC<Props> = ({
+const Carousel: React.FC<Props> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
-  infinite = false,
+  frameSize,
+  itemWidth,
+  step,
+  animationDuration,
 }) => {
-  const [currentOffset, setCurrentOffset] = useState<number>(0);
-  const maxOffset = itemWidth * (images.length - frameSize);
+  const [translateX, setTranslateX] = useState(0);
 
-  const handleNext = () => {
-    setCurrentOffset(prevOffset => {
-      const newOffset = prevOffset + itemWidth * step;
+  const margin = 20;
+  const imageWidth = itemWidth + margin;
+  const containerWidth = images.length * imageWidth;
+  const startOffset = 0;
+  const scrollWidth = step * imageWidth;
+  const isPrevDisabled = translateX === startOffset;
+  const isNextDisabled =
+    -translateX === containerWidth - frameSize * imageWidth;
 
-      if (newOffset > maxOffset && currentOffset < maxOffset) {
-        return maxOffset;
-      } else if (newOffset > maxOffset) {
-        return infinite ? 0 : maxOffset;
-      }
+  const handlePrevClick = () => {
+    const imagesLeft = -translateX / imageWidth;
 
-      return newOffset;
-    });
+    if (imagesLeft - step < 0) {
+      setTranslateX(prev => prev + imagesLeft * imageWidth);
+    } else {
+      setTranslateX(prev => prev + scrollWidth);
+    }
   };
 
-  const handlePrev = () => {
-    setCurrentOffset(prevOffset => {
-      const newOffset = prevOffset - itemWidth * step;
+  const handleNextClick = () => {
+    const imagesRight = (containerWidth + translateX) / imageWidth;
 
-      if (newOffset < 0 && currentOffset > 0) {
-        return 0;
-      } else if (newOffset < 0) {
-        return infinite ? maxOffset : 0;
-      }
-
-      return newOffset;
-    });
+    if (imagesRight - frameSize < step) {
+      setTranslateX(prev => prev - (imagesRight - frameSize) * imageWidth);
+    } else {
+      setTranslateX(prev => prev - scrollWidth);
+    }
   };
 
   return (
-    <div className="Carousel">
-      <div
-        className="Carousel__container"
+    <div
+      className="Carousel"
+      style={{
+        width: `${frameSize * (itemWidth + margin)}px`,
+      }}
+    >
+      <ul
+        className="Carousel__list"
         style={{
-          width: `${itemWidth * frameSize}px`,
+          transform: `translateX(${translateX}px)`,
+          transition: `all ${animationDuration}ms`,
         }}
       >
-        <ul
-          className="Carousel__list"
-          style={{
-            transition: `${animationDuration}ms`,
-            transform: `translateX(-${currentOffset}px)`,
-          }}
-        >
-          {images.map((image, index) => (
-            <li className="Carousel__item" key={index}>
-              <img
-                className="Carousel__img"
-                src={image}
-                alt={`${index + 1}`}
-                width={itemWidth}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+        {images.map((image, i) => (
+          <li className="Carousel__item" key={image}>
+            <img
+              src={image}
+              alt={String(i + 1)}
+              className="Carousel__img"
+              width={itemWidth}
+              height={itemWidth}
+            />
+          </li>
+        ))}
+      </ul>
 
-      <div className="Carousel__button-group">
+      <div className="Carousel__buttons">
         <button
           type="button"
+          disabled={isPrevDisabled}
+          onClick={handlePrevClick}
           className="Carousel__button"
-          onClick={handlePrev}
-          disabled={!infinite && currentOffset === 0}
         >
           Prev
         </button>
+
         <button
           type="button"
-          className="Carousel__button"
-          onClick={handleNext}
-          disabled={!infinite && currentOffset >= maxOffset}
+          disabled={isNextDisabled}
+          onClick={handleNextClick}
           data-cy="next"
+          className="Carousel__button"
         >
           Next
         </button>
@@ -99,3 +97,5 @@ export const Carousel: React.FC<Props> = ({
     </div>
   );
 };
+
+export default Carousel;
