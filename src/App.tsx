@@ -43,6 +43,12 @@ class App extends React.Component<{}, State> {
   render() {
     const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
+    const carouselWidth = window.innerWidth;
+    const maxFrameSize = Math.min(
+      images.length,
+      Math.floor(carouselWidth / itemWidth),
+    );
+    const maxItemWidth = Math.floor(carouselWidth / frameSize);
 
     return (
       <div className="App">
@@ -56,7 +62,7 @@ class App extends React.Component<{}, State> {
               name="itemWidth"
               min={130}
               step={10}
-              max={250}
+              max={maxItemWidth}
               value={itemWidth}
               onChange={this.handleInputChange}
             />
@@ -68,7 +74,7 @@ class App extends React.Component<{}, State> {
               type="number"
               name="frameSize"
               min={1}
-              max={images.length}
+              max={maxFrameSize}
               value={frameSize}
               onChange={this.handleInputChange}
             />

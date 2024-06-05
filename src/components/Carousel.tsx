@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -23,9 +23,16 @@ const Carousel: React.FC<Props> = ({
 
   const hidden = itemWidth * (images.length - frameSize);
 
+  useEffect(() => {
+    // Adjust currentIndex if it goes out of bounds due to frameSize change
+    if (currentIndex > hidden) {
+      setCurrentIndex(Math.max(0, hidden));
+    }
+  }, [frameSize, hidden, currentIndex]);
+
   const handleNext = () => {
-    setCurrentIndex(prevOffset => {
-      const newSet = prevOffset + itemWidth * step;
+    setCurrentIndex(prevSet => {
+      const newSet = prevSet + itemWidth * step;
 
       if (newSet > hidden && currentIndex < hidden) {
         return hidden;
@@ -38,8 +45,8 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handlePrev = () => {
-    setCurrentIndex(prevOffset => {
-      const newSet = prevOffset - itemWidth * step;
+    setCurrentIndex(prevSet => {
+      const newSet = prevSet - itemWidth * step;
 
       if (newSet < 0 && currentIndex > 0) {
         return 0;
