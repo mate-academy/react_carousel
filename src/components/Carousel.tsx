@@ -18,7 +18,8 @@ const Carousel: React.FC<CarouselProps> = ({
   animationDuration,
   infinite,
 }) => {
-  const containerLength = itemWidth * images.length;
+  const margin = 20;
+  const containerLength = (itemWidth + margin) * images.length;
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = images.length - frameSize;
   const minIndex = 0;
@@ -47,13 +48,13 @@ const Carousel: React.FC<CarouselProps> = ({
     <div className="Carousel">
       <div
         className="Carousel__container"
-        style={{ width: `${frameSize * itemWidth}px` }}
+        style={{ width: `${frameSize * (itemWidth + margin)}px` }}
       >
         <ul
           className="Carousel__list"
           style={{
             width: containerLength,
-            transform: `translate(-${currentIndex * itemWidth}px)`,
+            transform: `translate(-${currentIndex * (itemWidth + margin)}px)`,
             transition: `${animationDuration}ms`,
           }}
         >
@@ -63,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 className="Carousel__img"
                 src={img}
                 alt={(idx + 1).toString()}
-                style={{ width: itemWidth }}
+                width={itemWidth}
               />
             </li>
           ))}

@@ -31,6 +31,10 @@ body {
     padding: 0;
   }
 
+  &__item {
+    margin: 0 10px;
+  }
+
   &__buttons {
     display: flex;
     align-items: center;
@@ -39,7 +43,6 @@ body {
     gap: 5px;
   }
 }
-
 
 :root {
   --button-border: darkgray;
@@ -66,7 +69,6 @@ body {
     clip-path: inherit;
     padding: var(--button-padding);
     padding-right: calc(var(--button-padding) * 1.75);
-
   }
 }
 

@@ -36,9 +36,15 @@ class App extends React.Component<{}, State> {
     const { images, step, frameSize, itemWidth, animationDuration, infinite } =
       this.state;
     const changeWidth = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState({ itemWidth: +e.target.value });
+      this.setState(prevState => ({
+        ...prevState,
+        itemWidth: +e.target.value,
+      }));
     const changeFrameSize = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState({ frameSize: +e.target.value });
+      this.setState(prevState => ({
+        ...prevState,
+        frameSize: +e.target.value,
+      }));
     const changeStep = (e: ChangeEvent<HTMLInputElement>) =>
       this.setState({ step: +e.target.value });
     const changeAnimationDuration = (e: ChangeEvent<HTMLInputElement>) =>
@@ -52,45 +58,45 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form className="PropsForm">
-          <label className="PropsForm__label" htmlFor="imgWidth">
+          <label className="PropsForm__label" htmlFor="itemId">
             Image Width:&nbsp;
             <input
               className="PropsForm__input"
               type="number"
-              id="imgWidth"
+              id="itemId"
               step={10}
               min={10}
               max={260}
               value={itemWidth}
               onChange={changeWidth}
-            ></input>
+            />
             <br />
           </label>
-          <label className="PropsForm__label" htmlFor="frameSize">
+          <label className="PropsForm__label" htmlFor="frameId">
             Frame Size:&nbsp;
             <input
               className="PropsForm__input"
               type="number"
-              id="frameSize"
+              id="frameId"
               step={1}
               min={1}
               max={images.length}
               value={frameSize}
               onChange={changeFrameSize}
-            ></input>
+            />
             <br />
           </label>
-          <label className="PropsForm__label" htmlFor="step">
+          <label className="PropsForm__label" htmlFor="stepId">
             Step:&nbsp;
             <input
               className="PropsForm__input"
               type="number"
-              id="step"
+              id="stepId"
               min={1}
               max={10}
               value={step}
               onChange={changeStep}
-            ></input>
+            />
             <br />
           </label>
           <label className="PropsForm__label" htmlFor="animationDuration">
@@ -104,7 +110,7 @@ class App extends React.Component<{}, State> {
               max={2500}
               value={animationDuration}
               onChange={changeAnimationDuration}
-            ></input>
+            />
             <br />
           </label>
           <label className="PropsForm__label" htmlFor="infinite">
