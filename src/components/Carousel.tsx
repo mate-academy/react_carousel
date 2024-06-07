@@ -1,26 +1,98 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type CarouselProps = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+}) => {
+  const margin = 20;
+  const containerLength = (itemWidth + margin) * images.length;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = images.length - frameSize;
+  const minIndex = 0;
+
+  const prevBtn = () => {
+    const newIndex = Math.max(currentIndex - step, minIndex);
+
+    if (currentIndex === 0) {
+      setCurrentIndex(maxIndex);
+    } else {
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const nextBtn = () => {
+    const newIndex = Math.min(currentIndex + step, maxIndex);
+
+    if (currentIndex === maxIndex) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{ width: `${frameSize * (itemWidth + margin)}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            width: containerLength,
+            transform: `translate(-${currentIndex * (itemWidth + margin)}px)`,
+            transition: `${animationDuration}ms`,
+          }}
+        >
+          {images.map((img, idx) => (
+            <li key={idx + 1} className="Carousel__item">
+              <img
+                className="Carousel__img"
+                src={img}
+                alt={(idx + 1).toString()}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          className="Button-prev"
+          onClick={prevBtn}
+          disabled={!infinite && currentIndex === 0}
+        >
+          <div className="Button-prev-label">PREV</div>
+        </button>
+
+        <button
+          type="button"
+          className="Button-next"
+          onClick={nextBtn}
+          disabled={!infinite && currentIndex >= maxIndex}
+          data-cy="next"
+        >
+          <div className="Button-next-label">NEXT</div>
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
