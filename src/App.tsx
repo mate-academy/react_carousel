@@ -35,20 +35,12 @@ class App extends React.Component<{}, State> {
   render() {
     const { images, step, frameSize, itemWidth, animationDuration, infinite } =
       this.state;
-    const changeWidth = (e: ChangeEvent<HTMLInputElement>) =>
+    const handleState = (e: ChangeEvent<HTMLInputElement>, fieldname: string) =>
       this.setState(prevState => ({
         ...prevState,
-        itemWidth: +e.target.value,
+        [fieldname]: +e.target.value,
       }));
-    const changeFrameSize = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState(prevState => ({
-        ...prevState,
-        frameSize: +e.target.value,
-      }));
-    const changeStep = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState({ step: +e.target.value });
-    const changeAnimationDuration = (e: ChangeEvent<HTMLInputElement>) =>
-      this.setState({ animationDuration: +e.target.value });
+
     const toggleInfinite = (e: ChangeEvent<HTMLInputElement>) =>
       this.setState({ infinite: e.target.checked });
 
@@ -68,7 +60,7 @@ class App extends React.Component<{}, State> {
               min={10}
               max={260}
               value={itemWidth}
-              onChange={changeWidth}
+              onChange={e => handleState(e, 'itemWidth')}
             />
             <br />
           </label>
@@ -82,7 +74,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={images.length}
               value={frameSize}
-              onChange={changeFrameSize}
+              onChange={e => handleState(e, 'frameSize')}
             />
             <br />
           </label>
@@ -95,7 +87,7 @@ class App extends React.Component<{}, State> {
               min={1}
               max={10}
               value={step}
-              onChange={changeStep}
+              onChange={e => handleState(e, 'step')}
             />
             <br />
           </label>
@@ -109,7 +101,7 @@ class App extends React.Component<{}, State> {
               min={0}
               max={2500}
               value={animationDuration}
-              onChange={changeAnimationDuration}
+              onChange={e => handleState(e, 'animationDuration')}
             />
             <br />
           </label>
