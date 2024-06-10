@@ -204,11 +204,10 @@ class Carousel extends React.Component<Props, State> {
     return (
       <div className="Carousel">
         <button
-          className={`Carousel__button Carousel__button--prev${
-            this.isPositionBeforeRange(position - 1)
-              ? ' Carousel__button--disabled'
-              : ''
-          }${duringAnimation ? ' Carousel__button--locked' : ''}`}
+          className={`Carousel__button Carousel__button--prev ${
+            this.isPositionBeforeRange(position - 1) &&
+            'Carousel__button--disabled'
+          } ${duringAnimation && 'Carousel__button--locked'}`}
           style={this.buttonStyle}
           type="button"
           onClick={this.handlePrev}
@@ -219,11 +218,10 @@ class Carousel extends React.Component<Props, State> {
         </div>
 
         <button
-          className={`Carousel__button Carousel__button--next${
-            this.isPositionBehindRange(position + 1)
-              ? ' Carousel__button--disabled'
-              : ''
-          }${duringAnimation ? ' Carousel__button--locked' : ''}`}
+          className={`Carousel__button Carousel__button--next ${
+            this.isPositionBehindRange(position + 1) &&
+            'Carousel__button--disabled'
+          } ${duringAnimation && 'Carousel__button--locked'}`}
           style={this.buttonStyle}
           type="button"
           onClick={this.handleNext}

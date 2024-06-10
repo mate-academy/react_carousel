@@ -33,7 +33,7 @@ class App extends React.Component<{}, State> {
   };
 
   isNumberPositive(number: number): boolean {
-    return !isNaN(number) && number > 0;
+    return number > 0;
   }
 
   handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,9 +98,8 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form>
-          <label htmlFor="itemId">Item width</label>
-
           <input
+            className="input"
             id="itemId"
             name="itemWidth"
             type="number"
@@ -109,11 +108,11 @@ class App extends React.Component<{}, State> {
             onChange={this.handleItemWidthChange}
           ></input>
 
+          <label htmlFor="itemId">Item width</label>
           <br />
 
-          <label htmlFor="frameId">Frame size</label>
-
           <input
+            className="input"
             id="frameId"
             name="frameSize"
             type="number"
@@ -122,11 +121,11 @@ class App extends React.Component<{}, State> {
             onChange={this.handleFrameSizeChange}
           ></input>
 
+          <label htmlFor="frameId">Frame size</label>
           <br />
 
-          <label htmlFor="stepId">Step</label>
-
           <input
+            className="input"
             id="stepId"
             name="step"
             type="number"
@@ -135,11 +134,11 @@ class App extends React.Component<{}, State> {
             onChange={this.handleStepChange}
           ></input>
 
+          <label htmlFor="stepId">Step</label>
           <br />
 
-          <label htmlFor="animationId">Animation Duration</label>
-
           <input
+            className="input"
             id="animationId"
             name="animationDuration"
             type="number"
@@ -148,17 +147,19 @@ class App extends React.Component<{}, State> {
             onChange={this.handleAnimationDurationChange}
           ></input>
 
+          <label htmlFor="animationId">Animation Duration</label>
           <br />
 
-          <label htmlFor="infiniteId">Infinite</label>
-
           <input
+            className="input"
             id="infiniteId"
             name="infinite"
             type="checkbox"
             checked={infinite}
             onChange={this.handleInfiniteChange}
           ></input>
+
+          <label htmlFor="infiniteId">Infinite</label>
         </form>
 
         <Carousel
