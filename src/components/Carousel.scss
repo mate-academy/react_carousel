@@ -1,1 +1,47 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.Carousel {
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    overflow: hidden;
+  }
+
+  &__list{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+  }
+}
+
+.button {
+  background-color: #fdf6b5;
+  color: #8b6003;
+  font-size: larger;
+  font-weight: bold;
+  border: 2px solid #c98900;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 0 20px;
+
+  &:hover {
+    background-color: #ffda36;
+  }
+
+  &:disabled {
+    background-color: #999;
+    color: #AAA;
+    cursor: default;
+  border: 2px solid #AAA;
+
+
+  }
+}

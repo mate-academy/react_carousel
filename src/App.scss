@@ -1,1 +1,31 @@
-// style go here
+.App {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+    &__content {
+      width: min-content;
+    }
+
+    &__fields {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 20px;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    gap: 5px;
+
+    &--checkbox {
+      flex-direction: row;
+    }
+  }
