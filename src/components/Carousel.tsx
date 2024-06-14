@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import './Carousel.scss';
@@ -34,6 +34,14 @@ export const Carousel: React.FC<Props> = ({
         return prevImages - step;
       }
 
+      if (prevImages - step < 0 && prevImages) {
+        return 0;
+      }
+
+      if (infinite) {
+        return imagesToShow;
+      }
+
       return 0;
     });
   };
@@ -44,50 +52,29 @@ export const Carousel: React.FC<Props> = ({
         return prevImages + step;
       }
 
-      const imagesLeft = imagesToShow - prevImages;
+      if (prevImages + step > imagesToShow && prevImages !== imagesToShow) {
+        const imagesLeft = imagesToShow - prevImages;
 
-      return prevImages + imagesLeft;
+        return prevImages + imagesLeft;
+      }
+
+      if (infinite) {
+        return 0;
+      }
+
+      return imagesToShow;
     });
   };
-
-  const timerId = useRef(0);
 
   useEffect(() => {
     const newImagesToShow = length - frameSize;
 
     setImagesToShow(newImagesToShow);
-    clearTimeout(timerId.current);
 
-    if (infinite) {
-      timerId.current = +setTimeout(() => {
-        setNextImages(prevImages => {
-          if (prevImages === newImagesToShow) {
-            return 0;
-          }
-
-          if (prevImages + step <= newImagesToShow) {
-            return prevImages + step;
-          }
-
-          const imagesLeft = newImagesToShow - prevImages;
-
-          return prevImages + imagesLeft;
-        });
-      }, animationDuration);
-    } else {
-      if (imagesToShow === nextImages) {
-        setNextImages(newImagesToShow);
-      }
+    if (imagesToShow === nextImages) {
+      setNextImages(newImagesToShow);
     }
-  }, [
-    frameSize,
-    infinite,
-    length,
-    imagesToShow,
-    nextImages,
-    step,
-    animationDuration,
-  ]);
+  }, [frameSize, length, imagesToShow, nextImages]);
 
   return (
     <div className="Carousel">
@@ -95,7 +82,7 @@ export const Carousel: React.FC<Props> = ({
         className="button"
         type="button"
         onClick={handlePrevImg}
-        disabled={nextImages === 0}
+        disabled={nextImages === 0 && !infinite}
       >
         Prev
       </button>
@@ -131,7 +118,7 @@ export const Carousel: React.FC<Props> = ({
         className="button"
         type="button"
         onClick={handleNextImg}
-        disabled={nextImages === imagesToShow}
+        disabled={nextImages === imagesToShow && !infinite}
         data-cy="next"
       >
         Next

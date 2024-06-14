@@ -11,6 +11,12 @@ interface State {
   infinite: boolean;
 }
 
+const DEFAULTS_VALUES = {
+  MIN: 1,
+  MAX: 10,
+  STEP: 100,
+};
+
 class App extends React.Component<{}, State> {
   state = {
     images: [
@@ -60,7 +66,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <div className="App__fields">
@@ -70,8 +75,8 @@ class App extends React.Component<{}, State> {
               id="step"
               className="wrapper__field"
               type="number"
-              min={1}
-              max={10}
+              min={DEFAULTS_VALUES.MIN}
+              max={DEFAULTS_VALUES.MAX}
               value={step}
               onChange={this.handleStepChange}
             />
@@ -83,8 +88,8 @@ class App extends React.Component<{}, State> {
               id="frameSize"
               className="wrapper__field"
               type="number"
-              min={1}
-              max={10}
+              min={DEFAULTS_VALUES.MIN}
+              max={DEFAULTS_VALUES.MAX}
               value={frameSize}
               onChange={this.handleFrameSizeChange}
             />
@@ -96,8 +101,8 @@ class App extends React.Component<{}, State> {
               className="wrapper__field"
               id="itemWidth"
               type="number"
-              min={130}
-              step={10}
+              min={itemWidth}
+              step={DEFAULTS_VALUES.STEP}
               value={itemWidth}
               onChange={this.handleItemWidthChange}
             />
@@ -109,8 +114,8 @@ class App extends React.Component<{}, State> {
               id="animationDuration"
               className="wrapper__field"
               type="number"
-              min={1000}
-              step={100}
+              min={animationDuration}
+              step={DEFAULTS_VALUES.STEP}
               value={animationDuration}
               onChange={this.handleAnimationDurationChange}
             />
@@ -121,8 +126,8 @@ class App extends React.Component<{}, State> {
             <input
               id="infinite"
               type="checkbox"
-              min={1000}
-              step={100}
+              step={DEFAULTS_VALUES.STEP}
+              checked={infinite}
               onChange={this.handleInfiniteChange}
             />
           </div>
