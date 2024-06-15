@@ -14,7 +14,7 @@ interface State {
 const DEFAULTS_VALUES = {
   MIN: 1,
   MAX: 10,
-  STEP: 100,
+  STEP: 10,
 };
 
 class App extends React.Component<{}, State> {
@@ -47,13 +47,25 @@ class App extends React.Component<{}, State> {
   };
 
   handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ itemWidth: +event.target.value });
+    const newValue = +event.target.value;
+
+    if (newValue > 0) {
+      this.setState({ itemWidth: newValue });
+    } else {
+      this.setState({ itemWidth: 0 });
+    }
   };
 
   handleAnimationDurationChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    this.setState({ animationDuration: +event.target.value });
+    const newValue = +event.target.value;
+
+    if (newValue > 0) {
+      this.setState({ animationDuration: newValue });
+    } else {
+      this.setState({ animationDuration: 0 });
+    }
   };
 
   handleInfiniteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,9 +82,9 @@ class App extends React.Component<{}, State> {
 
         <div className="App__fields">
           <div className="wrapper">
-            <label htmlFor="step">Step</label>
+            <label htmlFor="stepId">Step</label>
             <input
-              id="step"
+              id="stepId"
               className="wrapper__field"
               type="number"
               min={DEFAULTS_VALUES.MIN}
@@ -83,9 +95,9 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="wrapper">
-            <label htmlFor="frameSize">Visible images</label>
+            <label htmlFor="frameId">Visible images</label>
             <input
-              id="frameSize"
+              id="frameId"
               className="wrapper__field"
               type="number"
               min={DEFAULTS_VALUES.MIN}
@@ -96,12 +108,11 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="wrapper">
-            <label htmlFor="itemWidth">Image width</label>
+            <label htmlFor="itemId">Image width</label>
             <input
               className="wrapper__field"
-              id="itemWidth"
+              id="itemId"
               type="number"
-              min={itemWidth}
               step={DEFAULTS_VALUES.STEP}
               value={itemWidth}
               onChange={this.handleItemWidthChange}
@@ -114,7 +125,7 @@ class App extends React.Component<{}, State> {
               id="animationDuration"
               className="wrapper__field"
               type="number"
-              min={animationDuration}
+              min={0}
               step={DEFAULTS_VALUES.STEP}
               value={animationDuration}
               onChange={this.handleAnimationDurationChange}

@@ -16,7 +16,7 @@ export const Carousel: React.FC<Props> = ({
   images,
   step,
   frameSize,
-  itemWidth,
+  itemWidth = 130,
   animationDuration,
   infinite,
 }) => {
@@ -104,7 +104,6 @@ export const Carousel: React.FC<Props> = ({
           {images.map((imgUrl, ind) => (
             <li className="Carousel__item" key={ind}>
               <img
-                className="Carousel__img"
                 src={imgUrl}
                 alt={`${ind}`}
                 style={{ width: `${itemWidth}px` }}
