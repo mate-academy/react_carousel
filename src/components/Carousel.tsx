@@ -70,7 +70,7 @@ export const Carousel: React.FC<Props> = ({
 
       <div className="Carousel__button">
         <button
-          className="Carousel__button-btn"
+          className={`Carousel__button-btn ${disabledButtonLeft && 'Carousel__button-btn--disabled'}`}
           type="button"
           onClick={leftPosition}
           disabled={disabledButtonLeft}
@@ -79,7 +79,7 @@ export const Carousel: React.FC<Props> = ({
         </button>
         <button
           data-cy="next"
-          className="Carousel__button-btn"
+          className={`Carousel__button-btn ${disabledButtonRight && 'Carousel__button-btn--disabled'}`}
           type="button"
           onClick={rightPosition}
           disabled={disabledButtonRight}
