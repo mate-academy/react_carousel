@@ -46,7 +46,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   function showInfinite() {
-    setTimeout(showNext, animationDuration);
+    setInterval(showNext, animationDuration);
   }
 
   if (infinite) {

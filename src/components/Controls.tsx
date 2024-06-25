@@ -7,10 +7,6 @@ type ControlsProps = {
   step: number;
   duration: number;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // setFrameSize: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // setImageWidth: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // setStep: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // setDurantion: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Controls = ({
@@ -19,10 +15,6 @@ export const Controls = ({
   step,
   duration,
   handleChange,
-  // setImageWidth,
-  // setFrameSize,
-  // setStep,
-  // setDurantion,
 }: ControlsProps) => {
   return (
     <form className="controls">

@@ -64,10 +64,6 @@ class App extends React.Component<{}, State> {
             step={step}
             duration={duration}
             handleChange={this.handleInputChange}
-            // setImageWidth={this.handleInputChange('itemWidth')}
-            // setFrameSize={this.handleInputChange('frameSize')}
-            // setStep={this.handleInputChange('step')}
-            // setDurantion={this.handleInputChange('duration')}
           />
         </div>
       </div>
