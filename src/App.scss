@@ -1,1 +1,21 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    width: 300px;
+    margin: auto;
+
+    &__group {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      margin-bottom: 5px;
+    }
+  }
+}
