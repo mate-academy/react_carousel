@@ -20,8 +20,8 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [position, setPosition] = useState(0);
   const endPosition = -(images.length - frameSize);
-  const nextButtonDisabled = position === endPosition;
-  const prevButonDisabled = position === 0;
+  const nextButtonDisabled = position === endPosition && !infinite;
+  const prevButonDisabled = position === 0 && !infinite;
 
   const goPrev = () => {
     const newPosition =
@@ -37,12 +37,6 @@ const Carousel: React.FC<Props> = ({
     setPosition(newPosition);
   };
 
-  if (infinite) {
-    if (position === endPosition) {
-      setPosition(0);
-    }
-  }
-
   const carouselStyle = {
     transform: `translateX(${position * itemWidth}px)`,
     transition: `transform ${animationDuration}ms`,
@@ -55,7 +49,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__button"
         onClick={goPrev}
         disabled={prevButonDisabled}
-        style={position === 0 ? { backgroundColor: 'red' } : {}}
+        style={position === 0 && !infinite ? { backgroundColor: 'red' } : {}}
       >
         &#8678;
       </button>
@@ -83,7 +77,11 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__button"
         onClick={goNext}
         disabled={nextButtonDisabled}
-        style={position === endPosition ? { backgroundColor: 'red' } : {}}
+        style={
+          position === endPosition && !infinite
+            ? { backgroundColor: 'red' }
+            : {}
+        }
       >
         &#8680;
       </button>
