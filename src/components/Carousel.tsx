@@ -1,26 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite = true,
+}) => {
+  const [position, setPosition] = useState(0);
+  const endPosition = -(images.length - frameSize);
+  const nextButtonDisabled = position === endPosition;
+  const prevButonDisabled = position === 0;
+
+  const goPrev = () => {
+    const newPosition =
+      position < 0 ? Math.min(position + step, 0) : endPosition;
+
+    setPosition(newPosition);
+  };
+
+  const goNext = () => {
+    const newPosition =
+      position === endPosition ? 0 : Math.max(position - step, endPosition);
+
+    setPosition(newPosition);
+  };
+
+  if (infinite) {
+    if (position === endPosition) {
+      setPosition(0);
+    }
+  }
+
+  const carouselStyle = {
+    transform: `translateX(${position * itemWidth}px)`,
+    transition: `transform ${animationDuration}ms`,
+  };
+
+  return (
+    <div className="Carousel">
+      <button
+        type="button"
+        className="Carousel__button"
+        onClick={goPrev}
+        disabled={prevButonDisabled}
+        style={position === 0 ? { backgroundColor: 'red' } : {}}
+      >
+        &#8678;
+      </button>
+      <div
+        className="Carousel__container"
+        style={{ width: `${itemWidth * frameSize - 1}px` }}
+      >
+        <ul className="Carousel__list" style={carouselStyle}>
+          {images.map((image, index) => (
+            <li key={index} className="Carousel__link">
+              <img
+                src={image}
+                alt={`${index + 1}`}
+                width={itemWidth}
+                height={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button
+        data-cy="next"
+        type="button"
+        className="Carousel__button"
+        onClick={goNext}
+        disabled={nextButtonDisabled}
+        style={position === endPosition ? { backgroundColor: 'red' } : {}}
+      >
+        &#8680;
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
