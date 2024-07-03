@@ -1,1 +1,43 @@
-// style go here
+// .Carousel{
+
+// }
+
+.container {
+
+  overflow: hidden;
+ margin: 0 auto;
+}
+
+
+.Carousel__list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+
+}
+
+.Carousel__img {
+  display: block;
+
+}
+
+.Carousel__buttons{
+display: flex;
+align-items: center;
+  margin: 0 auto;
+}
+
+.Carousel__form {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 auto;
+}
+// .Carousel__btn--prev {
+
+// }
+
+// .Carousel__btn--next{
+
+// }
