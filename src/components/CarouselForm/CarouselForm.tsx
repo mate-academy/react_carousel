@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Data } from '../../types/Data';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 
 export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
   const [data, setData] = useState<Data>({
-    frameSize: 2,
+    frameSize: 3,
     itemWidth: 130,
     step: 1,
   });
@@ -18,7 +18,8 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
     onSubmit(data);
   };
 
@@ -30,7 +31,9 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
     >
 
       <input
-        value={data?.frameSize}
+        id="frameId"
+        name="frameSize"
+        value={data.frameSize}
         className="input is-primary"
         placeholder="frameSize"
         type="number"
@@ -38,7 +41,9 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
       />
 
       <input
-        value={data?.itemWidth}
+        id="itemId"
+        name="itemWidth"
+        value={data.itemWidth}
         className="input is-primary"
         placeholder="itemWidth"
         type="number"
@@ -46,7 +51,9 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
       />
 
       <input
-        value={data?.step}
+        id="stepId"
+        name="step"
+        value={data.step}
         className="input is-primary"
         placeholder="Step"
         type="number"

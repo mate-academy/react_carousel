@@ -6,7 +6,7 @@ import { CarouselForm } from './components/CarouselForm/CarouselForm';
 
 const App: React.FC = () => {
   const [currentData, setCurrentData] = useState({
-    frameSize: 2,
+    frameSize: 3,
     itemWidth: 130,
     step: 1,
   });

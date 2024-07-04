@@ -22,7 +22,7 @@ const Carousel: React.FC<State> = ({ images, data }) => {
         <ul
           className="Carousel__list"
           style={{
-            // gap: '5px',
+            gap: '5px',
             transform: `translateX(${-translate}px)`,
             // transitionDuration: `${duration}s`,
           }}
