@@ -1,65 +1,65 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Data } from '../../types/Data';
 
 type Props = {
-  onSubmit: (data: Data) => void
+  onSubmit: React.Dispatch<React.SetStateAction<Data>>;
 };
 
 export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
   const [data, setData] = useState<Data>({
     frameSize: 3,
     itemWidth: 130,
-    step: 1,
+    step: 3,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleFormSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    onSubmit(data);
+    setData((prevData) => ({ ...prevData, [name]: +value }));
+    onSubmit((prevData) => ({ ...prevData, [name]: +value }));
   };
 
   return (
     <form
       action=""
       className="Carousel__form"
-      onSubmit={handleFormSubmit}
     >
 
-      <input
-        id="frameId"
-        name="frameSize"
-        value={data.frameSize}
-        className="input is-primary"
-        placeholder="frameSize"
-        type="number"
-        onChange={handleChange}
-      />
+      <label htmlFor="frameId">
+        <input
+          id="frameId"
+          name="frameSize"
+          value={data.frameSize}
+          className="input is-primary"
+          placeholder="frameSize"
+          type="number"
+          onChange={handleChange}
+        />
+      </label>
 
-      <input
-        id="itemId"
-        name="itemWidth"
-        value={data.itemWidth}
-        className="input is-primary"
-        placeholder="itemWidth"
-        type="number"
-        onChange={handleChange}
-      />
+      <label htmlFor="itemId">
+        <input
+          id="itemId"
+          name="itemWidth"
+          value={data.itemWidth}
+          className="input is-primary"
+          placeholder="itemWidth"
+          type="number"
+          onChange={handleChange}
+        />
+      </label>
 
-      <input
-        id="stepId"
-        name="step"
-        value={data.step}
-        className="input is-primary"
-        placeholder="Step"
-        type="number"
-        onChange={handleChange}
-      />
-
+      <label htmlFor="stepId">
+        <input
+          id="stepId"
+          name="step"
+          value={data.step}
+          className="input is-primary"
+          placeholder="Step"
+          type="number"
+          onChange={handleChange}
+        />
+      </label>
       {/* <input
         value={}
         className="input is-primary"

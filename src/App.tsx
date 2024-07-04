@@ -8,7 +8,7 @@ const App: React.FC = () => {
   const [currentData, setCurrentData] = useState({
     frameSize: 3,
     itemWidth: 130,
-    step: 1,
+    step: 3,
   });
 
   return (
