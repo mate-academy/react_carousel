@@ -35,15 +35,13 @@ const Carousel: React.FC<State> = ({ images }: State) => {
       <div
         className="container"
         style={{
-
-          overflow: 'hidden',
           width: `${width}px`,
         }}
       >
         <ul
           className="Carousel__list"
           style={{
-
+            gap: '10px',
             transform: `translateX(${-translate}px)`,
             // transitionDuration: `${duration}s`,
           }}
@@ -61,9 +59,8 @@ const Carousel: React.FC<State> = ({ images }: State) => {
                   src={img}
                   // src={(idx === index) ? img : ''}
                   alt={`${idx}`}
-                  style={{
-                    width: `${itemWidth}px`,
-                  }}
+                  width={`${itemWidth}`}
+
                 />
               </li>
             )
