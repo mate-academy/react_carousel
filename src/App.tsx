@@ -1,37 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
-import { State } from './types/State';
-// import  images  from './images.json';
+import { images } from './api/images';
+import { CarouselForm } from './components/CarouselForm/CarouselForm';
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+const App: React.FC = () => {
+  const [currentData, setCurrentData] = useState({
+    frameSize: 2,
+    itemWidth: 130,
+    step: 1,
+  });
 
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
         <h1 className="App__title" data-cy="title">Carousel with {images.length} images</h1>
-
-        <Carousel images={images} />
-      </div>
-    );
-  }
-}
+      <Carousel
+        images={images}
+        data={currentData}
+      />
+      <CarouselForm onSubmit={setCurrentData} />
+    </div>
+  );
+};
 
 export default App;
