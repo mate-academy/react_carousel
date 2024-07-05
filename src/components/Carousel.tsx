@@ -4,10 +4,10 @@ import './Carousel.scss';
 import { State } from '../types/State';
 
 const Carousel: React.FC<State> = ({ images, data }) => {
-  // const [position, setPositon] = useState(0);
+  const [position, setPositon] = useState(0);
   // const [translate, setTranslate] = useState(0);
   const width = data.itemWidth * data.frameSize + 5 * (data.frameSize - 1);
-  // const maxPosition = 10 - data.frameSize;
+  const maxPosition = 10 - data.frameSize;
   const [index, setIndex] = useState(0);
 
   return (
@@ -23,7 +23,7 @@ const Carousel: React.FC<State> = ({ images, data }) => {
           className="Carousel__list"
           style={{
             gap: '5px',
-            transform: `translateX(-${index * 100}%)`,
+            transform: `translateX(-${index}px)`,
             // transitionDuration: `${duration}s`,
           }}
         >
@@ -53,8 +53,11 @@ const Carousel: React.FC<State> = ({ images, data }) => {
         <button
           type="button"
           onClick={() => {
-            if (index > 0) {
-              setIndex(prevIndex => prevIndex - 1);
+            if (position >= 0 || position < maxPosition) {
+              setIndex(prevTranslate => prevTranslate
+                - data.step * data.itemWidth - 5 * data.step);
+              setPositon(prevPosition => prevPosition
+                - data.step * data.frameSize);
             }
           }}
           className="Carousel__btn--prev"
@@ -67,12 +70,15 @@ const Carousel: React.FC<State> = ({ images, data }) => {
         <button
           type="button"
           onClick={() => {
-            if (index < images.length - 1) {
-              setIndex(prevIndex => prevIndex + 1);
+            if (position >= 0 || position < maxPosition) {
+              setIndex(prevTranslate => prevTranslate
+                + data.step * data.itemWidth + 5 * data.step);
+              setPositon(prevPosition => prevPosition
+              + data.step * data.frameSize);
             }
           }}
           className="Carousel__btn--next"
-          disabled={index === 10 / data.frameSize}
+          disabled={index === images.length - 1}
           data-cy="next"
         >
           Next
