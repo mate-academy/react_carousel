@@ -4,11 +4,11 @@ import './Carousel.scss';
 import { State } from '../types/State';
 
 const Carousel: React.FC<State> = ({ images, data }) => {
-  const [position, setPositon] = useState(0);
-  const [translate, setTranslate] = useState(0);
+  // const [position, setPositon] = useState(0);
+  // const [translate, setTranslate] = useState(0);
   const width = data.itemWidth * data.frameSize + 5 * (data.frameSize - 1);
-  const maxPosition = 10 - data.frameSize;
-  // const [index, setIndex] = useState(0);
+  // const maxPosition = 10 - data.frameSize;
+  const [index, setIndex] = useState(0);
 
   return (
 
@@ -23,7 +23,7 @@ const Carousel: React.FC<State> = ({ images, data }) => {
           className="Carousel__list"
           style={{
             gap: '5px',
-            transform: `translateX(-${translate}px)`,
+            transform: `translateX(-${index * 100}%)`,
             // transitionDuration: `${duration}s`,
           }}
         >
@@ -53,15 +53,12 @@ const Carousel: React.FC<State> = ({ images, data }) => {
         <button
           type="button"
           onClick={() => {
-            if (position >= 0 || position < maxPosition) {
-              setTranslate(prevTranslate => prevTranslate
-                - data.step * data.itemWidth - 5 * data.step);
-              setPositon(prevPosition => prevPosition
-                - data.step * data.frameSize);
+            if (index > 0) {
+              setIndex(prevIndex => prevIndex - 1);
             }
           }}
           className="Carousel__btn--prev"
-          disabled={position === 0}
+          disabled={index === 0}
 
         >
           Prev
@@ -70,15 +67,12 @@ const Carousel: React.FC<State> = ({ images, data }) => {
         <button
           type="button"
           onClick={() => {
-            if (position >= 0 || position < maxPosition) {
-              setTranslate(prevTranslate => prevTranslate
-                + data.step * data.itemWidth + 5 * data.step);
-              setPositon(prevPosition => prevPosition
-              + data.step * data.frameSize);
+            if (index < images.length - 1) {
+              setIndex(prevIndex => prevIndex + 1);
             }
           }}
           className="Carousel__btn--next"
-          disabled={position === maxPosition}
+          disabled={index === 10 / data.frameSize}
           data-cy="next"
         >
           Next
