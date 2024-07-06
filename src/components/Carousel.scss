@@ -21,9 +21,11 @@
 }
 
 .Carousel__buttons{
-display: flex;
+display: block;
+width: 100px;
 align-items: center;
-  margin: 0 auto;
+margin: 0 auto;
+margin-block: 50px;
 }
 
 .Carousel__form {

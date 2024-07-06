@@ -14,8 +14,8 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
   });
 
   const inputValidation
-  = (data.frameSize <= 10 && data.itemWidth <= 350 && data.step <= 10)
-  && (data.frameSize > 0 && data.itemWidth >= 1 && data.step >= 1);
+  = (data.frameSize <= 10 || data.itemWidth <= 350 || data.step <= 10)
+  || (data.frameSize > 0 || data.itemWidth >= 1 || data.step >= 1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -81,9 +81,10 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
         Duration
         <input
           id="durationId"
+          name="duration"
           value={data.duration}
           className="input is-primary"
-          type="text"
+          type="number"
           placeholder="animationDuration"
           onChange={handleChange}
         />

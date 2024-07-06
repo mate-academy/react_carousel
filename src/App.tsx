@@ -20,7 +20,9 @@ const App: React.FC = () => {
         images={images}
         data={currentData}
       />
-      <CarouselForm onSubmit={setCurrentData} />
+      <CarouselForm
+        onSubmit={setCurrentData}
+      />
     </div>
   );
 };

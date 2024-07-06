@@ -79,7 +79,7 @@ const Carousel: React.FC<State> = ({ images, data }) => {
           type="button"
           onClick={handleNextClick}
           className="Carousel__btn--next"
-          disabled={translate >= width * (10 / data.frameSize) - width}
+          disabled={(translate >= width * (10 / data.frameSize) - width)}
           data-cy="next"
         >
           Next
