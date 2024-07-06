@@ -14,14 +14,15 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
   });
 
   const inputValidation
-  = (data.frameSize <= 10 && data.itemWidth <= 200 && data.step <= 100)
-  && (data.frameSize > 0 && data.itemWidth >= 50 && data.step >= 1);
+  = (data.frameSize <= 10 && data.itemWidth <= 350 && data.step <= 10)
+  && (data.frameSize > 0 && data.itemWidth >= 1 && data.step >= 1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    setData((prevData) => ({ ...prevData, [name]: +value }));
+
     if (inputValidation) {
-      setData((prevData) => ({ ...prevData, [name]: +value }));
       onSubmit((prevData) => ({ ...prevData, [name]: +value }));
     }
   };
@@ -51,8 +52,8 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
         Item width
         <input
           type="number"
-          min="50"
-          max="200"
+          min="1"
+          max="300"
           id="itemId"
           name="itemWidth"
           value={data.itemWidth}
