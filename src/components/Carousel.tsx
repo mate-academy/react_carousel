@@ -1,14 +1,30 @@
 import { useState } from 'react';
 import './Carousel.scss';
-// import classNames from 'classnames';
 import { State } from '../types/State';
 
 const Carousel: React.FC<State> = ({ images, data }) => {
   const [position, setPositon] = useState(0);
-  // const [translate, setTranslate] = useState(0);
+  const [translate, setTranslate] = useState(0);
   const width = data.itemWidth * data.frameSize + 5 * (data.frameSize - 1);
   const maxPosition = 10 - data.frameSize;
-  const [index, setIndex] = useState(0);
+
+  const handleNextClick = () => {
+    if (position >= 0 || position < maxPosition) {
+      setTranslate(prevTranslate => prevTranslate
+        + data.step * data.itemWidth + 5 * data.step);
+      setPositon(prevPosition => prevPosition
+      + data.step * data.frameSize);
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (position >= 0 || position < maxPosition) {
+      setTranslate(prevTranslate => prevTranslate
+        - data.step * data.itemWidth - 5 * data.step);
+      setPositon(prevPosition => prevPosition
+        - data.step * data.frameSize);
+    }
+  };
 
   return (
 
@@ -23,8 +39,8 @@ const Carousel: React.FC<State> = ({ images, data }) => {
           className="Carousel__list"
           style={{
             gap: '5px',
-            transform: `translateX(-${index}px)`,
-            // transitionDuration: `${duration}s`,
+            transform: `translateX(-${translate}px)`,
+            transitionDuration: `${data.duration}ms`,
           }}
         >
 
@@ -40,7 +56,6 @@ const Carousel: React.FC<State> = ({ images, data }) => {
                   src={img}
                   alt={`${idx}`}
                   width={`${data.itemWidth}`}
-
                 />
               </li>
             )
@@ -52,16 +67,9 @@ const Carousel: React.FC<State> = ({ images, data }) => {
       <div className="Carousel__buttons">
         <button
           type="button"
-          onClick={() => {
-            if (position >= 0 || position < maxPosition) {
-              setIndex(prevTranslate => prevTranslate
-                - data.step * data.itemWidth - 5 * data.step);
-              setPositon(prevPosition => prevPosition
-                - data.step * data.frameSize);
-            }
-          }}
+          onClick={handlePrevClick}
           className="Carousel__btn--prev"
-          disabled={index === 0}
+          disabled={translate === 0}
 
         >
           Prev
@@ -69,16 +77,9 @@ const Carousel: React.FC<State> = ({ images, data }) => {
 
         <button
           type="button"
-          onClick={() => {
-            if (position >= 0 || position < maxPosition) {
-              setIndex(prevTranslate => prevTranslate
-                + data.step * data.itemWidth + 5 * data.step);
-              setPositon(prevPosition => prevPosition
-              + data.step * data.frameSize);
-            }
-          }}
+          onClick={handleNextClick}
           className="Carousel__btn--next"
-          disabled={index === images.length - 1}
+          disabled={translate >= width * (10 / data.frameSize) - width}
           data-cy="next"
         >
           Next

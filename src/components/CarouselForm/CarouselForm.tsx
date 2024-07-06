@@ -10,13 +10,20 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
     frameSize: 3,
     itemWidth: 130,
     step: 3,
+    duration: 1000,
   });
+
+  const inputValidation
+  = (data.frameSize <= 10 && data.itemWidth <= 200 && data.step <= 100)
+  && (data.frameSize > 0 && data.itemWidth >= 50 && data.step >= 1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setData((prevData) => ({ ...prevData, [name]: +value }));
-    onSubmit((prevData) => ({ ...prevData, [name]: +value }));
+    if (inputValidation) {
+      setData((prevData) => ({ ...prevData, [name]: +value }));
+      onSubmit((prevData) => ({ ...prevData, [name]: +value }));
+    }
   };
 
   return (
@@ -26,49 +33,60 @@ export const CarouselForm: React.FC<Props> = ({ onSubmit }) => {
     >
 
       <label htmlFor="frameId">
+        Frame size
         <input
+          type="number"
+          min="1"
+          max="10"
           id="frameId"
           name="frameSize"
           value={data.frameSize}
           className="input is-primary"
           placeholder="frameSize"
-          type="number"
           onChange={handleChange}
         />
       </label>
 
       <label htmlFor="itemId">
+        Item width
         <input
+          type="number"
+          min="50"
+          max="200"
           id="itemId"
           name="itemWidth"
           value={data.itemWidth}
           className="input is-primary"
           placeholder="itemWidth"
-          type="number"
           onChange={handleChange}
         />
       </label>
 
       <label htmlFor="stepId">
+        Step
         <input
+          type="number"
+          min="1"
+          max="10"
           id="stepId"
           name="step"
           value={data.step}
           className="input is-primary"
           placeholder="Step"
-          type="number"
           onChange={handleChange}
         />
       </label>
-      {/* <input
-        value={}
-        className="input is-primary"
-        type="text"
-        placeholder="animationDuration"
-        // onChange={(event) => setDuration(+event.target.value)}
-      /> */}
-
-      <button type="submit">Submit</button>
+      <label htmlFor="durationId">
+        Duration
+        <input
+          id="durationId"
+          value={data.duration}
+          className="input is-primary"
+          type="text"
+          placeholder="animationDuration"
+          onChange={handleChange}
+        />
+      </label>
     </form>
   );
 };

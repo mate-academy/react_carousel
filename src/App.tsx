@@ -9,6 +9,7 @@ const App: React.FC = () => {
     frameSize: 3,
     itemWidth: 130,
     step: 3,
+    duration: 1000,
   });
 
   return (
