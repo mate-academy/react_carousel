@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
+type State = {
   images: string[];
   itemWidth: number;
   frameSize: number;
   step: number;
   animationDuration: number;
   infinite: boolean;
-}
+};
 
-class App extends React.Component<{}, State> {
-  state = {
+const App = () => {
+  const [state, setState] = useState<State>({
     images: [
       './img/1.png',
       './img/2.png',
@@ -30,120 +30,107 @@ class App extends React.Component<{}, State> {
     step: 3,
     animationDuration: 1000,
     infinite: false,
+  });
+
+  const { images, itemWidth, frameSize, step, animationDuration, infinite } =
+    state;
+
+  const handleChangeItemWidth = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+
+    setState(prev => ({
+      ...prev,
+      [name]: parseInt(value, 10),
+    }));
   };
 
-  render() {
-    const { images, itemWidth, frameSize, step, animationDuration, infinite } =
-      this.state;
+  const handleChangeInfinite = () => {
+    setState(prev => ({
+      ...prev,
+      infinite: !infinite,
+    }));
+  };
 
-    const onChangeItemWidth = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({
-        itemWidth: parseInt(e.currentTarget.value, 10),
-      });
-    };
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
+      <form className="form App__form" onSubmit={e => e.preventDefault()}>
+        <label className="form__label" htmlFor="itemId">
+          Smiles&#39; size:{' '}
+          <input
+            className="form__input"
+            id="itemId"
+            name="itemWidth"
+            type="number"
+            step={1}
+            min={50}
+            value={itemWidth}
+            onChange={handleChangeItemWidth}
+          />
+        </label>
+        <label className="form__label" htmlFor="frameId">
+          Smiles on page:{' '}
+          <input
+            className="form__input"
+            id="frameId"
+            name="frameSize"
+            type="number"
+            value={frameSize}
+            step={1}
+            min={1}
+            max={images.length}
+            onChange={handleChangeItemWidth}
+          />
+        </label>
+        <label className="form__label" htmlFor="stepId">
+          Steps on click:{' '}
+          <input
+            className="form__input"
+            id="stepId"
+            name="step"
+            type="number"
+            value={step}
+            step={1}
+            min={1}
+            max={images.length}
+            onChange={handleChangeItemWidth}
+          />
+        </label>
+        <label className="form__label" htmlFor="fnimationDuration">
+          Animation duration:{' '}
+          <input
+            className="form__input"
+            id="fnimationDuration"
+            name="animationDuration"
+            type="number"
+            step={1}
+            min={300}
+            value={animationDuration}
+            onChange={handleChangeItemWidth}
+          />
+        </label>
+        <label className="form__label" htmlFor="infinite">
+          Infinite:{' '}
+          <input
+            className="form__input"
+            id="infinite"
+            type="checkbox"
+            onChange={handleChangeInfinite}
+          />
+        </label>
+      </form>
 
-    const onChangeFrameSize = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({
-        frameSize: parseInt(e.currentTarget.value, 10),
-      });
-    };
-
-    const onChangeSteps = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({
-        step: parseInt(e.currentTarget.value, 10),
-      });
-    };
-
-    const onChangeAnimation = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({
-        animationDuration: parseInt(e.currentTarget.value, 10),
-      });
-    };
-
-    const onChangeInfinite = () => {
-      this.setState({
-        infinite: !infinite,
-      });
-    };
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
-        <form className="form App__form" onSubmit={e => e.preventDefault()}>
-          <label className="form__label" htmlFor="itemId">
-            Smiles&#39; size:{' '}
-            <input
-              className="form__input"
-              id="itemId"
-              name="itemWidth"
-              type="number"
-              step={1}
-              min={50}
-              value={itemWidth}
-              onChange={onChangeItemWidth}
-            />
-          </label>
-          <label className="form__label" htmlFor="frameId">
-            Smiles on page:{' '}
-            <input
-              className="form__input"
-              id="frameId"
-              type="number"
-              value={frameSize}
-              step={1}
-              min={1}
-              max={images.length}
-              onChange={onChangeFrameSize}
-            />
-          </label>
-          <label className="form__label" htmlFor="stepId">
-            Steps on click:{' '}
-            <input
-              className="form__input"
-              id="stepId"
-              type="number"
-              value={step}
-              step={1}
-              min={1}
-              max={images.length}
-              onChange={onChangeSteps}
-            />
-          </label>
-          <label className="form__label" htmlFor="fnimationDuration">
-            Animation duration:{' '}
-            <input
-              className="form__input"
-              id="fnimationDuration"
-              type="number"
-              step={1}
-              min={300}
-              value={animationDuration}
-              onChange={onChangeAnimation}
-            />
-          </label>
-          <label className="form__label" htmlFor="infinite">
-            Infinite:{' '}
-            <input
-              className="form__input"
-              id="infinite"
-              type="checkbox"
-              onChange={onChangeInfinite}
-            />
-          </label>
-        </form>
-
-        <Carousel
-          images={images}
-          itemWidth={itemWidth}
-          frameSize={frameSize}
-          step={step}
-          animationDuration={animationDuration}
-          infinite={infinite}
-        />
-      </div>
-    );
-  }
-}
+      <Carousel
+        images={images}
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={infinite}
+      />
+    </div>
+  );
+};
 
 export default App;
