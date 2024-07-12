@@ -1,1 +1,23 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__list {
+    aspect-ratio: 1;
+    list-style: none;
+    display: flex;
+    padding: 0;
+
+    li {
+      aspect-ratio: 1;
+    }
+  }
+
+  &__button-container {
+    margin-inline: auto;
+    display: flex;
+    gap: 0.25rem;
+  }
+}
