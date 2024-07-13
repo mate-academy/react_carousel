@@ -77,175 +77,169 @@ export const SliderForm: React.FC<Props> = ({ data, setData }) => {
 
   return (
     <form action="" className="SliderForm">
-      <div className="SliderForm__container">
-        <div className="SliderForm__settings">
-          <div className="SliderForm__column">
-            <div className="SliderForm__item">
-              <label htmlFor='stepId' className="SliderForm__title">Set step</label>
+      <div className="SliderForm__settings">
+        <div className="SliderForm__item">
+          <label htmlFor="stepId" className="SliderForm__title">
+            Set step
+          </label>
 
-              <div className="SliderForm__field">
-                <button
-                  type="button"
-                  name={optionKey.step}
-                  data-action="decrement"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  -
-                </button>
+          <div className="SliderForm__field">
+            <button
+              type="button"
+              name={optionKey.step}
+              data-action="decrement"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              -
+            </button>
 
-                <input
-                  id='stepId'
-                  type="text"
-                  name="step"
-                  value={data.step}
-                  className="SliderForm__input"
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                />
+            <input
+              id="stepId"
+              type="text"
+              name="step"
+              value={data.step}
+              className="SliderForm__input"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
 
-                <button
-                  type="button"
-                  name={optionKey.step}
-                  data-action="increment"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            <button
+              type="button"
+              name={optionKey.step}
+              data-action="increment"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              +
+            </button>
           </div>
+        </div>
 
-          <div className="SliderForm__column">
-            <div className="SliderForm__item">
-              <label htmlFor='frameId' className="SliderForm__title">Frame size</label>
+        <div className="SliderForm__item">
+          <label htmlFor="frameId" className="SliderForm__title">
+            Frame size
+          </label>
 
-              <div className="SliderForm__field">
-                <button
-                  type="button"
-                  name={optionKey.frameSize}
-                  data-action="decrement"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  -
-                </button>
+          <div className="SliderForm__field">
+            <button
+              type="button"
+              name={optionKey.frameSize}
+              data-action="decrement"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              -
+            </button>
 
-                <input
-                  id='frameId'
-                  type="text"
-                  name="frameSize"
-                  value={data.frameSize}
-                  className="SliderForm__input"
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                />
+            <input
+              id="frameId"
+              type="text"
+              name="frameSize"
+              value={data.frameSize}
+              className="SliderForm__input"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
 
-                <button
-                  type="button"
-                  name={optionKey.frameSize}
-                  data-action="increment"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            <button
+              type="button"
+              name={optionKey.frameSize}
+              data-action="increment"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              +
+            </button>
           </div>
+        </div>
 
-          <div className="SliderForm__column">
-            <div className="SliderForm__item">
-              <label htmlFor='itemId' className="SliderForm__title">Item width</label>
+        <div className="SliderForm__item">
+          <label htmlFor="itemId" className="SliderForm__title">
+            Item width
+          </label>
 
-              <div className="SliderForm__field">
-                <button
-                  type="button"
-                  name={optionKey.itemWidth}
-                  data-action="decrement"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  -
-                </button>
+          <div className="SliderForm__field">
+            <button
+              type="button"
+              name={optionKey.itemWidth}
+              data-action="decrement"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              -
+            </button>
 
-                <input
-                  id='itemId'
-                  type="text"
-                  name="itemWidth"
-                  value={data.itemWidth}
-                  className="SliderForm__input"
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                />
+            <input
+              id="itemId"
+              type="text"
+              name="itemWidth"
+              value={data.itemWidth}
+              className="SliderForm__input"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
 
-                <button
-                  type="button"
-                  name={optionKey.itemWidth}
-                  data-action="increment"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            <button
+              type="button"
+              name={optionKey.itemWidth}
+              data-action="increment"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              +
+            </button>
           </div>
+        </div>
 
-          <div className="SliderForm__column">
-            <div className="SliderForm__item">
-              <h3 className="SliderForm__title">Animation duration</h3>
+        <div className="SliderForm__item">
+          <h3 className="SliderForm__title">Animation duration</h3>
 
-              <div className="SliderForm__field">
-                <button
-                  type="button"
-                  name={optionKey.animationDuration}
-                  data-action="decrement"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  -
-                </button>
+          <div className="SliderForm__field">
+            <button
+              type="button"
+              name={optionKey.animationDuration}
+              data-action="decrement"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              -
+            </button>
 
-                <input
-                  type="text"
-                  name="animationDuration"
-                  value={data.animationDuration}
-                  className="SliderForm__input"
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                />
+            <input
+              type="text"
+              name="animationDuration"
+              value={data.animationDuration}
+              className="SliderForm__input"
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            />
 
-                <button
-                  type="button"
-                  name={optionKey.animationDuration}
-                  data-action="increment"
-                  className="SliderForm__btn"
-                  onClick={handleClick}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            <button
+              type="button"
+              name={optionKey.animationDuration}
+              data-action="increment"
+              className="SliderForm__btn"
+              onClick={handleClick}
+            >
+              +
+            </button>
           </div>
+        </div>
 
-          <div className="SliderForm__column">
-            <div className="SliderForm__item">
-              <label htmlFor="infinite" className="SliderForm__label">
-                ∞
-                <input
-                  id="infinite"
-                  type="checkbox"
-                  name="infinite"
-                  className="SliderForm__input SliderForm__input--check"
-                  checked={data.infinite}
-                  onChange={handleCheckboxChange}
-                />
-                <span className="checkmark"></span>
-              </label>
-            </div>
-          </div>
+        <div className="SliderForm__item">
+          <label htmlFor="infinite" className="SliderForm__label">
+            ∞
+            <input
+              id="infinite"
+              type="checkbox"
+              name="infinite"
+              className="SliderForm__input SliderForm__input--check"
+              checked={data.infinite}
+              onChange={handleCheckboxChange}
+            />
+            <span className="checkmark"></span>
+          </label>
         </div>
       </div>
     </form>

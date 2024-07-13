@@ -13,6 +13,13 @@ const App: React.FC = () => {
     infinite: false,
   });
 
+  const {
+    step,
+    frameSize,
+    itemWidth,
+    animationDuration,
+    infinite } = options;
+
   const images = [
     './img/1.png',
     './img/2.png',
@@ -28,17 +35,17 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1 data-cy='title'>Carousel with {images.length} images</h1>
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
       <SliderForm data={options} setData={setOptions} />
 
       <Carousel
         images={images}
-        step={options.step}
-        frameSize={options.frameSize}
-        itemWidth={options.itemWidth}
-        animationDuration={options.animationDuration}
-        infinite={options.infinite}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
+        animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );

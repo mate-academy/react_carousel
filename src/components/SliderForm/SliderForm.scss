@@ -1,13 +1,9 @@
 .SliderForm {
-  margin-top: 25px;
-
-  &__container {
-    max-width: 350px;
-    margin: 0 auto;
-    background-color: rgb(68, 133, 255);
-    color: #fff;
-    border-radius: 12px;
-  }
+  color: #fff;
+  max-width: 350px;
+  margin: 25px auto 0;
+  background-color: rgb(68, 133, 255);
+  border-radius: 12px;
 
   &__settings {
     padding: 15px;
@@ -16,7 +12,7 @@
     margin: 0 -10px;
   }
 
-  &__column {
+  &__item {
     flex: 1 1 50%;
     padding: 0 10px;
   }

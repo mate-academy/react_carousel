@@ -51,8 +51,10 @@ const Carousel: React.FC<Props> = ({
         }}
       >
         {images.map((image, index) => {
+          const uuid = self.crypto.randomUUID()
+
           return (
-            <li key={`key-${index}`}>
+            <li key={uuid}>
               <img width={itemWidth} src={image} alt={`image-${index + 1}`} />
             </li>
           );
@@ -72,7 +74,7 @@ const Carousel: React.FC<Props> = ({
         </button>
 
         <button
-          data-cy='next'
+          data-cy="next"
           type="button"
           data-action="next"
           className="Carousel__bnt Carousel__bnt--next"
