@@ -12,7 +12,7 @@ type State = {
 };
 
 const App = () => {
-  const [state, setState] = useState<State>({
+  const [carouselOptions, setCarouselOptions] = useState<State>({
     images: [
       './img/1.png',
       './img/2.png',
@@ -33,19 +33,19 @@ const App = () => {
   });
 
   const { images, itemWidth, frameSize, step, animationDuration, infinite } =
-    state;
+    carouselOptions;
 
-  const handleChangeItemWidth = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChangeOption = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
-    setState(prev => ({
+    setCarouselOptions(prev => ({
       ...prev,
       [name]: parseInt(value, 10),
     }));
   };
 
   const handleChangeInfinite = () => {
-    setState(prev => ({
+    setCarouselOptions(prev => ({
       ...prev,
       infinite: !infinite,
     }));
@@ -66,7 +66,7 @@ const App = () => {
             step={1}
             min={50}
             value={itemWidth}
-            onChange={handleChangeItemWidth}
+            onChange={handleChangeOption}
           />
         </label>
         <label className="form__label" htmlFor="frameId">
@@ -80,7 +80,7 @@ const App = () => {
             step={1}
             min={1}
             max={images.length}
-            onChange={handleChangeItemWidth}
+            onChange={handleChangeOption}
           />
         </label>
         <label className="form__label" htmlFor="stepId">
@@ -94,7 +94,7 @@ const App = () => {
             step={1}
             min={1}
             max={images.length}
-            onChange={handleChangeItemWidth}
+            onChange={handleChangeOption}
           />
         </label>
         <label className="form__label" htmlFor="fnimationDuration">
@@ -107,7 +107,7 @@ const App = () => {
             step={1}
             min={300}
             value={animationDuration}
-            onChange={handleChangeItemWidth}
+            onChange={handleChangeOption}
           />
         </label>
         <label className="form__label" htmlFor="infinite">
