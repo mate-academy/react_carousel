@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding: 0;
+  }
+
+  &__item {
+    min-width: 130px;
+    align-items: center;
+  }
+
+  button {
+    position: absolute;
+    top: 80%;
+    background-color: rgba(0, 0, 0, 0.40);
+    border-radius: 5%;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 7px;
+
+    &:nth-of-type(1) {
+      left: 1px;
+    }
+
+    &:nth-of-type(2) {
+      right: 1px;
+    }
+  }
+}
