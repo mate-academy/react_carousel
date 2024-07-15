@@ -1,1 +1,41 @@
-// style go here
+.Carousel {
+  &__list {
+    padding: 0;
+    display: flex;
+    list-style: none;
+  }
+
+  &__container {
+    overflow: hidden;
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+  }
+
+  &__item {
+    min-width: 130px;
+    align-items: center;
+  }
+
+  &__button {
+    display: flex;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  &__button--prev {
+    align-items: end;
+  }
+
+  button {
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5%;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 7px;
+    width: 50px;
+  }
+}

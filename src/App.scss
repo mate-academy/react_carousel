@@ -1,1 +1,44 @@
-// style go here
+body {
+  background-color: #0000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Title {
+  text-align: center;
+  font-size: 30px;
+}
+
+.Inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+
+  &__item {
+    margin: 7px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 17px;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  &__input {
+    padding: 5px;
+    background-color: #0000006c;
+    border: none;
+    border-radius: 5px;
+    color: #fbfbfb;
+    width: auto;
+    min-width: 150px;
+
+    box-sizing: border-box;
+
+    &--infinite {
+      min-width: 25px;
+      align-self: center;
+
+    }
+  }
+}
