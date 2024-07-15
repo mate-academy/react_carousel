@@ -1,14 +1,15 @@
 .Carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  margin: 0 auto;
-
   &__list {
+    padding: 0;
     display: flex;
     list-style: none;
-    align-items: center;
-    padding: 0;
+  }
+
+  &__container {
+    overflow: hidden;
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
   }
 
   &__item {
@@ -16,23 +17,25 @@
     align-items: center;
   }
 
+  &__button {
+    display: flex;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  &__button--prev {
+    align-items: end;
+  }
+
   button {
-    position: absolute;
-    top: 80%;
-    background-color: rgba(0, 0, 0, 0.40);
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 5%;
     color: white;
     border: none;
     cursor: pointer;
     font-weight: 500;
     padding: 7px;
-
-    &:nth-of-type(1) {
-      left: 1px;
-    }
-
-    &:nth-of-type(2) {
-      right: 1px;
-    }
+    width: 50px;
   }
 }

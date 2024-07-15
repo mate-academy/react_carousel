@@ -58,44 +58,49 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div
-      className="Carousel"
-      style={{ width: itemWidth * frameSize, overflow: 'hidden' }}
-    >
-      <ul
-        className="Carousel__list"
-        ref={listRef}
-        style={{ width: images.length * itemWidth }}
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{ width: `${itemWidth * frameSize - 1}px` }}
       >
-        {images.map((image, index) => (
-          <li
-            key={index}
-            className="Carousel__item"
-            style={{ width: itemWidth }}
-          >
-            <img
-              src={image}
-              width={itemWidth}
-              height={itemWidth}
-              className="Carousel__img"
-              alt={`Image ${index + 1}`}
-            />
-          </li>
-        ))}
-      </ul>
-      <button type="button" className="Carousel__btn" onClick={handlePrevClick}>
+        <ul
+          className="Carousel__list"
+          ref={listRef}
+          style={{ width: images.length * itemWidth }}
+        >
+          {images.map((image, index) => (
+            <li
+              key={index}
+              className="Carousel__item"
+              style={{ width: itemWidth }}
+            >
+              <img
+                src={image}
+                width={itemWidth}
+                height={itemWidth}
+                className="Carousel__img"
+                alt={`Image ${index + 1}`}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="Carousel__button">
+      <button type="button" className="Carousel__button--prev" onClick={handlePrevClick}>
         Prev
       </button>
       <button
         type="button"
-        className="Carousel__btn"
+        className="Carousel__button--next"
         data-cy="next"
         onClick={handleNextClick}
       >
         Next
       </button>
+      </div>
     </div>
   );
 };
 
 export default Carousel;
+
