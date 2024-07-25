@@ -1,1 +1,11 @@
-// style go here
+.App {
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  border: 1px black solid;
+  background: linear-gradient(#79ee92, #c8e015);
+  padding: 20px;
+}
