@@ -21,7 +21,7 @@ const Carousel: React.FC<Props> = ({
   const [index, setIndex] = useState(0);
   const [isPrevPossible, setIsPrevPossible] = useState(infinite || index > 0);
   const [isNextPossible, setIsNextPossible] = useState(
-    infinite || index < images.length - step,
+    infinite || index < images.length - frameSize,
   );
 
   const containerWidth = itemWidth * frameSize;
@@ -88,9 +88,9 @@ const Carousel: React.FC<Props> = ({
       setIsNextPossible(true);
     } else {
       setIsPrevPossible(index > 0);
-      setIsNextPossible(index < images.length - step);
+      setIsNextPossible(index < images.length - frameSize);
     }
-  }, [images.length, index, infinite, step]);
+  }, [frameSize, images.length, index, infinite]);
 
   return (
     <div className="Carousel" style={containerStyle}>
