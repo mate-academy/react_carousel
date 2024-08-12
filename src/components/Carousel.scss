@@ -1,1 +1,27 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    position: relative;
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    transition-property: left;
+    transition-timing-function: ease-in-out;
+  }
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__img {
+    display: block;
+    object-fit: contain;
+
+    transition-property: 'visibility';
+  }
+}
