@@ -45,9 +45,9 @@ const Carousel: React.FC<Props> = ({
       }
 
       setIsPrevPossible(newIndex > 0);
-      setIsNextPossible(newIndex < images.length - step);
+      setIsNextPossible(newIndex < images.length - frameSize);
     },
-    [images.length, infinite, step],
+    [frameSize, images.length, infinite],
   );
 
   const goToNextIndex = useCallback(() => {
