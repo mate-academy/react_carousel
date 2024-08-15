@@ -1,39 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import { Settings } from './components/Settings';
 
-interface State {
-  images: string[];
-}
+const images = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+export const App: React.FC = () => {
+  const [settings, setSettings] = useState({
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  });
 
-  render() {
-    const { images } = this.state;
+  return (
+    <div className="App">
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <Settings {...settings} setSettings={setSettings} />
 
-        <Carousel />
-      </div>
-    );
-  }
-}
-
-export default App;
+      <Carousel {...settings} images={images} />
+    </div>
+  );
+};
