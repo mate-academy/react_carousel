@@ -19,9 +19,9 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [imagePosition, setImagePosition] = useState(0);
-  const changePosition = -(images.length - frameSize);
+  const changedPosition = -(images.length - frameSize);
   const prevDisabled = imagePosition === 0 && !infinite;
-  const nextDisabled = imagePosition === changePosition && !infinite;
+  const nextDisabled = imagePosition === changedPosition && !infinite;
 
   const styleList = {
     transform: `translateX(${imagePosition * itemWidth}px)`,
@@ -30,16 +30,16 @@ const Carousel: React.FC<Props> = ({
 
   const prevImage = () => {
     const newPosition =
-      imagePosition < 0 ? Math.min(imagePosition + step, 0) : changePosition;
+      imagePosition < 0 ? Math.min(imagePosition + step, 0) : changedPosition;
 
     setImagePosition(newPosition);
   };
 
   const nextImage = () => {
     const newPosition =
-      imagePosition === changePosition
+      imagePosition === changedPosition
         ? 0
-        : Math.max(imagePosition - step, changePosition);
+        : Math.max(imagePosition - step, changedPosition);
 
     setImagePosition(newPosition);
   };
@@ -50,8 +50,8 @@ const Carousel: React.FC<Props> = ({
       style={{ width: `${itemWidth * frameSize - 1}px` }}
     >
       <ul className="Carousel__list" style={styleList}>
-        {images.map(image => (
-          <li key={image}>
+        {images.map((image, i) => (
+          <li key={i}>
             <img src={image} alt={image} width={itemWidth} />
           </li>
         ))}
