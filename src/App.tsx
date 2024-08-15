@@ -24,13 +24,58 @@ class App extends React.Component<{}, Required<Props>> {
     infinite: false,
   };
 
+  handleItemWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = +e.target.value;
+
+    if (value > 0 && value <= 500) {
+      this.setState({ itemWidth: value });
+    } else {
+      alert('Please enter a value between 1 and 500 for item width.');
+    }
+  };
+
+  handleFrameSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = +e.target.value;
+    const { images } = this.state;
+
+    if (value > 0 && value <= images.length) {
+      this.setState({ frameSize: value });
+    } else {
+      alert(`Frame size must be between 1 and ${images.length}.`);
+    }
+  };
+
+  handleStepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = +e.target.value;
+    const { images } = this.state;
+
+    if (value > 0 && value <= images.length) {
+      this.setState({ step: value });
+    } else {
+      alert(`Step must be between 1 and ${images.length}.`);
+    }
+  };
+
+  handleAnimationDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = +e.target.value;
+
+    if (value > 0 && value <= 10000) {
+      this.setState({ animationDuration: value });
+    } else {
+      alert('Please enter a value between 1 and 10000 for animation duration.');
+    }
+  };
+
+  handleInfiniteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: e.target.checked });
+  };
+
   render() {
     const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div className="inputGroup">
           <label htmlFor="itemId">
@@ -39,7 +84,9 @@ class App extends React.Component<{}, Required<Props>> {
               id="itemId"
               type="number"
               value={itemWidth}
-              onChange={e => this.setState({ itemWidth: +e.target.value })}
+              onChange={this.handleItemWidthChange}
+              min={1}
+              max={500}
             />
           </label>
           <label htmlFor="frameId">
@@ -48,8 +95,9 @@ class App extends React.Component<{}, Required<Props>> {
               id="frameId"
               type="number"
               value={frameSize}
+              onChange={this.handleFrameSizeChange}
+              min={1}
               max={images.length}
-              onChange={e => this.setState({ frameSize: +e.target.value })}
             />
           </label>
           <label htmlFor="stepId">
@@ -58,8 +106,9 @@ class App extends React.Component<{}, Required<Props>> {
               id="stepId"
               type="number"
               value={step}
+              onChange={this.handleStepChange}
+              min={1}
               max={images.length}
-              onChange={e => this.setState({ step: +e.target.value })}
             />
           </label>
           <label>
@@ -67,9 +116,9 @@ class App extends React.Component<{}, Required<Props>> {
             <input
               type="number"
               value={animationDuration}
-              onChange={e =>
-                this.setState({ animationDuration: +e.target.value })
-              }
+              onChange={this.handleAnimationDurationChange}
+              min={1}
+              max={10000}
             />
           </label>
           <label className="checkbox-label">
@@ -77,7 +126,7 @@ class App extends React.Component<{}, Required<Props>> {
             <input
               type="checkbox"
               checked={infinite}
-              onChange={e => this.setState({ infinite: e.target.checked })}
+              onChange={this.handleInfiniteChange}
             />
           </label>
         </div>

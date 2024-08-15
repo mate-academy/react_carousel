@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import { Props } from '../types/Props';
 import './Carousel.scss';
 
@@ -13,24 +14,30 @@ export const Carousel: React.FC<Props> = ({
   const [currentShift, setCurrentShift] = useState<number>(0);
   const maxShift = images.length - frameSize;
 
-  if (currentShift > maxShift) {
-    setCurrentShift(maxShift);
-  }
+  useEffect(() => {
+    const fullShift = `-${itemWidth * maxShift}px`;
 
-  const fullShift = `-${itemWidth * maxShift}px`;
-
-  document.documentElement.style.setProperty('--shift', fullShift);
-  document.documentElement.style.setProperty(
-    '--animation-duration',
-    `${animationDuration}ms`,
-  );
+    document.documentElement.style.setProperty('--shift', fullShift);
+    document.documentElement.style.setProperty(
+      '--animation-duration',
+      `${animationDuration}ms`,
+    );
+  }, [itemWidth, maxShift, animationDuration]);
 
   const showNext = () => {
-    setCurrentShift(prev => Math.min(prev + step, maxShift));
+    if (infinite && currentShift === maxShift) {
+      setCurrentShift(0);
+    } else {
+      setCurrentShift(prev => Math.min(prev + step, maxShift));
+    }
   };
 
   const showPrev = () => {
-    setCurrentShift(prev => Math.max(0, prev - step));
+    if (infinite && currentShift === 0) {
+      setCurrentShift(maxShift);
+    } else {
+      setCurrentShift(prev => Math.max(0, prev - step));
+    }
   };
 
   return (
@@ -42,14 +49,16 @@ export const Carousel: React.FC<Props> = ({
         }}
       >
         <ul
-          className={`Carousel__list ${infinite ? 'Carousel__list--animated' : ''}`}
+          className={classNames('Carousel__list', {
+            'Carousel__list--animated': infinite,
+          })}
           style={{
             transition: `all 100ms ease`,
             transform: `translateX(-${currentShift * itemWidth}px)`,
           }}
         >
           {images.map((image, index) => (
-            <li className="Carousel__item" key={index}>
+            <li className="Carousel__item" key={`${image}-${index}`}>
               <img
                 className="Carousel__img"
                 src={image}
@@ -66,7 +75,7 @@ export const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={showPrev}
-          disabled={infinite}
+          disabled={!infinite && currentShift === 0}
         >
           Prev
         </button>
@@ -74,7 +83,7 @@ export const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={showNext}
-          disabled={infinite}
+          disabled={!infinite && currentShift === maxShift}
           data-cy="next"
         >
           Next
