@@ -50,8 +50,8 @@ const Carousel: React.FC<Props> = ({
       style={{ width: `${itemWidth * frameSize - 1}px` }}
     >
       <ul className="Carousel__list" style={styleList}>
-        {images.map((image, i) => (
-          <li key={i}>
+        {images.map(image => (
+          <li key={image}>
             <img src={image} alt={image} width={itemWidth} />
           </li>
         ))}
