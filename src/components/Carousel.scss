@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  width: max-content;
+  margin-inline: auto;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 40px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    &--disabled {
+      opacity: 0.5;
+
+      pointer-events: none;
+    }
+
+    &--next {
+      &::after {
+        content: ' »';
+      }
+    }
+
+    &--prev {
+      &::before {
+        content: '« ';
+      }
+    }
+  }
+}
