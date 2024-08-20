@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import './Carousel.scss';
 import cn from 'classnames';
 
+type Image = {
+  url: string;
+  altText?: string;
+  id?: string;
+};
+
 type Params = {
-  images: string[];
+  images: Image[];
   step: number;
   frameSize: number;
-  itemWidth: number;
+  itemWidth?: number;
   animationDuration: number;
-  infinite: boolean;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Params> = ({
@@ -23,7 +29,10 @@ const Carousel: React.FC<Params> = ({
   const gap = 40;
   const slotWidth = itemWidth + gap;
   const frameWidth = slotWidth * frameSize - gap;
-  const maxContainerSteps = images.length - frameSize;
+  const maxContainerSteps = Math.max(
+    0,
+    Math.ceil((images.length - frameSize) / step),
+  );
   const carouselTranslation = -containerSteps * slotWidth;
 
   const nextDisabled = containerSteps === maxContainerSteps && !infinite;
@@ -33,9 +42,14 @@ const Carousel: React.FC<Params> = ({
     if (containerSteps === maxContainerSteps && infinite) {
       setContainerSteps(0);
     } else {
-      const newTranslation = Math.min(maxContainerSteps, containerSteps + step);
+      const remainingImages = images.length - (containerSteps + frameSize);
 
-      setContainerSteps(newTranslation);
+      const newTranslation =
+        remainingImages < step
+          ? containerSteps + remainingImages
+          : containerSteps + step;
+
+      setContainerSteps(Math.min(maxContainerSteps, newTranslation));
     }
   };
 
@@ -55,8 +69,12 @@ const Carousel: React.FC<Params> = ({
         }}
       >
         {images.map((image, index) => (
-          <li key={image}>
-            <img src={image} alt={'image - ' + index} width={itemWidth} />
+          <li key={image.id || index}>
+            <img
+              src={image.url}
+              alt={image.altText || `Image ${index + 1}`}
+              width={itemWidth}
+            />
           </li>
         ))}
       </ul>
@@ -67,8 +85,9 @@ const Carousel: React.FC<Params> = ({
           className={cn('Carousel__button Carousel__button--prev', {
             'Carousel__button--disabled': prevDisabled,
           })}
-          data-cy={'prev'}
+          data-cy="prev"
           onClick={prevClick}
+          aria-label="Previous"
         >
           Prev
         </button>
@@ -78,8 +97,9 @@ const Carousel: React.FC<Params> = ({
           className={cn('Carousel__button Carousel__button--next', {
             'Carousel__button--disabled': nextDisabled,
           })}
-          data-cy={'next'}
+          data-cy="next"
           onClick={nextClick}
+          aria-label="Next"
         >
           Next
         </button>
