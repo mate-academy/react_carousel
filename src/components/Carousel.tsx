@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -10,22 +10,31 @@ type Props = {
   infinite?: boolean;
 };
 
-const Carousel: React.FC<Props> = ({
+export const DEFAULT_PROPS = Object.freeze({
+  STEP: 3,
+  FRAME_SIZE: 3,
+  ITEM_WIDTH: 130,
+  ANIMATION_DURATION: 1000,
+  INFINITE: false,
+});
+
+export const Carousel: React.FC<Props> = ({
   images,
-  step = 3,
-  frameSize = 3,
-  itemWidth = 130,
-  animationDuration = 1000,
-  infinite = false,
+  step = DEFAULT_PROPS.STEP,
+  frameSize = DEFAULT_PROPS.FRAME_SIZE,
+  itemWidth = DEFAULT_PROPS.ITEM_WIDTH,
+  animationDuration = DEFAULT_PROPS.ANIMATION_DURATION,
+  infinite = DEFAULT_PROPS.INFINITE,
 }) => {
-  const [index, setIndex] = useState(0);
-  const [isPrevPossible, setIsPrevPossible] = useState(infinite || index > 0);
-  const [isNextPossible, setIsNextPossible] = useState(
-    infinite || index < images.length - frameSize,
-  );
+  const [firstToDisplayIndex, setFirstToDisplayIndex] = useState(0);
+
+  const isPrevPossible = infinite || firstToDisplayIndex > 0;
+
+  const isNextPossible =
+    infinite || firstToDisplayIndex < images.length - frameSize;
 
   const containerWidth = itemWidth * frameSize;
-  const offset = itemWidth * index;
+  const offset = itemWidth * firstToDisplayIndex;
 
   const containerStyle = { width: `${containerWidth}px` };
   const listStyle = {
@@ -35,23 +44,11 @@ const Carousel: React.FC<Props> = ({
 
   const imageHiddenStyle = {
     visibility: 'hidden',
-    transitionDelay: `${animationDuration}ms`, // creates an illusion of smooth motion without angering the cypress gods
+    transitionDelay: `${animationDuration}ms`,
   };
 
-  const updateMovement = useCallback(
-    (newIndex: number) => {
-      if (infinite) {
-        return;
-      }
-
-      setIsPrevPossible(newIndex > 0);
-      setIsNextPossible(newIndex < images.length - frameSize);
-    },
-    [frameSize, images.length, infinite],
-  );
-
-  const goToNextIndex = useCallback(() => {
-    setIndex(oldIndex => {
+  const goToNextIndex = () => {
+    setFirstToDisplayIndex(oldIndex => {
       let newIndex = oldIndex + step;
 
       if (newIndex >= images.length - (frameSize - step)) {
@@ -60,14 +57,12 @@ const Carousel: React.FC<Props> = ({
         newIndex = images.length - frameSize;
       }
 
-      updateMovement(newIndex);
-
       return newIndex;
     });
-  }, [images.length, frameSize, step, updateMovement]);
+  };
 
-  const goToPrevIndex = useCallback(() => {
-    setIndex(oldIndex => {
+  const goToPrevIndex = () => {
+    setFirstToDisplayIndex(oldIndex => {
       let newIndex = oldIndex - step;
 
       if (newIndex <= -frameSize + (frameSize - step)) {
@@ -76,31 +71,16 @@ const Carousel: React.FC<Props> = ({
         newIndex = 0;
       }
 
-      updateMovement(newIndex);
-
       return newIndex;
     });
-  }, [images.length, frameSize, step, updateMovement]);
-
-  useEffect(() => {
-    if (infinite) {
-      setIsPrevPossible(true);
-      setIsNextPossible(true);
-    } else {
-      setIsPrevPossible(index > 0);
-      setIsNextPossible(index < images.length - frameSize);
-    }
-  }, [frameSize, images.length, index, infinite]);
+  };
 
   return (
     <div className="Carousel" style={containerStyle}>
       <ul className="Carousel__list" style={listStyle}>
         {images.map((image, id) => {
-          // Technically, manually hiding images is not needed,
-          // as Carousel just hides any overflow.
-          // However, Cypress does not consider it hidden for some reason.
-          // and this code fixes it.
-          const isVisible = id >= index && id < index + frameSize;
+          const isVisible =
+            id >= firstToDisplayIndex && id < firstToDisplayIndex + frameSize;
 
           return (
             <li className="Carousel__item" key={image}>
@@ -138,5 +118,3 @@ const Carousel: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Carousel;

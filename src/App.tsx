@@ -1,9 +1,16 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+
+import {
+  Carousel,
+  DEFAULT_PROPS as CAROUSEL_DEFAULT_PROPS,
+} from './components/Carousel';
+
+import { clamp } from './utils/clamp';
 
 interface State {
   images: string[];
+
   itemWidth: number;
   frameSize: number;
   step: number;
@@ -12,7 +19,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -26,11 +33,41 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
 
-    itemWidth: 130,
-    frameSize: 3,
-    step: 3,
-    animationDuration: 1000,
-    isInfinite: false,
+    itemWidth: CAROUSEL_DEFAULT_PROPS.ITEM_WIDTH,
+    frameSize: CAROUSEL_DEFAULT_PROPS.FRAME_SIZE,
+    step: CAROUSEL_DEFAULT_PROPS.STEP,
+    animationDuration: CAROUSEL_DEFAULT_PROPS.ANIMATION_DURATION,
+    isInfinite: CAROUSEL_DEFAULT_PROPS.INFINITE,
+  };
+
+  handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+
+    this.setState({ itemWidth: clamp(value, 0, 1000) });
+  };
+
+  handleFrameSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+
+    this.setState({ frameSize: clamp(value, 0, 10) });
+  };
+
+  handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+
+    this.setState({ step: clamp(value, 0, 10) });
+  };
+
+  handleAnimationDurationChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = Number(event.target.value);
+
+    this.setState({ animationDuration: clamp(value, 0, 10000) });
+  };
+
+  handleInfiniteLoopToggle = () => {
+    this.setState({ isInfinite: !this.state.isInfinite });
   };
 
   render() {
@@ -41,59 +78,51 @@ class App extends React.Component<{}, State> {
         <>
           <label htmlFor="itemId">Item width: </label>
           <input
-            onChange={event =>
-              this.setState({ itemWidth: +event.target.value })
-            }
+            onChange={this.handleItemWidthChange}
             type="number"
             name="itemId"
             id="itemId"
-            defaultValue={130}
+            value={this.state.itemWidth}
           />
           <br />
 
           <label htmlFor="frameId">Frame size: </label>
           <input
-            onChange={event =>
-              this.setState({ frameSize: +event.target.value })
-            }
+            onChange={this.handleFrameSizeChange}
             type="number"
             name="frameId"
             id="frameId"
-            defaultValue={3}
+            value={this.state.frameSize}
           />
           <br />
 
           <label htmlFor="stepId">Step: </label>
           <input
-            onChange={event => this.setState({ step: +event.target.value })}
+            onChange={this.handleStepChange}
             type="number"
             name="stepId"
             id="stepId"
-            defaultValue={3}
+            value={this.state.step}
           />
           <br />
 
           <label htmlFor="animationDuration">Animation duration: </label>
           <input
-            onChange={event =>
-              this.setState({ animationDuration: +event.target.value })
-            }
+            onChange={this.handleAnimationDurationChange}
             type="number"
             name="animationDuration"
             id="animationDuration"
-            defaultValue={1000}
+            value={this.state.animationDuration}
           />
           <br />
 
           <label htmlFor="infinite">Infinite loop: </label>
           <input
-            onClick={() =>
-              this.setState({ isInfinite: !this.state.isInfinite })
-            }
+            onClick={this.handleInfiniteLoopToggle}
             type="checkbox"
             name="infinite"
             id="infinite"
-            defaultChecked={false}
+            checked={this.state.isInfinite}
           />
           <br />
         </>
