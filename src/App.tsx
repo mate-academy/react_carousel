@@ -44,8 +44,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel{images.length > 0 && ` with ${images.length} images`}</h1>
+        <h1 data-cy="title">
+          Carousel{images.length > 0 && ` with ${images.length} images`}
+        </h1>
 
         <div className="App__inputs">
           <label htmlFor="itemId">Item width</label>

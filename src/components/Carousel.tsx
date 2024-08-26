@@ -53,7 +53,7 @@ const Carousel: React.FC<Props> = ({
   const handlePrevClick = () => {
     if (previousSlide) {
       setSlide(currentSlide =>
-        currentSlide === 0 ? slideItems : currentSlide - 1,
+        currentSlide === 0 ? slideItems : currentSlide - slide,
       );
     }
   };
@@ -72,10 +72,9 @@ const Carousel: React.FC<Props> = ({
 
       <div className="Carousel__navigate">
         <button
-          className={classNames([
-            'Carousel__button',
-            !previousSlide && !infinite ? 'Carousel__button--disable' : '',
-          ])}
+          className={classNames('Carousel__button', {
+            'Carousel__button--disable': !previousSlide && !infinite,
+          })}
           type="button"
           disabled={!previousSlide}
           onClick={handlePrevClick}
@@ -84,10 +83,9 @@ const Carousel: React.FC<Props> = ({
         </button>
 
         <button
-          className={classNames([
-            'Carousel__button',
-            !nextSlide && !infinite ? 'Carousel__button--disable' : '',
-          ])}
+          className={classNames('Carousel__button', {
+            'Carousel__button--disable': !nextSlide && !infinite,
+          })}
           type="button"
           disabled={!nextSlide}
           onClick={handleNextClick}
