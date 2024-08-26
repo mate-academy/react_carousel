@@ -13,9 +13,13 @@ h1 {
     flex-direction: column;
     margin-left: 25px;
 
-    & input,
-    & label {
+    & > input,
+    & > label {
       width: 200px;
+    }
+
+    & > div > label {
+      margin-right: 24px;
     }
   }
 }

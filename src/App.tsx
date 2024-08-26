@@ -19,6 +19,7 @@ const itemWidthDefault = 130;
 const frameSizeDefault = 3;
 const stepDefault = 3;
 const animationDurationDefault = 1000;
+const infinteDefault = false;
 
 const App: React.FC = () => {
   const [itemWidth, setItemWidth] = React.useState(itemWidthDefault);
@@ -27,6 +28,7 @@ const App: React.FC = () => {
   const [animationDuration, setAnimationDuration] = React.useState(
     animationDurationDefault,
   );
+  const [infinite, setInfinite] = React.useState(infinteDefault);
 
   return (
     <div className="App">
@@ -83,6 +85,18 @@ const App: React.FC = () => {
               value={animationDuration}
               onChange={e => setAnimationDuration(Number(e.target.value))}
             />
+            <br />
+
+            <div>
+              <label htmlFor="infinite">Infite</label>
+              <input
+                type="checkbox"
+                name="infinite"
+                id="infinite"
+                checked={infinite}
+                onChange={() => setInfinite(currentState => !currentState)}
+              />
+            </div>
           </div>
 
           <Carousel
@@ -91,7 +105,7 @@ const App: React.FC = () => {
             frameSize={frameSize}
             itemWidth={itemWidth}
             animationDuration={animationDuration}
-            infinite={false}
+            infinite={infinite}
           />
         </>
       )}
