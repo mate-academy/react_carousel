@@ -22,10 +22,10 @@ const Carousel: React.FC<Props> = ({
   const [slide, setSlide] = React.useState(0);
 
   const totalItems = images.length;
-  const slideItems = Math.ceil((totalItems - frameSize) / step);
+  const slideItems = Math.max(Math.ceil((totalItems - frameSize) / step), 0);
 
-  const nextSlide = slide < slideItems || infinite;
-  const previousSlide = slide > 0 || infinite;
+  const nextSlide = infinite || slide < slideItems;
+  const previousSlide = infinite || slide > 0;
 
   const containerStyle = React.useMemo(
     () => ({

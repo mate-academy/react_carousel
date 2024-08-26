@@ -4,9 +4,9 @@
   align-items: center;
 
   &__container {
-    position: relative;
     overflow: hidden;
-    box-sizing: border-box;
+    position: relative;
+    border: solid #0000;
   }
 
   &__list {
@@ -42,6 +42,7 @@
       border: 2px solid #e2e6e9;
       color: #e2e6e9;
       cursor: not-allowed;
+      pointer-events: none;
 
       &:hover {
         border: 2px solid #e2e6e9;
