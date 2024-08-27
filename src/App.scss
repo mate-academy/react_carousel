@@ -1,1 +1,26 @@
-// style go here
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+.App {
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+
+    & > input,
+    & > label {
+      width: 200px;
+    }
+
+    & > div > label {
+      margin-right: 24px;
+    }
+  }
+}
