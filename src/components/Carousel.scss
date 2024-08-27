@@ -4,10 +4,8 @@
   align-items: center;
 
   &__container {
-    width: 385px;
     overflow: hidden;
     position: relative;
-    border: solid #0000;
   }
 
   &__list {
@@ -16,6 +14,7 @@
 
   &__item {
     list-style: none;
+    border: 1px solid transparent;
   }
 
   &__navigate {

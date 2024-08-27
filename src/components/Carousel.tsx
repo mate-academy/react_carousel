@@ -21,11 +21,13 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const [slide, setSlide] = React.useState(0);
 
-  const totalItems = images.length;
-  const slideItems = Math.max(Math.ceil((totalItems - frameSize) / step), 0);
+  const startSlide = React.useMemo(
+    () => images.length - frameSize,
+    [images, frameSize],
+  );
 
-  const nextSlide = infinite || slide < slideItems;
-  const previousSlide = infinite || slide > 0;
+  const nextSlide = slide === startSlide && !infinite;
+  const previousSlide = slide === 0 && !infinite;
 
   const containerStyle = React.useMemo(
     () => ({
@@ -35,27 +37,35 @@ const Carousel: React.FC<Props> = ({
   );
 
   const listStyle = React.useMemo(() => {
-    const maxTranslateX = (totalItems - frameSize) * itemWidth;
-    const translateX = Math.min(slide * itemWidth * step, maxTranslateX);
-
     return {
-      transform: `translateX(-${translateX}px)`,
+      transform: `translateX(-${slide * itemWidth}px)`,
       transition: `transform ${animationDuration}ms ease-in-out`,
     };
-  }, [totalItems, frameSize, itemWidth, slide, step, animationDuration]);
+  }, [itemWidth, slide, animationDuration]);
+
+  const itemStyle = React.useMemo(
+    () => ({ width: `${itemWidth}px` }),
+    [itemWidth],
+  );
 
   const handleNextClick = () => {
-    if (nextSlide) {
-      setSlide(currentSlide => (currentSlide + 1) % (slideItems + 1));
-    }
+    setSlide(currentSlide => {
+      if (currentSlide !== startSlide) {
+        return Math.min(currentSlide + step, startSlide);
+      }
+
+      return 0;
+    });
   };
 
   const handlePrevClick = () => {
-    if (previousSlide) {
-      setSlide(currentSlide =>
-        currentSlide === 0 ? slideItems : currentSlide - slide,
-      );
-    }
+    setSlide(currentSlide => {
+      if (slide > 0) {
+        return Math.max(currentSlide - step, 0);
+      }
+
+      return startSlide;
+    });
   };
 
   return (
@@ -63,7 +73,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__container" style={containerStyle}>
         <ul className="Carousel__list" style={listStyle}>
           {images.map((image, index) => (
-            <li className="Carousel__item" key={index}>
+            <li className="Carousel__item" key={index} style={itemStyle}>
               <img src={image} alt={`Image ${index + 1}`} width={itemWidth} />
             </li>
           ))}
@@ -73,10 +83,10 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__navigate">
         <button
           className={classNames('Carousel__button', {
-            'Carousel__button--disable': !previousSlide && !infinite,
+            'Carousel__button--disable': previousSlide && !infinite,
           })}
           type="button"
-          disabled={!previousSlide}
+          disabled={previousSlide}
           onClick={handlePrevClick}
         >
           &lsaquo;
@@ -84,10 +94,10 @@ const Carousel: React.FC<Props> = ({
 
         <button
           className={classNames('Carousel__button', {
-            'Carousel__button--disable': !nextSlide && !infinite,
+            'Carousel__button--disable': nextSlide && !infinite,
           })}
           type="button"
-          disabled={!nextSlide}
+          disabled={nextSlide}
           onClick={handleNextClick}
           data-cy="next"
         >
