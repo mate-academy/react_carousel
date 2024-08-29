@@ -32,27 +32,12 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  changeStep = (newStep: number) => {
-    if (newStep > 0 && newStep <= this.state.images.length) {
-      this.setState({ step: newStep });
-    }
-  };
-
-  changeFrameSize = (newFrameSize: number) => {
-    if (newFrameSize > 0 && newFrameSize <= this.state.images.length) {
-      this.setState({ frameSize: newFrameSize });
-    }
-  };
-
-  changeItemWidth = (newItemWidth: number) => {
-    if (newItemWidth > 0) {
-      this.setState({ itemWidth: newItemWidth });
-    }
-  };
-
-  changeAnimationDuration = (newAnimationDuration: number) => {
-    if (newAnimationDuration > 0) {
-      this.setState({ animationDuration: newAnimationDuration });
+  changeNumberValue = (
+    key: keyof Omit<State, 'images' | 'infinite'>,
+    newValue: number,
+  ) => {
+    if (!Number.isNaN(newValue) && newValue > 0) {
+      this.setState({ ...this.state, [key]: newValue });
     }
   };
 
@@ -66,7 +51,6 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form className="App__form">
@@ -79,7 +63,7 @@ class App extends React.Component<{}, State> {
               max={images.length}
               value={step}
               onChange={event => {
-                this.changeStep(+event.target.value);
+                this.changeNumberValue('step', +event.target.value);
               }}
             />
           </label>
@@ -93,7 +77,9 @@ class App extends React.Component<{}, State> {
               max={images.length}
               value={frameSize}
               onChange={event => {
-                this.changeFrameSize(+event.target.value);
+                if (+event.target.value <= images.length) {
+                  this.changeNumberValue('frameSize', +event.target.value);
+                }
               }}
             />{' '}
           </label>
@@ -106,7 +92,7 @@ class App extends React.Component<{}, State> {
               min={1}
               value={itemWidth}
               onChange={event => {
-                this.changeItemWidth(+event.target.value);
+                this.changeNumberValue('itemWidth', +event.target.value);
               }}
             />
           </label>
@@ -119,7 +105,10 @@ class App extends React.Component<{}, State> {
               min={1}
               value={animationDuration}
               onChange={event => {
-                this.changeAnimationDuration(+event.target.value);
+                this.changeNumberValue(
+                  'animationDuration',
+                  +event.target.value,
+                );
               }}
             />
           </label>

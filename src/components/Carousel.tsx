@@ -66,14 +66,13 @@ const Carousel: React.FC<Props> = ({
           gap: `${listGap}px`,
         }}
       >
-        {images.map(image => (
+        {images.map((image, index) => (
           <li key={image} className="Carousel__item">
             <img
               src={image}
-              alt="image"
+              alt={`Smile ${index + 1}`}
               className="Carousel__img"
               width={itemWidth}
-              // style={{ width: `${itemWidth}px` }}
             />
           </li>
         ))}
