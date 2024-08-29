@@ -68,61 +68,74 @@ class App extends React.Component<{}, State> {
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
-        <label htmlFor="stepId">Step: </label>
-        <input
-          type="number"
-          id="stepId"
-          min={1}
-          max={images.length}
-          value={step}
-          onChange={event => {
-            this.changeStep(+event.target.value);
-          }}
-        />
 
-        <label htmlFor="frameId">Frame Size: </label>
-        <input
-          type="number"
-          id="frameId"
-          min={1}
-          max={images.length}
-          value={frameSize}
-          onChange={event => {
-            this.changeFrameSize(+event.target.value);
-          }}
-        />
+        <form className="App__form">
+          <label htmlFor="stepId" className="App__label">
+            Step:{' '}
+            <input
+              type="number"
+              id="stepId"
+              min={1}
+              max={images.length}
+              value={step}
+              onChange={event => {
+                this.changeStep(+event.target.value);
+              }}
+            />
+          </label>
 
-        <label htmlFor="itemId">Item Width: </label>
-        <input
-          type="number"
-          id="itemId"
-          min={1}
-          value={itemWidth}
-          onChange={event => {
-            this.changeItemWidth(+event.target.value);
-          }}
-        />
+          <label htmlFor="frameId" className="App__label">
+            Frame Size:
+            <input
+              type="number"
+              id="frameId"
+              min={1}
+              max={images.length}
+              value={frameSize}
+              onChange={event => {
+                this.changeFrameSize(+event.target.value);
+              }}
+            />{' '}
+          </label>
 
-        <label htmlFor="animationDuration">Animation Duration: </label>
-        <input
-          type="number"
-          id="animationDuration"
-          min={1}
-          value={animationDuration}
-          onChange={event => {
-            this.changeAnimationDuration(+event.target.value);
-          }}
-        />
+          <label htmlFor="itemId" className="App__label">
+            Item Width:
+            <input
+              type="number"
+              id="itemId"
+              min={1}
+              value={itemWidth}
+              onChange={event => {
+                this.changeItemWidth(+event.target.value);
+              }}
+            />
+          </label>
 
-        <label htmlFor="infinite">Infinite: </label>
-        <input
-          type="checkbox"
-          id="infinite"
-          checked={infinite}
-          onChange={event => {
-            this.changeInfinite(event.target.checked);
-          }}
-        />
+          <label htmlFor="animationDuration" className="App__label">
+            Animation Duration:
+            <input
+              type="number"
+              id="animationDuration"
+              min={1}
+              value={animationDuration}
+              onChange={event => {
+                this.changeAnimationDuration(+event.target.value);
+              }}
+            />
+          </label>
+
+          <label htmlFor="infinite" className="App__label">
+            Infinite:
+            <input
+              type="checkbox"
+              id="infinite"
+              checked={infinite}
+              onChange={event => {
+                this.changeInfinite(event.target.checked);
+              }}
+            />
+          </label>
+        </form>
 
         <Carousel
           images={images}

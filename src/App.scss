@@ -1,1 +1,19 @@
 // style go here
+.App {
+  &__form {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid gray;
+  }
+
+  &__label{
+    display: flex;
+    gap: 10px;
+  }
+
+}
