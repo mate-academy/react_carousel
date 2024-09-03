@@ -1,1 +1,88 @@
-// style go here
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+  }
+
+  &__form {
+    margin-bottom: 10px;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  &__input {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &[type='checkbox'] {
+      display: none;
+
+      + .form__custom-checkbox {
+        position: relative;
+        top: 15px;
+        left: 10px;
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 15px;
+          height: 15px;
+          background-color: #2dea62;
+          border-radius: 2px;
+          transform: scale(0) translate(-50%, -50%);
+          transition: transform 0.2s ease-in-out;
+        }
+      }
+
+      &:checked + .form__custom-checkbox::before {
+        transform: scale(1) translate(-50%, -50%);
+      }
+    }
+  }
+
+  &__error-message, &__empty-message {
+    margin: 0 0 50px;
+    padding: 0;
+    font-size: 0.8rem;
+    color: red;
+  }
+
+  &__empty-message {
+    opacity: 0;
+  }
+}
