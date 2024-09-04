@@ -34,28 +34,41 @@ class App extends React.Component<{}, State> {
     errorMessage: '',
   };
 
+  validateFrameSizeOrStep = (name: string, value: number): string => {
+    if (value < 1 || value > this.state.images.length - this.state.frameSize) {
+      return `${name} must be between 1 and ${this.state.images.length - this.state.frameSize}.`;
+    }
+
+    return '';
+  };
+
+  validateAnimationDuration = (value: number): string => {
+    if (value < 100 || value > 3000) {
+      return 'Animation duration must be between 100 and 3000.';
+    }
+
+    return '';
+  };
+
   handleNumberInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const newValue = Number(value);
     let errorMessage = '';
 
     if (name === 'frameSize' || name === 'step') {
-      if (newValue < 1 || newValue > this.state.images.length) {
-        errorMessage = `${name} must be between 1 and ${this.state.images.length}.`;
-      }
+      errorMessage = this.validateFrameSizeOrStep(name, newValue);
     } else if (name === 'animationDuration') {
-      if (newValue < 100 || newValue > 3000) {
-        errorMessage = 'Animation duration must be between 100 and 3000.';
-      }
+      errorMessage = this.validateAnimationDuration(newValue);
     }
 
     if (errorMessage) {
       this.setState({ errorMessage });
     } else {
-      this.setState({
+      this.setState(prevState => ({
+        ...prevState,
         [name]: newValue,
         errorMessage: '',
-      } as unknown as Pick<State, keyof State>);
+      }));
     }
   };
 
@@ -108,7 +121,7 @@ class App extends React.Component<{}, State> {
               name="frameSize"
               value={frameSize}
               min={1}
-              max={images.length}
+              max={images.length - frameSize}
               onChange={this.handleNumberInputChange}
             />
           </label>
@@ -121,7 +134,7 @@ class App extends React.Component<{}, State> {
               name="step"
               value={step}
               min={1}
-              max={images.length}
+              max={images.length - frameSize}
               onChange={this.handleNumberInputChange}
             />
           </label>
@@ -145,14 +158,15 @@ class App extends React.Component<{}, State> {
               name="infinite"
               checked={infinite}
               onChange={this.handleCheckboxChange}
+              aria-hidden="true"
             />
             <span className="form__custom-checkbox"></span>
           </label>
         </form>
         {errorMessage ? (
-          <p className="form__error-message">{errorMessage}</p>
+          <p className="form__message form__message--error">{errorMessage}</p>
         ) : (
-          <p className="form__empty-message">-</p>
+          <p className="form__message form__message--empty">-</p>
         )}
 
         <Carousel

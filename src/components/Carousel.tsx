@@ -71,7 +71,7 @@ const Carousel: React.FC<Props> = ({
             <img
               src={image}
               alt={image}
-              className="Carousel__immage"
+              className="Carousel__image"
               width={itemWidth}
               height={itemWidth}
             />
