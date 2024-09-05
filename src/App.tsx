@@ -10,6 +10,7 @@ interface State {
   animationDuration: number;
   infinite: boolean;
   errorMessage: string;
+  previousItemWidth: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -32,6 +33,7 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
     infinite: false,
     errorMessage: '',
+    previousItemWidth: 130,
   };
 
   validateFrameSizeOrStep = (name: string, value: number): string => {
@@ -45,6 +47,14 @@ class App extends React.Component<{}, State> {
   validateAnimationDuration = (value: number): string => {
     if (value < 100 || value > 3000) {
       return 'Animation duration must be between 100 and 3000.';
+    }
+
+    return '';
+  };
+
+  validateItemWidth = (value: number): string => {
+    if (value < 50 || value > 300) {
+      return 'Item width must be between 50 and 300.';
     }
 
     return '';
@@ -70,6 +80,36 @@ class App extends React.Component<{}, State> {
         errorMessage: '',
       }));
     }
+  };
+
+  handleItemWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const newValue = Number(value);
+    const errorMessage = this.validateItemWidth(Number(value));
+
+    if (errorMessage) {
+      this.setState({ [name]: newValue, errorMessage } as unknown as Pick<
+        State,
+        keyof State
+      >);
+
+      setTimeout(() => {
+        this.setState(prevState => ({
+          ...prevState,
+          [name]: prevState.previousItemWidth,
+          // errorMessage: '',
+        }));
+      }, 100);
+
+      return;
+    }
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: newValue,
+      previousItemWidth: newValue,
+      errorMessage: '',
+    }));
   };
 
   handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,7 +149,7 @@ class App extends React.Component<{}, State> {
               value={itemWidth}
               min={50}
               max={300}
-              onChange={this.handleNumberInputChange}
+              onChange={this.handleItemWidthChange}
             />
           </label>
           <label className="form__label" htmlFor="frameId">
