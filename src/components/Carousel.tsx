@@ -60,11 +60,6 @@ const Carousel: React.FC<Props> = ({
   const isPrevDisabled = !infinite && currentIndex === 0;
   const isNextDisabled = !infinite && currentIndex >= images.length - frameSize;
 
-  console.log(
-    `${currentIndex} * (${itemWidth} + ${imageGap}) =`,
-    currentIndex * (itemWidth + imageGap),
-  );
-
   return (
     <div
       className="Carousel"
