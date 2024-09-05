@@ -88,10 +88,10 @@ class App extends React.Component<{}, State> {
     const errorMessage = this.validateItemWidth(Number(value));
 
     if (errorMessage) {
-      this.setState({ [name]: newValue, errorMessage } as unknown as Pick<
-        State,
-        keyof State
-      >);
+      this.setState({
+        [name]: newValue,
+        errorMessage,
+      } as unknown as Pick<State, keyof State>);
 
       setTimeout(() => {
         this.setState(prevState => ({
