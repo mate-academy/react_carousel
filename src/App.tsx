@@ -97,7 +97,6 @@ class App extends React.Component<{}, State> {
         this.setState(prevState => ({
           ...prevState,
           [name]: prevState.previousItemWidth,
-          // errorMessage: '',
         }));
       }, 100);
 
