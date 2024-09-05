@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import './Carousel.scss';
 
@@ -20,7 +20,18 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevFrameSize, setPrevFrameSize] = useState(frameSize);
   const imageGap = 10;
+
+  useEffect(() => {
+    if (frameSize > prevFrameSize) {
+      setCurrentIndex(prevIndex =>
+        Math.max(prevIndex - (frameSize - prevFrameSize), 0),
+      );
+    }
+
+    setPrevFrameSize(frameSize);
+  }, [frameSize, prevFrameSize]);
 
   const handleClickPrev = () => {
     setCurrentIndex(prevIndex => {
@@ -39,7 +50,7 @@ const Carousel: React.FC<Props> = ({
       const newIndex = prevIndex + step;
 
       if (newIndex >= images.length - frameSize + 1) {
-        return infinite ? 0 : images.length - frameSize;
+        return infinite ? 0 : Math.max(images.length - frameSize, 0);
       }
 
       return newIndex;
@@ -48,6 +59,11 @@ const Carousel: React.FC<Props> = ({
 
   const isPrevDisabled = !infinite && currentIndex === 0;
   const isNextDisabled = !infinite && currentIndex >= images.length - frameSize;
+
+  console.log(
+    `${currentIndex} * (${itemWidth} + ${imageGap}) =`,
+    currentIndex * (itemWidth + imageGap),
+  );
 
   return (
     <div
