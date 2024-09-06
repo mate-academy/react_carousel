@@ -10,6 +10,7 @@ type CarouselProps = {
   infinite?: boolean;
 };
 
+
 const Carousel: React.FC<CarouselProps> = ({
   images,
   itemWidth = 130,
