@@ -1,1 +1,13 @@
 // style go here
+.App {
+  width: max-content;
+  margin-inline: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-bottom: 50px;
+}
