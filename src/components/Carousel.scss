@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1300px;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+}
+
+.Carousel__list--wrapper {
+  width: 390px;
+  overflow: hidden;
+
+}
+
+.Carousel__item {
+  display: flex;
+  list-style: none;
+}
