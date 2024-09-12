@@ -84,7 +84,7 @@ class App extends React.Component<{}, State> {
               className="App__input"
               type="number"
               id="stepId"
-              min={3}
+              min={1}
               max={images.length}
               step={1}
               onChange={event => this.handleChange('step', +event.target.value)}
