@@ -1,1 +1,55 @@
-// style go here
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    border: dotted lightslategray;
+    border-radius: 30px;
+
+    &--label {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 35px;
+      font-weight: bold;
+      padding: 40px 20px;
+    }
+
+    &--label:not(:last-child) {
+      border-bottom: dotted lightslategray;
+    }
+
+    &--input {
+      border-radius: 20px;
+      font-size: 24px;
+      font-family: inherit;
+      padding: 0 20px;
+      margin-left: 50px;
+    }
+
+    &--checkbox {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+}
