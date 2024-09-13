@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
-import { useState } from 'react';
 import cn from 'classnames';
 
 interface Props {
@@ -21,35 +20,39 @@ const Carousel: React.FC<Props> = ({
   infinite,
 }) => {
   const [widthOfSeenImgs, setWidthOfSeenImgs] = useState(0);
+  const gapBetweenImgs = 10;
+  const maxWidth =
+    itemWidth * (images.length - frameSize) +
+    gapBetweenImgs * (images.length - frameSize);
 
   const handleOnClickPrev = () => {
     if (widthOfSeenImgs === 0 && infinite) {
-      setWidthOfSeenImgs(itemWidth * (images.length - step));
-    }
+      setWidthOfSeenImgs(maxWidth);
+    } else if (widthOfSeenImgs > 0) {
+      const newWidth = Math.max(
+        0,
+        widthOfSeenImgs - step * (itemWidth + gapBetweenImgs),
+      );
 
-    if (widthOfSeenImgs > 0) {
-      if (widthOfSeenImgs < step * itemWidth) {
-        setWidthOfSeenImgs(0);
-      } else {
-        setWidthOfSeenImgs(widthOfSeenImgs - step * itemWidth);
-      }
+      setWidthOfSeenImgs(newWidth);
     }
   };
 
   const handleOnClickNext = () => {
-    if (widthOfSeenImgs === itemWidth * (images.length - step) && infinite) {
+    if (widthOfSeenImgs >= maxWidth && infinite) {
       setWidthOfSeenImgs(0);
-    }
+    } else if (widthOfSeenImgs < maxWidth) {
+      const remainingItems =
+        images.length -
+        Math.floor(widthOfSeenImgs / (itemWidth + gapBetweenImgs)) -
+        frameSize;
+      const stepsToMove = Math.min(step, remainingItems);
+      const newWidth = Math.min(
+        maxWidth,
+        widthOfSeenImgs + stepsToMove * (itemWidth + gapBetweenImgs),
+      );
 
-    if (widthOfSeenImgs < itemWidth * (images.length - step)) {
-      if (
-        widthOfSeenImgs ===
-        (images.length - (images.length % step) - step) * itemWidth
-      ) {
-        setWidthOfSeenImgs(itemWidth * (images.length - step));
-      } else {
-        setWidthOfSeenImgs(widthOfSeenImgs + step * itemWidth);
-      }
+      setWidthOfSeenImgs(newWidth);
     }
   };
 
@@ -57,10 +60,13 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <ul
         className="Carousel__list"
-        style={{ width: `${frameSize * itemWidth}px` }}
+        style={{
+          width: `${frameSize * itemWidth + gapBetweenImgs * (frameSize - 1)}px`,
+          gap: `${gapBetweenImgs}px`,
+        }}
       >
         {images.map((imgUrl, ind) => (
-          <li key={imgUrl}>
+          <li className="Carousel__item" key={imgUrl}>
             <img
               className="Carousel__img"
               src={imgUrl}
@@ -74,7 +80,6 @@ const Carousel: React.FC<Props> = ({
           </li>
         ))}
       </ul>
-
       <div className="Carousel__buttons">
         <button
           className={cn('Carousel__button', {
@@ -88,8 +93,7 @@ const Carousel: React.FC<Props> = ({
         <button
           className={cn('Carousel__button', {
             'Carousel__button--disabled':
-              widthOfSeenImgs === itemWidth * (images.length - step) &&
-              !infinite,
+              widthOfSeenImgs >= maxWidth && !infinite,
           })}
           data-cy="next"
           type="button"
