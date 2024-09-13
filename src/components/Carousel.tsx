@@ -73,9 +73,9 @@ const Carousel: React.FC<Props> = ({
               alt={String(ind + 1)}
               style={{
                 transform: `translateX(-${widthOfSeenImgs}px)`,
-                width: `${itemWidth}px`,
                 transition: `${animationDuration}ms`,
               }}
+              width={itemWidth}
             />
           </li>
         ))}
