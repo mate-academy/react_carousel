@@ -1,1 +1,91 @@
-// style go here
+@import './reset';
+
+.App {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 45px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  &__legend {
+    font-weight: 800;
+    font-size: 40px;
+  }
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+    margin-bottom: 20px;
+    padding: 20px;
+    height: 300px;
+    border: dashed 5px black;
+    font-size: 20px;
+  }
+
+  &__label {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__checkbox-span {
+    position: relative;
+    cursor: pointer;
+    padding-right: 150px;  // Збільшено відступ справа
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      border: 2px solid #000;
+      transition: background-color 0.3s ease;
+    }
+
+    &::before {
+      content: '\2713';
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #dcedc1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+  }
+
+  &__input {
+    height: 30px;
+    width: 60px;
+    font-weight: 800;
+  }
+
+  &__checkbox {
+    position: absolute;
+    opacity: 0;
+
+    &:checked + .App__checkbox-span::after {
+      background-color: #000;
+    }
+
+    &:checked + .App__checkbox-span::before {
+      opacity: 1;
+    }
+  }
+}

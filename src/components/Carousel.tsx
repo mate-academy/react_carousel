@@ -1,26 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
+import cn from 'classnames';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  infinite,
+}) => {
+  const [widthOfSeenImgs, setWidthOfSeenImgs] = useState(0);
+  const gapBetweenImgs = 10;
+  const maxWidth =
+    itemWidth * (images.length - frameSize) +
+    gapBetweenImgs * (images.length - frameSize);
+
+  const handleOnClickPrev = () => {
+    if (widthOfSeenImgs === 0 && infinite) {
+      setWidthOfSeenImgs(maxWidth);
+    } else if (widthOfSeenImgs > 0) {
+      const newWidth = Math.max(
+        0,
+        widthOfSeenImgs - step * (itemWidth + gapBetweenImgs),
+      );
+
+      setWidthOfSeenImgs(newWidth);
+    }
+  };
+
+  const handleOnClickNext = () => {
+    if (widthOfSeenImgs >= maxWidth && infinite) {
+      setWidthOfSeenImgs(0);
+    } else if (widthOfSeenImgs < maxWidth) {
+      const remainingItems =
+        images.length -
+        Math.floor(widthOfSeenImgs / (itemWidth + gapBetweenImgs)) -
+        frameSize;
+      const stepsToMove = Math.min(step, remainingItems);
+      const newWidth = Math.min(
+        maxWidth,
+        widthOfSeenImgs + stepsToMove * (itemWidth + gapBetweenImgs),
+      );
+
+      setWidthOfSeenImgs(newWidth);
+    }
+  };
+
+  return (
+    <div className="Carousel">
+      <ul
+        className="Carousel__list"
+        style={{
+          width: `${frameSize * itemWidth + gapBetweenImgs * (frameSize - 1)}px`,
+          gap: `${gapBetweenImgs}px`,
+        }}
+      >
+        {images.map((imgUrl, ind) => (
+          <li className="Carousel__item" key={imgUrl}>
+            <img
+              className="Carousel__img"
+              src={imgUrl}
+              alt={String(ind + 1)}
+              style={{
+                transform: `translateX(-${widthOfSeenImgs}px)`,
+                transition: `${animationDuration}ms`,
+              }}
+              width={itemWidth}
+            />
+          </li>
+        ))}
+      </ul>
+      <div className="Carousel__buttons">
+        <button
+          className={cn('Carousel__button', {
+            'Carousel__button--disabled': widthOfSeenImgs === 0 && !infinite,
+          })}
+          type="button"
+          onClick={handleOnClickPrev}
+        >
+          ❮
+        </button>
+        <button
+          className={cn('Carousel__button', {
+            'Carousel__button--disabled':
+              widthOfSeenImgs >= maxWidth && !infinite,
+          })}
+          data-cy="next"
+          type="button"
+          onClick={handleOnClickNext}
+        >
+          ❯
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
