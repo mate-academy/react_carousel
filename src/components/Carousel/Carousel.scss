@@ -1,0 +1,33 @@
+// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__inner {
+    overflow: hidden;
+    margin: 10px;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__button {
+    width: 90px;
+    height: 25px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
