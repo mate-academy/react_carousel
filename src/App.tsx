@@ -1,39 +1,48 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
 import Carousel from './components/Carousel';
+import CarouselSettings from './components/CarouselSettings';
+import './App.scss';
 
-interface State {
-  images: string[];
-}
+const images = [
+  './img/1.png',
+  './img/2.png',
+  './img/3.png',
+  './img/4.png',
+  './img/5.png',
+  './img/6.png',
+  './img/7.png',
+  './img/8.png',
+  './img/9.png',
+  './img/10.png',
+];
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
+const App: React.FC = () => {
+  const [settings, setSettings] = useState({
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    const newValue = name === 'infinite' ? !settings.infinite : +value;
+
+    setSettings(prevOptions => ({
+      ...prevOptions,
+      [name]: newValue,
+    }));
   };
 
-  render() {
-    const { images } = this.state;
-
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
+      <Carousel images={images} {...settings} />
+      <CarouselSettings {...settings} handleChange={handleChange} />
+    </div>
+  );
+};
 
 export default App;
