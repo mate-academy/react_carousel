@@ -1,1 +1,7 @@
-// style go here
+.page {
+  &__inputs {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+  }
+}
