@@ -1,1 +1,10 @@
 // style go here
+.Carousel__list {
+  width: 1300px;
+  padding: 0;
+}
+
+.Carousel__list li {
+  display: inline;
+  list-style-type: none;
+}
