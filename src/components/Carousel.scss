@@ -1,1 +1,57 @@
-// style go here
+.container {
+  overflow: hidden;
+}
+
+.Carousel {
+  position: relative;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    position: relative;
+  }
+
+  &__item {
+    display: flex;
+
+    &-hidden {
+      // display: none;
+      opacity: 0;
+    }
+  }
+
+  &__image {
+    display: flex;
+  }
+
+  &__buttons {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out;
+
+  &:disabled {
+    cursor: default;
+    border: 1px solid rgb(235, 233, 233);
+  }
+
+  &:hover:enabled {
+    background-color: rgb(235, 233, 233);
+  }
+}
