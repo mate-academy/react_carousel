@@ -1,13 +1,21 @@
 import React, { useRef, useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC<{
+type CarouselProps = {
   images: string[];
   step: number;
   itemWidth: number;
   frameSize: number;
   animationDuration: number;
-}> = ({ images, step, itemWidth, frameSize, animationDuration }) => {
+};
+
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  step,
+  itemWidth,
+  frameSize,
+  animationDuration,
+}) => {
   const [offset, setOffset] = useState(0);
   const carouselListRef = useRef<HTMLUListElement>(null);
 
