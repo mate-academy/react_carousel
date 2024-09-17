@@ -25,11 +25,11 @@
   float: right;
 }
 
-.Carousel__button--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+// .Carousel__button--disabled {
+//   opacity: 0.5;
+//   cursor: not-allowed;
+// }
 
-button {
+.toggleButton {
   display: flex;
 }

@@ -37,6 +37,13 @@ const Carousel: React.FC<CarouselProps> = ({
 
       setOffset(newOffset);
     }
+
+    if (carouselListRef.current && offset === maxNextTransform && infinite) {
+      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
+      carouselListRef.current.style.transform = `translateX(0px)`;
+
+      setOffset(0);
+    }
   };
 
   const handlePrevClick = () => {
@@ -47,6 +54,13 @@ const Carousel: React.FC<CarouselProps> = ({
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
       setOffset(newOffset);
+    }
+
+    if (carouselListRef.current && offset === 0 && infinite) {
+      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
+      carouselListRef.current.style.transform = `translateX(${maxNextTransform}px)`;
+
+      setOffset(maxNextTransform);
     }
   };
 

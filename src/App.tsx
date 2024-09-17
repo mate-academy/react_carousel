@@ -21,7 +21,7 @@ export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
-  const [infinite, setInfinite] = useState(false);
+  const [infinite, setInfinite] = useState(true);
 
   const handleSetStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStep(Math.round(Number(event.target.value)));
@@ -74,7 +74,11 @@ export const App: React.FC = () => {
         onChange={handleAnimationDuration}
       />
 
-      <button type="button" onClick={handleToggleInfinite}>
+      <button
+        className="toggleButton"
+        type="button"
+        onClick={handleToggleInfinite}
+      >
         Toogle Infinite
       </button>
       {/* Przekazanie images jako props do Carousel */}
