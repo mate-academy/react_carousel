@@ -1,12 +1,10 @@
 label
 {
+  display: flex;
   font-weight: bold;
 }
 
 input {
-  width: 55px;
-}
-
-.itemWithInput {
-  width: 300;
+  width: 155px;
+  margin-bottom: 15px;
 }

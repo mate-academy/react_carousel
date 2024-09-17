@@ -64,6 +64,7 @@ const Carousel: React.FC<{
         &#9664;
       </button>
       <button
+        data-cy="next"
         type="button"
         onClick={handleNextClick}
         className={`Carousel__button Carousel__button--next ${offset === maxNextTransform ? 'Carousel__button--disabled' : ''}`}
