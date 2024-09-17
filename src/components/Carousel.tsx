@@ -8,11 +8,11 @@ const Carousel: React.FC<{
   frameSize: number;
   animationDuration: number;
 }> = ({ images, step, itemWidth, frameSize, animationDuration }) => {
-  const carouselListRef = useRef<HTMLUListElement>(null);
   const [offset, setOffset] = useState(0);
+  const carouselListRef = useRef<HTMLUListElement>(null);
 
   const gap = 20;
-  const maxNextTransform = -(images.length - step) * (itemWidth + gap);
+  const maxNextTransform = -(images.length - frameSize) * (itemWidth + gap);
 
   const handleNextClick = () => {
     if (carouselListRef.current && offset > maxNextTransform) {
@@ -47,7 +47,11 @@ const Carousel: React.FC<{
       <ul className="Carousel__list" ref={carouselListRef}>
         {images.map((image, index) => (
           <li key={index}>
-            <img src={image} alt={`${index + 1}`} />
+            <img
+              src={image}
+              alt={`${index + 1}`}
+              style={{ width: `${itemWidth}px` }}
+            />
           </li>
         ))}
       </ul>

@@ -17,14 +17,35 @@ export const App: React.FC = () => {
     './img/10.png',
   ]);
 
+  const [step, setStep] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+
+  const handleSetStep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStep(Math.round(Number(event.target.value)));
+  };
+
+  const handleSetItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItemWidth(Math.round(Number(event.target.value)));
+  };
+
   return (
     <div className="App">
       <h1>Carousel with {images.length} images</h1>
+      <label htmlFor="stepInput">Set step: </label>
+      <input type="number" value={step} onChange={handleSetStep} />
+
+      <label htmlFor="itemWidthInput">Set item width: </label>
+      <input
+        className="itemWithInput"
+        type="number"
+        value={itemWidth}
+        onChange={handleSetItemWidth}
+      />
       {/* Przekazanie images jako props do Carousel */}
       <Carousel
         images={images}
-        step={3}
-        itemWidth={130}
+        step={step}
+        itemWidth={itemWidth}
         frameSize={3}
         animationDuration={1000}
       />
