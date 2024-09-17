@@ -1,15 +1,37 @@
 // style go here
 .Carousel {
-  width: 390px;
+  width: 430px;
   overflow: hidden;
 }
 
 .Carousel__list {
+  display: flex;
   width: 1300px;
   padding: 0;
 }
 
 .Carousel__list li {
-  display: inline;
-  list-style-type: none;
+  list-style: none;
+  margin-right: 20px;
+}
+
+.Carousel__list li img {
+  width: 130px;
+  height: 130px;
+}
+
+.Carousel__button {
+  background-color: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.Carousel__button--next {
+  float: right;
+  margin-right: 20px;
+}
+
+.Carousel__button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

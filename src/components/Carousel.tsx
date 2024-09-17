@@ -6,13 +6,16 @@ const Carousel: React.FC<{ images: string[] }> = ({ images }) => {
   const [offset, setOffset] = useState(0);
 
   const displayedImagesAmount = 3;
-  const imagesWidth = 130;
+  const imagesWidth = 150;
   const maxNextTransform =
     -(images.length - displayedImagesAmount) * imagesWidth;
 
   const handleNextClick = () => {
     if (carouselListRef.current && offset > maxNextTransform) {
-      const newOffset = Math.max(offset - 390, maxNextTransform);
+      const newOffset = Math.max(
+        offset - displayedImagesAmount * imagesWidth,
+        maxNextTransform,
+      );
 
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
@@ -22,7 +25,10 @@ const Carousel: React.FC<{ images: string[] }> = ({ images }) => {
 
   const handlePrevClick = () => {
     if (carouselListRef.current && offset < 0) {
-      const newOffset = Math.min(offset + 390, 0);
+      const newOffset = Math.min(
+        offset + displayedImagesAmount * imagesWidth,
+        0,
+      );
 
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
@@ -40,11 +46,19 @@ const Carousel: React.FC<{ images: string[] }> = ({ images }) => {
         ))}
       </ul>
 
-      <button type="button" onClick={handlePrevClick}>
-        Prev
+      <button
+        type="button"
+        onClick={handlePrevClick}
+        className={`Carousel__button Carousel__button--prev ${offset === 0 ? 'Carousel__button--disabled' : ''}`}
+      >
+        &#9664;
       </button>
-      <button type="button" onClick={handleNextClick}>
-        Next
+      <button
+        type="button"
+        onClick={handleNextClick}
+        className={`Carousel__button Carousel__button--next ${offset === maxNextTransform ? 'Carousel__button--disabled' : ''}`}
+      >
+        &#9654;
       </button>
     </div>
   );
