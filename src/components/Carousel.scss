@@ -1,1 +1,76 @@
-// style go here
+.Carousel {
+  margin: 0 auto;
+  position: relative;
+
+  &__wrapper {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__container {
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  &__button-container {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__list {
+    box-sizing: border-box;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+
+    transition: transform linear;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  &__button {
+    text-align: center;
+    background-color:#3074cc;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0, .98, .79, .97);
+    transition-property: background-color;
+
+    &:hover {
+      background-color: #1a4379;
+    }
+
+    &.disabled {
+      background-color:#7e8185;
+      cursor: auto;
+
+      &:hover {
+        background-color:#7e8185;
+      }
+    }
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+    fill: #fff;
+  }
+}
