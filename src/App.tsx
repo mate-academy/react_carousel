@@ -21,6 +21,7 @@ export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
   const handleSetStep = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStep(Math.round(Number(event.target.value)));
@@ -38,6 +39,10 @@ export const App: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setAnimationDuration(Number(event.target.value));
+  };
+
+  const handleToggleInfinite = () => {
+    setInfinite(!infinite);
   };
 
   return (
@@ -68,6 +73,10 @@ export const App: React.FC = () => {
         value={animationDuration}
         onChange={handleAnimationDuration}
       />
+
+      <button type="button" onClick={handleToggleInfinite}>
+        Toogle Infinite
+      </button>
       {/* Przekazanie images jako props do Carousel */}
       <Carousel
         images={images}
@@ -75,6 +84,7 @@ export const App: React.FC = () => {
         itemWidth={itemWidth}
         frameSize={frameSize}
         animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );
