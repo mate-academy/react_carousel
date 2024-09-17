@@ -5,7 +5,8 @@ const Carousel: React.FC<{
   images: string[];
   step: number;
   itemWidth: number;
-}> = ({ images, step, itemWidth }) => {
+  frameSize: number;
+}> = ({ images, step, itemWidth, frameSize }) => {
   const carouselListRef = useRef<HTMLUListElement>(null);
   const [offset, setOffset] = useState(0);
 
@@ -36,7 +37,10 @@ const Carousel: React.FC<{
   };
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={{ width: `${frameSize * (itemWidth + gap)}px` }}
+    >
       <ul className="Carousel__list" ref={carouselListRef}>
         {images.map((image, index) => (
           <li key={index}>
