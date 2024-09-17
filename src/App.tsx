@@ -21,7 +21,13 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Carousel with {images.length} images</h1>
       {/* Przekazanie images jako props do Carousel */}
-      <Carousel images={images} step={3} itemWidth={130} frameSize={3} />
+      <Carousel
+        images={images}
+        step={3}
+        itemWidth={130}
+        frameSize={3}
+        animationDuration={1000}
+      />
     </div>
   );
 };

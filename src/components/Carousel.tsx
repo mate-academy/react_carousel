@@ -6,7 +6,8 @@ const Carousel: React.FC<{
   step: number;
   itemWidth: number;
   frameSize: number;
-}> = ({ images, step, itemWidth, frameSize }) => {
+  animationDuration: number;
+}> = ({ images, step, itemWidth, frameSize, animationDuration }) => {
   const carouselListRef = useRef<HTMLUListElement>(null);
   const [offset, setOffset] = useState(0);
 
@@ -20,6 +21,7 @@ const Carousel: React.FC<{
         maxNextTransform,
       );
 
+      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
       setOffset(newOffset);
@@ -30,6 +32,7 @@ const Carousel: React.FC<{
     if (carouselListRef.current && offset < 0) {
       const newOffset = Math.min(offset + step * (itemWidth + gap), 0);
 
+      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
       setOffset(newOffset);
