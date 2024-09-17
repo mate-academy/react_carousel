@@ -21,7 +21,7 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Carousel with {images.length} images</h1>
       {/* Przekazanie images jako props do Carousel */}
-      <Carousel images={images} />
+      <Carousel images={images} step={3} />
     </div>
   );
 };

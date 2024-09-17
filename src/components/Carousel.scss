@@ -8,11 +8,11 @@
   display: flex;
   width: 1300px;
   padding: 0;
+  gap: 20px;
 }
 
 .Carousel__list li {
   list-style: none;
-  margin-right: 20px;
 }
 
 .Carousel__list li img {
@@ -28,7 +28,6 @@
 
 .Carousel__button--next {
   float: right;
-  margin-right: 20px;
 }
 
 .Carousel__button--disabled {
