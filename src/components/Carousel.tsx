@@ -1,19 +1,23 @@
 import React, { useRef, useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC<{ images: string[]; step: number }> = ({
-  images,
-  step,
-}) => {
+const Carousel: React.FC<{
+  images: string[];
+  step: number;
+  itemWidth: number;
+}> = ({ images, step, itemWidth }) => {
   const carouselListRef = useRef<HTMLUListElement>(null);
   const [offset, setOffset] = useState(0);
 
-  const imagesWidth = 150;
-  const maxNextTransform = -(images.length - step) * imagesWidth;
+  const gap = 20;
+  const maxNextTransform = -(images.length - step) * (itemWidth + gap);
 
   const handleNextClick = () => {
     if (carouselListRef.current && offset > maxNextTransform) {
-      const newOffset = Math.max(offset - step * imagesWidth, maxNextTransform);
+      const newOffset = Math.max(
+        offset - step * (itemWidth + gap),
+        maxNextTransform,
+      );
 
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
@@ -23,7 +27,7 @@ const Carousel: React.FC<{ images: string[]; step: number }> = ({
 
   const handlePrevClick = () => {
     if (carouselListRef.current && offset < 0) {
-      const newOffset = Math.min(offset + step * imagesWidth, 0);
+      const newOffset = Math.min(offset + step * (itemWidth + gap), 0);
 
       carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
 
