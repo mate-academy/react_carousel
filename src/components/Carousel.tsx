@@ -89,7 +89,7 @@ const Carousel: React.FC<CarouselProps> = ({
       <button
         type="button"
         onClick={handlePrevClick}
-        className={`Carousel__button Carousel__button--prev ${offset === 0 ? 'Carousel__button--disabled' : ''}`}
+        className={`Carousel__button Carousel__button--prev ${offset === 0 && !infinite ? 'Carousel__button--disabled' : ''}`}
       >
         &#9664;
       </button>
@@ -97,7 +97,7 @@ const Carousel: React.FC<CarouselProps> = ({
         data-cy="next"
         type="button"
         onClick={handleNextClick}
-        className={`Carousel__button Carousel__button--next ${offset === maxNextTransform ? 'Carousel__button--disabled' : ''}`}
+        className={`Carousel__button Carousel__button--next ${offset === maxNextTransform && !infinite ? 'Carousel__button--disabled' : ''}`}
       >
         &#9654;
       </button>
