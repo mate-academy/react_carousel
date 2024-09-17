@@ -1,0 +1,60 @@
+.Carousel {
+  width: fit-content;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  &__button {
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    translate: all 0.3;
+    padding: 0;
+
+    &--prev {
+      background-image: url(../../../public/circle-chevron-left-solid.svg);
+
+      &:hover {
+        box-shadow: -2px 2px 7px 0.5px rgba(0, 0, 0, 0.75);
+      }
+    }
+
+    &--next {
+      background-image: url(../../../public/circle-chevron-right-solid.svg);
+
+      &:hover {
+        box-shadow: 2px 2px 7px 0.5px rgba(0, 0, 0, 0.75);
+      }
+    }
+
+    &:hover {
+      transform: scale(1.08);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+
+      &:hover {
+        transform: scale(1);
+        box-shadow: none;
+      }
+    }
+  }
+}

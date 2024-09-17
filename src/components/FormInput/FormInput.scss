@@ -1,16 +1,10 @@
-.parametersForm {
+.FormInput {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: fit-content;
 
-  &__input {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: fit-content;
-  }
-
-  &__input-field {
+  &__field {
     display: block;
     outline: none;
     border: none;
