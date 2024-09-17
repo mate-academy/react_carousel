@@ -43,14 +43,24 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <h1 data-cy="title">Carousel with {images.length} images</h1>
-      <label htmlFor="stepInput">Set step: </label>
-      <input type="number" value={step} onChange={handleSetStep} />
+      <label htmlFor="stepId">Set step: </label>
+      <input type="number" id="stepId" value={step} onChange={handleSetStep} />
 
-      <label htmlFor="itemWidthInput">Set item width: </label>
-      <input type="number" value={itemWidth} onChange={handleSetItemWidth} />
+      <label htmlFor="itemId">Set item width: </label>
+      <input
+        type="number"
+        id="itemId"
+        value={itemWidth}
+        onChange={handleSetItemWidth}
+      />
 
-      <label htmlFor="frameSize">Set frame size: </label>
-      <input type="number" value={frameSize} onChange={handleFrameSize} />
+      <label htmlFor="frameId">Set frame size: </label>
+      <input
+        type="number"
+        id="frameId"
+        value={frameSize}
+        onChange={handleFrameSize}
+      />
 
       <label htmlFor="animationDuration">Set animation duration: </label>
       <input

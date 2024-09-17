@@ -46,11 +46,16 @@ const Carousel: React.FC<{
     >
       <ul className="Carousel__list" ref={carouselListRef}>
         {images.map((image, index) => (
-          <li key={index}>
+          <li
+            key={index}
+            style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
+          >
             <img
               src={image}
               alt={`${index + 1}`}
               style={{ width: `${itemWidth}px` }}
+              width={itemWidth}
+              height={itemWidth}
             />
           </li>
         ))}
