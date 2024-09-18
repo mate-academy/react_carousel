@@ -85,15 +85,12 @@ const Carousel = ({
         {images.map((image, index) => (
           <li
             key={index}
-            style={{ width: `${itemWidth}px`, height: `${itemWidth}px` }}
+            style={{
+              width: `${itemWidth}px`,
+              height: `${itemWidth}px`,
+            }}
           >
-            <img
-              src={image}
-              alt={`emoji: ${index + 1}`}
-              style={{ width: `${itemWidth}px` }}
-              width={itemWidth}
-              height={itemWidth}
-            />
+            <img src={image} alt={`emoji: ${index + 1}`} />
           </li>
         ))}
       </ul>
