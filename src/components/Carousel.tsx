@@ -85,7 +85,12 @@ const Carousel = ({
               height: itemWidth,
             }}
           >
-            <img src={image} alt={`emoji: ${index + 1}`} />
+            <img
+              src={image}
+              alt={`emoji: ${index + 1}`}
+              width={itemWidth}
+              height={itemWidth}
+            />
           </li>
         ))}
       </ul>
