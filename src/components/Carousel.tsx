@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './Carousel.scss';
+import cn from 'classnames';
 
 type CarouselProps = {
   images: string[];
@@ -63,6 +64,18 @@ const Carousel = ({
     }
   };
 
+  const prevButtonClasses = cn({
+    Carousel__button: true,
+    'Carousel__button--prev': true,
+    'Carousel__button--disabled': offset === 0 && !infinite,
+  });
+
+  const nextButtonClasses = cn({
+    Carousel__button: true,
+    'Carousel__button--next': true,
+    'Carousel__button--disabled': offset === maxNextTransform && !infinite,
+  });
+
   return (
     <div
       className="Carousel"
@@ -88,7 +101,7 @@ const Carousel = ({
       <button
         type="button"
         onClick={handlePrevClick}
-        className={`Carousel__button Carousel__button--prev ${offset === 0 && !infinite ? 'Carousel__button--disabled' : ''}`}
+        className={prevButtonClasses}
       >
         &#9664;
       </button>
@@ -96,7 +109,7 @@ const Carousel = ({
         data-cy="next"
         type="button"
         onClick={handleNextClick}
-        className={`Carousel__button Carousel__button--next ${offset === maxNextTransform && !infinite ? 'Carousel__button--disabled' : ''}`}
+        className={nextButtonClasses}
       >
         &#9654;
       </button>
