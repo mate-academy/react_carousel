@@ -23,40 +23,25 @@ export const App: React.FC = () => {
   const [animationDuration, setAnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
-  const handleSetStep = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStep(Math.round(Number(event.target.value)));
-  };
-
-  const handleSetItemWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setItemWidth(Math.round(Number(event.target.value)));
-  };
-
-  const handleFrameSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFrameSize(Math.round(Number(event.target.value)));
-  };
-
-  const handleAnimationDuration = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setAnimationDuration(Number(event.target.value));
-  };
-
-  const handleToggleInfinite = () => {
-    setInfinite(!infinite);
-  };
-
   return (
     <div className="App">
       <h1 data-cy="title">Carousel with {images.length} images</h1>
       <label htmlFor="stepId">Set step: </label>
-      <input type="number" id="stepId" value={step} onChange={handleSetStep} />
+      <input
+        type="number"
+        id="stepId"
+        value={step}
+        onChange={event => setStep(Math.round(Number(event.target.value)))}
+      />
 
       <label htmlFor="itemId">Set item width: </label>
       <input
         type="number"
         id="itemId"
         value={itemWidth}
-        onChange={handleSetItemWidth}
+        onChange={event => {
+          setItemWidth(Math.round(Number(event.target.value)));
+        }}
       />
 
       <label htmlFor="frameId">Set frame size: </label>
@@ -64,20 +49,26 @@ export const App: React.FC = () => {
         type="number"
         id="frameId"
         value={frameSize}
-        onChange={handleFrameSize}
+        onChange={event => {
+          setFrameSize(Math.round(Number(event.target.value)));
+        }}
       />
 
       <label htmlFor="animationDuration">Set animation duration: </label>
       <input
         type="number"
         value={animationDuration}
-        onChange={handleAnimationDuration}
+        onChange={event => {
+          setAnimationDuration(Math.round(Number(event.target.value)));
+        }}
       />
 
       <button
         className="toggleButton"
         type="button"
-        onClick={handleToggleInfinite}
+        onClick={() => {
+          setInfinite(!infinite);
+        }}
       >
         Toogle Infinite
       </button>
