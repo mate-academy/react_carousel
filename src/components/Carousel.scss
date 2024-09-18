@@ -1,1 +1,35 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  width: 1300px;
+  padding: 0;
+  gap: 20px;
+  transition: transform 1000ms ease;
+}
+
+.Carousel__list li {
+  list-style: none;
+  flex-shrink: 0;
+}
+
+.Carousel__button {
+  background-color: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.Carousel__button--next {
+  float: right;
+}
+
+.Carousel__button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggleButton {
+  display: flex;
+}
