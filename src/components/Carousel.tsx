@@ -89,7 +89,7 @@ const Carousel = ({
           >
             <img
               src={image}
-              alt={`${index + 1}`}
+              alt={`emoji: ${index + 1}`}
               style={{ width: `${itemWidth}px` }}
               width={itemWidth}
               height={itemWidth}
