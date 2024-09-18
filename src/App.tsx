@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-export const App: React.FC = () => {
+export const App = () => {
   // Używamy useState do przechowywania listy obrazów
   const [images] = useState([
     './img/1.png',

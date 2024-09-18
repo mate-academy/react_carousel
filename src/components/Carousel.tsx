@@ -10,15 +10,14 @@ type CarouselProps = {
   infinite?: boolean;
 };
 
-const Carousel: React.FC<CarouselProps> = ({
+const Carousel = ({
   images,
   step,
   itemWidth,
   frameSize,
   animationDuration,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   infinite,
-}) => {
+}: CarouselProps): JSX.Element => {
   const [offset, setOffset] = useState(0);
   const carouselListRef = useRef<HTMLUListElement>(null);
 
