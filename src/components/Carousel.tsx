@@ -32,16 +32,10 @@ const Carousel = ({
         maxNextTransform,
       );
 
-      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
-      carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
-
       setOffset(newOffset);
     }
 
     if (carouselListRef.current && offset === maxNextTransform && infinite) {
-      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
-      carouselListRef.current.style.transform = `translateX(0px)`;
-
       setOffset(0);
     }
   };
@@ -50,16 +44,10 @@ const Carousel = ({
     if (carouselListRef.current && offset < 0) {
       const newOffset = Math.min(offset + step * (itemWidth + gap), 0);
 
-      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
-      carouselListRef.current.style.transform = `translateX(${newOffset}px)`;
-
       setOffset(newOffset);
     }
 
     if (carouselListRef.current && offset === 0 && infinite) {
-      carouselListRef.current.style.transition = `transform ${animationDuration}ms ease`;
-      carouselListRef.current.style.transform = `translateX(${maxNextTransform}px)`;
-
       setOffset(maxNextTransform);
     }
   };
@@ -81,7 +69,14 @@ const Carousel = ({
       className="Carousel"
       style={{ width: `${frameSize * (itemWidth + gap)}px` }}
     >
-      <ul className="Carousel__list" ref={carouselListRef}>
+      <ul
+        className="Carousel__list"
+        ref={carouselListRef}
+        style={{
+          transform: `translateX(${offset}px)`,
+          transitionDuration: `${animationDuration}ms`,
+        }}
+      >
         {images.map((image, index) => (
           <li
             key={index}
