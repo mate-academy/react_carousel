@@ -10,7 +10,10 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
+  gap: number;
 }
+
+export type Properties = Omit<State, 'images'>;
 
 class App extends React.Component<{}, State> {
   state = {
@@ -31,24 +34,13 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    gap: 120,
   };
 
-  setTranslateX = (value: number) => this.setState({ translateX: value });
-
-  setWidth = (width: number) => {
-    this.setState({ itemWidth: width });
-  };
-
-  setFrameSize = (size: number) => {
-    this.setState({ frameSize: size });
-  };
-
-  setStep = (num: number) => {
-    this.setState({ step: num });
-  };
-
-  setAnimationDuration = (duration: number) => {
-    this.setState({ animationDuration: duration });
+  setChangeState = (propertyName: keyof Properties, value: number) => {
+    this.setState({
+      [propertyName]: value,
+    } as Properties);
   };
 
   render() {
@@ -59,6 +51,7 @@ class App extends React.Component<{}, State> {
       frameSize,
       step,
       animationDuration,
+      gap,
     } = this.state;
 
     return (
@@ -87,8 +80,8 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX(0);
-                this.setWidth(+event.target.value);
+                this.setChangeState('translateX', 0);
+                this.setChangeState('itemWidth', +event.target.value);
               }}
             />
           </div>
@@ -106,8 +99,8 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX(0);
-                this.setFrameSize(+event.target.value);
+                this.setChangeState('translateX', 0);
+                this.setChangeState('frameSize', +event.target.value);
               }}
             />
           </div>
@@ -125,8 +118,8 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX(0);
-                this.setStep(+event.target.value);
+                this.setChangeState('translateX', 0);
+                this.setChangeState('step', +event.target.value);
               }}
             />
           </div>
@@ -144,7 +137,27 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setAnimationDuration(+event.target.value);
+                this.setChangeState('animationDuration', +event.target.value);
+              }}
+            />
+          </div>
+
+          <div className="block">
+            <label htmlFor="gapId">Space between pictures:</label>
+            <input
+              className="input mt-2"
+              type="number"
+              id="gapId"
+              min={0}
+              name="animationDuration"
+              placeholder="30 (px)"
+              onChange={event => {
+                if (+event.target.value < 1) {
+                  return;
+                }
+
+                this.setChangeState('translateX', 0);
+                this.setChangeState('gap', +event.target.value);
               }}
             />
           </div>
@@ -157,7 +170,8 @@ class App extends React.Component<{}, State> {
           itemWidth={itemWidth}
           animationDuration={animationDuration}
           translateX={translateX}
-          setTranslateX={this.setTranslateX}
+          setTranslateX={this.setChangeState}
+          gap={gap}
         />
       </div>
     );

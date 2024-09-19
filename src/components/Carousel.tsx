@@ -2,6 +2,7 @@ import React from 'react';
 import './Carousel.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Properties } from '../App';
 
 interface Props {
   images: string[];
@@ -10,7 +11,8 @@ interface Props {
   itemWidth: number;
   animationDuration: number;
   translateX: number;
-  setTranslateX: (value: number) => void;
+  setTranslateX: (propertyName: keyof Properties, value: number) => void;
+  gap: number;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -21,12 +23,13 @@ const Carousel: React.FC<Props> = ({
   animationDuration,
   translateX,
   setTranslateX,
+  gap,
 }) => {
   const translatedBy = translateX;
-  const visibleWidth = frameSize * itemWidth;
-  const maxWidth = itemWidth * images.length;
+  const visibleWidth = frameSize * (itemWidth + gap);
+  const maxWidth = (itemWidth + gap) * images.length;
   const hiddenRightWidth = maxWidth - visibleWidth + translatedBy;
-  const scrollStep = itemWidth * step;
+  const scrollStep = (itemWidth + gap) * step;
 
   return (
     <div
@@ -41,6 +44,7 @@ const Carousel: React.FC<Props> = ({
           width: `${visibleWidth < maxWidth ? visibleWidth : maxWidth}px`,
           transition: `all ${animationDuration}ms`,
           transform: `translateX(${translateX}px)`,
+          gap: `${gap}px`,
         }}
       >
         {images.map((img, index: number) => (
@@ -67,7 +71,7 @@ const Carousel: React.FC<Props> = ({
                 ? scrollStep
                 : maxWidth - hiddenRightWidth - visibleWidth);
 
-            setTranslateX(newTransform);
+            setTranslateX('translateX', newTransform);
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} size="lg" />
@@ -83,7 +87,7 @@ const Carousel: React.FC<Props> = ({
               translatedBy -
               (scrollStep < hiddenRightWidth ? scrollStep : hiddenRightWidth);
 
-            setTranslateX(newTransform);
+            setTranslateX('translateX', newTransform);
           }}
         >
           <FontAwesomeIcon icon={faArrowRight} size="lg" />
