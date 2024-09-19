@@ -41,6 +41,8 @@ export const App: React.FC = () => {
               type="number"
               value={itemWidth}
               onChange={e => setItemWidth(+e.target.value)}
+              min={130}
+              max={200}
             />
           </div>
         </div>
@@ -71,7 +73,7 @@ export const App: React.FC = () => {
               className="input has-background-primary-15"
               id="stepId"
               type="number"
-              defaultValue={step}
+              value={step}
               onChange={e => setStep(+e.target.value)}
               min="1"
               max={images.length}

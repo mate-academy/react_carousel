@@ -13,14 +13,13 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
-  infinite,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = images.length - frameSize;
 
   const handlePrev = () => {
     setCurrentIndex(prevIndex => {
@@ -38,11 +37,14 @@ const Carousel: React.FC<Props> = ({
         return (prevIndex + step) % images.length;
       }
 
-      return Math.min(prevIndex + step, maxIndex);
+      return Math.min(prevIndex + step, images.length - frameSize);
     });
   };
 
-  const translateX = currentIndex > maxIndex ? maxIndex : currentIndex;
+  const translateX =
+    currentIndex > images.length - frameSize
+      ? images.length - frameSize
+      : currentIndex;
 
   return (
     <div className="carousel">

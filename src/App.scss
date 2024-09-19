@@ -1,5 +1,10 @@
+$html_color: rgb(83, 116, 71);
+$box_bc_color: rgb(99, 67, 67);
+$input_focus_color: rgb(239, 157, 26);
+$input_focus_shadow: 0 0 0 0.2rem rgba(245, 170, 39, 0.25);
+
 html {
-  background-color: rgb(83, 116, 71);
+  background-color: $html_color;
 }
 
 .app {
@@ -14,10 +19,10 @@ html {
 .box {
   min-width: 600px;
   margin: 0 auto;
-  background-color:rgb(99, 67, 67);
+  background-color:$box_bc_color;
 }
 
 .input:focus {
-  border-color: rgb(239, 157, 26);
-  box-shadow: 0 0 0 0.2rem rgba(245, 170, 39, 0.25);
+  border-color: $input_focus_color;
+  box-shadow: $input_focus_shadow;
 }
