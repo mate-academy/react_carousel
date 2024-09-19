@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    gap: 120,
+    gap: 30,
   };
 
   setChangeState = (propertyName: keyof Properties, value: number) => {
