@@ -41,7 +41,7 @@ export const App: React.FC = () => {
               type="number"
               value={step}
               min="1"
-              max={images.length}
+              max={images.length / 2}
               onChange={e => setStep(Number(e.target.value))}
             />
           </div>
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
               type="number"
               value={frameSize}
               min="1"
-              max={images.length}
+              max={images.length / 2}
               onChange={e => setFrameSize(Number(e.target.value))}
             />
           </div>
