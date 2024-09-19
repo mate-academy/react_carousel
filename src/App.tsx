@@ -40,7 +40,7 @@ export const App: React.FC = () => {
               id="itemId"
               type="number"
               value={itemWidth}
-              onChange={e => setItemWidth(+e.target.value)}
+              onChange={e => setItemWidth(Number(e.target.value))}
               min={130}
               max={200}
             />
@@ -57,7 +57,7 @@ export const App: React.FC = () => {
               id="frameId"
               type="number"
               value={frameSize}
-              onChange={e => setFrameSize(+e.target.value)}
+              onChange={e => setFrameSize(Number(e.target.value))}
               min="1"
               max={images.length}
             />
@@ -74,7 +74,7 @@ export const App: React.FC = () => {
               id="stepId"
               type="number"
               value={step}
-              onChange={e => setStep(+e.target.value)}
+              onChange={e => setStep(Number(e.target.value))}
               min="1"
               max={images.length}
             />
@@ -91,7 +91,7 @@ export const App: React.FC = () => {
               id="animationDuration"
               type="number"
               value={animationDuration}
-              onChange={e => setAnimationDuration(+e.target.value)}
+              onChange={e => setAnimationDuration(Number(e.target.value))}
             />
           </div>
         </div>

@@ -13,11 +13,11 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animationDuration = 1000,
-  infinite = false,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -49,7 +49,7 @@ const Carousel: React.FC<Props> = ({
   return (
     <div className="carousel">
       <div
-        className="carusel__container"
+        className="carousel__container"
         style={{
           transform: `translateX(-${translateX * itemWidth}px)`,
           transition: `transform ${animationDuration}ms ease`,
@@ -84,7 +84,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           onClick={handleNext}
           data-cy="next"
-          disabled={!infinite && currentIndex + frameSize >= images.length}
+          disabled={!infinite && currentIndex + step >= images.length}
         >
           Next
         </button>
