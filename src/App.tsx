@@ -5,7 +5,7 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  translateX: string;
+  translateX: number;
   itemWidth: number;
   frameSize: number;
   step: number;
@@ -26,14 +26,14 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    translateX: '0px',
+    translateX: 0,
     itemWidth: 130,
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
   };
 
-  setTranslateX = (value: string) => this.setState({ translateX: value });
+  setTranslateX = (value: number) => this.setState({ translateX: value });
 
   setWidth = (width: number) => {
     this.setState({ itemWidth: width });
@@ -87,7 +87,7 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX('0px');
+                this.setTranslateX(0);
                 this.setWidth(+event.target.value);
               }}
             />
@@ -106,7 +106,7 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX('0px');
+                this.setTranslateX(0);
                 this.setFrameSize(+event.target.value);
               }}
             />
@@ -125,17 +125,17 @@ class App extends React.Component<{}, State> {
                   return;
                 }
 
-                this.setTranslateX('0px');
+                this.setTranslateX(0);
                 this.setStep(+event.target.value);
               }}
             />
           </div>
           <div className="block">
-            <label htmlFor="#animationId">Animation Duration:</label>
+            <label htmlFor="animationId">Animation Duration:</label>
             <input
               className="input mt-2"
               type="number"
-              id="#animationId"
+              id="animationId"
               min={1}
               name="animationDuration"
               placeholder="1000 (ms)"

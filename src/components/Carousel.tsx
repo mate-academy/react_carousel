@@ -9,8 +9,8 @@ interface Props {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  translateX: string;
-  setTranslateX: (value: string) => void;
+  translateX: number;
+  setTranslateX: (value: number) => void;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -22,11 +22,11 @@ const Carousel: React.FC<Props> = ({
   translateX,
   setTranslateX,
 }) => {
-  const translatedBy = +translateX.slice(0, -2);
-  const visibleWidth = frameSize * itemWidth + (frameSize - 1);
-  const maxWidth = itemWidth * images.length + (images.length - 1);
+  const translatedBy = translateX;
+  const visibleWidth = frameSize * itemWidth;
+  const maxWidth = itemWidth * images.length;
   const hiddenRightWidth = maxWidth - visibleWidth + translatedBy;
-  const scrollStep = itemWidth * step + frameSize;
+  const scrollStep = itemWidth * step;
 
   return (
     <div
@@ -39,21 +39,17 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list m-4 mt-6"
         style={{
           width: `${visibleWidth < maxWidth ? visibleWidth : maxWidth}px`,
+          transition: `all ${animationDuration}ms`,
+          transform: `translateX(${translateX}px)`,
         }}
       >
         {images.map((img, index: number) => (
-          <li
-            key={img}
-            style={{
-              transition: `all ${animationDuration}ms`,
-              transform: `translateX(${translateX})`,
-            }}
-          >
+          <li key={img}>
             <img
               width={itemWidth}
               style={{ maxWidth: `${itemWidth}px` }}
               src={`${img}`}
-              alt={`${index}`}
+              alt={`emoji-${index}`}
             />
           </li>
         ))}
@@ -62,7 +58,7 @@ const Carousel: React.FC<Props> = ({
       <div className="button__container">
         <button
           className="button is-primary is-light"
-          disabled={translatedBy === 0}
+          disabled={translatedBy >= 0}
           type="button"
           onClick={() => {
             const newTransform =
@@ -71,7 +67,7 @@ const Carousel: React.FC<Props> = ({
                 ? scrollStep
                 : maxWidth - hiddenRightWidth - visibleWidth);
 
-            setTranslateX(newTransform.toString() + 'px');
+            setTranslateX(newTransform);
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} size="lg" />
@@ -79,7 +75,7 @@ const Carousel: React.FC<Props> = ({
 
         <button
           className="button is-primary is-light"
-          disabled={translatedBy <= visibleWidth - maxWidth}
+          disabled={Math.abs(translatedBy) >= maxWidth - visibleWidth}
           data-cy="next"
           type="button"
           onClick={() => {
@@ -87,7 +83,7 @@ const Carousel: React.FC<Props> = ({
               translatedBy -
               (scrollStep < hiddenRightWidth ? scrollStep : hiddenRightWidth);
 
-            setTranslateX(newTransform.toString() + 'px');
+            setTranslateX(newTransform);
           }}
         >
           <FontAwesomeIcon icon={faArrowRight} size="lg" />

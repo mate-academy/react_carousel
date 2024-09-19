@@ -71,7 +71,7 @@ describe('Page', () => {
   });
 
   it('should change frame size', () => {
-    cy.get('[for ="frameId"')
+    cy.get('[for ="frameId"]')
       .type('{selectall}2');
     page.getImg('1')
       .should('be.visible');
