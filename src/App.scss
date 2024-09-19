@@ -1,1 +1,23 @@
-// style go here
+html {
+  background-color: rgb(83, 116, 71);
+}
+
+.app {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.box {
+  min-width: 600px;
+  margin: 0 auto;
+  background-color:rgb(99, 67, 67);
+}
+
+.input:focus {
+  border-color: rgb(239, 157, 26);
+  box-shadow: 0 0 0 0.2rem rgba(245, 170, 39, 0.25);
+}
