@@ -1,1 +1,11 @@
-// style go here
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    margin-top: 40px;
+  }
+}
+

@@ -1,1 +1,17 @@
-// style go here
+.carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    width: 1300px;
+  }
+
+  &__item {
+    flex: 0 0 auto;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}
