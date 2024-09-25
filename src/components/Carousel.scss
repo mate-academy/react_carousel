@@ -1,1 +1,54 @@
-// style go here
+
+.Carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    transition: transform 0.5s ease;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 130px; // ensure default size
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:first-of-type {
+    left: 10px;
+  }
+
+  button:last-of-type {
+    right: 10px;
+  }
+}
