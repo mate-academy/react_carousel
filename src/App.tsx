@@ -1,9 +1,13 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
 const App: React.FC = () => {
+  const [step, setStep] = useState(3);
+  const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [infinite, setInfinite] = useState(false);
+
   const images = [
     './img/1.png',
     './img/2.png',
@@ -20,22 +24,48 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+      {}
       <label htmlFor="stepId">Step:</label>
-      <input id="stepId" type="number" value={3} />
+      <input
+        id="stepId"
+        type="number"
+        value={step}
+        onChange={(e) => setStep(Number(e.target.value))}
+      />
 
       <label htmlFor="itemId">Item Width:</label>
-      <input id="itemId" type="number" value={130} />
+      <input
+        id="itemId"
+        type="number"
+        value={itemWidth}
+        onChange={(e) => setItemWidth(Number(e.target.value))}
+      />
 
       <label htmlFor="frameId">Frame Size:</label>
-      <input id="frameId" type="number" value={3} />
+      <input
+        id="frameId"
+        type="number"
+        value={frameSize}
+        onChange={(e) => setFrameSize(Number(e.target.value))}
+      />
+
+      <label>
+        <input
+          type="checkbox"
+          checked={infinite}
+          onChange={() => setInfinite(!infinite)}
+        />
+        Infinite Scroll
+      </label>
 
       <Carousel
         images={images}
-        step={3}
-        frameSize={3}
-        itemWidth={130}
+        step={step}
+        frameSize={frameSize}
+        itemWidth={itemWidth}
         animationDuration={1000}
-        infinite={false}
+        infinite={infinite}
       />
     </div>
   );
