@@ -1,0 +1,27 @@
+.CarouselSettings {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__legend {
+    padding: 0 10px;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    min-width: 150px;
+  }
+
+  &__input {
+    margin-left: 10px;
+    border: 1px solid #888;
+
+    &:focus {
+      border-color: #0056b3;
+      outline: none;
+    }
+  }
+}
