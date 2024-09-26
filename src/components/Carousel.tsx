@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
+
 type Props = {
   images: string[];
   itemWidth: number;
@@ -17,23 +18,18 @@ const Carousel: React.FC<Props> = ({
   const [scroll, setScroll] = useState(0);
 
   const handlePrev = () => {
-    if (scroll - step * itemWidth < 0) {
-      setScroll(0);
+    const posibleIndex = scroll - step;
+    const newIndex = Math.max(0, posibleIndex);
 
-      return;
-    }
-
-    setScroll(scroll - step * itemWidth);
+    setScroll(newIndex);
   };
 
   const handleNext = () => {
-    if (scroll + step * itemWidth > (images.length - step) * itemWidth) {
-      setScroll((images.length - step) * itemWidth);
+    const posibleIndex = scroll + step;
+    const maxIndex = images.length - frameSize;
+    const newIndex = Math.min(maxIndex, posibleIndex);
 
-      return;
-    }
-
-    setScroll(scroll + step * itemWidth);
+    setScroll(newIndex);
   };
 
   return (
@@ -42,12 +38,12 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={{
           transition: `all ${animationDuration}ms ease`,
-          transform: `translateX(-${scroll}px)`,
+          transform: `translateX(-${scroll * itemWidth}px)`,
         }}
       >
-        {images.map((url, ind) => (
-          <li key={ind}>
-            <img src={url} alt="1" width={itemWidth} />
+        {images.map(url => (
+          <li key={url}>
+            <img src={url} alt={url} width={itemWidth} />
           </li>
         ))}
       </ul>
@@ -59,7 +55,7 @@ const Carousel: React.FC<Props> = ({
         data-cy="next"
         type="button"
         onClick={handleNext}
-        disabled={scroll === (images.length - step) * itemWidth}
+        disabled={scroll >= images.length - frameSize}
       >
         Next
       </button>

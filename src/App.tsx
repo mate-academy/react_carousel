@@ -22,8 +22,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
       <label htmlFor="stepId">
         Step:
@@ -47,9 +46,10 @@ const App = () => {
           onChange={e => setItemWidth(+e.target.value)}
         />
       </label>
-      <label>
+      <label htmlFor="animationId">
         Animation duration:
         <input
+          id="animationId"
           type="number"
           min={0}
           max={3000}
