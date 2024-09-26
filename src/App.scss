@@ -1,1 +1,37 @@
-// style go here
+.app {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #7e7e7e83;
+  border-radius: 3px;
+  padding: 5px;
+  margin-top: 3px;
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: #5a5a5a;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    border-color: #7e7e7ed5;
+  }
+}
