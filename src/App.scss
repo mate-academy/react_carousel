@@ -1,1 +1,77 @@
-// style go here
+.App {
+  display: flex;
+  background-color: #f0f0f0;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  padding: 15px;
+  height: 100vh;
+  transition: background-color 0.5s ease;
+}
+
+.Carousel {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.Carousel__list {
+  display: flex;
+  transition: transform 1s ease;
+}
+
+input {
+  border: 2px solid #040c14;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-weight: bolder;
+  padding: 10px;
+
+  & label {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    font-size: 1.1em;
+    color: #333;
+    &:last-child {
+      justify-content: flex-start;
+    }
+  }
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
