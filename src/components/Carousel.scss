@@ -1,1 +1,37 @@
-// style go here
+.Carousel {
+  &__list {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  &__button {
+    width: 260px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    gap: 20px;
+  }
+}
+
+.button {
+  background-color: peru;
+  color: aliceblue;
+  width: 70px;
+  height: 30px;
+  cursor: pointer;
+
+  &--active {
+    &:hover {
+      background-color: orange;
+    }
+  }
+
+  &--disabled {
+    background-color: gray;
+    opacity: 30%;
+    cursor: default;
+  }
+}
