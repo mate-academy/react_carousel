@@ -1,1 +1,14 @@
-// style go here
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    margin: 10px 0;
+  }
+}
