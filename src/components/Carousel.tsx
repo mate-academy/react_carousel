@@ -1,26 +1,123 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface CarouselProps {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  stepSize: number;
+  animationDur: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  itemWidth,
+  frameSize,
+  stepSize,
+  animationDur,
+  infinite,
+}) => {
+  const frameWidth = frameSize * itemWidth;
+  const [position, setPosition] = useState(0);
+  const [prevFrameSize, setPrevFrameSize] = useState(frameWidth);
+
+  function firstDisabled() {
+    if (infinite) {
+      return false;
+    }
+
+    if (position === 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function secondDisabled() {
+    if (infinite) {
+      return false;
+    }
+
+    if (position === -itemWidth * (images.length - frameSize)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  const isFirstDisabled = firstDisabled();
+  const isSecondDisabled = secondDisabled();
+  const lastPosition = (images.length - frameSize) * itemWidth;
+
+  useEffect(() => {
+    if (frameWidth > prevFrameSize) {
+      setPosition(0);
+    }
+
+    setPrevFrameSize(frameWidth);
+  }, [frameSize, prevFrameSize, frameWidth]);
+
+  const prevPosition = () => {
+    if (infinite && position === 0) {
+      setPosition(-lastPosition);
+    } else {
+      setPosition(prev => Math.min(prev + itemWidth * stepSize, 0));
+    }
+  };
+
+  const nextPosition = () => {
+    if (infinite && position === -lastPosition) {
+      setPosition(0);
+    } else {
+      setPosition(prev =>
+        Math.max(
+          prev - itemWidth * stepSize,
+          -itemWidth * (images.length - frameSize),
+        ),
+      );
+    }
+  };
+
+  return (
+    <div className="Carousel" style={{ width: frameWidth }}>
+      <ul className="Carousel__list">
+        {images.map((image, index) => (
+          <li key={index}>
+            <img
+              src={image}
+              alt={`${index}`}
+              style={{
+                width: itemWidth,
+                transform: `translateX(${position}px)`,
+                transition: `${animationDur}ms`,
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <div className="Carousel__buttons">
+        <button
+          className="Carousel__button"
+          type="button"
+          onClick={prevPosition}
+          disabled={isFirstDisabled}
+        >
+          Prev
+        </button>
+        <button
+          className="Carousel__button"
+          type="button"
+          data-cy="next"
+          onClick={nextPosition}
+          disabled={isSecondDisabled}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
