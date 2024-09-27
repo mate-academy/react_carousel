@@ -1,26 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidthState: number;
+  frameSizeState: number;
+  stepState: number;
+  animationDurationState: number;
+  isInfiniteState: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidthState,
+  frameSizeState,
+  stepState,
+  animationDurationState,
+  isInfiniteState,
+}) => {
+  const [carouselList, setCarouselList] = useState(0);
+
+  const previous = () => {
+    if (stepState - carouselList < 0) {
+      setCarouselList(carouselList - stepState);
+    } else {
+      if (carouselList === 0 && isInfiniteState) {
+        setCarouselList(images.length - frameSizeState);
+      } else {
+        setCarouselList(0);
+      }
+    }
+  };
+
+  const next = () => {
+    setCarouselList((firstIndex: number) => {
+      if (
+        isInfiniteState &&
+        (carouselList === images.length - stepState ||
+          carouselList === images.length - frameSizeState)
+      ) {
+        return 0;
+      } else {
+        return Math.min(firstIndex + stepState, images.length - frameSizeState);
+      }
+    });
+  };
+
+  return (
+    <div style={{ width: itemWidthState * images.length }} className="Carousel">
+      <div
+        style={{ width: itemWidthState * frameSizeState }}
+        className="Carousel__visible"
+      >
+        <ul
+          style={{
+            height: itemWidthState,
+            right: carouselList * itemWidthState,
+            transition: `all ${animationDurationState}ms`,
+          }}
+          className="Carousel__list"
+        >
+          {images.map((image, index) => (
+            <img key={`${index}-${image}`} src={image} alt={String(index)} />
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__buttons">
+        <button
+          className="Carousel__button"
+          onClick={previous}
+          disabled={isInfiniteState === false && carouselList === 0}
+          type="button"
+        >
+          Prev
+        </button>
+        <button
+          className="Carousel__button"
+          onClick={next}
+          disabled={
+            isInfiniteState === false &&
+            carouselList >= images.length - frameSizeState
+          }
+          data-cy="next"
+          type="button"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
