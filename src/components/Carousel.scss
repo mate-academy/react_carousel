@@ -1,1 +1,21 @@
 // style go here
+body * {
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel {
+  margin: 60px;
+  overflow-x: hidden;
+  &__list {
+    display: flex;
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}
+
+button {
+  width: 60px;
+  height: 30px;
+  margin-right: 20px;
+}
