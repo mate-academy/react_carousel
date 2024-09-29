@@ -1,87 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
+import { Props } from '../type/Props';
 import './Carousel.scss';
 
-interface CarouselProps {
-  images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
-}
-
-const Carousel: React.FC<CarouselProps> = ({
+export const Carousel: React.FC<Props> = ({
   images,
-  step,
-  frameSize,
-  itemWidth,
-  animationDuration,
-  infinite,
+  step = 3,
+  frameSize = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentShift, setCurrentShift] = useState<number>(0);
+  const maxShift = images.length - frameSize;
 
-  const handleNext = () => {
-    if (images.length === 0) return;
+  useEffect(() => {
+    const fullShift = `-${itemWidth * maxShift}px`;
 
-    const newIndex = infinite
-      ? (currentIndex + step) % images.length
-      : Math.min(currentIndex + step, images.length - frameSize);
-    setCurrentIndex(newIndex);
+    document.documentElement.style.setProperty('--shift', fullShift);
+    document.documentElement.style.setProperty(
+      '--animation-duration',
+      `${animationDuration}ms`,
+    );
+  }, [itemWidth, maxShift, animationDuration]);
+
+  const showNext = () => {
+    if (infinite && currentShift === maxShift) {
+      setCurrentShift(0);
+    } else {
+      setCurrentShift(prev => Math.min(prev + step, maxShift));
+    }
   };
 
-  const handlePrev = () => {
-    if (images.length === 0) return;
-
-    const newIndex = infinite
-      ? (currentIndex - step + images.length) % images.length
-      : Math.max(currentIndex - step, 0);
-    setCurrentIndex(newIndex);
+  const showPrev = () => {
+    if (infinite && currentShift === 0) {
+      setCurrentShift(maxShift);
+    } else {
+      setCurrentShift(prev => Math.max(0, prev - step));
+    }
   };
 
   return (
     <div className="Carousel">
       <div
         className="Carousel__container"
-        style={{ width: `${frameSize * itemWidth}px` }}
+        style={{
+          width: `${itemWidth * frameSize}px`,
+        }}
       >
         <ul
-          className="Carousel__list"
+          className={classNames('Carousel__list', {
+            'Carousel__list--animated': infinite,
+          })}
           style={{
-            transform: `translateX(-${currentIndex * itemWidth}px)`,
-            transition: `transform ${animationDuration}ms ease-in-out`,
+            transition: `all 100ms ease`,
+            transform: `translateX(-${currentShift * itemWidth}px)`,
           }}
         >
           {images.map((image, index) => (
-            <li
-              key={index} // Уникальний ключ
-              className="Carousel__item"
-              style={{ width: `${itemWidth}px` }}
-            >
-              <img src={image} alt={`Slide ${index + 1}`} />
+            <li className="Carousel__item" key={`${image}-${index}`}>
+              <img
+                className="Carousel__img"
+                src={image}
+                alt={`${index + 1}`}
+                width={itemWidth}
+              />
             </li>
           ))}
         </ul>
       </div>
-
-      {/* Кнопки навігації */}
-      <button
-        data-cy="prev"
-        type="button"
-        onClick={handlePrev}
-        disabled={images.length === 0} 
-      >
-        Prev
-      </button>
-      <button
-        data-cy="next"
-        type="button"
-        onClick={handleNext}
-        disabled={images.length === 0}
-      >
-        Next
-      </button>
+      <div className="Carousel__button-group">
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={showPrev}
+          disabled={!infinite && currentShift === 0}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          className="Carousel__button"
+          onClick={showNext}
+          disabled={!infinite && currentShift === maxShift}
+          data-cy="next"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
-
-export default Carousel;

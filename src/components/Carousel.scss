@@ -1,59 +1,53 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .Carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
   &__container {
+    display: flex;
     overflow: hidden;
+    border: solid transparent;
   }
 
   &__list {
     display: flex;
+    position: relative;
     padding: 0;
-    margin: 0;
     list-style-type: none;
-    transition: transform 0.5s ease;
+    &--animated {
+      animation: slide-images var(--animation-duration) linear infinite;
+    }
   }
 
   &__item {
+    display: block;
+  }
+
+  &__img {
+    display: block;
+  }
+
+  &__button-group {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    width: 20vw; // Використання відносної одиниці замість 130px
-    max-width: 130px; // Максимальна ширина елемента для адаптивності
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
+    justify-content: space-between;
   }
 
-  button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+  &__button {
+    padding: 5px 15px;
   }
+}
 
-  button:focus {
-    outline: none;
-  }
-
-  button:first-of-type {
-    left: 10px;
-  }
-
-  button:last-of-type {
-    right: 10px;
-  }
+@keyframes slide-images {
+ 0% {
+   transform: translateX(0);
+ }
+ 100% {
+   transform: translateX(var(--shift));
+ }
 }

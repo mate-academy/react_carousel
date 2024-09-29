@@ -1,74 +1,96 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { Props } from './type/Props';
 
-const App: React.FC = () => {
-  const [step, setStep] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frameSize, setFrameSize] = useState(3);
-  const [infinite, setInfinite] = useState(false);
+class App extends React.Component<{}, Required<Props>> {
+  state: Required<Props> = {
+    images: [
+      './img/1.png',
+      './img/2.png',
+      './img/3.png',
+      './img/4.png',
+      './img/5.png',
+      './img/6.png',
+      './img/7.png',
+      './img/8.png',
+      './img/9.png',
+      './img/10.png',
+    ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
 
-  const images = [
-    './img/1.png',
-    './img/2.png',
-    './img/3.png',
-    './img/4.png',
-    './img/5.png',
-    './img/6.png',
-    './img/7.png',
-    './img/8.png',
-    './img/9.png',
-    './img/10.png',
-  ];
+  render() {
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } =
+      this.state;
 
-  return (
-    <div className="App">
-      <h1 data-cy="title">Carousel with {images.length} images</h1>
-
-      {}
-      <label htmlFor="stepId">Step:</label>
-      <input
-        id="stepId"
-        type="number"
-        value={step}
-        onChange={(e) => setStep(Number(e.target.value))}
-      />
-
-      <label htmlFor="itemId">Item Width:</label>
-      <input
-        id="itemId"
-        type="number"
-        value={itemWidth}
-        onChange={(e) => setItemWidth(Number(e.target.value))}
-      />
-
-      <label htmlFor="frameId">Frame Size:</label>
-      <input
-        id="frameId"
-        type="number"
-        value={frameSize}
-        onChange={(e) => setFrameSize(Number(e.target.value))}
-      />
-
-      <label>
-        <input
-          type="checkbox"
-          checked={infinite}
-          onChange={() => setInfinite(!infinite)}
+    return (
+      <div className="App">
+        {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <div className="inputGroup">
+          <label htmlFor="itemId">
+            Item Width:
+            <input
+              id="itemId"
+              type="number"
+              value={itemWidth}
+              onChange={e => this.setState({ itemWidth: +e.target.value })}
+            />
+          </label>
+          <label htmlFor="frameId">
+            Frame Size:
+            <input
+              id="frameId"
+              type="number"
+              value={frameSize}
+              max={images.length}
+              onChange={e => this.setState({ frameSize: +e.target.value })}
+            />
+          </label>
+          <label htmlFor="stepId">
+            Step:
+            <input
+              id="stepId"
+              type="number"
+              value={step}
+              max={images.length}
+              onChange={e => this.setState({ step: +e.target.value })}
+            />
+          </label>
+          <label>
+            Animation Duration (ms):
+            <input
+              type="number"
+              value={animationDuration}
+              onChange={e =>
+                this.setState({ animationDuration: +e.target.value })
+              }
+            />
+          </label>
+          <label className="checkbox-label">
+            Turn on infinite Carousel
+            <input
+              type="checkbox"
+              checked={infinite}
+              onChange={e => this.setState({ infinite: e.target.checked })}
+            />
+          </label>
+        </div>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
         />
-        Infinite Scroll
-      </label>
-
-      <Carousel
-        images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-        animationDuration={1000}
-        infinite={infinite}
-      />
-    </div>
-  );
-};
-
+      </div>
+    );
+  }
+}
 export default App;
