@@ -57,11 +57,11 @@ export class Carousel extends Component<Props, State> {
   };
 
   render() {
-    const { images, frameSize, itemWidth, animationDuration, infinite }
-    = this.props;
+    const { images, frameSize, itemWidth, animationDuration, infinite } =
+      this.props;
     const { currentIndex } = this.state;
-    const nextDisabled = !infinite && currentIndex === itemWidth
-    * (frameSize - images.length);
+    const nextDisabled =
+      !infinite && currentIndex === itemWidth * (frameSize - images.length);
     const prevDisabled = !infinite && currentIndex === 0;
 
     return (
