@@ -25,21 +25,19 @@ export const Carousel: React.FC<Props> = ({
   }, [itemWidth, maxShift, animationDuration]);
 
   const showNext = () => {
-    setCurrentShift(prev => {
-      if (infinite && prev === maxShift) {
-        return 0; // Переходимо на початок у нескінченному режимі
-      }
-      return Math.min(prev + step, maxShift);
-    });
+    if (infinite && currentShift === maxShift) {
+      setCurrentShift(0);
+    } else {
+      setCurrentShift(prev => Math.min(prev + step, maxShift));
+    }
   };
 
   const showPrev = () => {
-    setCurrentShift(prev => {
-      if (infinite && prev === 0) {
-        return maxShift; // Переходимо на кінець у нескінченному режимі
-      }
-      return Math.max(0, prev - step);
-    });
+    if (infinite && currentShift === 0) {
+      setCurrentShift(maxShift);
+    } else {
+      setCurrentShift(prev => Math.max(0, prev - step));
+    }
   };
 
   return (
@@ -52,10 +50,10 @@ export const Carousel: React.FC<Props> = ({
       >
         <ul
           className={classNames('Carousel__list', {
-            'Carousel__list--animated': true,
+            'Carousel__list--animated': infinite,
           })}
           style={{
-            transition: `all ${animationDuration}ms ease`,
+            transition: `all 100ms ease`,
             transform: `translateX(-${currentShift * itemWidth}px)`,
           }}
         >
