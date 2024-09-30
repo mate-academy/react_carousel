@@ -24,13 +24,16 @@ class App extends React.Component<{}, Required<Props>> {
     infinite: false,
   };
 
+  validateInput = (value: number, min: number, max: number) => {
+    return Math.max(min, Math.min(value, max));
+  };
+
   render() {
     const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
         <div className="inputGroup">
           <label htmlFor="itemId">
@@ -39,7 +42,9 @@ class App extends React.Component<{}, Required<Props>> {
               id="itemId"
               type="number"
               value={itemWidth}
-              onChange={e => this.setState({ itemWidth: +e.target.value })}
+              onChange={e =>
+                this.setState({ itemWidth: this.validateInput(+e.target.value, 50, 300) })
+              }
             />
           </label>
           <label htmlFor="frameId">
@@ -49,7 +54,11 @@ class App extends React.Component<{}, Required<Props>> {
               type="number"
               value={frameSize}
               max={images.length}
-              onChange={e => this.setState({ frameSize: +e.target.value })}
+              onChange={e =>
+                this.setState({
+                  frameSize: this.validateInput(+e.target.value, 1, images.length),
+                })
+              }
             />
           </label>
           <label htmlFor="stepId">
@@ -59,7 +68,9 @@ class App extends React.Component<{}, Required<Props>> {
               type="number"
               value={step}
               max={images.length}
-              onChange={e => this.setState({ step: +e.target.value })}
+              onChange={e =>
+                this.setState({ step: this.validateInput(+e.target.value, 1, images.length) })
+              }
             />
           </label>
           <label>
@@ -68,7 +79,7 @@ class App extends React.Component<{}, Required<Props>> {
               type="number"
               value={animationDuration}
               onChange={e =>
-                this.setState({ animationDuration: +e.target.value })
+                this.setState({ animationDuration: this.validateInput(+e.target.value, 100, 5000) })
               }
             />
           </label>
@@ -93,4 +104,5 @@ class App extends React.Component<{}, Required<Props>> {
     );
   }
 }
+
 export default App;
