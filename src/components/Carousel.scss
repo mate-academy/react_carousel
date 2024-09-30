@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+
+  &__container {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.Buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.Button {
+  cursor: pointer;
+  width: 70px;
+  height: 30px;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover:not(&:disabled) {
+    background-color: #d7d8d9;
+  }
+}
