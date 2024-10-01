@@ -39,7 +39,13 @@ class App extends React.Component<{}, Required<Props>> {
               id="itemId"
               type="number"
               value={itemWidth}
-              onChange={e => this.setState({ itemWidth: +e.target.value })}
+              min={50} // Мінімальна ширина
+              max={300} // Максимальна ширина
+              onChange={e =>
+                this.setState({
+                  itemWidth: Math.max(50, Math.min(+e.target.value, 300)),
+                })
+              }
             />
           </label>
           <label htmlFor="frameId">
@@ -48,8 +54,13 @@ class App extends React.Component<{}, Required<Props>> {
               id="frameId"
               type="number"
               value={frameSize}
-              max={images.length}
-              onChange={e => this.setState({ frameSize: +e.target.value })}
+              min={1}
+              max={images.length} // Максимальний розмір кадру не більше кількості зображень
+              onChange={e =>
+                this.setState({
+                  frameSize: Math.max(1, Math.min(+e.target.value, images.length)),
+                })
+              }
             />
           </label>
           <label htmlFor="stepId">
@@ -58,8 +69,13 @@ class App extends React.Component<{}, Required<Props>> {
               id="stepId"
               type="number"
               value={step}
-              max={images.length}
-              onChange={e => this.setState({ step: +e.target.value })}
+              min={1} // Крок мінімум 1
+              max={frameSize} // Крок не більше ніж розмір кадру
+              onChange={e =>
+                this.setState({
+                  step: Math.max(1, Math.min(+e.target.value, frameSize)),
+                })
+              }
             />
           </label>
           <label>
@@ -67,8 +83,12 @@ class App extends React.Component<{}, Required<Props>> {
             <input
               type="number"
               value={animationDuration}
+              min={100} // Мінімальна тривалість анімації
+              max={5000} // Максимальна тривалість анімації
               onChange={e =>
-                this.setState({ animationDuration: +e.target.value })
+                this.setState({
+                  animationDuration: Math.max(100, Math.min(+e.target.value, 5000)),
+                })
               }
             />
           </label>
@@ -93,4 +113,5 @@ class App extends React.Component<{}, Required<Props>> {
     );
   }
 }
+
 export default App;
