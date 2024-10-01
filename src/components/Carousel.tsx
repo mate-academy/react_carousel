@@ -25,16 +25,18 @@ export const Carousel: React.FC<Props> = ({
   }, [itemWidth, maxShift, animationDuration]);
 
   const showNext = () => {
+    // Якщо infinite mode увімкнений і досягли останнього зображення
     if (infinite && currentShift === maxShift) {
-      setCurrentShift(0);
+      setCurrentShift(0); // Повертаємося до першого зображення
     } else {
       setCurrentShift(prev => Math.min(prev + step, maxShift));
     }
   };
 
   const showPrev = () => {
+    // Якщо infinite mode увімкнений і ми на першому зображенні
     if (infinite && currentShift === 0) {
-      setCurrentShift(maxShift);
+      setCurrentShift(maxShift); // Переходимо до останнього зображення
     } else {
       setCurrentShift(prev => Math.max(0, prev - step));
     }
@@ -53,7 +55,7 @@ export const Carousel: React.FC<Props> = ({
             'Carousel__list--animated': infinite,
           })}
           style={{
-            transition: `all 100ms ease`,
+            transition: `all ${animationDuration}ms ease`,
             transform: `translateX(-${currentShift * itemWidth}px)`,
           }}
         >
@@ -82,8 +84,8 @@ export const Carousel: React.FC<Props> = ({
           type="button"
           className="Carousel__button"
           onClick={showNext}
+          // Якщо infinite mode активований, кнопка активна завжди
           disabled={!infinite && currentShift === maxShift}
-          data-cy="next"
         >
           Next
         </button>

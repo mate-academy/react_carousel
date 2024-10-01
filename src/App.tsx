@@ -58,7 +58,10 @@ class App extends React.Component<{}, Required<Props>> {
               max={images.length} // Максимальний розмір кадру не більше кількості зображень
               onChange={e =>
                 this.setState({
-                  frameSize: Math.max(1, Math.min(+e.target.value, images.length)),
+                  frameSize: Math.max(
+                    1,
+                    Math.min(+e.target.value, images.length),
+                  ),
                 })
               }
             />
@@ -87,7 +90,10 @@ class App extends React.Component<{}, Required<Props>> {
               max={5000} // Максимальна тривалість анімації
               onChange={e =>
                 this.setState({
-                  animationDuration: Math.max(100, Math.min(+e.target.value, 5000)),
+                  animationDuration: Math.max(
+                    100,
+                    Math.min(+e.target.value, 5000),
+                  ),
                 })
               }
             />
