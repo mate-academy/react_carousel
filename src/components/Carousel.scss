@@ -1,1 +1,13 @@
-// style go here
+.Carousel {
+  display: flex;
+  margin-top: 36px;
+
+  &__body {
+    overflow-x: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    display: flex;
+  }
+}
