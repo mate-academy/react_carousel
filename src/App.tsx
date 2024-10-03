@@ -32,20 +32,22 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  handleChangeNumber = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
 
-    if (name === 'infinite') {
-      this.setState(prevState => ({
-        ...prevState,
-        [name]: !prevState.infinite,
-      }));
-    } else {
-      this.setState(prevState => ({
-        ...prevState,
-        [name]: +value,
-      }));
-    }
+    this.setState(prevState => ({
+      ...prevState,
+      [name as keyof State]: +value,
+    }));
+  };
+
+  handleChangeBoolean = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name } = event.target;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name as keyof State]: !prevState[name as keyof State],
+    }));
   };
 
   render() {
@@ -69,7 +71,7 @@ class App extends React.Component<{}, State> {
               min="130"
               max="260"
               step="10"
-              onChange={this.handleChange}
+              onChange={this.handleChangeNumber}
             />
           </label>
 
@@ -83,7 +85,7 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               value={frameSize}
-              onChange={this.handleChange}
+              onChange={this.handleChangeNumber}
             />
           </label>
 
@@ -97,7 +99,7 @@ class App extends React.Component<{}, State> {
               min="1"
               max={images.length}
               value={step}
-              onChange={this.handleChange}
+              onChange={this.handleChangeNumber}
             />
           </label>
 
@@ -111,7 +113,7 @@ class App extends React.Component<{}, State> {
               min="0"
               step={100}
               value={animationDuration}
-              onChange={this.handleChange}
+              onChange={this.handleChangeNumber}
             />
           </label>
 
@@ -123,7 +125,7 @@ class App extends React.Component<{}, State> {
               type="checkbox"
               name="infinite"
               checked={infinite}
-              onChange={this.handleChange}
+              onChange={this.handleChangeBoolean}
             />
           </label>
         </fieldset>

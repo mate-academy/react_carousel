@@ -25,25 +25,16 @@ const Carousel: React.FC<Props> = ({
   const isDisabledNext = currentImageIndex === images.length - 1 && !infinite;
 
   function movePrev() {
-    const index = currentImageIndex - step <= 0 ? 0 : currentImageIndex - step;
+    const index = Math.max(0, currentImageIndex - step);
 
-    const infiniteIndex =
-      currentImageIndex === 0 && infinite ? maxImages : index;
-
-    setCurrentImageIndex(infiniteIndex);
+    setCurrentImageIndex(index);
   }
 
-  const moveNext = () => {
-    const index =
-      currentImageIndex + step >= maxImages
-        ? maxImages
-        : currentImageIndex + step;
+  function moveNext() {
+    const index = Math.min(maxImages, currentImageIndex + step);
 
-    const infiniteIndex =
-      currentImageIndex === maxImages && infinite ? 0 : index;
-
-    setCurrentImageIndex(infiniteIndex);
-  };
+    setCurrentImageIndex(index);
+  }
 
   return (
     <div
@@ -59,7 +50,7 @@ const Carousel: React.FC<Props> = ({
             key={image}
             className="Carousel__list-item"
             style={{
-              width: `${itemWidth * frameSize}px`,
+              width: `${itemWidth}px`,
               transform: `translateX(${-(currentImageIndex * itemWidth)}px)`,
               transition: `transform ${animationDuration}ms ease 0s`,
             }}
