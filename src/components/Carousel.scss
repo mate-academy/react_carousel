@@ -1,1 +1,56 @@
-// style go here
+.carousel-container {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.carousel-frame {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-items {
+  list-style: none;
+  display: flex;
+  transition: transform 1s ease;
+}
+
+.carousel-item {
+  display: block;
+  margin: 0 5px;
+  width: 100%;
+  height: auto;
+}
+
+.carousel-button {
+  position: absolute;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: yellow;
+  border-radius: 5px;
+  color: black;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-button.prev {
+  left: -50px;
+}
+
+.carousel-button.next {
+  right: -50px;
+}
+
+.carousel-button:hover {
+  background-color: lightblue;
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+}
+
+.carousel-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
