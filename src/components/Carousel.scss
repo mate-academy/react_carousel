@@ -1,1 +1,12 @@
-// style go here
+.Carousel {
+  overflow-x: hidden;
+
+  &__list {
+    display: flex;
+  }
+
+ }
+
+ .Container {
+  display: flex;
+ }
