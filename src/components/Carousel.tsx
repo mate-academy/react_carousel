@@ -18,32 +18,44 @@ export const Carousel: React.FC<CarouselProps> = ({
   animationDuration = 1000,
   infinite = false,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = images.length - frameSize;
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const containerWidth = useMemo(
-    () => itemWidth * images.length,
-    [itemWidth, images.length],
-  );
+  const parseNumber = (value: string | number, fallback: number): number => {
+    const parsed: number = Number(value);
 
-  const handleNext = () => {
-    const newIndex = currentIndex + step;
-
-    if (newIndex <= maxIndex) {
-      setCurrentIndex(newIndex);
-    } else if (infinite) {
-      setCurrentIndex(0);
-    }
+    return isNaN(parsed) ? fallback : parsed;
   };
 
-  const handlePrev = () => {
-    const newIndex = currentIndex - step;
+  // Ensure that parsed numbers are handled safely
+  const itemWidthValid: number = parseNumber(itemWidth, 130);
+  const frameSizeValid: number = parseNumber(frameSize, 3);
+  const stepValid: number = parseNumber(step, 3);
 
-    if (newIndex >= 0) {
-      setCurrentIndex(newIndex);
-    } else if (infinite) {
-      setCurrentIndex(maxIndex);
+  const maxIndex: number = Math.max(0, images.length - frameSizeValid);
+
+  const containerWidth: number = useMemo(
+    () => itemWidthValid * images.length,
+    [itemWidthValid, images.length],
+  );
+
+  const handleNext = (): void => {
+    let newIndex: number = currentIndex + stepValid;
+
+    if (newIndex > maxIndex) {
+      newIndex = infinite ? 0 : maxIndex;
     }
+
+    setCurrentIndex(newIndex);
+  };
+
+  const handlePrev = (): void => {
+    let newIndex: number = currentIndex - stepValid;
+
+    if (newIndex < 0) {
+      newIndex = infinite ? maxIndex : 0;
+    }
+
+    setCurrentIndex(newIndex);
   };
 
   return (
@@ -52,22 +64,22 @@ export const Carousel: React.FC<CarouselProps> = ({
 
       <div
         className="carousel-frame"
-        style={{ width: `${itemWidth * frameSize}px` }}
+        style={{ width: `${itemWidthValid * frameSizeValid}px` }}
       >
         <ul
           className="carousel-items"
           style={{
             width: `${containerWidth}px`,
-            transform: `translateX(-${currentIndex * itemWidth}px)`,
+            transform: `translateX(-${currentIndex * itemWidthValid}px)`,
             transition: `transform ${animationDuration}ms ease`,
           }}
         >
           {images.map((image, index) => (
-            <li key={index} className="carousel-list-item">
+            <li key={`${image}-${index}`} className="carousel-list-item">
               <img
                 src={image}
                 alt={`carousel-item-${index}`}
-                width={itemWidth}
+                width={itemWidthValid} // Ensure width is assigned as an attribute
                 className="carousel-item"
               />
             </li>
@@ -79,7 +91,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         className="carousel-button prev"
         data-cy="prev"
         onClick={handlePrev}
-        disabled={!infinite && currentIndex === 0}
+        disabled={!infinite && currentIndex - stepValid < 0}
       >
         Previous
       </button>
@@ -88,7 +100,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         className="carousel-button next"
         data-cy="next"
         onClick={handleNext}
-        disabled={!infinite && currentIndex >= maxIndex}
+        disabled={!infinite && currentIndex + stepValid > maxIndex}
       >
         Next
       </button>
