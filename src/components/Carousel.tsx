@@ -3,16 +3,16 @@ import './Carousel.scss';
 
 interface CarouselProps {
   images: string[];
-  itemWidth?: number; // optional, default will be set
-  frameSize?: number; // optional
-  step?: number; // optional
-  animationDuration?: number; // optional
-  infinite?: boolean; // optional
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
   images,
-  itemWidth = 130, // default value set here
+  itemWidth = 130,
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
@@ -67,7 +67,7 @@ export const Carousel: React.FC<CarouselProps> = ({
               <img
                 src={image}
                 alt={`carousel-item-${index}`}
-                style={{ width: `${itemWidth}px`, height: 'auto' }}
+                width={itemWidth}
                 className="carousel-item"
               />
             </li>
