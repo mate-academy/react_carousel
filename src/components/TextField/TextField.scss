@@ -1,0 +1,16 @@
+.field {
+  display: flex;
+  column-gap: 10px;
+
+  &__input {
+    width: 200px;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__error {
+    color: #f00;
+  }
+}

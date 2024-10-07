@@ -1,0 +1,15 @@
+.Carousel {
+  overflow-x: hidden;
+
+  &__list {
+    display: flex;
+  }
+
+  &__button:not(:disabled) {
+    cursor: pointer;
+  }
+ }
+
+ .Container {
+  display: flex;
+ }
