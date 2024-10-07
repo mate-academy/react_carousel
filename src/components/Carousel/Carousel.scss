@@ -5,6 +5,9 @@
     display: flex;
   }
 
+  &__button:not(:disabled) {
+    cursor: pointer;
+  }
  }
 
  .Container {

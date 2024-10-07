@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Carousel.scss';
-import { Direction } from '../types/Direction';
+import { Direction } from '../../types/Direction';
 
 type Props = {
   images: string[];
@@ -10,17 +10,17 @@ type Props = {
   animationDuration: number;
 };
 
-const Carousel: React.FC<Props> = ({
+export const Carousel: React.FC<Props> = ({
   images,
   step,
   frameSize,
   itemWidth,
   animationDuration,
 }) => {
-  const [slideRange, setSlideRange] = useState([1, frameSize]);
+  const [slideRange, setSlideRange] = useState([0, frameSize - 1]);
 
   useEffect(() => {
-    setSlideRange([1, frameSize]);
+    setSlideRange([0, frameSize - 1]);
   }, [frameSize]);
 
   const handleSetSlideRange = (direction: Direction) => {
@@ -31,8 +31,8 @@ const Carousel: React.FC<Props> = ({
 
       switch (direction) {
         case Direction.Prev:
-          if (slideRange[0] - step < 1) {
-            availableStep = slideRange[0] - 1;
+          if (slideRange[0] - step < 0) {
+            availableStep = slideRange[0];
           } else {
             availableStep = step;
           }
@@ -58,11 +58,11 @@ const Carousel: React.FC<Props> = ({
     <div className="Container">
       <button
         type="button"
-        disabled={slideRange[0] === 1}
+        disabled={slideRange[0] === 0}
         className="Carousel__button"
         onClick={() => handleSetSlideRange(Direction.Prev)}
       >
-        Prev
+        {`<<`}
       </button>
 
       <div className="Carousel" style={{ width: `${frameSize * itemWidth}px` }}>
@@ -90,15 +90,13 @@ const Carousel: React.FC<Props> = ({
 
       <button
         type="button"
-        disabled={slideRange[1] === images.length - 1}
+        disabled={slideRange[1] >= images.length - 1}
         className="Carousel__button"
         data-cy="next"
         onClick={() => handleSetSlideRange(Direction.Next)}
       >
-        Next
+        {`>>`}
       </button>
     </div>
   );
 };
-
-export default Carousel;

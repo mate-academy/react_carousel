@@ -1,13 +1,11 @@
 import React from 'react';
-import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
+import { TextField } from './components/TextField';
+import { Parameters } from './types/Parameters';
 
 interface State {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animDuration: number;
+  parameters: Parameters;
 }
 
 class App extends React.Component<{}, State> {
@@ -24,67 +22,65 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 3,
-    frameSize: 3,
-    itemWidth: 130,
-    animDuration: 1000,
+    parameters: {
+      step: 3,
+      frameSize: 3,
+      itemWidth: 130,
+      animDuration: 1000,
+    },
+  };
+
+  handleSetParameters = (property: string, value: number | string) => {
+    this.setState({
+      parameters: {
+        ...this.state.parameters,
+        [property]: value,
+      },
+    });
   };
 
   render() {
-    const { images, step, frameSize, itemWidth, animDuration } = this.state;
+    const {
+      images,
+      parameters: { step, frameSize, itemWidth, animDuration },
+    } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <div className="field">
-          <label htmlFor="itemId">Item Width:</label>
-          <input
-            id="itemId"
-            type="text"
-            value={itemWidth}
-            onChange={event =>
-              this.setState({ itemWidth: Number(event.target.value) })
-            }
-          />
-        </div>
+        <TextField
+          id="itemId"
+          label="Item Width:"
+          name="Item Width"
+          value={itemWidth}
+          onChange={value => this.handleSetParameters('itemWidth', value)}
+        />
 
-        <div className="field">
-          <label htmlFor="frameId">Frame Size:</label>
-          <input
-            id="frameId"
-            type="text"
-            value={frameSize}
-            onChange={event =>
-              this.setState({ frameSize: Number(event.target.value) })
-            }
-          />
-        </div>
+        <TextField
+          id="frameId"
+          label="Frame Size:"
+          name="Frame Size"
+          value={frameSize}
+          onChange={value => this.handleSetParameters('frameSize', value)}
+        />
 
-        <div className="field">
-          <label htmlFor="stepId">Step:</label>
-          <input
-            id="stepId"
-            type="text"
-            value={step}
-            onChange={event =>
-              this.setState({ step: Number(event.target.value) })
-            }
-          />
-        </div>
+        <TextField
+          id="stepId"
+          label="Step:"
+          name="Step"
+          value={step}
+          onChange={value => this.handleSetParameters('step', value)}
+        />
 
-        <div className="field">
-          <label htmlFor="animDurationInput">Animation Duration (ms):</label>
-          <input
-            id="animDurationInput"
-            type="text"
-            value={animDuration}
-            onChange={event =>
-              this.setState({ animDuration: Number(event.target.value) })
-            }
-          />
-        </div>
+        <TextField
+          id="animDurationId"
+          label="Animation Duration (ms):"
+          name="Animation Duration"
+          value={animDuration}
+          onChange={value => this.handleSetParameters('animDuration', value)}
+        />
 
         <Carousel
           images={images}
