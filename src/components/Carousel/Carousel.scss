@@ -1,0 +1,47 @@
+.Carousel {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+
+  &__list {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__image {
+    display: flex;
+  }
+
+  &__prev-button {
+    grid-column: 2 / 3;
+  }
+  &__next-button {
+    grid-column: 3 / 4;
+  }
+
+  &__prev-button,
+  &__next-button {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: #357ab7;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
