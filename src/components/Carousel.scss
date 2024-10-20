@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  display: flex;
+  margin: 69px auto;
+  align-items: center;
+
+  &__body {
+    overflow-x: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    display: flex;
+  }
+}
+
+.button {
+  border-radius: 50%;
+}
+
+.button:hover {
+  background-color: aqua;
+  color: red;
+}
+
+.button:active {
+  background-color: red;
+  color: aqua;
+}

@@ -1,1 +1,43 @@
-// style go here
+:root {
+  margin: 20px;
+}
+
+.title {
+  text-align: center;
+
+  & :hover{
+    color: red;
+  }
+}
+
+.title:hover {
+  color: aqua;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+
+.field {
+  margin: 0 auto;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.label:hover {
+  color: aqua;
+  cursor: pointer;
+}
+
+.check {
+  margin-right: 7px;
+}
+
+.checkbox:hover {
+  color: aqua;
+}
