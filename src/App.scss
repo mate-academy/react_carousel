@@ -1,1 +1,18 @@
-// style go here
+.customizing {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 200px;
+
+  &__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__input {
+    width: 100px;
+    height: 18px;
+  }
+}
