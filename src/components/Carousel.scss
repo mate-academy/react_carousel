@@ -1,1 +1,57 @@
 // style go here
+.Control-panel {
+  // background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.Control-item {
+  margin: 0 auto;
+}
+
+.Carousel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__container {
+    margin-top: 50px;
+  }
+}
+
+label {
+  margin-right: 5px;
+}
+
+input {
+  width: 70px;
+}
+
+button {
+  // margin-left: 15px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: no-drop;
+  }
+}
