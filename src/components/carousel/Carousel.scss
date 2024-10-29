@@ -1,0 +1,72 @@
+.Carousel {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin: 30px;
+  width: 1300px;
+  justify-content: center;
+
+  &__wrapper {
+      height: auto;
+      overflow: hidden;
+
+  }
+  &__list {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+
+    list-style-type: none;
+  }
+
+  &__image {
+    height: auto;
+  }
+
+  &__button {
+    font-size: 50px;
+    margin: 0;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: all 0.01s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__button:active {
+    transform: scale(1.2);
+  }
+
+}
+.Customized {
+
+  padding: 10px;
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+
+  &__label {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+
+  &__input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  &__input:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+
+}
