@@ -1,1 +1,16 @@
 // style go here
+.parameters{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+label{
+  display: flex;
+  gap: 20px;
+}
+
+input{
+  width: 100px;
+}
