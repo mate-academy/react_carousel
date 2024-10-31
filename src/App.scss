@@ -1,1 +1,29 @@
-// style go here
+.App {
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  max-width: 150px;
+}
+
+input {
+  width: 100%;
+  max-width: 150px;
+  padding: 2px;
+  font-size: 14px;
+
+  &[type="checkbox"] {
+    margin-left: -20px;
+    margin-top: -14px;
+  }
+}
