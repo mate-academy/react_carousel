@@ -1,0 +1,22 @@
+// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  list-style: none;
+  padding: 0;
+}
