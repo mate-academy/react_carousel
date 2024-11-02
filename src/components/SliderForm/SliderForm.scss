@@ -1,0 +1,92 @@
+.SliderForm {
+  color: #fff;
+  max-width: 350px;
+  margin: 25px auto 0;
+  background-color: rgb(68, 133, 255);
+  border-radius: 12px;
+
+  &__settings {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
+
+  &__item {
+    flex: 1 1 50%;
+    padding: 0 10px;
+  }
+
+  &__title {
+    font-size: 16px;
+  }
+
+  &__field {
+    margin: 10px 0 20px;
+    display: flex;
+  }
+
+  &__btn {
+    width: 33.33%;
+    height: 20px;
+    background-color: #386dea;
+    color: #fff;
+    border-radius: 3px;
+
+    &:active {
+      background-color: #2d65ea;
+    }
+  }
+
+  &__input {
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    width: 33.33%;
+
+    &--check {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  height: 15px;
+  width: 40px;
+  border-radius: 10px;
+  transform: translate(100%);
+  background-color: #386dea;
+
+  &::before {
+    content: '';
+    transition: left 0.3s ease, background-color 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3c71ec;
+    border: solid 1px #386dea;
+    transform: translateY(-10%);
+
+    .SliderForm__input--check:checked + & {
+      left: 50%;
+      background-color: #2c62df;
+    }
+  }
+}

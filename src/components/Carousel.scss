@@ -1,1 +1,29 @@
-// style go here
+.Carousel {
+  margin: 50px auto 0;
+  overflow: hidden;
+
+  &__list {
+    border-radius: 20px;
+    display: flex;
+  }
+
+  &__btns {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  &__bnt {
+    font-size: 18px;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgb(88, 141, 254);
+
+    &:active {
+      background-color: rgb(72, 127, 244);
+    }
+  }
+}
