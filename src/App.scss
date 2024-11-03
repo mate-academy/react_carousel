@@ -1,1 +1,45 @@
-// style go here
+body {
+  background-color: #9c6b6b;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile {
+  background-color: #503333;
+  border: 2px solid rgb(20, 20, 20);
+  border-radius: 15px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 5px 10px 15px rgb(73, 52, 52);
+  margin-bottom: 30px;
+
+  &:hover {
+    border: 3px solid rgb(20, 20, 20);
+    cursor: pointer;
+  }
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 3px solid #644545;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: black
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #581313d5;
+  }
+}
