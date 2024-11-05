@@ -1,1 +1,16 @@
-// style go here
+h1 {
+ padding-left: 10px;
+}
+
+
+.inputs-form{
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+label{
+  padding: 5px;
+  font-weight: bold;
+}
