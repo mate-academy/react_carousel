@@ -1,1 +1,27 @@
-// style go here
+.Carousel {
+  max-width: 1300px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+
+  &__container{
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #000;
+    background: #eee;
+  }
+}
+
+
+
+
