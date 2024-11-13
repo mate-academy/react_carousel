@@ -1,0 +1,34 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-block: 20px;
+
+  &__field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__input {
+    width: 40%;
+    height: 20px;
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 5px;
+
+    &[type='checkbox'] {
+      appearance: none;
+      width: 20px;
+      margin-inline: 20%;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    &[type='checkbox']:checked {
+      background-color: #4C4136;
+      padding: 5px;
+    }
+  }
+}

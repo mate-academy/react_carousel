@@ -1,1 +1,27 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  background-color: #D6BEA8;
+  color: #4C4136;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.5s ease-in-out;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+
+  &__title {
+    margin-block: 20px;
+    text-align: center;
+    font-weight: 700;
+  }
+}

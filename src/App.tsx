@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/Carousel/Carousel';
+import { Form } from './components/Form/Form';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +26,58 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleFormChange = (data: {
+    step: number;
+    frameSize: number;
+    itemWidth: number;
+    animationDuration: number;
+    infinite: boolean;
+  }) => {
+    this.setState({
+      step: data.step,
+      frameSize: data.frameSize,
+      itemWidth: data.itemWidth,
+      animationDuration: data.animationDuration,
+      infinite: data.infinite,
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, step, frameSize, itemWidth, animationDuration, infinite } =
+      this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+      <div className="container">
+        <div className="App">
+          <h1 className="App__title" data-cy="title">
+            Carousel with {images.length} images
+          </h1>
 
-        <Carousel />
+          <Form
+            step={step}
+            frameSize={frameSize}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+            infinite={infinite}
+            onChange={this.handleFormChange}
+          />
+
+          <Carousel
+            images={images}
+            step={step}
+            frameSize={frameSize}
+            itemWidth={itemWidth}
+            animationDuration={animationDuration}
+            infinite={infinite}
+          />
+        </div>
       </div>
     );
   }
