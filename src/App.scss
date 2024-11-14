@@ -1,1 +1,17 @@
-// style go here
+.App {
+  background-color: grey;
+  text-align: center;
+
+  .inputfields {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin: 10px 0;
+
+      input {
+        margin-left: 10px;
+      }
+    }
+  }
+}
