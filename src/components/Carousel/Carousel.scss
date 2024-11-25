@@ -1,0 +1,39 @@
+// style go here
+.img-container {
+  display: inline-block;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.Carousel {
+  position: relative;
+  margin: 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #b8e1ff;
+  border-radius: 25px;
+}
+
+.button {
+  position: absolute;
+  width: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  border: none;
+  background-color: #ede6f2;
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: scale(1.04);
+}
+
+.button:active {
+  transform: scale(0.9);
+}
