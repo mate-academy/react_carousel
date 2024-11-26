@@ -1,0 +1,38 @@
+.Carousel {
+  position: relative;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: gray;
+    border-radius: 50%;
+    padding: 10px 20px;
+
+    &:disabled {
+      color: gray;
+      background-color: white;
+    }
+  }
+}
+
+.button {
+  &__container {
+    display: flex;
+    column-gap: 2rem;
+    justify-content: center;
+    margin: 20px 0;
+  }
+}

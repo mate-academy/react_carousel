@@ -1,0 +1,17 @@
+.input__container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  row-gap: 20px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  > input {
+    width: 100px;
+  }
+}
