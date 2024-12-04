@@ -1,0 +1,33 @@
+.Carousel {
+  position: relative;
+  overflow: hidden;
+
+  &__button {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+}
+
+  &__list {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    padding: 0;
+  }
+
+  img {
+    height: 100%;
+  }
+
+  button {
+    height: 40px;
+    width: 70px;
+    border-radius: 8px;
+    background-color: rgb(242, 233, 213)
+  }
+
+  button:hover {
+    background-color: #c4b569;
+  }
+}
