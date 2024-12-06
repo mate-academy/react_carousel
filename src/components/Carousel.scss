@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  width: calc(var(--item-width) * var(--frame-size));
+  position: relative;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Carousel__list li {
+  flex-shrink: 0;
+}
+
+.Carousel__list img {
+  // width: 130px;
+  height: auto;
+  object-fit: cover;
+}
+
+
