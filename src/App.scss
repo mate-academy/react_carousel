@@ -1,1 +1,9 @@
-// style go here
+iframe {
+  display: none;
+}
+
+.App {
+  &__title {
+    text-align: center;
+  }
+}
