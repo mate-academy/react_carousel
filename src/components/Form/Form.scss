@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  gap: 20px;
+  padding-top: 30px;
+
+  &__label {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
