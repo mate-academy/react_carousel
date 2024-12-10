@@ -9,7 +9,7 @@ describe('Page', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  
+
  it('should contain title of the page', () => {
     cy.getByDataCy('title')
      .should('contain', 'Carousel');
@@ -50,7 +50,7 @@ describe('Page', () => {
     page.getImg('7')
       .should('not.be.visible');
   });
-   
+
   it('should change scroll text on 1 step', () => {
     cy.get('[for="stepId"]')
       .type('{selectall}1');
@@ -63,15 +63,15 @@ describe('Page', () => {
   });
 
   it('should change width of image', () => {
-    cy.get('[for ="itemId"]')
+    cy.get('[for ="itemWidthId"]')
       .type('{selectall}200');
     page.getImg('1')
       .invoke('attr', 'width')
       .should('eq', '200');
   });
-    
+
   it('should change frame size', () => {
-    cy.get('[for ="frameId"')
+    cy.get('[for ="frameSizeId"')
       .type('{selectall}2');
     page.getImg('1')
       .should('be.visible');

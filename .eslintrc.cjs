@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    "plugin:react-hooks/recommended",
+    'plugin:react-hooks/recommended',
     'airbnb-typescript',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
@@ -14,11 +14,11 @@ module.exports = {
   ],
   overrides: [
     {
-      'files': ['**/*.spec.jsx'],
-      'rules': {
-        'react/jsx-filename-extension': ['off'],
-      }
-    }
+      files: ['**/*.spec.jsx'],
+      rules: {
+        'react/jsx-filename-extension': 'off',
+      },
+    },
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -29,77 +29,95 @@ module.exports = {
     project: './tsconfig.json',
     sourceType: 'module',
   },
-  plugins: [
-    'jsx-a11y',
-    'import',
-    'react-hooks',
-    '@typescript-eslint',
-    'prettier'
-  ],
+  plugins: ['jsx-a11y', 'import', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
-    // JS
-    'semi': 'off',
+    // General JavaScript rules
+    semi: 'off',
     '@typescript-eslint/semi': ['error', 'always'],
-    'prefer-const': 2,
-    curly: [2, 'all'],
-    'max-len': ['error', {
-      ignoreTemplateLiterals: true,
-      ignoreComments: true,
-    }],
-    'no-redeclare': [2, { builtinGlobals: true }],
-    'no-console': 2,
-    'operator-linebreak': 0,
-    'brace-style': [2, '1tbs'],
-    'arrow-body-style': 0,
-    'arrow-parens': 0,
-    'no-param-reassign': [2, { props: true }],
+    'prefer-const': 'error',
+    curly: ['error', 'all'],
+    'max-len': [
+      'error',
+      { code: 100, ignoreTemplateLiterals: true, ignoreComments: true, tabWidth: 2 },
+    ],
+    'no-redeclare': ['error', { builtinGlobals: true }],
+    'no-console': 'warn',
+    'operator-linebreak': 'off',
+    'brace-style': ['error', '1tbs'],
+    'arrow-body-style': 'off',
+    'arrow-parens': 'off',
+    'no-param-reassign': ['error', { props: true }],
     'padding-line-between-statements': [
-      2,
+      'error',
       { blankLine: 'always', prev: '*', next: 'return' },
       { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
       { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
       { blankLine: 'always', prev: 'directive', next: '*' },
       { blankLine: 'always', prev: 'block-like', next: '*' },
     ],
-    'implicit-arrow-linebreak:': 0,
 
-    // React
-    'react/prop-types': 0,
-    'react/require-default-props': 0,
-    'import/prefer-default-export': 0,
-    'standard/no-callback-literal': 0,
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-    'react/destructuring-assignment': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react/state-in-constructor': [2, 'never'],
-    'react-hooks/rules-of-hooks': 2,
-    'jsx-a11y/label-has-associated-control': ["error", {
-      assert: "either",
-    }],
-    'jsx-a11y/label-has-for': [2, {
-      components: ['Label'],
-      required: {
-        some: ['id', 'nesting'],
+    // React rules
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
+    'import/prefer-default-export': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
+    'react/destructuring-assignment': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/state-in-constructor': ['error', 'never'],
+    'react-hooks/rules-of-hooks': 'error',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        assert: 'either',
       },
-      allowChildren: true,
-    }],
+    ],
+    'jsx-a11y/label-has-for': [
+      'error',
+      {
+        components: ['Label'],
+        required: {
+          some: ['id', 'nesting'],
+        },
+        allowChildren: true,
+      },
+    ],
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
 
-    // Typescript
+    // TypeScript rules
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/indent': ['error', 2],
-    '@typescript-eslint/ban-types': ['error', {
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
         extendDefaults: true,
         types: {
           '{}': false,
         },
       },
     ],
+
+    // Prettier rules
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'all',
+        bracketSpacing: true,
+        bracketSameLine: false,
+        printWidth: 100,
+      },
+    ],
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'src/vite-env.d.ts', 'cypress'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    'vite.config.ts',
+    'src/vite-env.d.ts',
+    'cypress',
+  ],
   settings: {
     react: {
       version: 'detect',
