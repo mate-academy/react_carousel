@@ -1,1 +1,12 @@
-// style go here
+.wrapper {
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+li {
+  list-style: none;
+}
