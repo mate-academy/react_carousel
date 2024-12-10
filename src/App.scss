@@ -1,1 +1,24 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  padding: 15px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-weight: bolder;
+  padding: 10px;
+
+  & label {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    &:last-child {
+      justify-content: flex-start;
+    }
+  }
+}
