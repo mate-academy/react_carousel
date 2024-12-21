@@ -1,1 +1,30 @@
 // style go here
+.Carousel {
+  position: relative;
+  overflow: hidden;
+
+  &__track-wrapper {
+    display: flex;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      // max-width: 100%;
+      max-width: 130px;
+      height: auto;
+    }
+  }
+}
