@@ -1,1 +1,40 @@
 // style go here
+* {
+  box-sizing: border-box;
+}
+
+.Carousel {
+
+  &__container {
+    margin: 0 auto;
+    overflow: hidden;
+
+    &__buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    &--animate {
+      animation: slider-animation var(--animation-time) linear infinite;
+    }
+  }
+
+  &__img {
+    display: block;
+  }
+}
+
+@keyframes slider-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(var(--move));
+  }
+}

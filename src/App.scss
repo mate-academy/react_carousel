@@ -1,1 +1,25 @@
-// style go here
+h1{
+  text-align: center;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  max-width: 260px;
+  gap: 15px;
+  margin: 0 auto;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.inputs label{
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  max-width: 52px;
+}
+
+
+
