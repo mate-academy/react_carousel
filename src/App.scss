@@ -1,1 +1,14 @@
-// style go here
+.inputs {
+    display: flex;
+    gap: 20px;
+
+    &__label {
+        display: block;
+        font-size: 20px;
+        margin-right: 20px;
+    }
+
+    &__input {
+        font-size: 20px;
+    }
+}

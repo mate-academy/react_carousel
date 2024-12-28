@@ -1,1 +1,21 @@
-// style go here
+.Carousel {
+    width: 260px;
+    overflow: hidden;
+
+    &__list {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+    
+      li {
+        flex: 0 0 auto;
+        width: 130px;
+      }
+    
+      img {
+        width: 100%;
+        height: auto;
+      }
+}
