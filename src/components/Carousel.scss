@@ -1,1 +1,31 @@
 // style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-container {
+    display: flex;
+    overflow: hidden;
+
+    margin-inline: 20px;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+  }
+}
+
+button {
+  background-color: #444;
+  color: aquamarine;
+  border: 2px solid aquamarine;
+  border-radius: 20px;
+
+  &:disabled {
+    background-color: grey;
+    color: #444;
+    border: 2px solid grey;
+  }
+}
