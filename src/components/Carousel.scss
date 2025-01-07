@@ -1,1 +1,16 @@
 // style go here
+.Carousel {
+  &__list {
+    width: 260px;
+    background-color: antiquewhite;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__list-element {
+    display: flex;
+    list-style: none;
+  }
+}
