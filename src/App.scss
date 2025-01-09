@@ -1,1 +1,18 @@
-// style go here
+.App {
+  text-align: center;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: bold;
+
+  &__radio {
+    display: inline-block;
+  }
+}
+
+.input {
+  margin-left: 25px;
+}
