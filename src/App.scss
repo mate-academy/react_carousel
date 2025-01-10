@@ -1,1 +1,40 @@
-// style go here
+.App {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: grid;
+  row-gap: 20px;
+
+  &__field {
+    display: grid;
+    column-gap: 20px;
+    align-items: center;
+    grid-auto-flow: column;
+    justify-content: space-between;
+
+    & input {
+      padding: 10px;
+      border-radius: 10px;
+    }
+  }
+
+  &__checkbox {
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & input {
+      margin: 0;
+      cursor: pointer;
+      transform: scale(2);
+    }
+  }
+}
