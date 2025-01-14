@@ -1,1 +1,33 @@
-// style go here
+body {
+  color: aliceblue;
+  margin: 0;
+  background: #0d0a00;
+}
+
+.App {
+  &__title {
+    margin: 32px auto;
+    width: max-content;
+  }
+
+  &__form {
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &:last-child {
+      flex-direction: row;
+    }
+  }
+}
