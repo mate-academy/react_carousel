@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  width: 1300px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-direction: column;
+
+  &__container {
+    // width: 390px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 2px solid aquamarine;
+    border-radius: 10px;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: 1px solid aqua;
+    border-radius: 10px;
+
+    &--active:focus {
+      background-color: aquamarine;
+    }
+  }
+}

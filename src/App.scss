@@ -1,1 +1,21 @@
-// style go here
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__form {
+    display: flex;
+    font-size: 18px;
+  }
+
+  &__input {
+    margin: 0 10px 0 5px;
+    font-size: 12px;
+    text-align: center;
+    border-color: aquamarine;
+    border-radius: 10px;
+    outline: none;
+  }
+}
