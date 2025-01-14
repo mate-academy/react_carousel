@@ -1,1 +1,50 @@
 // style go here
+.Carousel {
+  position: relative;
+  overflow: hidden;
+  margin-inline: auto;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transition: transform 0.5s;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    display: block;
+    min-width: 100%;
+  }
+
+  button {
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba($color: #007bff, $alpha: .7);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+
+    &:disabled {
+      background: rgba($color: #ccc, $alpha: .7);
+      cursor: not-allowed;
+    }
+  }
+
+  [data-cy="prev"] {
+    left: 0;
+  }
+
+  [data-cy="next"] {
+    right: 0;
+  }
+}
