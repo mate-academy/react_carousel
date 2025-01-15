@@ -1,1 +1,39 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  margin-inline: auto;
+  text-align: center;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transition: transform 0.5s;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    display: block;
+    min-width: 100%;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    transform: translateY(-50%);
+    background: rgba($color: #007bff, $alpha: .7);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      background: rgba($color: #ccc, $alpha: .7);
+      cursor: not-allowed;
+    }
+  }
+}
