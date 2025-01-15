@@ -1,1 +1,35 @@
-// style go here
+.App {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  width: 350px;
+  font-size: 20px;
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  &-checkbox {
+    justify-content: space-evenly;
+  }
+
+  &-input {
+    font-size: 20px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  & [type='checkbox' i] {
+    height: 20px;
+  }
+}
