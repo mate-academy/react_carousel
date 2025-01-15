@@ -1,1 +1,15 @@
 // style go here
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-block: 10px;
+  width: 350px;
+}
+
+.title {
+  text-align: center;
+}
