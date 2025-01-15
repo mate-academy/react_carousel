@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,111 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : parseInt(value, 10),
+    }));
+  };
+
+  handeToggleInfinite = () => {
+    this.setState(prevState => ({ infinite: !prevState.infinite }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
+
+        <div className="setting">
+          <label htmlFor="itemId" className="options__row">
+            itemWidth:
+            <input
+              id="itemId"
+              className="option__input"
+              type="number"
+              name="itemWidth"
+              value={itemWidth}
+              min={50}
+              max={500}
+              onChange={this.handleInputChange}
+            ></input>
+          </label>
+
+          <label htmlFor="stepId" className="options__row">
+            Step:
+            <input
+              id="stepId"
+              className="option__input"
+              type="number"
+              name="step"
+              value={step}
+              min={1}
+              max={5}
+              onChange={this.handleInputChange}
+            ></input>
+          </label>
+
+          <label htmlFor="frameId" className="options__row">
+            Frame Size:
+            <input
+              id="frameId"
+              className="option__input"
+              type="number"
+              name="frameSize"
+              value={frameSize}
+              min={1}
+              max={4}
+              onChange={this.handleInputChange}
+            ></input>
+          </label>
+
+          <label htmlFor="animationId" className="options__row">
+            Animation Duration
+            <input
+              id="animationId"
+              className="option__input"
+              type="number"
+              name="animationDuration"
+              value={animationDuration}
+              onChange={this.handleInputChange}
+            ></input>
+          </label>
+
+          <label htmlFor="infiniteId" className="options__row">
+            infinite
+            <input
+              id="infiniteId"
+              className="option__input"
+              type="checkbox"
+              name="infinite"
+              checked={infinite}
+              onChange={this.handeToggleInfinite}
+            />
+          </label>
+        </div>
       </div>
     );
   }
