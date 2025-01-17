@@ -1,1 +1,36 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+  position: relative;
+  margin-inline: auto;
+
+  &__list {
+    display: flex;
+    transition: transform ease-in-out; // Плавный переход для анимации
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+      display: block;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-block: 20px;
+  }
+
+  &__button {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #ADD8E6;
+    box-shadow: 5px 5px 10px #191970;
+
+
+  }
+}
