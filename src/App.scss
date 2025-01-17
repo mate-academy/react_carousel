@@ -1,1 +1,32 @@
 // style go here
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // Расстояние между блоками
+  width: 600px;
+  margin-bottom: 100px;
+  padding-left: 20px;
+
+  label {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px; // Расстояние между текстом метки и инпутом
+
+    input {
+      flex: 1; // Инпут занимает всё доступное место
+      max-width: 200px; // Ограничение ширины инпута
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+      }
+    }
+  }
+}
