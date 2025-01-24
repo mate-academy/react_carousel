@@ -1,1 +1,57 @@
 // style go here
+
+.App {
+  &__title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.5em;
+    padding-left: 20px;
+    line-height: 1.1em;
+    margin-bottom: 50px;
+  }
+
+  &__label-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin-bottom: 25px;
+
+    &>label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 50px;
+
+      &>span {
+        box-sizing: border-box;
+        margin-right: 20px;
+        width: 40%;
+        height: auto;
+        color: black;
+        display: flex;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 1.2em;
+        padding-left: 20px;
+        line-height: 1.1em;
+      }
+
+      &>input {
+        width: 50%;
+        height: 25px;
+        padding-left: 10px;
+        color: black;
+        outline: none;
+        border: 2px solid lightgray;
+        border-radius: 7px;
+        font-weight: bold;
+        font-family: monospace;
+        font-size: 1em;
+
+        &::placeholder {
+          color: gray;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}
