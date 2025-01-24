@@ -1,1 +1,63 @@
 // style go here
+
+.Carousel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 10px 0;
+
+  &__empty {
+    margin-bottom: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.5em;
+    padding-left: 20px;
+    line-height: 1.1em;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 3px solid gray;
+    border-radius: 20px;
+    margin-bottom: 50px;
+  }
+
+  &__image {
+    list-style: none;
+  }
+
+  &__button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__button {
+    width: 45%;
+    max-width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: lightblue;
+    border: 2px solid gray;
+    box-shadow: 5px 3px 5px gray;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 0.8em;
+    line-height: 1.1em;
+
+    &:disabled {
+      background-color: lightgray;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &:not(:disabled):hover {
+      background-color: rgb(120, 211, 241);
+      cursor: pointer;
+    }
+  }
+}
