@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -25,14 +25,104 @@ class App extends React.Component<{}, State> {
   render() {
     const { images } = this.state;
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+    const AppInternal: React.FC = () => {
+      const [currentItemWidth, setCurrentItemWidth] = useState(130);
+      const [currentFrameSize, setCurrentFrameSize] = useState(3);
+      const [currentStep, setCurrentStep] = useState(3);
+      const [currentAnimationDuration, setCurrentAnimationDuration] =
+        useState(1000);
+      const [isInfinite, setIsInfinite] = useState(false);
 
-        <Carousel />
-      </div>
-    );
+      return (
+        <div className="App">
+          {/* eslint-disable-next-line */}
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+
+          <Carousel
+            images={images}
+            itemWidth={currentItemWidth}
+            frameSize={currentFrameSize}
+            step={currentStep}
+            animationDuration={currentAnimationDuration}
+            infinite={isInfinite}
+          />
+
+          <div className="inputs">
+            <label htmlFor="itemId" className="label">
+              Enter image width:
+            </label>
+            <input
+              id="itemId"
+              className="input"
+              name="number"
+              type="number"
+              value={currentItemWidth}
+              onChange={e => setCurrentItemWidth(Number(e.target.value))}
+            ></input>
+
+            <label htmlFor="frameId" className="label">
+              Enter frame size:
+            </label>
+            <input
+              id="frameId"
+              className="input"
+              name="number"
+              type="number"
+              value={currentFrameSize}
+              onChange={e => setCurrentFrameSize(Number(e.target.value))}
+            ></input>
+
+            <label htmlFor="stepId" className="label">
+              Enter step:
+            </label>
+            <input
+              id="stepId"
+              className="input"
+              name="number"
+              type="number"
+              value={currentStep}
+              onChange={e => setCurrentStep(Number(e.target.value))}
+            ></input>
+
+            <label htmlFor="animationDuration" className="label">
+              Enter animation duration:
+            </label>
+            <input
+              id="animationDuration"
+              className="input"
+              name="number"
+              type="number"
+              value={currentAnimationDuration}
+              onChange={e =>
+                setCurrentAnimationDuration(Number(e.target.value))
+              }
+            ></input>
+
+            <div className="radio-buttons">
+              <p>Should the carousel be infinite?</p>
+              <input
+                type="radio"
+                name="beInfinite"
+                value="yes"
+                id="yes"
+                onChange={() => setIsInfinite(true)}
+              ></input>
+              <label htmlFor="yes">Yes </label>
+              <input
+                type="radio"
+                name="beInfinite"
+                value="no"
+                id="no"
+                onChange={() => setIsInfinite(false)}
+              ></input>
+              <label htmlFor="no">No </label>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    return <AppInternal />;
   }
 }
 
