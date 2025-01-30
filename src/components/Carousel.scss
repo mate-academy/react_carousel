@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    list-style: none;
+    width: 1300px;
+  }
+}
+
+.image {
+  height: 130px;
+  width: 130px;
+}
+
+.wrapper {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+
+  .button {
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50px;
+    color: #588108;
+    background-color: #fae98c;
+  }
+}

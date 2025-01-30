@@ -1,1 +1,17 @@
-// style go here
+.wrapForInputs {
+  display: flex;
+  column-gap: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.inputs {
+  height: 4vh;
+  outline: none;
+  border: solid rgb(253, 196, 105) 2px;
+  border-radius: 1vh;
+}
