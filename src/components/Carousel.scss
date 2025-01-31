@@ -1,1 +1,14 @@
-// style go here
+.Carousel {
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  &__img {
+    aspect-ratio: 1 / 1;
+  }
+}
