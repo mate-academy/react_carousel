@@ -1,1 +1,22 @@
-// style go here
+.inputs {
+  display: flex;
+  height: 300px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 50px;
+  }
+
+  .label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-decoration: underline;
+  }
+
+  .input {
+    width: fit-content;
+    height: 30%;
+    font-weight: bold;
+    border-radius: 20px;
+    border-width: 1px;
+    background-color: lightyellow;
+  }
