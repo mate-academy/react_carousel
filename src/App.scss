@@ -1,1 +1,23 @@
 // style go here
+.container {
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  border: black 1px solid;
+  width: max-content;
+  padding: 10px;
+}
+
+[data-cy="title"] {
+  justify-self: center;
+  font-family: sans-serif;
+}
+
+input {
+  background-color: lightsteelblue;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+}
