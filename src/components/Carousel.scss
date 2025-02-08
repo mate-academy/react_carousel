@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: row;
+
+  &__list {
+    display: flex;
+    width: 390px;
+  overflow: hidden;
+
+    padding: 0;
+  }
+
+  &__img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+.button {
+ display: flex;
+
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+
+}
