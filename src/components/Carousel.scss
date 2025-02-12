@@ -1,1 +1,52 @@
 // style go here
+
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 1300px;
+
+  &__wrapper {
+    width: 390px;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    width: fit-content;
+    padding: 0;
+    transition: transform 0.3s ease-in-out;
+    gap: 10px;
+
+    li {
+      list-style: none;
+    }   
+  }
+
+  .arrow {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    transition: 0.3s;
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(.disabled) {
+      transform: scale(1.2);
+    }
+  }
+
+  .left {
+    color: blue;
+  }
+
+  .right {
+    color: red;
+  }
+}
