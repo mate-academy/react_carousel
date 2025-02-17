@@ -1,1 +1,22 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  position: relative;
+  margin-inline: auto;
+
+  &__list {
+    width: 1300px;
+    padding: 0;
+    display: flex;
+  }
+}
+
+button {
+  width: 125px;
+  height: 50px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
