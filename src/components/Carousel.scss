@@ -1,1 +1,33 @@
-// style go here
+.carousel {
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  &-frame {
+    overflow: hidden;
+  }
+  &-track {
+    display: flex;
+    list-style: none;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+  }
+  &-item {
+    flex-shrink: 0;
+  img {
+      display: block;
+      object-fit: cover;
+    }
+  }
+  &-button {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  &-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
