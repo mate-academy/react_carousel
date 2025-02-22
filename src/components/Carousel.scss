@@ -1,1 +1,34 @@
 // style go here
+.Carousel {
+  // width: 406px;
+
+  &__wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    width: 1300px;
+
+    gap: 8px;
+
+    display: flex;
+  }
+
+  // &__img {
+  //   display: block;
+  //   aspect-ratio: 1 / 1;
+  // }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.img {
+  display: block;
+  aspect-ratio: 1 / 1;
+}

@@ -1,1 +1,18 @@
 // style go here
+li {
+  list-style: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
