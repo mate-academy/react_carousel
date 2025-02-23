@@ -1,1 +1,68 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  grid-row: 2;
+  grid-column: 2;
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      border-bottom: solid 1px #1c1b29;
+      background-color: transparent;
+      color: #f1f5f4;
+      text-align: center;
+
+      box-shadow: 0 -6px 4px #1c1b29;
+
+      font-family: "Playfair Display", Helvetic, serif;
+      font-size: 16px;
+      transition: all 0.4s ease-in-out;
+
+
+      &:hover {
+        transform: scale(1.1);
+        color: #f1f5f4;
+        border: solid 1px #f1f5f4;
+        box-shadow: none;
+      }
+
+      &:active {
+        background-color: #ce8c7d;
+        color: #f1f5f4;
+      }
+
+      &--disabled {
+        background-color: grey;
+        color: #46445d;
+        box-shadow: none;
+        border: none;
+
+        &:hover {
+          background-color: grey;
+          color: #46445d;
+          transform: scale(1);
+          border: none;
+        }
+      }
+    }
+  }
+}
