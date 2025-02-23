@@ -1,0 +1,22 @@
+.Carousel {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  &__list {
+    list-style: none;
+    grid-column: 1/-1;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__prev-button {
+    grid-column: 2/3;
+  }
+
+  &__next-button {
+    grid-column: 3/4;
+  }
+}
