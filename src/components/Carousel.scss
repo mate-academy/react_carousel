@@ -1,1 +1,16 @@
-// style go here
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+  }
+
+  &__container {
+    overflow: hidden;
+    align-items: center;
+  }
+}
