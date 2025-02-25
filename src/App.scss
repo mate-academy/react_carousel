@@ -1,1 +1,25 @@
-// style go here
+body {
+  margin: 0;
+  background-color: antiquewhite;
+}
+
+.App {
+  font-family: Lexend, serif;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.inputs {
+  width: max-content;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-bottom: 5px;
+}

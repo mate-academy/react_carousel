@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    background-color: antiquewhite;
+    overflow-x: hidden;
+    align-items: center;
+    margin: 0 10px;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+  }
+}
+
+button {
+  height: min-content;
+  align-self: center;
+  background-color: antiquewhite;
+  padding: 10px;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  transform: rotate(-45deg);
+
+  :disabled {
+    display: none;
+  }
+}
+
+.prev {
+  transform: rotate(135deg);
+}
