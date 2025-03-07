@@ -1,0 +1,10 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__item {
+    display: flex;
+    gap: 10px;
+  }
+}
