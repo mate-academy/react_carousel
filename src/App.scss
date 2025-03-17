@@ -1,1 +1,22 @@
-// style go here
+h1 {
+  display: block;
+  margin-block: 10px;
+  text-align: center;
+}
+
+form {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  display: flex;
+  gap: 15px;
+}
+
+input {
+  padding-inline: 5px;
+  width: 50px;
+}
