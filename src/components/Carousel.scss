@@ -1,1 +1,89 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100vw;
+  overflow-x: hidden;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+
+  &__container {
+    max-width: 390px;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__button {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &--left {
+      background-image: url(/arrows/arrow-left.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+
+      &:hover {
+        animation: button-left 0.5s ease;
+      }
+    }
+
+    &--right {
+      background-image: url(/arrows/arrow-right.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+
+      &:hover {
+        animation: button-right 0.5s ease;
+      }
+    }
+
+    &:disabled:hover {
+      cursor: default;
+      animation: button-disabled 0.5s ease;
+    }
+  }
+}
+
+@keyframes button-left {
+  50% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes button-right {
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes button-disabled {
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  75% {
+    transform: scale(1.2);
+  }
+}

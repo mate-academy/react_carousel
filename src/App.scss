@@ -1,1 +1,39 @@
-// style go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    margin-block: 30px;
+  }
+}
+
+.controll {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 50px;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  &__input {
+    height: 30px;
+    padding: 5px;
+
+    &[type="checkbox"] {
+      height: auto;
+    }
+  }
+}
