@@ -73,7 +73,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel</h1>
 
         <div className="inputs">
           <label htmlFor="step" className="input__label">
@@ -120,7 +120,7 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          {/* <label htmlFor="animationDuration" className="checkbox__label">
+          <label htmlFor="animationDuration" className="checkbox__label">
             Infinite:
             <input
               type="checkbox"
@@ -128,7 +128,7 @@ class App extends React.Component<{}, State> {
               name="infinite"
               onChange={e => this.setInfinite(e)}
             />
-          </label> */}
+          </label>
         </div>
 
         <Carousel
