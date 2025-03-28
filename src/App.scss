@@ -1,1 +1,20 @@
 // style go here
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 8px;
+}
+
+.input {
+  &__label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.checkboxx__label {
+  display: flex;
+  align-items: center;
+}
