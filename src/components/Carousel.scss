@@ -1,1 +1,76 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.Carousel__wrapper {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.Carousel__item {
+  flex-shrink: 0;
+}
+
+.Carousel__item img {
+  width: 100%;
+  height: auto;
+}
+
+.button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button__prev {
+  margin-right: 10px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+
+    input {
+      width: 60px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+  }
+}
