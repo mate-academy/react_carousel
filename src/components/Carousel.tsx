@@ -1,26 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+}) => {
+  const [translate, setTranslate] = useState(0);
+
+  const handleNext = () => {
+    setTranslate(translate - itemWidth * step);
+  };
+
+  const handlePrev = () => {
+    setTranslate(translate + itemWidth * step);
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__wrapper"
+        style={{
+          width: `${itemWidth * frameSize}px`,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${translate}px)`,
+            transition: `transform ${animationDuration}ms ease-in-out`,
+          }}
+        >
+          {images.map(imag => (
+            <li className="Carousel__item" key={imag}>
+              <img src={imag} alt={imag} width={itemWidth} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button onClick={handlePrev} type="button">
+        Prev
+      </button>
+      <button data-cy="next" onClick={handleNext} type="button">
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
