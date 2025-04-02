@@ -1,1 +1,65 @@
-// style go here
+.Carousel {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
+  gap: 30px 5px;
+
+  .Carousel__container {
+    grid-area: 1 / 1 / 2 / 3;
+    overflow: hidden;
+    justify-self: center;
+
+    .Carousel__list {
+      width: 1300px;
+      display: flex;
+      transition-property: transform;
+    }
+  }
+
+  .button {
+    width: 100px;
+    height: 40px;
+    text-transform: uppercase;
+    color: white;
+    font-size: 20px;
+    background-repeat: no-repeat;
+    background-color: rgb(85, 149, 239);
+    padding-inline: 15px;
+    border-radius: 4px;
+    background-size: 33px;
+
+    &__prev {
+      background-image: url('./img/arrow-left.svg');
+      text-align: end;
+      justify-self: end;
+      background-position: 0 50%;
+    }
+
+    &__next {
+      background-image: url('./img/arrow-right.svg');
+      background-position: 100% 50%;
+      text-align: start;
+      justify-self: start;
+    }
+  }
+
+  .disabled {
+    background-color: rgb(185, 188, 193);
+  }
+
+  .input_container {
+    grid-area: 3 / 1 / 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      & input {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
