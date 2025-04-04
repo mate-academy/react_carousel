@@ -1,1 +1,56 @@
-// style go here
+/* stylelint-disable */
+.Carousel {
+  position: relative;
+  width: calc(
+    var(--item-width, 100px) * var(--frame-size, 3) +
+      (10px * (var(--frame-size, 3) - 1))
+  );
+  /* stylelint-enable */
+  padding-right: 2px;
+  padding-left: 2px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    transform: translateX(
+      calc(-1 * (var(--item-width, 100px) + 10px) * var(--current-index, 0))
+    );
+    transition: transform var(--animation-duration, 1000ms) ease-in-out;
+    width: max-content;
+    padding-left: 2px;
+  }
+
+  &__image {
+    width: calc(var(--item-width, 100px));
+    height: calc(var(--item-width, 100px));
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    border: 2px solid red;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &--prev {
+      left: -20px;
+    }
+
+    &--next {
+      right: -20px;
+    }
+  }
+}

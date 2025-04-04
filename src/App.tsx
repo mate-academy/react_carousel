@@ -28,9 +28,16 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={120} // Customizable carousel item width
+          frameSize={3} // Number of images visible at a time
+          step={2} // Number of images to scroll on each click
+          animationDuration={800} // Duration of animation in milliseconds
+          infinite={true} // Enable infinite scrolling
+        />
       </div>
     );
   }

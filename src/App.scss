@@ -1,1 +1,18 @@
 // style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  height: 100vh; /* Full height of the viewport */
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Optional: Add a light background color for style */
+
+  h1 {
+    margin-bottom: 20px; /* Space between the title and the carousel */
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+}
