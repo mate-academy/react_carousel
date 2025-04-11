@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  step: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,28 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    step: 3,
   };
 
   render() {
-    const { images } = this.state;
+    const { images, frameSize, itemWidth, animationDuration, step } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          step={step}
+          frameSize={frameSize}
+        />
       </div>
     );
   }

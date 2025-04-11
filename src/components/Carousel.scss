@@ -1,1 +1,116 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    width: 1300px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 10px 15px #000;
+
+    li {
+      display: flex;
+    }
+  }
+
+  &__button {
+    align-self: center;
+    width: 36px;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    border-radius: 5px;
+    background-color: #373737;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    pointer-events: all;
+    color: #fff;
+
+    &:hover {
+      background-color: #131212;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      background-color: #808080;
+    }
+  }
+
+  &__inputs {
+    transform: translateY(50px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+
+    input {
+      padding: 5px 10px;
+      width: 70px;
+      cursor: pointer;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+
+  &__checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  &__label {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 0 60px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 36px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      border: 1px solid #000;
+      position: absolute;
+      left: 0;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      width: 20px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background-color: #000;
+      position: absolute;
+      left: 9px;
+      transform: scale(0);
+      transition: transform 0.3s;
+    }
+  }
+
+  &__checkbox:checked + &__label::after {
+    transform: scale(1);
+  }
+}
