@@ -1,1 +1,48 @@
-// style go here
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 10px;
+}
+
+.checkbox-group input {
+  width: auto;
+}
+
+.checkbox-group label {
+  margin-top: 0;
+}
+
+.App {
+  padding: 2rem;
+  font-family: sans-serif;
+
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  input {
+    width: 200px;
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 0.4rem;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    }
+  }
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}

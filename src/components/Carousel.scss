@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__list li {
+    flex-shrink: 0;
+  }
+
+  &__list img {
+    object-fit: cover;
+    display: block;
+  }
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
