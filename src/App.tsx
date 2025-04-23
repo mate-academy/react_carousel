@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,6 +25,11 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
 
   render() {
@@ -27,10 +37,80 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
+        <div className="form-wrapper">
+          <div className="input-wrapper">
+            <label htmlFor="stepId">Step:</label>
+            <input
+              id="stepId"
+              type="number"
+              value={this.state.step}
+              onChange={e =>
+                this.setState({
+                  step: Math.min(+e.target.value, this.state.images.length),
+                })
+              }
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="frameId">Frame size:</label>
+            <input
+              id="frameId"
+              type="number"
+              value={this.state.frameSize}
+              onChange={e =>
+                this.setState({
+                  frameSize: Math.min(
+                    +e.target.value,
+                    this.state.images.length,
+                  ),
+                })
+              }
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="itemId">Item width:</label>
+            <input
+              id="itemId"
+              type="number"
+              value={this.state.itemWidth}
+              onChange={e =>
+                this.setState({ itemWidth: Math.max(+e.target.value, 0) })
+              }
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="animationDuration">Animation duration:</label>
+            <input
+              id="animationDuration"
+              type="number"
+              value={this.state.animationDuration}
+              onChange={e =>
+                this.setState({
+                  animationDuration: Math.max(+e.target.value, 0),
+                })
+              }
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="infinite">Infinite:</label>
+            <input
+              id="infinite"
+              type="checkbox"
+              checked={this.state.infinite}
+              onChange={e => this.setState({ infinite: !!e.target.checked })}
+            />
+          </div>
+        </div>
 
-        <Carousel />
+        <Carousel
+          images={this.state.images}
+          step={this.state.step}
+          itemWidth={this.state.itemWidth}
+          frameSize={this.state.frameSize}
+          animationDuration={this.state.animationDuration}
+          infinite={this.state.infinite}
+        />
       </div>
     );
   }

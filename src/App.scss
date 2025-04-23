@@ -1,1 +1,11 @@
-// style go here
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 20px;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 20px;
+}
