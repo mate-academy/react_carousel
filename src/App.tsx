@@ -45,6 +45,7 @@ class App extends React.Component<{}, State> {
               id="stepId"
               type="number"
               value={this.state.step}
+              min={1}
               onChange={e =>
                 this.setState({
                   step: Math.min(+e.target.value, this.state.images.length),
@@ -58,6 +59,7 @@ class App extends React.Component<{}, State> {
               id="frameId"
               type="number"
               value={this.state.frameSize}
+              min={1}
               onChange={e =>
                 this.setState({
                   frameSize: Math.min(
