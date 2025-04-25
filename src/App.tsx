@@ -45,10 +45,9 @@ class App extends React.Component<{}, State> {
               id="stepId"
               type="number"
               value={this.state.step}
-              min={1}
               onChange={e =>
                 this.setState({
-                  step: Math.min(+e.target.value, this.state.images.length),
+                  step: Math.min(+e.target.value, this.state.images.length, 1),
                 })
               }
             />
@@ -59,12 +58,12 @@ class App extends React.Component<{}, State> {
               id="frameId"
               type="number"
               value={this.state.frameSize}
-              min={1}
               onChange={e =>
                 this.setState({
                   frameSize: Math.min(
                     +e.target.value,
                     this.state.images.length,
+                    1,
                   ),
                 })
               }
@@ -77,7 +76,7 @@ class App extends React.Component<{}, State> {
               type="number"
               value={this.state.itemWidth}
               onChange={e =>
-                this.setState({ itemWidth: Math.max(+e.target.value, 0) })
+                this.setState({ itemWidth: Math.max(+e.target.value, 1) })
               }
             />
           </div>
@@ -89,7 +88,7 @@ class App extends React.Component<{}, State> {
               value={this.state.animationDuration}
               onChange={e =>
                 this.setState({
-                  animationDuration: Math.max(+e.target.value, 0),
+                  animationDuration: Math.max(+e.target.value, 1),
                 })
               }
             />

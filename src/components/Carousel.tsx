@@ -24,7 +24,8 @@ const Carousel: React.FC<Props> = ({
   const totalImages = images.length;
   const maxPosition = Math.max(totalImages - frameSize, 0);
   const canHandlePrev = position !== 0;
-  const canHandleNext = infinite || position !== maxPosition;
+  const canHandleNext =
+    (infinite || position !== maxPosition) && frameSize >= totalImages;
 
   const handlePrev = () => {
     if (canHandlePrev) {
