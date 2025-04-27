@@ -1,1 +1,39 @@
 // style go here
+.Carousel{
+  display:flex;
+  flex-direction: column;
+  &__list{
+    display: flex;
+    list-style-type: none;
+    overflow: hidden;
+    align-items: center;
+    padding: 0;
+  }
+
+  &__button{
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/*
+display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+    */
