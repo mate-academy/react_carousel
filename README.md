@@ -24,7 +24,7 @@
 
 ## REQUIREMENTS:
 
-1. The title of the page should contain "Carousel"
+1. The title of the page should contain "`Carousel`"
 2. The page should contain inputs for:
    - `itemWidth`
    - `frameSize`
