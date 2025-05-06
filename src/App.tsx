@@ -4,10 +4,15 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,17 +25,111 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
 
-  render() {
-    const { images } = this.state;
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked, type } = e.target;
 
+    const parsedValue = type === 'checkbox' ? checked : +value;
+
+    this.setState(prev => ({
+      ...prev,
+      [name]: parsedValue,
+    }));
+  };
+
+  // The page should contain inputs for:
+  //  - `itemWidth`
+  //  - `frameSize`
+  //  - `step`
+  //  - `animationDuration`
+
+  render() {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 className="App__title" data-cy="title">Carousel with {this.state.images.length} images</h1>
 
-        <Carousel />
+        <form className="App__form" onSubmit={e => e.preventDefault()}>
+          <div className="App__input input App__input--itwidth">
+            <label className="input__label" htmlFor="itemId">
+              Item width:
+            </label>
+            <input
+              id="itemId"
+              className="input__field"
+              type="number"
+              name="itemWidth"
+              value={this.state.itemWidth}
+              min={130}
+              max={260}
+              step="10"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="App__input input App__input--frame">
+            <label className="input__label" htmlFor="frameId">
+              Frame size:
+            </label>
+            <input
+              id="frameId"
+              className="input__field"
+              type="number"
+              name="frameSize"
+              value={this.state.frameSize}
+              min={1}
+              max={10}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="App__input App__input--step">
+            <label className="input__label" htmlFor="stepId">
+              Step:
+            </label>
+            <input
+              id="stepId"
+              className="input__field"
+              type="number"
+              name="step"
+              value={this.state.step}
+              min={1}
+              max={10}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="App__input App__input--animationdur">
+            <label className="input__label" htmlFor="animationDuration">
+              Animation duration:
+            </label>
+            <input
+              id="animationDuration"
+              className="input__field"
+              type="number"
+              name="animationDuration"
+              value={this.state.animationDuration}
+              min={300}
+              max={5000}
+              step="100"
+              onChange={this.handleChange}
+            />
+          </div>
+        </form>
+
+        <div className="App__carusel">
+          <Carousel
+            images={this.state.images}
+            step={this.state.step}
+            frameSize={this.state.frameSize}
+            itemWidth={this.state.itemWidth}
+            animationDuration={this.state.animationDuration}
+            infinite={this.state.infinite}
+          />
+        </div>
       </div>
     );
   }

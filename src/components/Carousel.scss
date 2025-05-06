@@ -1,1 +1,68 @@
 // style go here
+
+.Carousel{
+  padding-inline: 50px;
+  position: relative;
+
+  &__images{
+    // width: 430px;
+    overflow: hidden;
+  }
+
+  &__item{
+    // transition: visibility 0s 0s;
+
+    // &.hidden{
+    //   transition: visibility 0s 1s;
+    // }
+
+    & img {
+      object-position: center;
+      height: 130px;
+    }
+  }
+
+  &__list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 20px;
+
+    padding: 0;
+    list-style: none;
+  }
+
+  &__button{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+
+    &--next{
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+
+      background-image: url('./img/arrow-next.svg');
+      background-position: center;
+      background-size: 80px 80px;
+    }
+
+    &--prev{
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+
+      background-image: url('./img/arrow-pr.svg');
+      background-position: center;
+      background-size: 80px 80px;
+    }
+  }
+}
+
+.disabled{
+  background-image: none;
+  width: 0;
+  height: 0;
+}

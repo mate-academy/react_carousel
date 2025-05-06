@@ -1,1 +1,40 @@
 // style go here
+.App{
+  &__carusel {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 50px;
+    width: fit-content;
+    gap: 20px;
+  }
+
+  &__title{
+    width: fit-content;
+    margin: 50px auto;
+  }
+
+}
+
+.button{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.input{
+  &__label{
+    margin: 0 10px 0 0;
+  }
+
+  &__field{
+    width: 50px;
+    height: 20px;
+    border-radius: 10px;
+  }
+}
+
