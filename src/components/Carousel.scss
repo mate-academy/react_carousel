@@ -1,1 +1,36 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+  position: relative;
+  margin-inline: auto;
+  width: 390px;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.5s ease;
+
+    li {
+      display: block;
+      list-style-type: none;
+      width: 130px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    margin-block: 20px;
+    justify-content: center;
+  }
+
+  &__button {
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #9795c1;
+    font-size: 20px;
+    box-shadow: 5px 5px 10px #5411ac;
+  }
+}

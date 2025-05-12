@@ -1,1 +1,32 @@
-// style go here
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 600px;
+  margin-bottom: 100px;
+  padding-left: 20px;
+
+  label {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    input {
+      flex: 1;
+      max-width: 200px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 4px rgba(0, 0, 255, 0.5);
+      }
+    }
+  }
+}
