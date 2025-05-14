@@ -26,10 +26,14 @@ const Carousel: React.FC<CarouselProps> = ({
       <button
         className="Carousel__button Carousel__button--prev"
         type="button"
-        disabled={currentIndex <= 0}
+        disabled={!infinite && currentIndex <= 0}
         onClick={() => {
           if (currentIndex > 0) {
             setCurrentIndex(currentIndex - step);
+          } else if (infinite) {
+            const maxIndex = images.length - frameSize;
+
+            setCurrentIndex(maxIndex);
           }
         }}
       >
