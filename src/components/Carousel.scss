@@ -1,1 +1,49 @@
-// style go here
+.carousel {
+  margin-bottom: 64px;
+
+  &__list {
+    display: flex;
+    overflow: hidden;
+
+    margin-bottom: 16px;
+    margin-inline: auto;
+    border: 1.5px solid #434343;
+    border-radius: 8px;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+
+  &__btn {
+    background-color: #434343;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-color: #646cff;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: initial;
+    }
+
+    &:disabled:hover {
+      border-color: transparent;
+    }
+
+    &:disabled:active {
+      transform: scale(1);
+    }
+  }
+}

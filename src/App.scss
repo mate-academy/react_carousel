@@ -1,1 +1,35 @@
-// style go here
+.app {
+  width: fit-content;
+  margin: 0 auto;
+  padding-block: 64px;
+}
+
+.form {
+  width: 15rem;
+
+  margin-inline: auto;
+
+  &__input[type='number'] {
+    width: 5rem;
+    text-align: center;
+  }
+
+  &__input[type='checkbox'] {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-block: 0;
+    margin-inline: 40px;
+  }
+
+  &__line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 16px;
+
+    &--end {
+      margin-bottom: 0;
+    }
+  }
+}
