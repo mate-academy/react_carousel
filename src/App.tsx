@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import { Carousel } from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+// interface State {
+//   images: string[];
+// }
 
-class App extends React.Component<{}, State> {
-  state = {
+export const App: React.FC = () => {
+  const state = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,18 +22,32 @@ class App extends React.Component<{}, State> {
     ],
   };
 
-  render() {
-    const { images } = this.state;
+  const [imageWidth, setImageWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [currentStep, setCurrentStep] = useState(3);
+  const [currentDuration, setCurrentDuration] = useState(1000);
+  const [currentPosition, SetCurrentPosition] = useState(0);
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 className="App__title" data-cy="title">
+        Carousel with {state.images.length} images
+      </h1>
 
-        <Carousel />
-      </div>
-    );
-  }
-}
-
-export default App;
+      <Carousel
+        images={state.images}
+        imageWidth={imageWidth}
+        newImageWidth={setImageWidth}
+        frameSize={frameSize}
+        newFrameSize={setFrameSize}
+        currentStep={currentStep}
+        newStep={setCurrentStep}
+        animationSpeed={currentDuration}
+        newSpeed={setCurrentDuration}
+        currentPosition={currentPosition}
+        newPosition={SetCurrentPosition}
+      />
+    </div>
+  );
+};

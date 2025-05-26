@@ -1,1 +1,60 @@
-// style go here
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #020024;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 29%, rgba(0, 212, 255, 1) 100%);
+}
+
+h1 {
+  font-size: 44px;
+  margin-top: 100px;
+}
+
+img {
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: cover;
+}
+
+input {
+  font-size: 18px;
+  width: 100px;
+  height: 20px;
+  background-color: #0ff;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
+button {
+  color:rgb(21, 4, 4);
+  font-size: 16px;
+  background-color: #6575d8;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0a8199;
+    box-shadow:
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff,
+    0 0 80px #0ff;
+    color: #fff;
+  }
+}
+
