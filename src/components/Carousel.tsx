@@ -24,7 +24,11 @@ const Carousel: React.FC<Props> = ({
   };
 
   const handleNext = () => {
-    setCurrentIndex(prev => Math.min(prev + step, imagesLength - frameSize));
+    setCurrentIndex(prev => {
+      const maxIndex = imagesLength - 1;
+
+      return Math.min(prev + step, maxIndex);
+    });
   };
 
   return (
