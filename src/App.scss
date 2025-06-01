@@ -1,1 +1,18 @@
-// style go here
+.title {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__label {
+    margin: 10px 0;
+  }
+
+  &__input {
+    margin-left: 10px;
+  }
+}
