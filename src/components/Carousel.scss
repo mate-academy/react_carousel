@@ -1,1 +1,57 @@
-// style go here
+.Carousel {
+  position: relative;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+
+  &__viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s ease;
+
+    img {
+      height: auto;
+      display: block;
+      max-width: 100%;
+    }
+  }
+}
