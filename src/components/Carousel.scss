@@ -1,1 +1,119 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fafafa;
+
+  &__container {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    img {
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__button {
+    padding: 12px 24px;
+    border: 2px solid #007bff;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.2s ease;
+
+    &:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #0056b3;
+      border-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    }
+
+    &--prev {
+      &::before {
+        content: '← ';
+      }
+    }
+
+    &--next {
+      &::after {
+        content: ' →';
+      }
+    }
+  }
+
+  &__info {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 15px;
+
+    &__container {
+      max-width: calc(100vw - 60px);
+    }
+
+    &__controls {
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+    }
+
+    &__button {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+}
