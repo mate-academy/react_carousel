@@ -1,0 +1,53 @@
+.Carousel {
+  &____container {
+    margin-bottom: 10px;
+  }
+
+  &__list {
+    display: flex;
+
+    & img {
+      display: block;
+      line-height: 0;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.Form {
+  display: inline-flex;
+  flex-direction: column;
+
+  &__label {
+    margin-top: 5px;
+
+    & > input {
+      margin-left: 10px;
+    }
+  }
+}
+
+.Button {
+  cursor: pointer;
+
+  &--prev {
+    position: relative;
+
+    &::before{
+      content: url("../../../icons/prev.png");
+      display: block;
+
+    }
+  }
+  &--next {
+    &::before{
+      content: url("../../../icons/next.png");
+      display: block;
+
+    }
+  }
+}

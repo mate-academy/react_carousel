@@ -1,1 +1,25 @@
-// style go here
+html,
+body,
+h1,
+ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  vertical-align: baseline;
+  list-style: none;
+}
+
+img {
+  display: block;
+  line-height: 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.App {
+  padding: 15px;
+}
