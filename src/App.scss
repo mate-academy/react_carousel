@@ -1,28 +1,4 @@
-.App {
-  text-align: center;
-  font-size: 24px;
-}
-
-.App__controls {
-  margin-bottom: 20px;
+.form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-
-  label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-
-    &:last-child {
-      text-align: center;
-    }
-
-    input {
-      margin-top: 4px;
-      padding: 4px 8px;
-      width: 160px;
-    }
-  }
+  gap: 20px;
 }

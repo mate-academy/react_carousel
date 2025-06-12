@@ -1,108 +1,68 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-interface Props {
+type Props = {
   images: string[];
-  itemWidth?: number;
-  frameSize?: number;
-  step?: number;
-  animationDuration?: number;
-  infinite?: boolean;
-}
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+};
 
-export const Carousel: React.FC<Props> = ({
+const Carousel: React.FC<Props> = ({
   images,
-  itemWidth = 130,
-  frameSize = 3,
-  step = 3,
-  animationDuration = 1000,
-  infinite = false,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef<HTMLUListElement>(null);
-
-  const maxIndex = Math.max(0, images.length - frameSize);
-
-  const handleNext = () => {
-    if (currentIndex >= maxIndex && !infinite) {
-      return;
-    }
-
-    const newIndex = infinite
-      ? (currentIndex + step) % images.length
-      : Math.min(currentIndex + step, maxIndex);
-
-    setCurrentIndex(newIndex);
-  };
+  const imagesLength = images.length;
 
   const handlePrev = () => {
-    if (currentIndex <= 0 && !infinite) {
-      return;
-    }
-
-    const newIndex = infinite
-      ? (currentIndex - step + images.length) % images.length
-      : Math.max(currentIndex - step, 0);
-
-    setCurrentIndex(newIndex);
+    setCurrentIndex(prev => Math.max(prev - step, 0));
   };
 
-  const translateX = -(currentIndex * itemWidth);
+  const handleNext = () => {
+    setCurrentIndex(prev => {
+      const maxIndex = imagesLength - 1;
+
+      return Math.min(prev + step, maxIndex);
+    });
+  };
 
   return (
     <div className="Carousel">
       <div
-        className="Carousel__frame"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-          overflow: 'hidden',
-        }}
+        className="Carousel__viewport"
+        style={{ width: `${itemWidth * frameSize}px` }}
       >
         <ul
           className="Carousel__list"
-          ref={containerRef}
           style={{
-            width: `${images.length * itemWidth}px`,
-            transform: `translateX(${translateX}px)`,
-            transition: `transform ${animationDuration}ms`,
+            width: `${itemWidth * imagesLength}px`,
+            transform: `translateX(-${currentIndex * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms ease`,
           }}
         >
-          {images.map((src, index) => (
-            <li
-              key={src}
-              className="Carousel__item"
-              style={{
-                width: `${itemWidth}px`,
-              }}
-            >
-              <img
-                src={src}
-                alt={`img-${index}`}
-                style={{ width: `${itemWidth}px`, height: 'auto' }}
-                width={itemWidth}
-              />
+          {images.map((image, index) => (
+            <li className="Carousel__item" key={image}>
+              <img src={image} width={itemWidth} alt={`Image ${index + 1}`} />
             </li>
           ))}
         </ul>
       </div>
 
-      <button
-        type="button"
-        className={`Carousel__button Carousel__button--prev ${!infinite && currentIndex <= 0 ? 'disabled' : ''}`}
-        onClick={handlePrev}
-        disabled={!infinite && currentIndex <= 0}
-      >
-        ←
+      <button type="button" onClick={handlePrev} disabled={currentIndex === 0}>
+        Prev
       </button>
-
       <button
         type="button"
-        className={`Carousel__button Carousel__button--next ${!infinite && currentIndex >= maxIndex ? 'disabled' : ''}`}
-        onClick={handleNext}
-        disabled={!infinite && currentIndex >= maxIndex}
         data-cy="next"
+        onClick={handleNext}
+        disabled={currentIndex + frameSize >= imagesLength}
       >
-        →
+        Next
       </button>
     </div>
   );
