@@ -1,1 +1,44 @@
-// style go here
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto;
+  user-select: none;
+}
+
+.carousel-container {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: none;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  background-color: #eee;
+  border: none;
+  font-size: 24px;
+  padding: 8px 15px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover:not(.disabled) {
+    background-color: #ccc;
+  }
+
+  &.disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+}
