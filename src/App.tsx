@@ -7,7 +7,7 @@ interface State {
   frameSize: number;
   step: number;
   itemWidth: string;
-  animationDuration: string;
+  animationDuration: number;
 
   inputs: {
     itemWidth: string;
@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     itemWidth: '130',
-    animationDuration: '1000',
+    animationDuration: 1000,
 
     inputs: {
       itemWidth: '',
@@ -47,13 +47,16 @@ class App extends React.Component<{}, State> {
   render() {
     const { images } = this.state;
     const applySettings = () => {
-      const { itemWidth, frameSize, step } = this.state.inputs;
+      const { itemWidth, frameSize, step, animationDuration } =
+        this.state.inputs;
 
       this.setState({
         itemWidth: itemWidth || this.state.itemWidth,
         frameSize: frameSize ? Number(frameSize) : this.state.frameSize,
         step: step ? Number(step) : this.state.step,
-        animationDuration: this.state.animationDuration,
+        animationDuration: animationDuration
+          ? Number(animationDuration)
+          : this.state.animationDuration,
         inputs: {
           itemWidth: '',
           frameSize: '',
@@ -72,7 +75,7 @@ class App extends React.Component<{}, State> {
           frameSize={this.state.frameSize}
           step={this.state.step}
           itemWidth={this.state.itemWidth + 'px'}
-          animation={this.state.animationDuration + 'ms'}
+          animation={this.state.animationDuration}
         />
         <div className="inputs--wrapper">
           <input

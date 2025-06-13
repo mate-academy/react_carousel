@@ -6,7 +6,7 @@ type Props = {
   frameSize: number;
   step: number;
   itemWidth: string;
-  animation: string;
+  animation: number;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -42,7 +42,7 @@ const Carousel: React.FC<Props> = ({
         style={{
           transform: `translateX(-${startIndex * numericWidth}px)`,
           width: `${images.length * numericWidth}px`,
-          transition: `transform ${animation} ease`,
+          transition: `transform ${animation}ms ease`,
         }}
       >
         {images.map((img, i) => (
