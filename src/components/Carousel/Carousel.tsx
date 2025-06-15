@@ -25,7 +25,9 @@ const Carousel: React.FC<Props> = ({
   const handleNext = () => {
     if (startIndex + step > maxIndex) {
       if (infinite) {
-        setStartIndex(0);
+        const newIndex = (startIndex + step) % (maxIndex + 1);
+
+        setStartIndex(newIndex);
       }
     } else {
       setStartIndex(startIndex + step);
@@ -35,7 +37,9 @@ const Carousel: React.FC<Props> = ({
   const handlePrev = () => {
     if (startIndex - step < 0) {
       if (infinite) {
-        setStartIndex(maxIndex);
+        const newIndex = (maxIndex + 1 + startIndex - step) % (maxIndex + 1);
+
+        setStartIndex(newIndex);
       }
     } else {
       setStartIndex(startIndex - step);
@@ -83,7 +87,7 @@ const Carousel: React.FC<Props> = ({
       <div className="Carousel__button_wrapper">
         <button
           type="button"
-          className={`Carousel__button Carousel__button--left ${startIndex === 0 ? 'disabled' : ''}`}
+          className={`Carousel__button ${startIndex === 0 ? 'disabled' : ''}`}
           onClick={handlePrev}
           disabled={startIndex === 0}
         >
@@ -93,7 +97,7 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           data-cy="next"
-          className={`Carousel__button Carousel__button--right ${startIndex >= maxIndex ? 'disabled' : ''}`}
+          className={`Carousel__button ${startIndex >= maxIndex ? 'disabled' : ''}`}
           onClick={handleNext}
           disabled={startIndex >= maxIndex}
         >

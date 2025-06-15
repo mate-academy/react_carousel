@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carosel/Carousel';
+import Carousel from './components/Carousel/Carousel';
 
 const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
