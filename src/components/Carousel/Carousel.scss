@@ -1,0 +1,53 @@
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  &__wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  &__list {
+    display: flex;
+    transition: transform 0.3s ease;
+    width: max-content;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__button {
+    margin: 20px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 20px;
+    user-select: none;
+
+    &.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  &__button_wrapper {
+    width: 550px;
+  }
+}

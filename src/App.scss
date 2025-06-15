@@ -1,1 +1,43 @@
-// style go here
+.App {
+  padding: 30px 20px;
+
+  &__h1 {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    width: 600px;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      font-weight: 800;
+
+      input, select {
+        box-sizing: border-box;
+        margin-top: 20px;
+        width: 250px;
+        height: 40px;
+      }
+    }
+
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    &__buttonWrapper {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
