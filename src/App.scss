@@ -1,1 +1,20 @@
 // style go here
+.Title {
+  display: flex;
+  justify-content: center;
+}
+
+.form{
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.Label__style{
+  margin-right: 10px;
+}
+
+.Input__style{
+  padding: 5px;
+  background-color: rgb(243, 243, 243);
+}

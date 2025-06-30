@@ -1,1 +1,44 @@
 // style go here
+.Carousel {
+  position: relative;
+  display: grid;
+  justify-content: center;
+}
+
+.Carousel__list{
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.CarouselForm{
+  display: grid;
+}
+
+.Carousel__button{
+  display: flex;
+  justify-content: space-between;
+  width: 390px;
+}
+
+.Button__prev,
+.Button__next {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.Button__centered{
+  display: flex;
+  justify-content: center;
+}
+
+.Button__img {
+  width: 25px;
+}
+
+button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
