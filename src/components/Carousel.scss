@@ -1,1 +1,20 @@
 // style go here
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.Carousel {
+  &__wrapper {
+    overflow: hidden;
+  }
+  &__list {
+    width: 1300px;
+    display: flex;
+  }
+}
