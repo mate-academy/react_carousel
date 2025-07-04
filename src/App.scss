@@ -1,1 +1,37 @@
-// style go here
+body {
+  margin: 0;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    margin-top: 16px;
+  }
+
+  &__input {
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 5px 12px;
+    transition: 0.3s;
+
+    &:hover {
+      border-width: 1px;
+      outline: none;
+      border-color: lightblue;
+    }
+
+    &:focus {
+      border-width: 1px;
+      outline: none;
+      border-color: lightblue;
+    }
+  }
+}

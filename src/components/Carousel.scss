@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: space-around;
+  &__list {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  &__container {
+    overflow: hidden;
+  }
+}
+
+.button {
+  display: flex;
+  height: 36px;
+  border-radius: 6px;
+  border-width: 0;
+  background-color: lightblue;
+  align-items: center;
+  align-self: center;
+
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: aqua;
+  }
+
+  &:active {
+    transform: scale(0.8);
+  }
+}
