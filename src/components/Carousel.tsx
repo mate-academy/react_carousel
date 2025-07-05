@@ -1,26 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Params = {
+  images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Params> = ({
+  images,
+  step,
+  frameSize,
+  itemWidth,
+  animationDuration,
+  // TODO: implement infinite scroll
+  // infinite,
+}) => {
+  const [page, setPage] = useState(0);
+
+  return (
+    <div
+      className="Carousel"
+      style={{ width: `${frameSize * itemWidth}px` }}
+    >
+      <ul
+        className="Carousel__list"
+        style={{
+          transform: `translateX(-${page * itemWidth}px)`,
+          transition: `transform ${animationDuration}ms`,
+        }}
+      >
+        {images.map((image, index) => (
+          <li key={index}>
+            <img src={image} alt={image} />
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        onClick={() => {
+          const newPage = page - step;
+          if (newPage < 0) {
+            setPage(0);
+            return;
+          } else {
+            setPage(newPage);
+          }
+        }}
+      >
+        Prev
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          const newPage = page + step;
+          if (newPage > images.length - frameSize) {
+            setPage(images.length - frameSize);
+            return;
+          } else {
+            setPage(newPage);
+          }
+        }}
+      >
+        Next
+      </button>
+
+      <p>Page: {page}</p>
+    </div>
+  );
+};
 
 export default Carousel;
