@@ -1,1 +1,37 @@
-// style go here
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.Carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition: transform 0.5s ease;
+}
+
+.Carousel__list li {
+  opacity: 0;
+  flex: 0 0 auto;
+  width: 130px;
+  padding: 4px;
+  box-sizing: border-box;
+  animation: fade-in ease-in-out forwards;
+  animation-duration: 300ms;
+}
+
+.Carousel__list img {
+  display: block;
+  width: 130px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+}
