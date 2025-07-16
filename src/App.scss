@@ -1,1 +1,12 @@
-// style go here
+.App {
+   form {
+    display: flex;
+    flex-direction: column;
+
+    fieldset {
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+    }
+   }
+}
