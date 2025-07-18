@@ -1,1 +1,10 @@
-// style go here
+.Settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__input {
+    width: 50px;
+    margin-left: 5px;
+  }
+}
