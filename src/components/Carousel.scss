@@ -1,1 +1,35 @@
-// style go here
+.Wrapper{
+  overflow: hidden;
+}
+
+.Carousel__list{
+  padding: 0;
+  margin: 0;
+}
+
+li{
+  display: inline;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.button{
+  width: 90px;
+  height: 20px;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 50px;
+}
