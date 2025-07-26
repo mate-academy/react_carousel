@@ -1,1 +1,24 @@
 // style go here
+.Carousel {
+  width: calc(var(--size-image) * var(--frame-size));
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+ul {
+  padding: 0;
+  li {
+    display: inline-block;
+    width: var(--size-image);
+    height: var(--size-image);
+    transition: transform var(--animation-duration) ease;
+    transform: translateX(var(--x));
+    img {
+      width: 100%;
+    }
+  }
+}
+
+label {
+  display: block;
+}
