@@ -1,1 +1,15 @@
-// style go here
+.Carousel {
+  position: relative;
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 1300px;
+  }
+
+  &__item {
+    box-sizing: border-box;
+  }
+}
