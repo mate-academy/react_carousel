@@ -1,1 +1,11 @@
-// style go here
+.Form {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input {
+    width: 100px;
+  }
+}
