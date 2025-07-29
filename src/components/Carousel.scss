@@ -1,1 +1,22 @@
-// style go here
+.Carousel {
+  border: 2px solid;
+  padding: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.Carousel__image {
+  size: 130px;
+  visibility: hidden;
+}
+
+.Carousel__image--visible {
+  visibility: visible;
+}
