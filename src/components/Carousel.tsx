@@ -19,7 +19,6 @@ const Carousel: React.FC<Props> = ({
   infinity,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
 
   useEffect(() => {
     let changeImages: string | number | NodeJS.Timeout | undefined = undefined;
@@ -57,18 +56,29 @@ const Carousel: React.FC<Props> = ({
   ]);
 
   return (
-    <div className="Carousel" style={{ width: itemWidth * frameSize }}>
-      <ul className="Carousel__list">
-        {visibleImages.map((image, index) => (
-          <li key={index}>
-            <img
-              src={image}
-              alt={(index + 1).toString()}
-              style={{ width: itemWidth, height: itemWidth }}
-            />
-          </li>
-        ))}
-      </ul>
+    <div
+      className="Carousel"
+      style={{
+        width: `${frameSize * itemWidth}px`,
+      }}
+    >
+      <div className="Carousel__container">
+        <ul
+          className="Carousel__list"
+          style={{ transform: `translateX(-${currentIndex * itemWidth}px)` }}
+        >
+          {images.map((image, index) => (
+            <li key={index}>
+              <img
+                src={image}
+                alt={(index + 1).toString()}
+                style={{ height: itemWidth }}
+                width={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="Carousel__buttons">
         <button
           type="button"
