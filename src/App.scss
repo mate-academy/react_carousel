@@ -1,1 +1,10 @@
-// style go here
+.container {
+  display: flex;
+  gap: 10px;
+  margin-block: 15px;
+
+  &__input {
+    display: block;
+    margin-top: 10px;
+  }
+}
