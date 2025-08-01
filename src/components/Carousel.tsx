@@ -20,7 +20,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [position, setPosition] = useState(0);
 
-  const maxPosition = images.length - frameSize;
+  const maxPosition = Math.max(0, images.length - frameSize);
 
   const handleNext = () => {
     setPosition(prev => {
