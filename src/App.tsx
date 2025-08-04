@@ -1,39 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './components/carousel/Carousel';
 
-interface State {
-  images: string[];
-}
+import img1 from './images/img_1.png';
+import img2 from './images/img_2.png';
+import img3 from './images/img_3.png';
+import img4 from './images/img_4.png';
+import img5 from './images/img_5.png';
+import img6 from './images/img_6.png';
+import img7 from './images/img_7.png';
+import img8 from './images/img_8.png';
+import img9 from './images/img_9.png';
+import img10 from './images/img_10.png';
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 
-  render() {
-    const { images } = this.state;
+const App: React.FC = () => {
+  const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(2);
+  const [step, setStep] = useState(3);
+  const [animationDuration, setAnimationDuration] = useState(1000);
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+  return (
+    <div className="App">
+      <h1 className="title" data-cy="title">
+        Carousel
+      </h1>
 
-        <Carousel />
+      <div className="settings">
+        <h2 className="h2">Налаштування каруселі</h2>
+        <label>
+          Ширина елемента:
+          <input
+            type="number"
+            value={itemWidth}
+            onChange={e => setItemWidth(+e.target.value)}
+          />
+        </label>
+        <label>
+          Розмір фрейму:
+          <input
+            type="number"
+            value={frameSize}
+            onChange={e => setFrameSize(+e.target.value)}
+          />
+        </label>
+        <label>
+          Крок:
+          <input
+            type="number"
+            value={step}
+            onChange={e => setStep(+e.target.value)}
+          />
+        </label>
+        <label>
+          Тривалість анімації:
+          <input
+            type="number"
+            value={animationDuration}
+            onChange={e => setAnimationDuration(+e.target.value)}
+          />
+        </label>
       </div>
-    );
-  }
-}
+
+      <Carousel
+        images={images}
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={false}
+        theme={'green'}
+      />
+    </div>
+  );
+};
 
 export default App;

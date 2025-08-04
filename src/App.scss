@@ -1,1 +1,21 @@
-// style go here
+.App {
+
+  .title {
+    text-align: center;
+  }
+
+  .settings {
+    display: flex;
+    gap: 10px;
+
+    label {
+
+      input {
+        width: 50px;
+        border: 1px solid black;
+        border-radius: 3px;
+        margin-left: 5px;
+      }
+    }
+  }
+}

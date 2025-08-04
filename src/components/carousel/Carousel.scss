@@ -1,0 +1,45 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.CarouselWrapper {
+  display: flex;
+}
+
+.Carousel {
+  overflow: hidden;
+  margin: auto;
+
+  .Carousel__list {
+    display: flex;
+    gap: 1px;
+
+    .item {
+      height: 130px;
+    }
+  }
+}
+
+.btn {
+  padding: 8px;
+  border: none;
+  transition: background 0.3s ease;
+  cursor: pointer;
+
+  &.green-theme {
+    background-color: #2ecc71;
+    color: white;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: green;
+  }
+
+  &.disabled {
+    background-color: red;
+    cursor: not-allowed;
+  }
+}
