@@ -1,1 +1,26 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__title {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  &__params {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    & label {
+      display: flex;
+      gap: 10px;
+
+      & input {
+        width: 80px;
+      }
+    }
+  }
+}

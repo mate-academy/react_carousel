@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    z-index: -1;
+
+    & li {
+      display: flex;
+    }
+  }
+
+  & button {
+    all: unset;
+  }
+
+  &__arrow {
+    cursor: pointer;
+  }
+}
