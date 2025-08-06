@@ -19,27 +19,27 @@ const Carousel: React.FC<Props> = (props: Props) => {
 
   const [counterSliding, setCounterSliding] = useState<number>(1);
 
-  const containerSliderElement: HTMLDivElement = useRef<HTMLDivElement>();
+  const containerSliderElement = useRef<HTMLDivElement>(null);
 
   const handleInputChangeItemWidth = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
-    setItemWidth(e.target.value);
+    setItemWidth(Number(e.target.value));
   };
 
   const handleInputChangeFrameSize = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
-    if (e.target.value !== frameSize && Number(e.target.value) <= 10) {
+    if (Number(e.target.value) !== frameSize && Number(e.target.value) <= 10) {
       setFrameSize(Number(e.target.value));
     }
   };
 
   const handleInputChangeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (step > 1 && step < 10) {
+    if (step > 1 && step <= 10) {
       setStep(Number(e.target.value));
     }
   };
@@ -48,7 +48,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
-    if (tAnimation > 1) {
+    if (tAnimation) {
       setTAnimation(Number(e.target.value));
     }
   };
@@ -172,7 +172,6 @@ const Carousel: React.FC<Props> = (props: Props) => {
                 name="t-animation"
                 id="t-animation"
                 min={1}
-                max={10}
                 style={{ width: '5dvw' }}
                 className="Input__input"
                 value={tAnimation.toString()}
