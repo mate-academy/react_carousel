@@ -32,14 +32,14 @@ const Carousel: React.FC<Props> = (props: Props) => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
-    if (Number(e.target.value) !== frameSize && Number(e.target.value) <= 10) {
+    if (Number(e.target.value) !== frameSize && Number(e.target.value) <= props.images.length) {
       setFrameSize(Number(e.target.value));
     }
   };
 
   const handleInputChangeStep = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (step > 1 && step <= 10) {
+    if (step > 1 && step <= props.images.length) {
       setStep(Number(e.target.value));
     }
   };
@@ -48,7 +48,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     e.preventDefault();
-    if (tAnimation) {
+    if (tAnimation && Number(e.target.value) < 5000) {
       setTAnimation(Number(e.target.value));
     }
   };
@@ -88,7 +88,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
             <div className="Input__wrapper">
               <button
                 onClick={() => {
-                  if (frameSize < 10) {
+                  if (frameSize < props.images.length) {
                     setFrameSize(frameSize + 1);
                   }
                 }}
@@ -101,7 +101,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
                 name="frame-size"
                 id="frame-size"
                 min={1}
-                max={10}
+                max={props.images.length}
                 style={{ width: '5dvw' }}
                 className="Input__input"
                 value={frameSize.toString()}
@@ -125,7 +125,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
             <div className="Input__wrapper">
               <button
                 onClick={() => {
-                  if (step < 10) {
+                  if (step < props.images.length) {
                     setStep(step + 1);
                   }
                 }}
@@ -138,7 +138,7 @@ const Carousel: React.FC<Props> = (props: Props) => {
                 name="step"
                 id="step"
                 min={1}
-                max={10}
+                max={props.images.length}
                 className="Input__input"
                 style={{ width: '5dvw' }}
                 value={step.toString()}
@@ -171,7 +171,8 @@ const Carousel: React.FC<Props> = (props: Props) => {
                 type="number"
                 name="t-animation"
                 id="t-animation"
-                min={1}
+                min={100}
+                max={5000}
                 style={{ width: '5dvw' }}
                 className="Input__input"
                 value={tAnimation.toString()}
@@ -226,6 +227,26 @@ const Carousel: React.FC<Props> = (props: Props) => {
         <div className="Carousel__controllers">
           <button
             onClick={() => {
+
+              if(props.infinite) {
+                if (counterSliding > 1 && counterSliding.current) {
+                  const currentTranslateX =
+                    containerSliderElement.current.style.transform
+                      .split('(')[1]
+                      .split('px')[0];
+  
+                  containerSliderElement.current.style.transform = `translateX(${Number(currentTranslateX) + itemWidth * step}px)`;
+  
+                  setCounterSliding(counterSliding - 1);
+  
+                  return;
+                }
+  
+                setCounterSliding(Math.floor(props.images.length / frameSize));
+                containerSliderElement.current.style.transform = `translateX(-${itemWidth * step * Math.floor(props.images.length / frameSize)}px)`;
+                return;
+              }
+
               if (counterSliding > 1) {
                 const currentTranslateX =
                   containerSliderElement.current.style.transform
@@ -239,8 +260,6 @@ const Carousel: React.FC<Props> = (props: Props) => {
                 return;
               }
 
-              setCounterSliding(Math.floor(10 / frameSize));
-              containerSliderElement.current.style.transform = `translateX(-${itemWidth * step * Math.floor(10 / frameSize)}px)`;
             }}
             className="Controllers__item Controllers__item--prev"
             type="button"
@@ -249,15 +268,26 @@ const Carousel: React.FC<Props> = (props: Props) => {
           </button>
           <button
             onClick={() => {
-              if (counterSliding < Math.ceil(10 / frameSize)) {
+              if(props.infinite) {
+                if (counterSliding < Math.ceil(props.images.length / frameSize)) {
+                  setCounterSliding(counterSliding + 1);
+                  containerSliderElement.current.style.transform = `translateX(-${itemWidth * step * counterSliding}px)`;
+  
+                  return;
+                }
+  
+                setCounterSliding(1);
+                containerSliderElement.current.style.transform = '';
+                return;
+              }
+
+              if (counterSliding < Math.ceil(props.images.length / frameSize)) {
                 setCounterSliding(counterSliding + 1);
                 containerSliderElement.current.style.transform = `translateX(-${itemWidth * step * counterSliding}px)`;
 
                 return;
               }
 
-              setCounterSliding(1);
-              containerSliderElement.current.style.transform = '';
             }}
             className="Controllers__item Controllers__item--next"
             data-cy="next"
