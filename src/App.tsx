@@ -28,9 +28,23 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <header className="header">
+          <div className="header__logo">
+            <img src="../public/favicon.png" alt="" className="logo" />
+          </div>
+          <h1 className="header__title">
+            Carousel with {images.length} images
+          </h1>
+        </header>
 
-        <Carousel />
+        <Carousel
+          frameSize={3}
+          itemWidth={130}
+          images={images}
+          step={3}
+          animationDuration={1000}
+          infinite={false}
+        />
       </div>
     );
   }

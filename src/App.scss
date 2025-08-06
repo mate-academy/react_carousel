@@ -1,1 +1,43 @@
 // style go here
+@import 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    font-family: Manrope, Arial, sans-serif;
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.App {
+
+    .header {
+        width: 100dvw;
+        height: 15dvh;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 1px solid #E35645;
+
+        &__logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin: 0 1dvw;
+            .logo {
+                border-radius: 9px;
+                max-height: 7dvh;
+            }
+        }
+
+        &__title {
+            color: #E35645;
+            font-size: 3dvh;
+        }
+    }
+}
+
