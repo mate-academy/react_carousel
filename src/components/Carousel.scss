@@ -1,1 +1,60 @@
-// style go here
+.Carousel{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+ &_list{
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+&_list > li{
+  flex: 0 0 auto;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+&_button{
+  font-size: 50px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10px;
+  line-height: 1;
+  transition: 0.3s ease;
+  position: absolute;
+  z-index: 1;
+
+  &.prev{
+    left: 0;
+  }
+
+  &.next{
+    right: 0;
+  }
+
+  &:hover{
+    transform: scale(1.4);
+  }
+
+  &.disabled{
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+  &_viewport{
+    width: 100%;
+    overflow: hidden;
+  }
+}
