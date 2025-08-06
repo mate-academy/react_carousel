@@ -1,1 +1,124 @@
 // style go here
+
+$borderRadius: 9px;
+
+.Carousel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4dvw;
+    width: 100dvw;
+    height: 85dvh;
+
+    &__inputs {
+        padding: 2dvw;
+        .Input__list {
+            display: flex;
+            flex-direction: column;
+            gap: 5dvh;
+
+            .List__item {
+                display: inline-flex;
+                gap: 3dvw;
+                align-items: center;
+
+                > * {
+                    border-radius: $borderRadius;
+                }
+
+                .Item__label {
+                    background-color: #e35442;
+                    color: #fff;
+                    height: max-content;
+                    width: 9dvw;
+                    padding: 1dvw;
+                    text-align: center;
+                }
+
+                .Input__wrapper {
+                    display: inline-flex;
+                    background-color: #bdbdbd;
+                    align-items: center;
+                    height: 3rem;
+
+                    .Input__up,
+                    .Input__down {
+                        height: 3rem;
+                        padding: .5dvw;
+                        outline: none;
+                        border: none;
+                        color: #fff;
+                        background: transparent;
+                        &:hover {
+                            border-radius: $borderRadius;
+                            cursor: pointer;
+                            color: #e35442;
+                            background-color: #fff;
+                            box-shadow: 0 0 11px #e35442;
+                        }
+                    }
+
+                    .Input__input {
+                        all:unset;
+                        height: 100%;
+                        outline: none;
+                        border: none;
+                        color: #Fff;
+                        display: flex;
+                        place-items: center center;
+                        background-color: transparent;
+                        &::-webkit-inner-spin-button, 
+                        &::-webkit-outer-spin-button { 
+                          -webkit-appearance: none;
+                        }
+                        &:focus {
+                            background-color: #e35442;
+                            
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2dvw;
+        
+        .Carousel__list {
+            display: inline-flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .Carousel__controllers {
+            display: inline-flex;
+            gap: 3dvw;
+            align-items: center;
+            justify-content: center;
+            
+            .Controllers__item {
+                background-color: #e35442;
+                padding: 1dvw;
+                font-size: 16px;
+                font-weight: 600;
+                color: #fff;
+                border-radius: $borderRadius;
+                outline: none;
+                border: none;
+                transition: .25s;
+                &:hover {
+                    background-color: #fff;
+                    color: #e35442;
+                    box-shadow: 0 0 15px #e35442;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+}
