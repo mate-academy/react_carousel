@@ -1,35 +1,37 @@
 .Carousel {
   padding: 50px 0 0 50px;
-
-  &__list-wrapper {
-    overflow-x: hidden;
-    margin: 30px 0;
-  }
-
-  &__list {
-    width: 1300px;
-    display: flex;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  &__item {
-    height: 100%;
-  }
 }
+
+.Carousel__list-wrapper {
+  overflow-x: hidden;
+  margin: 30px 0;
+}
+
+.Carousel__list {
+  width: 1300px;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.Carousel__item {
+  height: 100%;
+}
+
 
 .form {
   display: flex;
   max-width: max-content;
   flex-direction: column;
   align-items: start;
-
-  &__label {
-    text-align: start;
-    padding-right: 15px;
-    margin-bottom: 5px;
-  }
 }
+
+.form__label {
+  text-align: start;
+  padding-right: 15px;
+  margin-bottom: 5px;
+}
+
 
 .switches {
   display: flex;
@@ -37,9 +39,11 @@
   align-items: center;
 }
 
+
 input:not(:last-of-type) {
   margin-bottom: 20px;
 }
+
 
 button {
   height: 40px;
@@ -50,3 +54,6 @@ button {
   text-align: center;
   color: black;
 }
+
+
+/*# sourceMappingURL=Carousel.css.map */
