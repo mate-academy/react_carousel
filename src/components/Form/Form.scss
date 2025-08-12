@@ -1,0 +1,23 @@
+.Form {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 10px 20px;
+  background-color: bisque;
+  padding: 20px;
+  border-radius: 10px;
+  border: 5px gray solid;
+  align-items: center;
+
+  &__label {
+    justify-self: end;
+  }
+
+  &__input {
+    width: 150px;
+    justify-self: start;
+  }
+
+  &__checkbox {
+    justify-self: start;
+  }
+}
