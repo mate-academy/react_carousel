@@ -1,1 +1,42 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Carousel-frame {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition-property: transform;
+}
+
+.carousel-item{
+  flex-shrink: 0;
+  height: auto;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
