@@ -1,1 +1,41 @@
-// style go here
+.Carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &__track {
+    display: flex;
+  }
+
+  &__items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &:hover {
+      background: #555;
+    }
+
+    &:disabled {
+      background: #777;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}
