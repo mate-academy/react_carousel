@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
-import Carousel from './components/Carousel';
+import Carousel from './Carousel';
 
 const images = [
   './img/1.png',
@@ -15,70 +15,66 @@ const images = [
   './img/10.png',
 ];
 
-const App: React.FC = () => {
-  const [step, setStep] = useState(3);
-  const [frameSize, setFrameSize] = useState(3);
+export const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
+  const [frameSize, setFrameSize] = useState(3);
+  const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+
+  useEffect(() => {
+    document.title = `Carousel with ${images.length} images`;
+  }, []);
 
   return (
     <div className="App">
-      {/* eslint-disable-next-line */}
-      <h1 data-cy='title'>Carousel with {images.length} images</h1>
-      <div className="form">
-        <label className="form__label" htmlFor="itemId">
-          Item Width:
-        </label>
-        <input
-          id="itemId"
-          data-cy="itemId"
-          type="text"
-          value={itemWidth}
-          onChange={e => setItemWidth(+e.target.value)}
-        />
+      <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <label className="form__label" htmlFor="frameId">
+      <div className="controls">
+        <label>
+          Item width (px):
+          <input
+            type="number"
+            value={itemWidth}
+            onChange={e => setItemWidth(Number(e.target.value))}
+          />
+        </label>
+
+        <label>
           Frame size:
+          <input
+            type="number"
+            value={frameSize}
+            onChange={e => setFrameSize(Number(e.target.value))}
+            max={images.length}
+          />
         </label>
-        <input
-          id="frameId"
-          data-cy="frameId"
-          type="text"
-          value={frameSize}
-          onChange={e => setFrameSize(+e.target.value)}
-        />
 
-        <label className="form__label" htmlFor="stepId">
+        <label>
           Step:
+          <input
+            type="number"
+            value={step}
+            onChange={e => setStep(Number(e.target.value))}
+          />
         </label>
-        <input
-          id="stepId"
-          data-cy="stepId"
-          type="text"
-          value={step}
-          onChange={e => setStep(+e.target.value)}
-        />
 
-        <label className="form__label" htmlFor="animation-duration">
-          Animation duration:
+        <label>
+          Animation duration (ms):
+          <input
+            type="number"
+            value={animationDuration}
+            onChange={e => setAnimationDuration(Number(e.target.value))}
+          />
         </label>
-        <input
-          id="animation-duration"
-          type="text"
-          value={animationDuration}
-          onChange={e => setAnimationDuration(+e.target.value)}
-        />
       </div>
 
       <Carousel
         images={images}
-        step={step}
         frameSize={frameSize}
+        step={step}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
       />
     </div>
   );
 };
-
-export default App;
