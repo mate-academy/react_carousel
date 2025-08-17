@@ -1,96 +1,94 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import './Carousel.scss';
 
-type Props = {
+
+interface Props {
   images: string[];
   step: number;
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
-};
+}
+
 
 const Carousel: React.FC<Props> = ({
                                      images,
-                                     frameSize,
                                      step,
+                                     frameSize,
                                      itemWidth,
                                      animationDuration,
-                                     infinite,
                                    }) => {
-  const [offset, setOffset] = useState(0);
+  const carouselContainer = useRef<HTMLUListElement>(null);
+  const currentOffset = useRef(0);
 
-  const maxOffset = (images.length - frameSize) * itemWidth;
 
-  const handleNext = () => {
-    setOffset(prev => {
-      if (infinite && prev + step * itemWidth >= maxOffset) {
-        return 0;
-      }
+  const scroll = (direction: 'left' | 'right') => {
+    const currentList = carouselContainer.current;
 
-      return Math.min(prev + step * itemWidth, maxOffset);
-    });
+
+    if (!currentList) {
+      return;
+    }
+
+
+    const maxOffset = 0;
+    const minOffset = -((images.length - frameSize) * itemWidth);
+
+
+    let newOffset =
+      currentOffset.current +
+      step * itemWidth * (direction === 'right' ? -1 : 1);
+
+
+    if (newOffset > maxOffset) {
+      newOffset = maxOffset;
+    } else if (newOffset < minOffset) {
+      newOffset = minOffset;
+    }
+
+
+    currentOffset.current = newOffset;
+
+
+    currentList.style.transition = `transform ${animationDuration}ms ease`;
+    currentList.style.transform = `translateX(${currentOffset.current}px)`;
   };
 
-  const handlePrev = () => {
-    setOffset(prev => {
-      if (infinite && prev === 0) {
-        return maxOffset;
-      }
-
-      return Math.max(prev - step * itemWidth, 0);
-    });
-  };
-
-  const imageList = images.map((img, index) => {
-    const name = `image-${index + 1}`;
-
-    return (
-      <li key={name}>
-        <img
-          src={img}
-          alt={name}
-          className="Carousel__list-item"
-          width={itemWidth}
-          height={itemWidth}
-        />
-      </li>
-    );
-  });
 
   return (
-    <div className="Carousel" style={{ width: `${frameSize * itemWidth}px` }}>
-      <ul
-        className="Carousel__list"
+    <div className="Carousel">
+      <div
+        className="Carousel__list-wrapper"
         style={{
-          transform: `translateX(-${offset}px)`,
-          transition: `transform ${animationDuration}ms ease`,
+          width: frameSize * itemWidth,
+          height: itemWidth,
         }}
       >
-        {imageList}
-      </ul>
-
-      <div className="Carousel__buttons">
-        <button
-          className="Carousel__button Carousel__button--prev"
-          type="button"
-          onClick={handlePrev}
-          disabled={!infinite && offset === 0}
-        >
+        <ul ref={carouselContainer} className="Carousel__list">
+          {images.map(image => (
+            <li key={image} className="Carousel__item">
+              <img
+                className="Carousel__image"
+                src={image}
+                alt={image.split('/').pop()?.replace('.png', '')}
+                width={itemWidth}
+                height={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="switches">
+        <button type="button" onClick={() => scroll('left')}>
           Prev
         </button>
-        <button
-          className="Carousel__button Carousel__button--next"
-          type="button"
-          data-cy="next"
-          onClick={handleNext}
-          disabled={!infinite && offset === maxOffset}
-        >
+        <button data-cy="next" type="button" onClick={() => scroll('right')}>
           Next
         </button>
       </div>
     </div>
   );
 };
+
 
 export default Carousel;
