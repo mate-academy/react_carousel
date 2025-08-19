@@ -1,1 +1,126 @@
-// style go here
+body {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+}
+
+.Carousel {
+  &__list {
+    width: 100%;
+    max-width: 1300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__img {
+    height: 130px;
+
+    display: flex;
+  }
+}
+
+.prev {
+  position: relative;
+
+  width: 50px;
+  height: 8px;
+  background-color: black;
+
+  border: none;
+  border-radius: 4px;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    left: -10px;
+    top: 8px;
+
+    width: 25px;
+    height: 8px;
+    background-color: black;
+    border-radius: 4px;
+
+    transform: rotate(50deg);
+  }
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    left: -10px;
+    top: -8px;
+
+    width: 25px;
+    height: 8px;
+    background-color: black;
+    border-radius: 4px;
+
+    transform: rotate(-50deg);
+  }
+}
+
+
+.next {
+  position: relative;
+
+  width: 50px;
+  height: 8px;
+  background-color: black;
+
+  border: none;
+  border-radius: 4px;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    right: -10px;
+    top: 8px;
+
+    width: 25px;
+    height: 8px;
+    background-color: black;
+    border-radius: 4px;
+
+    transform: rotate(-50deg);
+  }
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    right: -10px;
+    top: -8px;
+
+    width: 25px;
+    height: 8px;
+    background-color: black;
+    border-radius: 4px;
+
+    transform: rotate(50deg);
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
