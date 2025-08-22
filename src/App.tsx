@@ -50,7 +50,7 @@ export const App: React.FC = () => {
     <div className="App">
       {/* eslint-disable-next-line */}
       <div className="container">
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
         <Carousel
           images={images}
           step={step}
