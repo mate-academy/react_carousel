@@ -23,15 +23,15 @@ const Carousel: React.FC<Props> = ({
   const handleNext = useCallback(() => {
     if (index < images.length - frameSize) {
       setIndex(Math.min(index + step, images.length - frameSize));
-    } else {
+    } else if (infinite) {
       setIndex(0);
     }
-  }, [index, images.length, frameSize, step]);
+  }, [index, images.length, frameSize, step, infinite]);
 
   const handlePrev = () => {
     if (index > 0) {
       setIndex(Math.max(index - step, 0));
-    } else {
+    } else if (infinite) {
       setIndex(images.length - frameSize);
     }
   };
@@ -95,6 +95,7 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className="Carousel__buttons-button"
+          data-cy="next"
           onClick={handleNext}
         >
           Next

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -41,6 +41,10 @@ export const App: React.FC = () => {
   const handleChangeInfinite = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInfinite(e.target.value === 'true');
   };
+
+  useEffect(() => {
+    document.title = 'Carousel — Your App';
+  }, []);
 
   return (
     <div className="App">

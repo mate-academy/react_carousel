@@ -30,7 +30,7 @@
       border: none;
       color: #fff;
       text-align: center;
-      background-color: #000000;
+      background-color: #000;
       height: 50px;
       width: 100px;
       border-radius: 40px;
@@ -39,7 +39,7 @@
       transition: box-shadow 0.3s;
 
       &:hover {
-        box-shadow: 1px 4px 16px #000000;
+        box-shadow: 1px 4px 16px #000;
       }
     }
   }
