@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  display: grid;
+  gap: 12px;
+
+  &__controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__frame {
+    overflow: hidden;
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+
+  &__track {
+    display: flex;
+    will-change: transform;
+  }
+
+  &__item {
+    flex: 0 0 auto;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+}
