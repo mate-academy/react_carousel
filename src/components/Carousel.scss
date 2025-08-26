@@ -1,1 +1,23 @@
-// style go here
+.Carousel{
+  .container{
+    overflow: hidden;
+    white-space: nowrap;
+    ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      transition-property: transform;
+      li {
+        flex-shrink: 0;
+        height: auto;
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
