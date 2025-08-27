@@ -63,7 +63,7 @@ const App: React.FC = () => {
         </label>
 
         <label htmlFor="durationId">
-          Step:
+          Animation duration:
           <input
             type="number"
             id="durationId"
@@ -79,6 +79,7 @@ const App: React.FC = () => {
         frameSize={currentFrameSize}
         itemWidth={currentItemWidth}
         animationDuration={currentAnimationDuration}
+        infinite={false}
       />
     </div>
   );
