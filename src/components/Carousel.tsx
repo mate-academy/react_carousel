@@ -48,15 +48,15 @@ const Carousel: React.FC<Props> = ({
           width: images.length * itemWidth,
           display: 'flex',
           transform: `translateX(-${currentIndex * itemWidth}px)`,
-          transition: ` transform ${animationDuration}ms ease`,
+          transition: `transform ${animationDuration}ms ease`,
         }}
       >
         {images.map((image, i) => (
-          <li key={i} style={{ width: itemWidth, flexShrink: 0 }}>
+          <li key={i} style={{ width: `${itemWidth}px`, flexShrink: 0 }}>
             <img
               src={image}
               alt={`carousel item ${i}`}
-              style={{ width: '100%', display: 'block' }}
+              style={{ width: `${itemWidth}px`, display: 'block' }}
             />
           </li>
         ))}

@@ -26,6 +26,10 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
+  componentDidMount() {
+    document.title = 'Carousel – Demo';
+  }
+
   render() {
     const { images } = this.state;
 
@@ -35,26 +39,36 @@ class App extends React.Component<{}, State> {
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <form className="form">
-          <label htmlFor="width">Width: </label>
+          <label htmlFor="itemId">Width: </label>
           <input
             type="number"
-            id="width"
+            id="itemId"
             value={this.state.itemWidth}
-            onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
+            onChange={e =>
+              this.setState({
+                itemWidth: Math.max(1, Number(e.target.value) || 1),
+              })
+            }
           />
-          <label htmlFor="frameSize">FrameSize: </label>
+          <label htmlFor="frameId">FrameSize: </label>
           <input
             type="number"
-            id="frameSize"
+            id="frameId"
             value={this.state.frameSize}
-            onChange={e => this.setState({ frameSize: Number(e.target.value) })}
+            onChange={e =>
+              this.setState({
+                frameSize: Math.max(1, Number(e.target.value) || 1),
+              })
+            }
           />
-          <label htmlFor="step">Step: </label>
+          <label htmlFor="stepId">Step: </label>
           <input
             type="number"
-            id="step"
+            id="stepId"
             value={this.state.step}
-            onChange={e => this.setState({ step: Number(e.target.value) })}
+            onChange={e =>
+              this.setState({ step: Math.max(1, Number(e.target.value) || 1) })
+            }
           />
           <label htmlFor="animationDuration">Animation Duration: </label>
           <input
@@ -62,7 +76,9 @@ class App extends React.Component<{}, State> {
             id="animationDuration"
             value={this.state.animationDuration}
             onChange={e =>
-              this.setState({ animationDuration: Number(e.target.value) })
+              this.setState({
+                animationDuration: Math.max(0, Number(e.target.value) || 0),
+              })
             }
           />
         </form>
