@@ -19,7 +19,6 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleImages = images.slice(currentIndex, currentIndex + frameSize);
 
   const prev = () =>
     setCurrentIndex(pr =>
@@ -36,17 +35,29 @@ const Carousel: React.FC<Props> = ({
     );
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={{
+        width: frameSize * itemWidth,
+        overflow: 'hidden',
+      }}
+    >
       <ul
         className="Carousel__list"
         style={{
-          width: `${itemWidth}px`,
-          transitionDuration: `transform ${animationDuration}ms`,
+          width: images.length * itemWidth,
+          display: 'flex',
+          transform: `translateX(-${currentIndex * itemWidth}px)`,
+          transition: ` transform ${animationDuration}ms ease`,
         }}
       >
-        {visibleImages.map((image, i) => (
-          <li key={image}>
-            <img src={image} alt={i} />
+        {images.map((image, i) => (
+          <li key={i} style={{ width: itemWidth, flexShrink: 0 }}>
+            <img
+              src={image}
+              alt={`carousel item ${i}`}
+              style={{ width: '100%', display: 'block' }}
+            />
           </li>
         ))}
       </ul>
@@ -55,12 +66,14 @@ const Carousel: React.FC<Props> = ({
         type="button"
         disabled={!infinite && currentIndex === 0}
         onClick={prev}
+        aria-label="Previous slide"
       >
         Prev
       </button>
       <button
         data-cy="next"
         type="button"
+        aria-label="Next slide"
         disabled={!infinite && currentIndex >= images.length - frameSize}
         onClick={next}
       >
