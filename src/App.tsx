@@ -4,9 +4,9 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
-  step: number;
-  frameSize: number;
   itemWidth: number;
+  frameSize: number;
+  step: number;
   animationDuration: number;
   infinite: boolean;
 }
@@ -25,73 +25,89 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
-    step: 3,
-    frameSize: 3,
+
     itemWidth: 130,
+    frameSize: 3,
+    step: 3,
     animationDuration: 1000,
     infinite: false,
   };
 
-  handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value, type, checked } = e.target;
-
-    this.setState({
-      [name]: type === 'checkbox' ? checked : Number(value),
-    } as unknown as Pick<State, keyof State>);
+  handleItemWidthChange(value: number) {
+    this.setState({ itemWidth: value });
   }
 
+  handleFrameSizeChange(value: number) {
+    this.setState({ frameSize: value });
+  }
+
+  handleStepChange(value: number) {
+    this.setState({ step: value });
+  }
+
+  handleAnimationDurationChange = (value: number) => {
+    this.setState({ animationDuration: value });
+  };
+
   render() {
-    const { images, step, frameSize, itemWidth, animationDuration, infinite } =
-      this.state;
+    const { images } = this.state;
+    const { itemWidth } = this.state;
+    const { frameSize } = this.state;
+    const { step } = this.state;
+    const { animationDuration } = this.state;
 
     return (
       <div className="App">
         <h1 data-cy="title">Carousel with {images.length} images</h1>
+
         <div className="container">
-          <label htmlFor="itemId">Item Width:</label>
-          <input
-            id="itemId"
-            type="number"
-            name="itemWidth"
-            value={itemWidth}
-            onChange={e => this.handleInput(e)}
-          />
-
-          <label htmlFor="frameId">Frame Size:</label>
-          <input
-            id="frameId"
-            type="number"
-            name="frameSize"
-            value={frameSize}
-            onChange={e => this.handleInput(e)}
-          />
-
-          <label htmlFor="stepId">Step:</label>
-          <input
-            id="stepId"
-            type="number"
-            name="step"
-            value={step}
-            onChange={e => this.handleInput(e)}
-          />
-
-          <label htmlFor="animationDurationId">Animation Duration (ms):</label>
-          <input
-            id="animationDurationId"
-            type="number"
-            name="animationDuration"
-            value={animationDuration}
-            onChange={e => this.handleInput(e)}
-          />
-
-          <label htmlFor="infiniteId">Infinite:</label>
-          <input
-            id="infiniteId"
-            type="checkbox"
-            name="infinite"
-            checked={infinite}
-            onChange={e => this.handleInput(e)}
-          />
+          <label htmlFor="itemId">
+            Enter item width
+            <input
+              id="itemId"
+              className="container__input"
+              type="text"
+              value={itemWidth}
+              onChange={event =>
+                this.handleItemWidthChange(Number(event.target.value))
+              }
+            />
+          </label>
+          <label htmlFor="frameId">
+            Enter number of images
+            <input
+              id="frameId"
+              className="container__input"
+              type="text"
+              value={frameSize}
+              onChange={event =>
+                this.handleFrameSizeChange(Number(event.target.value))
+              }
+            />
+          </label>
+          <label htmlFor="stepId">
+            Enter scrolled images per click
+            <input
+              id="stepId"
+              className="container__input"
+              type="text"
+              value={step}
+              onChange={event =>
+                this.handleStepChange(Number(event.target.value))
+              }
+            />
+          </label>
+          <label>
+            Enter time to show the new images
+            <input
+              className="container__input"
+              type="text"
+              value={animationDuration}
+              onChange={event =>
+                this.handleAnimationDurationChange(Number(event.target.value))
+              }
+            />
+          </label>
         </div>
 
         <Carousel
@@ -100,7 +116,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           itemWidth={itemWidth}
           animationDuration={animationDuration}
-          infinite={infinite}
+          infinite={false}
         />
       </div>
     );
