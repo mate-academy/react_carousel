@@ -1,26 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const clickPrev = () => {
+    setCurrentIndex(index => Math.max(index - step, 0));
+  };
+
+  const clickNext = () => {
+    const maxIndex = images.length - frameSize;
+
+    setCurrentIndex(index => Math.min(index + step, maxIndex));
+  };
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__container"
+        style={{ width: `${itemWidth * frameSize}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            width: `${images.length * itemWidth}px`,
+            transform: `translateX(-${currentIndex * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms ease-in-out`,
+          }}
+        >
+          {images.map((img, index) => (
+            <li key={index}>
+              <img
+                style={{ width: `${itemWidth}px` }}
+                src={img}
+                alt={`Image ${index + 1}`}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button disabled={currentIndex === 0} onClick={clickPrev} type="button">
+        Prev
+      </button>
+      <button
+        data-cy="next"
+        disabled={currentIndex + frameSize >= images.length}
+        onClick={clickNext}
+        type="button"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
