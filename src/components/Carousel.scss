@@ -1,1 +1,37 @@
-// style go here
+.Carousel{
+  display: flex;
+  overflow: hidden;
+  margin-top: 20px;
+  
+  
+  &__content{
+    position: relative;
+    box-sizing: border-box;
+    overflow:hidden;
+    border: black solid 1px;
+  }
+  
+  &__list{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    list-style: none;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+  }
+
+  &__icon{
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__button--prev {
+    order: -1;
+  }
+}
