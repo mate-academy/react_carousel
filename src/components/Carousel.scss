@@ -21,10 +21,11 @@
 
 .Carousel__list {
   display: flex;
+
   margin: 0;
   padding: 0;
-
   will-change: transform;
+
   list-style: none;
 }
 
@@ -49,8 +50,8 @@
 
   width: 40px;
   height: 40px;
-
   cursor: pointer;
+
   font-size: 18px;
   color: white;
 
@@ -125,9 +126,9 @@
     }
 
     button {
+      cursor: pointer;
       padding: 10px 20px;
 
-      cursor: pointer;
       color: white;
 
       border: none;
