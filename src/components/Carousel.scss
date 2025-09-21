@@ -20,8 +20,9 @@
 }
 
 .Carousel__list {
-  display: flex;
   will-change: transform;
+
+  display: flex;
 
   margin: 0;
 
@@ -48,11 +49,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
 
   width: 40px;
 
   height: 40px;
+
   border: none;
 
   font-size: 18px;
@@ -107,6 +110,7 @@
   padding: 20px;
 
   border-radius: 8px;
+
   background: #f5f5f5;
 
   .control-group {
@@ -136,7 +140,9 @@
       padding: 10px 20px;
 
       border: none;
+
       color: white;
+
       border-radius: 4px;
 
       background: #28a745;
