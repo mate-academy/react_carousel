@@ -1,1 +1,150 @@
-// style go here
+.Carousel {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+
+  margin: 20px 0;
+}
+
+.Carousel__container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.Carousel__viewport {
+  position: relative;
+  overflow: hidden;
+  width: 300px;
+}
+
+.Carousel__list {
+  will-change: transform;
+
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.Carousel__item {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.3s ease;
+}
+
+.Carousel__image {
+  display: block;
+  object-fit: cover;
+}
+
+.Carousel__button {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+
+  font-size: 18px;
+  color: white;
+
+  background: #007bff;
+
+  transition: background-color 0.3s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    background: #ccc;
+  }
+
+  &:hover:not(:disabled) {
+    background: #0056b3;
+  }
+}
+
+.Carousel__empty {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+
+  font-style: italic;
+  color: #666;
+  text-align: center;
+}
+
+.carousel-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+  }
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+
+  background: #f5f5f5;
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 100px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    button {
+      cursor: pointer;
+
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+
+      color: white;
+
+
+
+      background: #28a745;
+
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: #218838;
+      }
+    }
+  }
+}
