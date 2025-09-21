@@ -16,7 +16,7 @@ const Carousel: React.FC<CarouselProps> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
-  infinite = false
+  infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -28,7 +28,9 @@ const Carousel: React.FC<CarouselProps> = ({
   const canGoNext = infinite || currentIndex < maxIndex;
 
   const goPrev = useCallback(() => {
-    if ((!canGoPrev && !infinite) || totalSlides === 0 || isAnimating) return;
+    if ((!canGoPrev && !infinite) || totalSlides === 0 || isAnimating) {
+      return;
+    }
 
     setIsAnimating(true);
 
@@ -39,10 +41,21 @@ const Carousel: React.FC<CarouselProps> = ({
     }
 
     setTimeout(() => setIsAnimating(false), animationDuration);
-  }, [currentIndex, step, infinite, canGoPrev, maxIndex, animationDuration, totalSlides, isAnimating]);
+  }, [
+    currentIndex,
+    step,
+    infinite,
+    canGoPrev,
+    maxIndex,
+    animationDuration,
+    totalSlides,
+    isAnimating,
+  ]);
 
   const goNext = useCallback(() => {
-    if ((!canGoNext && !infinite) || totalSlides === 0 || isAnimating) return;
+    if ((!canGoNext && !infinite) || totalSlides === 0 || isAnimating) {
+      return;
+    }
 
     setIsAnimating(true);
 
@@ -53,15 +66,30 @@ const Carousel: React.FC<CarouselProps> = ({
     }
 
     setTimeout(() => setIsAnimating(false), animationDuration);
-  }, [currentIndex, step, infinite, canGoNext, maxIndex, animationDuration, totalSlides, isAnimating]);
+  }, [
+    currentIndex,
+    step,
+    infinite,
+    canGoNext,
+    maxIndex,
+    animationDuration,
+    totalSlides,
+    isAnimating,
+  ]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') goPrev();
-      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') {
+        goPrev();
+      }
+
+      if (e.key === 'ArrowRight') {
+        goNext();
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
+
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goPrev, goNext]);
 
@@ -97,8 +125,10 @@ const Carousel: React.FC<CarouselProps> = ({
           className="Carousel__list"
           style={{
             transform: `translateX(-${currentIndex * itemWidth}px)`,
-            transition: isAnimating ? `transform ${animationDuration}ms ease` : 'none',
-            width: `${totalSlides * itemWidth}px`
+            transition: isAnimating
+              ? `transform ${animationDuration}ms ease`
+              : 'none',
+            width: `${totalSlides * itemWidth}px`,
           }}
           data-cy="carousel-list"
         >
@@ -108,7 +138,7 @@ const Carousel: React.FC<CarouselProps> = ({
               className="Carousel__item"
               style={{
                 width: `${itemWidth}px`,
-                minWidth: `${itemWidth}px`
+                minWidth: `${itemWidth}px`,
               }}
               data-cy={`carousel-item-${index}`}
             >
@@ -145,15 +175,22 @@ export const CarouselPage: React.FC = () => {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
-    infinite: false
+    infinite: false,
   });
 
   const [tempSettings, setTempSettings] = useState(settings);
 
   const images = [
-    './img/1.png', './img/2.png', './img/3.png', './img/4.png',
-    './img/5.png', './img/6.png', './img/7.png', './img/8.png',
-    './img/9.png', './img/10.png'
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
   ];
 
   const handleApply = () => {
@@ -163,7 +200,7 @@ export const CarouselPage: React.FC = () => {
   const handleInputChange = (field: string, value: number | boolean) => {
     setTempSettings(prev => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -173,50 +210,48 @@ export const CarouselPage: React.FC = () => {
 
       <div className="controls">
         <div className="control-group">
-          <label htmlFor="itemId">
-            Item Width:
-          </label>
+          <label htmlFor="itemId">Item Width:</label>
           <input
             id="itemId"
             type="number"
             value={tempSettings.itemWidth}
-            onChange={(e) => handleInputChange('itemWidth', Number(e.target.value))}
+            onChange={e =>
+              handleInputChange('itemWidth', Number(e.target.value))
+            }
           />
         </div>
 
         <div className="control-group">
-          <label htmlFor="frameId">
-            Frame Size:
-          </label>
+          <label htmlFor="frameId">Frame Size:</label>
           <input
             id="frameId"
             type="number"
             value={tempSettings.frameSize}
-            onChange={(e) => handleInputChange('frameSize', Number(e.target.value))}
+            onChange={e =>
+              handleInputChange('frameSize', Number(e.target.value))
+            }
           />
         </div>
 
         <div className="control-group">
-          <label htmlFor="stepId">
-            Step:
-          </label>
+          <label htmlFor="stepId">Step:</label>
           <input
             id="stepId"
             type="number"
             value={tempSettings.step}
-            onChange={(e) => handleInputChange('step', Number(e.target.value))}
+            onChange={e => handleInputChange('step', Number(e.target.value))}
           />
         </div>
 
         <div className="control-group">
-          <label htmlFor="animationId">
-            Animation Duration (ms):
-          </label>
+          <label htmlFor="animationId">Animation Duration (ms):</label>
           <input
             id="animationId"
             type="number"
             value={tempSettings.animationDuration}
-            onChange={(e) => handleInputChange('animationDuration', Number(e.target.value))}
+            onChange={e =>
+              handleInputChange('animationDuration', Number(e.target.value))
+            }
           />
         </div>
 
@@ -225,17 +260,14 @@ export const CarouselPage: React.FC = () => {
             <input
               type="checkbox"
               checked={tempSettings.infinite}
-              onChange={(e) => handleInputChange('infinite', e.target.checked)}
+              onChange={e => handleInputChange('infinite', e.target.checked)}
             />
             Infinite
           </label>
         </div>
 
         <div className="control-group">
-          <button
-            type="button"
-            onClick={handleApply}
-          >
+          <button type="button" onClick={handleApply}>
             Apply Settings
           </button>
         </div>
