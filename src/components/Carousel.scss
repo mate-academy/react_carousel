@@ -21,9 +21,10 @@
 
 .Carousel__list {
   display: flex;
+  will-change: transform;
+
   margin: 0;
 
-  will-change: transform;
   padding: 0;
 
   list-style: none;
@@ -47,15 +48,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   width: 40px;
-  cursor: pointer;
+
   height: 40px;
+  border: none;
 
   font-size: 18px;
 
-  border: none;
+
   color: white;
+
   border-radius: 50%;
 
   background: #007bff;
