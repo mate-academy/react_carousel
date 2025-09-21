@@ -1,8 +1,8 @@
 .Carousel {
   display: flex;
   align-items: center;
-  gap: 16px;
   justify-content: center;
+  gap: 16px;
 
   margin: 20px 0;
 }
@@ -21,20 +21,18 @@
 
 .Carousel__list {
   display: flex;
-
   margin: 0;
   padding: 0;
 
   list-style: none;
-
   will-change: transform;
 }
 
 .Carousel__item {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   justify-content: center;
+  flex-shrink: 0;
 
   transition: transform 0.3s ease;
 }
@@ -49,15 +47,17 @@
   align-items: center;
   justify-content: center;
 
-  background: #007bff;
+  width: 40px;
+  height: 40px;
 
+  background: #007bff;
   border: none;
   border-radius: 50%;
+
   color: white;
-  cursor: pointer;
   font-size: 18px;
-  height: 40px;
-  width: 40px;
+
+  cursor: pointer;
 
   transition: background-color 0.3s ease;
 
@@ -72,67 +72,76 @@
 }
 
 .Carousel__empty {
+  margin: 0 auto;
+  max-width: 1200px;
   padding: 40px;
+
   color: #666;
   font-style: italic;
   text-align: center;
 }
 
 .carousel-page {
-  padding: 20px;
   margin: 0 auto;
   max-width: 1200px;
-}
+  padding: 20px;
 
-.carousel-page h1 {
-  margin-bottom: 30px;
-  color: #333;
-  text-align: center;
+  h1 {
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+  }
 }
 
 .controls {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+
   padding: 20px;
+  margin-bottom: 30px;
+
   background: #f5f5f5;
   border-radius: 8px;
-  margin-bottom: 30px;
-}
 
-.controls .control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-.controls .control-group label {
-  font-weight: 500;
-  color: #333;
-}
+    label {
+      font-weight: 500;
+      color: #333;
+    }
 
-.controls .control-group input[type="number"] {
-  width: 100px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
+    input[type="number"] {
+      width: 100px;
+      padding: 8px;
 
-.controls .control-group input[type="checkbox"] {
-  margin-right: 8px;
-}
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
 
-.controls .control-group button {
-  padding: 10px 20px;
-  background: #28a745;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
 
-  transition: background-color 0.3s ease;
+    button {
+      padding: 10px 20px;
 
-  &:hover {
-    background: #218838;
+      background: #28a745;
+      border: none;
+      border-radius: 4px;
+
+      color: white;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: #218838;
+      }
+    }
   }
 }
