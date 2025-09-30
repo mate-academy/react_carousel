@@ -4,7 +4,7 @@ import './Carousel.scss';
 interface Props {
   images: string[];
   frameSize?: number;
-  itemWidth?: number;
+  itemWidth?: number | string;
   step?: number;
   animationDuration?: number;
   infinite?: boolean;
@@ -18,9 +18,12 @@ const Carousel: React.FC<Props> = ({
   animationDuration = 1000,
   infinite = false,
 }) => {
-  const frameWidth = itemWidth * frameSize;
+  const numericItemWidth =
+    typeof itemWidth === 'number' ? itemWidth : parseInt(itemWidth, 10) || 130;
+
+  const frameWidth = numericItemWidth * frameSize;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const offset = currentIndex * itemWidth;
+  const offset = currentIndex * numericItemWidth;
 
   const handleNextClick = () => {
     if (infinite) {

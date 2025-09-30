@@ -33,10 +33,12 @@ class App extends React.Component<{}, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const numberValue = parseInt(value, 10) || 0;
+    const numberValue = parseInt(value, 10);
 
-    // eslint-disable-next-line max-len, prettier/prettier
-    this.setState({ [name]: numberValue } as unknown as Pick<State,keyof State>);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const updatePayload = { [name]: numberValue } as any;
+
+    this.setState(updatePayload);
   };
 
   render() {
@@ -47,7 +49,7 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <div className="container">
           {/* eslint-disable-next-line */}
-          <h1 data-cy='title'>Carousel with {images.length} images</h1>
+          <h1 data-cy="title">Carousel with {images.length} images</h1>
 
           <div className="form">
             <label htmlFor="itemId">Item Width</label>
