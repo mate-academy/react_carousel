@@ -1,1 +1,75 @@
-// style go here
+.Carousel {
+  --frame-width: 400px;
+  --item-width: 130px;
+  --spacing: 10px;
+  --offset: 0px;
+  --animation-duration: 1000ms;
+
+  position: relative;
+  width: var(--frame-width);
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    transform: translateX(calc(-1 * var(--offset)));
+    transition: transform var(--animation-duration) ease-in-out;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: var(--spacing); // For modern browsers; fallback with margin on li
+
+    li {
+      width: var(--item-width);
+      flex-shrink: 0;
+      margin-right: var(--spacing); // Fallback for gap
+
+      img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        display: block;
+      }
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--prev {
+      left: 10px;
+    }
+
+    &--next {
+      right: 10px;
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    &:hover:not(.disabled) {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
