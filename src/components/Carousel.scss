@@ -1,1 +1,49 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.Carousel__viewport {
+  width: calc(var(--item-width, 130px) * var(--frame-size, 3));
+  overflow: hidden;
+}
+
+.Carousel__list{
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  padding: 0;
+  transition: transform var(--animation-duration, 1000ms) ease;
+
+  li {
+    list-style: none;
+  }
+}
+
+.Carousel__item {
+  flex: 0 0 var(--item-width, 130px);
+  width: var(--item-width, 130px);
+}
+
+
+.Carousel__btns{
+  display: flex;
+  gap: 10px;
+
+  button {
+    border: 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color:bisque;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:disabled {
+       opacity: .6;
+    }
+  }
+}
