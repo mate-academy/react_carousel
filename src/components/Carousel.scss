@@ -1,1 +1,63 @@
-// style go here
+.Carousel {
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+
+  &__viewport {
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  &__list {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  &__btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0 8px;
+
+    &.is-disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+h1[data-cy='title'] {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 10px;
+  font-size: 14px;
+  margin: 0 auto 20px;
+
+  label {
+    justify-self: end;
+  }
+
+  input[type='number'],
+  input[type='checkbox'] {
+    justify-self: start;
+  }
+
+  input[type='number'] {
+    width: 70px;
+    text-align: center;
+  }
+}
