@@ -1,1 +1,37 @@
-// style go here
+:root {
+  --gap: 25px;
+}
+
+
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Carousel__container {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  list-style: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.button {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.inputs__container {
+  display: flex;
+  gap: 20px;
+}
