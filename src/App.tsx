@@ -4,10 +4,18 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  itemWidth: number;
 }
 
 class App extends React.Component<{}, State> {
   state = {
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    itemWidth: 130,
     images: [
       './img/1.png',
       './img/2.png',
@@ -22,16 +30,33 @@ class App extends React.Component<{}, State> {
     ],
   };
 
+  handleInputItemSize: (input: number) => void = input => {
+    if (Number.isNaN(input)) {
+      return;
+    }
+
+    this.setState({ itemWidth: input });
+  };
+
   render() {
     const { images } = this.state;
 
     return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
+      <>
+        <div className="App">
+          {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel />
-      </div>
+          <Carousel
+            images={this.state.images}
+            frameSize={this.state.frameSize}
+            step={this.state.step}
+            animationDuration={this.state.animationDuration}
+            itemWidth={this.state.itemWidth}
+            handleInputItemSize={this.handleInputItemSize}
+          />
+        </div>
+      </>
     );
   }
 }
