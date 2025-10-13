@@ -3,27 +3,28 @@ import './Carousel.scss';
 
 interface Props {
   images: string[];
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  itemWidth: number;
-  handleInputItemSize: (input: number) => void;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  itemWidth?: number;
 }
 
 const Carousel: React.FC<Props> = ({
   images,
-  frameSize,
-  step,
-  animationDuration,
-  itemWidth,
-  handleInputItemSize,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  itemWidth = 130,
 }) => {
   const [currIndex, setCurrIndex] = useState(0);
   const horizontalSpace = 10;
+  const perItemWidth = itemWidth + horizontalSpace * 2;
 
   const handleClkForward = () => {
     setCurrIndex(prev =>
-      prev + step > images.length - step ? images.length - step : prev + step,
+      prev + step > images.length - step
+        ? Math.max(0, images.length - step)
+        : prev + step,
     );
   };
 
@@ -35,20 +36,20 @@ const Carousel: React.FC<Props> = ({
     <div
       className="Carousel"
       style={{
-        width: itemWidth * frameSize + frameSize * horizontalSpace * 2,
+        width: perItemWidth * frameSize,
       }}
     >
       <div className="Carousel__window">
         <ul
           className="Carousel__list"
           style={{
-            transform: `translateX(-${currIndex * (100 / frameSize)}%)`,
+            transform: `translateX(-${currIndex * perItemWidth}px)`,
             transition: `transform ${animationDuration}ms ease`,
           }}
         >
           {images.map((image, i) => {
             return (
-              <li key={image}>
+              <li key={`${image} ${i}`}>
                 <img
                   style={{
                     margin: `${horizontalSpace}px`,
@@ -64,19 +65,12 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button type="button" onClick={handleClkBackward}>
+      <button type="button" onClick={handleClkBackward} data-cy="next">
         Prev
       </button>
-      <button type="button" onClick={handleClkForward}>
+      <button type="button" onClick={handleClkForward} data-cy="next">
         Next
       </button>
-
-      <input
-        name="item_size"
-        type="text"
-        value={itemWidth}
-        onChange={event => handleInputItemSize(+event.target.value)}
-      />
     </div>
   );
 };

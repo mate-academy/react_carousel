@@ -45,7 +45,7 @@ class App extends React.Component<{}, State> {
       <>
         <div className="App">
           {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
           <Carousel
             images={this.state.images}
@@ -53,7 +53,13 @@ class App extends React.Component<{}, State> {
             step={this.state.step}
             animationDuration={this.state.animationDuration}
             itemWidth={this.state.itemWidth}
-            handleInputItemSize={this.handleInputItemSize}
+          />
+
+          <input
+            name="item_size"
+            type="number"
+            value={this.state.itemWidth}
+            onChange={event => this.handleInputItemSize(+event.target.value)}
           />
         </div>
       </>
