@@ -8,6 +8,7 @@ interface State {
   step: number;
   animationDuration: number;
   itemWidth: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -16,6 +17,7 @@ class App extends React.Component<{}, State> {
     step: 3,
     animationDuration: 1000,
     itemWidth: 130,
+    infinite: true,
     images: [
       './img/1.png',
       './img/2.png',
@@ -35,8 +37,48 @@ class App extends React.Component<{}, State> {
       return;
     }
 
+    if (input < 0) {
+      return;
+    }
+
     this.setState({ itemWidth: input });
   };
+
+  handleFrameSize: (input: number) => void = input => {
+    if (Number.isNaN(input)) {
+      return;
+    }
+
+    if (input > this.state.images.length || input < 1) {
+      return;
+    }
+
+    this.setState({ frameSize: input });
+  };
+
+  handleStep: (input: number) => void = input => {
+    if (Number.isNaN(input)) {
+      return;
+    }
+
+    if (input > this.state.images.length || input < 1) {
+      return;
+    }
+
+    this.setState({ step: input });
+  };
+
+  handleAnimationDuration: (input: number) => void = input => {
+    if (Number.isNaN(input)) {
+      return;
+    }
+
+    this.setState({ animationDuration: input });
+  };
+
+  componentDidMount(): void {
+    document.title = 'Carousel';
+  }
 
   render() {
     const { images } = this.state;
@@ -53,6 +95,7 @@ class App extends React.Component<{}, State> {
             step={this.state.step}
             animationDuration={this.state.animationDuration}
             itemWidth={this.state.itemWidth}
+            infinite={this.state.infinite}
           />
 
           <input
@@ -60,6 +103,29 @@ class App extends React.Component<{}, State> {
             type="number"
             value={this.state.itemWidth}
             onChange={event => this.handleInputItemSize(+event.target.value)}
+          />
+
+          <input
+            name="frame_size"
+            type="number"
+            value={this.state.frameSize}
+            onChange={event => this.handleFrameSize(+event.target.value)}
+          />
+
+          <input
+            name="step"
+            type="number"
+            value={this.state.step}
+            onChange={event => this.handleStep(+event.target.value)}
+          />
+
+          <input
+            name="animationDuration"
+            type="number"
+            value={this.state.animationDuration}
+            onChange={event =>
+              this.handleAnimationDuration(+event.target.value)
+            }
           />
         </div>
       </>

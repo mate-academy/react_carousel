@@ -7,6 +7,7 @@ interface Props {
   step?: number;
   animationDuration?: number;
   itemWidth?: number;
+  infinite?: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -15,17 +16,34 @@ const Carousel: React.FC<Props> = ({
   step = 3,
   animationDuration = 1000,
   itemWidth = 130,
+  infinite = false,
 }) => {
   const [currIndex, setCurrIndex] = useState(0);
   const horizontalSpace = 10;
   const perItemWidth = itemWidth + horizontalSpace * 2;
 
   const handleClkForward = () => {
-    setCurrIndex(prev =>
-      prev + step > images.length - step
-        ? Math.max(0, images.length - step)
-        : prev + step,
-    );
+    setCurrIndex(prev => {
+      let nextIndex = prev + step;
+      const maxIndex = images.length - frameSize;
+      let result: number;
+
+      if (nextIndex > maxIndex) {
+        if (infinite) {
+          if (step % 2 !== 0) {
+            nextIndex += 1;
+          }
+
+          result = nextIndex >= images.length ? 0 : maxIndex;
+
+          return result;
+        }
+
+        return maxIndex;
+      }
+
+      return nextIndex;
+    });
   };
 
   const handleClkBackward = () => {
@@ -65,7 +83,7 @@ const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button type="button" onClick={handleClkBackward} data-cy="next">
+      <button type="button" onClick={handleClkBackward} data-cy="prev">
         Prev
       </button>
       <button type="button" onClick={handleClkForward} data-cy="next">
