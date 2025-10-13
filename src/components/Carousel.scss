@@ -10,7 +10,16 @@
 
   &__list {
     display: flex;
-    transition: transform 0.5s ease;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+
+  &__img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
   }
 
   &__btn {
@@ -19,6 +28,9 @@
     font-size: 28px;
     cursor: pointer;
     padding: 0 8px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
     &.is-disabled {
       opacity: 0.3;
@@ -26,9 +38,12 @@
     }
   }
 
-  img {
-    display: block;
-    margin: 0 auto;
+  &__btn--prev {
+    left: -44px;
+  }
+
+  &__btn--next {
+    right: -44px;
   }
 }
 
@@ -43,21 +58,21 @@ h1[data-cy='title'] {
   grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
-  gap: 8px 10px;
+  gap: 8px 12px;
   font-size: 14px;
   margin: 0 auto 20px;
+}
 
-  label {
-    justify-self: end;
-  }
+.controls label {
+  justify-self: end;
+}
 
-  input[type='number'],
-  input[type='checkbox'] {
-    justify-self: start;
-  }
+.controls input[type='number'],
+.controls input[type='checkbox'] {
+  justify-self: start;
+}
 
-  input[type='number'] {
-    width: 70px;
-    text-align: center;
-  }
+.controls input[type='number'] {
+  width: 70px;
+  text-align: center;
 }

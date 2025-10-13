@@ -10,6 +10,33 @@ type Props = {
   infinite?: boolean;
 };
 
+const FIRST = 0;
+
+const SlideItem: React.FC<{
+  src: string;
+  size: number;
+  visible: boolean;
+  index: number;
+}> = ({ src, size, visible, index }) => (
+  <li
+    className="Carousel__item"
+    style={{
+      width: size,
+      flex: '0 0 auto',
+      visibility: visible ? 'visible' : 'hidden',
+    }}
+  >
+    <img
+      className="Carousel__img"
+      src={src}
+      alt={`Slide ${index + 1}`}
+      width={size}
+      height={size}
+      style={{ height: size }}
+    />
+  </li>
+);
+
 const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
@@ -18,104 +45,72 @@ const Carousel: React.FC<Props> = ({
   animationDuration = 1000,
   infinite = false,
 }) => {
-  const maxStart = Math.max(0, images.length - frameSize);
+  const maxStart = Math.max(FIRST, images.length - frameSize);
   const safeStep = Math.max(1, Math.min(step, Math.max(1, images.length)));
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(FIRST);
 
-  const canPrev = infinite ? images.length > frameSize : index > 0;
-  const canNext = infinite ? images.length > frameSize : index < maxStart;
+  const isAtStart = index === FIRST;
+  const isAtEnd = index >= maxStart;
+
+  const canPrev = infinite ? images.length > frameSize : !isAtStart;
+  const canNext = infinite ? images.length > frameSize : !isAtEnd;
 
   const viewportWidth = frameSize * itemWidth;
-
   const translateX = -index * itemWidth;
 
-  const goNext = () => {
+  const handleNext = () => {
     if (!images.length) {
       return;
     }
 
     if (infinite) {
-      if (index >= maxStart) {
-        setIndex(0);
-      } else {
-        setIndex(Math.min(index + safeStep, maxStart));
-      }
+      setIndex(isAtEnd ? FIRST : Math.min(index + safeStep, maxStart));
 
       return;
     }
 
-    if (index < maxStart) {
+    if (!isAtEnd) {
       setIndex(Math.min(index + safeStep, maxStart));
     }
   };
 
-  const goPrev = () => {
+  const handlePrev = () => {
     if (!images.length) {
       return;
     }
 
     if (infinite) {
-      if (index === 0) {
-        setIndex(maxStart);
-      } else {
-        setIndex(Math.max(index - safeStep, 0));
-      }
+      setIndex(isAtStart ? maxStart : Math.max(index - safeStep, FIRST));
 
       return;
     }
 
-    if (index > 0) {
-      setIndex(Math.max(index - safeStep, 0));
+    if (!isAtStart) {
+      setIndex(Math.max(index - safeStep, FIRST));
     }
   };
 
   return (
-    <div
-      className="Carousel"
-      style={{ width: viewportWidth, position: 'relative' }}
-    >
-      <div
-        className="Carousel__viewport"
-        style={{ width: viewportWidth, overflow: 'hidden' }}
-      >
+    <div className="Carousel" style={{ width: viewportWidth }}>
+      <div className="Carousel__viewport" style={{ width: viewportWidth }}>
         <ul
           className="Carousel__list"
           style={{
-            display: 'flex',
-            gap: 0,
-            margin: 0,
-            padding: 0,
-            listStyle: 'none',
             transform: `translateX(${translateX}px)`,
             transition: `transform ${animationDuration}ms`,
-            willChange: 'transform',
           }}
         >
           {images.map((src, i) => {
-            const isVisible = i >= index && i < index + frameSize;
+            const visible = i >= index && i < index + frameSize;
 
             return (
-              <li
+              <SlideItem
                 key={src + i}
-                style={{
-                  width: itemWidth,
-                  flex: '0 0 auto',
-                  visibility: isVisible ? 'visible' : 'hidden',
-                }}
-              >
-                <img
-                  src={src}
-                  alt={`Slide ${i + 1}`}
-                  width={itemWidth}
-                  height={itemWidth}
-                  style={{
-                    width: '100%',
-                    height: itemWidth,
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                />
-              </li>
+                src={src}
+                size={itemWidth}
+                visible={visible}
+                index={i}
+              />
             );
           })}
         </ul>
@@ -123,33 +118,21 @@ const Carousel: React.FC<Props> = ({
 
       <button
         type="button"
-        onClick={goPrev}
+        className={`Carousel__btn Carousel__btn--prev${!canPrev ? ' is-disabled' : ''}`}
+        onClick={handlePrev}
         disabled={!canPrev}
         aria-label="Previous"
-        className={`Carousel__btn Carousel__btn--prev${!canPrev ? ' is-disabled' : ''}`}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: -44,
-          transform: 'translateY(-50%)',
-        }}
       >
         ‹
       </button>
 
       <button
         type="button"
-        onClick={goNext}
+        className={`Carousel__btn Carousel__btn--next${!canNext ? ' is-disabled' : ''}`}
+        onClick={handleNext}
         disabled={!canNext}
         aria-label="Next"
         data-cy="next"
-        className={`Carousel__btn Carousel__btn--next${!canNext ? ' is-disabled' : ''}`}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          right: -44,
-          transform: 'translateY(-50%)',
-        }}
       >
         ›
       </button>

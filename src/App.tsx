@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-type NumKeys = 'itemWidth' | 'frameSize' | 'step' | 'animationDuration';
+type NumKey = 'itemWidth' | 'frameSize' | 'step' | 'animationDuration';
 
 interface State {
   images: string[];
@@ -34,20 +34,18 @@ class App extends React.Component<{}, State> {
     infinite: false,
   };
 
-  handleNumber<K extends NumKeys>(key: K) {
+  handleNumber(key: NumKey) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = Number(e.target.value);
       const parsed = Number.isNaN(value) ? 0 : value;
 
-      this.setState({ [key]: parsed } as Pick<State, K>);
+      this.setState({ [key]: parsed } as Pick<State, typeof key>);
     };
   }
 
-  handleBoolean(key: 'infinite') {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({ [key]: e.target.checked } as Pick<State, 'infinite'>);
-    };
-  }
+  handleInfiniteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ infinite: e.target.checked });
+  };
 
   render() {
     const { images, itemWidth, frameSize, step, animationDuration, infinite } =
@@ -57,11 +55,8 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1 data-cy="title">Carousel</h1>
 
-        <div
-          className="controls"
-          style={{ display: 'grid', gap: 12, maxWidth: 420, marginBottom: 24 }}
-        >
-          <label htmlFor="itemId">Ширина смайликів</label>
+        <div className="controls">
+          <label htmlFor="itemId">itemWidth</label>
           <input
             id="itemId"
             type="number"
@@ -70,7 +65,7 @@ class App extends React.Component<{}, State> {
             min={1}
           />
 
-          <label htmlFor="frameId">Розмір панелі</label>
+          <label htmlFor="frameId">frameSize</label>
           <input
             id="frameId"
             type="number"
@@ -80,7 +75,7 @@ class App extends React.Component<{}, State> {
             max={images.length}
           />
 
-          <label htmlFor="stepId">Крок</label>
+          <label htmlFor="stepId">step</label>
           <input
             id="stepId"
             type="number"
@@ -90,7 +85,7 @@ class App extends React.Component<{}, State> {
             max={images.length}
           />
 
-          <label htmlFor="animationId">Швидкість гортання</label>
+          <label htmlFor="animationId">animationDuration</label>
           <input
             id="animationId"
             type="number"
@@ -99,12 +94,12 @@ class App extends React.Component<{}, State> {
             min={0}
           />
 
-          <label htmlFor="infiniteId">Циклічність</label>
+          <label htmlFor="infiniteId">infinite</label>
           <input
             id="infiniteId"
             type="checkbox"
             checked={infinite}
-            onChange={this.handleBoolean('infinite')}
+            onChange={this.handleInfiniteChange}
           />
         </div>
 
