@@ -1,1 +1,29 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+
+  &__window {
+    width: 100%;
+    overflow: hidden;
+  }
+
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    padding: 0;
+
+    &__item {
+    height: auto;
+    flex-shrink: 0;
+    }
+  }
+
+}
+
+.Carousel__list > li {
+  flex: 0 0 auto;
+}
