@@ -2,7 +2,7 @@
 
 > [React + Typescript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
-1. implement a carousel described [here](https://github.com/mate-academy/dom_carousel) as a React component
+1. implement a carousel described [here](https://Vlshedevr/mate-academy/dom_carousel) as a React component
     ```jsx harmony
     <Carousel images={['url1', 'url2']} />
     ```

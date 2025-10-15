@@ -1,1 +1,65 @@
 // style go here
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.Carousel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  &__img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: aqua;
+    color: black;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    font-size: larger;
+
+
+    &--prev{
+      left: 0;
+      transform: translate(0, -50%);
+    }
+
+    &--next{
+      right: 0;
+      transform: translate(0, -50%);
+    }
+  }
+}
+
+.disabled {
+  background-color: grey;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
