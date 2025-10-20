@@ -1,1 +1,38 @@
-// style go here
+.Carousel {
+  position: relative;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Carousel__item {
+  flex: 0 0 auto;
+}
+
+.Carousel__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0.5rem 1rem;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.Carousel__button--prev {
+  left: 0;
+}
+
+.Carousel__button--next {
+  right: 0;
+}
