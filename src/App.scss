@@ -1,1 +1,10 @@
 // style go here
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input {
+  align-self: flex-start;
+}
