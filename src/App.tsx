@@ -6,7 +6,7 @@ interface State {
   images: string[];
 }
 
-class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -28,12 +28,19 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy={'title'}>Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={this.state.images}
+          step={3}
+          frameSize={3}
+          itemWidth={130}
+          animationDuration={1000}
+          infinite={true}
+        />
       </div>
     );
   }
 }
 
-export default App;
+// export default App;

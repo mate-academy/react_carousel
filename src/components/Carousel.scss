@@ -1,1 +1,39 @@
 // style go here
+.Carousel {
+  width: 1300px;
+
+  &__inputs {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__input {
+    border: 1px black solid;
+    border-radius: 4px;
+    max-width: 70px;
+
+    &:hover {
+      box-shadow: 2px 2px gray;
+    }
+  }
+
+  &__list {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+  }
+
+
+}
+
+.image {
+  height: 100%;
+
+  &-wrapper {
+    height: 100%;
+  }
+}
+
+button:hover {
+  cursor: pointer;
+}
