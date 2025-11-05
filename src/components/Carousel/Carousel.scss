@@ -1,0 +1,57 @@
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__slides {
+    order: 1;
+    overflow: hidden;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  &__arrow {
+    position: relative;
+    background: none;
+    padding: 0;
+    margin: 0;
+    height: min-content;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      display: block;
+      border-top: 2px solid #000;
+      border-left: 2px solid #000;
+    }
+
+    &--prev {
+      order: 0;
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+
+    &--next {
+      order: 2;
+
+      &::after {
+        transform: rotate(135deg);
+      }
+    }
+  }
+}
