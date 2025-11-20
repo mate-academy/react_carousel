@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__list li,
+  &__list li img {
+    box-sizing: border-box;
+  }
+
+  &__list li img {
+    display: block;
+    max-width: none;
+  }
+
+  &__prev,
+  &__next {
+    cursor: pointer;
+  }
+
+  .Disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
