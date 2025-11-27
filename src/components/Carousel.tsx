@@ -20,6 +20,10 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   handleNext = () => {
+    if (this.props.images.length <= this.props.frameSize) {
+      return;
+    }
+
     let newOffset = this.props.step + this.state.offset;
     const maxOffset = this.props.images.length - this.props.frameSize;
 
@@ -34,6 +38,10 @@ export class Carousel extends React.Component<Props, State> {
   };
 
   handlePrev = () => {
+    if (this.props.images.length <= this.props.frameSize) {
+      return;
+    }
+
     let newOffset = this.state.offset - this.props.step;
 
     if (!this.props.infinite) {
@@ -56,7 +64,7 @@ export class Carousel extends React.Component<Props, State> {
     const offsetTransform = offset * itemWidth;
     const isPrevDisabled = offset === 0 && !infinite;
     const maxOffset = images.length - frameSize;
-    const isNextDisabled = offset === maxOffset && !infinite;
+    const isNextDisabled = offset >= maxOffset && !infinite;
 
     return (
       <div className="Carousel">
