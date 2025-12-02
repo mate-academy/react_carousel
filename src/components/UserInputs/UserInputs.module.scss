@@ -1,0 +1,52 @@
+.formWrapper {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; // a bit more breathing room between rows
+  max-width: 300px; // optional, controls width
+  padding: 10px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    flex: 1 0 120px; // fixed label width to align inputs vertically
+    font-weight: 600;
+  }
+
+  input[type='number'],
+  input[type='checkbox'] {
+    flex-shrink: 0;
+  }
+
+  input[type='number'] {
+    width: 70px;
+    height: 28px;
+    padding: 4px 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  }
+
+  input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+}
