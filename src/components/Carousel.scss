@@ -1,1 +1,9 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style-type: none;
+  }
+}
