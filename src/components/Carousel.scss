@@ -1,1 +1,72 @@
-// style go here
+.Carousel {
+  position: relative;
+  overflow: hidden;
+  width: calc(var(--item-width) * var(--frame-size));
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    justify-content: flex-start;
+
+    width: calc(var(--item-width) * var(--length));
+
+    transition: transform var(--animation-duration) ease;
+    transform: translateX(calc(-1 * var(--current-index) * var(--item-width)));
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__item {
+    width: var(--item-width);
+  }
+
+  &__list > li {
+    flex: 0 0 var(--item-width);
+
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: var(--item-width);
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .button {
+    position: absolute;
+    z-index: 10;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: 50px;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+    transition: all 0.3s ease;
+    color: #333;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}
