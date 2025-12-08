@@ -60,7 +60,7 @@ const Carousel: React.FC<Props> = ({
     >
       <ul className="Carousel__list">
         {images.map((img, idx) => (
-          <li key={img}>
+          <li key={`${img}-${idx}`}>
             <img
               className="Carousel__item"
               src={img}
@@ -81,7 +81,7 @@ const Carousel: React.FC<Props> = ({
           ‹
         </button>
         <button
-          className={`button button-next ${currentIndex >= images.length - frameSize ? 'disabled' : ''}`}
+          className={`button button-next ${currentIndex >= maxIndex ? 'disabled' : ''}`}
           type="button"
           data-cy="next"
           onClick={handleNext}
