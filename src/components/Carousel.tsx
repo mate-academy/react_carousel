@@ -3,11 +3,11 @@ import './Carousel.scss';
 
 interface Props {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -19,7 +19,7 @@ const Carousel: React.FC<Props> = ({
   infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = images.length - frameSize;
+  const maxIndex = Math.max(images.length - frameSize, 0);
 
   const handleNext = () => {
     setCurrentIndex(prevIndex => {

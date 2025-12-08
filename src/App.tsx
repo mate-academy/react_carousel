@@ -8,10 +8,10 @@ interface State {
   frameSize: number;
   itemWidth: number;
   animationDuration: number;
-  infinite: boolean;
+  infinite?: boolean;
 }
 
-class App extends React.Component<State> {
+class App extends React.Component<{}, State> {
   state = {
     images: [
       './img/1.png',
@@ -36,7 +36,7 @@ class App extends React.Component<State> {
     const numberValue = parseInt(value, 10) || 0;
 
     // eslint-disable-next-line max-len, prettier/prettier
-    this.setState({ [name]: numberValue } as unknown as Pick<State,keyof State>);
+    this.setState(prev => ({ ...(prev), [name as keyof State]: numberValue }));
   };
 
   render() {
