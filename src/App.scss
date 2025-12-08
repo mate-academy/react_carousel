@@ -1,1 +1,49 @@
-// style go here
+.container {
+  max-width: 1300px;
+  overflow: hidden;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 30px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 30px;
+  margin: 0 auto 50px;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  input {
+    padding: 10px 12px;
+    width: 200px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #ffb300;
+      box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.2);
+    }
+  }
+}
