@@ -1,1 +1,48 @@
-// style go here
+.Setting {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 30px;
+
+  background-color: #dde1e696;
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+
+  &__input {
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+    input[type="number"] {
+    height: 30px;
+    width: 70px;
+    padding: 5px;
+
+    border: 1px solid black;
+    border-radius: 6px;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px #007bff80;
+    }
+  }
+
+  input[type="checkbox"] {
+    height: 18px;
+    width: 18px;
+
+    cursor: pointer;
+  }
+}
