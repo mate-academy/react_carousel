@@ -3,30 +3,43 @@ import './Carousel.scss';
 
 interface Props {
   images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 const GAP = 10;
 
-const Carousel: React.FC<Props> = ({ images }) => {
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 1,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
   const [position, setPosition] = useState(0);
-  const [step, setStep] = useState(3);
-  const [itemWidth, setItemWidth] = useState(130);
-  const [frame, setFrame] = useState(3);
 
-  const maxPosition = images.length - frame;
-  const canLeft = position > 0;
-  const canRight = position < maxPosition;
+  const maxPosition = images.length - frameSize;
+  const canLeft = infinite || position > 0;
+  const canRight = infinite || position < maxPosition;
 
   const moveRight = () => {
     if (!canRight) {
       return;
     }
 
-    if (position + frame > maxPosition) {
-      setPosition(position + 1);
-    } else {
-      setPosition(position + frame);
-    }
+    setPosition(prev => {
+      const next = prev + step;
+
+      if (next > maxPosition) {
+        return infinite ? 0 : maxPosition;
+      }
+
+      return next;
+    });
   };
 
   const moveLeft = () => {
@@ -34,42 +47,19 @@ const Carousel: React.FC<Props> = ({ images }) => {
       return;
     }
 
-    if (position - frame < 0) {
-      setPosition(0);
-    } else {
-      setPosition(position - frame);
-    }
+    setPosition(prev => {
+      const next = prev - step;
+
+      if (next < 0) {
+        return infinite ? maxPosition : 0;
+      }
+
+      return next;
+    });
   };
 
   return (
     <div className="carousel">
-      <label htmlFor="stepId">Step:</label>
-      <input
-        id="stepId"
-        type="number"
-        min="1"
-        max={frame}
-        value={step}
-        onChange={e => setStep(Number(e.target.value))}
-      />
-
-      <label htmlFor="itemId">Image width:</label>
-      <input
-        id="itemId"
-        type="number"
-        min="50"
-        max="400"
-        value={itemWidth}
-        onChange={e => setItemWidth(Number(e.target.value))}
-      />
-
-      <label htmlFor="frameId">Frame Size</label>
-      <input
-        id="frameId"
-        type="number"
-        value={frame}
-        onChange={e => setFrame(Number(e.target.value))}
-      />
       <button
         data-cy="prev"
         className={`arrow left ${!canLeft ? 'disabled' : ''}`}
@@ -81,17 +71,25 @@ const Carousel: React.FC<Props> = ({ images }) => {
 
       <div
         className="window"
-        style={{ width: frame * itemWidth + GAP * (frame - 1) }}
+        style={{
+          width: frameSize * itemWidth + GAP * (frameSize - 1),
+        }}
       >
         <ul
           className="track"
           style={{
             transform: `translateX(-${position * (itemWidth + GAP)}px)`,
+            transition: `transform ${animationDuration}ms ease`,
           }}
         >
-          {images.map((src, i) => (
-            <li key={i} className="item">
-              <img src={src} alt="" width={itemWidth} height={itemWidth} />
+          {images.map((src, index) => (
+            <li key={index} className="item" style={{ marginRight: GAP }}>
+              <img
+                src={src}
+                alt=""
+                width={itemWidth}
+                height={itemWidth}
+              />
             </li>
           ))}
         </ul>

@@ -10,19 +10,10 @@
 
 .track {
   display: flex;
-  flex-direction: row;
-  transition: transform 300ms ease;
 }
 
 .item {
   list-style: none;
-  margin-right: 10px;
-}
-
-.item img {
-  width: 130px;
-  height: 130px;
-  display: block;
 }
 
 .arrow {
@@ -42,4 +33,4 @@
 .arrow.disabled {
   opacity: 0.3;
   cursor: default;
-}/*# sourceMappingURL=Carousel.css.map */
+}
