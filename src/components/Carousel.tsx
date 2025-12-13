@@ -16,7 +16,7 @@ const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
   frameSize = 3,
-  step = 1,
+  step = 3,
   animationDuration = 1000,
   infinite = false,
 }) => {
@@ -84,12 +84,7 @@ const Carousel: React.FC<Props> = ({
         >
           {images.map((src, index) => (
             <li key={index} className="item" style={{ marginRight: GAP }}>
-              <img
-                src={src}
-                alt=""
-                width={itemWidth}
-                height={itemWidth}
-              />
+              <img src={src} alt="" width={itemWidth} height={itemWidth} />
             </li>
           ))}
         </ul>
