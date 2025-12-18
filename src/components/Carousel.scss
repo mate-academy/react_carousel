@@ -1,1 +1,36 @@
-// style go here
+.carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.carousel-container__button-prev, .carousel-container__button-next {
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.carousel-container__button-prev:hover , .carousel-container__button-next:hover {
+  cursor: pointer;
+  background-color: rgb(196, 196, 196);
+}
+
+.carousel-container__button-prev.disabled, .carousel-container__button-next.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.carousel-container {
+  overflow: hidden;
+}
+
+.carousel-container__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
