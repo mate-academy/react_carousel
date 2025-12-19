@@ -7,6 +7,7 @@ type Props = {
   frameSize?: number;
   step?: number;
   animationDuration?: number;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -15,8 +16,26 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
+  infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = images.length - frameSize;
+
+  const handlePrev = () => {
+    if (infinite && currentIndex === 0) {
+      setCurrentIndex(maxIndex >= 0 ? maxIndex : 0);
+    } else {
+      setCurrentIndex(prev => Math.max(prev - step, 0));
+    }
+  };
+
+  const handleNext = () => {
+    if (infinite && currentIndex >= maxIndex) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(prev => Math.min(prev + step, maxIndex));
+    }
+  };
 
   return (
     <div className="Carousel">
@@ -46,27 +65,21 @@ const Carousel: React.FC<Props> = ({
       </div>
 
       <button
-        disabled={currentIndex === 0}
         type="button"
         className="Carousel__button Carousel__button--prev"
         data-cy="prev"
-        onClick={() => {
-          setCurrentIndex(prev => Math.max(prev - step, 0));
-        }}
+        onClick={handlePrev}
+        disabled={!infinite && currentIndex === 0}
       >
         Prev
       </button>
 
       <button
-        disabled={currentIndex >= images.length - frameSize}
         type="button"
         className="Carousel__button Carousel__button--next"
         data-cy="next"
-        onClick={() => {
-          const maxIndex = images.length - frameSize;
-
-          setCurrentIndex(prev => Math.min(prev + step, maxIndex));
-        }}
+        onClick={handleNext}
+        disabled={!infinite && currentIndex >= maxIndex}
       >
         Next
       </button>
