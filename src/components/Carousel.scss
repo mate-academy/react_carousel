@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Carousel__viewport {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Carousel__item {
+  flex-shrink: 0;
+}
+
+.Carousel__item img {
+  display: block;
+}
