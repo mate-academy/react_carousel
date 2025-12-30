@@ -5,6 +5,7 @@ import Carousel from './components/Carousel';
 interface State {
   images: string[];
   itemWidth: number;
+  frameSize: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -22,6 +23,7 @@ class App extends React.Component<{}, State> {
       './img/10.png',
     ],
     itemWidth: 130,
+    frameSize: 3,
   };
 
   handleItemWidthChange: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -34,8 +36,19 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  handleFrameSizeChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const nextRaw = Number(e.target.value);
+
+    if (Number.isFinite(nextRaw)) {
+      const max = this.state.images.length;
+      const next = Math.max(1, Math.min(max, nextRaw));
+
+      this.setState({ frameSize: next });
+    }
+  };
+
   render() {
-    const { images, itemWidth } = this.state;
+    const { images, itemWidth, frameSize } = this.state;
 
     return (
       <div className="App">
@@ -54,7 +67,19 @@ class App extends React.Component<{}, State> {
           />
         </label>
 
-        <Carousel images={images} itemWidth={itemWidth} />
+        <label>
+          Frame size: {frameSize}
+          <input
+            type="range"
+            value={frameSize}
+            min={1}
+            max={images.length}
+            step={1}
+            onChange={this.handleFrameSizeChange}
+          />
+        </label>
+
+        <Carousel images={images} itemWidth={itemWidth} frameSize={frameSize} />
       </div>
     );
   }

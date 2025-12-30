@@ -1,5 +1,8 @@
 .Carousel {
-  width: calc(var(--carousel-item-width, 130px) * 2 + var(--carousel-gap, 24px));
+  width: calc(
+    var(--carousel-item-width, 130px) * var(--carousel-frame-size, 3) +
+      var(--carousel-gap, 24px) * (var(--carousel-frame-size, 3) - 1)
+  );
   overflow: hidden;
 }
 
@@ -27,6 +30,11 @@
   margin-top: 18px;
 }
 
+.Carousel--single .Carousel__controls {
+  flex-direction: column;
+  gap: 12px;
+}
+
 .Carousel__button {
   min-width: 140px;
   padding: 14px 18px;
@@ -37,6 +45,11 @@
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
+}
+
+.Carousel--single .Carousel__button {
+  min-width: 0;
+  width: 100%;
 }
 
 .Carousel__button--prev {

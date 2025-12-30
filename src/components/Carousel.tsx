@@ -4,40 +4,46 @@ import './Carousel.scss';
 type Props = {
   images: string[];
   itemWidth?: number;
+  frameSize?: number;
 };
 
-const Carousel: React.FC<Props> = ({ images, itemWidth = 130 }) => {
+const safeNumber = (value: number, min: number, max: number) => {
+  return Math.max(min, Math.min(max, value));
+};
+
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+}) => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
-  const imagesToShow = 2;
+  const imagesToShow = safeNumber(frameSize, 1, images.length);
   const imageGap = 24;
   const itemStep = itemWidth + imageGap;
+  const maxPosition = Math.max(0, images.length - imagesToShow);
+  const safePosition = safeNumber(currentPosition, 0, maxPosition);
 
   const handlePrevImage = () => {
-    if (currentPosition > 0) {
-      setCurrentPosition(currentPosition - imagesToShow);
-    }
+    setCurrentPosition(prev => safeNumber(prev - imagesToShow, 0, maxPosition));
   };
 
   const handleNextImage = () => {
-    const maxPosition = images.length - imagesToShow;
-
-    if (currentPosition < maxPosition) {
-      setCurrentPosition(currentPosition + imagesToShow);
-    }
+    setCurrentPosition(prev => safeNumber(prev + imagesToShow, 0, maxPosition));
   };
 
-  const translateX = -currentPosition * itemStep;
-  const PrevDisabled = currentPosition <= 0;
-  const NextDisabled = currentPosition >= images.length - imagesToShow;
+  const translateX = -safePosition * itemStep;
+  const PrevDisabled = safePosition <= 0;
+  const NextDisabled = safePosition >= maxPosition;
 
   return (
     <div
-      className="Carousel"
+      className={`Carousel${imagesToShow === 1 ? ' Carousel--single' : ''}`}
       style={
         {
           ['--carousel-item-width']: `${itemWidth}px`,
           ['--carousel-gap']: `${imageGap}px`,
+          ['--carousel-frame-size']: `${imagesToShow}`,
         } as React.CSSProperties
       }
     >
