@@ -5,6 +5,7 @@ type Props = {
   images: string[];
   itemWidth?: number;
   frameSize?: number;
+  step?: number;
 };
 
 const safeNumber = (value: number, min: number, max: number) => {
@@ -15,6 +16,7 @@ const Carousel: React.FC<Props> = ({
   images,
   itemWidth = 130,
   frameSize = 3,
+  step = 3,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
@@ -25,11 +27,11 @@ const Carousel: React.FC<Props> = ({
   const safePosition = safeNumber(currentPosition, 0, maxPosition);
 
   const handlePrevImage = () => {
-    setCurrentPosition(prev => safeNumber(prev - imagesToShow, 0, maxPosition));
+    setCurrentPosition(prev => safeNumber(prev - step, 0, maxPosition));
   };
 
   const handleNextImage = () => {
-    setCurrentPosition(prev => safeNumber(prev + imagesToShow, 0, maxPosition));
+    setCurrentPosition(prev => safeNumber(prev + step, 0, maxPosition));
   };
 
   const translateX = -safePosition * itemStep;

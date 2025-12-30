@@ -6,6 +6,7 @@ interface State {
   images: string[];
   itemWidth: number;
   frameSize: number;
+  step: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -24,6 +25,7 @@ class App extends React.Component<{}, State> {
     ],
     itemWidth: 130,
     frameSize: 3,
+    step: 3,
   };
 
   handleItemWidthChange: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -47,8 +49,19 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  handleStepChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const nextRaw = Number(e.target.value);
+
+    if (Number.isFinite(nextRaw)) {
+      const max = this.state.images.length;
+      const next = Math.max(1, Math.min(max, nextRaw));
+
+      this.setState({ step: next });
+    }
+  };
+
   render() {
-    const { images, itemWidth, frameSize } = this.state;
+    const { images, itemWidth, frameSize, step } = this.state;
 
     return (
       <div className="App">
@@ -79,7 +92,24 @@ class App extends React.Component<{}, State> {
           />
         </label>
 
-        <Carousel images={images} itemWidth={itemWidth} frameSize={frameSize} />
+        <label>
+          Step: {step}
+          <input
+            type="range"
+            value={step}
+            min={1}
+            max={images.length}
+            step={1}
+            onChange={this.handleStepChange}
+          />
+        </label>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+        />
       </div>
     );
   }

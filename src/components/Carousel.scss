@@ -1,7 +1,6 @@
 .Carousel {
   width: calc(
-    var(--carousel-item-width, 130px) * var(--carousel-frame-size, 3) +
-      var(--carousel-gap, 24px) * (var(--carousel-frame-size, 3) - 1)
+    var(--carousel-item-width, 130px) * var(--carousel-frame-size, 3) + var(--carousel-gap, 24px) * (var(--carousel-frame-size, 3) - 1)
   );
   overflow: hidden;
 }
