@@ -1,20 +1,24 @@
 .Carousel {
-  width: calc(130px * 2 + 24px);
+  width: calc(var(--carousel-item-width, 130px) * 2 + var(--carousel-gap, 24px));
   overflow: hidden;
 }
 
 .Carousel__list {
   display: flex;
-  gap: 24px;
+  gap: var(--carousel-gap, 24px);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .Carousel__list > li {
-  flex: 0 0 130px;
-  width: 130px;
-  height: 130px;
+  flex: 0 0 var(--carousel-item-width, 130px);
+}
+
+.Carousel__list > li > img {
+  display: block;
+  width: var(--carousel-item-width, 130px);
+  height: var(--carousel-item-width, 130px);
 }
 
 .Carousel__controls {

@@ -3,15 +3,15 @@ import './Carousel.scss';
 
 type Props = {
   images: string[];
+  itemWidth?: number;
 };
 
-const Carousel: React.FC<Props> = ({ images }) => {
+const Carousel: React.FC<Props> = ({ images, itemWidth = 130 }) => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   const imagesToShow = 2;
-  const imageWidth = 130;
   const imageGap = 24;
-  const itemWidth = imageWidth + imageGap;
+  const itemStep = itemWidth + imageGap;
 
   const handlePrevImage = () => {
     if (currentPosition > 0) {
@@ -27,12 +27,20 @@ const Carousel: React.FC<Props> = ({ images }) => {
     }
   };
 
-  const translateX = -currentPosition * itemWidth;
+  const translateX = -currentPosition * itemStep;
   const PrevDisabled = currentPosition <= 0;
   const NextDisabled = currentPosition >= images.length - imagesToShow;
 
   return (
-    <div className="Carousel">
+    <div
+      className="Carousel"
+      style={
+        {
+          ['--carousel-item-width']: `${itemWidth}px`,
+          ['--carousel-gap']: `${imageGap}px`,
+        } as React.CSSProperties
+      }
+    >
       <ul
         className="Carousel__list"
         style={{

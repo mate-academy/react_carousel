@@ -4,6 +4,7 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +21,40 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+  };
+
+  handleItemWidthChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    const nextRaw = Number(e.target.value);
+
+    if (Number.isFinite(nextRaw)) {
+      const next = Math.max(130, Math.min(600, nextRaw));
+
+      this.setState({ itemWidth: next });
+    }
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth } = this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
         <h1>Carousel with {images.length} images</h1>
 
-        <Carousel images={images} />
+        <label>
+          Item width (px):
+          <input
+            type="number"
+            value={itemWidth}
+            min={130}
+            max={600}
+            step={1}
+            onChange={this.handleItemWidthChange}
+          />
+        </label>
+
+        <Carousel images={images} itemWidth={itemWidth} />
       </div>
     );
   }
