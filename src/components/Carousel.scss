@@ -1,1 +1,65 @@
-// style go here
+.Carousel {
+  width: calc(
+    var(--carousel-item-width, 130px) * var(--carousel-frame-size, 3) + var(--carousel-gap, 24px) * (var(--carousel-frame-size, 3) - 1)
+  );
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  gap: var(--carousel-gap, 24px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel__list > li {
+  flex: 0 0 var(--carousel-item-width, 130px);
+}
+
+.Carousel__list > li > img {
+  display: block;
+  width: var(--carousel-item-width, 130px);
+  height: var(--carousel-item-width, 130px);
+}
+
+.Carousel__controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.Carousel--single .Carousel__controls {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Carousel__button {
+  min-width: 140px;
+  padding: 14px 18px;
+  border: 2px solid #111;
+  border-radius: 10px;
+  background: #eee;
+  color: #111;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.Carousel--single .Carousel__button {
+  min-width: 0;
+  width: 100%;
+}
+
+.Carousel__button--prev {
+  background: #f5b6be;
+}
+
+.Carousel__button--next {
+  background: #b7f2bf;
+}
+
+.Carousel__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
