@@ -6,10 +6,23 @@ type Props = {
   itemWidth?: number;
   frameSize?: number;
   step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 };
 
 const safeNumber = (value: number, min: number, max: number) => {
   return Math.max(min, Math.min(max, value));
+};
+
+const wrapNumber = (value: number, min: number, max: number) => {
+  if (max <= min) {
+    return min;
+  }
+
+  const range = max - min + 1;
+  const normalized = (((value - min) % range) + range) % range;
+
+  return min + normalized;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -17,6 +30,8 @@ const Carousel: React.FC<Props> = ({
   itemWidth = 130,
   frameSize = 3,
   step = 3,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
@@ -25,18 +40,32 @@ const Carousel: React.FC<Props> = ({
   const itemStep = itemWidth + imageGap;
   const maxPosition = Math.max(0, images.length - imagesToShow);
   const safePosition = safeNumber(currentPosition, 0, maxPosition);
+  const safeAnimationDuration = safeNumber(animationDuration, 0, 10000);
 
   const handlePrevImage = () => {
-    setCurrentPosition(prev => safeNumber(prev - step, 0, maxPosition));
+    setCurrentPosition(prev => {
+      const next = prev - step;
+
+      return infinite
+        ? wrapNumber(next, 0, maxPosition)
+        : safeNumber(next, 0, maxPosition);
+    });
   };
 
   const handleNextImage = () => {
-    setCurrentPosition(prev => safeNumber(prev + step, 0, maxPosition));
+    setCurrentPosition(prev => {
+      const next = prev + step;
+
+      return infinite
+        ? wrapNumber(next, 0, maxPosition)
+        : safeNumber(next, 0, maxPosition);
+    });
   };
 
   const translateX = -safePosition * itemStep;
-  const PrevDisabled = safePosition <= 0;
-  const NextDisabled = safePosition >= maxPosition;
+  const cannotScroll = maxPosition <= 0;
+  const PrevDisabled = infinite ? cannotScroll : safePosition <= 0;
+  const NextDisabled = infinite ? cannotScroll : safePosition >= maxPosition;
 
   return (
     <div
@@ -53,7 +82,7 @@ const Carousel: React.FC<Props> = ({
         className="Carousel__list"
         style={{
           transform: `translateX(${translateX}px)`,
-          transition: 'transform 0.3s ease',
+          transition: `transform ${safeAnimationDuration}ms ease`,
         }}
       >
         {images.map((src, index) => (
@@ -77,6 +106,7 @@ const Carousel: React.FC<Props> = ({
           type="button"
           onClick={handleNextImage}
           disabled={NextDisabled}
+          data-cy="next"
         >
           {'-->'}
         </button>

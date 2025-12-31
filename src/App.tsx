@@ -7,6 +7,7 @@ interface State {
   itemWidth: number;
   frameSize: number;
   step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -26,6 +27,7 @@ class App extends React.Component<{}, State> {
     itemWidth: 130,
     frameSize: 3,
     step: 3,
+    animationDuration: 1000,
   };
 
   handleItemWidthChange: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -60,13 +62,25 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  handleAnimationDurationChange: React.ChangeEventHandler<HTMLInputElement> =
+    e => {
+      const nextRaw = Number(e.target.value);
+
+      if (Number.isFinite(nextRaw)) {
+        const next = Math.max(0, Math.min(10000, nextRaw));
+
+        this.setState({ animationDuration: next });
+      }
+    };
+
   render() {
-    const { images, itemWidth, frameSize, step } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
         <label>
           Item width (px):
@@ -104,11 +118,25 @@ class App extends React.Component<{}, State> {
           />
         </label>
 
+        <label>
+          Animation duration (ms): {animationDuration}
+          <input
+            type="range"
+            value={animationDuration}
+            min={0}
+            max={3000}
+            step={50}
+            onChange={this.handleAnimationDurationChange}
+          />
+        </label>
+
         <Carousel
           images={images}
           itemWidth={itemWidth}
           frameSize={frameSize}
           step={step}
+          animationDuration={animationDuration}
+          infinite={true}
         />
       </div>
     );
