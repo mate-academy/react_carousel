@@ -1,1 +1,21 @@
-// style go here
+.App {
+  padding-top: 15%;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-controls {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}

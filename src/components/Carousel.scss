@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.Carousel__list li {
+  object-fit: cover;
+  list-style: none;
+}
+
+.Carousel__track {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.4s ease;
+}
+
+.Carousel__button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
