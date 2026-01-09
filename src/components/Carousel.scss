@@ -1,6 +1,6 @@
 // style go here
 .Carousel {
-  width: 1300px;
+  width: auto;
   height: auto;
 &__list {
   list-style: none;
@@ -19,7 +19,5 @@
   margin-left: 10px;
 }
 
-&__container--width {
-  width: 260px;
-}
+
 }

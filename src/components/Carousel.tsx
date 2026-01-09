@@ -19,9 +19,8 @@ export const Carousel: React.FC<CarouselProps> = ({
   infinite = false,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pagesCount = Math.max(1, Math.ceil(images.length / frameSize)); // 4 paginas
+  const pagesCount = Math.max(1, Math.ceil(images.length / frameSize) * step); // 4 paginas
   const startIndex = (currentPage - 1) * frameSize;
-  const endIndex = startIndex + frameSize;
 
   return (
     <div className="Carousel">
@@ -36,7 +35,7 @@ export const Carousel: React.FC<CarouselProps> = ({
           }}
         >
           <ul className="Carousel__list">
-            {images.slice(startIndex, endIndex).map((image, i) => (
+            {images.map((image, i) => (
               <li key={startIndex + i}>
                 <img
                   style={{ width: `${itemWidth}px` }}

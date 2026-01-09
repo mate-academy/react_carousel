@@ -51,9 +51,7 @@ export class App extends React.Component<{}, State> {
     this.setState({ animationDuration: value });
   };
 
-  handleCurrentPage = (value: number) => {
-    this.setState({ currentPage: value });
-  };
+
 
   render() {
     const { images, step, frameSize, itemWidth, animationDuration, infinite } =
