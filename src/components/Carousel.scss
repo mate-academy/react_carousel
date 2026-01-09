@@ -1,1 +1,25 @@
 // style go here
+.Carousel {
+  width: 1300px;
+  height: auto;
+&__list {
+  list-style: none;
+  padding: 0;
+  width: auto;
+  display: flex;
+}
+
+&__image {
+  width: 130px;
+  height: 130px;
+}
+
+&__input-button {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+&__container--width {
+  width: 260px;
+}
+}
