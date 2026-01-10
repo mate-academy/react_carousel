@@ -19,7 +19,7 @@ export const Carousel: React.FC<CarouselProps> = ({
   infinite = false,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pagesCount = Math.max(1, Math.ceil(images.length / frameSize) * step); // 4 paginas
+  const pagesCount =  Math.ceil((images.length - frameSize) / step) + 1; // 4 paginas
   const startIndex = (currentPage - 1) * frameSize;
 
   return (
@@ -28,7 +28,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         <div
           className="Carousel__container--width"
           style={{
-            transform: `translateX(-${(currentPage - 1) * step * itemWidth}px)`,
+            transform: `translateX(-${Math.min((images.length - frameSize) * itemWidth, (currentPage - 1) * step * itemWidth)}px)`,
             transition: `transform ${animationDuration}ms ease`,
             width: `${frameSize * itemWidth}px`,
             overflow: 'hidden',

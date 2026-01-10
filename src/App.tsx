@@ -51,8 +51,6 @@ export class App extends React.Component<{}, State> {
     this.setState({ animationDuration: value });
   };
 
-
-
   render() {
     const { images, step, frameSize, itemWidth, animationDuration, infinite } =
       this.state;
