@@ -26,7 +26,6 @@ const Carousel: React.FC<CarouselType> = ({
 
   const moveX = -position * step * itemWidth; // negative to move content left
 
-  // автоплей інтервал у мс (можете зробити пропом)
   const autoPlayInterval = 2000;
   const autoplayRef = React.useRef<number | null>(null);
 
