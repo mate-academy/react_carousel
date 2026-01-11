@@ -1,1 +1,20 @@
 // style go here
+.Carousel {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    overflow: hidden;
+
+    &__list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        // width: 260px;
+        display: flex;
+    }
+
+    button {
+        width: auto;
+    }
+}
