@@ -12,11 +12,11 @@ type CarouselType = {
 
 const Carousel: React.FC<CarouselType> = ({
   images,
-  step,
-  frameSize,
-  itemWidth,
-  animationDuration,
-  infinite,
+  step = 3,
+  frameSize = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
   const [position, setPosition] = useState(0); // position is a step-index (0..)
 
