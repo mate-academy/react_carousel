@@ -1,1 +1,10 @@
-// style go here
+.App {
+  &__input-wrraper {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap:7px;
+    width:350px;
+    font-size: 18px;
+  }
+}
