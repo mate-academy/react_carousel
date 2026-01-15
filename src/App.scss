@@ -1,1 +1,36 @@
-// style go here
+html {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 6px;
+  }
+}
+
