@@ -1,1 +1,60 @@
 // style go here
+.Carousel__form {
+  display: flex;
+  gap: 15px;
+}
+
+.Carousel__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.container__list {
+  overflow: hidden;
+
+  &__wrapper {
+    display: flex;
+  }
+}
+
+.carousel__item {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s linear;
+
+  &:not(:disabled):hover {
+    transform: scale(1.2);
+  }
+
+  &__arrow {
+    display: flex;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    align-items: center;
+
+    &__rotate {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+
+
