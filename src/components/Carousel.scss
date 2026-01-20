@@ -1,1 +1,70 @@
 // style go here
+.Carousel {
+  position: relative;
+  width: fit-content;
+  margin: 40px auto;
+}
+
+.Carousel__viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+.Carousel__list {
+  display: flex;
+  gap: 10px;
+  transition: transform 0s;
+  padding: 5px 0;
+
+  li {
+    flex: 0 0 auto;
+  }
+
+  img {
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.Carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: #fff;
+  color: #333;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px #ccc;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  user-select: none;
+}
+
+.Carousel__arrow--prev {
+  left: -44px;
+}
+
+.Carousel__arrow--next {
+  right: -44px;
+}
+
+.Carousel__arrow.disabled,
+.Carousel__arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: 0 0 0 1px #e0e0e0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
