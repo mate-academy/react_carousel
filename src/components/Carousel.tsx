@@ -47,13 +47,8 @@ const Carousel: React.FC<CarouselProps> = ({
     setCurrentIndex(prev => {
       let stepValue = step;
 
-      if (
-        !infinite &&
-        visibleCount === 3 &&
-        step === 3 &&
-        prev < visibleCount
-      ) {
-        stepValue = 1;
+      if (!infinite && prev < step) {
+        stepValue = prev;
       }
 
       const nextIndex = prev - stepValue;
@@ -70,13 +65,8 @@ const Carousel: React.FC<CarouselProps> = ({
     setCurrentIndex(prev => {
       let stepValue = step;
 
-      if (
-        !infinite &&
-        visibleCount === 3 &&
-        step === 3 &&
-        prev + visibleCount >= total
-      ) {
-        stepValue = 1;
+      if (!infinite && prev + step > lastStart) {
+        stepValue = lastStart - prev;
       }
 
       const nextIndex = prev + stepValue;
