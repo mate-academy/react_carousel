@@ -8,12 +8,13 @@
 
   &__ul {
     overflow: hidden;
+    position: relative;
   }
 
   &__list {
     display: flex;
+    will-change: transform;
 
-    width: 100%;
 
 
     padding: 0;
@@ -25,6 +26,7 @@
 
   li {
     list-style: none;
+    flex-shrink: 0;
 
     img {
       display: block;

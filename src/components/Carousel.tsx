@@ -44,7 +44,11 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           onClick={() => {
-            setIndex(Math.max(0, index - step));
+            if (infinite) {
+              setIndex((index - step + total) % total);
+            } else {
+              setIndex(Math.max(0, index - step));
+            }
           }}
         >
           &lt;
