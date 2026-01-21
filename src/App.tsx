@@ -28,12 +28,11 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: true,
   };
 
-  // console.log(this.state);
-
   render() {
-    const { images, itemWidth, frameSize, step, animationDuration } =
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
 
     return (
@@ -47,7 +46,7 @@ class App extends React.Component<{}, State> {
               htmlFor="itemId"
               type="number"
               value={itemWidth}
-              onChange={(e: number) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 this.setState({ itemWidth: Number(e.target.value) })
               }
             />
@@ -95,6 +94,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );

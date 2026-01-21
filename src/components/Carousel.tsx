@@ -7,19 +7,20 @@ type Props = {
   frameSize: number;
   step: number;
   animationDuration: number;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = true,
 }) => {
   const [index, setIndex] = React.useState(0);
 
   const total = images.length;
-
 
   return (
     <div className="Carousel">
@@ -42,14 +43,8 @@ const Carousel: React.FC<Props> = ({
       <div className="buttons">
         <button
           type="button"
-          onClick={e => {
-            if (step > index > 0) {
-              setIndex(0);
-            } else if (index === 0) {
-              e.preventDefault();
-            } else {
-              setIndex(index - step);
-            }
+          onClick={() => {
+            setIndex(Math.max(0, index - step));
           }}
         >
           &lt;
@@ -59,10 +54,14 @@ const Carousel: React.FC<Props> = ({
           type="button"
           data-cy="next"
           onClick={() => {
-            const maxIndex = total - frameSize;
-            const nextIndex = Math.min(index + step, maxIndex);
+            if (infinite) {
+              setIndex((index + step) % total);
+            } else {
+              const maxIndex = total - frameSize;
+              const nextIndex = Math.min(index + step, maxIndex);
 
-            setIndex(nextIndex);
+              setIndex(nextIndex);
+            }
           }}
         >
           &gt;
