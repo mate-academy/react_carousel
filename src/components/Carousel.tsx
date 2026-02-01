@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Carousel.scss';
 
-// Carousel component props
 type CarouselProps = {
   images: string[];
   step?: number;
@@ -16,51 +15,96 @@ export const Carousel: React.FC<CarouselProps> = ({
   step = 3,
   frameSize = 3,
   itemWidth = 130,
-  animationDuration = 1000,
+  animationDuration = 500,
   infinite = false,
 }) => {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(infinite ? frameSize : 0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
 
-  const maxPosition = Math.max(0, images.length - frameSize);
-  const listWidth = images.length * itemWidth;
+  // Clone slides for seamless infinite scroll
+  const clonesBefore = infinite ? images.slice(-frameSize) : [];
+  const clonesAfter = infinite ? images.slice(0, frameSize) : [];
+  const displayImages = [...clonesBefore, ...images, ...clonesAfter];
 
-  const isPrevDisabled = !infinite && position === 0;
-  const isNextDisabled = !infinite && position === maxPosition;
+  const listWidth = displayImages.length * itemWidth;
 
   const handlePrev = () => {
-    setPosition(prev => {
-      if (infinite) {
-        const newPos = prev - step;
+    if (isAnimating) {
+      return;
+    }
 
-        return newPos < 0 ? maxPosition : newPos;
-      }
-
-      return Math.max(prev - step, 0);
-    });
+    setIsAnimating(true);
+    setPosition(prev => prev - step);
   };
 
   const handleNext = () => {
-    setPosition(prev => {
-      if (infinite) {
-        const newPos = prev + step;
+    if (isAnimating) {
+      return;
+    }
 
-        return newPos > maxPosition ? 0 : newPos;
+    setIsAnimating(true);
+    setPosition(prev => prev + step);
+  };
+
+  // Correct position after animation if we hit clones
+  useEffect(() => {
+    if (!infinite) {
+      setIsAnimating(false);
+
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      let newPos = position;
+
+      // If moved to clones at the end
+      if (position >= images.length + frameSize) {
+        newPos = frameSize;
       }
 
-      return Math.min(prev + step, maxPosition);
-    });
-  };
+      // If moved to clones at the beginning
+      if (position < frameSize) {
+        newPos = images.length + frameSize - step;
+        if (newPos < frameSize) {
+          newPos = frameSize;
+        }
+      }
+
+      if (newPos !== position) {
+        setIsAnimating(false);
+        setPosition(newPos); // jump instantly without animation
+        if (listRef.current) {
+          listRef.current.style.transition = 'none';
+          listRef.current.style.transform = `translateX(-${newPos * itemWidth}px)`;
+          // Force reflow to re-enable animation
+          void listRef.current.offsetWidth;
+          listRef.current.style.transition = `transform ${animationDuration}ms`;
+        }
+      } else {
+        setIsAnimating(false);
+      }
+    }, animationDuration);
+
+    return () => clearTimeout(timeout);
+  }, [
+    position,
+    infinite,
+    frameSize,
+    images.length,
+    step,
+    animationDuration,
+    itemWidth,
+  ]);
 
   return (
     <div className="Carousel">
       <div
         className="Carousel__frame"
-        style={{
-          width: `${frameSize * itemWidth}px`,
-          overflow: 'hidden',
-        }}
+        style={{ width: `${frameSize * itemWidth}px`, overflow: 'hidden' }}
       >
         <ul
+          ref={listRef}
           className="Carousel__list"
           style={{
             width: `${listWidth}px`,
@@ -69,7 +113,7 @@ export const Carousel: React.FC<CarouselProps> = ({
             transition: `transform ${animationDuration}ms`,
           }}
         >
-          {images.map((img, index) => (
+          {displayImages.map((img, index) => (
             <li key={index} style={{ flexShrink: 0 }}>
               <img
                 src={img}
@@ -81,21 +125,20 @@ export const Carousel: React.FC<CarouselProps> = ({
           ))}
         </ul>
       </div>
-      <div className="buttons">
+      <div className="Carousel__buttons">
         <button
-          className="buttontPrev"
-          type="button"
+          className="Carousel__buttonPrev"
           onClick={handlePrev}
-          disabled={isPrevDisabled}
+          disabled={!infinite && position === 0}
+          data-cy="prev"
         >
           {'<'}
         </button>
         <button
-          className="buttontNext"
-          type="button"
-          data-cy="next"
+          className="Carousel__buttonNext"
           onClick={handleNext}
-          disabled={isNextDisabled}
+          disabled={!infinite && position >= images.length - frameSize}
+          data-cy="next"
         >
           {'>'}
         </button>
