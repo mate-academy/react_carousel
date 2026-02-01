@@ -30,7 +30,9 @@ export const Carousel: React.FC<CarouselProps> = ({
   const handlePrev = () => {
     setPosition(prev => {
       if (infinite) {
-        return (prev - step + images.length) % images.length;
+        const newPos = prev - step;
+
+        return newPos < 0 ? maxPosition : newPos;
       }
 
       return Math.max(prev - step, 0);
@@ -40,7 +42,9 @@ export const Carousel: React.FC<CarouselProps> = ({
   const handleNext = () => {
     setPosition(prev => {
       if (infinite) {
-        return (prev + step) % images.length;
+        const newPos = prev + step;
+
+        return newPos > maxPosition ? 0 : newPos;
       }
 
       return Math.min(prev + step, maxPosition);
