@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/indent */
+import React, { useEffect, useRef, useState } from 'react';
 import './Carousel.scss';
 
 interface Props {
@@ -18,13 +19,45 @@ const Carousel: React.FC<Props> = ({
   animationDuration = 1000,
   infinite = false,
 }: Props) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const countClones = Math.max(frameSize, step);
+  const [currentIndex, setCurrentIndex] = useState(infinite ? countClones : 0);
   const itemWid =
     typeof itemWidth === 'string' ? parseInt(itemWidth) : itemWidth;
   const offset = currentIndex * itemWid;
+  const sliderRef = useRef<HTMLUListElement>(null);
+
+  const [transition, setTransition] = useState(true);
+  const imagesForView = infinite
+    ? [
+        ...images.slice(-countClones),
+        ...images,
+        ...images.slice(0, countClones),
+      ]
+    : [...images];
+
+  const handleTransitionEnd = () => {
+    if (currentIndex >= images.length + countClones) {
+      setTransition(false);
+      setCurrentIndex(countClones);
+    }
+
+    if (currentIndex <= countClones) {
+      setTransition(false);
+      setCurrentIndex(images.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!transition) {
+      const id = requestAnimationFrame(() => {
+        setTransition(true);
+      });
+
+      return () => cancelAnimationFrame(id);
+    }
+  }, [transition]);
 
   return (
-    //<div className="wrapper" style={{ width: `${itemWidth * frameSize}px` }}>
     <>
       <div
         className="Carousel"
@@ -36,14 +69,18 @@ const Carousel: React.FC<Props> = ({
       >
         <ul
           className="Carousel__list"
+          ref={sliderRef}
           style={{
             display: 'flex',
             justifyContent: 'flex-start',
             transform: `translateX(-${offset}px)`,
-            transition: `transform ${animationDuration}ms ease`,
+            transition: transition
+              ? `transform ${animationDuration}ms ease`
+              : 'none',
           }}
+          onTransitionEnd={infinite ? handleTransitionEnd : undefined}
         >
-          {images.map((image, index) => (
+          {imagesForView.map((image, index) => (
             <li key={`${index}-${image}`}>
               <img src={image} alt={`${index + 1}`} width={`${itemWidth}`} />
             </li>
@@ -52,7 +89,11 @@ const Carousel: React.FC<Props> = ({
       </div>
       <button
         type="button"
-        onClick={() => setCurrentIndex(Math.max(currentIndex - step, 0))}
+        onClick={() => {
+          setCurrentIndex(
+            !infinite ? Math.max(currentIndex - step, 0) : prev => prev - step,
+          );
+        }}
       >
         Prev
       </button>
@@ -60,22 +101,16 @@ const Carousel: React.FC<Props> = ({
         type="button"
         data-cy="next"
         onClick={() => {
-          const nextIndex = currentIndex + step;
-
-          if (nextIndex > images.length - step) {
-          }
-
           setCurrentIndex(
             !infinite
-              ? Math.min(nextIndex, images.length - step)
-              : currentIndex,
+              ? Math.min(currentIndex + step, images.length - step)
+              : prev => prev + step,
           );
         }}
       >
         Next
       </button>
     </>
-    //</div>
   );
 };
 
