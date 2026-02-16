@@ -38,12 +38,12 @@ const Carousel: React.FC<Props> = ({
   const handleTransitionEnd = () => {
     if (currentIndex >= images.length + countClones) {
       setTransition(false);
-      setCurrentIndex(countClones);
+      setCurrentIndex(currentIndex - images.length);
     }
 
-    if (currentIndex <= countClones) {
+    if (currentIndex < countClones) {
       setTransition(false);
-      setCurrentIndex(images.length);
+      setCurrentIndex(currentIndex + images.length);
     }
   };
 
@@ -82,7 +82,7 @@ const Carousel: React.FC<Props> = ({
         >
           {imagesForView.map((image, index) => (
             <li key={`${index}-${image}`}>
-              <img src={image} alt={`${index + 1}`} width={`${itemWidth}`} />
+              <img src={image} alt={`${index + 1}`} width={`${itemWid}`} />
             </li>
           ))}
         </ul>
@@ -103,7 +103,7 @@ const Carousel: React.FC<Props> = ({
         onClick={() => {
           setCurrentIndex(
             !infinite
-              ? Math.min(currentIndex + step, images.length - step)
+              ? Math.min(currentIndex + step, images.length - frameSize)
               : prev => prev + step,
           );
         }}
