@@ -12,23 +12,17 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
-  infinite,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
   const clickedRef = useRef(0);
   const maxIndex = Math.max(0, images.length - frameSize);
   const maxSlides = Math.ceil(maxIndex / step);
 
-  const indexSteps = [];
-
-  for (let i = 0; i < maxSlides; i++) {
-    indexSteps.push(i);
-  }
-
-  const viewRef = useRef<HTMLDivElement | null>(null);
+  const viewRef = useRef<HTMLUListElement | null>(null);
 
   const styles = {
     '--animation-duration': `${animationDuration}ms`,
@@ -77,8 +71,8 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel" style={styles}>
-      <ul className="Carousel__list">
-        <div className="Carousel__view" ref={viewRef}>
+      <div className="Carousel__list">
+        <ul className="Carousel__view" ref={viewRef}>
           {images.map((img, idx) => {
             return (
               <li key={idx}>
@@ -90,8 +84,8 @@ const Carousel: React.FC<Props> = ({
               </li>
             );
           })}
-        </div>
-      </ul>
+        </ul>
+      </div>
 
       <button type="button" onClick={() => MoveSlide('prev')}>
         Prev

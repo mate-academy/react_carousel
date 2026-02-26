@@ -9,6 +9,7 @@
   }
 
   &__view {
+    padding: 0;
     display: flex;
     transition: all var(--animation-duration) ease;
   }
