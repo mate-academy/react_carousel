@@ -44,8 +44,10 @@ export class App extends React.Component<unknown, State> {
     return Math.max(value, min);
   }
 
-  private handleNumberChange =
-    (key: keyof Omit<State, 'infinite'>, min: number) =>
+  private handleNumberChange = (
+    key: keyof Omit<State, 'infinite'>,
+    min: number,
+  ) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const next = Number(event.target.value);
 
@@ -53,6 +55,7 @@ export class App extends React.Component<unknown, State> {
         [key]: this.clampMin(next, min),
       } as Pick<State, typeof key>);
     };
+  };
 
   private handleInfiniteChange = (
     event: React.ChangeEvent<HTMLInputElement>,
