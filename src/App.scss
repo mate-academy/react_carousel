@@ -1,1 +1,39 @@
-// style go here
+.App {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.App__title {
+  margin: 0;
+}
+
+.App__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: flex-end;
+}
+
+.App__control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.App__control input[type='number'] {
+  width: 160px;
+  padding: 6px 8px;
+}
+
+.App__control--checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.App__label {
+  font-size: 12px;
+  opacity: 0.8;
+}
