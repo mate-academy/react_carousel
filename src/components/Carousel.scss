@@ -1,1 +1,39 @@
-// style go here
+.Carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 40px auto;
+}
+
+.Carousel-frame {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Carousel__item {
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #222;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.arrow:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
