@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,62 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <label htmlFor="itemId">Item width</label>
+        <input
+          id="itemId"
+          type="number"
+          value={itemWidth}
+          onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
+        />
+
+        <label htmlFor="frameId">Frame size</label>
+        <input
+          type="number"
+          id="frameId"
+          value={frameSize}
+          onChange={e => this.setState({ frameSize: Number(e.target.value) })}
+        />
+
+        <label htmlFor="stepId">Step</label>
+        <input
+          type="number"
+          id="stepId"
+          value={step}
+          onChange={e => this.setState({ step: Number(e.target.value) })}
+        />
+
+        <label htmlFor="durationId">Animation duration</label>
+        <input
+          id="durationId"
+          type="number"
+          value={animationDuration}
+          onChange={e =>
+            this.setState({ animationDuration: Number(e.target.value) })
+          }
+        />
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
