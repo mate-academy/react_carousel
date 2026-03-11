@@ -1,1 +1,45 @@
-// style go here
+.Carousel__list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.Carousel {
+  overflow: hidden;
+  margin: 100px auto 0;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Button {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border: none;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &--right {
+    background-image: url('../img/arrow.png');
+  }
+
+  &--left {
+    background-image: url('../img/arrow-left.png');
+  }
+
+  &--disabled {
+    cursor: default;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
