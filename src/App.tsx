@@ -44,6 +44,7 @@ class App extends React.Component<{}, State> {
             id="itemId"
             type="number"
             onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
+            value={itemWidth}
           />
 
           <label htmlFor="frameId">frameSize</label>
@@ -51,12 +52,14 @@ class App extends React.Component<{}, State> {
             id="frameId"
             type="number"
             onChange={e => this.setState({ frameSize: Number(e.target.value) })}
+            value={frameSize}
           />
           <label htmlFor="stepId">step</label>
           <input
             id="stepId"
             type="number"
             onChange={e => this.setState({ step: Number(e.target.value) })}
+            value={step}
           />
           <label htmlFor="animationId">animationDuration</label>
           <input
@@ -65,10 +68,11 @@ class App extends React.Component<{}, State> {
             onChange={e =>
               this.setState({ animationDuration: Number(e.target.value) })
             }
+            value={animationDuration}
           />
         </div>
         <Carousel
-          imagesSrc={images}
+          images={images}
           step={step}
           frameSize={frameSize}
           itemWidth={itemWidth}

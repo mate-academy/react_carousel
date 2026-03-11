@@ -3,7 +3,7 @@ import './Carousel.scss';
 import classNames from 'classnames';
 
 type Props = {
-  imagesSrc: string[];
+  images: string[];
   step?: number;
   frameSize?: number;
   itemWidth?: number;
@@ -12,16 +12,16 @@ type Props = {
 };
 
 const Carousel = ({
-  imagesSrc,
+  images,
   step = 3,
   frameSize = 3,
   itemWidth = 130,
   animationDuration = 1000,
-  infinite = true,
+  infinite = false,
 }: Props) => {
   const [imgStartIndex, setIndex] = React.useState(0);
 
-  const maxIndex = imagesSrc.length - frameSize;
+  const maxIndex = images.length - frameSize;
 
   const handleNext = () => {
     setIndex(prev => {
@@ -39,8 +39,8 @@ const Carousel = ({
     });
   };
 
-  const isPrevDisabled = imgStartIndex === 0;
-  const isNextDisabled = imgStartIndex >= maxIndex;
+  const isPrevDisabled = infinite ? false : imgStartIndex === 0;
+  const isNextDisabled = infinite ? false : imgStartIndex >= maxIndex;
 
   return (
     <div className="Carousel" style={{ width: `${itemWidth * frameSize}px` }}>
@@ -51,16 +51,9 @@ const Carousel = ({
           transition: `transform ${animationDuration}ms`,
         }}
       >
-        {imagesSrc.map((image, index) => {
-          const isHidden =
-            index < imgStartIndex || index >= imgStartIndex + frameSize;
-
+        {images.map((image, index) => {
           return (
-            <li
-              key={index + 1}
-              className="Carousel__list-item"
-              style={{ display: isHidden ? 'none' : 'block' }}
-            >
+            <li key={index + 1} className="Carousel__list-item">
               <img src={image} alt={index.toString()} width={itemWidth} />
             </li>
           );
