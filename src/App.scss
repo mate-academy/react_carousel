@@ -1,1 +1,21 @@
-// style go here
+.App {
+  padding: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+input {
+  margin-top: 5px;
+  padding: 4px;
+}
