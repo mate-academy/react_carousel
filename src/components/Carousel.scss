@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+
+  &__window {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: nowrap;
+  }
+
+  li {
+    flex-shrink: 0;
+  }
+
+  img {
+    display: block;
+  }
+}
