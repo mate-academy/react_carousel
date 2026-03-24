@@ -112,14 +112,14 @@ const Carousel: React.FC<Props> = ({
       </div>
 
       <button
-        className={`Carousel__arrow Carousel__arrow--right ${!infinite && start >= images.length - step ? 'disable' : ''}`}
+        className={`Carousel__arrow Carousel__arrow--right ${!infinite && start >= images.length - frameSize ? 'disable' : ''}`}
         type="button"
         data-cy="next"
         onClick={() => {
           if (infinite) {
             setStart(prev => prev + step);
-          } else if (start < images.length - step) {
-            setStart(Math.min(start + step, images.length - step));
+          } else if (start < images.length - frameSize) {
+            setStart(Math.min(start + step, images.length - frameSize));
           }
         }}
       >
