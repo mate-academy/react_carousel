@@ -4,10 +4,14 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,17 +24,63 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel</h1>
 
-        <Carousel />
+        <div className="controls">
+          <label htmlFor="itemId">itemWidth</label>
+          <input
+            id="itemId"
+            type="number"
+            value={itemWidth}
+            onChange={e => this.setState({ itemWidth: +e.target.value })}
+          />
+
+          <label htmlFor="frameId">frameSize</label>
+          <input
+            id="frameId"
+            type="number"
+            value={frameSize}
+            onChange={e => this.setState({ frameSize: +e.target.value })}
+          />
+
+          <label htmlFor="stepId">step</label>
+          <input
+            id="stepId"
+            type="number"
+            value={step}
+            onChange={e => this.setState({ step: +e.target.value })}
+          />
+
+          <label htmlFor="animationId">animationDuration</label>
+          <input
+            id="animationId"
+            type="number"
+            value={animationDuration}
+            onChange={e =>
+              this.setState({ animationDuration: +e.target.value })
+            }
+          />
+        </div>
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
