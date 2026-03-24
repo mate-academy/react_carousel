@@ -1,39 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
-interface State {
-  images: string[];
-}
+const App: React.FC = () => {
+  const [images] = useState<string[]>([
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+    './img/9.png',
+    './img/10.png',
+  ]);
+  const [start, setStart] = useState<number>(0);
+  const [itemWidth, setItemWidth] = useState<number>(130);
+  const [frameSize, setFrameSize] = useState<number>(3);
+  const [step, setStep] = useState<number>(3);
+  const [animationDuration, setAnimationDuration] = useState<number>(1000);
+  const [infinite] = useState<boolean>(false);
 
-class App extends React.Component<{}, State> {
-  state = {
-    images: [
-      './img/1.png',
-      './img/2.png',
-      './img/3.png',
-      './img/4.png',
-      './img/5.png',
-      './img/6.png',
-      './img/7.png',
-      './img/8.png',
-      './img/9.png',
-      './img/10.png',
-    ],
-  };
+  return (
+    <div className="App">
+      {/* eslint-disable-next-line */}
+      <h1 data-cy="title" className="App__title">Carousel with {images.length} images</h1>
 
-  render() {
-    const { images } = this.state;
+      <Carousel
+        images={images}
+        start={start}
+        setStart={setStart}
+        itemWidth={itemWidth}
+        frameSize={frameSize}
+        step={step}
+        animationDuration={animationDuration}
+        infinite={infinite}
+      />
 
-    return (
-      <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
-
-        <Carousel />
+      <div className="App__controls">
+        <div className="App__inputs">
+          <label htmlFor="frameId">Frame size</label>
+          <input
+            id="frameId"
+            type="text"
+            value={frameSize}
+            onChange={e => setFrameSize(Number(e.target.value))}
+            placeholder="Enter frame size"
+          />
+          <p>Frame size: {frameSize}</p>
+        </div>
+        <div className="App__inputs">
+          <label htmlFor="stepId">Step</label>
+          <input
+            id="stepId"
+            type="text"
+            value={step}
+            onChange={e => setStep(Number(e.target.value))}
+            placeholder="Enter step"
+          />
+          <p>Step: {step}</p>
+        </div>
+        <div className="App__inputs">
+          <label htmlFor="itemId">Item width</label>
+          <input
+            id="itemId"
+            type="text"
+            value={itemWidth}
+            onChange={e => setItemWidth(Number(e.target.value))}
+            placeholder="Enter item width"
+          />
+          <p>Item width: {itemWidth}</p>
+        </div>
+        <div className="App__inputs">
+          <label htmlFor="animationId">Animation duration</label>
+          <input
+            id="animationId"
+            type="text"
+            value={animationDuration}
+            onChange={e => setAnimationDuration(Number(e.target.value))}
+            placeholder="Enter animation duration"
+          />
+          <p>Animation duration: {animationDuration}</p>
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
