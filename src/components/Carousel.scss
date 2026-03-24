@@ -1,1 +1,59 @@
-// style go here
+
+.Carousel {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+
+  &__arrow {
+    background-color: inherit;
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    border: none;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__viewport {
+    overflow: hidden;
+    width: var(--carousel-viewport-width, 390px);
+  }
+
+  &__list {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    align-items: center;
+
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: var(--carousel-item-width, 130px);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+  }
+
+
+  &__arrow--left {
+    background-image: url('/img/arrow-red-left.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &__arrow--right {
+    background-image: url('/img/arrow-red-right.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.disable {
+  pointer-events: none;
+  opacity: 0.5;
+}

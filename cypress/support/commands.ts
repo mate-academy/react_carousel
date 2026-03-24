@@ -48,7 +48,7 @@ declare global {
 }
 
 Cypress.Commands.add('getByDataCy', selector => {
-  cy.get(`[data-cy="${selector}"]`);
+  return cy.get(`[data-cy="${selector}"]`);
 });
 
 Cypress.Commands.add(
