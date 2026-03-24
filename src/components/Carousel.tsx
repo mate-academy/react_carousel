@@ -1,27 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
   images: string[];
-  start: number;
-  setStart: React.Dispatch<React.SetStateAction<number>>;
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite: boolean;
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
   images,
-  start,
-  setStart,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
-  infinite,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
 }) => {
+  const [start, setStart] = useState<number>(0);
+
   const effectiveStart = infinite ? start + frameSize : start;
   const offset = effectiveStart * itemWidth;
   const realSize = frameSize * itemWidth;

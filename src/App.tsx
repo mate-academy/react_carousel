@@ -15,7 +15,6 @@ const App: React.FC = () => {
     './img/9.png',
     './img/10.png',
   ]);
-  const [start, setStart] = useState<number>(0);
   const [itemWidth, setItemWidth] = useState<number>(130);
   const [frameSize, setFrameSize] = useState<number>(3);
   const [step, setStep] = useState<number>(3);
@@ -29,8 +28,6 @@ const App: React.FC = () => {
 
       <Carousel
         images={images}
-        start={start}
-        setStart={setStart}
         itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
