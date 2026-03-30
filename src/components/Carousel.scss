@@ -1,1 +1,26 @@
-// style go here
+.Carousel {
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__images {
+    display: block;
+  }
+}
+
+.controls {
+  padding-bottom: 25px;
+
+  &__label {
+    padding-inline: 5px;
+  }
+
+  &__input {
+    margin-left: 5px;
+    width: 60px;
+  }
+}
