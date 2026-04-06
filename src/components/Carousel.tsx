@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
 
-interface State {
+interface Props {
   images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
 }
 
-const Carousel: React.FC<State> = ({
+const Carousel: React.FC<Props> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
 }) => {
   const [visibleItems, setVisibleItems] = useState(0);
 
