@@ -1,1 +1,48 @@
-// style go here
+.Carousel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: 1300px;
+
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__btn {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+
+    font-size: 18px;
+
+    transition: background-color 0.3s ease;
+
+    background-color: #eee;
+
+    &:hover {
+      background-color: #dfdfdf;
+    }
+  }
+}
+
+h1 {
+  margin: 0;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
