@@ -4,6 +4,10 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,63 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  handleInputChange = (name: keyof Omit<State, 'images'>, value: string) => {
+    const numValue = parseInt(value);
+
+    this.setState({
+      [name]: numValue,
+    } as unknown as Pick<State, keyof State>);
   };
 
   render() {
     const { images } = this.state;
 
+    const inputs = [
+      { name: 'itemWidth', placeholder: 'Item width', id: 'itemId' },
+      { name: 'frameSize', placeholder: 'Frame size', id: 'frameId' },
+      { name: 'step', placeholder: 'Step', id: 'stepId' },
+      {
+        name: 'animationDuration',
+        placeholder: 'Animation duration',
+        id: 'durationId',
+      },
+    ] as const;
+
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Carousel
+          images={images}
+          itemWidth={this.state.itemWidth}
+          frameSize={this.state.frameSize}
+          step={this.state.step}
+          animationDuration={this.state.animationDuration}
+          infinite={true}
+        />
+        {inputs.map(({ name, placeholder, id }) => {
+          return (
+            <label key={name} htmlFor={id}>
+              {placeholder}
+              <input
+                id={id}
+                type="number"
+                placeholder={placeholder}
+                value={this.state[name]}
+                onChange={event =>
+                  this.handleInputChange(name, event.target.value)
+                }
+              />
+            </label>
+          );
+        })}
       </div>
     );
   }

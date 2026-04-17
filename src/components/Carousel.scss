@@ -1,1 +1,9 @@
-// style go here
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}

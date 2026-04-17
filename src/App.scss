@@ -1,1 +1,40 @@
-// style go here
+.App {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+
+  h1 {
+    color: #343a40;
+    margin-bottom: 40px;
+  }
+
+  .Carousel {
+    margin-bottom: 40px;
+  }
+
+  input[type="number"] {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    width: 180px;
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #80bdff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &::placeholder {
+      color: #6c757d;
+    }
+  }
+}
