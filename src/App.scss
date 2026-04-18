@@ -1,1 +1,47 @@
-// style go here
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #adf4b9;
+  color: #333;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    color: #212529;
+  }
+
+  label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 15px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(49, 48, 46);
+
+    input {
+      margin-top: 8px;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid #9db8d3;
+      border-radius: 6px;
+      width: 140px;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+      }
+    }
+  }
+}
