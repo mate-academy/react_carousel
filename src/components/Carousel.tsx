@@ -55,7 +55,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 key={index}
                 style={{ width: `${itemWidth}px`, flexShrink: 0 }}
               >
-                <img src={image} alt={`Image ${index + 1}`} width={itemWidth}/>
+                <img src={image} alt={`Image ${index + 1}`} width={itemWidth} />
               </li>
             );
           })}

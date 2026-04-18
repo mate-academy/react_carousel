@@ -30,12 +30,18 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
+  componentDidMount() {
+    document.title = 'Carousel';
+  }
+
   handleInputChange = (name: keyof Omit<State, 'images'>, value: string) => {
     const numValue = parseInt(value);
 
-    this.setState({
-      [name]: numValue,
-    } as unknown as Pick<State, keyof State>);
+    this.setState(prevState => {
+      const finalValue = isNaN(numValue) ? prevState[name] : numValue;
+
+      return { [name]: finalValue } as unknown as Pick<State, keyof State>;
+    });
   };
 
   render() {
