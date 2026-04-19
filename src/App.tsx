@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [itemWidth, setItemWidth] = useState(130);
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
-  const [animationDuration, setAnimationDuration] = useState(1000);
+  const [fnimationDuration, setFnimationDuration] = useState(1000);
   const [infinite, setInfinite] = useState(false);
 
   return (
@@ -74,15 +74,16 @@ const App: React.FC = () => {
         </div>
 
         <div className="settings__field">
-          <label className="settings__label" htmlFor="animationDuration">
+          <label className="settings__label" htmlFor="fnimationId">
             Animation Duration
           </label>
 
           <input
+            id="fnimationId"
             className="settings__input settings__input--animation-duration"
             type="number"
-            defaultValue={animationDuration}
-            onChange={e => setAnimationDuration(Number(e.target.value))}
+            value={fnimationDuration}
+            onChange={e => setFnimationDuration(Number(e.target.value))}
           />
         </div>
       </div>
@@ -92,7 +93,7 @@ const App: React.FC = () => {
         itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
-        animationDuration={animationDuration}
+        fnimationDuration={fnimationDuration}
         infinite={infinite}
       />
 

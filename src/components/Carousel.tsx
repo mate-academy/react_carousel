@@ -3,23 +3,23 @@ import './Carousel.scss';
 
 type CarouselProps = {
   images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  fnimationDuration?: number;
   infinite?: boolean;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
   images,
-  itemWidth,
-  frameSize,
-  step,
-  animationDuration,
-  infinite,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  fnimationDuration = 1000,
+  infinite = false,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const maxIndex = images.length - frameSize;
+  const maxIndex = Math.max(0, images.length - frameSize);
   const offset = startIndex * itemWidth;
   const viewportWidth = itemWidth * frameSize;
 
@@ -62,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({
           className="carousel__list"
           style={{
             transform: `translateX(-${offset}px)`,
-            transition: `transform ${animationDuration}ms`,
+            transition: `transform ${fnimationDuration}ms`,
           }}
         >
           {images.map((image, index) => (
