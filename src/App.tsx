@@ -38,6 +38,7 @@ const App: React.FC = () => {
 
           <input
             id="itemId"
+            name="itemWidth"
             className="settings__input settings__input--width"
             type="number"
             value={itemWidth}
@@ -52,6 +53,7 @@ const App: React.FC = () => {
 
           <input
             id="frameId"
+            name="frameSize"
             className="settings__input settings__input--frame-size"
             type="number"
             value={frameSize}
@@ -66,6 +68,7 @@ const App: React.FC = () => {
 
           <input
             id="stepId"
+            name="step"
             className="settings__input settings__input--step"
             type="number"
             value={step}
@@ -74,12 +77,13 @@ const App: React.FC = () => {
         </div>
 
         <div className="settings__field">
-          <label className="settings__label" htmlFor="fnimationId">
+          <label className="settings__label" htmlFor="fnimationDuration">
             Animation Duration
           </label>
 
           <input
-            id="fnimationId"
+            id="fnimationDuration"
+            name="fnimationDuration"
             className="settings__input settings__input--animation-duration"
             type="number"
             value={fnimationDuration}
@@ -93,7 +97,7 @@ const App: React.FC = () => {
         itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
-        fnimationDuration={fnimationDuration}
+        animationDuration={fnimationDuration}
         infinite={infinite}
       />
 

@@ -6,7 +6,7 @@ type CarouselProps = {
   itemWidth?: number;
   frameSize?: number;
   step?: number;
-  fnimationDuration?: number;
+  animationDuration?: number;
   infinite?: boolean;
 };
 
@@ -15,7 +15,7 @@ const Carousel: React.FC<CarouselProps> = ({
   itemWidth = 130,
   frameSize = 3,
   step = 3,
-  fnimationDuration = 1000,
+  animationDuration = 1000,
   infinite = false,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
@@ -62,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({
           className="carousel__list"
           style={{
             transform: `translateX(-${offset}px)`,
-            transition: `transform ${fnimationDuration}ms`,
+            transition: `transform ${animationDuration}ms`,
           }}
         >
           {images.map((image, index) => (
