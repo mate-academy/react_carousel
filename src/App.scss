@@ -1,1 +1,51 @@
-// style go here
+.title {
+  display: flex;
+  padding-block: 20px;
+  justify-content: center;
+}
+
+.settings {
+  margin: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+
+  &__field {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__input {
+    padding: 8px 10px;
+    border: 1px solid #b8b6b6;
+    border-radius: 8px;
+    font-size: 14px;
+    background: rgb(250, 251, 252);
+
+    outline: none;
+
+    &:focus {
+      border-color: #e6b1b1;
+    }
+  }
+
+  &__label {
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+.infinite__label {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+

@@ -1,1 +1,28 @@
-// style go here
+.carousel {
+  margin: 0 auto;
+  max-width: 1300px;
+  display: flex;
+  justify-content: center;
+
+  &__viewport {
+    width: 260px;
+
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+
+    list-style: none;
+  }
+}
+
+.button {
+  background: white;
+  box-shadow: 0 5px 7px rgba(10, 8, 8, 0.2);
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
