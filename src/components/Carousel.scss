@@ -1,1 +1,24 @@
 // style go here
+.Carousel {
+
+  &__list {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  &__button {
+    border-radius: 5px;
+    margin: 5px;
+
+    &--prev {
+      background-color: rgb(249, 216, 216);
+    }
+
+    &--next {
+      background-color: rgb(216, 249, 223);
+    }
+  }
+}
+
+
+
