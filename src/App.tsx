@@ -46,9 +46,10 @@ export const App: React.FC = () => {
         </div>
 
         <div className="control-group">
-          <label htmlFor="animationDuration">animationDuration</label>
+          {/*...*/}
+          <label htmlFor="fnimationDuration">fnimationDuration</label>
           <input
-            id="animationDuration"
+            id="fnimationDuration"
             type="number"
             value={duration}
             onChange={e => setDuration(+e.target.value)}
