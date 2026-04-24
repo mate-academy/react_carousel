@@ -1,1 +1,22 @@
 // style go here
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 15px;
+
+  &__wrapper {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: 20px;
+  }
+
+  &__input {
+    height: 20px;
+  }
+}
