@@ -1,1 +1,13 @@
-// style go here
+.Carousel__viewport {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
