@@ -1,1 +1,45 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-img {
+    height: 130px;
+  }
+}
+
+.Container {
+  overflow: hidden;
+}
+
+.button {
+  border: 2px solid;
+  border-radius: 50%;
+  border-color: aquamarine;
+  background-color: whitesmoke;
+  height: 50px;
+  width: 50px;
+}
+
+.disabled {
+  border: 2px solid;
+  border-radius: 50px;
+  border-color: rgb(116, 115, 115);
+  background-color: rgb(231, 68, 68);
+
+  cursor: not-allowed;
+}
+
+.input {
+  margin-right: 5px;
+  width: 200px;
+  border-radius: 15px;
+}
