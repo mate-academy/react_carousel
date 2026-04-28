@@ -1,1 +1,38 @@
-// style go here
+.App {
+  padding: 20px;
+  font-family: sans-serif;
+  text-align: center;
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input {
+      padding: 5px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 80px;
+
+      &:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      }
+    }
+  }
+}
