@@ -74,10 +74,19 @@ export const Carousel: React.FC<Props> = ({
         </ul>
       </div>
 
-      <button type="button" onClick={handlePrev}>
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={!infinite && currentOffset === 0}
+      >
         Prev
       </button>
-      <button type="button" onClick={handleNext} data-cy="next">
+      <button
+        type="button"
+        onClick={handleNext}
+        data-cy="next"
+        disabled={!infinite && currentOffset === maxOffset}
+      >
         Next
       </button>
     </div>
