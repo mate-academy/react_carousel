@@ -8,6 +8,7 @@ interface Props {
   frameSize?: number;
   step?: number;
   animationDuration?: number;
+  infinite?: boolean; // Додано властивість
 }
 
 const Carousel: React.FC<Props> = ({
@@ -16,17 +17,35 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
+  infinite = false, // Значення за замовчуванням
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const maxIndex = Math.max(0, images.length - frameSize);
 
   const handleNext = () => {
-    setCurrentIndex(prev => Math.min(prev + step, maxIndex));
+    setCurrentIndex((prev) => {
+      const nextIndex = prev + step;
+
+      if (nextIndex > maxIndex) {
+        // Якщо нескінченно — перекидаємо на початок, інакше — стоп на максимумі
+        return infinite ? 0 : maxIndex;
+      }
+
+      return nextIndex;
+    });
   };
 
   const handlePrev = () => {
-    setCurrentIndex(prev => Math.max(prev - step, 0));
+    setCurrentIndex((prev) => {
+      const nextIndex = prev - step;
+
+      if (nextIndex < 0) {
+        // Якщо нескінченно — перекидаємо в кінець, інакше — стоп на 0
+        return infinite ? maxIndex : 0;
+      }
+
+      return nextIndex;
+    });
   };
 
   const offset = currentIndex * itemWidth;
@@ -37,12 +56,13 @@ const Carousel: React.FC<Props> = ({
         <button
           type="button"
           className={classNames('Carousel__btn', {
-            disabled: currentIndex === 0,
+            // Кнопка ніколи не disabled, якщо ввімкнено infinite
+            disabled: !infinite && currentIndex === 0,
           })}
           onClick={handlePrev}
-          disabled={currentIndex === 0}
+          disabled={!infinite && currentIndex === 0}
         >
-          Prev
+          &lt;
         </button>
 
         <div
@@ -57,26 +77,20 @@ const Carousel: React.FC<Props> = ({
             }}
           >
             {images.map((url, index) => {
-              // Перевірка: чи знаходиться картинка в поточному "кадрі"
               const isVisible = index >= currentIndex && index < currentIndex + frameSize;
 
               return (
                 <li
-                  key={url}
+                  key={`${url}-${index}`}
                   className="Carousel__item"
                   style={{
                     minWidth: itemWidth,
                     maxWidth: itemWidth,
-                    // Якщо картинка поза кадром — робимо її повністю прозорою для Cypress
                     opacity: isVisible ? 1 : 0,
                     transition: `opacity ${animationDuration}ms`,
                   }}
                 >
-                  <img
-                    src={url}
-                    alt={`img-${index + 1}`}
-                    width={itemWidth}
-                  />
+                  <img src={url} alt={`img-${index + 1}`} width={itemWidth} />
                 </li>
               );
             })}
@@ -87,12 +101,12 @@ const Carousel: React.FC<Props> = ({
           type="button"
           data-cy="next"
           className={classNames('Carousel__btn', {
-            disabled: currentIndex >= maxIndex,
+            disabled: !infinite && currentIndex >= maxIndex,
           })}
           onClick={handleNext}
-          disabled={currentIndex >= maxIndex}
+          disabled={!infinite && currentIndex >= maxIndex}
         >
-          Next
+          &gt;
         </button>
       </div>
     </div>

@@ -12,6 +12,7 @@ export const App: React.FC = () => {
   const [frameSize, setFrameSize] = useState(3);
   const [step, setStep] = useState(3);
   const [animationDuration, setAnimationDuration] = useState(1000);
+  const [infinite, setInfinite] = useState(false);
 
   return (
     <div className="App">
@@ -19,7 +20,7 @@ export const App: React.FC = () => {
 
       <div className="controls">
         <label htmlFor="itemId">
-          Width:
+          itemWidth:
           <input
             id="itemId"
             type="number"
@@ -29,7 +30,7 @@ export const App: React.FC = () => {
         </label>
 
         <label htmlFor="frameId">
-          Frame:
+          frameSize:
           <input
             id="frameId"
             type="number"
@@ -39,7 +40,7 @@ export const App: React.FC = () => {
         </label>
 
         <label htmlFor="stepId">
-          Step:
+          step:
           <input
             id="stepId"
             type="number"
@@ -49,11 +50,20 @@ export const App: React.FC = () => {
         </label>
 
         <label>
-          Anim:
+          animationDuration:
           <input
             type="number"
             value={animationDuration}
             onChange={e => setAnimationDuration(Number(e.target.value))}
+          />
+        </label>
+
+        <label>
+          Infinite:
+          <input
+            type="checkbox"
+            checked={infinite}
+            onChange={e => setInfinite(e.target.checked)}
           />
         </label>
       </div>
@@ -64,6 +74,7 @@ export const App: React.FC = () => {
         frameSize={frameSize}
         step={step}
         animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );
