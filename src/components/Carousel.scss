@@ -1,1 +1,43 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__frame {
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ccc;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-direction: row;
+  }
+
+  &__item {
+    flex-shrink: 0; // ВАЖЛИВО: щоб li не стискалися
+    display: flex;
+    justify-content: center;
+
+    img {
+      display: block;
+      height: auto;
+    }
+  }
+
+  &__btn {
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
