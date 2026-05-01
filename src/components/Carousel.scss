@@ -1,1 +1,12 @@
-// style go here
+.Carousel {
+  width: 260px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+  }
+
+  &__inputs {
+    width: 25%;
+  }
+}
