@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  display: flex;
+
+  & button {
+    padding: 14px;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:not(:disabled):hover {
+      background-color: #dcdcdc;
+    }
+  }
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+}
