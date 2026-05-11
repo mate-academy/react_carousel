@@ -1,26 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth,
+  frameSize,
+  step,
+  animationDuration,
+  infinite,
+}) => {
+  const [index, setIndex] = useState(0);
+  const gap = 10;
+
+  const handleNext = () => {
+    if (index + frameSize < images.length) {
+      setIndex(prev => Math.min(prev + step, images.length - frameSize));
+    } else if (infinite) {
+      setIndex(0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (index > 0) {
+      setIndex(prev => Math.max(prev - step, 0));
+    } else if (infinite) {
+      setIndex(images.length - frameSize);
+    }
+  };
+
+  const translateX = -index * (itemWidth + gap);
+
+  return (
+    <div className="carousel">
+      <button
+        type="button"
+        onClick={handlePrev}
+        className={!infinite && index === 0 ? 'disabled' : ''}
+      >
+        <i className="fa fa-arrow-left" />
+      </button>
+
+      <div
+        className="container"
+        style={{ width: `${frameSize * itemWidth + (frameSize - 1) * gap}px` }}
+      >
+        <ul
+          className="carousel__list"
+          style={{
+            width: `${images.length * itemWidth + (images.length - 1) * gap}px`,
+            transform: `translateX(${translateX}px)`,
+            transition: `transform ${animationDuration}ms ease`,
+          }}
+        >
+          {images.map((src, i) => (
+            <li key={i}>
+              <img
+                src={src}
+                alt={`Image ${i + 1}`}
+                width={itemWidth}
+                height={itemWidth}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        type="button"
+        data-cy="next"
+        onClick={handleNext}
+        className={
+          !infinite && index === images.length - frameSize ? 'disabled' : ''
+        }
+      >
+        <i className="fa fa-arrow-right" />
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;

@@ -1,1 +1,32 @@
-// style go here
+.App {
+  padding: 20px;
+  font-family: sans-serif;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #424242;
+
+    input {
+      width: 50px;
+      padding: 4px 8px;
+      border: 1px solid #cdcdcd;
+      border-radius: 4px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: #8c8c8c;
+      }
+    }
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
