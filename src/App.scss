@@ -1,1 +1,97 @@
-// style go here
+.App {
+  text-align: center;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+/* Панель для інпутів */
+.Config-Panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px auto 40px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  max-width: 800px;
+}
+
+.Config-Panel label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+}
+
+.Config-Panel input[type="number"] {
+  margin-top: 5px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.Config-Panel .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 22px; /* вирівнювання з іншими інпутами */
+}
+
+/* Контейнер каруселі */
+.Carousel-Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.Carousel__frame {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Carousel__list li,
+.Carousel__list img {
+  display: block;
+}
+
+/* Кнопки-стрілки */
+.Carousel__btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.Carousel__btn:hover:not(:disabled) {
+  background: #000;
+}
+
+
+.Carousel__btn.disabled {
+  background: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
