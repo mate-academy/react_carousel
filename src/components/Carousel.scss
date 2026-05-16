@@ -1,1 +1,8 @@
-// style go here
+.Carousel {
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
