@@ -1,1 +1,49 @@
-// style go here
+.App {
+  font-family: sans-serif;
+  max-width: 1300px; // Широкий контейнер, щоб помістилася карусель
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Вирівнюємо весь вміст по центру
+}
+
+h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.Settings {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: bold;
+    color: #495057;
+
+    input {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      width: 120px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #80bdff;
+      }
+    }
+  }
+}
