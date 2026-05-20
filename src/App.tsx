@@ -33,7 +33,6 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
-  // Універсальний обробник для всіх числових інпутів
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -48,11 +47,9 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {/* Тест шукає слово "Carousel" англійською */}
         <h1 data-cy="title">Carousel</h1>
 
         <div className="Settings">
-          {/* Додаємо htmlFor та id="itemId" */}
           <label htmlFor="itemId">
             itemWidth (px):
             <input
@@ -64,7 +61,6 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          {/* Додаємо htmlFor та id="frameId" */}
           <label htmlFor="frameId">
             frameSize:
             <input
@@ -76,7 +72,6 @@ class App extends React.Component<{}, State> {
             />
           </label>
 
-          {/* Додаємо htmlFor та id="stepId" */}
           <label htmlFor="stepId">
             step:
             <input
@@ -105,7 +100,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-          infinite // Залишаємо, якщо це не ламає інші тести
+          infinite={false}
         />
       </div>
     );
