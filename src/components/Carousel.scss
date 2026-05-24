@@ -1,1 +1,28 @@
-// style go here
+.Carousel {
+  display: grid;
+  gap: 16px;
+}
+
+.Carousel__frame {
+  overflow: hidden;
+}
+
+.Carousel__track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition-property: transform;
+  transition-timing-function: ease;
+}
+
+.Carousel__slide {
+  flex: 0 0 auto;
+}
+
+.Carousel__actions {
+  display: flex;
+  gap: 12px;
+}

@@ -1,1 +1,15 @@
-// style go here
+.App {
+  padding: 24px;
+}
+
+.App__controls {
+  display: grid;
+  gap: 12px;
+  width: fit-content;
+  margin-bottom: 24px;
+}
+
+.App__field {
+  display: grid;
+  gap: 4px;
+}
