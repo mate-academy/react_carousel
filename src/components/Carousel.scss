@@ -1,1 +1,42 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  &__slider {
+    overflow: hidden;
+  }
+
+  &__list {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      transition-property: transform;
+      transition-timing-function: ease;
+  }
+
+  &__item {
+    flex-shrink:0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 390px;
+  }
+
+  &__button {
+    cursor: pointer;
+
+    &.disabled,
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+
+}
