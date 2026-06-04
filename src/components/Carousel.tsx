@@ -21,14 +21,21 @@ const Carousel: React.FC<Props> = ({
   const [index, setIndex] = React.useState(0);
   const maxIndex = Math.max(0, images.length - frameSize);
 
+  // Скидаємо індекс на безпечний, якщо міняються розміри вікна або масив
+  React.useEffect(() => {
+    if (index > maxIndex) {
+      setIndex(maxIndex);
+    }
+  }, [maxIndex, index]);
+
   return (
     <>
       <div className="Carousel">
         <button
           onClick={() => {
             if (index - step < 0) {
-              if (infinite) {
-                setIndex(maxIndex);
+              if (infinite && index === 0) {
+                setIndex(maxIndex); // Перекид на кінець тільки якщо ми ВЖЕ в нулі
               } else {
                 setIndex(0);
               }
@@ -54,7 +61,7 @@ const Carousel: React.FC<Props> = ({
               margin: 0,
               listStyle: 'none',
               transform: `translateX(-${index * itemWidth}px)`,
-              transition: `transform ${animationDuration}ms`,
+              transition: `transform ${animationDuration}ms ease-in-out`,
             }}
           >
             {images.map((e, i) => (
@@ -69,7 +76,6 @@ const Carousel: React.FC<Props> = ({
                 <img
                   src={e}
                   alt="image"
-                  width={itemWidth}
                   style={{ width: '100%', display: 'block' }}
                 />
               </li>
@@ -79,8 +85,8 @@ const Carousel: React.FC<Props> = ({
         <button
           onClick={() => {
             if (index + step > maxIndex) {
-              if (infinite) {
-                setIndex(0);
+              if (infinite && index === maxIndex) {
+                setIndex(0); // Перекид на початок тільки якщо ми ВЖЕ в макс. індексі
               } else {
                 setIndex(maxIndex);
               }

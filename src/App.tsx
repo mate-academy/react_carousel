@@ -9,6 +9,7 @@ interface State {
   frameSize: number;
   step: number;
   animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -29,6 +30,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: false, // за дефолтом false за ТЗ
   };
 
   handleWidthChange = (newWidth: number) => {
@@ -47,8 +49,12 @@ class App extends React.Component<{}, State> {
     this.setState({ animationDuration: newAnimation });
   };
 
+  handleInfiniteChange = (value: boolean) => {
+    this.setState({ infinite: value });
+  };
+
   render() {
-    const { images, itemWidth, frameSize, step, animationDuration } =
+    const { images, itemWidth, frameSize, step, animationDuration, infinite } =
       this.state;
 
     return (
@@ -61,10 +67,12 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          infinite={infinite}
           onChangeWidth={this.handleWidthChange}
           onChangeSize={this.handleSizeChange}
           onChangeStep={this.handleStepChange}
           onChangeAnimation={this.handleAnimationChange}
+          onChangeInfinite={this.handleInfiniteChange}
         />
 
         <Carousel
@@ -73,6 +81,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          infinite={infinite} // Проп тепер передається!
         />
       </div>
     );
