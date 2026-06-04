@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Carousel.scss';
-import cn from 'classnames';
 
 interface CarouselProps {
   images: string[];
@@ -16,7 +15,7 @@ const Carousel: React.FC<CarouselProps> = ({
   step = 3,
   frameSize = 3,
   itemWidth = 130,
-  animationDuration,
+  animationDuration = 1000,
   infinite = false,
 }) => {
   const [currentImage, setCurrentImage] = useState(1);
