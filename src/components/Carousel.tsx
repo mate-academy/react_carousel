@@ -64,7 +64,7 @@ const Carousel: React.FC<Props> = ({
               transition: `transform ${animationDuration}ms ease-in-out`,
             }}
           >
-            {images.map((e, i) => (
+            {images.map((url, i) => (
               <li
                 key={i}
                 style={{
@@ -74,8 +74,9 @@ const Carousel: React.FC<Props> = ({
                 }}
               >
                 <img
-                  src={e}
+                  src={url}
                   alt="image"
+                  width={itemWidth}
                   style={{ width: '100%', display: 'block' }}
                 />
               </li>
