@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import Form from './components/Form';
 
 interface State {
   images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,55 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+  };
+
+  handleWidthChange = (newWidth: number) => {
+    this.setState({ itemWidth: newWidth });
+  };
+
+  handleSizeChange = (newSize: number) => {
+    this.setState({ frameSize: newSize });
+  };
+
+  handleStepChange = (newStep: number) => {
+    this.setState({ step: newStep });
+  };
+
+  handleAnimationChange = (newAnimation: number) => {
+    this.setState({ animationDuration: newAnimation });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, step, animationDuration } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <Form
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          onChangeWidth={this.handleWidthChange}
+          onChangeSize={this.handleSizeChange}
+          onChangeStep={this.handleStepChange}
+          onChangeAnimation={this.handleAnimationChange}
+        />
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
