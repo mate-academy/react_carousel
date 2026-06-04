@@ -1,1 +1,30 @@
-// style go here
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.Carousel {
+  &__wrapper {
+    border: 1px solid #ab6161;
+    border-radius: 20px;
+    background-color: #d4c8c8;
+    overflow: hidden;
+  }
+
+  &__button-wrapper {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    width: 100px;
+  }
+
+  &__list {
+    display: flex;
+    width: 390px;
+    height: 130px;
+  }
+}
