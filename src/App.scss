@@ -1,1 +1,27 @@
 // style go here
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__form {
+    margin-top: 20px;
+  }
+
+  &__Carousel {
+    margin-top: 40px;
+  }
+}
+
+.form {
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+
+  &__input {
+    width: 100px;
+    height: 20px;
+  }
+}
