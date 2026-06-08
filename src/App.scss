@@ -1,1 +1,29 @@
-// style go here
+.app {
+  font-family: sans-serif;
+  text-align: center;
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 50px;
+
+    label {
+      display: flex;
+      font-size: 15px;
+      align-items: center;
+
+      input {
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid #ccc;
+      }
+
+      input[type="checkbox"] {
+        flex-direction: row;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
