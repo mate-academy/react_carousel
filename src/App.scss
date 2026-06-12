@@ -1,1 +1,28 @@
-// style go here
+.App {
+  padding: 40px 24px;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(5, 160px);
+  gap: 12px;
+  margin-bottom: 24px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &--checkbox {
+      input {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+      }
+    }
+  }
+
+}
