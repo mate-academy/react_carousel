@@ -1,26 +1,110 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-export default Carousel;
+  const handlePrev = () => {
+    const maxIndex = images.length - frameSize;
+
+    if (currentIndex - step < 0 && infinite === true) {
+      setCurrentIndex(maxIndex);
+    } else {
+      setCurrentIndex(Math.max(0, currentIndex - step));
+    }
+  };
+
+  const handleNext = () => {
+    const maxIndex = images.length - frameSize;
+
+    if (infinite === true && currentIndex + step > maxIndex) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(Math.min(maxIndex, currentIndex + step));
+    }
+  };
+
+  return (
+    <div
+      className="Carousel"
+      style={{ display: 'flex', alignItems: 'center', gap: '20px' }}
+    >
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={currentIndex === 0 && !infinite}
+        className={currentIndex === 0 && !infinite ? 'disabled' : ''}
+        data-cy="prev"
+      >
+        &lt;
+      </button>
+
+      <div
+        className="Cariusel__window"
+        style={{
+          width: frameSize * itemWidth,
+          overflow: 'hidden',
+          flexShrink: 0,
+        }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            display: 'flex',
+            transform: `translateX(-${currentIndex * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map(image => (
+            <li
+              key={image}
+              style={{
+                width: itemWidth,
+                padding: '0 5px',
+                boxSizing: 'border-box',
+                flexShrink: 0,
+              }}
+            >
+              <img
+                src={image}
+                alt="carousel item"
+                width={itemWidth}
+                style={{ display: 'block' }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        onClick={handleNext}
+        disabled={currentIndex === images.length - frameSize && !infinite}
+        className={
+          currentIndex === images.length - frameSize && !infinite
+            ? 'disabled'
+            : ''
+        }
+        data-cy="next"
+      >
+        &gt;
+      </button>
+    </div>
+  );
+};
