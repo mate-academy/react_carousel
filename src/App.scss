@@ -1,1 +1,13 @@
-// style go here
+.App {
+  width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
+
+  &__controls {
+    display: grid;
+    grid-template-columns: repeat(2, max-content 150px);
+    gap: 12px;
+
+    padding-block: 0 20px;
+  }
+}
