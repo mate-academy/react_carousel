@@ -48,13 +48,7 @@ const Carousel: React.FC<Props> = ({
   };
 
   return (
-    <div
-      className="Carousel"
-      style={{
-        width: `${frameSize * itemWidth}px`,
-        overflow: `hidden`,
-      }}
-    >
+    <div className="Carousel">
       <button
         type="button"
         onClick={handlePrev}

@@ -3,11 +3,13 @@
     display: flex;
     gap: 24px;
     margin-bottom: 24px;
+    justify-content: center;
   }
+
   &__field {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    text-align: left;
   }
 }
-

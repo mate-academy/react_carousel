@@ -42,56 +42,62 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel</h1>
 
-        <label htmlFor="itemId">
-          Item Width:
-          <input
-            id="itemId"
-            type="number"
-            value={itemWidth || ''}
-            onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
-          />
-        </label>
+        <div className="App__controls">
+          <label htmlFor="itemId" className="App__field">
+            Item Width:
+            <input
+              id="itemId"
+              type="number"
+              value={itemWidth || ''}
+              onChange={e =>
+                this.setState({ itemWidth: Number(e.target.value) })
+              }
+            />
+          </label>
 
-        <label htmlFor="frameId">
-          Frame Size:
-          <input
-            id="frameId"
-            type="number"
-            value={frameSize || ''}
-            onChange={e => this.setState({ frameSize: Number(e.target.value) })}
-          />
-        </label>
+          <label htmlFor="frameId" className="App__field">
+            Frame Size:
+            <input
+              id="frameId"
+              type="number"
+              value={frameSize || ''}
+              onChange={e =>
+                this.setState({ frameSize: Number(e.target.value) })
+              }
+            />
+          </label>
 
-        <label htmlFor="stepId">
-          Step:
-          <input
-            id="stepId"
-            type="number"
-            value={step || ''}
-            onChange={e => this.setState({ step: Number(e.target.value) })}
-          />
-        </label>
+          <label htmlFor="stepId" className="App__field">
+            Step:
+            <input
+              id="stepId"
+              type="number"
+              value={step || ''}
+              onChange={e => this.setState({ step: Number(e.target.value) })}
+            />
+          </label>
 
-        <label htmlFor="animationDurationId">
-          Animation Duration:
-          <input
-            id="animationDurationId"
-            type="number"
-            value={animationDuration || ''}
-            onChange={e =>
-              this.setState({ animationDuration: Number(e.target.value) })
-            }
-          />
-        </label>
+          <label htmlFor="fnimationDurationId" className="App__field">
+            Fnimation Duration:
+            <input
+              id="fnimationDurationId"
+              type="number"
+              value={animationDuration || ''}
+              onChange={e =>
+                this.setState({ animationDuration: Number(e.target.value) })
+              }
+            />
+          </label>
 
-        <label>
-          Infinite:
-          <input
-            type="checkbox"
-            checked={infinite}
-            onChange={e => this.setState({ infinite: e.target.checked })}
-          />
-        </label>
+          <label className="App__field">
+            Infinite:
+            <input
+              type="checkbox"
+              checked={infinite}
+              onChange={e => this.setState({ infinite: e.target.checked })}
+            />
+          </label>
+        </div>
 
         <Carousel
           images={images}
