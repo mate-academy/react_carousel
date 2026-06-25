@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './Carousel.scss';
+import classNames from 'classnames';
 
 interface Props {
   images: string[];
@@ -51,9 +52,9 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <button
         type="button"
+        className={classNames('Carousel__btn', { disabled: isPrevDisabled })}
         onClick={handlePrev}
         disabled={isPrevDisabled}
-        className={isPrevDisabled ? 'disabled' : ''}
       >
         Prev
       </button>
@@ -83,9 +84,9 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="next"
+        className={classNames('Carousel__btn', { disabled: isNextDisabled })}
         onClick={handleNext}
         disabled={isNextDisabled}
-        className={isNextDisabled ? 'disabled' : ''}
       >
         Next
       </button>
