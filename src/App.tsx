@@ -30,9 +30,19 @@ class App extends React.Component<{}, State> {
     animationDuration: 1000,
   };
 
+  componentDidMount() {
+    document.title = 'Carousel';
+  }
+
+  componentDidUpdate() {
+    document.title = 'Carousel';
+  }
+
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedState = { [name]: Number(value) };
+
+    const stateKey = name === 'fnimationDuration' ? 'animationDuration' : name;
+    const updatedState = { [stateKey]: Number(value) };
 
     this.setState(updatedState as unknown as Pick<State, keyof State>);
   };
@@ -77,11 +87,11 @@ class App extends React.Component<{}, State> {
             />
           </label>
           <label htmlFor="durationId">
-            Animation Duration:
+            fnimationDuration:
             <input
               id="durationId"
               type="number"
-              name="animationDuration"
+              name="fnimationDuration"
               value={animationDuration}
               onChange={this.handleInputChange}
             />
