@@ -1,1 +1,12 @@
-// style go here
+.container {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  min-width: 0;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
