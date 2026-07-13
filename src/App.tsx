@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
 
@@ -7,6 +7,11 @@ const App = () => {
   const [frameSize, setFrameSize] = useState<number>(3);
   const [step, setStep] = useState<number>(3);
   const [animationDuration, setAnimationDuration] = useState<number>(1000);
+  const [infinite, setInfinite] = useState<boolean>(false);
+
+  useEffect(() => {
+    document.title = 'Carousel';
+  }, []);
 
   const images = [
     './img/1.png',
@@ -22,11 +27,11 @@ const App = () => {
   ];
 
   return (
-    <div className="App">
+    <div className="app">
       {/* eslint-disable-next-line */}
       <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-      <div className="App__controls">
+      <div className="app__controls">
         <label htmlFor="itemId">
           <strong>Item Width (px):</strong>
         </label>
@@ -66,6 +71,16 @@ const App = () => {
           value={animationDuration}
           onChange={event => setAnimationDuration(+event.target.value)}
         />
+
+        <label htmlFor="infiniteId">
+          <strong>Infinite Mode:</strong>
+        </label>
+        <input
+          id="infiniteId"
+          type="checkbox"
+          checked={infinite}
+          onChange={event => setInfinite(event.target.checked)}
+        />
       </div>
 
       <Carousel
@@ -74,6 +89,7 @@ const App = () => {
         frameSize={frameSize}
         step={step}
         animationDuration={animationDuration}
+        infinite={infinite}
       />
     </div>
   );
