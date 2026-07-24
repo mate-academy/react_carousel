@@ -1,1 +1,33 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition-property: transform;
+    transition-timing-function: ease;
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+
+  &__image {
+    display: block;
+    height: auto;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+}

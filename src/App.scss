@@ -1,1 +1,22 @@
-// style go here
+.App {
+  padding: 30px;
+  text-align: center;
+
+  &__settings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    input[type='number'] {
+      width: 100px;
+    }
+  }
+}
