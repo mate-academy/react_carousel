@@ -1,1 +1,30 @@
-// style go here
+.Carousel {
+  width: 390px;
+
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    width: 1300px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    width: 130px;
+    height: 130px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
