@@ -1,0 +1,27 @@
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.carousel__frame {
+  overflow: hidden;
+}
+
+.carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition-property: transform;
+  transition-timing-function: ease;
+}
+
+.carousel__item {
+  flex-shrink: 0;
+}
+
+.carousel__image {
+  display: block;
+  width: 100%;
+}
