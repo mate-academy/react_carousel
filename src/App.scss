@@ -1,1 +1,19 @@
-// style go here
+.App{
+
+  &__controls{
+    max-width: 1300px;
+    margin:  0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  &__input{
+    display: flex;
+    gap: 5px;
+  }
+}
+
+h1{
+  text-align: center;
+}
