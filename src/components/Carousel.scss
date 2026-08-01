@@ -1,1 +1,24 @@
-// style go here
+.Carousel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__frame{
+    overflow: hidden;
+  }
+
+  &__list{
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+  }
+
+  &__item{
+    list-style-type: none;
+  }
+
+  &__img{
+    height: auto;
+    object-fit: contain;
+  }
+}
