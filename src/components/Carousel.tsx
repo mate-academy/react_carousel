@@ -32,7 +32,7 @@ const Carousel: React.FC<Props> = ({
 
   const handlePrev = () => {
     if (infinite) {
-      setCurrentIndex((currentIndex - step) % images.length);
+      setCurrentIndex(((currentIndex - step) % images.length + images.length) % images.length);
     } else {
       setCurrentIndex(Math.max(0, currentIndex - step));
     }
