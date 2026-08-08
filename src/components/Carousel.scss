@@ -1,1 +1,56 @@
 // style go here
+.Carousel {
+    width: fit-content;
+}
+
+.Carousel__frame {
+    overflow: hidden;
+}
+
+.Carousel__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.CarouselSettings {
+    display: grid;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.CarouselSettings label {
+    display: grid;
+    grid-template-columns: 190px 100px;
+    align-items: center;
+    gap: 12px;
+}
+
+.CarouselSettings input {
+    background-color: bisque;
+    border-radius: 8px;
+    color: blueviolet;
+}
+
+.Carousel__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.Carousel__buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: bisque;
+    color:blueviolet;
+    border-radius: 8px;
+}
+
+.Carousel__buttons button:disabled {
+    color: #888;
+    background-color: #eee;
+    border-color: #bbb;
+    cursor: not-allowed;
+}

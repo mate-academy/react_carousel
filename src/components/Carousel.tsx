@@ -1,26 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  itemWidth = 130,
+  frameSize = 3,
+  step = 3,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [firstVisibleIndex, setFirstVisibleIndex] = useState(0);
+  const maxFirstVisibleIndex = Math.max(images.length - frameSize, 0);
+  const safeFirstVisibleIndex = Math.min(
+    firstVisibleIndex,
+    maxFirstVisibleIndex,
+  );
+  const offset = safeFirstVisibleIndex * itemWidth;
+  const isPrevDisabled = !infinite && safeFirstVisibleIndex === 0;
+  const isNextDisabled =
+    !infinite && safeFirstVisibleIndex === maxFirstVisibleIndex;
+
+  return (
+    <div className="Carousel">
+      <div className="Carousel__frame" style={{ width: itemWidth * frameSize }}>
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(-${offset}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map(image => (
+            <li key={image}>
+              <img src={image} alt={image} width={itemWidth} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="Carousel__buttons">
+        <button
+          type="button"
+          className={isPrevDisabled ? 'disabled' : ''}
+          onClick={() => {
+            setFirstVisibleIndex(
+              infinite && safeFirstVisibleIndex === 0
+                ? maxFirstVisibleIndex
+                : Math.max(safeFirstVisibleIndex - step, 0),
+            );
+          }}
+          disabled={isPrevDisabled}
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          data-cy="next"
+          className={isNextDisabled ? 'disabled' : ''}
+          onClick={() => {
+            setFirstVisibleIndex(
+              infinite && safeFirstVisibleIndex === maxFirstVisibleIndex
+                ? 0
+                : Math.min(safeFirstVisibleIndex + step, maxFirstVisibleIndex),
+            );
+          }}
+          disabled={isNextDisabled}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Carousel;
