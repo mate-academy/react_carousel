@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({
   images,
-  step= 3,
+  step = 3,
   frameSize = 3,
   itemWidth = 130,
   animationDuration = 1000,
@@ -26,7 +26,8 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <div className="Carousel">
-      <div className="Carousel__window"
+      <div
+        className="Carousel__window"
         style={{ width: `${frameSize * itemWidth}px` }}
       >
         <ul
@@ -55,7 +56,7 @@ const Carousel: React.FC<Props> = ({
         onClick={() => {
           if (currentWidth === 0) {
             if (infinite) {
-              setCurrentWidth(diff)
+              setCurrentWidth(diff);
             } else {
               setCurrentWidth(0);
             }

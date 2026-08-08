@@ -7,67 +7,79 @@ interface State {
   step: number;
   itemWidth: number;
   frameSize: number;
+  animationDuration: number;
 }
 
 class App extends React.Component<{}, State> {
   state = {
-    images: Array.from(
-      { length: 10 },
-      (_, index) =>  (index + 1).toString(),
-    ),
+    images: Array.from({ length: 10 }, (_, index) => (index + 1).toString()),
     step: 3,
     itemWidth: 130,
     frameSize: 3,
+    animationDuration: 1000,
   };
 
   render() {
-    const { images, step, itemWidth, frameSize} = this.state;
-
+    const { images, step, itemWidth, frameSize, animationDuration } = this.state;
 
     return (
       <div className="App">
         <h1 data-cy="title">Carousel</h1>
         {/* eslint-disable-next-line */}
           {/* ЕЛЕМЕНТИ УПРАВЛІННЯ - те, що шукають тести */}
-      <div>
-        <label htmlFor="stepId">Step: </label>
-        <input
-          id="stepId"
-          data-cy="step"
-          type="number"
-          value={step}
-          onChange={(e) => this.setState({ step: Number(e.target.value) })}
-        />
-      </div>
+        <div>
+          <label htmlFor="stepId">Step: </label>
+          <input
+            id="stepId"
+            data-cy="step"
+            type="number"
+            value={step}
+            onChange={e => this.setState({ step: Number(e.target.value) })}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="itemId">Item Width: </label>
-        <input
-          id="itemId"
-          data-cy="item"
-          type="number"
-          value={itemWidth}
-          onChange={(e) => this.setState({ itemWidth: Number(e.target.value) })}
-        />
-      </div>
+        <div>
+          <label htmlFor="itemId">Item Width: </label>
+          <input
+            id="itemId"
+            data-cy="item"
+            type="number"
+            value={itemWidth}
+            onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="frameId">Frame Size: </label>
-        <input
-          id="frameId"
-          data-cy="frame"
-          type="number"
-          value={frameSize}
-          onChange={(e) => this.setState({ frameSize: Number(e.target.value) })}
-        />
+        <div>
+          <label htmlFor="frameId">Frame Size: </label>
+          <input
+            id="frameId"
+            data-cy="frame"
+            type="number"
+            value={frameSize}
+            onChange={e => this.setState({ frameSize: Number(e.target.value) })}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="animationId">Animation Duration: </label>
+          <input
+            id="animationId"
+            data-cy="animation"
+            type="number"
+            value={animationDuration}
+            onChange={(e) =>
+              this.setState({ animationDuration: Number(e.target.value) })
+            }
+          />
         </div>
 
         <Carousel
-        images={images}
-        step={step}
-        frameSize={frameSize}
-        itemWidth={itemWidth}
-      />
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+        />
       </div>
     );
   }
