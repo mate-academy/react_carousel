@@ -1,1 +1,9 @@
 // style go here
+.Carousel__list {
+  display: flex;
+  flex-direction: row;
+}
+
+.Carousel__window {
+  overflow: hidden;
+}
