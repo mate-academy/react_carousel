@@ -16,15 +16,24 @@ const Carousel: React.FC<CarouselProps> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
+  infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const handleNext = () => {
-    setCurrentIndex(Math.min(currentIndex + step, images.length - frameSize));
+    if (infinite && currentIndex >= images.length - frameSize) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(Math.min(currentIndex + step, images.length - frameSize));
+    }
   };
 
   const handlePrev = () => {
-    setCurrentIndex(Math.max(currentIndex - step, 0));
+    if (infinite && currentIndex === 0) {
+      setCurrentIndex(images.length - frameSize);
+    } else {
+      setCurrentIndex(Math.max(currentIndex - step, 0));
+    }
   };
 
   return (

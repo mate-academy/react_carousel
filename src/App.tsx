@@ -20,6 +20,7 @@ export const App: React.FC = () => {
   const [frameSize, setFrameSize] = useState<number>(3);
   const [step, setStep] = useState<number>(3);
   const [animationDuration, setAnimationDuration] = useState<number>(1000);
+  const [infinite, setInfinite] = useState<boolean>(false);
 
   return (
     <div className="App">
@@ -37,7 +38,7 @@ export const App: React.FC = () => {
       </label>
 
       <label htmlFor="frameId">
-        Frame Width:
+        Frame Size:
         <input
           id="frameId"
           type="number"
@@ -72,13 +73,24 @@ export const App: React.FC = () => {
           }}
         />
       </label>
+
+      <label htmlFor="infiniteId">
+        Infinite:
+        <input
+          id="infiniteId"
+          type="checkbox"
+          onChange={() => {
+            setInfinite(!infinite);
+          }}
+        />
+      </label>
       <Carousel
         images={images}
         itemWidth={itemWidth}
         frameSize={frameSize}
         step={step}
         animationDuration={animationDuration}
-        infinite={false}
+        infinite={infinite}
       />
     </div>
   );
