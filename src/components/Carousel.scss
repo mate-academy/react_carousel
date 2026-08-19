@@ -1,1 +1,34 @@
-// style go here
+.Carousel {
+  margin-block: 20px;
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    transition-property: transform;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 80px;
+
+
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 150px;
+    padding-block: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    transition: color .6s ease, background-color .6s ease;
+  }
+
+  &__button:hover {
+    color: #fff;
+    background-color: #2f4f4f;
+  }
+}

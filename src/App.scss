@@ -1,1 +1,25 @@
-// style go here
+.input {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__label {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__sett {
+    width: 390px;
+    height: 30px;
+  }
+}
+
