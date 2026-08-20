@@ -1,1 +1,44 @@
-// style go here
+.App {
+  padding: 20px;
+  .title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    &:nth-last-child(1) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .input {
+    margin-top: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border: 3px solid #000;
+    border-radius: 8px;
+    &:focus {
+      outline: none;
+      border-color: #0800fe;
+    }
+  }
+}
