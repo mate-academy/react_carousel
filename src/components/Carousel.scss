@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition-property: transform;
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+
+  &__button {
+    cursor: pointer;
+  }
+}
