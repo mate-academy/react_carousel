@@ -7,7 +7,6 @@ type Props = {
   frameSize?: number;
   itemWidth?: number;
   animationDuration?: number;
-  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -15,8 +14,7 @@ const Carousel: React.FC<Props> = ({
   step = 3,
   frameSize = 3,
   itemWidth = 130,
-  animationDuration = 1000,
-  // infinite = false
+  animationDuration = 1000
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [translateModifier, setTranslateModifier] = useState(0);

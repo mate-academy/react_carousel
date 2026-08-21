@@ -55,7 +55,7 @@ const App: React.FC = () => {
         </div>
 
         <div className="input-wrapper">
-          <label htmlFor="durationId">Animation duratio</label>
+          <label htmlFor="durationId">Animation duration</label>
           <input
             id="durationId"
             type="text"
@@ -71,7 +71,6 @@ const App: React.FC = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
-        infinite={false}
       />
     </div>
   );
