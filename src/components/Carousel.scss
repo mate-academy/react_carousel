@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  align-items: start; 
+  justify-content: start;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+  transition: transform var(--animation-duration);
+  transform: translateX(var(--translate-x));
+}
+
+.Carousel__item {
+  display: block;
+  list-style: none;
+
+  img {
+    display: block;;
+  }
+}

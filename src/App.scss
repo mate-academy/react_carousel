@@ -1,1 +1,11 @@
 // style go here
+.input-container {
+  display: flex;
+  gap: 10px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
