@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
   width: max-content;
-  transition: var(--animation-duration);
+  transition: transform var(--animation-duration);
   transform: translateX(var(--translate-x));
 }
 

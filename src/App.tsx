@@ -71,6 +71,7 @@ const App: React.FC = () => {
         frameSize={frameSize}
         itemWidth={itemWidth}
         animationDuration={animationDuration}
+        infinite={true}
       />
     </div>
   );

@@ -7,6 +7,7 @@ type Props = {
   frameSize?: number;
   itemWidth?: number;
   animationDuration?: number;
+  infinite?: boolean
 };
 
 const Carousel: React.FC<Props> = ({
@@ -14,7 +15,8 @@ const Carousel: React.FC<Props> = ({
   step = 3,
   frameSize = 3,
   itemWidth = 130,
-  animationDuration = 1000
+  animationDuration = 1000,
+  infinite = false
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [translateModifier, setTranslateModifier] = useState(0);
@@ -27,7 +29,7 @@ const Carousel: React.FC<Props> = ({
   } as React.CSSProperties;
 
   function moveCarouselPrev() {
-    if (currentStep <= 0) {
+    if (currentStep <= 0 && !infinite) {
       return;
     }
 
@@ -35,21 +37,33 @@ const Carousel: React.FC<Props> = ({
       setTranslateModifier(0);
     }
 
-    setCurrentStep(prev => prev - 1);
+    if (infinite && currentStep === 0) {
+      const diff = (step - (images.length % step)) * itemWidth;
+      setTranslateModifier(diff);
+      setCurrentStep(maxStep);
+    } else {
+      setCurrentStep((prev) => prev - 1);
+    }
   }
 
   function moveCarouselNext() {
-    if (currentStep === maxStep) {
+    if (currentStep === maxStep && !infinite) {
       return;
     }
 
+    
     if (currentStep === maxStep - 1) {
       const diff = (step - (images.length % step)) * itemWidth;
-
+      
       setTranslateModifier(diff);
     }
-
-    setCurrentStep(prev => prev + 1);
+    
+    if (currentStep === maxStep && infinite) {
+      setCurrentStep(0);
+      setTranslateModifier(0);
+    } else {
+      setCurrentStep(prev => prev + 1);
+    }
   }
 
   return (
@@ -69,8 +83,8 @@ const Carousel: React.FC<Props> = ({
 
         <button
           type="button"
-          disabled={currentStep === 0}
-          aria-disabled={currentStep === 0}
+          disabled={currentStep === 0 && !infinite}
+          aria-disabled={currentStep === 0 && !infinite}
           onClick={moveCarouselPrev}
         >
           Prev
@@ -78,8 +92,8 @@ const Carousel: React.FC<Props> = ({
         <button
           data-cy="next"
           type="button"
-          disabled={currentStep === maxStep}
-          aria-disabled={currentStep === maxStep}
+          disabled={currentStep === maxStep && !infinite}
+          aria-disabled={currentStep === maxStep && !infinite}
           onClick={moveCarouselNext}
         >
           Next
