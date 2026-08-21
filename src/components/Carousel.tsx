@@ -25,7 +25,7 @@ const Carousel: React.FC<Props> = ({
 
   const styleOfList = {
     '--animation-duration': `${animationDuration}ms`,
-    '--translate-x': `${(currentStep * itemWidth * step * -1) + translateModifier}px`,
+    '--translate-x': `${currentStep * itemWidth * step * -1 + translateModifier}px`,
   } as React.CSSProperties;
 
   function moveCarouselPrev() {
