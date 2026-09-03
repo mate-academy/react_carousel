@@ -1,1 +1,13 @@
-// style go here
+.Carousel {
+  width: 1300px;
+}
+
+.Carousel__list {
+  display: flex;
+  flex-direction: row;
+  width: 260px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition-property: transform;
+}
