@@ -1,1 +1,14 @@
-// style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &__list {
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+}
