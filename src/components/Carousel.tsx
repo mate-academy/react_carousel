@@ -7,6 +7,7 @@ interface Props {
   frameSize?: number;
   step?: number;
   animationDuration?: number;
+  infinite?: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -15,9 +16,11 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
+  infinite = false,
 }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const maxIndex = Math.max(images.length - frameSize, 0);
+  const positionsCount = maxIndex + 1;
 
   React.useEffect(() => {
     setCurrentIndex(current => Math.min(current, maxIndex));
@@ -54,9 +57,18 @@ const Carousel: React.FC<Props> = ({
 
       <button
         type="button"
-        disabled={currentIndex <= 0}
+        disabled={!infinite && currentIndex <= 0}
         onClick={() => {
-          setCurrentIndex(current => Math.max(current - step, 0));
+          setCurrentIndex(current => {
+            if (infinite) {
+              return (
+                (((current - step) % positionsCount) + positionsCount) %
+                positionsCount
+              );
+            }
+
+            return Math.max(current - step, 0);
+          });
         }}
       >
         Prev
@@ -65,9 +77,15 @@ const Carousel: React.FC<Props> = ({
       <button
         data-cy="next"
         type="button"
-        disabled={currentIndex >= maxIndex}
+        disabled={!infinite && currentIndex >= maxIndex}
         onClick={() => {
-          setCurrentIndex(current => Math.min(current + step, maxIndex));
+          setCurrentIndex(current => {
+            if (infinite) {
+              return (current + step) % positionsCount;
+            }
+
+            return Math.min(current + step, maxIndex);
+          });
         }}
       >
         Next
