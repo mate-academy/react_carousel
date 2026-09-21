@@ -1,1 +1,21 @@
-// style go here
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &__frame {
+    overflow: hidden;
+  }
+
+  &__list {
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: ease;
+  }
+
+  &__image {
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+}
