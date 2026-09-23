@@ -1,1 +1,20 @@
-// style go here
+.App {
+  padding: 20px;
+
+  &__settings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+    input {
+        padding: 4px;
+        margin-top: 4px;
+    }
+  }
+}

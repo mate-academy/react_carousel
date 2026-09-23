@@ -1,1 +1,54 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__viewport {
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    flex-shrink: 0;
+
+    img {
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid #333;
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+
+
+
+    &:disabled,
+    &.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+     &:hover:not(:disabled) {
+      background-color: #eee;
+    }
+  }
+}
