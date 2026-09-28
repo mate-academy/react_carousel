@@ -1,1 +1,49 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: sans-serif;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 320px;
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  &__input {
+    width: 80px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  &__carousel-wrapper {
+    margin-top: 20px;
+  }
+
+  &__checkbox {
+    width: 80px;
+    height: 16px;
+    margin: 0;
+    margin-right: 8px;
+  }
+}

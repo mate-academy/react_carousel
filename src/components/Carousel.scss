@@ -1,1 +1,31 @@
-// style go here
+.Carousel {
+  width: calc(var(--frame-size) * var(--item-width));
+  overflow: hidden;
+  position: relative;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    transform: translateX(calc(var(--offset) * var(--item-width) * -1));
+    transition: transform var(--animation-duration) ease;
+  }
+
+  &__item {
+    width: var(--item-width);
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 100%;
+    display: block;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
