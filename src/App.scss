@@ -1,1 +1,61 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: sans-serif;
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    max-width: 800px;
+  }
+}
+
+.controls {
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &--checkbox {
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+      height: 38px;
+    }
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+  }
+
+  &__input {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: #4c6ef5;
+    }
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+}

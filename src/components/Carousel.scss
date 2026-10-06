@@ -1,1 +1,47 @@
-// style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &__frame {
+    border: 1px solid #ccc;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  &__track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transition-property: transform;
+    transition-timing-function: ease-in-out;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    display: block;
+    height: auto;
+    max-width: none;
+  }
+
+  &__button {
+    cursor: pointer;
+    font-size: 25px;
+    padding: 5px 15px;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
