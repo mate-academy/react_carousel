@@ -1,1 +1,36 @@
-// style go here
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__heading {
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+.form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 20px;
+}
+
+.infinityBtnContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
