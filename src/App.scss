@@ -1,1 +1,12 @@
-// style go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+}
