@@ -1,1 +1,37 @@
 // style go here
+.Carousel {
+  display: flex;
+  flex-direction: column;
+
+
+    &__images {
+      overflow: hidden;
+      background-color: rgb(194, 222, 235);
+    }
+
+    &__list {
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    &__list li {
+      list-style: none;
+      flex-shrink: 0;
+    }
+
+    &__form{
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      gap: 10px;
+      background-color: rgb(241, 192, 128);
+      width: 25%;
+    }
+
+     &__form button{
+      max-width: 100px;
+    }
+}
+
+
