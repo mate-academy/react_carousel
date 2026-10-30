@@ -100,6 +100,7 @@ class App extends React.Component<{}, State> {
                 }
               }}
               aria-label="Step"
+              value={step}
               onChange={this.handleStepChange}
             />
           </div>
