@@ -52,7 +52,9 @@ const App: React.FC = () => {
         placeholder="step"
       />
 
+      <label htmlFor="animationDurationId">Step</label>
       <input
+        id="animationDurationId"
         type="number"
         value={animationDuration}
         onChange={e => setAnimationDuration(Number(e.target.value))}
@@ -60,12 +62,12 @@ const App: React.FC = () => {
       />
 
       <Carousel
-        images={images}
-        infinite={false}
         itemWidth={itemWidth}
+        frameSize={frameSize}
         step={step}
         animationDuration={animationDuration}
-        frameSize={frameSize}
+        infinite={false}
+        images={images}
       />
     </div>
   );
