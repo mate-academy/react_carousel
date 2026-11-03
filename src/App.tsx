@@ -52,7 +52,7 @@ const App: React.FC = () => {
         placeholder="step"
       />
 
-      <label htmlFor="animationDurationId">Step</label>
+      <label htmlFor="animationDurationId">AnimationDurationId</label>
       <input
         id="animationDurationId"
         type="number"
