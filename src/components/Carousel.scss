@@ -1,1 +1,20 @@
 // style go here
+.Carousel {
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.Carousel__list li {
+  flex: 0 0 auto;
+}
+
+.Carousel__list img {
+  width: 130px;
+
+}
