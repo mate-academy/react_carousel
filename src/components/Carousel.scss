@@ -1,1 +1,24 @@
-// style go here
+.Carousel {
+  overflow: hidden;
+
+  label {
+    margin-right: 3px;
+  }
+
+  input {
+    width: 50px;
+    margin-right: 8px;
+    margin-bottom: 15px;
+  }
+}
+
+
+
+.Carousel__list {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+}
