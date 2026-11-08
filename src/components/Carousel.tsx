@@ -1,26 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  frameSize?: number;
+  step?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  frameSize = 3,
+  step = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite,
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    if (infinite && currentIndex + step > images.length - 1) {
+      setCurrentIndex(0);
+
+      return;
+    } else if (currentIndex + step > images.length - 1) {
+      return;
+    }
+
+    setCurrentIndex(currentIndex + step);
+  };
+
+  const handlePrev = () => {
+    if (infinite && currentIndex - step < 0) {
+      setCurrentIndex(images.length - 1);
+
+      return;
+    } else if (currentIndex - step < 0) {
+      return;
+    }
+
+    setCurrentIndex(currentIndex - step);
+  };
+
+  return (
+    <div
+      className="Carousel"
+      style={
+        {
+          width: `${frameSize * itemWidth}px`,
+          '--item-width': `${itemWidth}px`,
+        } as React.CSSProperties
+      }
+    >
+      <ul
+        className="Carousel__list"
+        style={{
+          transform: `translateX(-${currentIndex * itemWidth}px)`,
+          transition: `transform ${animationDuration}ms`,
+        }}
+      >
+        {images.map((image, index) => (
+          <li key={index}>
+            <img src={image} alt={image} width={itemWidth} />
+          </li>
+        ))}
+      </ul>
+
+      <button type="button" onClick={handlePrev}>
+        Prev
+      </button>
+
+      <button data-cy="next" type="button" onClick={handleNext}>
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;

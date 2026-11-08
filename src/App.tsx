@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  frameSize?: number;
+  step?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +25,90 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    itemWidth: 130,
+    frameSize: 3,
+    step: 3,
+    animationDuration: 1000,
+    infinite: false,
+  };
+
+  handleItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      itemWidth: Number(event.target.value),
+    });
+  };
+
+  handleFrameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      frameSize: Number(event.target.value),
+    });
+  };
+
+  handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      step: Number(event.target.value),
+    });
+  };
+
+  handleAnimationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: Number(event.target.value),
+    });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, itemWidth, frameSize, animationDuration, step, infinite } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <label htmlFor="itemId">Item width</label>
+
+        <input
+          type="number"
+          id="itemId"
+          value={itemWidth}
+          onChange={this.handleItemChange}
+        />
+
+        <label htmlFor="frameId">Frame Size</label>
+
+        <input
+          type="number"
+          id="frameId"
+          value={frameSize}
+          onChange={this.handleFrameChange}
+        />
+
+        <label htmlFor="stepId">Step</label>
+
+        <input
+          type="number"
+          id="stepId"
+          value={step}
+          onChange={this.handleStepChange}
+        />
+
+        <label htmlFor="animationId">Animation Duration</label>
+
+        <input
+          type="number"
+          id="animationId"
+          value={animationDuration}
+          onChange={this.handleAnimationChange}
+        />
+
+        <Carousel
+          images={images}
+          itemWidth={itemWidth}
+          frameSize={frameSize}
+          step={step}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
