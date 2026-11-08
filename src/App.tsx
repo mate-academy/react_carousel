@@ -29,6 +29,7 @@ class App extends React.Component<{}, State> {
     frameSize: 3,
     step: 3,
     animationDuration: 1000,
+    infinite: false,
   };
 
   handleItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +57,14 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { images, itemWidth, frameSize, animationDuration, step } =
-      this.state;
+    const {
+      images,
+      itemWidth,
+      frameSize,
+      animationDuration,
+      step,
+      infinite,
+      } = this.state;
 
     return (
       <div className="App">
@@ -106,6 +113,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
+          infinite={infinite}
         />
       </div>
     );

@@ -16,7 +16,7 @@ const Carousel: React.FC<Props> = ({
   step = 3,
   itemWidth = 130,
   animationDuration = 1000,
-  infinite = false,
+  infinite,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
