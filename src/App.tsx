@@ -6,9 +6,9 @@ interface State {
   images: string[];
   frameSize?: number;
   step?: number;
-  itemWidth?: number
-  animationDuration?: number
-  infinite?: boolean
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -32,36 +32,32 @@ class App extends React.Component<{}, State> {
   };
 
   handleItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        itemWidth: Number(event.target.value),
-      })
-    }
+    this.setState({
+      itemWidth: Number(event.target.value),
+    });
+  };
 
   handleFrameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        frameSize: Number(event.target.value),
-      })
-    }
+    this.setState({
+      frameSize: Number(event.target.value),
+    });
+  };
 
   handleStepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        step: Number(event.target.value),
-      })
-    }
+    this.setState({
+      step: Number(event.target.value),
+    });
+  };
 
-     handleAnimationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        animationDuration: Number(event.target.value),
-      })
-    }
+  handleAnimationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      animationDuration: Number(event.target.value),
+    });
+  };
 
   render() {
-    const {
-      images,
-      itemWidth,
-      frameSize,
-      animationDuration,
-      step } = this.state;
+    const { images, itemWidth, frameSize, animationDuration, step } =
+      this.state;
 
     return (
       <div className="App">
@@ -71,34 +67,38 @@ class App extends React.Component<{}, State> {
         <label htmlFor="itemId">Item width</label>
 
         <input
-        type="number"
-        id="itemId"
-        value={itemWidth}
-        onChange = {this.handleItemChange}/>
+          type="number"
+          id="itemId"
+          value={itemWidth}
+          onChange={this.handleItemChange}
+        />
 
         <label htmlFor="frameId">Frame Size</label>
 
         <input
-        type="number"
-        id="frameId"
-        value={frameSize}
-        onChange = {this.handleFrameChange}/>
+          type="number"
+          id="frameId"
+          value={frameSize}
+          onChange={this.handleFrameChange}
+        />
 
         <label htmlFor="stepId">Step</label>
 
         <input
-        type="number"
-        id="stepId"
-        value={step}
-        onChange = {this.handleStepChange}/>
+          type="number"
+          id="stepId"
+          value={step}
+          onChange={this.handleStepChange}
+        />
 
         <label htmlFor="animationId">Animation Duration</label>
 
         <input
-        type="number"
-        id="animationId"
-        value={animationDuration}
-        onChange = {this.handleAnimationChange}/>
+          type="number"
+          id="animationId"
+          value={animationDuration}
+          onChange={this.handleAnimationChange}
+        />
 
         <Carousel
           images={images}
@@ -106,8 +106,7 @@ class App extends React.Component<{}, State> {
           frameSize={frameSize}
           step={step}
           animationDuration={animationDuration}
-/>
-
+        />
       </div>
     );
   }
