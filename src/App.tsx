@@ -57,14 +57,8 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const {
-      images,
-      itemWidth,
-      frameSize,
-      animationDuration,
-      step,
-      infinite,
-      } = this.state;
+    const { images, itemWidth, frameSize, animationDuration, step, infinite } =
+      this.state;
 
     return (
       <div className="App">
