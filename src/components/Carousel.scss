@@ -1,1 +1,22 @@
 // style go here
+
+:root {
+  --item-width: 130px;
+}
+
+.Carousel {
+  width: 1300px;
+  overflow: hidden;
+}
+
+.Carousel__list {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  img {
+    width: var(--item-width);
+    height: var(--item-width);
+  }
+}
