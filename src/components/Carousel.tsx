@@ -61,7 +61,7 @@ const Carousel: React.FC<CarouselProps> = ({
             setCurrentIndex(prevInd);
           }
 
-          if (infinite === true && nextInd < 0) {
+          if (infinite === true && prevInd < 0) {
             setCurrentIndex(maxInd);
           }
         }}
@@ -77,7 +77,7 @@ const Carousel: React.FC<CarouselProps> = ({
             setCurrentIndex(nextInd);
           }
 
-          if (infinite === true && prevInd > maxInd) {
+          if (infinite === true && nextInd > maxInd) {
             setCurrentIndex(0);
           }
         }}
