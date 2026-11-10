@@ -1,9 +1,13 @@
-import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import React from 'react';
 
 interface State {
   images: string[];
+  inpStep: string;
+  inpFrameSize: string;
+  inpItemWidth: string;
+  inpAnimDur: string;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,17 +24,69 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    inpStep: '3',
+    inpFrameSize: '3',
+    inpItemWidth: '130',
+    inpAnimDur: '1000',
   };
 
   render() {
-    const { images } = this.state;
+    const { images, inpStep, inpFrameSize, inpItemWidth, inpAnimDur } =
+      this.state;
 
     return (
       <div className="App">
         {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel />
+        <label htmlFor="stepId">Change number of steps</label>
+        <input
+          id="stepId"
+          value={inpStep}
+          type="number"
+          min="1"
+          onChange={event => this.setState({ inpStep: event.target.value })}
+        />
+
+        <label htmlFor="frameId">Change frame size</label>
+        <input
+          id="frameId"
+          value={inpFrameSize}
+          type="number"
+          min="1"
+          onChange={event =>
+            this.setState({ inpFrameSize: event.target.value })
+          }
+        />
+
+        <label htmlFor="itemId">Change item width</label>
+        <input
+          id="itemId"
+          value={inpItemWidth}
+          type="number"
+          min="1"
+          onChange={event =>
+            this.setState({ inpItemWidth: event.target.value })
+          }
+        />
+
+        <label htmlFor="animationId">Change animation duration</label>
+        <input
+          id="animationId"
+          value={inpAnimDur}
+          type="number"
+          min="1"
+          onChange={event => this.setState({ inpAnimDur: event.target.value })}
+        />
+
+        <Carousel
+          images={images}
+          step={+inpStep}
+          frameSize={+inpFrameSize}
+          itemWidth={+inpItemWidth}
+          animationDuration={+inpAnimDur}
+          infinite={false}
+        />
       </div>
     );
   }

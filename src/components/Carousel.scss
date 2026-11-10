@@ -1,1 +1,22 @@
 // style go here
+
+.Carousel {
+  overflow: hidden;
+
+  &__list {
+    display: flex;
+    margin: 0;
+    transition-property: transform;
+    transition-timing-function: ease;
+  }
+
+  &__list li {
+    flex-shrink: 0;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
