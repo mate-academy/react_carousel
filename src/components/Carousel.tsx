@@ -3,20 +3,27 @@ import './Carousel.scss';
 
 type CarouselProps = {
   images: string[];
-  step: number;
-  frameSize: number;
-  itemWidth: number;
-  animationDuration: number;
-  infinite: boolean;
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 };
 
-const Carousel: React.FC<CarouselProps> = props => {
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  step = 3,
+  frameSize = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const frameWidth = props.frameSize * props.itemWidth;
-  const translateX = -(currentIndex * props.itemWidth);
-  const maxInd = props.images.length - props.frameSize;
-  const nextInd = currentIndex + props.step;
-  const prevInd = currentIndex - props.step;
+  const frameWidth = frameSize * itemWidth;
+  const translateX = -(currentIndex * itemWidth);
+  const maxInd = images.length - frameSize;
+  const nextInd = currentIndex + step;
+  const prevInd = currentIndex - step;
 
   return (
     <div className="Carousel" style={{ width: `${frameWidth}px` }}>
@@ -26,22 +33,22 @@ const Carousel: React.FC<CarouselProps> = props => {
           listStyle: `none`,
           padding: 0,
           transform: `translateX(${translateX}px)`,
-          transitionDuration: `${props.animationDuration}ms`,
+          transitionDuration: `${animationDuration}ms`,
         }}
       >
-        {props.images.map(image => (
+        {images.map(image => (
           <li
             key={image}
             style={{
-              width: props.itemWidth,
-              height: props.itemWidth,
+              width: itemWidth,
+              height: itemWidth,
             }}
           >
             <img
               src={image}
               alt="carousel item"
-              width={props.itemWidth}
-              height={props.itemWidth}
+              width={itemWidth}
+              height={itemWidth}
             />
           </li>
         ))}
@@ -54,7 +61,7 @@ const Carousel: React.FC<CarouselProps> = props => {
             setCurrentIndex(prevInd);
           }
 
-          if (props.infinite === true && nextInd < 0) {
+          if (infinite === true && nextInd < 0) {
             setCurrentIndex(maxInd);
           }
         }}
@@ -70,7 +77,7 @@ const Carousel: React.FC<CarouselProps> = props => {
             setCurrentIndex(nextInd);
           }
 
-          if (props.infinite === true && nextInd > maxInd) {
+          if (infinite === true && prevInd > maxInd) {
             setCurrentIndex(0);
           }
         }}
