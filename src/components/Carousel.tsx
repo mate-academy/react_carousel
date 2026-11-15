@@ -1,26 +1,88 @@
-import React from 'react';
+import { useState } from 'react';
 import './Carousel.scss';
+import { List, Wrapper, ListItem, Container, Arrow } from './Carousel.styles';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+interface Props {
+  images: string[];
+  itemWidth: number;
+  frameSize: number;
+  step: number;
+  animationDuration: number;
+  infinite: boolean;
+}
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+export const Carousel = (props: Props) => {
+  const { images, itemWidth, frameSize, step, animationDuration, infinite } =
+    props;
 
-export default Carousel;
+  const [indexStep, setIndexStep] = useState(0);
+
+  const maxIndex = Math.max(0, images.length - frameSize);
+  const current = Math.min(indexStep, maxIndex);
+
+  const isPrevDisabled = !infinite && current === 0;
+  const isNextDisabled = !infinite && current === maxIndex;
+
+  const handleNext = () => {
+    if (current === maxIndex) {
+      if (infinite) {
+        setIndexStep(0);
+      }
+
+      return;
+    }
+
+    setIndexStep(Math.min(current + step, maxIndex));
+  };
+
+  const handlePrev = () => {
+    if (current === 0) {
+      if (infinite) {
+        setIndexStep(maxIndex);
+      }
+
+      return;
+    }
+
+    setIndexStep(Math.max(current - step, 0));
+  };
+
+  return (
+    <Container>
+      <Arrow
+        type="button"
+        data-cy="prev"
+        className={isPrevDisabled ? 'disabled' : ''}
+        disabled={isPrevDisabled}
+        onClick={handlePrev}
+      >
+        ←
+      </Arrow>
+
+      <Wrapper $width={itemWidth * frameSize}>
+        <List
+          style={{
+            transform: `translateX(-${current * itemWidth}px)`,
+            transition: `transform ${animationDuration}ms ease`,
+          }}
+        >
+          {images.map((image, index) => (
+            <ListItem key={image} $itemWidth={itemWidth}>
+              <img width={itemWidth} src={image} alt={`Image ${index + 1}`} />
+            </ListItem>
+          ))}
+        </List>
+      </Wrapper>
+
+      <Arrow
+        type="button"
+        data-cy="next"
+        className={isNextDisabled ? 'disabled' : ''}
+        disabled={isNextDisabled}
+        onClick={handleNext}
+      >
+        →
+      </Arrow>
+    </Container>
+  );
+};
