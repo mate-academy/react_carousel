@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './Carousel.scss';
 import { List, Wrapper, ListItem, Container, Arrow } from './Carousel.styles';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 interface Props {
   images: string[];
@@ -58,11 +60,10 @@ export const Carousel = (props: Props) => {
       <Arrow
         type="button"
         data-cy="prev"
-        className={isPrevDisabled ? 'disabled' : ''}
         disabled={isPrevDisabled}
         onClick={handlePrev}
       >
-        ←
+        <FaChevronRight />
       </Arrow>
 
       <Wrapper $width={itemWidth * frameSize}>
@@ -83,11 +84,10 @@ export const Carousel = (props: Props) => {
       <Arrow
         type="button"
         data-cy="next"
-        className={isNextDisabled ? 'disabled' : ''}
         disabled={isNextDisabled}
         onClick={handleNext}
       >
-        →
+        <FaChevronLeft />
       </Arrow>
     </Container>
   );
