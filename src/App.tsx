@@ -23,8 +23,6 @@ export const App = () => {
   const [animationDuration, setAnimationDuration] = useState<number>(1000);
   const [infinite, setInfinite] = useState<boolean>(false);
 
-  console.log(itemWidth);
-
   return (
     <Page>
       <Title data-cy="title">Carousel with {images.length} images</Title>
