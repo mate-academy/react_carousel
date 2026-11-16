@@ -63,7 +63,7 @@ export const Carousel = (props: Props) => {
         disabled={isPrevDisabled}
         onClick={handlePrev}
       >
-        <FaChevronRight />
+        <FaChevronLeft />
       </Arrow>
 
       <Wrapper $width={itemWidth * frameSize}>
@@ -87,7 +87,7 @@ export const Carousel = (props: Props) => {
         disabled={isNextDisabled}
         onClick={handleNext}
       >
-        <FaChevronLeft />
+        <FaChevronRight />
       </Arrow>
     </Container>
   );
