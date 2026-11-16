@@ -27,6 +27,7 @@ module.exports = {
     },
     ecmaVersion: 12,
     project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
   plugins: [
@@ -47,7 +48,7 @@ module.exports = {
       ignoreComments: true,
     }],
     'no-redeclare': [2, { builtinGlobals: true }],
-    'no-console': 2,
+    // 'no-console': 2,
     'operator-linebreak': 0,
     'brace-style': [2, '1tbs'],
     'arrow-body-style': 0,

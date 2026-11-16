@@ -4,16 +4,22 @@ import { List, Wrapper, ListItem, Container, Arrow } from './Carousel.styles';
 
 interface Props {
   images: string[];
-  itemWidth: number;
-  frameSize: number;
-  step: number;
-  animationDuration: number;
-  infinite: boolean;
+  itemWidth?: number;
+  frameSize?: number;
+  step?: number;
+  animationDuration?: number;
+  infinite?: boolean;
 }
 
 export const Carousel = (props: Props) => {
-  const { images, itemWidth, frameSize, step, animationDuration, infinite } =
-    props;
+  const {
+    images,
+    itemWidth = 130,
+    frameSize = 3,
+    step = 3,
+    animationDuration = 1000,
+    infinite = false,
+  } = props;
 
   const [indexStep, setIndexStep] = useState(0);
 
