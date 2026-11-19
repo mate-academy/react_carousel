@@ -1,1 +1,9 @@
-// style go here
+.inputs {
+  display: flex;
+  gap: 20px;
+
+  &__container {
+    width: 200px;
+  }
+}
+
