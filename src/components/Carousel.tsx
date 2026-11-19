@@ -77,7 +77,7 @@ export const Carousel: React.FC<CarouselProps> = ({
           onClick={handleNext}
           disabled={isNextDisabled}
         >
-          Далі
+          Next
         </button>
       </div>
     </div>
