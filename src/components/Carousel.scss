@@ -1,1 +1,51 @@
-// style go here
+.Carousel {
+  display: inline-block;
+  position: relative;
+}
+
+.Carousel__viewport {
+  overflow: hidden;
+  position: relative;
+  min-height: 100px;
+  contain: layout paint;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.Carousel__item {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.Carousel__item img {
+  display: block;
+  height: auto;
+}
+
+.Carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.Carousel__button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.Carousel__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
