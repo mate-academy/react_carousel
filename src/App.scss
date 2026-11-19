@@ -1,1 +1,25 @@
-// style go here
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.App__controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.App__controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.App__controls input {
+  width: 80px;
+  padding: 5px;
+  font-size: 14px;
+}
