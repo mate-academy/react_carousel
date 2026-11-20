@@ -39,6 +39,12 @@
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 
+     &:disabled {
+      background-color: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
     &:hover:not(:disabled) {
       background-color: #1d4ed8;
       transform: translateY(-2px);
@@ -46,12 +52,6 @@
 
     &:active:not(:disabled) {
       transform: translateY(0);
-    }
-
-    &:disabled {
-      background-color: #cbd5e1;
-      color: #64748b;
-      cursor: not-allowed;
     }
   }
 }

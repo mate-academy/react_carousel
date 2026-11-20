@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 import './App.scss';
@@ -37,7 +36,7 @@ const App: React.FC = () => {
             min={1}
             type="number"
             value={itemWidth}
-            onChange={(event) => setItemWidth(Number(event.target.value))}
+            onChange={event => setItemWidth(Number(event.target.value))}
           />
         </label>
 
@@ -49,7 +48,7 @@ const App: React.FC = () => {
             max={10}
             type="number"
             value={frameSize}
-            onChange={(event) => setFrameSize(Number(event.target.value))}
+            onChange={event => setFrameSize(Number(event.target.value))}
           />
         </label>
 
@@ -60,7 +59,7 @@ const App: React.FC = () => {
             min={1}
             type="number"
             value={step}
-            onChange={(event) => setStep(Number(event.target.value))}
+            onChange={event => setStep(Number(event.target.value))}
           />
         </label>
 
@@ -71,9 +70,7 @@ const App: React.FC = () => {
             min={1}
             type="number"
             value={animationDuration}
-            onChange={(event) =>
-              setAnimationDuration(Number(event.target.value))
-            }
+            onChange={event => setAnimationDuration(Number(event.target.value))}
           />
         </label>
 
@@ -83,7 +80,7 @@ const App: React.FC = () => {
             id="isInfinite"
             type="checkbox"
             checked={infinite}
-            onChange={(event) => setInfinite(event.target.checked)}
+            onChange={event => setInfinite(event.target.checked)}
           />
         </label>
       </div>
