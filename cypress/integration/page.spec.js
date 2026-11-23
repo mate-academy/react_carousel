@@ -52,7 +52,7 @@ describe('Page', () => {
   });
    
   it('should change scroll text on 1 step', () => {
-    cy.get('[for="stepId"]')
+    cy.get('#stepId')
       .type('{selectall}1');
     cy.getByDataCy('next')
       .click();
@@ -63,7 +63,7 @@ describe('Page', () => {
   });
 
   it('should change width of image', () => {
-    cy.get('[for ="itemId"]')
+    cy.get('#itemId')
       .type('{selectall}200');
     page.getImg('1')
       .invoke('attr', 'width')
@@ -71,7 +71,7 @@ describe('Page', () => {
   });
     
   it('should change frame size', () => {
-    cy.get('[for ="frameId"')
+    cy.get('#frameId')
       .type('{selectall}2');
     page.getImg('1')
       .should('be.visible');
