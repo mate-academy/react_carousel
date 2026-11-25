@@ -38,11 +38,15 @@ class App extends React.Component<{}, State> {
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    const parsed = parseInt(value, 10);
+    const min = name === 'animationDuration' ? 0 : 1;
 
     this.setState(prev => ({
       settings: {
         ...prev.settings,
-        [name]: parseInt(value, 10) || prev.settings[name as keyof Settings],
+        [name]: Number.isNaN(parsed) || parsed < min
+          ? prev.settings[name as keyof Settings]
+          : parsed,
       },
     }));
   };
