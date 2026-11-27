@@ -16,6 +16,7 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   itemWidth = 130,
   animationDuration = 1000,
+  infinite = false,
 }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const maxIndex = Math.max(0, images.length - frameSize);
@@ -52,10 +53,14 @@ const Carousel: React.FC<Props> = ({
 
       <button
         type="button"
-        disabled={visibleIndex === 0}
+        disabled={!infinite && visibleIndex === 0}
         onClick={() => {
           setImageIndex(prevIndex => {
             const currentIndex = Math.min(prevIndex, maxIndex);
+
+            if (infinite && currentIndex === 0) {
+              return maxIndex;
+            }
 
             if (currentIndex - step >= 0) {
               return currentIndex - step;
@@ -71,10 +76,14 @@ const Carousel: React.FC<Props> = ({
       <button
         type="button"
         data-cy="next"
-        disabled={visibleIndex === maxIndex}
+        disabled={!infinite && visibleIndex === maxIndex}
         onClick={() => {
           setImageIndex(prevIndex => {
             const currentIndex = Math.min(prevIndex, maxIndex);
+
+            if (infinite && currentIndex === maxIndex) {
+              return 0;
+            }
 
             if (currentIndex + step <= maxIndex) {
               return currentIndex + step;
