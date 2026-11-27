@@ -8,6 +8,7 @@ type Props = {
   frameSize?: number;
   step?: number;
   animationDuration?: number;
+  infinite?: boolean;
 };
 
 const Carousel: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const Carousel: React.FC<Props> = ({
   frameSize = 3,
   step = 3,
   animationDuration = 1000,
+  infinite = false,
 }: Props) => {
   const [firstVisibleIndex, setFirstVisibleIndex] = useState(0);
   const minIndex = Math.max(firstVisibleIndex - step, 0);
@@ -31,12 +33,18 @@ const Carousel: React.FC<Props> = ({
     <div className="Carousel">
       <button
         aria-label="Previous"
-        disabled={firstVisibleIndex === 0}
+        disabled={firstVisibleIndex === 0 && !infinite}
         className={classNames('Carousel__button', {
-          disabled: firstVisibleIndex === 0,
+          disabled: firstVisibleIndex === 0 && !infinite,
         })}
         type="button"
-        onClick={() => setFirstVisibleIndex(minIndex)}
+        onClick={() => {
+          if (infinite && firstVisibleIndex === 0) {
+            setFirstVisibleIndex(maxIndex);
+          } else {
+            setFirstVisibleIndex(minIndex);
+          }
+        }}
       >
         ‹
       </button>
@@ -67,14 +75,18 @@ const Carousel: React.FC<Props> = ({
       <button
         aria-label="Next"
         data-cy="next"
-        disabled={firstVisibleIndex === maxIndex}
+        disabled={firstVisibleIndex === maxIndex && !infinite}
         className={classNames('Carousel__button', {
-          disabled: firstVisibleIndex === maxIndex,
+          disabled: firstVisibleIndex === maxIndex && !infinite,
         })}
         type="button"
-        onClick={() =>
-          setFirstVisibleIndex(Math.min(firstVisibleIndex + step, maxIndex))
-        }
+        onClick={() => {
+          if (infinite && firstVisibleIndex === maxIndex) {
+            setFirstVisibleIndex(0);
+          } else {
+            setFirstVisibleIndex(Math.min(firstVisibleIndex + step, maxIndex));
+          }
+        }}
       >
         ›
       </button>
