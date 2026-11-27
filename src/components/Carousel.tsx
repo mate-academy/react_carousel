@@ -1,26 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carousel.scss';
 
-const Carousel: React.FC = () => (
-  <div className="Carousel">
-    <ul className="Carousel__list">
-      <li>
-        <img src="./img/1.png" alt="1" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="2" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="3" />
-      </li>
-      <li>
-        <img src="./img/1.png" alt="4" />
-      </li>
-    </ul>
+type Props = {
+  images: string[];
+  step?: number;
+  frameSize?: number;
+  itemWidth?: number;
+  animationDuration?: number;
+  infinite?: boolean;
+};
 
-    <button type="button">Prev</button>
-    <button type="button">Next</button>
-  </div>
-);
+const Carousel: React.FC<Props> = ({
+  images,
+  step = 3,
+  frameSize = 3,
+  itemWidth = 130,
+  animationDuration = 1000,
+  infinite = false,
+}) => {
+  const [imageIndex, setImageIndex] = useState(0);
+  const maxIndex = Math.max(0, images.length - frameSize);
+  const visibleIndex = Math.min(imageIndex, maxIndex);
+  const horizontalMove = itemWidth * visibleIndex * -1;
+
+  return (
+    <div className="Carousel">
+      <div
+        className="Carousel__frame"
+        style={{ width: `${itemWidth * frameSize}px` }}
+      >
+        <ul
+          className="Carousel__list"
+          style={{
+            transform: `translateX(${horizontalMove}px)`,
+            transition: `transform ${animationDuration}ms`,
+          }}
+        >
+          {images.map(image => (
+            <li key={image}>
+              <img
+                src={image}
+                alt={image.match(/\d+/)?.[0] ?? ''}
+                width={itemWidth}
+                style={{
+                  aspectRatio: '1 / 1',
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        disabled={!infinite && visibleIndex === 0}
+        onClick={() => {
+          setImageIndex(prevIndex => {
+            const currentIndex = Math.min(prevIndex, maxIndex);
+
+            if (infinite && currentIndex === 0) {
+              return maxIndex;
+            }
+
+            if (currentIndex - step >= 0) {
+              return currentIndex - step;
+            }
+
+            return 0;
+          });
+        }}
+      >
+        Prev
+      </button>
+
+      <button
+        type="button"
+        data-cy="next"
+        disabled={!infinite && visibleIndex === maxIndex}
+        onClick={() => {
+          setImageIndex(prevIndex => {
+            const currentIndex = Math.min(prevIndex, maxIndex);
+
+            if (infinite && currentIndex === maxIndex) {
+              return 0;
+            }
+
+            if (currentIndex + step <= maxIndex) {
+              return currentIndex + step;
+            }
+
+            return maxIndex;
+          });
+        }}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
 
 export default Carousel;
