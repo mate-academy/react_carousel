@@ -1,1 +1,35 @@
 // style go here
+.Carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Carousel__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+}
+
+.Carousel__list > li {
+  flex-shrink: 0;
+}
+
+.Carousel__frame {
+  overflow: hidden;
+}
+
+.Carousel__button {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.Carousel__button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
